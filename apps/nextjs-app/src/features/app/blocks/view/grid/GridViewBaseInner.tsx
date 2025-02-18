@@ -53,6 +53,7 @@ import {
   Record,
   DragRegionType,
   useGridFileEvent,
+  extractDefaultFieldsFromFilters,
 } from '@teable/sdk';
 import { GRID_DEFAULT } from '@teable/sdk/components/grid/configs';
 import { useScrollFrameRate } from '@teable/sdk/components/grid/hooks';
@@ -63,6 +64,7 @@ import {
   useIsTouchDevice,
   usePersonalView,
   useRowCount,
+  useSession,
   useSSRRecord,
   useSSRRecords,
   useTableId,
@@ -109,12 +111,14 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   const baseId = useBaseId();
   const tableId = useTableId() as string;
   const activeViewId = useViewId();
+  const { user } = useSession();
   const view = useView(activeViewId) as GridView | undefined;
   const rowCount = useRowCount();
   const ssrRecords = useSSRRecords();
   const ssrRecord = useSSRRecord();
   const theme = useGridTheme();
   const fields = useFields();
+  const allFields = useFields({ withHidden: true });
   const { columns: originalColumns, cellValue2GridDisplay } = useGridColumns();
   const { columns, onColumnResize } = useGridColumnResize(originalColumns);
   const { columnStatistics } = useGridColumnStatistics(columns);
@@ -484,6 +488,10 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
       return;
     }
     setPrefillingRowOrder(rowOrder);
+
+    const filter = view?.filter;
+    const fieldMap = keyBy(allFields, 'id');
+
     if (num === 1 || num === undefined) {
       setPrefillingFieldValueMap(fieldValueMap);
 
@@ -501,7 +509,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
     } else {
       // insert empty records
       const emptyRecords = Array.from({ length: num }).fill({
-        fields: {},
+        fields: extractDefaultFieldsFromFilters({ filter, fieldMap, currentUserId: user.id }),
       }) as ICreateRecordsRo['records'];
       mutateCreateRecord(emptyRecords);
     }
