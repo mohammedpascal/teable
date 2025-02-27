@@ -12,9 +12,9 @@ import type { IPageParams } from '../../../types';
 import { ChartLayout } from '../components/chart/ChartLayout';
 import { ChartPage } from '../components/chart/ChartPage';
 import { ChartProvider } from './ChartProvider';
-import type { IChartStorage } from './types';
+import type { IChartServerData, IChartStorage } from './types';
 
-export const Pages = (props: IPageParams) => {
+export const Pages = (props: IPageParams & IChartServerData) => {
   const pluginBridge = usePluginBridge();
   const [uiConfig, setUIConfig] = useState<IUIConfig | undefined>();
 
@@ -38,10 +38,9 @@ export const Pages = (props: IPageParams) => {
   );
 };
 
-const Container = (props: IPageParams & { uiConfig?: IUIConfig }) => {
+const Container = (props: IPageParams & { uiConfig?: IUIConfig } & IChartServerData) => {
   const { baseId, positionId, positionType, tableId, pluginInstallId, uiConfig } = props;
   const [isIframeMode, setIsIframeMode] = useState(true);
-  const pluginBridge = usePluginBridge();
   const { t } = useTranslation();
   const { data: dashboardPluginInstall, isLoading: isDashboardPluginInstallLoading } = useQuery({
     queryKey: ['plugin-install', baseId, positionId, pluginInstallId],
@@ -84,14 +83,6 @@ const Container = (props: IPageParams & { uiConfig?: IUIConfig }) => {
     return <div className="text-muted-foreground text-center">{t('notPluginInstallId')}</div>;
   }
 
-  if (!pluginBridge && isIframeMode) {
-    return (
-      <div className="flex flex-col items-center justify-center">
-        <p className="text-muted-foreground text-center">{t('initBridge')}</p>
-      </div>
-    );
-  }
-
   if (isLoading || !pluginInstall) {
     return <Spin />;
   }
@@ -104,7 +95,7 @@ const Container = (props: IPageParams & { uiConfig?: IUIConfig }) => {
         isShowingSettings: isIframeMode ? !!uiConfig?.isShowingSettings : true,
       }}
     >
-      <ChartLayout>
+      <ChartLayout {...props}>
         <ChartPage />
       </ChartLayout>
     </ChartProvider>
