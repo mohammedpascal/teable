@@ -4,6 +4,7 @@ import type {
   IGetDashboardInstallPluginVo,
   IPluginPanelPluginGetVo,
   ITableListVo,
+  IUserMeVo,
 } from '@teable/openapi';
 import {
   createAxios,
@@ -13,6 +14,7 @@ import {
   PLUGIN_PANEL_PLUGIN_GET,
   PluginPosition,
   urlBuilder,
+  USER_ME,
 } from '@teable/openapi';
 import { getQueryClient } from '../../../components/get-query-client';
 import QueryClientProvider from '../../../components/QueryClientProvider';
@@ -75,19 +77,32 @@ export const Hydrated = async ({
     });
   }
 
-  queryClient.fetchQuery({
-    queryKey: ['base', baseId],
-    queryFn: ({ queryKey }) =>
-      queryKey[1]
-        ? ssrAxios
-            .get<IGetBaseVo>(urlBuilder(GET_BASE, { baseId: queryKey[1] }), {
-              headers: {
-                cookie,
-              },
-            })
-            .then(({ data }) => data)
-        : undefined,
-  });
+  await Promise.all([
+    queryClient.fetchQuery({
+      queryKey: ['base', baseId],
+      queryFn: ({ queryKey }) =>
+        queryKey[1]
+          ? ssrAxios
+              .get<IGetBaseVo>(urlBuilder(GET_BASE, { baseId: queryKey[1] }), {
+                headers: {
+                  cookie,
+                },
+              })
+              .then(({ data }) => data)
+          : undefined,
+    }),
+    queryClient.fetchQuery({
+      queryKey: ['user-me'],
+      queryFn: () =>
+        ssrAxios
+          .get<IUserMeVo>(urlBuilder(USER_ME), {
+            headers: {
+              cookie,
+            },
+          })
+          .then(({ data }) => data),
+    }),
+  ]);
 
   const tableServerData = baseId
     ? await ssrAxios
