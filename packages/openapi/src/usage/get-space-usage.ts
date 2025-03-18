@@ -36,6 +36,7 @@ export enum UsageFeatureLimit {
   AuthenticationEnable = 'authenticationEnable',
   DomainVerificationEnable = 'domainVerificationEnable',
   OrganizationEnable = 'organizationEnable',
+  APIRateLimit = 'apiRateLimit',
 }
 
 export const usageFeatureLimitSchema = z.object({

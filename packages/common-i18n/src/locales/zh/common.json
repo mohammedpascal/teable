@@ -159,7 +159,7 @@
     "automation": "自动化",
     "authorityMatrix": "权限矩阵",
     "adminPanel": "管理面板",
-    "license": "许可证",
+    "license": "私有化部署许可证",
     "instanceId": "实例 ID",
     "beta": "测试版",
     "trash": "回收站",
@@ -263,7 +263,7 @@
       "pastDue": "逾期",
       "unpaid": "未支付",
       "paused": "已暂停",
-      "seatLimitExceeded": "席位数超限制"
+      "seatLimitExceeded": "用户数超限制"
     }
   },
   "admin": {
