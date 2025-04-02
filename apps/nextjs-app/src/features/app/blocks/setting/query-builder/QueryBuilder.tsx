@@ -50,7 +50,7 @@ export const QueryBuilder = () => {
           <div className="text-sm">
             {t('developer:subTitle')}{' '}
             <Button variant="link" size="xs" asChild>
-              <Link href="/redocs" target="_blank">
+              <Link href={t('common:help.apiLink')} target="_blank">
                 <ArrowUpRight className="size-4" />
                 {t('developer:apiList')}
               </Link>
