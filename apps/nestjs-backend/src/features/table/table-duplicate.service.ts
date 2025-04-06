@@ -24,7 +24,7 @@ import type { LinkFieldDto } from '../field/model/field-dto/link-field.dto';
 import { FieldOpenApiService } from '../field/open-api/field-open-api.service';
 import { ROW_ORDER_FIELD_PREFIX } from '../view/constant';
 import { createViewVoByRaw } from '../view/model/factory';
-import { ViewOpenApiService } from './../view/open-api/view-open-api.service';
+import { ViewOpenApiService } from '../view/open-api/view-open-api.service';
 import { TableService } from './table.service';
 
 @Injectable()
@@ -71,13 +71,20 @@ export class TableDuplicateService {
           newTableVo.id
         );
 
-        includeRecords &&
-          (await this.duplicateTableData(
+        if (includeRecords) {
+          await this.duplicateTableData(
             dbTableName,
             newTableVo.dbTableName,
             sourceToTargetViewMap,
             sourceToTargetFieldMap
-          ));
+          );
+
+          await this.duplicateAttachments(sourceTableId, newTableVo.id, sourceToTargetFieldMap);
+          await this.duplicateLinkJunction(
+            { [sourceTableId]: newTableVo.id },
+            sourceToTargetFieldMap
+          );
+        }
 
         const viewPlain = await this.prismaService.txClient().view.findMany({
           where: {
@@ -130,10 +137,6 @@ export class TableDuplicateService {
     const newOriginColumns = (
       await prisma.$queryRawUnsafe<{ name: string }[]>(newColumnsInfoQuery)
     ).map(({ name }) => name);
-
-    // const oldFieldColumns = oldOriginColumns.filter(
-    //   (name) => !name.startsWith(ROW_ORDER_FIELD_PREFIX) && !name.startsWith('__fk_fld')
-    // );
 
     const newFieldColumns = newOriginColumns.filter(
       (name) => !name.startsWith(ROW_ORDER_FIELD_PREFIX) && !name.startsWith('__fk_fld')
@@ -595,18 +598,11 @@ export class TableDuplicateService {
       unique,
       description,
       isPrimary,
+      type: lookupFieldType,
     } = fieldInstance;
     const { foreignTableId, linkFieldId, lookupFieldId } = lookupOptions as ILookupOptionsRo;
     const isSelfLink = foreignTableId === sourceTableId;
 
-    const { type: lookupFieldType } = await this.prismaService.txClient().field.findUniqueOrThrow({
-      where: {
-        id: lookupFieldId,
-      },
-      select: {
-        type: true,
-      },
-    });
     const mockFieldId = Object.values(sourceToTargetFieldMap)[0];
     const { type: mockType } = await this.prismaService.txClient().field.findUniqueOrThrow({
       where: {
@@ -623,8 +619,9 @@ export class TableDuplicateService {
       description,
       isLookup: true,
       lookupOptions: {
+        // if lookup link field is self link, foreignTableId is targetTableId, otherwise it is the foreignTableId
         foreignTableId: isSelfLink ? targetTableId : foreignTableId,
-        linkFieldId: isSelfLink ? sourceToTargetFieldMap[linkFieldId] : linkFieldId,
+        linkFieldId: sourceToTargetFieldMap[linkFieldId],
         lookupFieldId: isSelfLink
           ? hasError
             ? mockFieldId
@@ -677,18 +674,11 @@ export class TableDuplicateService {
       unique,
       description,
       isPrimary,
+      type: lookupFieldType,
     } = fieldInstance;
     const { foreignTableId, linkFieldId, lookupFieldId } = lookupOptions as ILookupOptionsRo;
     const isSelfLink = foreignTableId === sourceTableId;
 
-    const { type: lookupFieldType } = await this.prismaService.txClient().field.findUniqueOrThrow({
-      where: {
-        id: lookupFieldId,
-      },
-      select: {
-        type: true,
-      },
-    });
     const mockFieldId = Object.values(sourceToTargetFieldMap)[0];
     const newField = await this.fieldOpenService.createField(targetTableId, {
       type: FieldType.Rollup,
@@ -696,7 +686,7 @@ export class TableDuplicateService {
       description,
       lookupOptions: {
         foreignTableId: isSelfLink ? targetTableId : foreignTableId,
-        linkFieldId: isSelfLink ? sourceToTargetFieldMap[linkFieldId] : linkFieldId,
+        linkFieldId: sourceToTargetFieldMap[linkFieldId],
         lookupFieldId: isSelfLink
           ? hasError
             ? mockFieldId
@@ -989,5 +979,123 @@ export class TableDuplicateService {
       return [];
     }
     return matches.map((match) => match.slice(1, -1));
+  }
+
+  async duplicateAttachments(
+    sourceTableId: string,
+    targetTableId: string,
+    fieldIdMap: Record<string, string>
+  ) {
+    const prisma = this.prismaService.txClient();
+    const attachmentFieldRaws = await prisma.field.findMany({
+      where: {
+        tableId: sourceTableId,
+        type: FieldType.Attachment,
+      },
+      select: {
+        id: true,
+      },
+    });
+    const qb = this.knex.queryBuilder();
+
+    const attachmentFieldIds = attachmentFieldRaws.map(({ id }) => id);
+
+    const userId = this.cls.get('user.id');
+
+    for (const attachmentFieldId of attachmentFieldIds) {
+      const sql = this.dbProvider
+        .duplicateAttachmentTableQuery(qb)
+        .duplicateAttachmentTable(
+          sourceTableId,
+          targetTableId,
+          attachmentFieldId,
+          fieldIdMap[attachmentFieldId],
+          userId
+        )
+        .toQuery();
+
+      await prisma.$executeRawUnsafe(sql);
+    }
+  }
+
+  // duplicate link junction table
+  async duplicateLinkJunction(
+    tableIdMap: Record<string, string>,
+    fieldIdMap: Record<string, string>
+  ) {
+    const prisma = this.prismaService.txClient();
+    const sourceFieldRaws = await this.prismaService.txClient().field.findMany({
+      where: {
+        tableId: { in: Object.keys(tableIdMap) },
+        type: FieldType.Link,
+        deletedTime: null,
+      },
+    });
+
+    const targetFieldRaws = await this.prismaService.txClient().field.findMany({
+      where: {
+        tableId: { in: Object.values(tableIdMap) },
+        type: FieldType.Link,
+        deletedTime: null,
+      },
+    });
+
+    const sourceFields = sourceFieldRaws.map((f) => createFieldInstanceByRaw(f));
+    const targetFields = targetFieldRaws.map((f) => createFieldInstanceByRaw(f));
+
+    const junctionDbTableNameMap = {} as Record<
+      string,
+      {
+        sourceSelfKeyName: string;
+        sourceForeignKeyName: string;
+        targetSelfKeyName: string;
+        targetForeignKeyName: string;
+        targetFkHostTableName: string;
+      }
+    >;
+
+    for (const sourceField of sourceFields) {
+      const { options: sourceOptions } = sourceField;
+      const {
+        fkHostTableName: sourceFkHostTableName,
+        selfKeyName: sourceSelfKeyName,
+        foreignKeyName: sourceForeignKeyName,
+      } = sourceOptions as ILinkFieldOptions;
+      const targetField = targetFields.find((f) => f.id === fieldIdMap[sourceField.id])!;
+      const { options: targetOptions } = targetField;
+      const {
+        fkHostTableName: targetFkHostTableName,
+        selfKeyName: targetSelfKeyName,
+        foreignKeyName: targetForeignKeyName,
+      } = targetOptions as ILinkFieldOptions;
+      if (sourceFkHostTableName.includes('junction_')) {
+        junctionDbTableNameMap[sourceFkHostTableName] = {
+          sourceSelfKeyName,
+          sourceForeignKeyName,
+          targetSelfKeyName,
+          targetForeignKeyName,
+          targetFkHostTableName,
+        };
+      }
+    }
+    for (const [sourceJunctionDbTableName, targetJunctionInfo] of Object.entries(
+      junctionDbTableNameMap
+    )) {
+      const {
+        sourceSelfKeyName,
+        sourceForeignKeyName,
+        targetSelfKeyName,
+        targetForeignKeyName,
+        targetFkHostTableName,
+      } = targetJunctionInfo;
+      const sql = this.knex
+        .raw(
+          `INSERT INTO ?? ("${targetSelfKeyName}","${targetForeignKeyName}") SELECT "${sourceSelfKeyName}", "${sourceForeignKeyName}" FROM ??`,
+          [targetFkHostTableName, sourceJunctionDbTableName]
+        )
+        .toQuery();
+
+      await prisma.$executeRawUnsafe(sql);
+    }
   }
 }
