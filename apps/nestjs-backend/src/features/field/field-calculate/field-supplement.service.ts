@@ -12,6 +12,8 @@ import type {
   ISelectFieldOptionsRo,
   IConvertFieldRo,
   IUserFieldOptions,
+  ITextFieldCustomizeAIConfig,
+  ITextFieldSummarizeAIConfig,
 } from '@teable/core';
 import {
   assertNever,
@@ -23,9 +25,11 @@ import {
   CreatedTimeFieldCore,
   DateFieldCore,
   DbFieldType,
+  FieldAIActionType,
   FieldType,
   generateChoiceId,
   generateFieldId,
+  getAiConfigSchema,
   getDefaultFormatting,
   getFormattingSchema,
   getRandomString,
@@ -50,6 +54,7 @@ import type { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
+import { extractFieldReferences } from '../../../utils';
 import { majorFieldKeysChanged } from '../../../utils/major-field-keys-changed';
 import { ReferenceService } from '../../calculation/reference.service';
 import { hasCycle } from '../../calculation/utils/dfs';
@@ -1037,6 +1042,17 @@ export class FieldSupplementService {
       this.zodParse(formattingSchema, formatting);
     }
   }
+
+  private validateAiConfig(field: IFieldVo) {
+    const { type, aiConfig } = field;
+
+    const aiConfigSchema = getAiConfigSchema(type);
+
+    if (aiConfig) {
+      this.zodParse(aiConfigSchema, aiConfig);
+    }
+  }
+
   /**
    * prepare properties for computed field to make sure it's valid
    * this method do not do any db update
@@ -1069,6 +1085,7 @@ export class FieldSupplementService {
     };
 
     this.validateFormattingShowAs(fieldVo);
+    this.validateAiConfig(fieldVo);
 
     return fieldVo;
   }
@@ -1116,6 +1133,7 @@ export class FieldSupplementService {
         isPending: field.isComputed ? true : undefined,
       };
       this.validateFormattingShowAs(fieldVo);
+      this.validateAiConfig(fieldVo);
       return fieldVo;
     });
   }
@@ -1133,11 +1151,13 @@ export class FieldSupplementService {
         dbFieldName: fieldRo.dbFieldName ?? oldFieldVo.dbFieldName,
         description:
           fieldRo.description === undefined ? oldFieldVo.description : fieldRo.description,
+        aiConfig: fieldRo.aiConfig === undefined ? oldFieldVo.aiConfig : fieldRo.aiConfig,
       }, // for convenience, we fallback name adn dbFieldName when it be undefined
       oldFieldVo
     )) as IFieldVo;
 
     this.validateFormattingShowAs(fieldVo);
+    this.validateAiConfig(fieldVo);
 
     return {
       ...fieldVo,
@@ -1449,5 +1469,44 @@ export class FieldSupplementService {
         },
       });
     }
+  }
+
+  async createFieldTaskReference(tableId: string, field: IFieldInstance) {
+    const { id: fieldId, aiConfig } = field;
+
+    await this.prismaService.txClient().taskReference.deleteMany({
+      where: { toFieldId: fieldId },
+    });
+    const existingFieldIds = await this.prismaService.txClient().field.findMany({
+      where: { tableId, deletedTime: null },
+      select: { id: true },
+    });
+
+    const existingFieldIdSet = new Set(existingFieldIds.map(({ id }) => id));
+    const { type } = aiConfig ?? {};
+
+    if (type === FieldAIActionType.Customization) {
+      const { prompt, attachmentFieldIds = [] } = aiConfig as ITextFieldCustomizeAIConfig;
+      const fieldIds = extractFieldReferences(prompt);
+      const allFieldIds = Array.from(new Set([...fieldIds, ...attachmentFieldIds]));
+      const fieldIdsToCreate = allFieldIds.filter((id) => existingFieldIdSet.has(id));
+
+      return await this.prismaService.txClient().taskReference.createMany({
+        data: fieldIdsToCreate.map((id) => ({
+          fromFieldId: id,
+          toFieldId: fieldId,
+        })),
+      });
+    }
+
+    const { sourceFieldId } = (aiConfig as ITextFieldSummarizeAIConfig) ?? {};
+    if (!sourceFieldId || !existingFieldIdSet.has(sourceFieldId)) return;
+
+    await this.prismaService.txClient().taskReference.create({
+      data: {
+        fromFieldId: sourceFieldId,
+        toFieldId: fieldId,
+      },
+    });
   }
 }

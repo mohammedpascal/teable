@@ -7,6 +7,7 @@ import type {
   IRowCountVo,
   ISearchCountVo,
   ISearchIndexVo,
+  ITaskStatusCollectionVo,
 } from '@teable/openapi';
 import {
   aggregationRoSchema,
@@ -88,5 +89,16 @@ export class AggregationOpenApiController {
     query: ICalendarDailyCollectionRo
   ): Promise<ICalendarDailyCollectionVo> {
     return await this.aggregationOpenApiService.getCalendarDailyCollection(tableId, query);
+  }
+
+  @Get('/task-status-collection')
+  @Permissions('table|read')
+  async getTaskStatusCollection(
+    @Param('tableId') _tableId: string
+  ): Promise<ITaskStatusCollectionVo> {
+    return {
+      fieldMap: {},
+      cells: [],
+    };
   }
 }

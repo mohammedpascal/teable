@@ -1778,7 +1778,7 @@ export class RecordService {
     return filterQuery;
   }
 
-  private async getRowCountByFilter(
+  async getRowCountByFilter(
     dbTableName: string,
     fieldInstanceMap: Record<string, IFieldInstance>,
     tableId: string,

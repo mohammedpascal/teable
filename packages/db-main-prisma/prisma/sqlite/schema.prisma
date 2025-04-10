@@ -85,6 +85,7 @@ model Field {
   name                String
   description         String?
   options             String?
+  aiConfig            String?   @map("ai_config")
   type                String
   cellValueType       String    @map("cell_value_type")
   isMultipleCellValue Boolean?  @map("is_multiple_cell_value")
@@ -562,7 +563,6 @@ model PluginContextMenu {
 
   @@map("plugin_context_menu")
 }
-
 model UserLastVisit {
   id               String    @id @default(cuid())
   userId           String    @map("user_id")
@@ -575,6 +575,7 @@ model UserLastVisit {
   @@index([userId, resourceType])
   @@map("user_last_visit")
 }
+
 model Template {
   id               String    @id @default(cuid())
   baseId           String?    @map("base_id")
@@ -605,4 +606,46 @@ model TemplateCategory {
   order            Float     @map("order")
 
   @@map("template_category")
+}
+
+model Task {
+  id               String    @id @default(cuid())
+  type             String    @map("type")
+  status           String    @map("status")
+  snapshot         String?   @map("snapshot")
+  createdTime      DateTime  @default(now()) @map("created_time")
+
+  runs             TaskRun[]
+
+  @@index([type, status])
+  @@map("task")
+}
+
+model TaskRun {
+  id               String    @id @default(cuid())
+  taskId           String    @map("task_id")
+  status           String    @map("status")
+  snapshot         String    @map("snapshot")
+  spent            Int?      @map("spent")
+  errorMsg         String?   @map("error_msg")
+  startedTime      DateTime? @map("started_time")
+  createdTime      DateTime  @default(now()) @map("created_time")
+  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
+
+  task             Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId, status])
+  @@map("task_run")
+}
+
+model TaskReference {
+  id          String    @id @default(cuid())
+  fromFieldId String    @map("from_field_id")
+  toFieldId   String    @map("to_field_id")
+  createdTime DateTime  @default(now()) @map("created_time")
+
+  @@unique([toFieldId, fromFieldId])
+  @@index([fromFieldId])
+  @@index([toFieldId])
+  @@map("task_reference")
 }

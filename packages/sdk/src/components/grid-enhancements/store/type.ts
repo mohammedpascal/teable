@@ -4,6 +4,8 @@ import type { IPosition, IRectangle } from '../../grid/interface';
 export interface IHeaderMenu {
   fields: IFieldInstance[];
   position: IPosition;
+  aiEnable?: boolean;
+  onAutoFill?: (fieldId: string) => void;
   onSelectionClear?: () => void;
 }
 

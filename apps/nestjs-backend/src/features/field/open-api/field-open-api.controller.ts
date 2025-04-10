@@ -24,11 +24,14 @@ import {
 } from '@teable/core';
 import {
   deleteFieldsQuerySchema,
+  IAutoFillFieldRo,
+  autoFillFieldRoSchema,
   duplicateFieldRoSchema,
   IDeleteFieldsQuery,
   IDuplicateFieldRo,
 } from '@teable/openapi';
 import type {
+  IAutoFillFieldVo,
   IGetViewFilterLinkRecordsVo,
   IPlanFieldConvertVo,
   IPlanFieldVo,
@@ -175,5 +178,21 @@ export class FieldOpenApiController {
     @Headers('x-window-id') windowId: string
   ) {
     return this.fieldOpenApiService.duplicateField(tableId, fieldId, duplicateFieldRo, windowId);
+  }
+
+  @Permissions('record|update')
+  @Post('/:fieldId/auto-fill')
+  async autoFillField(
+    @Param('tableId') _tableId: string,
+    @Param('fieldId') _fieldId: string,
+    @Body(new ZodValidationPipe(autoFillFieldRoSchema)) _query: IAutoFillFieldRo
+  ): Promise<IAutoFillFieldVo> {
+    return { taskId: null };
+  }
+
+  @Permissions('record|update')
+  @Post('/:fieldId/stop-fill')
+  async stopFillField(@Param('tableId') _tableId: string, @Param('fieldId') _fieldId: string) {
+    return null;
   }
 }

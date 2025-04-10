@@ -57,6 +57,8 @@ export enum IdPrefix {
 
   Template = 'tpl',
   TemplateCategory = 'tpc',
+
+  Task = 'tsk',
 }
 
 const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -223,4 +225,8 @@ export function generateTemplateId() {
 
 export function generateTemplateCategoryId() {
   return IdPrefix.TemplateCategory + getRandomString(16);
+}
+
+export function generateTaskId() {
+  return IdPrefix.Task + getRandomString(16);
 }

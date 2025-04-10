@@ -10,6 +10,9 @@ import { Input } from '@teable/ui-lib/shadcn/ui/input';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
+import { useIsCloud } from '../../hooks/useIsCloud';
+import { useIsEE } from '../../hooks/useIsEE';
+import { FieldAiConfig } from './field-ai-config';
 import { FieldValidation } from './field-validation/FieldValidation';
 import { FieldOptions } from './FieldOptions';
 import type { IFieldOptionsProps } from './FieldOptions';
@@ -39,6 +42,9 @@ export const FieldEditor = (props: {
   const getFieldStatic = useFieldStaticGetter();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
 
+  const isEE = useIsEE();
+  const isCloud = useIsCloud();
+
   const updateFieldProps = (props: Partial<IFieldEditorRo>) => {
     setFieldFn({
       ...field,
@@ -52,6 +58,7 @@ export const FieldEditor = (props: {
         ...field,
         type: FieldType.SingleLineText, // reset fieldType to default
         options: undefined, // reset options
+        aiConfig: null,
         isLookup: true,
         unique: undefined,
         notNull: undefined,
@@ -74,6 +81,7 @@ export const FieldEditor = (props: {
       type,
       isLookup: undefined,
       lookupOptions: undefined,
+      aiConfig: null,
       options,
       unique: checkFieldUniqueValidationEnabled(type, field.isLookup) ? field.unique : undefined,
       notNull:
@@ -186,6 +194,7 @@ export const FieldEditor = (props: {
       </div>
       <hr className="border-slate-200" />
       <FieldValidation field={field} operator={operator} onChange={updateFieldProps} />
+      {(isCloud || isEE) && <FieldAiConfig field={field} onChange={updateFieldProps} />}
       {getUnionOptions()}
     </div>
   );
