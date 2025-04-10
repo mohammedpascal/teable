@@ -109,20 +109,15 @@ export class BaseImportService {
       importBaseRo.notify.path
     );
 
-    const { base, tableIdMap, viewIdMap, fieldIdMap, structure } = await this.processStructure(
-      structureStream,
-      importBaseRo
+    const { base, tableIdMap, viewIdMap, fieldIdMap, structure } = await this.prismaService.$tx(
+      async () => {
+        return await this.processStructure(structureStream, importBaseRo);
+      }
     );
 
-    await this.uploadAttachments(importBaseRo.notify.path);
+    this.uploadAttachments(importBaseRo.notify.path);
 
-    await this.appendTableData(
-      importBaseRo.notify.path,
-      tableIdMap,
-      fieldIdMap,
-      viewIdMap,
-      structure
-    );
+    this.appendTableData(importBaseRo.notify.path, tableIdMap, fieldIdMap, viewIdMap, structure);
 
     return {
       base,
@@ -158,11 +153,15 @@ export class BaseImportService {
               structureObject = data.value;
             })
             .on('end', async () => {
-              if (structureObject) {
-                const result = await this.createBaseStructure(spaceId, structureObject);
+              if (!structureObject) {
+                reject(new Error('import base structure.json resolve error'));
+              }
+
+              try {
+                const result = await this.createBaseStructure(spaceId, structureObject!);
                 resolve(result);
-              } else {
-                throw new Error('structure.json error');
+              } catch (error) {
+                reject(error);
               }
             })
             .on('error', (err: Error) => {
@@ -527,7 +526,7 @@ export class BaseImportService {
     fields: IFieldWithTableIdJson[],
     tableIdMap: Record<string, string>,
     fieldMap: Record<string, string>,
-    crossBase: boolean = false
+    allowCrossBase: boolean = false
   ) {
     const oneWayFields = fields.filter(({ options }) => (options as ILinkFieldOptions).isOneWay);
     const twoWayFields = fields.filter(({ options }) => !(options as ILinkFieldOptions).isOneWay);
@@ -550,7 +549,7 @@ export class BaseImportService {
         type,
         description,
         options: {
-          foreignTableId: crossBase ? foreignTableId : tableIdMap[foreignTableId],
+          foreignTableId: allowCrossBase ? foreignTableId : tableIdMap[foreignTableId],
           relationship,
           isOneWay: true,
         },
