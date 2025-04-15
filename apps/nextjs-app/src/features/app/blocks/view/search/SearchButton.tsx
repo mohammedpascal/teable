@@ -1,9 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ViewType } from '@teable/core';
 import { AlertCircle, Search, X } from '@teable/icons';
-import { getTableActivatedIndex, TableIndex, RecommendedIndexRow } from '@teable/openapi';
+import {
+  getTableActivatedIndex,
+  TableIndex,
+  RecommendedIndexRow,
+  getTableAbnormalIndex,
+  repairTableIndex,
+} from '@teable/openapi';
 import { LocalStorageKeys, useView } from '@teable/sdk';
 import { useBaseId, useFields, useRowCount, useSearch, useTableId } from '@teable/sdk/hooks';
+import { Spin } from '@teable/ui-lib/base';
 import {
   cn,
   Popover,
@@ -30,6 +37,7 @@ import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useDebounce, useLocalStorage } from 'react-use';
+import { useEnv } from '@/features/app/hooks/useEnv';
 import { useGridSearchStore } from '../grid/useGridSearchStore';
 import { ToolBarButton } from '../tool-bar/ToolBarButton';
 import type { ISearchCommandRef } from './SearchCommand';
@@ -45,6 +53,8 @@ export interface ISearchButtonProps {
 
 export const SearchButton = (props: ISearchButtonProps) => {
   const { className, textClassName, shareView = false } = props;
+  const env = useEnv();
+  const { maxSearchFieldCount = Infinity } = env;
   const [active, setActive] = useState(false);
   const fields = useFields();
   const tableId = useTableId();
@@ -57,6 +67,7 @@ export const SearchButton = (props: ISearchButtonProps) => {
   const [shouldTips, setShouldTips] = useState(true);
   const [noPrompt, setNoPrompt] = useState(false);
   const baseId = useBaseId();
+  const queryClient = useQueryClient();
 
   const [inputValue, setInputValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -87,6 +98,22 @@ export const SearchButton = (props: ISearchButtonProps) => {
     queryKey: ['table-index', tableId],
     queryFn: () => getTableActivatedIndex(baseId!, tableId!).then(({ data }) => data),
     enabled: !shareView,
+  });
+
+  const enabledSearchIndex = tableActivatedIndex?.includes(TableIndex.search);
+
+  const { data: searchAbnormalIndex = [] } = useQuery({
+    queryKey: ['table-abnormal-index', baseId, tableId, TableIndex.search],
+    queryFn: () =>
+      getTableAbnormalIndex(baseId!, tableId!, TableIndex.search).then(({ data }) => data),
+    enabled: Boolean(enabledSearchIndex && !shareView),
+  });
+
+  const { mutateAsync: repairIndexFn, isLoading: repairIndexLoading } = useMutation({
+    mutationFn: (type: TableIndex) => repairTableIndex(baseId!, tableId!, type),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['table-abnormal-index', baseId, tableId, TableIndex.search]);
+    },
   });
 
   useHotkeys(
@@ -259,11 +286,11 @@ export const SearchButton = (props: ISearchButtonProps) => {
 
   const showAlert = useMemo(() => {
     if (fieldId === 'all_fields') {
-      return fields.length > 20;
+      return fields.length > maxSearchFieldCount;
     }
     const fieldIds = fieldId?.split(',') || [];
-    return fieldIds.length > 20;
-  }, [fieldId, fields]);
+    return fieldIds.length > maxSearchFieldCount;
+  }, [fieldId, fields, maxSearchFieldCount]);
 
   return active ? (
     <div
@@ -301,7 +328,11 @@ export const SearchButton = (props: ISearchButtonProps) => {
                 {showAlert && (
                   <TooltipPortal>
                     <TooltipContent>
-                      <p>{t('table:table.searchTips.maxFieldTips')}</p>
+                      <p>
+                        {t('table:table.searchTips.maxFieldTips_limited', {
+                          count: maxSearchFieldCount,
+                        })}
+                      </p>
                     </TooltipContent>
                   </TooltipPortal>
                 )}
@@ -355,6 +386,10 @@ export const SearchButton = (props: ISearchButtonProps) => {
               setAlertVisible(true);
               return;
             }
+            if (searchAbnormalIndex.length) {
+              setAlertVisible(true);
+              return;
+            }
             setInputValue(e.target.value);
             if (e.target.value === '') {
               setSearchCursor(null);
@@ -396,7 +431,9 @@ export const SearchButton = (props: ISearchButtonProps) => {
           <AlertDialogHeader>
             <AlertDialogTitle>{t('table:import.title.tipsTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              {t('table:table.index.autoIndexTip', { rowCount: RecommendedIndexRow })}
+              {searchAbnormalIndex.length
+                ? t('table:table.index.repairTip')
+                : t('table:table.index.autoIndexTip', { rowCount: RecommendedIndexRow })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="flex items-center">
@@ -421,10 +458,19 @@ export const SearchButton = (props: ISearchButtonProps) => {
                 setShouldTips(false);
               }}
             >
-              {t('table:table.index.keepAsIs')}
+              {searchAbnormalIndex?.length
+                ? t('table:table.index.ignoreIndexError')
+                : t('table:table.index.keepAsIs')}
             </AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => {
+              onClick={async (e) => {
+                if (searchAbnormalIndex?.length) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  tableId && baseId && (await repairIndexFn(TableIndex.search));
+                  setAlertVisible(false);
+                  return;
+                }
                 commandTrigger?.current?.click();
                 setTimeout(() => {
                   searchCommandRef?.current?.toggleSearchIndex();
@@ -432,7 +478,10 @@ export const SearchButton = (props: ISearchButtonProps) => {
                 }, 0);
               }}
             >
-              {t('table:table.index.enableIndex')}
+              {searchAbnormalIndex?.length
+                ? t('table:table.index.repair')
+                : t('table:table.index.enableIndex')}
+              {repairIndexLoading && <Spin className="size-3" />}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
