@@ -277,10 +277,33 @@ export class TemplateOpenApiService {
     });
   }
 
-  async updateTemplateUsageCount(templateId: string) {
-    await this.prismaService.template.update({
+  async getTemplateDetailById(templateId: string) {
+    const template = await this.prismaService.template.findUniqueOrThrow({
       where: { id: templateId },
-      data: { usageCount: { increment: 1 } },
     });
+
+    const cover = template.cover ? JSON.parse(template.cover) : undefined;
+
+    const newCover = {
+      ...cover,
+      presignedUrl: undefined,
+    };
+
+    if (cover) {
+      const { bucket, path, token } = cover;
+      newCover.presignedUrl = await this.attachmentsStorageService.getPreviewUrlByPath(
+        bucket,
+        path,
+        token
+      );
+    }
+
+    return {
+      ...template,
+      cover: {
+        ...newCover,
+      },
+      snapshot: template.snapshot ? JSON.parse(template.snapshot) : undefined,
+    };
   }
 }
