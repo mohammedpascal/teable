@@ -16,7 +16,7 @@ export const TemplateCard = ({ template, onClickTemplateCardHandler }: ITemplate
 
   return (
     <div
-      className="group relative flex h-[318px] w-full cursor-pointer flex-col overflow-hidden rounded-lg border p-0 transition-shadow hover:shadow-lg"
+      className="group relative flex h-[318px] w-full shrink-0 cursor-pointer flex-col overflow-hidden rounded-lg border p-0 transition-shadow hover:shadow-lg"
       role="button"
       tabIndex={0}
       onClick={(e) => {
@@ -32,7 +32,11 @@ export const TemplateCard = ({ template, onClickTemplateCardHandler }: ITemplate
     >
       <div className="h-[180px] w-auto shrink-0 bg-secondary">
         {presignedUrl && (
-          <img src={presignedUrl} className="size-full object-cover" alt="preview" />
+          <img
+            src={presignedUrl}
+            className="size-full object-cover transition-all duration-300 group-hover:scale-105"
+            alt="preview"
+          />
         )}
       </div>
 
