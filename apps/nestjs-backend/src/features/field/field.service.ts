@@ -19,7 +19,7 @@ import {
   checkFieldValidationEnabled,
 } from '@teable/core';
 import type { Field as RawField, Prisma } from '@teable/db-main-prisma';
-import { PrismaService, wrapWithValidationErrorHandler } from '@teable/db-main-prisma';
+import { PrismaService } from '@teable/db-main-prisma';
 import { instanceToPlain } from 'class-transformer';
 import { Knex } from 'knex';
 import { keyBy, sortBy } from 'lodash';
@@ -31,6 +31,7 @@ import { IDbProvider } from '../../db-provider/db.provider.interface';
 import type { IReadonlyAdapterService } from '../../share-db/interface';
 import { RawOpType } from '../../share-db/interface';
 import type { IClsStore } from '../../types/cls';
+import { handleDBValidationErrors } from '../../utils/db-validation-error';
 import { isNotHiddenField } from '../../utils/is-not-hidden-field';
 import { convertNameToValidCharacter } from '../../utils/name-conversion';
 import { BatchService } from '../calculation/batch.service';
@@ -301,9 +302,17 @@ export class FieldService implements IReadonlyAdapterService {
   }
 
   private async alterTableModifyFieldType(fieldId: string, newDbFieldType: DbFieldType) {
-    const { dbFieldName, table } = await this.prismaService.txClient().field.findFirstOrThrow({
+    const {
+      dbFieldName,
+      name: fieldName,
+      table,
+    } = await this.prismaService.txClient().field.findFirstOrThrow({
       where: { id: fieldId, deletedTime: null },
-      select: { dbFieldName: true, table: { select: { dbTableName: true } } },
+      select: {
+        dbFieldName: true,
+        name: true,
+        table: { select: { dbTableName: true, name: true } },
+      },
     });
 
     const dbTableName = table.dbTableName;
@@ -312,7 +321,6 @@ export class FieldService implements IReadonlyAdapterService {
     const resetFieldQuery = this.knex(dbTableName)
       .update({ [dbFieldName]: null })
       .toQuery();
-    await this.prismaService.txClient().$executeRawUnsafe(resetFieldQuery);
 
     const modifyColumnSql = this.dbProvider.modifyColumnSchema(
       dbTableName,
@@ -320,9 +328,39 @@ export class FieldService implements IReadonlyAdapterService {
       schemaType
     );
 
-    for (const alterTableQuery of modifyColumnSql) {
-      await this.prismaService.txClient().$executeRawUnsafe(alterTableQuery);
-    }
+    await handleDBValidationErrors({
+      fn: async () => {
+        await this.prismaService.txClient().$executeRawUnsafe(resetFieldQuery);
+
+        for (const alterTableQuery of modifyColumnSql) {
+          await this.prismaService.txClient().$executeRawUnsafe(alterTableQuery);
+        }
+      },
+      handleUniqueError: () => {
+        throw new CustomHttpException(
+          `Field ${fieldId} unique validation failed`,
+          HttpErrorCode.VALIDATION_ERROR,
+          {
+            localization: {
+              i18nKey: 'httpErrors.custom.fieldValueDuplicate',
+              context: { tableName: table.name, fieldName },
+            },
+          }
+        );
+      },
+      handleNotNullError: () => {
+        throw new CustomHttpException(
+          `Field ${fieldId} not null validation failed`,
+          HttpErrorCode.VALIDATION_ERROR,
+          {
+            localization: {
+              i18nKey: 'httpErrors.custom.fieldValueNotNull',
+              context: { tableName: table.name, fieldName },
+            },
+          }
+        );
+      },
+    });
   }
 
   private async alterTableModifyFieldValidation(
@@ -330,15 +368,16 @@ export class FieldService implements IReadonlyAdapterService {
     key: 'unique' | 'notNull',
     newValue?: boolean
   ) {
-    const { dbFieldName, table, type, isLookup } = await this.prismaService
+    const { name, dbFieldName, table, type, isLookup } = await this.prismaService
       .txClient()
       .field.findFirstOrThrow({
         where: { id: fieldId, deletedTime: null },
         select: {
+          name: true,
           dbFieldName: true,
           type: true,
           isLookup: true,
-          table: { select: { dbTableName: true } },
+          table: { select: { dbTableName: true, name: true } },
         },
       });
 
@@ -359,7 +398,34 @@ export class FieldService implements IReadonlyAdapterService {
         }
       })
       .toQuery();
-    await this.prismaService.txClient().$executeRawUnsafe(fieldValidationQuery);
+
+    await handleDBValidationErrors({
+      fn: () => this.prismaService.txClient().$executeRawUnsafe(fieldValidationQuery),
+      handleUniqueError: () => {
+        throw new CustomHttpException(
+          `Field ${fieldId} unique validation failed`,
+          HttpErrorCode.VALIDATION_ERROR,
+          {
+            localization: {
+              i18nKey: 'httpErrors.custom.fieldValueDuplicate',
+              context: { tableName: table.name, fieldName: name },
+            },
+          }
+        );
+      },
+      handleNotNullError: () => {
+        throw new CustomHttpException(
+          `Field ${fieldId} not null validation failed`,
+          HttpErrorCode.VALIDATION_ERROR,
+          {
+            localization: {
+              i18nKey: 'httpErrors.custom.fieldValueNotNull',
+              context: { tableName: table.name, fieldName: name },
+            },
+          }
+        );
+      },
+    });
   }
 
   async getField(tableId: string, fieldId: string): Promise<IFieldVo> {
@@ -655,9 +721,7 @@ export class FieldService implements IReadonlyAdapterService {
     }
 
     if (key === 'dbFieldType') {
-      await wrapWithValidationErrorHandler(() =>
-        this.alterTableModifyFieldType(fieldId, newValue as DbFieldType)
-      );
+      await this.alterTableModifyFieldType(fieldId, newValue as DbFieldType);
     }
 
     if (key === 'dbFieldName') {
@@ -665,9 +729,7 @@ export class FieldService implements IReadonlyAdapterService {
     }
 
     if (key === 'unique' || key === 'notNull') {
-      await wrapWithValidationErrorHandler(() =>
-        this.alterTableModifyFieldValidation(fieldId, key, newValue as boolean | undefined)
-      );
+      await this.alterTableModifyFieldValidation(fieldId, key, newValue as boolean | undefined);
     }
 
     return { [key]: newValue ?? null };

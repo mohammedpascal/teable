@@ -18,14 +18,17 @@ import {
   FieldOpBuilder,
   FieldType,
   generateChoiceId,
+  HttpErrorCode,
   isMultiValueLink,
   PRIMARY_SUPPORTED_TYPES,
   RecordOpBuilder,
 } from '@teable/core';
-import { PrismaService, wrapWithValidationErrorHandler } from '@teable/db-main-prisma';
+import { PrismaService } from '@teable/db-main-prisma';
 import { Knex } from 'knex';
 import { difference, intersection, isEmpty, isEqual, keyBy, set } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
+import { CustomHttpException } from '../../../custom.exception';
+import { handleDBValidationErrors } from '../../../utils/db-validation-error';
 import {
   majorFieldKeysChanged,
   majorOptionsKeyChanged,
@@ -1108,10 +1111,12 @@ export class FieldConvertingService {
   }
 
   async alterFieldConstraint(tableId: string, newField: IFieldInstance, oldField: IFieldInstance) {
-    const { dbTableName } = await this.prismaService.txClient().tableMeta.findUniqueOrThrow({
-      where: { id: tableId },
-      select: { dbTableName: true },
-    });
+    const { dbTableName, name: tableName } = await this.prismaService
+      .txClient()
+      .tableMeta.findUniqueOrThrow({
+        where: { id: tableId },
+        select: { dbTableName: true, name: true },
+      });
 
     if (!this.needTempleCloseFieldConstraint(newField, oldField)) {
       return;
@@ -1123,9 +1128,34 @@ export class FieldConvertingService {
         if (notNull) table.dropNullable(dbFieldName);
       })
       .toQuery();
-    await wrapWithValidationErrorHandler(() =>
-      this.prismaService.txClient().$executeRawUnsafe(fieldValidationQuery)
-    );
+
+    await handleDBValidationErrors({
+      fn: () => this.prismaService.txClient().$executeRawUnsafe(fieldValidationQuery),
+      handleUniqueError: () => {
+        throw new CustomHttpException(
+          `Field ${oldField.id} unique validation failed`,
+          HttpErrorCode.VALIDATION_ERROR,
+          {
+            localization: {
+              i18nKey: 'httpErrors.custom.fieldValueDuplicate',
+              context: { fieldName: oldField.name, tableName },
+            },
+          }
+        );
+      },
+      handleNotNullError: () => {
+        throw new CustomHttpException(
+          `Field ${oldField.id} not null validation failed`,
+          HttpErrorCode.VALIDATION_ERROR,
+          {
+            localization: {
+              i18nKey: 'httpErrors.custom.fieldValueNotNull',
+              context: { fieldName: oldField.name, tableName },
+            },
+          }
+        );
+      },
+    });
   }
 
   async closeConstraint(tableId: string, newField: IFieldInstance, oldField: IFieldInstance) {
