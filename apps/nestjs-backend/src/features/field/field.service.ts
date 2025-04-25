@@ -232,7 +232,15 @@ export class FieldService implements IReadonlyAdapterService {
 
   private async alterTableAddField(dbTableName: string, fieldInstances: IFieldInstance[]) {
     for (let i = 0; i < fieldInstances.length; i++) {
-      const { dbFieldType, dbFieldName, type, isLookup, unique, notNull } = fieldInstances[i];
+      const {
+        dbFieldType,
+        dbFieldName,
+        type,
+        isLookup,
+        unique,
+        notNull,
+        id: fieldId,
+      } = fieldInstances[i];
 
       const alterTableQuery = this.knex.schema
         .alterTable(dbTableName, (table) => {
@@ -251,7 +259,9 @@ export class FieldService implements IReadonlyAdapterService {
 
         const fieldValidationQuery = this.knex.schema
           .alterTable(dbTableName, (table) => {
-            table.unique(dbFieldName);
+            table.unique([dbFieldName], {
+              indexName: this.getFieldUniqueKeyName(dbTableName, dbFieldName, fieldId),
+            });
           })
           .toQuery();
         await this.prismaService.txClient().$executeRawUnsafe(fieldValidationQuery);
@@ -363,13 +373,17 @@ export class FieldService implements IReadonlyAdapterService {
     });
   }
 
-  async findUniqueIndexesForField(dbTableName: string, dbFieldName: string) {
+  async findUniqueIndexesForField(dbTableName: string, dbFieldName: string, fieldId: string) {
     const indexesQuery = this.dbProvider.getTableIndexes(dbTableName);
     const indexes = await this.prismaService
       .txClient()
       .$queryRawUnsafe<{ name: string }[]>(indexesQuery);
     return indexes
-      .filter((index) => index.name.includes(`${dbFieldName.toLowerCase()}_unique`))
+      .filter(
+        (index) =>
+          index.name.includes(`${dbFieldName.toLowerCase()}_unique`) ||
+          index.name.includes(`${fieldId.toLowerCase()}_unique`)
+      )
       .map((index) => index.name);
   }
 
@@ -396,13 +410,15 @@ export class FieldService implements IReadonlyAdapterService {
     }
 
     const dbTableName = table.dbTableName;
-    const matchedIndexes = await this.findUniqueIndexesForField(dbTableName, dbFieldName);
+    const matchedIndexes = await this.findUniqueIndexesForField(dbTableName, dbFieldName, fieldId);
 
     const fieldValidationSqls = this.knex.schema
       .alterTable(dbTableName, (table) => {
         if (key === 'unique') {
           newValue
-            ? table.unique(dbFieldName)
+            ? table.unique([dbFieldName], {
+                indexName: this.getFieldUniqueKeyName(dbTableName, dbFieldName, fieldId),
+              })
             : matchedIndexes.forEach((indexName) => table.dropUnique([dbFieldName], indexName));
         }
 
@@ -412,12 +428,14 @@ export class FieldService implements IReadonlyAdapterService {
       })
       .toSQL();
 
+    const executeSqls = fieldValidationSqls
+      .filter((s) => !s.sql.startsWith('PRAGMA'))
+      .map(({ sql }) => sql);
+
     await handleDBValidationErrors({
       fn: () => {
         return Promise.all(
-          fieldValidationSqls
-            .filter((s) => !s.sql.startsWith('PRAGMA'))
-            .map((sql) => this.prismaService.txClient().$executeRawUnsafe(sql.sql))
+          executeSqls.map((sql) => this.prismaService.txClient().$executeRawUnsafe(sql))
         );
       },
       handleUniqueError: () => {
@@ -807,5 +825,13 @@ export class FieldService implements IReadonlyAdapterService {
     return {
       ids: result.map((field) => field.id),
     };
+  }
+
+  getFieldUniqueKeyName(dbTableName: string, dbFieldName: string, fieldId: string) {
+    const [schema, tableName] = this.dbProvider.splitTableName(dbTableName);
+    // unique key suffix
+    const uniqueKeySuffix = `___${fieldId}_unique`;
+    const uniqueKeyPrefix = `${schema}_${tableName}`.slice(0, 63 - uniqueKeySuffix.length);
+    return `${uniqueKeyPrefix.toLowerCase()}${uniqueKeySuffix.toLowerCase()}`;
   }
 }

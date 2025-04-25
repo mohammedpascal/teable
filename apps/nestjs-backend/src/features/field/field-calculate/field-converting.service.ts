@@ -1131,7 +1131,14 @@ export class FieldConvertingService {
     const { unique, notNull, dbFieldName } = newField;
     const fieldValidationQuery = this.knex.schema
       .alterTable(dbTableName, (table) => {
-        if (unique) table.unique(dbFieldName);
+        if (unique)
+          table.unique([dbFieldName], {
+            indexName: this.fieldService.getFieldUniqueKeyName(
+              dbTableName,
+              dbFieldName,
+              newField.id
+            ),
+          });
         if (notNull) table.dropNullable(dbFieldName);
       })
       .toQuery();
@@ -1179,7 +1186,8 @@ export class FieldConvertingService {
 
     const matchedIndexes = await this.fieldService.findUniqueIndexesForField(
       dbTableName,
-      dbFieldName
+      dbFieldName,
+      oldField.id
     );
 
     const fieldValidationQuery = this.knex.schema
@@ -1189,9 +1197,15 @@ export class FieldConvertingService {
         }
         if (notNull) table.setNullable(dbFieldName);
       })
-      .toQuery();
+      .toSQL();
 
-    await this.prismaService.$executeRawUnsafe(fieldValidationQuery);
+    const executeSqls = fieldValidationQuery
+      .filter((s) => !s.sql.startsWith('PRAGMA'))
+      .map(({ sql }) => sql);
+
+    for (const sql of executeSqls) {
+      await this.prismaService.txClient().$executeRawUnsafe(sql);
+    }
   }
 
   async stageAnalysis(tableId: string, fieldId: string, updateFieldRo: IConvertFieldRo) {
