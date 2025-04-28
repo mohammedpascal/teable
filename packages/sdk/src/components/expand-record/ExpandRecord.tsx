@@ -4,7 +4,6 @@ import { isEqual } from 'lodash';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 import {
-  useFieldCellEditable,
   useFields,
   useIsTouchDevice,
   useRecord,
@@ -64,18 +63,17 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
   const defaultViewId = views?.[0]?.id;
   const viewId = useViewId() ?? defaultViewId;
   const baseId = useBaseId();
-  const allFields = useFields({ withHidden: true, withDenied: true });
+  const allFields = useFields({ withHidden: true });
   const showFields = useFields();
   const record = useRecord(recordId, serverData);
   const isTouchDevice = useIsTouchDevice();
-  const fieldCellEditable = useFieldCellEditable();
   const { t } = useTranslation();
 
   const fieldCellReadonly = useCallback(
     (field: IFieldInstance) => {
-      return !fieldCellEditable(field);
+      return Boolean(record?.isLocked(field.id));
     },
-    [fieldCellEditable]
+    [record]
   );
 
   const showFieldsId = useMemo(() => new Set(showFields.map((field) => field.id)), [showFields]);
