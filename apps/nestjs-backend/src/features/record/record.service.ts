@@ -1957,9 +1957,9 @@ export class RecordService {
     } = query || {};
     let groupPoints: IGroupPoint[] = [];
 
-    const groupBy = parseGroup(extraGroupBy);
+    const fullGroupBy = parseGroup(extraGroupBy);
 
-    if (!groupBy?.length) {
+    if (!fullGroupBy?.length) {
       return {
         groupPoints,
         filter,
@@ -1980,10 +1980,19 @@ export class RecordService {
       tableId,
       filter,
       undefined,
-      groupBy,
+      fullGroupBy,
       search,
       enabledFieldIds
     ))!;
+    const groupBy = fullGroupBy.filter((item) => fieldInstanceMap[item.fieldId]);
+
+    if (!groupBy?.length) {
+      return {
+        groupPoints,
+        filter,
+      };
+    }
+
     const dbTableName = await this.getDbTableName(tableId);
 
     const filterStr = viewRaw?.filter;
@@ -2028,7 +2037,6 @@ export class RecordService {
         await this.prismaService.$queryRawUnsafe<{ [key: string]: unknown; __c: number }[]>(
           groupSql
         );
-
       groupPoints = await this.groupDbCollection2GroupPoints(
         result,
         groupFields,
