@@ -310,7 +310,7 @@
         "extractInfo": "Extract email, phone, name, address...",
         "improveText": "Formal, friendly, humorous...",
         "attachPromptForTag": "Not allowed to exceed three tags",
-        "attachPromptForClassify": "Classify “In Progress” as “No Risk”",
+        "attachPromptForClassify": "Classify \"In Progress\" as \"No Risk\"",
         "attachPrompt": "Please enter additional requirements",
         "prompt": "Please enter a custom prompt",
         "type": "Select AI Action",
@@ -638,6 +638,46 @@
     "cell": {
       "deniedRead": "You don't have permission to view this cell",
       "deniedUpdate": "You don't have permission to update this cell"
+    }
+  },
+  "aiChat": {
+    "tool": {
+      "getTableFields": "Get table fields",
+      "getTablesMeta": "Get tables meta",
+      "sqlQuery": "Execute SQL query",
+      "args": "Arguments",
+      "result": "Result"
+    },
+    "codeBlock": {
+      "hiddenLines": "{{count}} lines hidden",
+      "collapseCode": "Collapse code",
+      "code": "Code",
+      "preview": "Preview"
+    },
+    "newChat": "New Chat",
+    "noModel": "No available models",
+    "noHistory": "No chat history",
+    "noFoundHistory": "No chat history found, please start a new conversation",
+    "timeGroup": {
+      "today": "Today",
+      "oneWeek": "One week",
+      "twoWeek": "Two week",
+      "oneMonth": "One month",
+      "other": "Other"
+    },
+    "context": {
+      "button": "Add context",
+      "search": "Add tables",
+      "searchEmpty": "No matching context found",
+      "emptyContext": "No context to add"
+    },
+    "inputPlaceholder": "Send message...",
+    "thought": "Thinking",
+    "meta": {
+      "timeCostUnit": "s",
+      "timeCostDescription": "Generation time: {{timeCost}}s",
+      "creditDescription": "{{credits}} credits consumed",
+      "tokenDescription": "Tokens used: {{tokens}}"
     }
   }
 }

@@ -309,7 +309,7 @@
         "extractInfo": "提取邮箱，电话，姓名，地址...",
         "improveText": "语气正式，友好，幽默...",
         "attachPromptForTag": "不允许超过三个标签",
-        "attachPromptForClassify": "将“正在进行中”的分类为“无风险”",
+        "attachPromptForClassify": "将\"正在进行中\"的分类为\"无风险\"",
         "attachPrompt": "请输入附加要求",
         "prompt": "请输入自定义的提示",
         "type": "选择 AI 动作",
@@ -638,6 +638,46 @@
     "cell": {
       "deniedRead": "你无权限查看单元格",
       "deniedUpdate": "你无权限更新单元格"
+    }
+  },
+  "aiChat": {
+    "tool": {
+      "getTableFields": "获取表格字段",
+      "getTablesMeta": "获取表格元数据",
+      "sqlQuery": "执行 SQL 查询",
+      "args": "参数",
+      "result": "结果"
+    },
+    "codeBlock": {
+      "hiddenLines": "{{count}}行已隐藏",
+      "collapseCode": "收起代码",
+      "code": "代码",
+      "preview": "预览"
+    },
+    "newChat": "新对话",
+    "noModel": "暂无可用模型",
+    "noHistory": "暂无聊天记录",
+    "noFoundHistory": "没有找到匹配的聊天记录，请开始新的对话",
+    "timeGroup": {
+      "today": "今天",
+      "oneWeek": "一周内",
+      "twoWeek": "两周内",
+      "oneMonth": "一月内",
+      "other": "更早"
+    },
+    "context": {
+      "button": "添加上下文",
+      "search": "添加表格",
+      "searchEmpty": "暂无匹配的上下文",
+      "emptyContext": "暂无可添加的上下文"
+    },
+    "inputPlaceholder": "发送消息...",
+    "thought": "深度思考",
+    "meta": {
+      "timeCostUnit": "秒",
+      "timeCostDescription": "生成耗时{{timeCost}}秒",
+      "creditDescription": "消耗{{credits}}算力",
+      "tokenDescription": "本次消耗：{{tokens}} tokens"
     }
   }
 }
