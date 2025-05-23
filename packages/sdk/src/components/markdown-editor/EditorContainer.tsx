@@ -37,7 +37,7 @@ const editorVariants = cva(
     },
     defaultVariants: {
       variant: 'outline',
-      focusRing: true,
+      focusRing: false,
       size: 'sm',
     },
   }
@@ -45,10 +45,10 @@ const editorVariants = cva(
 
 export type EditorProps = PlateContentProps & VariantProps<typeof editorVariants>;
 
-const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
+const EditorContainer = React.forwardRef<HTMLDivElement, EditorProps>(
   ({ className, disabled, focused, focusRing, readOnly, size, variant, ...props }, ref) => {
     return (
-      <div ref={ref} className="relative w-full">
+      <div ref={ref} className="relative w-1/2">
         <PlateContent
           className={cn(
             editorVariants({
@@ -70,6 +70,6 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
   }
 );
 
-Editor.displayName = 'Editor';
+EditorContainer.displayName = 'EditorContainer';
 
-export { Editor };
+export { EditorContainer };
