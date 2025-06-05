@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { useMemo, useState } from 'react';
 import { useLocalStorage, useMap, useSet } from 'react-use';
+import { usePreviewUrl } from '@/features/app/hooks/usePreviewUrl';
 import { tableConfig } from '@/features/i18n/table.config';
 import { generateUniqLocalKey } from '../util';
 import { FormField } from './FormField';
@@ -36,6 +37,7 @@ export const FormBody = (props: IFormBodyProps) => {
     new Set([])
   );
   const [loading, setLoading] = useState(false);
+  const previewUrl = usePreviewUrl();
 
   const visibleFields = useMemo(
     () => fields.filter(({ isComputed, isLookup }) => !isComputed && !isLookup),
@@ -135,7 +137,7 @@ export const FormBody = (props: IFormBodyProps) => {
       >
         {coverUrl && (
           <Image
-            src={coverUrl}
+            src={previewUrl(coverUrl)}
             alt="card cover"
             fill
             sizes="100%"
@@ -150,7 +152,7 @@ export const FormBody = (props: IFormBodyProps) => {
         <div className="group absolute left-1/2 top-[104px] ml-[-40px] size-20">
           <Image
             className="rounded-lg object-cover shadow-sm"
-            src={logoUrl}
+            src={previewUrl(logoUrl)}
             alt="card cover"
             fill
             sizes="100%"
