@@ -20,7 +20,7 @@ export class PermissionService {
     return departments?.map((department) => department.id) || [];
   }
 
-  async getRoleBySpaceId(spaceId: string) {
+  async getRoleBySpaceId(spaceId: string, includeInactiveResource?: boolean) {
     const userId = this.cls.get('user.id');
     const departmentIds = this.getDepartmentIds();
     const collaborators = await this.prismaService.collaborator.findMany({
@@ -31,6 +31,17 @@ export class PermissionService {
       },
       select: { roleName: true },
     });
+    const space = await this.prismaService.space.findFirst({
+      where: {
+        id: spaceId,
+      },
+    });
+    if (!space) {
+      throw new ForbiddenException(`space ${spaceId} is not found`);
+    }
+    if (space?.deletedTime && !includeInactiveResource) {
+      throw new ForbiddenException(`space ${spaceId} is deleted`);
+    }
     if (!collaborators.length) {
       return null;
     }
@@ -224,8 +235,8 @@ export class PermissionService {
     return scopes;
   }
 
-  private async getPermissionBySpaceId(spaceId: string) {
-    const role = await this.getRoleBySpaceId(spaceId);
+  private async getPermissionBySpaceId(spaceId: string, includeInactiveResource?: boolean) {
+    const role = await this.getRoleBySpaceId(spaceId, includeInactiveResource);
     if (!role) {
       throw new ForbiddenException(`you have no permission to access this space`);
     }
@@ -235,7 +246,8 @@ export class PermissionService {
   private async getPermissionByBaseId(baseId: string, includeInactiveResource?: boolean) {
     const role = await this.getRoleByBaseId(baseId);
     const spaceRole = await this.getRoleBySpaceId(
-      (await this.getUpperIdByBaseId(baseId, includeInactiveResource)).spaceId
+      (await this.getUpperIdByBaseId(baseId, includeInactiveResource)).spaceId,
+      includeInactiveResource
     );
     if (!role && !spaceRole) {
       throw new ForbiddenException(`you have no permission to access this base`);
@@ -254,7 +266,7 @@ export class PermissionService {
 
   async getPermissionsByResourceId(resourceId: string, includeInactiveResource?: boolean) {
     if (resourceId.startsWith(IdPrefix.Space)) {
-      return await this.getPermissionBySpaceId(resourceId);
+      return await this.getPermissionBySpaceId(resourceId, includeInactiveResource);
     } else if (resourceId.startsWith(IdPrefix.Base)) {
       return await this.getPermissionByBaseId(resourceId, includeInactiveResource);
     } else if (resourceId.startsWith(IdPrefix.Table)) {
