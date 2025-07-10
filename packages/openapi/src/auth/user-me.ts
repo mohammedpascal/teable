@@ -10,6 +10,7 @@ export const userMeVoSchema = z.object({
   id: z.string(),
   name: z.string(),
   avatar: z.string().nullable().optional(),
+  accessToken: z.string().nullable().optional(),
   email: z.string().email(),
   phone: z.string().nullable().optional(),
   notifyMeta: userNotifyMetaSchema,

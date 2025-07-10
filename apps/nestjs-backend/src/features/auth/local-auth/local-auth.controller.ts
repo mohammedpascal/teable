@@ -21,6 +21,7 @@ import {
 import { Response, Request } from 'express';
 import { AUTH_SESSION_COOKIE_NAME } from '../../../const';
 import { ZodValidationPipe } from '../../../zod.validation.pipe';
+import { AuthService } from '../auth.service';
 import { Public } from '../decorators/public.decorator';
 import { LocalAuthGuard } from '../guard/local-auth.guard';
 import { SessionService } from '../session/session.service';
@@ -30,6 +31,7 @@ import { LocalAuthService } from './local-auth.service';
 @Controller('api/auth')
 export class LocalAuthController {
   constructor(
+    private readonly auth: AuthService,
     private readonly sessionService: SessionService,
     private readonly authService: LocalAuthService
   ) {}
@@ -39,7 +41,13 @@ export class LocalAuthController {
   @HttpCode(200)
   @Post('signin')
   async signin(@Req() req: Express.Request): Promise<IUserMeVo> {
-    return req.user as IUserMeVo;
+    const { accessToken } = await this.auth.getTempToken((req.user as IUserMeVo).id);
+
+    const user = req.user as IUserMeVo;
+    user.phone = '+47444';
+    user.accessToken = accessToken;
+
+    return user;
   }
 
   @Public()

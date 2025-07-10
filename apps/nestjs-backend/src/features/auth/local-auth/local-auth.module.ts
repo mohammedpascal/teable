@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import type { IAuthConfig } from '../../../configs/auth.config';
 import { authConfig } from '../../../configs/auth.config';
 import { UserModule } from '../../user/user.module';
+import { AuthService } from '../auth.service';
 import { SessionStoreService } from '../session/session-store.service';
 import { SessionModule } from '../session/session.module';
 import { LocalStrategy } from '../strategies/local.strategy';
@@ -23,7 +24,7 @@ import { LocalAuthService } from './local-auth.service';
       inject: [authConfig.KEY],
     }),
   ],
-  providers: [LocalStrategy, LocalAuthService, SessionStoreService],
+  providers: [LocalStrategy, LocalAuthService, SessionStoreService, AuthService],
   controllers: [LocalAuthController],
   exports: [LocalAuthService],
 })

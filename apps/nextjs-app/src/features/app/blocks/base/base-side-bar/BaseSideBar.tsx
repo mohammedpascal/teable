@@ -1,12 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { Gauge, Lock, MoreHorizontal, Settings, Trash2 } from '@teable/icons';
+import { Gauge, Settings, Trash2 } from '@teable/icons';
 import { getBaseUsage, getInstanceUsage } from '@teable/openapi';
 import { useBase, useBasePermission } from '@teable/sdk/hooks';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -14,7 +10,6 @@ import {
   cn,
 } from '@teable/ui-lib/shadcn';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
-import { Bot } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -48,9 +43,6 @@ export const BaseSideBar = () => {
     enabled: isEE,
   });
 
-  const usage = instanceUsage ?? baseUsage;
-  const { automationEnable = true, advancedPermissionsEnable = true } = usage?.limit ?? {};
-
   const pageRoutes: {
     href: string;
     label: string;
@@ -65,22 +57,19 @@ export const BaseSideBar = () => {
           Icon: Gauge,
           hidden: !basePermission?.['base|read'],
         },
+
         {
-          href: `/base/${baseId}/automation`,
-          label: t('common:noun.automation'),
-          Icon: Bot,
-          hidden: !basePermission?.['automation|read'],
-          disabled: !automationEnable,
+          href: `/base/${baseId}/design`,
+          label: t('table:table.design'),
+          Icon: Settings,
         },
         {
-          href: `/base/${baseId}/authority-matrix`,
-          label: t('common:noun.authorityMatrix'),
-          Icon: Lock,
-          hidden: !basePermission?.['base|authority_matrix_config'],
-          disabled: !advancedPermissionsEnable,
+          href: `/base/${baseId}/trash`,
+          label: t('common:noun.trash'),
+          Icon: Trash2,
         },
       ].filter((item) => !item.hidden),
-    [advancedPermissionsEnable, automationEnable, baseId, basePermission, t]
+    [baseId, basePermission, t]
   );
 
   return (
@@ -136,51 +125,6 @@ export const BaseSideBar = () => {
               </li>
             );
           })}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="xs"
-                className="my-[2px] w-full justify-start text-sm font-normal"
-              >
-                <MoreHorizontal className="size-4 shrink-0" />
-                <p className="truncate">{t('common:actions.more')}</p>
-                <div className="grow basis-0"></div>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="min-w-[200px]">
-              {basePermission?.['base|delete'] && (
-                <DropdownMenuItem asChild>
-                  <Button
-                    variant="ghost"
-                    size="xs"
-                    asChild
-                    className="my-[2px] w-full justify-start text-sm"
-                  >
-                    <Link href={`/base/${baseId}/trash`} className="font-normal">
-                      <Trash2 className="size-4 shrink-0" />
-                      <p className="truncate">{t('common:noun.trash')}</p>
-                      <div className="grow basis-0"></div>
-                    </Link>
-                  </Button>
-                </DropdownMenuItem>
-              )}
-              <DropdownMenuItem asChild>
-                <Button
-                  variant="ghost"
-                  size="xs"
-                  asChild
-                  className="my-[2px] w-full justify-start text-sm"
-                >
-                  <Link href={`/base/${baseId}/design`} className="font-normal">
-                    <Settings className="size-4 shrink-0" />
-                    <p className="truncate">{t('table:table.design')}</p>
-                    <div className="grow basis-0"></div>
-                  </Link>
-                </Button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </ul>
       </div>
       <TableList />

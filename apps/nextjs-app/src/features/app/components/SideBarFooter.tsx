@@ -6,7 +6,6 @@ import { UserAvatar } from '@/features/app/components/user/UserAvatar';
 import { DuplicateBaseModal } from '../blocks/base/duplicate/DuplicateBaseModal';
 import { TemplateCreateBaseModal } from '../blocks/base/duplicate/TemplateCreateBaseModal';
 import { SpaceSubscriptionModal } from '../blocks/billing/SpaceSubscriptionModal';
-import { SettingDialog } from './setting/SettingDialog';
 import { UserNav } from './user/UserNav';
 
 export const SideBarFooter: React.FC = () => {
@@ -21,7 +20,6 @@ export const SideBarFooter: React.FC = () => {
             {user.name}
           </Button>
         </UserNav>
-        <SettingDialog />
         <DuplicateBaseModal />
         <TemplateCreateBaseModal />
         <SpaceSubscriptionModal />

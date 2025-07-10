@@ -37,9 +37,9 @@ export class AuthService {
     }
   }
 
-  async getTempToken() {
+  async getTempToken(userId: string = this.cls.get('user.id')) {
     const payload: IJwtAuthInfo = {
-      userId: this.cls.get('user.id'),
+      userId,
     };
     const expiresIn = '10m';
     return {
