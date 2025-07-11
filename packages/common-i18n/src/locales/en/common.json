@@ -398,7 +398,15 @@
         "supportVisionTip": "This model supports image input",
         "supportAudioTip": "This model supports audio input",
         "supportVideoTip": "This model supports video input",
-        "supportDeepThinkTip": "This model supports deep thinking"
+        "supportDeepThinkTip": "This model supports deep thinking",
+        "testConnection": "Test",
+        "testing": "Testing...",
+        "testSuccess": "Test successful",
+        "testFailed": "Test failed",
+        "fillRequiredFields": "Please fill in all required fields",
+        "modelsRequired": "Please fill in at least one model",
+        "noValidModel": "No valid model found",
+        "addCustomModel": "Add custom model"
       }
     }
   },
