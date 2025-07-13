@@ -1,5 +1,5 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Admin, Integration, Settings, Users } from '@teable/icons';
+import { Admin, Integration, Settings } from '@teable/icons';
 import type { IUser } from '@teable/sdk';
 import { SessionProvider } from '@teable/sdk';
 import { AppProvider } from '@teable/sdk/context';
@@ -24,7 +24,7 @@ export const AdminLayout: React.FC<{
   const router = useRouter();
 
   const onBack = () => {
-    router.push({ pathname: '/space' });
+    router.push({ pathname: '/base/bse0' });
   };
 
   const routes = [
@@ -33,13 +33,6 @@ export const AdminLayout: React.FC<{
       label: t('settings.title'),
       route: '/admin/setting',
       pathTo: '/admin/setting',
-    },
-
-    {
-      Icon: Users,
-      label: t('space:spaceSetting.collaborators'),
-      route: `/admin/collaborator`,
-      pathTo: `/admin/collaborator`,
     },
     {
       Icon: Integration,

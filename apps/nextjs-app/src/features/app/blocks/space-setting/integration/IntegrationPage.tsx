@@ -11,7 +11,6 @@ import {
 import { MagicAI } from '@teable/sdk/components/comment/comment-editor/plate-ui/icons';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { SpaceSettingContainer } from '@/features/app/components/SpaceSettingContainer';
@@ -20,7 +19,6 @@ import { NewLLMProviderForm } from '../../admin/setting/components/ai-config/Llm
 import { AIConfig, IntegrationCard } from './components';
 
 export const IntegrationPage = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
   const spaceId = 'spc0';
