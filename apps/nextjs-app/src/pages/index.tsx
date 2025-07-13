@@ -10,7 +10,7 @@ export default function DemoRoute(_props: InferGetServerSidePropsType<typeof get
 export const getServerSideProps: GetServerSideProps<Props> = async (_context) => {
   return {
     redirect: {
-      destination: `/space`,
+      destination: `/base/bse0`,
       permanent: false,
     },
   };
