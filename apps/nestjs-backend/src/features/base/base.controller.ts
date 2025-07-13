@@ -118,6 +118,7 @@ export class BaseController {
     return await this.baseService.updateOrder(baseId, updateOrderRo);
   }
 
+  // remove
   @Get('shared-base')
   async getSharedBase(): Promise<IGetSharedBaseVo> {
     return this.collaboratorService.getSharedBase();
