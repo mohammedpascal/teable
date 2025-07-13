@@ -2,12 +2,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { hasPermission } from '@teable/core';
 import { Edit } from '@teable/icons';
-import { deleteSpace, getSpaceById, updateSpace } from '@teable/openapi';
+import { getSpaceById, updateSpace } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
-import { ConfirmDialog } from '@teable/ui-lib/base';
 import { Button, Input } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { CopyButton } from '@/features/app/components/CopyButton';
 import { SpaceSettingContainer } from '@/features/app/components/SpaceSettingContainer';
@@ -19,7 +18,6 @@ export const GeneralPage = () => {
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
   const spaceId = router.query.spaceId as string;
   const [isEditing, setIsEditing] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState(false);
 
   const { data: space } = useQuery({
     queryKey: ReactQueryKeys.space(spaceId),
@@ -30,13 +28,6 @@ export const GeneralPage = () => {
     mutationFn: updateSpace,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ReactQueryKeys.space(spaceId) });
-    },
-  });
-
-  const { mutate: deleteSpaceMutator } = useMutation({
-    mutationFn: deleteSpace,
-    onSuccess: () => {
-      router.push('/space');
     },
   });
 
@@ -80,9 +71,6 @@ export const GeneralPage = () => {
           <div className="flex flex-col gap-y-2 py-4">
             <div className="flex justify-between">
               <h2 className="mb-2 text-xl font-semibold">{t('common:noun.space')}</h2>
-              <Button variant="destructive" size="sm" onClick={() => setDeleteConfirm(true)}>
-                {t('actions.delete')}
-              </Button>
             </div>
             <div className="flex h-8 items-center gap-x-1 text-sm">
               <span className="w-24 text-gray-500">{t('space:spaceSetting.spaceName')}</span>
@@ -118,20 +106,6 @@ export const GeneralPage = () => {
           </div>
         )}
       </SpaceSettingContainer>
-
-      <ConfirmDialog
-        open={deleteConfirm}
-        onOpenChange={setDeleteConfirm}
-        title={
-          <Trans ns="space" i18nKey={'tip.delete'}>
-            {space?.name}
-          </Trans>
-        }
-        cancelText={t('actions.cancel')}
-        confirmText={t('actions.confirm')}
-        onCancel={() => setDeleteConfirm(false)}
-        onConfirm={() => space && deleteSpaceMutator(space.id)}
-      />
     </>
   );
 };

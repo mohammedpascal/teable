@@ -1,17 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Role } from '@teable/core';
-import { deleteSpace, getSpaceById, getSubscriptionSummary, updateSpace } from '@teable/openapi';
+import { getSpaceById, updateSpace } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { ScrollArea } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { spaceConfig } from '@/features/i18n/space.config';
-import { LevelWithUpgrade } from '../../components/billing/LevelWithUpgrade';
 import { Collaborators } from '../../components/collaborator-manage/space-inner/Collaborators';
 import { SpaceActionBar } from '../../components/space/SpaceActionBar';
 import { SpaceRenaming } from '../../components/space/SpaceRenaming';
-import { useIsCloud } from '../../hooks/useIsCloud';
 import { useSetting } from '../../hooks/useSetting';
 import { DraggableBaseGrid } from './DraggableBaseGrid';
 import { useBaseList } from './useBaseList';
@@ -19,7 +16,6 @@ import { useBaseList } from './useBaseList';
 export const SpaceInnerPage: React.FC = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const isCloud = useIsCloud();
   const ref = useRef<HTMLDivElement>(null);
   const spaceId = router.query.spaceId as string;
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
@@ -39,12 +35,6 @@ export const SpaceInnerPage: React.FC = () => {
   const basesInSpace = useMemo(() => {
     return bases?.filter((base) => base.spaceId === spaceId);
   }, [bases, spaceId]);
-
-  const { data: subscriptionSummary } = useQuery({
-    queryKey: ReactQueryKeys.subscriptionSummary(spaceId),
-    queryFn: () => getSubscriptionSummary(spaceId).then((res) => res.data),
-    enabled: isCloud,
-  });
 
   const { mutateAsync: updateSpaceMutator } = useMutation({
     mutationFn: updateSpace,
@@ -91,16 +81,7 @@ export const SpaceInnerPage: React.FC = () => {
             >
               <h1 className="text-2xl font-semibold">{space.name}</h1>
             </SpaceRenaming>
-            {isCloud && (
-              <LevelWithUpgrade
-                level={subscriptionSummary?.level}
-                status={subscriptionSummary?.status}
-                spaceId={space.id}
-                withUpgrade={space.role === Role.Owner}
-                organization={space.organization}
-              />
-            )}
-            {!isCloud && space.organization && (
+            {space.organization && (
               <div className="text-sm text-gray-500">{space.organization.name}</div>
             )}
           </div>
