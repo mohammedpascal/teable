@@ -1,4 +1,4 @@
-import { Admin, Home, Settings } from '@teable/icons';
+import { Admin, Home } from '@teable/icons';
 import { useSession } from '@teable/sdk/hooks';
 import { cn } from '@teable/ui-lib/shadcn';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
@@ -6,10 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { spaceConfig } from '@/features/i18n/space.config';
-import { SpaceList } from './SpaceList';
 
-export const SpaceSideBar = (props: { isAdmin?: boolean | null }) => {
-  const { isAdmin } = props;
+export const SpaceSideBar = () => {
   const router = useRouter();
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
   const { user } = useSession();
@@ -31,12 +29,6 @@ export const SpaceSideBar = (props: { isAdmin?: boolean | null }) => {
       text: t('noun.organizationPanel'),
       Icon: Admin,
       hidden: !organization?.isAdmin,
-    },
-    {
-      href: '/admin/setting',
-      text: t('noun.adminPanel'),
-      Icon: Settings,
-      hidden: !isAdmin,
     },
   ];
   return (
@@ -66,9 +58,6 @@ export const SpaceSideBar = (props: { isAdmin?: boolean | null }) => {
             );
           })}
         </ul>
-      </div>
-      <div className="flex flex-col overflow-hidden">
-        <SpaceList />
       </div>
     </>
   );

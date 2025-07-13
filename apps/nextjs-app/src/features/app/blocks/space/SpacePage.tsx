@@ -7,7 +7,6 @@ import { useRef, type FC, useMemo } from 'react';
 import { spaceConfig } from '@/features/i18n/space.config';
 import { useIsCloud } from '../../hooks/useIsCloud';
 import { useSetting } from '../../hooks/useSetting';
-import { useTemplateMonitor } from '../base/duplicate/useTemplateMonitor';
 import { useSpaceSubscriptionMonitor } from '../billing/useSpaceSubscriptionMonitor';
 import { SpaceCard } from './SpaceCard';
 import { useBaseList } from './useBaseList';
@@ -18,7 +17,6 @@ export const SpacePage: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
 
-  useTemplateMonitor();
   useSpaceSubscriptionMonitor();
 
   const orderedSpaceList = useSpaceListOrdered();

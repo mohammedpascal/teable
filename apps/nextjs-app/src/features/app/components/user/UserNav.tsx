@@ -48,6 +48,12 @@ export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
           <Settings className="size-4 shrink-0" />
           {t('settings.nav.settings')}
         </DropdownMenuItem>
+
+        <DropdownMenuItem className="flex gap-2" onClick={() => router.push('/admin/setting')}>
+          <Settings className="size-4 shrink-0" />
+          {t('noun.adminPanel')}
+        </DropdownMenuItem>
+
         <DropdownMenuItem className="flex gap-2" asChild>
           <a href={t('help.mainLink')} target="_blank" rel="noreferrer">
             <HelpCircle className="size-4 shrink-0" />
