@@ -10,7 +10,7 @@ export const SpacePageTitle = (props: { dehydratedState?: DehydratedState }) => 
   const { dehydratedState } = props;
   const { t } = useTranslation('space');
   const router = useRouter();
-  const spaceId = router.query.spaceId as string;
+  const spaceId = 'spc0';
 
   const findSpaceName = () => {
     const spaceData = find(dehydratedState?.queries || [], {

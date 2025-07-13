@@ -4,7 +4,7 @@ import { ReactQueryKeys } from '@teable/sdk/config';
 import type { GetServerSideProps } from 'next';
 import type { ReactElement } from 'react';
 import { CollaboratorPage } from '@/features/app/blocks/space-setting';
-import { SpaceSettingLayout } from '@/features/app/layouts/SpaceSettingLayout';
+import { AdminLayout } from '@/features/app/layouts/AdminLayout';
 import { spaceConfig } from '@/features/i18n/space.config';
 import ensureLogin from '@/lib/ensureLogin';
 import { getTranslationsProps } from '@/lib/i18n';
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = withEnv(
 );
 
 Collaborator.getLayout = function getLayout(page: ReactElement, pageProps) {
-  return <SpaceSettingLayout {...pageProps}>{page}</SpaceSettingLayout>;
+  return <AdminLayout {...pageProps}>{page}</AdminLayout>;
 };
 
 export default Collaborator;

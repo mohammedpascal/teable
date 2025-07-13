@@ -1,5 +1,5 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Component, Home, Integration, Users } from '@teable/icons';
+import { Component, Integration, Users } from '@teable/icons';
 import type { IGetSpaceVo } from '@teable/openapi';
 import type { IUser } from '@teable/sdk';
 import { NotificationProvider, ReactQueryKeys, SessionProvider } from '@teable/sdk';
@@ -26,7 +26,7 @@ export const SpaceSettingLayout: React.FC<{
   const { i18n } = useTranslation();
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
   const router = useRouter();
-  const spaceId = router.query.spaceId as string;
+  const spaceId = 'spc0';
   const space = find(dehydratedState?.queries || [], {
     queryHash: JSON.stringify(ReactQueryKeys.space(spaceId)),
   })?.state.data as IGetSpaceVo;
@@ -42,12 +42,6 @@ export const SpaceSettingLayout: React.FC<{
 
   const routes = useMemo(() => {
     return [
-      {
-        Icon: Home,
-        label: t('space:spaceSetting.general'),
-        route: `/space/[spaceId]/setting/general`,
-        pathTo: `/space/${spaceId}/setting/general`,
-      },
       {
         Icon: Users,
         label: t('space:spaceSetting.collaborators'),

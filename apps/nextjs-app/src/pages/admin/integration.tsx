@@ -3,8 +3,8 @@ import { Role } from '@teable/core';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import type { GetServerSideProps } from 'next';
 import type { ReactElement } from 'react';
-import { GeneralPage } from '@/features/app/blocks/space-setting';
-import { SpaceSettingLayout } from '@/features/app/layouts/SpaceSettingLayout';
+import { IntegrationPage } from '@/features/app/blocks/space-setting';
+import { AdminLayout } from '@/features/app/layouts/AdminLayout';
 import { spaceConfig } from '@/features/i18n/space.config';
 import ensureLogin from '@/lib/ensureLogin';
 import { getTranslationsProps } from '@/lib/i18n';
@@ -13,12 +13,12 @@ import type { NextPageWithLayout } from '@/lib/type';
 import withAuthSSR from '@/lib/withAuthSSR';
 import withEnv from '@/lib/withEnv';
 
-const General: NextPageWithLayout = () => <GeneralPage />;
+const Integration: NextPageWithLayout = () => <IntegrationPage />;
 
 export const getServerSideProps: GetServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR(async (context, ssrApi) => {
-      const { spaceId } = context.query;
+      const spaceId = 'spc0';
       const queryClient = new QueryClient();
 
       await queryClient.fetchQuery({
@@ -42,8 +42,8 @@ export const getServerSideProps: GetServerSideProps = withEnv(
   )
 );
 
-General.getLayout = function getLayout(page: ReactElement, pageProps) {
-  return <SpaceSettingLayout {...pageProps}>{page}</SpaceSettingLayout>;
+Integration.getLayout = function getLayout(page: ReactElement, pageProps) {
+  return <AdminLayout {...pageProps}>{page}</AdminLayout>;
 };
 
-export default General;
+export default Integration;

@@ -23,7 +23,7 @@ export const IntegrationPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
-  const spaceId = router.query.spaceId as string;
+  const spaceId = 'spc0';
 
   const { data: integrationList } = useQuery({
     queryKey: ReactQueryKeys.getIntegrationList(spaceId),

@@ -18,7 +18,7 @@ const Integration: NextPageWithLayout = () => <IntegrationPage />;
 export const getServerSideProps: GetServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR(async (context, ssrApi) => {
-      const { spaceId } = context.query;
+      const spaceId = 'spc0';
       const queryClient = new QueryClient();
 
       await queryClient.fetchQuery({

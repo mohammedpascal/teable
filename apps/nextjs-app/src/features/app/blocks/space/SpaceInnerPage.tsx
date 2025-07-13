@@ -17,7 +17,7 @@ export const SpaceInnerPage: React.FC = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const ref = useRef<HTMLDivElement>(null);
-  const spaceId = router.query.spaceId as string;
+  const spaceId = 'spc0';
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
 
   const [renaming, setRenaming] = useState<boolean>(false);
@@ -63,7 +63,7 @@ export const SpaceInnerPage: React.FC = () => {
 
   const onSpaceSetting = () => {
     router.push({
-      pathname: '/space/[spaceId]/setting/general',
+      pathname: '/space/[spaceId]/setting/collaborator',
       query: { spaceId },
     });
   };

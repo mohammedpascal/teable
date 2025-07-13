@@ -16,7 +16,7 @@ export const GeneralPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
-  const spaceId = router.query.spaceId as string;
+  const spaceId = 'spc0';
   const [isEditing, setIsEditing] = useState(false);
 
   const { data: space } = useQuery({

@@ -15,7 +15,7 @@ export const CollaboratorPage = () => {
   const router = useRouter();
   const isHydrated = useIsHydrated();
   const { t } = useTranslation(spaceConfig.i18nNamespaces);
-  const spaceId = router.query.spaceId as string;
+  const spaceId = 'spc0';
 
   const { data: space } = useQuery({
     queryKey: ReactQueryKeys.space(spaceId),
