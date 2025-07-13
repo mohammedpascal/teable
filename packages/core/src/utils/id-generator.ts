@@ -127,11 +127,11 @@ export function identify(id: string): IdPrefix | undefined {
 }
 
 export function generateSpaceId() {
-  return IdPrefix.Space + getRandomString(16);
+  return IdPrefix.Space + '0';
 }
 
 export function generateBaseId() {
-  return IdPrefix.Base + getRandomString(16);
+  return IdPrefix.Base + '0';
 }
 
 export function generateInvitationId() {

@@ -3,6 +3,7 @@ import { join } from 'path';
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import {
   generateAccountId,
+  generateBaseId,
   generateSpaceId,
   generateUserId,
   minidenticon,
@@ -79,6 +80,25 @@ export class UserService {
         createdBy: userId,
       },
     });
+
+    await this.prismaService.txClient().base.create({
+      data: {
+        id: generateBaseId(),
+        name: 'Base',
+        icon: null,
+        order: 1,
+        spaceId: space.id,
+        createdBy: userId,
+      },
+      select: {
+        id: true,
+        name: true,
+        icon: true,
+        spaceId: true,
+        order: true,
+      },
+    });
+
     return space;
   }
 
