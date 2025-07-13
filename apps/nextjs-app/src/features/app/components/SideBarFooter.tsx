@@ -3,7 +3,6 @@ import { Button } from '@teable/ui-lib/shadcn';
 import React from 'react';
 import { NotificationsManage } from '@/features/app/components/notifications/NotificationsManage';
 import { UserAvatar } from '@/features/app/components/user/UserAvatar';
-import { SpaceSubscriptionModal } from '../blocks/billing/SpaceSubscriptionModal';
 import { SettingDialog } from './setting/SettingDialog';
 import { UserNav } from './user/UserNav';
 
@@ -20,7 +19,6 @@ export const SideBarFooter: React.FC = () => {
           </Button>
         </UserNav>
         <SettingDialog />
-        <SpaceSubscriptionModal />
         <NotificationsManage />
       </div>
     </div>
