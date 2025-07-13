@@ -125,7 +125,7 @@ export class LocalAuthService {
   }
 
   async signup(body: ISignup) {
-    const { email, password, defaultSpaceName, refMeta } = body;
+    const { email, password, refMeta } = body;
     await this.verifySignup(body);
 
     const user = await this.userService.getUserByEmail(email);
@@ -158,8 +158,7 @@ export class LocalAuthService {
           lastSignTime: new Date().toISOString(),
           refMeta: isEmpty(refMeta) ? undefined : JSON.stringify(refMeta),
         },
-        undefined,
-        defaultSpaceName
+        undefined
       );
     });
     this.eventEmitterService.emitAsync(Events.USER_SIGNUP, new UserSignUpEvent(res.id));

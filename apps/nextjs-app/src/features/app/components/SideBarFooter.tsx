@@ -3,8 +3,6 @@ import { Button } from '@teable/ui-lib/shadcn';
 import React from 'react';
 import { NotificationsManage } from '@/features/app/components/notifications/NotificationsManage';
 import { UserAvatar } from '@/features/app/components/user/UserAvatar';
-import { DuplicateBaseModal } from '../blocks/base/duplicate/DuplicateBaseModal';
-import { TemplateCreateBaseModal } from '../blocks/base/duplicate/TemplateCreateBaseModal';
 import { SpaceSubscriptionModal } from '../blocks/billing/SpaceSubscriptionModal';
 import { UserNav } from './user/UserNav';
 
@@ -20,8 +18,6 @@ export const SideBarFooter: React.FC = () => {
             {user.name}
           </Button>
         </UserNav>
-        <DuplicateBaseModal />
-        <TemplateCreateBaseModal />
         <SpaceSubscriptionModal />
         <NotificationsManage />
       </div>

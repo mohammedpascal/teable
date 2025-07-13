@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { hasPermission } from '@teable/core';
 import { Database, MoreHorizontal } from '@teable/icons';
 import type { IGetBaseVo } from '@teable/openapi';
-import { PinType, deleteBase, updateBase } from '@teable/openapi';
+import { updateBase } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { Button, Card, CardContent, cn, Input } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
@@ -10,7 +10,6 @@ import { useState, type FC, useRef } from 'react';
 import { Emoji } from '../../components/emoji/Emoji';
 import { EmojiPicker } from '../../components/emoji/EmojiPicker';
 import { BaseActionTrigger } from './component/BaseActionTrigger';
-import { StarButton } from './space-side-bar/StarButton';
 
 interface IBaseCard {
   base: IGetBaseVo;
@@ -27,15 +26,6 @@ export const BaseCard: FC<IBaseCard> = (props) => {
 
   const { mutateAsync: updateBaseMutator } = useMutation({
     mutationFn: updateBase,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ReactQueryKeys.baseAll(),
-      });
-    },
-  });
-
-  const { mutate: deleteBaseMutator } = useMutation({
-    mutationFn: deleteBase,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ReactQueryKeys.baseAll(),
@@ -81,9 +71,7 @@ export const BaseCard: FC<IBaseCard> = (props) => {
     });
   };
 
-  const hasReadPermission = hasPermission(base.role, 'base|read');
   const hasUpdatePermission = hasPermission(base.role, 'base|update');
-  const hasDeletePermission = hasPermission(base.role, 'base|delete');
   return (
     <Card
       className={cn('group cursor-pointer hover:shadow-md overflow-x-hidden', className)}
@@ -127,16 +115,8 @@ export const BaseCard: FC<IBaseCard> = (props) => {
               </h3>
             )}
             <div className="right-0 flex items-center gap-3 md:absolute md:translate-x-full md:opacity-0 md:group-hover:relative md:group-hover:translate-x-0 md:group-hover:opacity-100">
-              <StarButton className="size-4 opacity-100" id={base.id} type={PinType.Base} />
               <div className="shrink-0">
-                <BaseActionTrigger
-                  base={base}
-                  showRename={hasUpdatePermission}
-                  showDuplicate={hasReadPermission}
-                  showDelete={hasDeletePermission}
-                  onDelete={() => deleteBaseMutator(base.id)}
-                  onRename={onRename}
-                >
+                <BaseActionTrigger base={base} showRename={hasUpdatePermission} onRename={onRename}>
                   <Button variant="outline" size={'xs'}>
                     <MoreHorizontal className="size-4" />
                   </Button>

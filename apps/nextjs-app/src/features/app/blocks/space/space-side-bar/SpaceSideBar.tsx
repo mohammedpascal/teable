@@ -1,4 +1,4 @@
-import { Admin, Database, Home, Settings, Trash2 } from '@teable/icons';
+import { Admin, Home, Settings, Trash2 } from '@teable/icons';
 import { useSession } from '@teable/sdk/hooks';
 import { cn } from '@teable/ui-lib/shadcn';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { spaceConfig } from '@/features/i18n/space.config';
-import { PinList } from './PinList';
 import { SpaceList } from './SpaceList';
 
 export const SpaceSideBar = (props: { isAdmin?: boolean | null }) => {
@@ -26,11 +25,6 @@ export const SpaceSideBar = (props: { isAdmin?: boolean | null }) => {
       href: '/space',
       text: t('space:allSpaces'),
       Icon: Home,
-    },
-    {
-      href: '/space/shared-base',
-      text: t('space:sharedBase.title'),
-      Icon: Database,
     },
     {
       href: `/enterprise/${organization?.id}`,
@@ -79,7 +73,6 @@ export const SpaceSideBar = (props: { isAdmin?: boolean | null }) => {
         </ul>
       </div>
       <div className="flex flex-col overflow-hidden">
-        <PinList />
         <SpaceList />
       </div>
     </>

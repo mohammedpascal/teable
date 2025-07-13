@@ -1,12 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Role } from '@teable/core';
-import {
-  PinType,
-  deleteSpace,
-  getSpaceById,
-  getSubscriptionSummary,
-  updateSpace,
-} from '@teable/openapi';
+import { deleteSpace, getSpaceById, getSubscriptionSummary, updateSpace } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { ScrollArea } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
@@ -20,7 +14,6 @@ import { SpaceRenaming } from '../../components/space/SpaceRenaming';
 import { useIsCloud } from '../../hooks/useIsCloud';
 import { useSetting } from '../../hooks/useSetting';
 import { DraggableBaseGrid } from './DraggableBaseGrid';
-import { StarButton } from './space-side-bar/StarButton';
 import { useBaseList } from './useBaseList';
 
 export const SpaceInnerPage: React.FC = () => {
@@ -51,16 +44,6 @@ export const SpaceInnerPage: React.FC = () => {
     queryKey: ReactQueryKeys.subscriptionSummary(spaceId),
     queryFn: () => getSubscriptionSummary(spaceId).then((res) => res.data),
     enabled: isCloud,
-  });
-
-  const { mutate: deleteSpaceMutator } = useMutation({
-    mutationFn: deleteSpace,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ReactQueryKeys.spaceList() });
-      router.push({
-        pathname: '/space',
-      });
-    },
   });
 
   const { mutateAsync: updateSpaceMutator } = useMutation({
@@ -108,7 +91,6 @@ export const SpaceInnerPage: React.FC = () => {
             >
               <h1 className="text-2xl font-semibold">{space.name}</h1>
             </SpaceRenaming>
-            <StarButton className="opacity-100" id={space.id} type={PinType.Space} />
             {isCloud && (
               <LevelWithUpgrade
                 level={subscriptionSummary?.level}
@@ -128,7 +110,6 @@ export const SpaceInnerPage: React.FC = () => {
             buttonSize={'xs'}
             invQueryFilters={ReactQueryKeys.baseAll() as unknown as string[]}
             disallowSpaceInvitation={disallowSpaceInvitation}
-            onDelete={() => deleteSpaceMutator(space.id)}
             onRename={() => setRenaming(true)}
             onSpaceSetting={onSpaceSetting}
           />
@@ -150,7 +131,6 @@ export const SpaceInnerPage: React.FC = () => {
             buttonSize={'xs'}
             invQueryFilters={ReactQueryKeys.baseAll() as unknown as string[]}
             disallowSpaceInvitation={disallowSpaceInvitation}
-            onDelete={() => deleteSpaceMutator(space.id)}
             onRename={() => setRenaming(true)}
             onSpaceSetting={onSpaceSetting}
           />

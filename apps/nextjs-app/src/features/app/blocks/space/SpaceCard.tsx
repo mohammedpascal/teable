@@ -83,7 +83,6 @@ export const SpaceCard: FC<ISpaceCard> = (props) => {
                 {space.name}
               </CardTitle>
             </SpaceRenaming>
-            <StarButton className="opacity-100" id={space.id} type={PinType.Space} />
             {isCloud && (
               <LevelWithUpgrade
                 level={subscription?.level}

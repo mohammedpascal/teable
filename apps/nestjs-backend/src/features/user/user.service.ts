@@ -84,8 +84,7 @@ export class UserService {
 
   async createUserWithSettingCheck(
     user: Omit<Prisma.UserCreateInput, 'name'> & { name?: string },
-    account?: Omit<Prisma.AccountUncheckedCreateInput, 'userId'>,
-    defaultSpaceName?: string
+    account?: Omit<Prisma.AccountUncheckedCreateInput, 'userId'>
   ) {
     const setting = await this.prismaService.setting.findFirst({
       select: {
@@ -97,13 +96,12 @@ export class UserService {
       throw new BadRequestException('The current instance disallow sign up by the administrator');
     }
 
-    return await this.createUser(user, account, defaultSpaceName);
+    return await this.createUser(user, account);
   }
 
   async createUser(
     user: Omit<Prisma.UserCreateInput, 'name'> & { name?: string },
-    account?: Omit<Prisma.AccountUncheckedCreateInput, 'userId'>,
-    defaultSpaceName?: string
+    account?: Omit<Prisma.AccountUncheckedCreateInput, 'userId'>
   ) {
     // defaults
     const defaultNotifyMeta: IUserNotifyMeta = {
@@ -138,7 +136,7 @@ export class UserService {
         isAdmin: isAdmin ? true : null,
       },
     });
-    const { id, name } = newUser;
+    const { id } = newUser;
     if (account) {
       await this.prismaService.txClient().account.create({
         data: { id: generateAccountId(), ...account, userId: id },
@@ -146,7 +144,7 @@ export class UserService {
     }
     await this.cls.runWith(this.cls.get(), async () => {
       this.cls.set('user.id', id);
-      await this.createSpaceBySignup({ name: defaultSpaceName || `${name}'s space` });
+      await this.createSpaceBySignup({ name: `space` });
     });
     return newUser;
   }

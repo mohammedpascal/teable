@@ -66,7 +66,6 @@ export const SpaceItem: React.FC<IProps> = ({ space, isActive }) => {
         >
           <Component className="size-4 shrink-0" />
           <p className="grow truncate">{' ' + name}</p>
-          <StarButton id={id} type={PinType.Space} />
 
           <SpaceOperation
             space={space}
