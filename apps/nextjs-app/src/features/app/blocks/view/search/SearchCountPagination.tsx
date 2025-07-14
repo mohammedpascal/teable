@@ -3,14 +3,7 @@ import { ChevronRight, ChevronLeft } from '@teable/icons';
 import type { ISearchIndexByQueryRo, ISearchIndexVo } from '@teable/openapi';
 import { getSearchIndex, getShareViewSearchIndex } from '@teable/openapi';
 import { type GridView } from '@teable/sdk';
-import {
-  useTableId,
-  useView,
-  useFields,
-  useSearch,
-  usePersonalView,
-  useTableListener,
-} from '@teable/sdk/hooks';
+import { useTableId, useView, useFields, useSearch, useTableListener } from '@teable/sdk/hooks';
 import { Spin } from '@teable/ui-lib/base';
 import { Button } from '@teable/ui-lib/shadcn';
 import { isEmpty } from 'lodash';
@@ -50,7 +43,6 @@ export const SearchCountPagination = forwardRef<
   const fields = useFields();
   const [currentIndex, setCurrentIndex] = useState(1);
   const { gridRef, setSearchCursor, recordMap } = useGridSearchStore();
-  const { personalViewCommonQuery } = usePersonalView();
   const [isEnd, setIsEnd] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -90,7 +82,6 @@ export const SearchCountPagination = forwardRef<
       search: searchQuery,
       groupBy: view.group,
       filter: view.filter,
-      ...personalViewCommonQuery,
     };
 
     const searchFn = shareView

@@ -1,13 +1,7 @@
 import { FieldType } from '@teable/core';
 import { ExpandRecorder } from '@teable/sdk/components';
 import { ShareViewContext } from '@teable/sdk/context';
-import {
-  useTableId,
-  useView,
-  useFields,
-  useTablePermission,
-  usePersonalView,
-} from '@teable/sdk/hooks';
+import { useTableId, useView, useFields, useTablePermission } from '@teable/sdk/hooks';
 import type { AttachmentField, GalleryView, IFieldInstance } from '@teable/sdk/model';
 import { useContext, useMemo, useState, type ReactNode } from 'react';
 import { GalleryContext } from './GalleryContext';
@@ -15,7 +9,6 @@ import { GalleryContext } from './GalleryContext';
 export const GalleryProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as GalleryView | undefined;
-  const { personalViewCommonQuery } = usePersonalView();
   const { shareId } = useContext(ShareViewContext) ?? {};
   const { sort, filter } = view ?? {};
   const permission = useTablePermission();
@@ -25,21 +18,13 @@ export const GalleryProvider = ({ children }: { children: ReactNode }) => {
   const [expandRecordId, setExpandRecordId] = useState<string>();
 
   const recordQuery = useMemo(() => {
-    const { ignoreViewQuery } = personalViewCommonQuery ?? {};
     const baseQuery = {
       orderBy: sort?.sortObjs,
       filter: filter,
     };
 
     if (shareId) return baseQuery;
-
-    if (ignoreViewQuery) {
-      return {
-        ...baseQuery,
-        ignoreViewQuery,
-      };
-    }
-  }, [shareId, sort, filter, personalViewCommonQuery]);
+  }, [shareId, sort, filter]);
 
   const galleryPermission = useMemo(() => {
     return {

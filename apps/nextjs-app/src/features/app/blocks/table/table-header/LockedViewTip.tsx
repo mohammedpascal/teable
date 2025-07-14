@@ -1,5 +1,4 @@
 import { X } from '@teable/icons';
-import { usePersonalView } from '@teable/sdk/hooks';
 import { Button } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
@@ -8,7 +7,6 @@ import { useLockedViewTipStore } from '../store';
 export const LockedViewTip = () => {
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { setVisible } = useLockedViewTipStore();
-  const { openPersonalView } = usePersonalView();
 
   return (
     <div className="relative flex w-full items-center justify-between py-1 text-xs text-gray-500 duration-500 animate-in fade-in dark:text-gray-400 sm:justify-center">
@@ -18,7 +16,6 @@ export const LockedViewTip = () => {
           size="xs"
           className="flex h-5"
           onClick={() => {
-            openPersonalView();
             setVisible(false);
           }}
         >

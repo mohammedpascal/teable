@@ -62,7 +62,6 @@ import {
   useFieldCellEditable,
   useFields,
   useIsTouchDevice,
-  usePersonalView,
   useRowCount,
   useSession,
   useSSRRecord,
@@ -151,10 +150,8 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
 
   const groupCollection = useGridGroupCollection();
 
-  const { personalViewCommonQuery } = usePersonalView();
   const { viewQuery, collapsedGroupIds, onCollapsedGroupChanged } = useGridCollapsedGroup(
     generateLocalId(tableId, activeViewId),
-    personalViewCommonQuery
   );
 
   const { onVisibleRegionChanged, onReset, recordMap, groupPoints, recordsQuery, searchHitIndex } =

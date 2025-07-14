@@ -11,15 +11,7 @@ import type {
 } from '@teable/openapi';
 import { clear, copy, deleteSelection, paste, temporaryPaste } from '@teable/openapi';
 import type { CombinedSelection, IRecordIndexMap } from '@teable/sdk';
-import {
-  useBaseId,
-  useFields,
-  useSearch,
-  useTableId,
-  useView,
-  useViewId,
-  usePersonalView,
-} from '@teable/sdk';
+import { useBaseId, useFields, useSearch, useTableId, useView, useViewId } from '@teable/sdk';
 import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'next-i18next';
@@ -49,11 +41,9 @@ export const useSelectionOperation = (props?: {
   const fields = useFields();
   const view = useView();
   const { searchQuery: search } = useSearch();
-  const { personalViewCommonQuery } = usePersonalView();
   // Parameters for retrieving selected records in plugins
   useSyncSelectionStore({
     groupBy: view?.group,
-    personalViewCommonQuery,
     collapsedGroupIds,
     search,
     fields,
@@ -67,7 +57,6 @@ export const useSelectionOperation = (props?: {
     mutationFn: (copyRo: IRangesRo) =>
       copy(tableId!, {
         ...copyRo,
-        ...personalViewCommonQuery,
         viewId,
         groupBy,
         collapsedGroupIds,
@@ -82,7 +71,6 @@ export const useSelectionOperation = (props?: {
     mutationFn: (pasteRo: IPasteRo) =>
       paste(tableId!, {
         ...pasteRo,
-        ...personalViewCommonQuery,
         viewId,
         groupBy,
         collapsedGroupIds,
@@ -95,14 +83,13 @@ export const useSelectionOperation = (props?: {
 
   const { mutateAsync: temporaryPasteReq } = useMutation({
     mutationFn: (temporaryPasteRo: ITemporaryPasteRo) =>
-      temporaryPaste(tableId!, { ...temporaryPasteRo, ...personalViewCommonQuery, viewId }),
+      temporaryPaste(tableId!, { ...temporaryPasteRo, viewId }),
   });
 
   const { mutateAsync: clearReq } = useMutation({
     mutationFn: (clearRo: IRangesRo) =>
       clear(tableId!, {
         ...clearRo,
-        ...personalViewCommonQuery,
         viewId,
         groupBy,
         collapsedGroupIds,
@@ -114,7 +101,6 @@ export const useSelectionOperation = (props?: {
     mutationFn: (deleteRo: IRangesRo) =>
       deleteSelection(tableId!, {
         ...deleteRo,
-        ...personalViewCommonQuery,
         viewId,
         groupBy,
         collapsedGroupIds,

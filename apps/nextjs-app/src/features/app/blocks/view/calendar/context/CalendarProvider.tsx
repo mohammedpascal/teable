@@ -1,13 +1,7 @@
 import { ColorConfigType, FieldType } from '@teable/core';
 import { ExpandRecorder } from '@teable/sdk/components';
 import { ShareViewContext } from '@teable/sdk/context';
-import {
-  useTableId,
-  useView,
-  useFields,
-  useTablePermission,
-  usePersonalView,
-} from '@teable/sdk/hooks';
+import { useTableId, useView, useFields, useTablePermission } from '@teable/sdk/hooks';
 import type { CalendarView } from '@teable/sdk/model';
 import { useContext, useMemo, useState, type ReactNode } from 'react';
 import { useCalendarFields } from '../hooks';
@@ -16,7 +10,6 @@ import { CalendarContext } from './CalendarContext';
 export const CalendarProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as CalendarView | undefined;
-  const { personalViewCommonQuery } = usePersonalView();
   const { shareId } = useContext(ShareViewContext) ?? {};
   const { sort, filter } = view ?? {};
   const permission = useTablePermission();
@@ -26,21 +19,13 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
   const { startDateField, endDateField, titleField, colorConfig } = useCalendarFields();
 
   const recordQuery = useMemo(() => {
-    const { ignoreViewQuery } = personalViewCommonQuery ?? {};
     const baseQuery = {
       orderBy: sort?.sortObjs,
       filter: filter,
     };
 
     if (shareId) return baseQuery;
-
-    if (ignoreViewQuery) {
-      return {
-        ...baseQuery,
-        ignoreViewQuery,
-      };
-    }
-  }, [shareId, sort, filter, personalViewCommonQuery]);
+  }, [shareId, sort, filter]);
 
   const calendarPermission = useMemo(() => {
     const startDateEditable = Boolean(startDateField && !startDateField.isComputed);
