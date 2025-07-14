@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { GUIDE_API_BUTTON } from '@/components/Guide';
 import { SearchButton } from '../search/SearchButton';
-import { PersonalViewSwitch } from './components';
 import { SharePopover } from './SharePopover';
 import { ToolBarButton } from './ToolBarButton';
 
@@ -84,7 +83,6 @@ const OthersList = ({
           </Button>
         </PopoverContent>
       </Popover>
-      <PersonalViewSwitch textClassName={textClassName} buttonClassName={buttonClassName} />
     </div>
   );
 };
