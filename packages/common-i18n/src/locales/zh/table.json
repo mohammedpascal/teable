@@ -243,6 +243,7 @@
       "enableValidateFieldNotNull": "禁止空值",
       "knowMore": "了解更多",
       "linkFieldKnowMoreLink": "https://help.teable.cn/zh/basic/field/advanced/link",
+      "showByField": "选择展示的列",
       "filterByView": "从视图筛选记录",
       "filter": "筛选记录",
       "hideFields": "隐藏字段",
@@ -375,7 +376,8 @@
     "graph": {
       "tableLabel": "表格名称",
       "effectCells": "影响单元格数",
-      "estimatedTime": "预计完成"
+      "estimatedTime": "预计完成",
+      "linkFieldCount": "影响关联字段的个数"
     },
     "integrity": {
       "check": "检查",

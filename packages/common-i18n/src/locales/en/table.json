@@ -244,6 +244,7 @@
       "enableValidateFieldNotNull": "Forbid non-empty values",
       "knowMore": "know more",
       "linkFieldKnowMoreLink": "https://help.teable.io/en/basic/field/advanced/link",
+      "showByField": "Show records by field",
       "filterByView": "Filter records by view",
       "filter": "Filter records",
       "hideFields": "Hide fields",
@@ -376,7 +377,8 @@
     "graph": {
       "tableLabel": "Table label",
       "effectCells": "May effect cells",
-      "estimatedTime": "Estimated time"
+      "estimatedTime": "Estimated time",
+      "linkFieldCount": "Affects the number of linked fields"
     },
     "integrity": {
       "check": "Check",

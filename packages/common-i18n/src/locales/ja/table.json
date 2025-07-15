@@ -235,6 +235,7 @@
       "enableValidateFieldNotNull": "NULLでない値の検証を有効にする",
       "knowMore": "さらに詳しく",
       "linkFieldKnowMoreLink": "https://help.teable.io/en/basic/field/advanced/link",
+      "showByField": "フィールドでレコードを表示する",
       "filterByView": "ビューでレコードをフィルターする",
       "filter": "レコードをフィルターする",
       "hideFields": "フィールドを非表示にする",
@@ -364,7 +365,8 @@
     "graph": {
       "tableLabel": "テーブルラベル",
       "effectCells": "セルに影響を与える可能性があります",
-      "estimatedTime": "推定所要時間"
+      "estimatedTime": "推定所要時間",
+      "linkFieldCount": "影響するリンクフィールドの数"
     },
     "integrity": {
       "check": "チェック",

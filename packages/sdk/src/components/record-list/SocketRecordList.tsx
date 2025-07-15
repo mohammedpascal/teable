@@ -9,7 +9,7 @@ import { RecordList } from './RecordList';
 import { RecordSearch } from './RecordSearch';
 
 interface ISocketRecordListProps {
-  primaryFieldId: string;
+  lookupFieldId: string;
   take?: number;
   selectedRecordIds?: string[];
   onSelected?: (record: ILinkCellValue) => void;
@@ -17,14 +17,14 @@ interface ISocketRecordListProps {
 }
 
 export const SocketRecordList = (props: ISocketRecordListProps) => {
-  const { selectedRecordIds, primaryFieldId, onSelected, onClick } = props;
+  const { selectedRecordIds, lookupFieldId, onSelected, onClick } = props;
   const rowCount = useRowCount();
   const { setValue: setSearch, setFieldId, setHideNotMatchRow } = useSearch();
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
-    setFieldId(primaryFieldId);
-  }, [primaryFieldId, setFieldId]);
+    setFieldId(lookupFieldId);
+  }, [lookupFieldId, setFieldId]);
 
   useEffect(() => {
     setHideNotMatchRow(true);
@@ -37,7 +37,6 @@ export const SocketRecordList = (props: ISocketRecordListProps) => {
   }, [setSearch]);
 
   const { onVisibleRegionChanged, recordMap } = useInfiniteRecords();
-
   useEffect(() => updateSearchParam(searchInput), [searchInput, updateSearchParam]);
 
   return (
@@ -45,21 +44,23 @@ export const SocketRecordList = (props: ISocketRecordListProps) => {
       className="h-full"
       onSelect={(index) => {
         const record = recordMap[index];
-        if (!record) {
+        if (!record || !lookupFieldId) {
           return;
         }
-        onClick?.({ id: record.id, title: record.name });
+        const title = record.getCellValueAsString(lookupFieldId);
+        onClick?.({ id: record.id, title });
         if (!selectedRecordIds?.includes(record.id)) {
           onSelected?.(record);
         }
       }}
       itemRender={(index) => {
         const record = recordMap[index];
-        if (!record) {
+        if (!record || !lookupFieldId) {
           return <Skeleton className="size-full"></Skeleton>;
         }
+        const title = record.getCellValueAsString(lookupFieldId);
         const isActive = selectedRecordIds?.includes(record.id);
-        return <RecordItem title={record.name} active={isActive} />;
+        return <RecordItem title={title} active={isActive} />;
       }}
       rowCount={rowCount ?? 0}
       onVisibleChange={(range) => {
