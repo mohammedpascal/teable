@@ -373,17 +373,18 @@ export class FieldService implements IReadonlyAdapterService {
     });
   }
 
-  async findUniqueIndexesForField(dbTableName: string, dbFieldName: string, fieldId: string) {
+  async findUniqueIndexesForField(dbTableName: string, dbFieldName: string) {
     const indexesQuery = this.dbProvider.getTableIndexes(dbTableName);
     const indexes = await this.prismaService
       .txClient()
-      .$queryRawUnsafe<{ name: string }[]>(indexesQuery);
+      .$queryRawUnsafe<{ name: string; columns: string; isUnique: boolean }[]>(indexesQuery);
+
     return indexes
-      .filter(
-        (index) =>
-          index.name.includes(`${dbFieldName.toLowerCase()}_unique`) ||
-          index.name.includes(`${fieldId.toLowerCase()}_unique`)
-      )
+      .filter((index) => {
+        const { columns, isUnique } = index;
+        const columnsArray = JSON.parse(columns) as string[];
+        return isUnique && columnsArray.includes(dbFieldName);
+      })
       .map((index) => index.name);
   }
 
@@ -410,7 +411,7 @@ export class FieldService implements IReadonlyAdapterService {
     }
 
     const dbTableName = table.dbTableName;
-    const matchedIndexes = await this.findUniqueIndexesForField(dbTableName, dbFieldName, fieldId);
+    const matchedIndexes = await this.findUniqueIndexesForField(dbTableName, dbFieldName);
 
     const fieldValidationSqls = this.knex.schema
       .alterTable(dbTableName, (table) => {
