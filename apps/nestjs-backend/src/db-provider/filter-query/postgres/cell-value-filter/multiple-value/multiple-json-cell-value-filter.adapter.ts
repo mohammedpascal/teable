@@ -142,6 +142,35 @@ export class MultipleJsonCellValueFilterAdapter extends CellValueFilterPostgres 
     return builderClient;
   }
 
+  isNotExactlyOperatorHandler(
+    builderClient: Knex.QueryBuilder,
+    _operator: IFilterOperator,
+    value: ILiteralValueList
+  ): Knex.QueryBuilder {
+    const { type } = this.field;
+    const sqlPlaceholders = this.createSqlPlaceholders(value);
+
+    builderClient.where((builder) => {
+      if (isUserOrLink(type)) {
+        builder
+          .whereRaw(
+            `NOT (jsonb_path_query_array(COALESCE(??, '[]')::jsonb, '$[*].id') @> to_jsonb(ARRAY[${sqlPlaceholders}]) AND to_jsonb(ARRAY[${sqlPlaceholders}]) @> jsonb_path_query_array(COALESCE(??, '[]')::jsonb, '$[*].id'))`,
+            [this.tableColumnRef, ...value, ...value, this.tableColumnRef]
+          )
+          .orWhereNull(this.tableColumnRef);
+      } else {
+        builder
+          .whereRaw(
+            `NOT (COALESCE(??, '[]')::jsonb @> to_jsonb(ARRAY[${sqlPlaceholders}]) AND to_jsonb(ARRAY[${sqlPlaceholders}]) @> COALESCE(??, '[]')::jsonb)`,
+            [this.tableColumnRef, ...value, ...value, this.tableColumnRef]
+          )
+          .orWhereNull(this.tableColumnRef);
+      }
+    });
+
+    return builderClient;
+  }
+
   containsOperatorHandler(
     builderClient: Knex.QueryBuilder,
     _operator: IFilterOperator,
