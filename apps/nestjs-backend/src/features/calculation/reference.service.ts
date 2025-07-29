@@ -21,9 +21,14 @@ import { difference, groupBy, isEmpty, isEqual, keyBy, uniq } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { Timing } from '../../utils/timing';
 import { preservedDbFieldNames } from '../field/constant';
-import type { IFieldInstance, IFieldMap } from '../field/model/factory';
-import { createFieldInstanceByRaw, createFieldInstanceByVo } from '../field/model/factory';
+import type { IFieldInstance } from '../field/model/factory';
+import {
+  createFieldInstanceByRaw,
+  createFieldInstanceByVo,
+  IFieldMap,
+} from '../field/model/factory';
 import type { AutoNumberFieldDto } from '../field/model/field-dto/auto-number-field.dto';
 import type { CreatedTimeFieldDto } from '../field/model/field-dto/created-time-field.dto';
 import type { FormulaFieldDto } from '../field/model/field-dto/formula-field.dto';
@@ -309,6 +314,7 @@ export class ReferenceService {
     await this.calculate({ ...result, fkRecordMap });
   }
 
+  @Timing()
   async calculate(props: {
     startZone: { [fieldId: string]: string[] };
     fieldMap: IFieldMap;
@@ -546,6 +552,7 @@ export class ReferenceService {
     throw new BadRequestException(`Unsupported field type ${field.type}`);
   }
 
+  @Timing()
   private calculateFormula(
     field: FormulaFieldDto | AutoNumberFieldDto | CreatedTimeFieldDto | LastModifiedTimeFieldDto,
     fieldMap: IFieldMap,
