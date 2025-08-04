@@ -38,6 +38,9 @@ export class LoggerModule {
               res.setHeader(X_REQUEST_ID, id);
               return id;
             },
+            customReceivedMessage: function () {
+              return 'request received';
+            },
             transport:
               process.env.NODE_ENV !== 'production' ? { target: 'pino-pretty' } : undefined,
             formatters: {
@@ -47,8 +50,11 @@ export class LoggerModule {
                 const { traceId, spanId } = span.spanContext();
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const sessionId = (object as any)?.res?.req?.sessionID;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const reqPath = (object as any)?.res?.req?.route?.path;
                 return {
                   ...object,
+                  route: reqPath,
                   is_access_token: Boolean(cls.get('accessTokenId')),
                   user_id: cls.get('user.id'),
                   session_id: sessionId,
