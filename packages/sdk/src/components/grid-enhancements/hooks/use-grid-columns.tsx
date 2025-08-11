@@ -1,5 +1,17 @@
-import type { IAttachmentCellValue, INumberShowAs, ISingleLineTextShowAs } from '@teable/core';
-import { RowHeightLevel, CellValueType, ColorUtils, FieldType } from '@teable/core';
+import type {
+  IAttachmentCellValue,
+  IButtonFieldCellValue,
+  IButtonFieldOptions,
+  INumberShowAs,
+  ISingleLineTextShowAs,
+} from '@teable/core';
+import {
+  RowHeightLevel,
+  CellValueType,
+  ColorUtils,
+  FieldType,
+  checkButtonClickable,
+} from '@teable/core';
 import { useTheme } from '@teable/next-themes';
 import { keyBy } from 'lodash';
 import { LRUCache } from 'lru-cache';
@@ -182,7 +194,6 @@ export const useCreateCellValue2GridDisplay = (
         // eslint-disable-next-line sonarjs/cognitive-complexity
       ): ICell => {
         const field = fields[col];
-
         if (field == null) return { type: CellType.Loading };
 
         const {
@@ -490,6 +501,23 @@ export const useCreateCellValue2GridDisplay = (
               customEditor: (props, editorRef) => (
                 <GridUserEditor ref={editorRef} field={field} record={record} {...props} />
               ),
+            };
+          }
+          case FieldType.Button: {
+            return {
+              ...baseCellProps,
+              readonly:
+                readonly ||
+                !checkButtonClickable(
+                  field.options as IButtonFieldOptions,
+                  cellValue as IButtonFieldCellValue
+                ),
+              type: CellType.Button,
+              data: {
+                tableId: field.tableId,
+                cellValue: cellValue as IButtonFieldCellValue,
+                fieldOptions: field.options,
+              },
             };
           }
           default: {
