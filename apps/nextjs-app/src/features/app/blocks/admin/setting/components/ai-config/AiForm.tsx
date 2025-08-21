@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { IAIIntegrationConfig } from '@teable/openapi';
 import type { LLMProvider } from '@teable/openapi/src/admin/setting';
-import { aiConfigVoSchema, testLLM } from '@teable/openapi/src/admin/setting';
+import { aiConfigVoSchema, chatModelAbilityType, testLLM } from '@teable/openapi/src/admin/setting';
 import type { ISettingVo } from '@teable/openapi/src/admin/setting/get';
 import {
   Form,
@@ -11,13 +12,18 @@ import {
   FormLabel,
   Switch,
   toast,
+  Tooltip,
+  TooltipContent,
+  TooltipPortal,
+  TooltipProvider,
+  TooltipTrigger,
 } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { AIModelPreferencesCard } from './AIModelPreferencesCard';
 import { AIProviderCard } from './AIProviderCard';
-import { generateModelKeyList } from './utils';
+import { generateModelKeyList, parseModelKey } from './utils';
 
 export function AIConfigForm({
   aiConfig,
@@ -42,18 +48,21 @@ export function AIConfigForm({
   const llmProviders = form.watch('llmProviders') ?? [];
   const models = generateModelKeyList(llmProviders);
   const { reset } = form;
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'space']);
 
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
-  function onSubmit(data: NonNullable<ISettingVo['aiConfig']>) {
-    setAiConfig(data);
-    toast({
-      title: t('admin.setting.ai.configUpdated'),
-    });
-  }
+  const onSubmit = useCallback(
+    (data: NonNullable<ISettingVo['aiConfig']>) => {
+      setAiConfig(data);
+      toast({
+        title: t('admin.setting.ai.configUpdated'),
+      });
+    },
+    [setAiConfig, t]
+  );
 
   function updateProviders(providers: LLMProvider[]) {
     form.setValue('llmProviders', providers);
@@ -62,6 +71,43 @@ export function AIConfigForm({
   }
 
   const onTest = async (data: Required<LLMProvider>) => testLLM(data);
+
+  const switchEnable =
+    !aiConfig?.chatModel?.lg || !models.some((model) => model.modelKey === aiConfig?.chatModel?.lg);
+
+  // useEffect(() => {
+  //   if (switchEnable && form.getValues('enable')) {
+  //     form.setValue('enable', false);
+  //     onSubmit(form.getValues());
+  //   }
+  // }, [form, onSubmit, switchEnable]);
+
+  const onTestChatModelAbility = async (chatModel: IAIIntegrationConfig['chatModel']) => {
+    const testModelKey = chatModel?.lg;
+    if (!testModelKey) {
+      return;
+    }
+    const testModel = parseModelKey(testModelKey);
+    const testLLMIndex = llmProviders.findIndex(
+      (provider) =>
+        provider.type === testModel.type &&
+        provider.models.includes(testModel.model) &&
+        provider.name === testModel.name
+    );
+    const testLLMProvider = llmProviders[testLLMIndex] as Required<LLMProvider>;
+    if (!testLLMProvider) {
+      return;
+    }
+    return testLLM({
+      ...testLLMProvider,
+      modelKey: testModelKey,
+      ability: Object.values(chatModelAbilityType.Values),
+    }).then((res) => {
+      if (res.success) {
+        return res.ability;
+      }
+    });
+  };
 
   return (
     <Form {...form}>
@@ -76,13 +122,27 @@ export function AIConfigForm({
                 <FormDescription>{t('admin.setting.ai.enableDescription')}</FormDescription>
               </div>
               <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={(checked) => {
-                    field.onChange(checked);
-                    onSubmit(form.getValues());
-                  }}
-                />
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Switch
+                        disabled={switchEnable}
+                        checked={field.value}
+                        onCheckedChange={(checked) => {
+                          field.onChange(checked);
+                          onSubmit(form.getValues());
+                        }}
+                      />
+                    </TooltipTrigger>
+                    <TooltipPortal>
+                      {switchEnable && (
+                        <TooltipContent>
+                          <p>{t('space:aiSetting.enableSwitchTips')}</p>
+                        </TooltipContent>
+                      )}
+                    </TooltipPortal>
+                  </Tooltip>
+                </TooltipProvider>
               </FormControl>
             </FormItem>
           )}
@@ -92,6 +152,11 @@ export function AIConfigForm({
           control={form.control}
           models={models}
           onChange={() => onSubmit(form.getValues())}
+          onTestChatModelAbility={onTestChatModelAbility}
+          onEnableAI={() => {
+            form.setValue('enable', true);
+            onSubmit(form.getValues());
+          }}
         />
       </form>
     </Form>

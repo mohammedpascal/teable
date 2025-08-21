@@ -661,14 +661,130 @@
       "generateScriptAction": "生成脚本",
       "getScriptInput": "获取脚本输入",
       "getTeableApi": "获取 API",
+      "dataVisualization": "数据可视化",
+      "updateBase": "更新数据库信息",
       "args": "参数",
-      "result": "结果"
+      "result": "结果",
+      "thinking": "思考中...",
+      "toBeConfirmed": "待确认",
+      "errorMessage": "错误信息"
+    },
+    "tools": {
+      "getTeableApi": "获取 Teable API",
+      "readFiles": "读取文件",
+      "writeFile": "写入文件",
+      "deleteFiles": "删除文件",
+      "listFiles": "列出文件",
+      "addDependencies": "添加依赖",
+      "checkBuildErrors": "检查构建错误",
+      "lint": "代码检查"
+    },
+    "fallback": {
+      "previewLoadFailed": "参数错误",
+      "retry": "重试 {{count}} 次",
+      "chatAborted": "对话已中断"
+    },
+    "preview": {
+      "deletedTable": "表格不存在或已删除",
+      "deletedView": "视图不存在或已删除",
+      "deletedField": "字段不存在或已删除",
+      "deletedRecords": "记录不存在或已删除"
+    },
+    "agentName": {
+      "tableOperatorAgent": "表格工具",
+      "viewOperatorAgent": "视图工具",
+      "fieldOperatorAgent": "字段工具",
+      "recordOperatorAgent": "记录工具",
+      "buildBaseAgent": "构建数据库工具",
+      "buildAutomationAgent": "构建自动化工具"
+    },
+    "action": {
+      "createTable": "创建表格",
+      "updateTableName": "更新表格名称",
+      "deleteTable": "删除表格",
+      "createView": "创建视图",
+      "updateViewName": "更新视图名称",
+      "deleteView": "删除视图",
+      "createField": "创建字段",
+      "deleteField": "删除字段",
+      "updateField": "更新字段",
+      "createRecord": "创建记录",
+      "deleteRecord": "删除记录",
+      "updateRecord": "更新记录",
+
+      "updateBase": "更新数据库信息",
+      "planTask": "规划任务",
+      "generateTables": "生成表格",
+      "generatePrimaryFields": "生成主键字段",
+      "generateFields": "生成字段",
+      "generateViews": "生成视图",
+      "generateRecords": "生成记录",
+      "generateAIFields": "生成 AI 字段",
+      "generateLinkFields": "生成关联字段",
+      "generateLookupFields": "生成查找字段",
+      "generateLinkFieldsRecords": "生成关联字段记录",
+
+      "generateWorkflow": "生成工作流",
+      "generateTrigger": "生成触发器",
+      "generateScriptAction": "生成 script 节点",
+      "generateSendMailAction": "生成发送邮件节点",
+      "generateAction": "生成节点",
+
+      "getRelativeData": "获取相关数据",
+      "getPreviousNodeOutputVariables": "获取其他节点输出变量",
+      "getApiJson": "获取 API 信息",
+      "generateScriptAndDependencies": "生成脚本和依赖",
+
+      "initialize": "初始化环境",
+      "rename": "生成应用名称",
+      "buildTest": "构建测试",
+      "developTask": "开发任务",
+      "generateSummary": "生成总结",
+      "previewEnvironment": "准备预览环境",
+
+      "analyzingAttachment": "分析附件中..."
     },
     "codeBlock": {
       "hiddenLines": "{{count}}行已隐藏",
       "collapseCode": "收起代码",
       "code": "代码",
       "preview": "预览"
+    },
+    "buildFlow": {
+      "progress": "构建进度",
+      "completed": "应用构建完成",
+      "completedDesc": "所有步骤已成功完成，应用已准备好预览",
+      "stepStatus": {
+        "initializing": "正在初始化环境...",
+        "naming": "正在生成应用名称...",
+        "planning": "正在分析需求并制定开发计划...",
+        "developing": "正在编写代码和实现功能...",
+        "summarizing": "正在整理开发结果...",
+        "deploying": "正在部署到预览环境...",
+        "testing": "正在构建测试..."
+      },
+      "moduleStatus": {
+        "running": "执行中",
+        "completed": "已完成",
+        "error": "执行失败",
+        "pending": "等待中"
+      },
+      "toolStatus": {
+        "running": "执行中",
+        "completed": "已完成",
+        "error": "执行失败"
+      }
+    },
+    "generateScript": {
+      "generateSuccess": "生成脚本成功"
+    },
+    "buildBase": {
+      "title": "生成数据库",
+      "generateSuccess": "生成数据库成功"
+    },
+    "buildAutomation": {
+      "title": "生成自动化",
+      "generateSuccess": "生成自动化成功"
     },
     "newChat": "新对话",
     "noModel": "暂无可用模型",
@@ -687,13 +803,29 @@
       "searchEmpty": "暂无匹配的上下文",
       "emptyContext": "暂无可添加的上下文"
     },
-    "inputPlaceholder": "发送消息...",
+    "inputPlaceholder": "用 Teable 构建您的商业应用",
     "thought": "深度思考",
     "meta": {
       "timeCostUnit": "秒",
       "timeCostDescription": "生成耗时{{timeCost}}秒",
       "creditDescription": "消耗{{credits}}算力",
       "tokenDescription": "本次消耗：{{tokens}} tokens"
+    },
+    "dataVisualization": {
+      "error": "数据可视化失败"
+    },
+    "tips": {
+      "modelTips": "只允许管理员在后台配置"
+    },
+    "attachment": {
+      "imageNotSupported": "不支持图片",
+      "attachmentSizeExceeded": "附件大小超过限制 {{size}}MB"
+    },
+    "suggestions": {
+      "recommend": "推荐",
+      "ask": "提问",
+      "analyze": "分析",
+      "build": "构建"
     }
   }
 }

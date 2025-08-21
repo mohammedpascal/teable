@@ -32,6 +32,7 @@ import { AttachmentsStorageService } from './attachments-storage.service';
 import StorageAdapter from './plugins/adapter';
 import type { LocalStorage } from './plugins/local';
 import { InjectStorageAdapter } from './plugins/storage';
+import { getExtensionPreview } from './utils';
 @Injectable()
 export class AttachmentsService {
   private logger = new Logger(AttachmentsService.name);
@@ -85,7 +86,7 @@ export class AttachmentsService {
       if (!attachment) {
         throw new BadRequestException(`Invalid path: ${path}`);
       }
-      respHeaders['Content-Type'] = attachment.mimetype;
+      respHeaders['Content-Type'] = getExtensionPreview(attachment.mimetype);
     }
 
     const headers: Record<string, string> = respHeaders ?? {};
@@ -238,7 +239,10 @@ export class AttachmentsService {
     return await this.notifyToAttachmentItem(token, file.originalname);
   }
 
-  async uploadFromUrl(fileUrl: string): Promise<IAttachmentItem> {
+  async uploadFromUrl(
+    fileUrl: string,
+    uploadType: UploadType = UploadType.Table
+  ): Promise<IAttachmentItem> {
     const MAX_FILE_SIZE = this.thresholdConfig.maxOpenapiAttachmentUploadSize;
 
     const { contentLength, contentType, tempFilePath } = await this.getFileInfo(
@@ -254,7 +258,7 @@ export class AttachmentsService {
 
     const filename = this.getFilenameFromUrl(fileUrl);
     const { token, url } = await this.signature({
-      type: UploadType.Table,
+      type: uploadType,
       contentLength,
       contentType,
       internal: true,

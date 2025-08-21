@@ -73,6 +73,7 @@ export class SettingOpenApiController {
             name: provider.name,
             models: provider.models,
           })) ?? [],
+        chatModel: aiConfig?.chatModel,
       },
     };
   }

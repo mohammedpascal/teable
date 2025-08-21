@@ -31,11 +31,30 @@ export const llmProviderSchema = z.object({
 
 export type LLMProvider = z.infer<typeof llmProviderSchema>;
 
+export const chatModelAbilitySchema = z.object({
+  image: z.boolean().optional(),
+  pdf: z.boolean().optional(),
+  webSearch: z.boolean().optional(),
+});
+
+export const chatModelAbilityType = chatModelAbilitySchema.keyof();
+
+export type IChatModelAbilityType = z.infer<typeof chatModelAbilityType>;
+
+export type IChatModelAbility = z.infer<typeof chatModelAbilitySchema>;
+
+export const chatModelSchema = z.object({
+  lg: z.string().optional(),
+  md: z.string().optional(),
+  sm: z.string().optional(),
+  ability: chatModelAbilitySchema.optional(),
+});
+
 export const aiConfigSchema = z.object({
   llmProviders: z.array(llmProviderSchema).default([]),
   embeddingModel: z.string().optional(),
   translationModel: z.string().optional(),
-  codingModel: z.string().optional(),
+  chatModel: chatModelSchema.optional(),
 });
 
 export type IAIConfig = z.infer<typeof aiConfigSchema>;
@@ -46,6 +65,12 @@ export const aiConfigVoSchema = aiConfigSchema.merge(
   })
 );
 
+export const appConfigSchema = z.object({
+  creditCount: z.number().min(0).optional(),
+});
+
+export type IAppConfig = z.infer<typeof appConfigSchema>;
+
 export const updateSettingRoSchema = z.object({
   disallowSignUp: z.boolean().optional(),
   disallowSpaceCreation: z.boolean().optional(),
@@ -53,6 +78,7 @@ export const updateSettingRoSchema = z.object({
   enableEmailVerification: z.boolean().optional(),
   aiConfig: aiConfigVoSchema.optional(),
   enableWaitlist: z.boolean().optional(),
+  appConfig: appConfigSchema.optional(),
   brandName: z.string().optional(),
 });
 

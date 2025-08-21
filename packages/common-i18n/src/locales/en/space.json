@@ -36,6 +36,8 @@
     "spaceId": "Space ID",
     "importBase": "Import"
   },
+  "collaborators": "Collaborators",
+  "more": "more",
   "pin": {
     "add": "Add to pin",
     "remove": "Remove from pin",
@@ -50,15 +52,22 @@
     "moveBaseSuccessDescription": "{{baseName}} has been moved to {{spaceName}}"
   },
   "sharedBase": {
-    "title": "Shared bases",
-    "description": "Bases shared with you will appear here",
-    "empty": "No shared bases yet"
+    "title": "Shared with me",
+    "description": "Bases shared with me will appear here",
+    "empty": "No bases shared with me yet"
   },
   "integration": {
     "title": "Integrations",
     "description": "Manage integrations of your space",
     "addIntegration": "Add integration",
     "ai": "AI"
+  },
+  "aiSetting": {
+    "title": "AI Settings",
+    "description": "Manage AI settings of your space",
+    "enableTips": "Enable AI to use AI features in your space instead of using the system AI",
+    "enable": "Enable AI",
+    "enableSwitchTips": "Please configure the large coding model before enabling"
   },
   "import": {
     "importing": "Importing",
@@ -72,5 +81,9 @@
   },
   "recentlyBase": {
     "title": "Recently Visited"
+  },
+  "emptySpace": {
+    "title": "Hi {{userName}}!",
+    "description": "Let's start managing your work with your first base."
   }
 }

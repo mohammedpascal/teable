@@ -7,8 +7,7 @@ import type { LanguageModelV1 } from 'ai';
 import { generateText, streamText } from 'ai';
 import { BaseConfig, IBaseConfig } from '../../configs/base.config';
 import { SettingService } from '../setting/setting.service';
-import { TASK_MODEL_MAP } from './constant';
-import { getAdaptedProviderOptions, modelProviders } from './util';
+import { getAdaptedProviderOptions, getTaskModelKey, modelProviders } from './util';
 
 @Injectable()
 export class AiService {
@@ -46,6 +45,16 @@ export class AiService {
     };
   }
 
+  async getModelInstance(
+    modelKey: string,
+    llmProviders: LLMProvider[],
+    isImageGeneration: true
+  ): Promise<ReturnType<OpenAIProvider['image']>>;
+  async getModelInstance(
+    modelKey: string,
+    llmProviders?: LLMProvider[],
+    isImageGeneration?: false
+  ): Promise<LanguageModelV1>;
   async getModelInstance(
     modelKey: string,
     llmProviders: LLMProvider[] = [],
@@ -92,12 +101,23 @@ export class AiService {
     }
 
     if (!aiIntegrationConfig) {
+      const lg = aiConfig?.chatModel?.lg;
+      const sm = aiConfig?.chatModel?.sm;
+      const md = aiConfig?.chatModel?.md;
+      const ability = aiConfig?.chatModel?.ability;
+
       return {
         ...aiConfig,
         llmProviders: aiConfig?.llmProviders.map((provider) => ({
           ...provider,
           isInstance: true,
         })),
+        chatModel: {
+          sm: sm ?? lg,
+          md: md ?? lg,
+          lg: lg,
+          ability,
+        },
       } as IAIConfig;
     }
 
@@ -105,7 +125,12 @@ export class AiService {
       return aiIntegrationConfig as IAIConfig;
     }
 
+    const lg = aiIntegrationConfig.chatModel?.lg;
+    const sm = aiIntegrationConfig.chatModel?.sm;
+    const md = aiIntegrationConfig.chatModel?.md;
+    const ability = aiIntegrationConfig.chatModel?.ability;
     return {
+      ...aiIntegrationConfig,
       llmProviders: [
         ...aiIntegrationConfig.llmProviders,
         ...aiConfig.llmProviders.map((provider) => ({
@@ -113,10 +138,13 @@ export class AiService {
           isInstance: true,
         })),
       ],
-      codingModel: aiIntegrationConfig.codingModel ?? aiConfig.codingModel,
-      embeddingModel: aiIntegrationConfig.embeddingModel ?? aiConfig.embeddingModel,
-      translationModel: aiIntegrationConfig.translationModel ?? aiConfig.translationModel,
-    };
+      chatModel: {
+        sm: sm ?? lg,
+        md: md ?? lg,
+        lg: lg,
+        ability,
+      },
+    } as IAIConfig;
   }
 
   async getSimplifiedAIConfig(baseId: string) {
@@ -131,7 +159,7 @@ export class AiService {
           isInstance,
         })),
       };
-    } catch (error) {
+    } catch {
       return null;
     }
   }
@@ -139,8 +167,7 @@ export class AiService {
   private async getGenerationModelInstance(baseId: string, aiGenerateRo: IAiGenerateRo) {
     const { modelKey: _modelKey, task = Task.Coding } = aiGenerateRo;
     const config = await this.getAIConfig(baseId);
-    const currentTaskModel = TASK_MODEL_MAP[task];
-    const modelKey = _modelKey ?? (config[currentTaskModel as keyof typeof config] as string);
+    const modelKey = _modelKey ?? getTaskModelKey(config, task);
     return await this.getModelInstance(modelKey, config.llmProviders);
   }
 
@@ -182,5 +209,36 @@ export class AiService {
         p.models.includes(model)
     );
     return !!providerConfig;
+  }
+
+  async getChatModelInstance(baseId: string) {
+    const { chatModel, llmProviders } = await this.getAIConfig(baseId);
+    if (!chatModel?.lg) {
+      throw new Error('AI chat model lg is not set');
+    }
+    const { type, model, name } = this.parseModelKey(chatModel?.lg);
+    const lgProvider = llmProviders.find(
+      (p) =>
+        p.name.toLowerCase() === name.toLowerCase() &&
+        p.type.toLowerCase() === type.toLowerCase() &&
+        p.models.includes(model)
+    );
+    if (!lgProvider) {
+      throw new Error('AI provider configuration is not set');
+    }
+    if (!chatModel?.sm) {
+      throw new Error('AI chat model sm is not set');
+    }
+    if (!chatModel?.md) {
+      throw new Error('AI chat model md is not set');
+    }
+
+    return {
+      sm: await this.getModelInstance(chatModel?.sm, llmProviders),
+      md: await this.getModelInstance(chatModel?.md, llmProviders),
+      lg: await this.getModelInstance(chatModel?.lg, llmProviders),
+      ability: chatModel?.ability,
+      isInstance: lgProvider.isInstance,
+    };
   }
 }

@@ -13,6 +13,9 @@ export default abstract class StorageAdapter {
       case UploadType.Table:
       case UploadType.Import:
       case UploadType.ExportBase:
+      case UploadType.Comment:
+      case UploadType.App:
+      case UploadType.ChatFile:
         return storageConfig().privateBucket;
       case UploadType.Avatar:
       case UploadType.OAuth:
@@ -20,9 +23,8 @@ export default abstract class StorageAdapter {
       case UploadType.Plugin:
       case UploadType.Logo:
       case UploadType.Template:
+      case UploadType.ChatDataVisualizationCode:
         return storageConfig().publicBucket;
-      case UploadType.Comment:
-        return storageConfig().privateBucket;
       default:
         throw new BadRequestException('Invalid upload type');
     }
@@ -50,6 +52,12 @@ export default abstract class StorageAdapter {
         return 'export-base';
       case UploadType.Template:
         return 'template';
+      case UploadType.ChatDataVisualizationCode:
+        return 'chat-data-visualization-code';
+      case UploadType.App:
+        return 'app';
+      case UploadType.ChatFile:
+        return 'chat-file';
       default:
         throw new BadRequestException('Invalid upload type');
     }

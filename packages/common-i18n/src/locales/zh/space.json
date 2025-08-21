@@ -36,6 +36,8 @@
     "spaceId": "空间 ID",
     "importBase": "导入"
   },
+  "collaborators": "协作者",
+  "more": "更多",
   "pin": {
     "add": "添加到收藏",
     "remove": "从收藏中移除",
@@ -50,15 +52,22 @@
     "moveBaseSuccessDescription": "{{baseName}}已成功移动到{{spaceName}}"
   },
   "sharedBase": {
-    "title": "共享数据库",
-    "description": "与您共享的数据库将显示在这里",
-    "empty": "暂无共享数据库"
+    "title": "分享给我的",
+    "description": "与您分享的数据库将显示在这里",
+    "empty": "暂无分享给我的数据库"
   },
   "integration": {
     "title": "集成",
     "description": "管理空间集成",
     "addIntegration": "添加集成",
     "ai": "AI"
+  },
+  "aiSetting": {
+    "title": "AI 配置",
+    "description": "管理空间 AI 配置",
+    "enableTips": "启用空间 AI 配置后, 将会优先使用空间 AI 配置",
+    "enable": "启用 AI",
+    "enableSwitchTips": "开启前，请配置好大型编码模型"
   },
   "import": {
     "importing": "导入中",
@@ -72,5 +81,9 @@
   },
   "recentlyBase": {
     "title": "最近访问"
+  },
+  "emptySpace": {
+    "title": "Hi {{userName}}！",
+    "description": "创建您的第一个数据库，开始让数据变简单"
   }
 }

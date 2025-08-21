@@ -661,14 +661,129 @@
       "generateScriptAction": "Generate script action",
       "getScriptInput": "Get script input",
       "getTeableApi": "Get API",
+      "dataVisualization": "Data visualization",
+      "updateBase": "Update database info",
       "args": "Arguments",
-      "result": "Result"
+      "result": "Result",
+      "thinking": "Thinking...",
+      "toBeConfirmed": "To be confirmed",
+      "errorMessage": "Error message"
+    },
+    "tools": {
+      "getTeableApi": "Get Teable API",
+      "readFiles": "Read Files",
+      "writeFile": "Write File",
+      "deleteFiles": "Delete Files",
+      "listFiles": "List Files",
+      "addDependencies": "Add Dependencies",
+      "checkBuildErrors": "Check Build Errors",
+      "lint": "Lint Code"
+    },
+    "fallback": {
+      "previewLoadFailed": "Preview load failed",
+      "retry": "Retry {{count}} time",
+      "chatAborted": "aborted"
+    },
+    "preview": {
+      "deletedTable": "Deleted table",
+      "deletedView": "Deleted view",
+      "deletedField": "Deleted field",
+      "deletedRecords": "Deleted records"
+    },
+    "agentName": {
+      "tableOperatorAgent": "Table Agent",
+      "viewOperatorAgent": "View Agent",
+      "fieldOperatorAgent": "Field Agent",
+      "recordOperatorAgent": "Record Agent",
+      "buildBaseAgent": "Build Base Agent",
+      "buildAutomationAgent": "Build Automation Agent"
+    },
+    "action": {
+      "createTable": "Create table",
+      "updateTableName": "Update table name",
+      "deleteTable": "Delete table",
+      "createView": "Create view",
+      "updateViewName": "Update view name",
+      "deleteView": "Delete view",
+      "createField": "Create field",
+      "deleteField": "Delete field",
+      "updateField": "Update field",
+      "createRecord": "Create record",
+      "deleteRecord": "Delete record",
+      "updateRecord": "Update record",
+
+      "updateBase": "Update database info",
+      "planTask": "Plan task",
+      "generateTables": "Generate tables",
+      "generatePrimaryFields": "Generate primary fields",
+      "generateFields": "Generate fields",
+      "generateViews": "Generate views",
+      "generateRecords": "Generate records",
+      "generateAIFields": "Generate AI fields",
+      "generateLinkFields": "Generate link fields",
+      "generateLookupFields": "Generate lookup fields",
+      "generateLinkFieldsRecords": "Generate link fields records",
+
+      "generateWorkflow": "Generate workflow",
+      "generateTrigger": "Generate trigger",
+      "generateScriptAction": "Generate script action node",
+      "generateSendMailAction": "Generate send mail action node",
+      "generateAction": "Generate action node",
+      "initialize": "Initialize environment",
+      "rename": "Generate app name",
+      "buildTest": "Build test",
+      "developTask": "Develop task",
+      "generateSummary": "Generate summary",
+      "previewEnvironment": "Prepare preview environment",
+
+      "getRelativeData": "Get relative data",
+      "getPreviousNodeOutputVariables": "Get previous node output variables",
+      "getApiJson": "Get API info",
+      "generateScriptAndDependencies": "Generate script and dependencies",
+
+      "analyzingAttachment": "Analyzing attachment..."
     },
     "codeBlock": {
       "hiddenLines": "{{count}} lines hidden",
       "collapseCode": "Collapse code",
       "code": "Code",
       "preview": "Preview"
+    },
+    "buildFlow": {
+      "progress": "Build Progress",
+      "completed": "App Build Completed",
+      "completedDesc": "All steps completed successfully, app is ready for preview",
+      "stepStatus": {
+        "initializing": "Creating app and initializing environment...",
+        "naming": "Generating app name...",
+        "planning": "Analyzing requirements and planning development...",
+        "developing": "Writing code and implementing features...",
+        "summarizing": "Organizing development results...",
+        "deploying": "Deploying to preview environment...",
+        "testing": "Building test..."
+      },
+      "moduleStatus": {
+        "running": "Running",
+        "completed": "Completed",
+        "error": "Failed",
+        "pending": "Pending"
+      },
+      "toolStatus": {
+        "running": "Running",
+        "completed": "Completed",
+        "error": "Failed"
+      }
+    },
+    "generateScript": {
+      "generateSuccess": "Generate script successfully"
+    },
+    "buildBase": {
+      "title": "Build base",
+      "generateSuccess": "Generate database successfully"
+    },
+    "buildAutomation": {
+      "title": "Build automation",
+      "generateSuccess": "Generate automation successfully"
     },
     "newChat": "New Chat",
     "noModel": "No available models",
@@ -687,13 +802,29 @@
       "searchEmpty": "No matching context found",
       "emptyContext": "No context to add"
     },
-    "inputPlaceholder": "Send message...",
+    "inputPlaceholder": "Build your business app with Teable",
     "thought": "Thinking",
     "meta": {
       "timeCostUnit": "s",
       "timeCostDescription": "Generation time: {{timeCost}}s",
       "creditDescription": "{{credits}} credits consumed",
       "tokenDescription": "Tokens used: {{tokens}}"
+    },
+    "dataVisualization": {
+      "error": "Data visualization failed"
+    },
+    "tips": {
+      "modelTips": "Only administrators can configure"
+    },
+    "attachment": {
+      "imageNotSupported": "Image is not supported",
+      "attachmentSizeExceeded": "Attachment size exceeds the limit {{size}}MB"
+    },
+    "suggestions": {
+      "recommend": "Recommended",
+      "ask": "Ask",
+      "analyze": "Analyze",
+      "build": "Build"
     }
   }
 }

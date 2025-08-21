@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useState, type FC, useRef } from 'react';
 import { Emoji } from '../../components/emoji/Emoji';
 import { EmojiPicker } from '../../components/emoji/EmojiPicker';
+import { useChatPanelStore } from '../../components/sidebar/useChatPanelStore';
 import { ColorBg } from './ColorBg';
 import { BaseActionTrigger } from './component/BaseActionTrigger';
 import { StarButton } from './space-side-bar/StarButton';
@@ -18,15 +19,17 @@ import { StarButton } from './space-side-bar/StarButton';
 interface IBaseCard {
   base: IGetBaseVo;
   className?: string;
+  spaceName?: string;
 }
 
 export const BaseCard: FC<IBaseCard> = (props) => {
-  const { base, className } = props;
+  const { base, className, spaceName } = props;
   const router = useRouter();
   const queryClient = useQueryClient();
   const [renaming, setRenaming] = useState<boolean>();
   const inputRef = useRef<HTMLInputElement>(null);
   const [baseName, setBaseName] = useState<string>(base.name);
+  const { setExpanded } = useChatPanelStore();
 
   const { mutateAsync: updateBaseMutator } = useMutation({
     mutationFn: updateBase,
@@ -72,6 +75,7 @@ export const BaseCard: FC<IBaseCard> = (props) => {
   };
 
   const intoBase = () => {
+    setExpanded(false);
     if (renaming) {
       return;
     }
@@ -102,7 +106,10 @@ export const BaseCard: FC<IBaseCard> = (props) => {
 
   return (
     <Card
-      className={cn('relative group cursor-pointer hover:shadow-md overflow-x-hidden', className)}
+      className={cn(
+        'relative group cursor-pointer hover:shadow-md overflow-x-hidden shadow-none',
+        className
+      )}
       onClick={intoBase}
     >
       <ColorBg emoji={base.icon || undefined} />
@@ -134,9 +141,16 @@ export const BaseCard: FC<IBaseCard> = (props) => {
                 />
               </form>
             ) : (
-              <h3 className="line-clamp-2 flex-1 text-sm" title={base.name}>
-                {base.name}
-              </h3>
+              <div className="flex-1">
+                <h3 className="line-clamp-2 text-sm" title={base.name}>
+                  {base.name}
+                </h3>
+                {spaceName && (
+                  <p className="mt-0.5 truncate text-xs text-muted-foreground" title={spaceName}>
+                    {spaceName}
+                  </p>
+                )}
+              </div>
             )}
           </div>
           <div className="absolute right-0 top-1 flex gap-2 px-1 md:opacity-0 md:group-hover:opacity-100">
