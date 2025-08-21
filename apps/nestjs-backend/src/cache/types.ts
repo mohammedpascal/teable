@@ -1,7 +1,8 @@
 import type { IColumnMeta, IFieldVo, IOtOperation, IViewPropertyKeys, IViewVo } from '@teable/core';
-import type { IRecord } from '@teable/openapi';
+import type { IRecord, MailType } from '@teable/openapi';
 import type { ICellContext } from '../features/calculation/utils/changes';
 import type { IOpsMap } from '../features/calculation/utils/compose-maps';
+import type { ISendMailOptions } from '../features/mail-sender/mail-helpers';
 import type { ISessionData } from '../types/session';
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -26,6 +27,9 @@ export interface ICacheStore {
   [key: `signin:attempts:${string}`]: number;
   [key: `signin:lockout:${string}`]: boolean;
   [key: `query-params:${string}`]: Record<string, unknown>;
+  [key: `mail-sender:notify-mail-merge:${string}`]: (ISendMailOptions & {
+    mailType: MailType;
+  })[];
   [key: `waitlist:invite-code:${string}`]: number;
 }
 

@@ -6,16 +6,26 @@ import {
   Get,
   Patch,
   Post,
+  Put,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import type { IPublicSettingVo, ISettingVo, ITestLLMVo, IUploadLogoVo } from '@teable/openapi';
+import type {
+  IPublicSettingVo,
+  ISetSettingMailTransportConfigVo,
+  ISettingVo,
+  ITestLLMVo,
+  IUploadLogoVo,
+} from '@teable/openapi';
 import {
   IUpdateSettingRo,
   testLLMRoSchema,
   updateSettingRoSchema,
   ITestLLMRo,
+  setSettingMailTransportConfigRoSchema,
+  ISetSettingMailTransportConfigRo,
+  SettingKey,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../../zod.validation.pipe';
 import { Permissions } from '../../auth/decorators/permissions.decorator';
@@ -41,7 +51,17 @@ export class SettingOpenApiController {
   @Public()
   @Get('public')
   async getPublicSetting(): Promise<IPublicSettingVo> {
-    const setting = await this.settingOpenApiService.getSetting();
+    const setting = await this.settingOpenApiService.getSetting([
+      SettingKey.INSTANCE_ID,
+      SettingKey.BRAND_NAME,
+      SettingKey.BRAND_LOGO,
+      SettingKey.DISALLOW_SIGN_UP,
+      SettingKey.DISALLOW_SPACE_CREATION,
+      SettingKey.DISALLOW_SPACE_INVITATION,
+      SettingKey.ENABLE_EMAIL_VERIFICATION,
+      SettingKey.ENABLE_WAITLIST,
+      SettingKey.AI_CONFIG,
+    ]);
     const { aiConfig, ...rest } = setting;
     return {
       ...rest,
@@ -92,5 +112,25 @@ export class SettingOpenApiController {
     @Body(new ZodValidationPipe(testLLMRoSchema)) testLLMRo: ITestLLMRo
   ): Promise<ITestLLMVo> {
     return await this.settingOpenApiService.testLLM(testLLMRo);
+  }
+
+  @Permissions('instance|update')
+  @Put('set-mail-transport-config')
+  async setMailTransportConfig(
+    @Body(new ZodValidationPipe(setSettingMailTransportConfigRoSchema))
+    setMailTransportConfigRo: ISetSettingMailTransportConfigRo
+  ): Promise<ISetSettingMailTransportConfigVo> {
+    await this.settingOpenApiService.setMailTransportConfig(setMailTransportConfigRo);
+
+    return {
+      ...setMailTransportConfigRo,
+      transportConfig: {
+        ...setMailTransportConfigRo.transportConfig,
+        auth: {
+          user: setMailTransportConfigRo.transportConfig.auth.user,
+          pass: '',
+        },
+      },
+    };
   }
 }
