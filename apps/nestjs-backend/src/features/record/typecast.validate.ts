@@ -447,7 +447,7 @@ export class TypeCastAndValidate {
       }
     );
 
-    const allAttachmentsPromises = unsignedValues.map((cellValues) => {
+    return unsignedValues.map((cellValues) => {
       const attachmentCellValue = cellValues as (IAttachmentItem & {
         thumbnailPath?: { sm?: string; lg?: string };
       })[];
@@ -455,9 +455,8 @@ export class TypeCastAndValidate {
         return attachmentCellValue;
       }
 
-      return Promise.all(attachmentCellValue);
+      return attachmentCellValue;
     });
-    return await Promise.all(allAttachmentsPromises);
   }
 
   /**

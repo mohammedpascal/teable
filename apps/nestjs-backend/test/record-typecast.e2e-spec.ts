@@ -142,6 +142,18 @@ describe('Record Typecast', () => {
 
   describe('attachment field', () => {
     let table: ITableFullVo;
+    let tmpPath: string;
+    beforeAll(async () => {
+      tmpPath = path.resolve(
+        path.join(StorageAdapter.TEMPORARY_DIR, `test-prefill-attachment-field.txt`)
+      );
+      fs.writeFileSync(tmpPath, 'xxxx');
+    });
+
+    afterAll(async () => {
+      fs.unlinkSync(tmpPath);
+    });
+
     beforeEach(async () => {
       table = await createTable(baseId, {
         name: 'table1',
@@ -170,11 +182,6 @@ describe('Record Typecast', () => {
     });
 
     it('prefill attachment field', async () => {
-      const tmpPath = path.resolve(
-        path.join(StorageAdapter.TEMPORARY_DIR, `test-prefill-attachment-field.txt`)
-      );
-      fs.writeFileSync(tmpPath, 'xxxx');
-
       const attachment = await uploadAttachment(
         table.id,
         table.records[0].id,
