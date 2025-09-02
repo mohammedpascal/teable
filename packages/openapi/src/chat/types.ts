@@ -346,8 +346,8 @@ export const taskPlanSchema = z.object({
 
             Create View (createView):
             - Generate view name and view type, separate by "|"
-            - The view type only supports these types: grid, form, kanban, gallery, calendar
-            - Only generate calendar when you have date field in the table
+            - The view type only supports these types: ${Object.values(ViewType).join(', ')}
+            - Only generate calendar when you have date field in the table, do not create 'form' for the first view
             - Example: "Overall, grid | Status, kanban"
           `),
             })
