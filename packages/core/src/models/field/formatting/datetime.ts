@@ -24,10 +24,14 @@ export enum TimeFormatting {
 export const datetimeFormattingSchema = z
   .object({
     date: z.string().openapi({
-      description: 'the display formatting of the date.',
+      description:
+        'the display formatting of the date. you can use the following presets: ' +
+        Object.values(DateFormattingPreset).join(', '),
     }),
     time: z.nativeEnum(TimeFormatting).openapi({
-      description: 'the display formatting of the time.',
+      description:
+        'the display formatting of the time. you can use the following presets: ' +
+        Object.values(TimeFormatting).join(', '),
     }),
     timeZone: timeZoneStringSchema,
   })

@@ -17,7 +17,11 @@ export const VisibleFields: React.FC<{
   const hiddenFieldIds = useMemo(
     () =>
       totalFields
-        .filter(({ id, isPrimary }) => !isPrimary && !columnMeta?.[id]?.visible)
+        .filter(
+          ({ id, isPrimary }) =>
+            !isPrimary &&
+            !(columnMeta?.[id]?.visible === undefined ? true : columnMeta?.[id]?.visible)
+        )
         .map(({ id }) => id),
     [totalFields, columnMeta]
   );

@@ -23,12 +23,15 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
         if (withHidden) {
           return true;
         }
+        // make sure these view rich display as default
         if (
-          viewType === ViewType.Form ||
           viewType === ViewType.Kanban ||
           viewType === ViewType.Gallery ||
           viewType === ViewType.Calendar
         ) {
+          return columnMeta?.[id]?.visible === undefined ? true : columnMeta?.[id]?.visible;
+        }
+        if (viewType === ViewType.Form) {
           return columnMeta?.[id]?.visible;
         }
         return !columnMeta?.[id]?.hidden;
