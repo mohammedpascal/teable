@@ -365,7 +365,9 @@
     "deletedTime": "Gelöscht Zeit",
     "fromSpace": "Von \"{{name}}\" Space",
     "permanentDeleteTips": "Sind Sie sicher, dass Sie \"{{name}}\" {{resource}}? dauerhaft löschen möchten",
-    "resetTrashConfirm": "Sind Sie sicher, dass Sie den Papierkorb leeren wollen?"
+    "resetTrashConfirm": "Sind Sie sicher, dass Sie den Papierkorb leeren wollen?",
+    "addToTrash": "In den Papierkorb verschieben",
+    "description": "Daten im Papierkorb belegen immer noch Speicherplatz für Datensätze und Anhänge."
   },
   "pluginCenter": {
     "pluginUrlEmpty": "Plugin hat keine Url",
@@ -432,5 +434,8 @@
       "previewAppError": "Anwendungsfehler",
       "sendErrorToAI": "Fehler an AI senden"
     }
+  },
+  "base": {
+    "deleteTip": "Sind Sie sicher, dass Sie \"{{name}}\" Base löschen möchten?"
   }
 }
