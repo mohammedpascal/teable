@@ -11,6 +11,7 @@
 </div>
 
 <div align="center">
+<a href="https://www.producthunt.com/products/teable?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-teable&#0045;2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=984142&theme=light&t=1757399990820" alt="Teable - The&#0032;first&#0032;AI&#0032;Database&#0032;Agent&#0032;that&#0032;transforms&#0032;data&#0032;into&#0032;action | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 <a href="https://trendshift.io/repositories/8516" target="_blank"><img src="https://trendshift.io/api/badge/repositories/8516" alt="teableio%2Fteable | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
