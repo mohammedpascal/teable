@@ -208,7 +208,7 @@ export const CodingModels = ({
             <div className="flex items-center gap-2">
               <Button
                 size="xs"
-                className="relative ml-2"
+                className="relative ml-2 min-w-32"
                 variant="outline"
                 onClick={async (e) => {
                   e.stopPropagation();
@@ -231,38 +231,28 @@ export const CodingModels = ({
                   {t(`admin.setting.ai.chatModelTest.text`)}
                 </span>
               </Button>
-              <Button
-                size="xs"
-                variant="ghost"
-                disabled={!value?.ability?.webSearch}
-                onClick={() => {
-                  onChange({
-                    ...value,
-                    ability: {
-                      ...value?.ability,
-                      webSearch: false,
-                    },
-                  });
-                }}
-              >
-                {t('admin.setting.ai.chatModelAbility.disabledWebSearch')}
-              </Button>
             </div>
           </div>
 
           <div className="flex w-full items-center gap-2">
-            {Object.values(chatModelAbilityType.Values).map((type) => (
-              <Button
-                key={type}
-                variant="outline"
-                size="sm"
-                className="flex w-full items-center gap-1 rounded-md border px-1 py-0.5 text-xs"
-                disabled={!value?.ability?.[type]}
-              >
-                {iconMap[type]}
-                <span>{t(`admin.setting.ai.chatModelAbility.${type}`)}</span>
-              </Button>
-            ))}
+            {Object.values(chatModelAbilityType.Values)
+              .filter((type) => type !== 'webSearch')
+              .map((type) => (
+                <Button
+                  key={type}
+                  variant="outline"
+                  size="sm"
+                  className="flex w-full items-center gap-1 rounded-md border px-1 py-0.5 text-xs"
+                  disabled={!value?.ability?.[type]}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                >
+                  {iconMap[type]}
+                  <span>{t(`admin.setting.ai.chatModelAbility.${type}`)}</span>
+                </Button>
+              ))}
           </div>
         </div>
       </div>
