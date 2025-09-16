@@ -7,12 +7,14 @@ import { intersection, union } from 'lodash';
 import { ClsService } from 'nestjs-cls';
 import type { IClsStore } from '../../types/cls';
 import { getMaxLevelRole } from '../../utils/get-max-level-role';
+import { CollaboratorModel } from '../model/collaborator';
 
 @Injectable()
 export class PermissionService {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly cls: ClsService<IClsStore>
+    private readonly cls: ClsService<IClsStore>,
+    private readonly collaboratorModel: CollaboratorModel
   ) {}
 
   private getDepartmentIds() {
@@ -20,17 +22,20 @@ export class PermissionService {
     return departments?.map((department) => department.id) || [];
   }
 
+  async getSpaceCollaborators(spaceId: string, principalId: string[]) {
+    const collaborators = await this.collaboratorModel.getCollaboratorRawByResourceId(spaceId);
+    return collaborators.filter((collaborator) => principalId.includes(collaborator.principalId));
+  }
+
+  async getBaseCollaborators(baseId: string, principalId: string[]) {
+    const collaborators = await this.collaboratorModel.getCollaboratorRawByResourceId(baseId);
+    return collaborators.filter((collaborator) => principalId.includes(collaborator.principalId));
+  }
+
   async getRoleBySpaceId(spaceId: string, includeInactiveResource?: boolean) {
     const userId = this.cls.get('user.id');
     const departmentIds = this.getDepartmentIds();
-    const collaborators = await this.prismaService.collaborator.findMany({
-      where: {
-        principalId: { in: [...departmentIds, userId] },
-        resourceId: spaceId,
-        resourceType: CollaboratorType.Space,
-      },
-      select: { roleName: true },
-    });
+    const collaborators = await this.getSpaceCollaborators(spaceId, [...departmentIds, userId]);
     const space = await this.prismaService.space.findFirst({
       where: {
         id: spaceId,
@@ -52,14 +57,7 @@ export class PermissionService {
     const departmentIds = this.getDepartmentIds();
     const userId = this.cls.get('user.id');
 
-    const collaborators = await this.prismaService.collaborator.findMany({
-      where: {
-        principalId: { in: [...departmentIds, userId] },
-        resourceId: baseId,
-        resourceType: CollaboratorType.Base,
-      },
-      select: { roleName: true },
-    });
+    const collaborators = await this.getBaseCollaborators(baseId, [...departmentIds, userId]);
     if (!collaborators.length) {
       return null;
     }
