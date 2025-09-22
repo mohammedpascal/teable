@@ -21,6 +21,7 @@ import {
 import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { AIControlCard } from './AIControlCard';
 import { AIModelPreferencesCard } from './AIModelPreferencesCard';
 import { AIProviderCard } from './AIProviderCard';
 import { generateModelKeyList, parseModelKey } from './utils';
@@ -149,7 +150,6 @@ export function AIConfigForm({
             {t('admin.configuration.list.llmApi.errorTips')}
           </div>
         )}
-
         <AIModelPreferencesCard
           control={form.control}
           models={models}
@@ -157,6 +157,14 @@ export function AIConfigForm({
           onTestChatModelAbility={onTestChatModelAbility}
           onEnableAI={() => {
             form.setValue('enable', true);
+            onSubmit(form.getValues());
+          }}
+        />
+        <AIControlCard
+          aiControlEnable={aiConfig?.capabilities?.enabled ?? false}
+          disableActions={aiConfig?.capabilities?.disableActions || []}
+          onChange={(value: { enabled: boolean; disableActions: string[] }) => {
+            form.setValue('capabilities', value);
             onSubmit(form.getValues());
           }}
         />
