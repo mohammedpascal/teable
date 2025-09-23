@@ -113,8 +113,8 @@ export class AiService {
           isInstance: true,
         })),
         chatModel: {
-          sm: sm ?? lg,
-          md: md ?? lg,
+          sm: sm || lg,
+          md: md || lg,
           lg: lg,
           ability,
         },
@@ -139,8 +139,8 @@ export class AiService {
         })),
       ],
       chatModel: {
-        sm: sm ?? lg,
-        md: md ?? lg,
+        sm: sm || lg,
+        md: md || lg,
         lg: lg,
         ability,
       },
@@ -158,15 +158,11 @@ export class AiService {
     });
 
     const aiIntegrationConfig = aiIntegration?.config ? JSON.parse(aiIntegration.config) : null;
-    const disableAIActionsFromSpaceIntegration = aiIntegrationConfig?.capabilities?.enabled
-      ? aiIntegrationConfig?.capabilities?.disableActions
-      : null;
+    const disableAIActionsFromSpaceIntegration = aiIntegrationConfig?.capabilities?.disableActions;
 
     // get instance ai setting
     const { aiConfig } = await this.settingService.getSetting();
-    const disableAIActionsFromInstanceAiSetting = aiConfig?.capabilities?.enabled
-      ? aiConfig?.capabilities?.disableActions
-      : null;
+    const disableAIActionsFromInstanceAiSetting = aiConfig?.capabilities?.disableActions;
 
     return {
       disableActions:
