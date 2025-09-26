@@ -23,7 +23,7 @@ export const SingleLineTextOptions = (props: {
   };
 
   return (
-    <div className="form-control space-y-2">
+    <div className="form-control space-y-4 border-t pt-4">
       {!isLookup && (
         <DefaultValue onReset={() => onDefaultValueChange(undefined)}>
           <Input
