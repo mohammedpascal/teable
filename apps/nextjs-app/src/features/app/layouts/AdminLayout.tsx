@@ -12,6 +12,7 @@ import { SidebarHeaderLeft } from '@/features/app/components/sidebar/SidebarHead
 import { useSdkLocale } from '@/features/app/hooks/useSdkLocale';
 import { AppLayout } from '@/features/app/layouts';
 import { SidebarContent } from '../components/sidebar/SidebarContent';
+import { adminConfig } from '@/features/i18n/admin.config';
 
 export const AdminLayout: React.FC<{
   children: React.ReactNode;
@@ -20,7 +21,7 @@ export const AdminLayout: React.FC<{
 }> = ({ children, user, dehydratedState }) => {
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(adminConfig.i18nNamespaces);
   const router = useRouter();
 
   const onBack = () => {
