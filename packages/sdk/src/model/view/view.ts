@@ -1,20 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type {
-  IFilter,
-  ISort,
-  IShareViewMeta,
-  IViewVo,
-  IColumnMetaRo,
-  IManualSortRo,
-  IGroup,
-} from '@teable/core';
+import type { IFilter, ISort, IViewVo, IColumnMetaRo, IManualSortRo, IGroup } from '@teable/core';
 import { ViewCore } from '@teable/core';
 import type { IUpdateOrderRo } from '@teable/openapi';
 import {
   createView,
   deleteView,
-  disableShareView,
-  enableShareView,
   getViewList,
   updateViewColumnMeta,
   manualSortView,
@@ -24,8 +14,6 @@ import {
   updateViewOrder,
   updateViewName,
   updateViewDescription,
-  updateViewShareMeta,
-  refreshViewShareId,
   updateViewLocked,
 } from '@teable/openapi';
 import type { AxiosResponse } from 'axios';
@@ -46,14 +34,6 @@ export abstract class View extends ViewCore {
   abstract updateOption(
     option: object // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<AxiosResponse<void, any>> | void;
-
-  async apiEnableShare() {
-    return await requestWrap(enableShareView)({ tableId: this.tableId, viewId: this.id });
-  }
-
-  async disableShare() {
-    return await requestWrap(disableShareView)({ tableId: this.tableId, viewId: this.id });
-  }
 
   async manualSort(sortRo: IManualSortRo) {
     return await requestWrap(manualSortView)(this.tableId, this.id, sortRo);
@@ -85,14 +65,6 @@ export abstract class View extends ViewCore {
 
   async updateDescription(description: string) {
     return await requestWrap(updateViewDescription)(this.tableId, this.id, { description });
-  }
-
-  async setRefreshLink() {
-    return await requestWrap(refreshViewShareId)(this.tableId, this.id);
-  }
-
-  async setShareMeta(shareMeta: IShareViewMeta) {
-    return await requestWrap(updateViewShareMeta)(this.tableId, this.id, shareMeta);
   }
 
   async updateLocked(isLocked: boolean) {

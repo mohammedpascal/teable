@@ -31,7 +31,6 @@ import { PluginContextMenuModule } from './features/plugin-context-menu/plugin-c
 import { PluginPanelModule } from './features/plugin-panel/plugin-panel.module';
 import { SelectionModule } from './features/selection/selection.module';
 import { SettingModule } from './features/setting/setting.module';
-import { ShareModule } from './features/share/share.module';
 import { SpaceModule } from './features/space/space.module';
 import { TrashModule } from './features/trash/trash.module';
 import { UndoRedoModule } from './features/undo-redo/open-api/undo-redo.module';
@@ -60,7 +59,6 @@ export const appModules = {
     SpaceModule,
     CollaboratorModule,
     InvitationModule,
-    ShareModule,
     NotificationModule,
     AccessTokenModule,
     ImportOpenApiModule,

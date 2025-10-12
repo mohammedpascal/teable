@@ -29,8 +29,6 @@ import {
   IViewNameRo,
   viewDescriptionRoSchema,
   IViewDescriptionRo,
-  viewShareMetaRoSchema,
-  IViewShareMetaRo,
   viewSortRoSchema,
   IViewSortRo,
   viewOptionsRoSchema,
@@ -47,7 +45,6 @@ import {
   IViewLockedRo,
 } from '@teable/openapi';
 import type {
-  IEnableShareViewVo,
   IGetViewFilterLinkRecordsVo,
   IGetViewInstallPluginVo,
   IViewInstallPluginVo,
@@ -150,16 +147,6 @@ export class ViewOpenApiController {
       viewLockedRo.isLocked,
       windowId
     );
-  }
-
-  @Permissions('view|update')
-  @Put('/:viewId/share-meta')
-  async updateShareMeta(
-    @Param('tableId') tableId: string,
-    @Param('viewId') viewId: string,
-    @Body(new ZodValidationPipe(viewShareMetaRoSchema)) viewShareMetaRo: IViewShareMetaRo
-  ): Promise<void> {
-    return await this.viewOpenApiService.updateShareMeta(tableId, viewId, viewShareMetaRo);
   }
 
   @Permissions('view|update')
@@ -281,33 +268,6 @@ export class ViewOpenApiController {
       updateRecordOrdersRo,
       windowId
     );
-  }
-
-  @Permissions('view|update')
-  @Post('/:viewId/refresh-share-id')
-  async refreshShareId(
-    @Param('tableId') tableId: string,
-    @Param('viewId') viewId: string
-  ): Promise<IEnableShareViewVo> {
-    return await this.viewOpenApiService.refreshShareId(tableId, viewId);
-  }
-
-  @Permissions('view|share')
-  @Post('/:viewId/enable-share')
-  async enableShare(
-    @Param('tableId') tableId: string,
-    @Param('viewId') viewId: string
-  ): Promise<IEnableShareViewVo> {
-    return await this.viewOpenApiService.enableShare(tableId, viewId);
-  }
-
-  @Permissions('view|update')
-  @Post('/:viewId/disable-share')
-  async disableShare(
-    @Param('tableId') tableId: string,
-    @Param('viewId') viewId: string
-  ): Promise<void> {
-    return await this.viewOpenApiService.disableShare(tableId, viewId);
   }
 
   @Permissions('view|read')

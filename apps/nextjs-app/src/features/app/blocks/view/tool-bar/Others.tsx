@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { GUIDE_API_BUTTON } from '@/components/Guide';
 import { SearchButton } from '../search/SearchButton';
-import { SharePopover } from './SharePopover';
 import { ToolBarButton } from './ToolBarButton';
 
 const OthersList = ({
@@ -24,19 +23,6 @@ const OthersList = ({
 
   return (
     <div className={cn('gap-1', className)}>
-      <SharePopover>
-        {(text, isActive) => (
-          <ToolBarButton
-            isActive={isActive}
-            text={text}
-            textClassName={textClassName}
-            className={buttonClassName}
-            disabled={!permission['view|update']}
-          >
-            <ArrowUpRight className="size-4" />
-          </ToolBarButton>
-        )}
-      </SharePopover>
       <Popover>
         <PopoverTrigger asChild>
           <ToolBarButton

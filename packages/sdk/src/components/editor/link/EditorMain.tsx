@@ -13,7 +13,7 @@ import {
   useState,
 } from 'react';
 import type { ForwardRefRenderFunction } from 'react';
-import { RowCountProvider, LinkViewProvider } from '../../../context';
+import { RowCountProvider } from '../../../context';
 import { useTranslation } from '../../../context/app/i18n';
 import { LinkFilterProvider } from '../../../context/query/LinkFilterProvider';
 import { useBaseId, useLinkFilter, useRowCount, useSearch } from '../../../hooks';
@@ -207,16 +207,14 @@ const LinkEditorMainBase: ForwardRefRenderFunction<ILinkEditorMainRef, ILinkEdit
   }, [cellValue]);
 
   return (
-    <LinkViewProvider linkBaseId={foreignBaseId ?? baseId} linkFieldId={props.fieldId}>
-      <LinkFilterProvider
-        filterLinkCellCandidate={props.recordId ? [props.fieldId, props.recordId] : props.fieldId}
-        selectedRecordIds={selectedRecordIds}
-      >
-        <RowCountProvider>
-          <LinkEditorInner ref={forwardRef} {...props} />
-        </RowCountProvider>
-      </LinkFilterProvider>
-    </LinkViewProvider>
+    <LinkFilterProvider
+      filterLinkCellCandidate={props.recordId ? [props.fieldId, props.recordId] : props.fieldId}
+      selectedRecordIds={selectedRecordIds}
+    >
+      <RowCountProvider>
+        <LinkEditorInner ref={forwardRef} {...props} />
+      </RowCountProvider>
+    </LinkFilterProvider>
   );
 };
 

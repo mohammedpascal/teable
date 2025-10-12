@@ -13,7 +13,6 @@ export * from './attachment';
 export * from './auth';
 export * from './db-connection';
 export * from './invitation';
-export * from './share';
 export * from './notification';
 export * from './user';
 export * from './access-token';

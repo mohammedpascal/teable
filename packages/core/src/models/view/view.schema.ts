@@ -15,23 +15,6 @@ import { groupSchema } from './group';
 import { viewOptionsSchema } from './option.schema';
 import { sortSchema } from './sort';
 
-export const sharePasswordSchema = z.string().min(3);
-
-export const shareViewMetaSchema = z.object({
-  allowCopy: z.boolean().optional(),
-  includeHiddenField: z.boolean().optional(),
-  password: sharePasswordSchema.optional(),
-  includeRecords: z.boolean().optional(),
-  submit: z
-    .object({
-      allow: z.boolean().optional(),
-      requireLogin: z.boolean().optional(),
-    })
-    .optional(),
-});
-
-export type IShareViewMeta = z.infer<typeof shareViewMetaSchema>;
-
 export const viewVoSchema = z.object({
   id: z.string().startsWith(IdPrefix.View),
   name: z.string(),
@@ -43,9 +26,6 @@ export const viewVoSchema = z.object({
   filter: filterSchema.optional(),
   group: groupSchema.optional(),
   isLocked: z.boolean().optional(),
-  shareId: z.string().optional(),
-  enableShare: z.boolean().optional(),
-  shareMeta: shareViewMetaSchema.optional(),
   createdBy: z.string(),
   lastModifiedBy: z.string().optional(),
   createdTime: z.string(),
@@ -110,4 +90,4 @@ export const viewRoSchema = viewVoSchema
 
 export type IViewRo = z.infer<typeof viewRoSchema>;
 export type IViewPropertyKeys = keyof IViewVo;
-export const VIEW_JSON_KEYS = ['options', 'sort', 'filter', 'group', 'shareMeta', 'columnMeta'];
+export const VIEW_JSON_KEYS = ['options', 'sort', 'filter', 'group', 'columnMeta'];

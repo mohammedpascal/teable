@@ -127,9 +127,6 @@ model View {
   version          Int
   columnMeta       String    @map("column_meta")
   isLocked         Boolean?  @map("is_locked")
-  enableShare      Boolean?  @map("enable_share")
-  shareId          String?   @map("share_id")
-  shareMeta        String?   @map("share_meta")
   createdTime      DateTime  @default(now()) @map("created_time")
   lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
   deletedTime      DateTime? @map("deleted_time")

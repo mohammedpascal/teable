@@ -5,7 +5,6 @@ import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { generateUniqLocalKey } from '../form/util';
-import { SharePopover } from './SharePopover';
 import { FormMode, useFormModeStore } from './store';
 import { ToolBarButton } from './ToolBarButton';
 
@@ -61,20 +60,6 @@ export const FormToolBar: React.FC = () => {
             );
           })}
       </div>
-
-      <SharePopover>
-        {(text, isActive) => (
-          <ToolBarButton
-            isActive={isActive}
-            text={text}
-            textClassName="inline"
-            className="justify-start rounded-none"
-            disabled={!permission['view|update']}
-          >
-            <ArrowUpRight className="size-4" />
-          </ToolBarButton>
-        )}
-      </SharePopover>
     </div>
   );
 };

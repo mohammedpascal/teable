@@ -4,7 +4,7 @@ import { Plus } from '@teable/icons';
 import type { IGetRecordsRo } from '@teable/openapi';
 import { Button, Dialog, DialogContent, DialogTrigger, useToast } from '@teable/ui-lib';
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react';
-import { LinkViewProvider, RowCountProvider } from '../../../context';
+import { RowCountProvider } from '../../../context';
 import { useTranslation } from '../../../context/app/i18n';
 import { LinkFilterProvider } from '../../../context/query/LinkFilterProvider';
 import { ExpandRecorder } from '../../expand-record';
@@ -119,28 +119,26 @@ export const LinkEditor = (props: ILinkEditorProps) => {
       {Boolean(selectedRowCount) &&
         (displayType === LinkDisplayType.Grid ? (
           <div className="relative h-40 w-full overflow-hidden rounded-md border">
-            <LinkViewProvider linkFieldId={props.fieldId}>
-              <LinkFilterProvider
-                filterLinkCellCandidate={
-                  props.recordId ? [props.fieldId, props.recordId] : props.fieldId
-                }
-                selectedRecordIds={selectedRecordIds}
-              >
-                <RowCountProvider>
-                  <LinkList
-                    ref={listRef}
-                    type={LinkListType.Selected}
-                    rowCount={selectedRowCount}
-                    readonly={readonly}
-                    cellValue={cellValue}
-                    isMultiple={isMultiple}
-                    recordQuery={recordQuery}
-                    onChange={onRecordListChange}
-                    onExpand={onRecordExpand}
-                  />
-                </RowCountProvider>
-              </LinkFilterProvider>
-            </LinkViewProvider>
+            <LinkFilterProvider
+              filterLinkCellCandidate={
+                props.recordId ? [props.fieldId, props.recordId] : props.fieldId
+              }
+              selectedRecordIds={selectedRecordIds}
+            >
+              <RowCountProvider>
+                <LinkList
+                  ref={listRef}
+                  type={LinkListType.Selected}
+                  rowCount={selectedRowCount}
+                  readonly={readonly}
+                  cellValue={cellValue}
+                  isMultiple={isMultiple}
+                  recordQuery={recordQuery}
+                  onChange={onRecordListChange}
+                  onExpand={onRecordExpand}
+                />
+              </RowCountProvider>
+            </LinkFilterProvider>
           </div>
         ) : (
           cvArray?.map(({ id, title }) => (

@@ -4,7 +4,7 @@ import type { IFilter } from './filter';
 import type { IGroup } from './group';
 import type { IViewOptions } from './option.schema';
 import type { ISort } from './sort';
-import type { IShareViewMeta, IViewVo } from './view.schema';
+import type { IViewVo } from './view.schema';
 
 export abstract class ViewCore implements IViewVo {
   id!: string;
@@ -21,13 +21,6 @@ export abstract class ViewCore implements IViewVo {
 
   group?: IGroup;
 
-  shareId?: string;
-
-  enableShare?: boolean;
-
-  isLocked?: boolean;
-
-  shareMeta?: IShareViewMeta;
 
   abstract options: IViewOptions;
 
