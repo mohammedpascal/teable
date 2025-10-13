@@ -22,7 +22,7 @@ import { x_20_link, x_20_link_from_lookups } from './data-helpers/20x-link';
 
 import {
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   initApp,
   getViews,
   deleteField,
@@ -77,9 +77,9 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       ).data;
     });
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
-      await permanentDeleteTable(baseId, subTable.id);
-      await permanentDeleteTable(baseId, duplicateTableData.id);
+      await deleteTable(baseId, table.id);
+      await deleteTable(baseId, subTable.id);
+      await deleteTable(baseId, duplicateTableData.id);
     });
 
     it('should duplicate all fields and views', () => {
@@ -235,9 +235,9 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       ).data;
     });
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
-      await permanentDeleteTable(baseId, subTable.id);
-      await permanentDeleteTable(baseId, duplicateTableData.id);
+      await deleteTable(baseId, table.id);
+      await deleteTable(baseId, subTable.id);
+      await deleteTable(baseId, duplicateTableData.id);
     });
 
     it('duplicated formula and lookup field should has error', async () => {
@@ -315,9 +315,9 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       ).data;
     });
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
-      await permanentDeleteTable(baseId, subTable.id);
-      await permanentDeleteTable(baseId, duplicateTableData.id);
+      await deleteTable(baseId, table.id);
+      await deleteTable(baseId, subTable.id);
+      await deleteTable(baseId, duplicateTableData.id);
     });
 
     it('should duplicate self link fields', async () => {
@@ -374,9 +374,9 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       });
     });
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
-      await permanentDeleteTable(baseId, subTable.id);
-      await permanentDeleteTable(baseId, duplicateTableData.id);
+      await deleteTable(baseId, table.id);
+      await deleteTable(baseId, subTable.id);
+      await deleteTable(baseId, duplicateTableData.id);
     });
 
     it('should duplicate all kind of views', async () => {

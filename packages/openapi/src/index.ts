@@ -24,7 +24,6 @@ export * from './billing';
 export * from './admin';
 export * from './usage';
 export * from './oauth';
-export * from './trash';
 export * from './undo-redo';
 export * from './plugin';
 export * from './dashboard';

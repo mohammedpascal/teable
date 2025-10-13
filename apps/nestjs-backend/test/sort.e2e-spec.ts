@@ -26,7 +26,7 @@ import { x_20_link, x_20_link_from_lookups } from './data-helpers/20x-link';
 import {
   createField,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   getFields,
   getRecords,
   getView,
@@ -139,7 +139,7 @@ describe('OpenAPI ViewController view order sort (e2e)', () => {
   });
 
   afterEach(async () => {
-    await permanentDeleteTable(baseId, tableId);
+    await deleteTable(baseId, tableId);
   });
 
   it('/api/table/{tableId}/view/{viewId}/sort sort view order (PUT)', async () => {
@@ -173,7 +173,7 @@ describe('OpenAPI Sort (e2e) Base CellValueType', () => {
   });
 
   afterAll(async () => {
-    await permanentDeleteTable(baseId, table.id);
+    await deleteTable(baseId, table.id);
   });
 
   test.each(typeTests)(
@@ -292,8 +292,8 @@ describe('OpenAPI Sort (e2e) Multiple CellValueType', () => {
   });
 
   afterAll(async () => {
-    await permanentDeleteTable(baseId, mainTable.id);
-    await permanentDeleteTable(baseId, subTable.id);
+    await deleteTable(baseId, mainTable.id);
+    await deleteTable(baseId, subTable.id);
   });
 
   test.each(typeTests)(
@@ -399,7 +399,7 @@ describe('OpenAPI Sort (e2e) Date Formatting', () => {
   });
 
   afterEach(async () => {
-    await permanentDeleteTable(baseId, tableId);
+    await deleteTable(baseId, tableId);
   });
 
   test.each([

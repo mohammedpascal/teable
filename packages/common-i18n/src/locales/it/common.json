@@ -23,7 +23,6 @@
     "editSucceed": "Modifica riuscita!",
     "updateSucceed": "Aggiornamento riuscito!",
     "deleteSucceed": "Eliminazione riuscita!",
-    "resetSucceed": "Cestino svuotato con successo!",
     "restoreSucceed": "Ripristino riuscito!",
     "loading": "Caricamento...",
     "refreshPage": "Ricarica pagina",
@@ -157,7 +156,6 @@
     "license": "Licenza",
     "instanceId": "ID istanza",
     "beta": "Beta",
-    "trash": "Cestino",
     "global": "Globale",
     "organizationPanel": "Pannello dell'organizzazione",
     "unknownError": "Errore sconosciuto",
@@ -334,7 +332,6 @@
       "viewer": "Non può modificare o commentare"
     }
   },
-  "trash": {
     "type": "Tipo",
     "resetTrash": "Svuota cestino",
     "deletedBy": "Eliminato da",

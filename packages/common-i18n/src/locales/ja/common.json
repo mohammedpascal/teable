@@ -20,7 +20,6 @@
     "editSucceed": "編集成功！",
     "updateSucceed": "アップデート成功！",
     "deleteSucceed": "削除成功！",
-    "resetSucceed": "リセット成功！",
     "restoreSucceed": "復元成功！",
     "loading": "読込中...",
     "refreshPage": "ページの更新",
@@ -305,7 +304,6 @@
       "viewer": "編集もコメントもできません"
     }
   },
-  "trash": {
     "type": "タイプ",
     "resetTrash": "ゴミ箱を空にする",
     "deletedBy": "削除者",

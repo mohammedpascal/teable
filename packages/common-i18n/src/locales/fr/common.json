@@ -21,7 +21,6 @@
     "editSucceed": "Édition réussie !",
     "updateSucceed": "Mise à jour réussie !",
     "deleteSucceed": "Suppression réussie !",
-    "resetSucceed": "Vidage de la corbeille réussi !",
     "restoreSucceed": "Restauration réussie !",
     "loading": "Chargement...",
     "refreshPage": "Rafraîchir la page",
@@ -134,7 +133,6 @@
     "license": "Licence",
     "instanceId": "ID d'instance",
     "beta": "Bêta",
-    "trash": "Corbeille"
   },
   "level": {
     "free": "Gratuit",
@@ -284,7 +282,6 @@
     "new": "nouveau {{count}}",
     "showMore": "Voir plus"
   },
-  "trash": {
     "type": "Type",
     "resetTrash": "Vider",
     "deletedBy": "Supprimé par",

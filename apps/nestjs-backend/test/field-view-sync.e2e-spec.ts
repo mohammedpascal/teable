@@ -12,7 +12,7 @@ import {
   createTable,
   createView,
   deleteField,
-  permanentDeleteTable,
+  deleteTable,
   initApp,
   getViews,
   convertField,
@@ -39,7 +39,7 @@ describe('OpenAPI FieldController (e2e)', () => {
     fields = fieldsVo;
   });
   afterEach(async () => {
-    await permanentDeleteTable(baseId, tableId);
+    await deleteTable(baseId, tableId);
   });
 
   it('should delete relative view conditions when deleting a field', async () => {

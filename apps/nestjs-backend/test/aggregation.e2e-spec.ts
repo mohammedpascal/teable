@@ -24,7 +24,7 @@ import {
 } from './data-helpers/caces/aggregation-query';
 import {
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   initApp,
   createRecords,
   createView,
@@ -74,7 +74,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
+      await deleteTable(baseId, table.id);
     });
 
     it('should get rowCount', async () => {
@@ -492,7 +492,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
+      await deleteTable(baseId, table.id);
     });
 
     it('should get group points with collapsed group IDs', async () => {
@@ -590,7 +590,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
+      await deleteTable(baseId, table.id);
     });
 
     it('should get calendar daily collection', async () => {
@@ -639,7 +639,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
+      await deleteTable(baseId, table.id);
     });
 
     it('should get row count with ignoreViewQuery', async () => {

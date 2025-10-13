@@ -1,9 +1,18 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { fieldVoSchema } from '@teable/core';
 import { axios } from '../axios';
-import { userMapVoSchema } from '../trash';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
+
+export const userMapVoSchema = z.record(
+  z.string(),
+  z.object({
+    email: z.string(),
+    avatar: z.string().nullable().optional(),
+    id: z.string(),
+    name: z.string(),
+  })
+);
 
 export const getRecordHistoryQuerySchema = z.object({
   startDate: z.string().optional(),

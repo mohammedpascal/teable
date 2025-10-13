@@ -40,7 +40,6 @@ export class BaseService {
         },
         where: {
           id: baseId,
-          deletedTime: null,
         },
       })
       .catch(() => {
@@ -70,7 +69,6 @@ export class BaseService {
         icon: true,
       },
       where: {
-        deletedTime: null,
         OR: [
           {
             id: {
@@ -117,7 +115,6 @@ export class BaseService {
       },
       where: {
         userId: userId,
-        deletedTime: null,
       },
     });
 
@@ -127,7 +124,6 @@ export class BaseService {
         name: true,
       },
       where: {
-        deletedTime: null,
         OR: [
           {
             id: {
@@ -155,7 +151,6 @@ export class BaseService {
       },
       where: {
         userId: userId,
-        deletedTime: null,
       },
     });
 
@@ -195,7 +190,7 @@ export class BaseService {
     }, {} as IGetBasePermissionVo);
   }
 
-  async permanentDeleteBase(baseId: string) {
+  async deleteBase(baseId: string) {
     // Permission checks removed - all authenticated users have access
 
     return await this.prismaService.$tx(

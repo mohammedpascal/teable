@@ -291,7 +291,6 @@
     "descriptionForTable": "Descrizione per questa tabella",
     "nameForTable": "Nome per questa tabella",
     "deleteTip1": "I campi di collegamento collegati a questa tabella in altre tabelle saranno eliminati.",
-    "deleteTip2": "Questa tabella può essere ripristinata dal cestino dopo l'eliminazione.",
     "operator": {
       "createBlank": "Crea una tabella vuota"
     },
@@ -532,11 +531,6 @@
   "pasteNewRecords": {
     "title": "Vuoi aggiungere più record?",
     "description": "I {{count}} record saranno aggiunti alla tabella."
-  },
-  "tableTrash": {
-    "title": "Cestino della tabella",
-    "resourceType": "Tipo di risorsa",
-    "deletedResource": "Risorsa eliminata"
   },
   "plugin": {
     "recent": "Recenti",

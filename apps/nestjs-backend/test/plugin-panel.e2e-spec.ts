@@ -18,7 +18,7 @@ import {
   updatePluginPanelLayout,
   updatePluginPanelStorage,
 } from '@teable/openapi';
-import { createTable, initApp, permanentDeleteTable } from './utils/init-app';
+import { createTable, initApp, deleteTable } from './utils/init-app';
 
 describe('plugin panel', () => {
   let app: INestApplication;
@@ -48,7 +48,7 @@ describe('plugin panel', () => {
 
   afterEach(async () => {
     await deletePluginPanel(tableId, pluginPanelId);
-    await permanentDeleteTable(baseId, tableId);
+    await deleteTable(baseId, tableId);
   });
 
   it('/api/table/:tableId/plugin-panel/:pluginPanelId/rename (PATCH)', async () => {

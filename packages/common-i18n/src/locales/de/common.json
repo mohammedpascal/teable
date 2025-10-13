@@ -23,7 +23,6 @@
     "editSucceed": "Bearbeiten erfolgreich!",
     "updateSucceed": "Aktualisieren erfolgreich!",
     "deleteSucceed": "Löschen erfolgreich!",
-    "resetSucceed": "Papierkorb erfolgreich gelöscht!",
     "restoreSucceed": "Wiederherstellen erfolgreich!",
     "loading": "Lade...",
     "refreshPage": "Seite aktualisieren",
@@ -161,7 +160,6 @@
     "license": "Lizenz",
     "instanceId": "Instanz ID",
     "beta": "Beta",
-    "trash": "Papierkorb",
     "global": "Global",
     "organizationPanel": "Organization Panel",
     "unknownError": "Unbekannter Fehler"
@@ -344,7 +342,6 @@
       "viewer": "Kann nicht bearbeiten oder kommentieren"
     }
   },
-  "trash": {
     "type": "Typ",
     "resetTrash": "Papierkorb leeren",
     "deletedBy": "Gelöscht von",

@@ -19,7 +19,7 @@ import {
   getFields,
   initApp,
   createView,
-  permanentDeleteTable,
+  deleteTable,
   createTable,
   getViews,
   getView,
@@ -52,7 +52,7 @@ describe('OpenAPI ViewController (e2e)', () => {
   });
 
   afterEach(async () => {
-    const result = await permanentDeleteTable(baseId, table.id);
+    const result = await deleteTable(baseId, table.id);
     console.log('clear table: ', result);
   });
 
@@ -271,9 +271,9 @@ describe('OpenAPI ViewController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
-      await permanentDeleteTable(baseId, linkTable1.id);
-      await permanentDeleteTable(baseId, linkTable2.id);
+      await deleteTable(baseId, table.id);
+      await deleteTable(baseId, linkTable1.id);
+      await deleteTable(baseId, linkTable2.id);
     });
 
     it('should return filter link records', async () => {
@@ -364,7 +364,7 @@ describe('OpenAPI ViewController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, tableId);
+      await deleteTable(baseId, tableId);
     });
 
     // TODO: View sharing functionality not yet implemented
@@ -396,7 +396,7 @@ describe('OpenAPI ViewController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table.id);
+      await deleteTable(baseId, table.id);
     });
 
     it('should get records with a field filtered view', async () => {

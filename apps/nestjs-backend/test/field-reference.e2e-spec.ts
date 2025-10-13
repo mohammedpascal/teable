@@ -5,7 +5,7 @@ import type { LinkFieldDto } from '../src/features/field/model/field-dto/link-fi
 import {
   createField,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   getField,
   initApp,
 } from './utils/init-app';
@@ -25,8 +25,8 @@ describe('OpenAPI link field reference (e2e)', () => {
   });
 
   afterAll(async () => {
-    await permanentDeleteTable(baseId, table1Id);
-    await permanentDeleteTable(baseId, table2Id);
+    await deleteTable(baseId, table1Id);
+    await deleteTable(baseId, table2Id);
 
     await app.close();
   });

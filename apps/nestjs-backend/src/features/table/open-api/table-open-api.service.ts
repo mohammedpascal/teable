@@ -217,7 +217,6 @@ export class TableOpenApiService {
       orderBy: { order: 'asc' },
       where: {
         baseId,
-        deletedTime: null,
         id: includeTableIds ? { in: includeTableIds } : undefined,
       },
     });
@@ -243,7 +242,7 @@ export class TableOpenApiService {
   async detachLink(tableId: string) {
     // handle the link field in this table
     const linkFields = await this.prismaService.txClient().field.findMany({
-      where: { tableId, type: FieldType.Link, isLookup: null, deletedTime: null },
+      where: { tableId, type: FieldType.Link, isLookup: null },
       select: { id: true, options: true },
     });
 
@@ -273,7 +272,7 @@ export class TableOpenApiService {
     }
   }
 
-  async permanentDeleteTables(baseId: string, tableIds: string[]) {
+  async deleteTables(baseId: string, tableIds: string[]) {
     // If the table has already been deleted, exceptions may occur
     // If the table hasn't been deleted and permanent deletion is executed directly,
     // we need to handle the deletion of associated data
@@ -380,54 +379,7 @@ export class TableOpenApiService {
 
     return await this.prismaService.$tx(
       async (prisma) => {
-        const deletedTime = new Date();
-
-        await this.tableService.deleteTable(baseId, tableId, deletedTime);
-
-        await prisma.field.updateMany({
-          where: { tableId, deletedTime: null },
-          data: { deletedTime },
-        });
-
-        await prisma.view.updateMany({
-          where: { tableId, deletedTime: null },
-          data: { deletedTime },
-        });
-      },
-      {
-        timeout: this.thresholdConfig.bigTransactionTimeout,
-      }
-    );
-  }
-
-  async restoreTable(baseId: string, tableId: string) {
-    return await this.prismaService.$tx(
-      async (prisma) => {
-        const { deletedTime } = await prisma.trash.findFirstOrThrow({
-          where: { resourceId: tableId, resourceType: ResourceType.Table },
-        });
-
-        if (!deletedTime) {
-          throw new ForbiddenException(
-            'Unable to restore this table because it is not in the trash'
-          );
-        }
-
-        await this.tableService.restoreTable(baseId, tableId);
-
-        await prisma.field.updateMany({
-          where: { tableId, deletedTime },
-          data: { deletedTime: null },
-        });
-
-        await prisma.view.updateMany({
-          where: { tableId, deletedTime },
-          data: { deletedTime: null },
-        });
-
-        await prisma.trash.deleteMany({
-          where: { resourceId: tableId },
-        });
+        await this.tableService.deleteTable(baseId, tableId);
       },
       {
         timeout: this.thresholdConfig.bigTransactionTimeout,
@@ -443,7 +395,7 @@ export class TableOpenApiService {
 
     const baseQuery = queryBuilder.toString();
     const { dbTableName } = await this.prismaService.tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
 
@@ -478,7 +430,7 @@ export class TableOpenApiService {
     const dbTableName = this.dbProvider.joinDbTableName(baseId, dbTableNameRo);
     const existDbTableName = await this.prismaService.tableMeta
       .findFirst({
-        where: { baseId, dbTableName, deletedTime: null },
+        where: { baseId, dbTableName },
         select: { id: true },
       })
       .catch(() => {
@@ -491,7 +443,7 @@ export class TableOpenApiService {
 
     const { dbTableName: oldDbTableName } = await this.prismaService.tableMeta
       .findFirstOrThrow({
-        where: { id: tableId, baseId, deletedTime: null },
+        where: { id: tableId, baseId },
         select: { dbTableName: true },
       })
       .catch(() => {
@@ -546,7 +498,7 @@ export class TableOpenApiService {
 
   async shuffle(baseId: string) {
     const tables = await this.prismaService.tableMeta.findMany({
-      where: { baseId, deletedTime: null },
+      where: { baseId },
       select: { id: true },
       orderBy: { order: 'asc' },
     });
@@ -590,11 +542,10 @@ export class TableOpenApiService {
       getNextItem: async (whereOrder, align) => {
         return this.prismaService.tableMeta.findFirst({
           select: { order: true, id: true },
-          where: {
-            baseId,
-            deletedTime: null,
-            order: whereOrder,
-          },
+        where: {
+          baseId,
+          order: whereOrder,
+        },
           orderBy: { order: align },
         });
       },
@@ -638,7 +589,6 @@ export class TableOpenApiService {
     const fields = await this.prismaService.field.findMany({
       where: {
         tableId,
-        deletedTime: null,
       },
     });
 
@@ -698,7 +648,6 @@ export class TableOpenApiService {
     const fields = await this.prismaService.field.findMany({
       where: {
         tableId,
-        deletedTime: null,
       },
     });
 

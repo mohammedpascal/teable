@@ -11,7 +11,7 @@ import { createAwaitWithEvent } from './utils/event-promise';
 import {
   createField,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   initApp,
   updateRecord,
 } from './utils/init-app';
@@ -49,8 +49,8 @@ describe('Record history (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, mainTable.id);
-      await permanentDeleteTable(baseId, foreignTable.id);
+      await deleteTable(baseId, mainTable.id);
+      await deleteTable(baseId, foreignTable.id);
     });
 
     it('should get record history of changes in the base cell values', async () => {

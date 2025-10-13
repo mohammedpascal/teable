@@ -21,7 +21,6 @@
     "editSucceed": "Başarıyla Düzenlendi!",
     "updateSucceed": "Başarıyla Güncellendi!",
     "deleteSucceed": "Başarıyla Silindi!",
-    "resetSucceed": "Çöp Kutusu Başarıyla Boşaltıldı!",
     "restoreSucceed": "Başarıyla Geri Yüklendi!",
     "loading": "Yükleniyor...",
     "refreshPage": "Sayfayı Yenile",
@@ -137,7 +136,6 @@
     "license": "Lisans",
     "instanceId": "Örnek Kimliği",
     "beta": "Beta",
-    "trash": "Çöp Kutusu",
     "global": "Genel"
   },
   "level": {
@@ -271,7 +269,6 @@
       "viewer": "Düzenleyemez veya yorum yapamaz"
     }
   },
-  "trash": {
     "type": "Tür",
     "resetTrash": "Çöp kutusunu boşalt",
     "deletedBy": "Silen",

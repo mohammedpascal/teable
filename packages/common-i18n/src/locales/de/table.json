@@ -291,7 +291,6 @@
     "descriptionForTable": "Beschreibung für diese Tabelle",
     "nameForTable": "Name für diese Tabelle",
     "deleteTip1": "Verknüpfungsfelder, die mit dieser Tabelle in anderen Tabellen verknüpft sind, werden gelöscht.",
-    "deleteTip2": "Diese Tabelle kann nach dem Löschen aus dem Papierkorb wiederhergestellt werden.",
     "operator": {
       "createBlank": "Eine leere Tabelle erstellen"
     },
@@ -533,9 +532,3 @@
     "title": "Möchten Sie mehrere Datensätze hinzufügen?",
     "description": "Die {{count}} Datensätze werden der Tabelle hinzugefügt."
   },
-  "tableTrash": {
-    "title": "Tabelle Papierkorb",
-    "resourceType": "Typ der Ressource",
-    "deletedResource": "Gelöschte Ressource"
-  }
-}

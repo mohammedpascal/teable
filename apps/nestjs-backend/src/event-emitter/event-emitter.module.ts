@@ -10,7 +10,6 @@ import { ActionTriggerListener } from './listeners/action-trigger.listener';
 import { AttachmentListener } from './listeners/attachment.listener';
 import { CollaboratorNotificationListener } from './listeners/collaborator-notification.listener';
 import { RecordHistoryListener } from './listeners/record-history.listener';
-import { TrashListener } from './listeners/trash.listener';
 
 export interface EventEmitterModuleOptions {
   global?: boolean;
@@ -39,7 +38,6 @@ export class EventEmitterModule extends EventEmitterModuleClass {
         CollaboratorNotificationListener,
         AttachmentListener,
         RecordHistoryListener,
-        TrashListener,
       ],
       exports: [EventEmitterService],
     };

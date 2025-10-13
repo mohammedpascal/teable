@@ -47,12 +47,10 @@ import {
   updateViewColumnMeta as apiSetViewColumnMeta,
   createTable as apiCreateTable,
   deleteTable as apiDeleteTable,
-  permanentDeleteTable as apiPermanentDeleteTable,
   getTableById as apiGetTableById,
   updateViewFilter as apiSetViewFilter,
   createView as apiCreateView,
   deleteBase as apiDeleteBase,
-  permanentDeleteBase as apiPermanentDeleteBase,
 } from '@teable/openapi';
 import { json, urlencoded } from 'express';
 import { AppModule } from '../../src/app.module';
@@ -162,20 +160,6 @@ export async function createTable(baseId: string, tableVo: ICreateTableRo, expec
 export async function deleteTable(baseId: string, tableId: string, expectStatus?: number) {
   try {
     const res = await apiDeleteTable(baseId, tableId);
-    expectStatus && expect(res.status).toEqual(expectStatus);
-
-    return res.data;
-  } catch (e: unknown) {
-    if (expectStatus && (e as HttpError).status !== expectStatus) {
-      throw e;
-    }
-    return {} as IRecord;
-  }
-}
-
-export async function permanentDeleteTable(baseId: string, tableId: string, expectStatus?: number) {
-  try {
-    const res = await apiPermanentDeleteTable(baseId, tableId);
     expectStatus && expect(res.status).toEqual(expectStatus);
 
     return res.data;
@@ -466,10 +450,5 @@ export async function updateViewFilter(tableId: string, viewId: string, filterRo
 
 export async function deleteBase(baseId: string) {
   const result = await apiDeleteBase(baseId);
-  return result.data;
-}
-
-export async function permanentDeleteBase(baseId: string) {
-  const result = await apiPermanentDeleteBase(baseId);
   return result.data;
 }

@@ -19,7 +19,7 @@ import { x_20 } from './data-helpers/20x';
 import { x_20_link, x_20_link_from_lookups } from './data-helpers/20x-link';
 import {
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   initApp,
   getFields,
   getTableIndexService,
@@ -73,8 +73,8 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table.id);
-      await permanentDeleteTable(baseId, subTable.id);
+      await deleteTable(baseId, table.id);
+      await deleteTable(baseId, subTable.id);
     });
 
     describe('simple search fields', () => {
@@ -255,7 +255,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
       });
 
       afterEach(async () => {
-        await permanentDeleteTable(baseId, table.id);
+        await deleteTable(baseId, table.id);
       });
 
       it('should create trgm index', async () => {

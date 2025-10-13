@@ -26,7 +26,7 @@ import {
   getRecord,
   initApp,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
 } from './utils/init-app';
 
 describe('OpenAPI SelectionController (e2e)', () => {
@@ -44,7 +44,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
   });
 
   afterEach(async () => {
-    const result = await permanentDeleteTable(baseId, table.id);
+    const result = await deleteTable(baseId, table.id);
     console.log('clear table: ', result);
   });
 
@@ -236,8 +236,8 @@ describe('OpenAPI SelectionController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table1.id);
-      await permanentDeleteTable(baseId, table2.id);
+      await deleteTable(baseId, table1.id);
+      await deleteTable(baseId, table2.id);
     });
 
     it('should paste 2 manyOne link field in same time', async () => {
@@ -365,7 +365,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table1.id);
+      await deleteTable(baseId, table1.id);
     });
 
     it('should paste expand col formula', async () => {
@@ -418,7 +418,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table.id);
+      await deleteTable(baseId, table.id);
     });
 
     it('should delete selected data', async () => {

@@ -23,7 +23,6 @@
     "editSucceed": "Edit Succeed!",
     "updateSucceed": "Update Succeed!",
     "deleteSucceed": "Delete Succeed!",
-    "resetSucceed": "Empty trash Succeed!",
     "restoreSucceed": "Restored Succeed!",
     "loading": "Loading...",
     "refreshPage": "Refresh Page",
@@ -162,7 +161,6 @@
     "license": "License",
     "instanceId": "Instance ID",
     "beta": "Beta",
-    "trash": "Trash",
     "global": "Global",
     "organizationPanel": "Organization Panel",
     "unknownError": "Unknown error",
@@ -347,15 +345,6 @@
       "commenter": "Can comment on records",
       "viewer": "Cannot edit or comment"
     }
-  },
-  "trash": {
-    "type": "Type",
-    "resetTrash": "Empty trash",
-    "deletedBy": "Deleted by",
-    "deletedTime": "Deleted time",
-    "fromSpace": "From \"{{name}}\" space",
-    "permanentDeleteTips": "Are you sure you want to permanently delete \"{{name}}\" {{resource}}?",
-    "resetTrashConfirm": "Are you sure you want to empty the trash?"
   },
   "pluginCenter": {
     "pluginUrlEmpty": "Plugin Not Setting url",

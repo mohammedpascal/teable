@@ -26,7 +26,7 @@ import type { IDbProvider } from '../src/db-provider/db.provider.interface';
 import {
   createField,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   getField,
   initApp,
 } from './utils/init-app';
@@ -70,9 +70,9 @@ describe('OpenAPI integrity (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, base1table1.id);
-      await permanentDeleteTable(baseId2, base2table1.id);
-      await permanentDeleteTable(baseId2, base2table2.id);
+      await deleteTable(baseId, base1table1.id);
+      await deleteTable(baseId2, base2table1.id);
+      await deleteTable(baseId2, base2table2.id);
       await deleteBase(baseId2);
     });
 

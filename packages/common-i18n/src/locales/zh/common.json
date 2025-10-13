@@ -23,7 +23,6 @@
     "editSucceed": "编辑成功！",
     "updateSucceed": "更新成功！",
     "deleteSucceed": "删除成功！",
-    "resetSucceed": "清空成功！",
     "restoreSucceed": "恢复成功！",
     "loading": "加载中...",
     "refreshPage": "刷新页面",
@@ -162,7 +161,6 @@
     "license": "许可证",
     "instanceId": "实例 ID",
     "beta": "测试版",
-    "trash": "回收站",
     "global": "全局",
     "organizationPanel": "组织管理面板",
     "unknownError": "未知错误",
@@ -347,7 +345,6 @@
       "viewer": "仅可查看记录，不能编辑或评论记录"
     }
   },
-  "trash": {
     "type": "类型",
     "resetTrash": "清空回收站",
     "deletedBy": "操作者",

@@ -495,164 +495,6 @@ export interface paths {
       };
     };
   };
-  "/trash": {
-    /** @description Get trash list for bases */
-    get: {
-      parameters: {
-        query: {
-          resourceType: "base";
-        };
-      };
-      responses: {
-        /** @description Get trash successfully */
-        200: {
-          content: {
-            "application/json": {
-              trashItems: (({
-                  id: string;
-                  resourceId: string;
-                  /** @enum {string} */
-                  resourceType: "base" | "table";
-                  deletedTime: string;
-                  deletedBy: string;
-                }) | ({
-                  id: string;
-                  resourceIds: string[];
-                  /** @enum {string} */
-                  resourceType: "view" | "field" | "record";
-                  deletedTime: string;
-                  deletedBy: string;
-                }))[];
-              userMap: {
-                [key: string]: {
-                  email: string;
-                  avatar?: string | null;
-                  id: string;
-                  name: string;
-                };
-              };
-              resourceMap: {
-                [key: string]: {
-                  id: string;
-                  name: string;
-                } | ({
-                  id: string;
-                  name: string;
-                  /** @enum {string} */
-                  type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
-                }) | ({
-                  id: string;
-                  name: string;
-                  /** @enum {string} */
-                  type: "singleLineText" | "longText" | "user" | "attachment" | "checkbox" | "multipleSelect" | "singleSelect" | "date" | "number" | "duration" | "rating" | "formula" | "rollup" | "count" | "link" | "createdTime" | "lastModifiedTime" | "createdBy" | "lastModifiedBy" | "autoNumber" | "button";
-                  isLookup: boolean | null;
-                  options?: string[] | null;
-                });
-              };
-              nextCursor?: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/trash/items": {
-    /** @description Get trash items for base or table */
-    get: {
-      parameters: {
-        query: {
-          resourceId: string;
-          resourceType: "base" | "table";
-          cursor?: string | null;
-        };
-      };
-      responses: {
-        /** @description Get trash successfully */
-        200: {
-          content: {
-            "application/json": {
-              trashItems: (({
-                  id: string;
-                  resourceId: string;
-                  /** @enum {string} */
-                  resourceType: "base" | "table";
-                  deletedTime: string;
-                  deletedBy: string;
-                }) | ({
-                  id: string;
-                  resourceIds: string[];
-                  /** @enum {string} */
-                  resourceType: "view" | "field" | "record";
-                  deletedTime: string;
-                  deletedBy: string;
-                }))[];
-              userMap: {
-                [key: string]: {
-                  email: string;
-                  avatar?: string | null;
-                  id: string;
-                  name: string;
-                };
-              };
-              resourceMap: {
-                [key: string]: {
-                  id: string;
-                  name: string;
-                } | ({
-                  id: string;
-                  name: string;
-                  /** @enum {string} */
-                  type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
-                }) | ({
-                  id: string;
-                  name: string;
-                  /** @enum {string} */
-                  type: "singleLineText" | "longText" | "user" | "attachment" | "checkbox" | "multipleSelect" | "singleSelect" | "date" | "number" | "duration" | "rating" | "formula" | "rollup" | "count" | "link" | "createdTime" | "lastModifiedTime" | "createdBy" | "lastModifiedBy" | "autoNumber" | "button";
-                  isLookup: boolean | null;
-                  options?: string[] | null;
-                });
-              };
-              nextCursor?: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/trash/reset-items": {
-    /** @description Reset trash items for a base or table */
-    delete: {
-      parameters: {
-        query: {
-          resourceId: string;
-          resourceType: "base" | "table";
-          cursor?: string | null;
-        };
-      };
-      responses: {
-        /** @description Reset successfully */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/trash/restore/{trashId}": {
-    /** @description restore a space, base, table, etc. */
-    post: {
-      parameters: {
-        path: {
-          trashId: string;
-        };
-      };
-      responses: {
-        /** @description Restored successfully */
-        201: {
-          content: never;
-        };
-      };
-    };
-  };
   "/table/{tableId}/record/{recordId}/history": {
     /**
      * Get record history
@@ -5678,6 +5520,43 @@ export interface paths {
       };
     };
   };
+  "/base/{baseId}/table": {
+    /**
+     * List tables
+     * @description Retrieve a list of all tables in the specified base, including their basic information and configurations.
+     */
+    get: {
+      parameters: {
+        path: {
+          baseId: string;
+        };
+      };
+      responses: {
+        /** @description Successfully retrieved the list of tables. */
+        200: {
+          content: {
+            "application/json": {
+                /** @description The id of table. */
+                id: string;
+                /** @description The name of the table. */
+                name: string;
+                /** @description Table name in backend database. Limitation: 1-63 characters, start with letter, can only contain letters, numbers and underscore, case insensitive, cannot be duplicated with existing db table name in the base. */
+                dbTableName: string;
+                /** @description The description of the table. */
+                description?: string;
+                /** @description The emoji icon string of the table. */
+                icon?: string;
+                order?: number;
+                /** @description The last modified time of the table. */
+                lastModifiedTime?: string;
+                /** @description The default view id of the table. */
+                defaultViewId?: string;
+              }[];
+          };
+        };
+      };
+    };
+  };
   "/base/{baseId}/table/{tableId}": {
     /**
      * Get table details
@@ -5717,7 +5596,7 @@ export interface paths {
     };
     /**
      * Delete table
-     * @description Move a table to trash. The table can be restored within the retention period.
+     * @description Delete a table and all its data. This action cannot be undone.
      */
     delete: {
       parameters: {
@@ -5727,64 +5606,7 @@ export interface paths {
         };
       };
       responses: {
-        /** @description Table successfully moved to trash. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/base/{baseId}/table": {
-    /**
-     * List tables
-     * @description Retrieve a list of all tables in the specified base, including their basic information and configurations.
-     */
-    get: {
-      parameters: {
-        path: {
-          baseId: string;
-        };
-      };
-      responses: {
-        /** @description Successfully retrieved the list of tables. */
-        200: {
-          content: {
-            "application/json": {
-                /** @description The id of table. */
-                id: string;
-                /** @description The name of the table. */
-                name: string;
-                /** @description Table name in backend database. Limitation: 1-63 characters, start with letter, can only contain letters, numbers and underscore, case insensitive, cannot be duplicated with existing db table name in the base. */
-                dbTableName: string;
-                /** @description The description of the table. */
-                description?: string;
-                /** @description The emoji icon string of the table. */
-                icon?: string;
-                order?: number;
-                /** @description The last modified time of the table. */
-                lastModifiedTime?: string;
-                /** @description The default view id of the table. */
-                defaultViewId?: string;
-              }[];
-          };
-        };
-      };
-    };
-  };
-  "/base/{baseId}/table/{tableId}/permanent": {
-    /**
-     * Permanently delete table
-     * @description Permanently delete a table and all its data. This action cannot be undone.
-     */
-    delete: {
-      parameters: {
-        path: {
-          baseId: string;
-          tableId: string;
-        };
-      };
-      responses: {
-        /** @description Table and all associated data permanently deleted. */
+        /** @description Table and all associated data deleted. */
         200: {
           content: never;
         };
@@ -6440,22 +6262,6 @@ export interface paths {
               };
             };
           };
-        };
-      };
-    };
-  };
-  "/base/{baseId}/permanent": {
-    /** @description Permanently delete a base by baseId */
-    delete: {
-      parameters: {
-        path: {
-          baseId: string;
-        };
-      };
-      responses: {
-        /** @description Permanently deleted successfully */
-        200: {
-          content: never;
         };
       };
     };
@@ -9635,86 +9441,6 @@ export interface paths {
       };
     };
   };
-  "/pin": {
-    /** @description Delete pin */
-    delete: {
-      parameters: {
-        query: {
-          type: "space" | "base";
-          id: string;
-        };
-      };
-      responses: {
-        /** @description Delete pin successfully */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/pin/": {
-    /** @description Add pin */
-    post: {
-      requestBody?: {
-        content: {
-          "application/json": {
-            /** @enum {string} */
-            type: "space" | "base";
-            id: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Add pin successfully */
-        201: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/pin/list": {
-    /** @description Get  pin list */
-    get: {
-      responses: {
-        /** @description Get  pin list, include base pin */
-        200: {
-          content: {
-            "application/json": ({
-                id: string;
-                /** @enum {string} */
-                type: "space" | "base";
-                order: number;
-              })[];
-          };
-        };
-      };
-    };
-  };
-  "/pin/order": {
-    /** @description Update  pin order */
-    put: {
-      requestBody?: {
-        content: {
-          "application/json": {
-            id: string;
-            /** @enum {string} */
-            type: "space" | "base";
-            anchorId: string;
-            /** @enum {string} */
-            anchorType: "space" | "base";
-            /** @enum {string} */
-            position: "before" | "after";
-          };
-        };
-      };
-      responses: {
-        /** @description Update  pin order successfully */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
   "/space/{spaceId}/billing/subscription/summary": {
     /** @description Retrieves a summary of subscription information for a space */
     get: {
@@ -9771,24 +9497,6 @@ export interface paths {
               disallowSpaceCreation: boolean | null;
               disallowSpaceInvitation: boolean | null;
               enableEmailVerification: boolean | null;
-              aiConfig: ({
-                /** @default [] */
-                llmProviders?: ({
-                    /** @enum {string} */
-                    type: "openai" | "anthropic" | "google" | "azure" | "cohere" | "mistral" | "deepseek" | "qwen" | "zhipu" | "lingyiwanwu" | "xai";
-                    name: string;
-                    apiKey?: string;
-                    /** Format: uri */
-                    baseUrl?: string;
-                    /** @default */
-                    models?: string;
-                    isInstance?: boolean;
-                  })[];
-                embeddingModel?: string;
-                translationModel?: string;
-                codingModel?: string;
-                enable?: boolean;
-              }) | null;
             };
           };
         };
@@ -9803,24 +9511,6 @@ export interface paths {
             disallowSpaceCreation?: boolean;
             disallowSpaceInvitation?: boolean;
             enableEmailVerification?: boolean;
-            aiConfig?: {
-              /** @default [] */
-              llmProviders?: ({
-                  /** @enum {string} */
-                  type: "openai" | "anthropic" | "google" | "azure" | "cohere" | "mistral" | "deepseek" | "qwen" | "zhipu" | "lingyiwanwu" | "xai";
-                  name: string;
-                  apiKey?: string;
-                  /** Format: uri */
-                  baseUrl?: string;
-                  /** @default */
-                  models?: string;
-                  isInstance?: boolean;
-                })[];
-              embeddingModel?: string;
-              translationModel?: string;
-              codingModel?: string;
-              enable?: boolean;
-            };
           };
         };
       };
@@ -9845,17 +9535,6 @@ export interface paths {
               disallowSpaceCreation: boolean | null;
               disallowSpaceInvitation: boolean | null;
               enableEmailVerification: boolean | null;
-              aiConfig: ({
-                enable: boolean;
-                llmProviders: ({
-                    /** @enum {string} */
-                    type: "openai" | "anthropic" | "google" | "azure" | "cohere" | "mistral" | "deepseek" | "qwen" | "zhipu" | "lingyiwanwu" | "xai";
-                    name: string;
-                    /** @default */
-                    models?: string;
-                    isInstance?: boolean;
-                  })[];
-              }) | null;
             };
           };
         };
@@ -11337,91 +11016,6 @@ export interface paths {
                     }[];
                 }[];
               total: number;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/api/{baseId}/ai/generate-stream": {
-    /** @description Generate ai stream */
-    post: {
-      parameters: {
-        path: {
-          baseId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            prompt: string;
-            /** @enum {string} */
-            task?: "coding" | "embedding" | "translation";
-          };
-        };
-      };
-      responses: {
-        /** @description Returns ai generate stream. */
-        201: {
-          content: {
-            "application/json": {
-              result: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/{baseId}/ai/config": {
-    /** @description Get the configuration of ai, including instance and space configuration */
-    get: {
-      parameters: {
-        path: {
-          baseId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the configuration of ai. */
-        200: {
-          content: {
-            "application/json": {
-              /** @default [] */
-              llmProviders?: ({
-                  /** @enum {string} */
-                  type: "openai" | "anthropic" | "google" | "azure" | "cohere" | "mistral" | "deepseek" | "qwen" | "zhipu" | "lingyiwanwu" | "xai";
-                  name: string;
-                  apiKey?: string;
-                  /** Format: uri */
-                  baseUrl?: string;
-                  /** @default */
-                  models?: string;
-                  isInstance?: boolean;
-                })[];
-              embeddingModel?: string;
-              translationModel?: string;
-              codingModel?: string;
-              modelDefinationMap?: {
-                [key: string]: {
-                  /**
-                   * @description The number of credits spent using a prompt token
-                   * @example 0.001
-                   */
-                  inputRate: number;
-                  /**
-                   * @description The number of credits spent using a completion token
-                   * @example 0.0025
-                   */
-                  outputRate: number;
-                  /** @description Whether to enable vision */
-                  visionEnable?: boolean;
-                  /** @description Whether to enable audio */
-                  audioEnable?: boolean;
-                  /** @description Whether to enable video */
-                  videoEnable?: boolean;
-                  /** @description Whether to enable deep think */
-                  deepThinkEnable?: boolean;
-                };
-              };
             };
           };
         };

@@ -291,7 +291,6 @@
     "descriptionForTable": "Description for this table",
     "nameForTable": "Name for this table",
     "deleteTip1": "Link fields linked with this table in other tables will be deleted.",
-    "deleteTip2": "This table can be restored from the trash after deletion.",
     "operator": {
       "createBlank": "Create a blank table"
     },
@@ -534,11 +533,6 @@
   "pasteNewRecords": {
     "title": "Do you want to add multiple records?",
     "description": "The {{count}} records will be added to the table."
-  },
-  "tableTrash": {
-    "title": "Table trash",
-    "resourceType": "Resource type",
-    "deletedResource": "Deleted resource"
   },
   "plugin": {
     "recent": "Recents",

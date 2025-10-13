@@ -17,7 +17,7 @@ import {
   updatePluginContextMenuStorage,
   z,
 } from '@teable/openapi';
-import { createTable, initApp, permanentDeleteTable } from './utils/init-app';
+import { createTable, initApp, deleteTable } from './utils/init-app';
 
 describe('Plugin Context Menu', () => {
   let app: INestApplication;
@@ -51,7 +51,7 @@ describe('Plugin Context Menu', () => {
 
   afterEach(async () => {
     await deletePlugin(pluginId);
-    await permanentDeleteTable(baseId, tableId);
+    await deleteTable(baseId, tableId);
   });
 
   it('api/table/:tableId/plugin-context-menu/install (POST)', async () => {

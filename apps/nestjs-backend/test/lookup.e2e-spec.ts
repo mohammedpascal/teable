@@ -24,7 +24,7 @@ import {
   createField,
   deleteField,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   getFields,
   getRecord,
   initApp,
@@ -153,8 +153,8 @@ describe('OpenAPI Lookup field (e2e)', () => {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, table1.id);
-      await permanentDeleteTable(baseId, table2.id);
+      await deleteTable(baseId, table1.id);
+      await deleteTable(baseId, table2.id);
     });
 
     beforeEach(async () => {
@@ -622,8 +622,8 @@ describe('OpenAPI Lookup field (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table1.id);
-      await permanentDeleteTable(baseId, table2.id);
+      await deleteTable(baseId, table1.id);
+      await deleteTable(baseId, table2.id);
     });
 
     it('should update a simple lookup field', async () => {

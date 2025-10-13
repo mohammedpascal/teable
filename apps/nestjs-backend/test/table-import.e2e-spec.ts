@@ -20,7 +20,7 @@ import timezone from 'dayjs/plugin/timezone';
 import * as XLSX from 'xlsx';
 import StorageAdapter from '../src/features/attachments/plugins/adapter';
 import { CsvImporter } from '../src/features/import/open-api/import.class';
-import { initApp, permanentDeleteTable, getTable as apiGetTableById } from './utils/init-app';
+import { initApp, deleteTable, getTable as apiGetTableById } from './utils/init-app';
 
 extend(timezone);
 
@@ -179,7 +179,7 @@ describe('OpenAPI ImportController (e2e)', () => {
     });
     for (let i = 0; i < bases.length; i++) {
       const [baseId, id] = bases[i];
-      await permanentDeleteTable(baseId, id);
+      await deleteTable(baseId, id);
       await apiDeleteBase(baseId);
     }
     await app.close();

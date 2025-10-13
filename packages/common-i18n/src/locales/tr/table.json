@@ -281,7 +281,6 @@
     "descriptionForTable": "Bu tablo için açıklama",
     "nameForTable": "Bu tablo için ad",
     "deleteTip1": "Diğer tablolardaki bu tabloyla bağlantılı bağlantı alanları silinecek.",
-    "deleteTip2": "Bu tablo silindikten sonra çöp kutusundan geri yüklenebilir.",
     "operator": {
       "createBlank": "Boş bir tablo oluştur"
     },

@@ -23,7 +23,7 @@ import {
   createField,
   createRecords,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   getFields,
   getRecords,
   getTable,
@@ -134,7 +134,7 @@ describe('OpenAPI TableController (e2e)', () => {
   });
 
   afterEach(async () => {
-    await permanentDeleteTable(baseId, tableId);
+    await deleteTable(baseId, tableId);
   });
 
   it('/api/table/ (POST) with assertData data', async () => {

@@ -48,7 +48,7 @@ const gridViewRo: IViewRo = {
   });
 
   afterAll(async () => {
-    await permanentDeleteTable(baseId, tableId);
+    await deleteTable(baseId, tableId);
 
     await app.close();
   });
@@ -242,8 +242,8 @@ const gridViewRo: IViewRo = {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, linkTableRes.id);
-      await permanentDeleteTable(baseId, tableRes.id);
+      await deleteTable(baseId, linkTableRes.id);
+      await deleteTable(baseId, tableRes.id);
     });
 
     describe('form view', () => {
@@ -345,7 +345,7 @@ const gridViewRo: IViewRo = {
     });
 
     afterAll(async () => {
-      await permanentDeleteTable(baseId, userTableRes.id);
+      await deleteTable(baseId, userTableRes.id);
     });
     describe('grid view', () => {
       let gridViewId: string;
@@ -511,8 +511,8 @@ const gridViewRo: IViewRo = {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table1.id);
-      await permanentDeleteTable(baseId, table2.id);
+      await deleteTable(baseId, table1.id);
+      await deleteTable(baseId, table2.id);
     });
 
     it('should get link view', async () => {
@@ -551,8 +551,8 @@ const gridViewRo: IViewRo = {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table1.id);
-      await permanentDeleteTable(baseId, table2.id);
+      await deleteTable(baseId, table1.id);
+      await deleteTable(baseId, table2.id);
     });
 
     it('should get link view limit by view', async () => {

@@ -23,7 +23,6 @@
     "editSucceed": "¡Editado con éxito!",
     "updateSucceed": "¡Actualizado con éxito!",
     "deleteSucceed": "¡Eliminado con éxito!",
-    "resetSucceed": "¡Papelera vaciada con éxito!",
     "restoreSucceed": "¡Restaurado con éxito!",
     "loading": "Cargando...",
     "refreshPage": "Refrescar página",
@@ -157,7 +156,6 @@
     "license": "Licencia",
     "instanceId": "ID de Instancia",
     "beta": "Beta",
-    "trash": "Papelera",
     "global": "Global",
     "organizationPanel": "Panel de Organización",
     "unknownError": "Error desconocido",
@@ -337,7 +335,6 @@
       "viewer": "No se puede editar o comentar"
     }
   },
-  "trash": {
     "type": "Tipo",
     "resetTrash": "Vaciar papelera",
     "deletedBy": "Eliminado por",

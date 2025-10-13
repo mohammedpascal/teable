@@ -3,12 +3,12 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const PERMANENT_DELETE_BASE = '/base/{baseId}/permanent';
+export const DELETE_BASE = '/base/{baseId}';
 
-export const PermanentDeleteBaseRoute: RouteConfig = registerRoute({
+export const DeleteBaseRoute: RouteConfig = registerRoute({
   method: 'delete',
-  path: PERMANENT_DELETE_BASE,
-  description: 'Permanently delete a base by baseId',
+  path: DELETE_BASE,
+  description: 'Delete a base by baseId',
   request: {
     params: z.object({
       baseId: z.string(),
@@ -16,15 +16,15 @@ export const PermanentDeleteBaseRoute: RouteConfig = registerRoute({
   },
   responses: {
     200: {
-      description: 'Permanently deleted successfully',
+      description: 'Deleted successfully',
     },
   },
   tags: ['base'],
 });
 
-export const permanentDeleteBase = async (baseId: string) => {
+export const deleteBase = async (baseId: string) => {
   return await axios.delete<null>(
-    urlBuilder(PERMANENT_DELETE_BASE, {
+    urlBuilder(DELETE_BASE, {
       baseId,
     })
   );

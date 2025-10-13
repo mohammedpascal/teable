@@ -4,7 +4,7 @@ import type { INestApplication } from '@nestjs/common';
 import type { IAttachmentCellValue } from '@teable/core';
 import { FieldKeyType, FieldType, getRandomString } from '@teable/core';
 import type { ITableFullVo } from '@teable/openapi';
-import { getRecord, permanentDeleteTable, updateRecord, uploadAttachment } from '@teable/openapi';
+import { getRecord, deleteTable, updateRecord, uploadAttachment } from '@teable/openapi';
 import { EventEmitterService } from '../src/event-emitter/event-emitter.service';
 import { Events } from '../src/event-emitter/events';
 import StorageAdapter from '../src/features/attachments/plugins/adapter';
@@ -36,7 +36,7 @@ describe('OpenAPI AttachmentController (e2e)', () => {
   });
 
   afterEach(async () => {
-    await permanentDeleteTable(baseId, table.id);
+    await deleteTable(baseId, table.id);
   });
 
   it('should upload and typecast attachment', async () => {

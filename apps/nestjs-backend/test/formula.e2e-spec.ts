@@ -12,7 +12,7 @@ import {
   createField,
   createRecords,
   createTable,
-  permanentDeleteTable,
+  deleteTable,
   getRecords,
   initApp,
   updateRecord,
@@ -73,7 +73,7 @@ describe('OpenAPI formula (e2e)', () => {
   });
 
   afterEach(async () => {
-    await permanentDeleteTable(baseId, table1Id);
+    await deleteTable(baseId, table1Id);
   });
 
   it('should response calculate record after create', async () => {
@@ -186,7 +186,7 @@ describe('OpenAPI formula (e2e)', () => {
     });
 
     afterEach(async () => {
-      await permanentDeleteTable(baseId, table.id);
+      await deleteTable(baseId, table.id);
     });
 
     it('should safe calculate error function', async () => {

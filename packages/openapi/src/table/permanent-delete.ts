@@ -3,13 +3,13 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const PERMANENT_DELETE_TABLE = '/base/{baseId}/table/{tableId}/permanent';
+export const DELETE_TABLE = '/base/{baseId}/table/{tableId}';
 
-export const PermanentDeleteTableRoute: RouteConfig = registerRoute({
+export const DeleteTableRoute: RouteConfig = registerRoute({
   method: 'delete',
-  path: PERMANENT_DELETE_TABLE,
-  summary: 'Permanently delete table',
-  description: 'Permanently delete a table and all its data. This action cannot be undone.',
+  path: DELETE_TABLE,
+  summary: 'Delete table',
+  description: 'Delete a table and all its data. This action cannot be undone.',
   request: {
     params: z.object({
       baseId: z.string(),
@@ -18,15 +18,15 @@ export const PermanentDeleteTableRoute: RouteConfig = registerRoute({
   },
   responses: {
     200: {
-      description: 'Table and all associated data permanently deleted.',
+      description: 'Table and all associated data deleted.',
     },
   },
   tags: ['table'],
 });
 
-export const permanentDeleteTable = async (baseId: string, tableId: string) => {
+export const deleteTable = async (baseId: string, tableId: string) => {
   return axios.delete<null>(
-    urlBuilder(PERMANENT_DELETE_TABLE, {
+    urlBuilder(DELETE_TABLE, {
       baseId,
       tableId,
     })

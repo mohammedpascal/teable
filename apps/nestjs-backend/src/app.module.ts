@@ -28,7 +28,6 @@ import { PluginContextMenuModule } from './features/plugin-context-menu/plugin-c
 import { PluginPanelModule } from './features/plugin-panel/plugin-panel.module';
 import { SelectionModule } from './features/selection/selection.module';
 import { SettingModule } from './features/setting/setting.module';
-import { TrashModule } from './features/trash/trash.module';
 import { UndoRedoModule } from './features/undo-redo/open-api/undo-redo.module';
 import { UserModule } from './features/user/user.module';
 import { GlobalModule } from './global/global.module';
@@ -59,7 +58,6 @@ export const appModules = {
     ExportOpenApiModule,
     SettingModule,
     OAuthModule,
-    TrashModule,
     PluginModule,
     DashboardModule,
     CommentOpenApiModule,

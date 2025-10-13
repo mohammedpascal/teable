@@ -46,8 +46,6 @@ export enum IdPrefix {
 
   Dashboard = 'dsh',
 
-  RecordTrash = 'rtr',
-
   Operation = 'opr',
 
   Organization = 'org',
@@ -196,10 +194,6 @@ export function generateDashboardId() {
 
 export function generateOperationId() {
   return IdPrefix.Operation + getRandomString(16);
-}
-
-export function generateRecordTrashId() {
-  return IdPrefix.RecordTrash + getRandomString(16);
 }
 
 export function generateOrganizationId() {
