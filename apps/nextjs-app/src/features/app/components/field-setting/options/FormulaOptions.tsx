@@ -13,7 +13,6 @@ import { Dialog, DialogContent, DialogTrigger } from '@teable/ui-lib/shadcn';
 import { isEmpty, isEqual, keyBy } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';
-import { useAI } from '@/features/app/hooks/useAI';
 import { TimeZoneFormatting } from '../formatting/TimeZoneFormatting';
 import { UnionFormatting } from '../formatting/UnionFormatting';
 import { UnionShowAs } from '../show-as/UnionShowAs';
@@ -35,7 +34,6 @@ export const FormulaOptionsInner = (props: {
   onChange?: (options: Partial<IFormulaFieldOptions>) => void;
 }) => {
   const { options = {}, onChange } = props;
-  const { enable: enableAI } = useAI();
   const { expression, formatting, showAs } = options;
   const fields = useFields({ withHidden: true, withDenied: true });
   const [visible, setVisible] = useState(false);
@@ -124,7 +122,6 @@ export const FormulaOptionsInner = (props: {
             <FormulaEditor
               expression={expression}
               onConfirm={onExpressionChange}
-              enableAI={enableAI}
             />
           </DialogContent>
         </Dialog>

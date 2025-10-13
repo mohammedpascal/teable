@@ -35,12 +35,6 @@
     "spaceName": "Alan Adı",
     "spaceId": "Alan Kimliği"
   },
-  "pin": {
-    "add": "Sabitlemelere ekle",
-    "remove": "Sabitlemeleri kaldır",
-    "pin": "Sabitle",
-    "empty": "Sabitlediğiniz veritabanları ve alanlar burada görünecek"
-  },
   "tip": {
     "delete": "<0/> silmek istediğinizden emin misiniz?"
   },

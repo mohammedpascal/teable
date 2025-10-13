@@ -7,11 +7,9 @@ import type { ICacheConfig } from './configs/cache.config';
 import { ConfigModule } from './configs/config.module';
 import { AccessTokenModule } from './features/access-token/access-token.module';
 import { AggregationOpenApiModule } from './features/aggregation/open-api/aggregation-open-api.module';
-import { AiModule } from './features/ai/ai.module';
 import { AttachmentsModule } from './features/attachments/attachments.module';
 import { AuthModule } from './features/auth/auth.module';
 import { BaseModule } from './features/base/base.module';
-import { ChatModule } from './features/chat/chat.module';
 import { CollaboratorModule } from './features/collaborator/collaborator.module';
 import { CommentOpenApiModule } from './features/comment/comment-open-api.module';
 import { DashboardModule } from './features/dashboard/dashboard.module';
@@ -25,7 +23,6 @@ import { NextModule } from './features/next/next.module';
 import { NotificationModule } from './features/notification/notification.module';
 import { OAuthModule } from './features/oauth/oauth.module';
 import { OrganizationModule } from './features/organization/organization.module';
-import { PinModule } from './features/pin/pin.module';
 import { PluginModule } from './features/plugin/plugin.module';
 import { PluginContextMenuModule } from './features/plugin-context-menu/plugin-context-menu.module';
 import { PluginPanelModule } from './features/plugin-panel/plugin-panel.module';
@@ -48,7 +45,6 @@ export const appModules = {
     FieldOpenApiModule,
     BaseModule,
     IntegrityModule,
-    ChatModule,
     AttachmentsModule,
     WsModule,
     SelectionModule,
@@ -63,7 +59,6 @@ export const appModules = {
     AccessTokenModule,
     ImportOpenApiModule,
     ExportOpenApiModule,
-    PinModule,
     SettingModule,
     OAuthModule,
     TrashModule,
@@ -71,7 +66,6 @@ export const appModules = {
     DashboardModule,
     CommentOpenApiModule,
     OrganizationModule,
-    AiModule,
     PluginPanelModule,
     PluginContextMenuModule,
   ],

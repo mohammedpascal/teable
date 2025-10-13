@@ -35,12 +35,6 @@
     "spaceName": "Nombre del Espacio",
     "spaceId": "ID del Espacio"
   },
-  "pin": {
-    "add": "Agregar a fijados",
-    "remove": "Quitar de fijados",
-    "pin": "Fijar",
-    "empty": "Tus bases y espacios fijados aparecerán aquí"
-  },
   "tip": {
     "delete": "¿Estás seguro de que quieres eliminar <0/>?"
   },

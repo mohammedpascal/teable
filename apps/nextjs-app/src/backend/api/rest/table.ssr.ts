@@ -24,7 +24,6 @@ import type {
   IGetDashboardListVo,
   IGetBasePermissionVo,
   ITablePermissionVo,
-  IGetPinListVo,
   ISubscriptionSummaryVo,
 } from '@teable/openapi';
 import {
@@ -53,7 +52,6 @@ import {
   GET_BASE_PERMISSION,
   GET_TABLE_PERMISSION,
   urlBuilder,
-  GET_PIN_LIST,
   GET_SUBSCRIPTION_SUMMARY,
   GET_SUBSCRIPTION_SUMMARY_LIST,
 } from '@teable/openapi';
@@ -153,9 +151,6 @@ export class SsrApi {
     return await this.axios.get<IGetBaseVo[]>(GET_BASE_ALL).then(({ data }) => data);
   }
 
-  async getPinList() {
-    return await this.axios.get<IGetPinListVo[]>(GET_PIN_LIST).then(({ data }) => data);
-  }
 
   async getBasePermission(baseId: string) {
     return await this.axios

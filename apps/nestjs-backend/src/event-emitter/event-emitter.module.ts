@@ -9,7 +9,6 @@ import { EventEmitterService } from './event-emitter.service';
 import { ActionTriggerListener } from './listeners/action-trigger.listener';
 import { AttachmentListener } from './listeners/attachment.listener';
 import { CollaboratorNotificationListener } from './listeners/collaborator-notification.listener';
-import { PinListener } from './listeners/pin.listener';
 import { RecordHistoryListener } from './listeners/record-history.listener';
 import { TrashListener } from './listeners/trash.listener';
 
@@ -39,7 +38,6 @@ export class EventEmitterModule extends EventEmitterModuleClass {
         ActionTriggerListener,
         CollaboratorNotificationListener,
         AttachmentListener,
-        PinListener,
         RecordHistoryListener,
         TrashListener,
       ],

@@ -35,12 +35,6 @@
     "spaceName": "Nom de l'espace",
     "spaceId": "ID de l'espace"
   },
-  "pin": {
-    "add": "Ajouter aux favoris",
-    "remove": "Retirer des favoris",
-    "pin": "Épingler",
-    "empty": "Vos bases et espaces favoris apparaîtront ici"
-  },
   "tip": {
     "delete": "Êtes-vous sûr de vouloir supprimer <0/> ?"
   },

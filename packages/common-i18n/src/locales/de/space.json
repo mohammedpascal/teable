@@ -35,12 +35,6 @@
     "spaceName": "Space Name",
     "spaceId": "Space ID"
   },
-  "pin": {
-    "add": "Anpinnen",
-    "remove": "Pin entfernen",
-    "pin": "Pin",
-    "empty": "Ihre gepinnten Bases und Spaces werden hier erscheinen"
-  },
   "tip": {
     "delete": "Sind Sie sicher, dass Sie <0/> löschen wollen?"
   },

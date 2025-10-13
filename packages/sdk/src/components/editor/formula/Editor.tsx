@@ -10,14 +10,11 @@ import { Button, cn } from '@teable/ui-lib';
 import { CharStreams } from 'antlr4ts';
 import Fuse from 'fuse.js';
 import { cloneDeep, keyBy } from 'lodash';
-import { AlertCircle } from 'lucide-react';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useFieldStaticGetter, useFields } from '../../../hooks';
-import { useAIStream } from '../../../hooks/use-ai';
 import { FormulaField } from '../../../model';
-import { MagicAI } from '../../comment/comment-editor/plate-ui/icons';
 import type { ICodeEditorRef } from './components';
 import { CodeEditor, FunctionGuide, FunctionHelper } from './components';
 import {
@@ -27,7 +24,6 @@ import {
   useFunctionsDisplayMap,
 } from './constants';
 import { THEME_EXTENSIONS, TOKEN_EXTENSIONS, getVariableExtensions } from './extensions';
-import { getFormulaPrompt } from './extensions/ai';
 import type {
   IFocusToken,
   IFuncHelpData,
@@ -40,11 +36,10 @@ import { FormulaNodePathVisitor } from './visitor';
 interface IFormulaEditorProps {
   expression?: string;
   onConfirm?: (expression: string) => void;
-  enableAI?: boolean;
 }
 
 export const FormulaEditor: FC<IFormulaEditorProps> = (props) => {
-  const { expression, onConfirm, enableAI } = props;
+  const { expression, onConfirm } = props;
   const fields = useFields({ withHidden: true, withDenied: true });
   const { resolvedTheme } = useTheme();
   const { t } = useTranslation();
@@ -68,14 +63,6 @@ export const FormulaEditor: FC<IFormulaEditorProps> = (props) => {
     [formulaFunctionsMap]
   );
   const functionsDisplayMap = useFunctionsDisplayMap();
-  const { generateAIResponse, text, loading, error } = useAIStream();
-
-  useEffect(() => {
-    if (text) {
-      setExpressionByName(text);
-    }
-  }, [text]);
-
   const filteredFields = useMemo(() => {
     const fuse = new Fuse(fields, {
       findAllMatches: true,
@@ -341,43 +328,13 @@ export const FormulaEditor: FC<IFormulaEditorProps> = (props) => {
     }
   };
 
-  const handleGenerateFormula = useCallback(() => {
-    if (!expressionByName || loading) return;
-    if (expressionByName.startsWith('//')) {
-      generateAIResponse(getFormulaPrompt(expressionByName.slice(2), fields));
-    }
-  }, [expressionByName, fields, generateAIResponse, loading]);
   const codeBg = isLightTheme ? 'bg-slate-100' : 'bg-gray-900';
-
-  // only generate formula when the expression starts with //
-  const isReadyToGenerate = expressionByName.startsWith('//');
 
   return (
     <div className="w-[620px]">
       <div className="flex h-12 w-full items-center justify-between border-b-DEFAULT pl-4 pr-2">
         <div className="flex items-center gap-1">
           <h1 className="text-base">{t('editor.formula.title')}</h1>
-          {enableAI && (
-            <div className="flex items-center gap-2">
-              <Button
-                size="xs"
-                variant="ghost"
-                onClick={handleGenerateFormula}
-                disabled={!isReadyToGenerate || loading}
-              >
-                <MagicAI
-                  className={cn('size-4', loading && 'animate-[pulse_1s_ease-in-out_infinite]')}
-                  active={isReadyToGenerate || loading}
-                />
-              </Button>
-              {error && (
-                <div className="flex items-center gap-1 text-xs text-destructive">
-                  <AlertCircle className="size-3" />
-                  <span>{error}</span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </div>
 
@@ -388,9 +345,7 @@ export const FormulaEditor: FC<IFormulaEditorProps> = (props) => {
           extensions={extensions}
           onChange={onValueChange}
           onSelectionChange={onSelectionChange}
-          placeholder={
-            enableAI ? t('editor.formula.placeholderForAI') : t('editor.formula.placeholder')
-          }
+          placeholder={t('editor.formula.placeholder')}
         />
         <div className="h-5 w-full truncate px-2 text-xs text-destructive">{errMsg}</div>
       </div>

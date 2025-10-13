@@ -2,7 +2,6 @@ import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { z } from 'zod';
 import { axios } from '../../axios';
 import { registerRoute } from '../../utils';
-import { aiConfigVoSchema } from './update';
 
 export const settingVoSchema = z.object({
   instanceId: z.string(),
@@ -10,7 +9,6 @@ export const settingVoSchema = z.object({
   disallowSpaceCreation: z.boolean().nullable(),
   disallowSpaceInvitation: z.boolean().nullable(),
   enableEmailVerification: z.boolean().nullable(),
-  aiConfig: aiConfigVoSchema.nullable(),
 });
 
 export type ISettingVo = z.infer<typeof settingVoSchema>;

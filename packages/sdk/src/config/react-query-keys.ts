@@ -24,7 +24,6 @@ export const ReactQueryKeys = {
 
   baseList: () => ['base-list'] as const,
 
-  pinList: () => ['pin-list'] as const,
 
   tableList: (baseId: string) => ['table-list', baseId] as const,
 

@@ -9,18 +9,6 @@ datasource db {
 }
 
 
-model PinResource {
-  id               String    @id @default(cuid())
-  type             String    @map("type")
-  resourceId       String    @map("resource_id")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  createdBy        String    @map("created_by")
-  order            Float     @map("order")
-
-  @@index([order])
-  @@unique([createdBy, resourceId])
-  @@map("pin_resource")
-}
 
 model Base {
   id                         String      @id @default(cuid())
@@ -318,7 +306,6 @@ model Setting {
   disallowSpaceCreation     Boolean?  @map("disallow_space_creation")
   disallowSpaceInvitation   Boolean?  @map("disallow_space_invitation")
   enableEmailVerification   Boolean?  @map("enable_email_verification")
-  aiConfig                  String?   @map("ai_config")
 
   @@map("setting")
 }

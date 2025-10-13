@@ -4,7 +4,6 @@ import { getSetting, updateSetting } from '@teable/openapi';
 import { Label, Switch } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { CopyInstance } from './components';
-import { AIConfigForm } from './components/ai-config/AiForm';
 
 export interface ISettingPageProps {
   settingServerData?: ISettingVo;
@@ -109,16 +108,6 @@ export const SettingPage = (props: ISettingPageProps) => {
         </div>
       </div>
 
-      {/* AI Configuration Section */}
-      <div className="py-4">
-        <h2 className="mb-4 text-lg font-medium">{t('admin.setting.aiSettings')}</h2>
-        <AIConfigForm
-          aiConfig={setting.aiConfig}
-          setAiConfig={(value) => onValueChange('aiConfig', value)}
-        />
-      </div>
-
-      <div className="grow" />
       <p className="p-4 text-right text-xs">
         {t('settings.setting.version')}: {process.env.NEXT_PUBLIC_BUILD_VERSION}
       </p>

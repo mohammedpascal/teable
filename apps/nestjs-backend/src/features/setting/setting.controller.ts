@@ -9,9 +9,6 @@ import { SettingService } from './setting.service';
 export class SettingController {
   constructor(private readonly settingService: SettingService) {}
 
-  /**
-   * Get the instance settings, now we have config for AI, there are some sensitive fields, we need check the permission before return.
-   */
   @Get()
   async getSetting(): Promise<ISettingVo> {
     return await this.settingService.getSetting();
@@ -23,20 +20,7 @@ export class SettingController {
   @Public()
   @Get('public')
   async getPublicSetting(): Promise<IPublicSettingVo> {
-    const setting = await this.settingService.getSetting();
-    const { aiConfig, ...rest } = setting;
-    return {
-      ...rest,
-      aiConfig: {
-        enable: aiConfig?.enable ?? false,
-        llmProviders:
-          aiConfig?.llmProviders?.map((provider) => ({
-            type: provider.type,
-            name: provider.name,
-            models: provider.models,
-          })) ?? [],
-      },
-    };
+    return await this.settingService.getSetting();
   }
 
   @Patch()
@@ -44,10 +28,6 @@ export class SettingController {
     @Body(new ZodValidationPipe(updateSettingRoSchema))
     updateSettingRo: IUpdateSettingRo
   ): Promise<ISettingVo> {
-    const res = await this.settingService.updateSetting(updateSettingRo);
-    return {
-      ...res,
-      aiConfig: res.aiConfig ? JSON.parse(res.aiConfig) : null,
-    };
+    return await this.settingService.updateSetting(updateSettingRo);
   }
 }

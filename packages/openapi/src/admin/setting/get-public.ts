@@ -3,35 +3,15 @@ import { z } from 'zod';
 import { axios } from '../../axios';
 import { registerRoute } from '../../utils';
 import { settingVoSchema } from './get';
-import { llmProviderSchema } from './update';
 
-export const simpleLLMProviderSchema = llmProviderSchema.pick({
-  type: true,
-  name: true,
-  models: true,
-  isInstance: true,
+export const publicSettingVoSchema = settingVoSchema.pick({
+  instanceId: true,
+  disallowSignUp: true,
+  disallowSpaceCreation: true,
+  disallowSpaceInvitation: true,
+  enableEmailVerification: true,
 });
 
-export type ISimpleLLMProvider = z.infer<typeof simpleLLMProviderSchema>;
-
-const publicAiConfigSchema = z.object({
-  enable: z.boolean(),
-  llmProviders: z.array(simpleLLMProviderSchema),
-});
-
-export const publicSettingVoSchema = settingVoSchema
-  .pick({
-    instanceId: true,
-    disallowSignUp: true,
-    disallowSpaceCreation: true,
-    disallowSpaceInvitation: true,
-    enableEmailVerification: true,
-  })
-  .merge(
-    z.object({
-      aiConfig: publicAiConfigSchema.nullable(),
-    })
-  );
 export type IPublicSettingVo = z.infer<typeof publicSettingVoSchema>;
 
 export const GET_PUBLIC_SETTING = '/admin/setting/public';
