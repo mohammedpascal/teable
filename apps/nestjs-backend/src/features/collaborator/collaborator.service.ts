@@ -92,7 +92,6 @@ export class CollaboratorService {
     role: IRole;
     createdBy?: string;
   }) {
-    // TODO: Space functionality not yet implemented
     return 0;
   }
 

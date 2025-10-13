@@ -1,3 +1,17 @@
+import type { DehydratedState } from '@tanstack/react-query';
+import { Admin, Settings } from '@teable/icons';
+import { SessionProvider } from '@teable/sdk';
+import type { IUser } from '@teable/sdk';
+import { AppProvider } from '@teable/sdk/context';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import React from 'react';
+import { AppLayout } from '@/features/app/layouts';
+import { Sidebar } from '../components/sidebar/Sidebar';
+import { SidebarContent } from '../components/sidebar/SidebarContent';
+import { SidebarHeaderLeft } from '../components/sidebar/SidebarHeaderLeft';
+import { useSdkLocale } from '../hooks/useSdkLocale';
 import { useBase } from '@teable/sdk/hooks';
 
 export const AdminLayout: React.FC<{
@@ -7,7 +21,7 @@ export const AdminLayout: React.FC<{
 }> = ({ children, user, dehydratedState }) => {
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
-  const { t } = useTranslation(adminConfig.i18nNamespaces);
+  const { t } = useTranslation(['common']);
   const router = useRouter();
 
   const base = useBase();
@@ -26,12 +40,6 @@ export const AdminLayout: React.FC<{
       label: t('settings.title'),
       route: '/admin/setting',
       pathTo: '/admin/setting',
-    },
-    {
-      Icon: Integration,
-      label: t('space:integration.title'),
-      route: `/admin/integration`,
-      pathTo: `/admin/integration`,
     },
   ];
 

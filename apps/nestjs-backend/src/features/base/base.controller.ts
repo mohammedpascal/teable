@@ -43,8 +43,6 @@ export class BaseController {
   ) {}
 
   @Post('duplicate')
-  // TODO: Space functionality not yet implemented
-  // @ResourceMeta('spaceId', 'body')
   @EmitControllerEvent(Events.BASE_CREATE)
   async duplicateBase(
     @Body(new ZodValidationPipe(duplicateBaseRoSchema))
@@ -62,7 +60,6 @@ export class BaseController {
   async getAllBase(): Promise<IGetBaseAllVo> {
     return this.baseService.getAllBaseList();
   }
-
 
   @Post(':baseId/connection')
   async createDbConnection(@Param('baseId') baseId: string): Promise<IDbConnectionVo | null> {

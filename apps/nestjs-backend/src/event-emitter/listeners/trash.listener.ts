@@ -20,17 +20,6 @@ export class TrashListener {
     let parentId: string | undefined;
 
     switch (name) {
-      // TODO: Space functionality not yet implemented
-      // case Events.SPACE_DELETE: {
-      //   resourceId = payload.spaceId;
-      //   resourceType = ResourceType.Space;
-      //   const space = await this.prismaService.space.findUniqueOrThrow({
-      //     where: { id: resourceId },
-      //     select: { id: true, deletedTime: true },
-      //   });
-      //   deletedTime = space.deletedTime;
-      //   break;
-      // }
       case Events.BASE_DELETE: {
         resourceId = payload.baseId;
         resourceType = ResourceType.Base;
@@ -39,8 +28,6 @@ export class TrashListener {
           select: { id: true, deletedTime: true },
         });
         deletedTime = base.deletedTime;
-        // TODO: Space functionality not yet implemented
-        // parentId = base?.spaceId;
         break;
       }
       case Events.TABLE_DELETE: {

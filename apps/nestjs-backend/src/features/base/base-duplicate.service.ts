@@ -35,7 +35,6 @@ export class BaseDuplicateService {
   ) {}
 
   private async getMaxOrder() {
-    // TODO: Space functionality not yet implemented
     const userId = this.cls.get('user.id');
     const spaceAggregate = await this.prismaService.txClient().base.aggregate({
       where: { userId, deletedTime: null },

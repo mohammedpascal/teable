@@ -359,43 +359,12 @@ export class TrashService {
           throw new NotFoundException(`The trash ${trashId} not found`);
         });
 
-      // TODO: Space functionality not yet implemented
-      // // Restore space
-      // if (resourceType === ResourceType.Space) {
-      //     resourceId,
-      //     ['space|create'],
-      //     accessTokenId,
-      //     true
-      //   );
-
-      //   await prisma.space.update({
-      //     where: { id: resourceId },
-      //     data: { deletedTime: null },
-      //   });
-
-      //   await prisma.trash.delete({
-      //     where: { id: trashId },
-      //   });
-      // }
-
       // Restore base
       if (resourceType === ResourceType.Base) {
         const base = await this.prismaService.base.findUniqueOrThrow({
           where: { id: resourceId },
-          // TODO: Space functionality not yet implemented
-          // select: { id: true, spaceId: true },
           select: { id: true },
         });
-        // TODO: Space functionality not yet implemented
-        // const trashedSpace = await prisma.trash.findFirst({
-        //   where: { resourceId: base.spaceId, resourceType: ResourceType.Space },
-        // });
-
-        // if (trashedSpace != null) {
-        //   throw new ForbiddenException(
-        //     'Unable to restore this base because its parent space is also trashed'
-        //   );
-        // }
 
         // Permission checks removed - all authenticated users have access
 
@@ -417,20 +386,8 @@ export class TrashService {
         });
         const base = await this.prismaService.base.findUniqueOrThrow({
           where: { id: baseId },
-          // TODO: Space functionality not yet implemented
-          // select: { id: true, spaceId: true },
           select: { id: true },
         });
-        // TODO: Space functionality not yet implemented
-        // const trashedParentResources = await prisma.trash.findMany({
-        //   where: { resourceId: { in: [baseId, base.spaceId] } },
-        // });
-
-        // if (trashedParentResources.length) {
-        //   throw new ForbiddenException(
-        //     'Unable to restore this table because its parent base or space is also trashed'
-        //   );
-        // }
 
         // Permission checks removed - all authenticated users have access
 

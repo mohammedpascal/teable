@@ -333,7 +333,7 @@ export class InvitationService {
     }
 
     if (type === 'email') {
-      return { baseId, spaceId: null }; // TODO: Space functionality not yet implemented
+      return { baseId, spaceId: null };
     }
 
     if (!baseId) {
@@ -381,6 +381,6 @@ export class InvitationService {
         });
       });
     }
-    return { baseId, spaceId: null }; // TODO: Space functionality not yet implemented
+    return { baseId, spaceId: null };
   }
 }

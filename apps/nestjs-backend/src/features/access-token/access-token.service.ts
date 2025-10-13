@@ -215,14 +215,6 @@ export class AccessTokenService {
     const { spaceIds, baseIds } = res;
     let filteredSpaceIds: string[] | undefined;
     let filteredBaseIds: string[] | undefined;
-    // TODO: Space functionality not yet implemented
-    // if (spaceIds) {
-    //   const spaces = await this.prismaService.space.findMany({
-    //     where: { id: { in: spaceIds }, deletedTime: null },
-    //     select: { id: true },
-    //   });
-    //   filteredSpaceIds = spaces.map((space) => space.id);
-    // }
     if (baseIds) {
       const bases = await this.prismaService.base.findMany({
         where: { id: { in: baseIds }, deletedTime: null },
