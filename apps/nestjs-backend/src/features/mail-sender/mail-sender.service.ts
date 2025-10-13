@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import type { ISendMailOptions } from '@nestjs-modules/mailer';
 import { MailerService } from '@nestjs-modules/mailer';
-import { CollaboratorType } from '@teable/openapi';
+import type { CollaboratorType } from '@teable/openapi';
 import { BaseConfig, IBaseConfig } from '../../configs/base.config';
 import { IMailConfig, MailConfig } from '../../configs/mail.config';
 
@@ -40,8 +40,8 @@ export class MailSenderService {
     resourceType: CollaboratorType;
     inviteUrl: string;
   }) {
-    const { name, email, inviteUrl, resourceName, resourceType } = info;
-    const resourceAlias = resourceType === CollaboratorType.Space ? 'Space' : 'Base';
+    const { name, email, inviteUrl, resourceName } = info;
+    const resourceAlias = 'Base';
     return {
       subject: `${name} (${email}) invited you to their ${resourceAlias} ${resourceName} - ${this.baseConfig.brandName}`,
       template: 'normal',

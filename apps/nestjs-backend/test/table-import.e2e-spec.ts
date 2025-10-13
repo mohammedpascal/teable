@@ -9,8 +9,6 @@ import {
   notify as apiNotify,
   analyzeFile as apiAnalyzeFile,
   importTableFromFile as apiImportTableFromFile,
-  createBase as apiCreateBase,
-  createSpace as apiCreateSpace,
   deleteBase as apiDeleteBase,
   createTable as apiCreateTable,
   inplaceImportTableFromFile as apiInplaceImportTableFromFile,
@@ -229,10 +227,12 @@ describe('OpenAPI ImportController (e2e)', () => {
     it.each(testFileFormats.filter((format) => format !== TestFileFormat.TXT))(
       'should create a new Table from %s file',
       async (format) => {
-        const spaceRes = await apiCreateSpace({ name: `test${format}` });
-        const spaceId = spaceRes?.data?.id;
-        const baseRes = await apiCreateBase({ spaceId });
-        const baseId = baseRes.data.id;
+        // TODO: Space functionality not yet implemented - using existing base
+        // const spaceRes = await apiCreateSpace({ name: `test${format}` });
+        // const spaceId = spaceRes?.data?.id;
+        // const baseRes = await apiCreateBase({ spaceId });
+        // const baseId = baseRes.data.id;
+        const baseId = globalThis.testConfig.baseId;
 
         const fileType = testSupportTypeMap[format].fileType;
         const attachmentUrl = testFiles[format].url;
@@ -288,10 +288,12 @@ describe('OpenAPI ImportController (e2e)', () => {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     it('should import data into Table from file', async () => {
-      const spaceRes = await apiCreateSpace({ name: 'test1' });
-      const spaceId = spaceRes?.data?.id;
-      const baseRes = await apiCreateBase({ spaceId });
-      const baseId = baseRes.data.id;
+      // TODO: Space functionality not yet implemented - using existing base
+      // const spaceRes = await apiCreateSpace({ name: 'test1' });
+      // const spaceId = spaceRes?.data?.id;
+      // const baseRes = await apiCreateBase({ spaceId });
+      // const baseId = baseRes.data.id;
+      const baseId = globalThis.testConfig.baseId;
 
       const format = SUPPORTEDTYPE.CSV;
       const attachmentUrl = testFiles[format].url;

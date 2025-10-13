@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import type { IBaseRole, IRole } from '@teable/core';
+import type { IBaseRole } from '@teable/core';
 import { generateInvitationId } from '@teable/core';
 import { PrismaService } from '@teable/db-main-prisma';
 import {
@@ -14,8 +14,8 @@ import {
   PrincipalType,
   type AcceptInvitationLinkRo,
   type EmailInvitationVo,
-  type EmailSpaceInvitationRo,
-  type ItemSpaceInvitationLinkVo,
+  type EmailBaseInvitationRo,
+  type ItemBaseInvitationLinkVo,
 } from '@teable/openapi';
 import dayjs from 'dayjs';
 import { pick } from 'lodash';
@@ -52,7 +52,7 @@ export class InvitationService {
     return users;
   }
 
-  private async checkSpaceInvitation() {
+  private async checkBaseInvitation() {
     const user = this.cls.get('user');
 
     if (!user?.isAdmin) {
@@ -64,7 +64,7 @@ export class InvitationService {
 
       if (setting?.disallowSpaceInvitation) {
         throw new ForbiddenException(
-          'The current instance disallow space invitation by the administrator'
+          'The current instance disallow base invitation by the administrator'
         );
       }
     }
@@ -78,7 +78,7 @@ export class InvitationService {
     resourceType,
   }: {
     emails: string[];
-    role: IRole;
+    role: IBaseRole;
     resourceId: string;
     resourceName: string;
     resourceType: CollaboratorType;
@@ -110,29 +110,16 @@ export class InvitationService {
       const result: EmailInvitationVo = {};
       for (const sendUser of sendUsers) {
         // create collaborator link
-        if (resourceType === CollaboratorType.Space) {
-          await this.collaboratorService.createSpaceCollaborator({
-            collaborators: [
-              {
-                principalId: sendUser.id,
-                principalType: PrincipalType.User,
-              },
-            ],
-            spaceId: resourceId,
-            role: role as IRole,
-          });
-        } else {
-          await this.collaboratorService.createBaseCollaborator({
-            collaborators: [
-              {
-                principalId: sendUser.id,
-                principalType: PrincipalType.User,
-              },
-            ],
-            baseId: resourceId,
-            role: role as IBaseRole,
-          });
-        }
+        await this.collaboratorService.createBaseCollaborator({
+          collaborators: [
+            {
+              principalId: sendUser.id,
+              principalType: PrincipalType.User,
+            },
+          ],
+          baseId: resourceId,
+          role,
+        });
         // generate invitation record
         const { id, invitationCode } = await this.generateInvitation({
           type: 'email',
@@ -147,7 +134,6 @@ export class InvitationService {
             inviter: user.id,
             accepter: sendUser.id,
             type: 'email',
-            spaceId: resourceType === CollaboratorType.Space ? resourceId : null,
             baseId: resourceType === CollaboratorType.Base ? resourceId : null,
             invitationId: id,
           },
@@ -170,31 +156,11 @@ export class InvitationService {
     });
   }
 
-  async emailInvitationBySpace(spaceId: string, data: EmailSpaceInvitationRo) {
-    await this.checkSpaceInvitation();
-
-    const space = await this.prismaService.space.findFirst({
-      select: { name: true },
-      where: { id: spaceId, deletedTime: null },
-    });
-    if (!space) {
-      throw new BadRequestException('Space not found');
-    }
-
-    return this.emailInvitation({
-      emails: data.emails,
-      role: data.role,
-      resourceId: spaceId,
-      resourceName: space.name,
-      resourceType: CollaboratorType.Space,
-    });
-  }
-
-  async emailInvitationByBase(baseId: string, data: EmailSpaceInvitationRo) {
-    await this.checkSpaceInvitation();
+  async emailInvitationByBase(baseId: string, data: EmailBaseInvitationRo) {
+    await this.checkBaseInvitation();
 
     const base = await this.prismaService.base.findFirst({
-      select: { spaceId: true, name: true },
+      select: { name: true },
       where: { id: baseId, deletedTime: null },
     });
     if (!base) {
@@ -215,10 +181,10 @@ export class InvitationService {
     resourceId,
     resourceType,
   }: {
-    role: IRole;
+    role: IBaseRole;
     resourceId: string;
     resourceType: CollaboratorType;
-  }): Promise<ItemSpaceInvitationLinkVo> {
+  }): Promise<ItemBaseInvitationLinkVo> {
     const departmentIds = this.cls.get('organization.departments')?.map((d) => d.id);
     await this.collaboratorService.validateUserAddRole({
       departmentIds,
@@ -234,12 +200,13 @@ export class InvitationService {
       type: 'link',
     });
     return {
-      invitationId: id,
-      role: role as IRole,
+      id,
+      role,
       createdBy,
       createdTime: createdTime.toISOString(),
-      inviteUrl: this.generateInviteUrl(id, invitationCode),
       invitationCode,
+      type: 'link',
+      expiredTime: null,
     };
   }
 
@@ -250,7 +217,7 @@ export class InvitationService {
     resourceType,
   }: {
     type: 'link' | 'email';
-    role: IRole;
+    role: IBaseRole;
     resourceId: string;
     resourceType: CollaboratorType;
   }) {
@@ -260,7 +227,6 @@ export class InvitationService {
       data: {
         id: invitationId,
         invitationCode: generateInvitationCode(invitationId),
-        spaceId: resourceType === CollaboratorType.Space ? resourceId : null,
         baseId: resourceType === CollaboratorType.Base ? resourceId : null,
         role,
         type,
@@ -274,7 +240,6 @@ export class InvitationService {
   async deleteInvitationLink({
     invitationId,
     resourceId,
-    resourceType,
   }: {
     invitationId: string;
     resourceId: string;
@@ -284,7 +249,7 @@ export class InvitationService {
       where: {
         id: invitationId,
         type: 'link',
-        [resourceType === CollaboratorType.Space ? 'spaceId' : 'baseId']: resourceId,
+        baseId: resourceId,
       },
       data: { deletedTime: new Date().toISOString() },
     });
@@ -297,7 +262,7 @@ export class InvitationService {
     resourceType,
   }: {
     invitationId: string;
-    role: IRole;
+    role: IBaseRole;
     resourceId: string;
     resourceType: CollaboratorType;
   }) {
@@ -313,7 +278,7 @@ export class InvitationService {
       where: {
         id: invitationId,
         type: 'link',
-        [resourceType === CollaboratorType.Space ? 'spaceId' : 'baseId']: resourceId,
+        baseId: resourceId,
       },
       data: {
         role,
@@ -325,22 +290,23 @@ export class InvitationService {
     };
   }
 
-  async getInvitationLink(resourceId: string, resourceType: CollaboratorType) {
+  async getInvitationLink(resourceId: string) {
     const data = await this.prismaService.invitation.findMany({
       select: { id: true, role: true, createdBy: true, createdTime: true, invitationCode: true },
       where: {
-        [resourceType === CollaboratorType.Space ? 'spaceId' : 'baseId']: resourceId,
+        baseId: resourceId,
         type: 'link',
         deletedTime: null,
       },
     });
     return data.map(({ id, role, createdBy, createdTime, invitationCode }) => ({
-      invitationId: id,
-      role: role as IRole,
+      type: 'link',
+      id,
+      role: role as IBaseRole,
       createdBy,
       createdTime: createdTime.toISOString(),
       invitationCode,
-      inviteUrl: this.generateInviteUrl(id, invitationCode),
+      expiredTime: null,
     }));
   }
 
@@ -360,68 +326,49 @@ export class InvitationService {
       throw new NotFoundException(`link ${invitationId} not found`);
     }
 
-    const { expiredTime, baseId, spaceId, role, createdBy, type } = linkInvitation;
+    const { expiredTime, baseId, role, createdBy, type } = linkInvitation;
 
     if (expiredTime && expiredTime < new Date()) {
       throw new ForbiddenException('link has expired');
     }
 
     if (type === 'email') {
-      return { baseId, spaceId };
+      return { baseId, spaceId: null }; // TODO: Space functionality not yet implemented
     }
 
-    const resourceId = spaceId || baseId;
-    if (!resourceId) {
-      throw new BadRequestException('Invalid link: resourceId not found');
+    if (!baseId) {
+      throw new BadRequestException('Invalid link: baseId not found');
     }
 
-    const resourceType = spaceId ? CollaboratorType.Space : CollaboratorType.Base;
-    let baseSpaceId: string | null = null;
-    if (baseId) {
-      const base = await this.prismaService
-        .txClient()
-        .base.findUniqueOrThrow({
-          where: { id: baseId, deletedTime: null },
-        })
-        .catch(() => {
-          throw new NotFoundException(`base ${baseId} not found`);
-        });
-      baseSpaceId = base.spaceId;
-    }
+    await this.prismaService
+      .txClient()
+      .base.findUniqueOrThrow({
+        where: { id: baseId, deletedTime: null },
+      })
+      .catch(() => {
+        throw new NotFoundException(`base ${baseId} not found`);
+      });
+
     const exist = await this.prismaService.txClient().collaborator.count({
       where: {
         principalId: currentUserId,
         principalType: PrincipalType.User,
-        resourceId: { in: baseSpaceId ? [baseSpaceId, baseId!] : [spaceId!] },
+        resourceId: baseId,
       },
     });
     if (!exist) {
       await this.prismaService.$tx(async () => {
-        if (resourceType === CollaboratorType.Space) {
-          await this.collaboratorService.createSpaceCollaborator({
-            collaborators: [
-              {
-                principalId: currentUserId,
-                principalType: PrincipalType.User,
-              },
-            ],
-            spaceId: spaceId!,
-            role: role as IRole,
-            createdBy,
-          });
-        } else {
-          await this.collaboratorService.createBaseCollaborator({
-            collaborators: [
-              {
-                principalId: currentUserId,
-                principalType: PrincipalType.User,
-              },
-            ],
-            baseId: baseId!,
-            role: role as IBaseRole,
-            createdBy,
-          });
-        }
+        await this.collaboratorService.createBaseCollaborator({
+          collaborators: [
+            {
+              principalId: currentUserId,
+              principalType: PrincipalType.User,
+            },
+          ],
+          baseId,
+          role: role as IBaseRole,
+          createdBy,
+        });
         // save invitation record for audit
         await this.prismaService.txClient().invitationRecord.create({
           data: {
@@ -429,12 +376,11 @@ export class InvitationService {
             inviter: createdBy,
             accepter: currentUserId,
             type: 'link',
-            spaceId,
             baseId,
           },
         });
       });
     }
-    return { baseId, spaceId };
+    return { baseId, spaceId: null }; // TODO: Space functionality not yet implemented
   }
 }

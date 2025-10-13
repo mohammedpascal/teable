@@ -12,8 +12,6 @@ import { X_REQUEST_ID } from '../const';
 import { DbProvider } from '../db-provider/db.provider';
 import { EventEmitterModule } from '../event-emitter/event-emitter.module';
 import { AuthGuard } from '../features/auth/guard/auth.guard';
-import { PermissionGuard } from '../features/auth/guard/permission.guard';
-import { PermissionModule } from '../features/auth/permission.module';
 import { MailSenderModule } from '../features/mail-sender/mail-sender.module';
 import { KnexModule } from './knex';
 
@@ -42,18 +40,12 @@ const globalModules = {
     EventEmitterModule.register({ global: true }),
     KnexModule.register(),
     PrismaModule,
-    PermissionModule,
   ],
-  // for overriding the default TablePermissionService, FieldPermissionService, RecordPermissionService, and ViewPermissionService
   providers: [
     DbProvider,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: PermissionGuard,
     },
   ],
   exports: [DbProvider],

@@ -9,14 +9,11 @@ import {
 } from '@teable/openapi';
 import type { ITableFullVo, IAnalyzeVo } from '@teable/openapi';
 import { ZodValidationPipe } from '../../../zod.validation.pipe';
-import { Permissions } from '../../auth/decorators/permissions.decorator';
 import { TokenAccess } from '../../auth/decorators/token.decorator';
-import { PermissionGuard } from '../../auth/guard/permission.guard';
 
 import { ImportOpenApiService } from './import-open-api.service';
 
 @Controller('api/import')
-@UseGuards(PermissionGuard)
 export class ImportController {
   constructor(private readonly importOpenService: ImportOpenApiService) {}
   @Get('/analyze')
@@ -28,7 +25,6 @@ export class ImportController {
   }
 
   @Post(':baseId')
-  @Permissions('base|table_import')
   async createTableFromImport(
     @Param('baseId') baseId: string,
     @Body(new ZodValidationPipe(importOptionRoSchema)) importRo: IImportOptionRo
@@ -37,7 +33,6 @@ export class ImportController {
   }
 
   @Patch(':baseId/:tableId')
-  @Permissions('table|import')
   async inplaceImportTable(
     @Param('baseId') baseId: string,
     @Param('tableId') tableId: string,

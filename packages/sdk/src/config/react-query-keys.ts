@@ -6,33 +6,25 @@ import type {
   IGetFieldsQuery,
 } from '@teable/core';
 import {
-  type IShareViewRowCountRo,
-  type IShareViewAggregationsRo,
   type IAggregationRo,
   type IGroupPointsRo,
   type IQueryBaseRo,
   type ResourceType,
-  type ListSpaceCollaboratorRo,
   type IGetRecordsRo,
   type ListBaseCollaboratorRo,
   type ICalendarDailyCollectionRo,
   type IGetDepartmentListRo,
   type IGetDepartmentUserRo,
-  type IShareViewCollaboratorsRo,
 } from '@teable/openapi';
 
 export const ReactQueryKeys = {
-  space: (spaceId: string) => ['space', spaceId] as const,
-
   base: (baseId: string) => ['base', baseId] as const,
 
   baseAll: () => ['base-all'] as const,
 
-  baseList: (spaceId: string) => ['base-list', spaceId] as const,
+  baseList: () => ['base-list'] as const,
 
   pinList: () => ['pin-list'] as const,
-
-  spaceList: () => ['space-list'] as const,
 
   tableList: (baseId: string) => ['table-list', baseId] as const,
 
@@ -53,14 +45,9 @@ export const ReactQueryKeys = {
   commentSubscribeStatus: (tableId: string, recordId: string) =>
     ['comment-notify-status', tableId, recordId] as const,
 
-  subscriptionSummary: (spaceId: string) => ['subscription-summary', spaceId] as const,
+  subscriptionSummary: (baseId: string) => ['subscription-summary', baseId] as const,
 
   subscriptionSummaryList: () => ['subscription-summary'] as const,
-
-  spaceCollaboratorList: (spaceId: string, options?: ListSpaceCollaboratorRo) =>
-    options
-      ? (['space-collaborator-list', spaceId, options] as const)
-      : (['space-collaborator-list', spaceId] as const),
 
   baseCollaboratorList: (baseId: string, options?: ListBaseCollaboratorRo) =>
     options
@@ -76,15 +63,6 @@ export const ReactQueryKeys = {
     ['group-points', tableId, query] as const,
   aggregations: (tableId: string, query: IAggregationRo) =>
     ['aggregations', tableId, query] as const,
-
-  shareView: (shareId: string) => ['share-view', shareId] as const,
-
-  shareViewRowCount: (shareId: string, query: IShareViewRowCountRo) =>
-    ['share-view-row-count', shareId, query] as const,
-  shareViewGroupPoints: (shareId: string, query: IGroupPointsRo) =>
-    ['share-view-group-points', shareId, query] as const,
-  shareViewAggregations: (shareId: string, query: IShareViewAggregationsRo) =>
-    ['share-view-aggregations', shareId, query] as const,
 
   planFieldCreate: (tableId: string, fieldRo: IFieldRo) =>
     ['create-field-plan', tableId, fieldRo] as const,
@@ -102,19 +80,11 @@ export const ReactQueryKeys = {
 
   field: (tableId: string) => ['field-info', tableId],
 
-  shareViewCollaborators: (shareId: string, query?: IShareViewCollaboratorsRo) =>
-    query
-      ? (['share-view-collaborators', shareId, query] as const)
-      : (['share-view-collaborators', shareId] as const),
-
   getViewFilterLinkRecords: (tableId: string, viewId: string) =>
     ['get-view-filter-link-records', tableId, viewId] as const,
 
   getFieldFilterLinkRecords: (tableId: string, fieldId: string) =>
     ['get-field-filter-link-records', tableId, fieldId] as const,
-
-  shareViewLinkRecords: (shareId: string, fieldId: string, search?: string) =>
-    ['share-link-records', shareId, fieldId, search] as const,
 
   getTablePermission: (baseId: string, tableId: string) =>
     ['table-permission', baseId, tableId] as const,

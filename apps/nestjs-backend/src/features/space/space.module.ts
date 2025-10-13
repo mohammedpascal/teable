@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { PermissionModule } from '../auth/permission.module';
 import { BaseModule } from '../base/base.module';
 import { CollaboratorModule } from '../collaborator/collaborator.module';
 import { InvitationModule } from '../invitation/invitation.module';
@@ -10,6 +9,6 @@ import { SpaceService } from './space.service';
   controllers: [SpaceController],
   providers: [SpaceService],
   exports: [SpaceService],
-  imports: [CollaboratorModule, InvitationModule, BaseModule, PermissionModule],
+  imports: [CollaboratorModule, InvitationModule, BaseModule],
 })
 export class SpaceModule {}

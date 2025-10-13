@@ -133,6 +133,20 @@ export class PrismaService
   async onModuleInit() {
     await this.$connect();
 
+    // 🔍 LOG DATABASE CONNECTION INFO
+    const databaseUrl = process.env.PRISMA_DATABASE_URL || 'NOT SET!';
+    const driver = databaseUrl.startsWith('file:')
+      ? 'SQLite'
+      : databaseUrl.startsWith('postgres')
+        ? 'PostgreSQL'
+        : 'Unknown';
+
+    this.logger.log('='.repeat(80));
+    this.logger.log(`🔍 PRISMA CONNECTED TO: ${driver}`);
+    this.logger.log(`📍 Database URL: ${databaseUrl}`);
+    this.logger.log(`🌍 Environment: ${process.env.NODE_ENV}`);
+    this.logger.log('='.repeat(80));
+
     if (process.env.NODE_ENV === 'production') return;
 
     this.$on('query', async (e) => {

@@ -15,18 +15,10 @@ export const getServerSideProps: GetServerSideProps = withEnv(
     withAuthSSR(async (context, ssrApi) => {
       const { invitationId, invitationCode } = context.query;
       try {
-        const { spaceId, baseId } = await ssrApi.acceptInvitationLink({
+        const { baseId } = await ssrApi.acceptInvitationLink({
           invitationId: invitationId as string,
           invitationCode: invitationCode as string,
         });
-        if (spaceId) {
-          return {
-            redirect: {
-              destination: `/space/${spaceId}`,
-              permanent: false,
-            },
-          };
-        }
         if (baseId) {
           return {
             redirect: {

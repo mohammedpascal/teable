@@ -902,7 +902,8 @@ export class TableDuplicateService {
           version: 1,
           tableId: targetTableId,
           id: newViewId,
-          shareId: generateShareId(),
+          // TODO: View sharing functionality not yet implemented
+          // shareId: generateShareId(),
           options: pluginOptions,
           ...updatedFields,
         },

@@ -6,10 +6,11 @@ import {
   generateFieldId,
   generateTableId,
   generateViewId,
+  Role,
 } from '@teable/core';
 import type { Field } from '@teable/db-main-prisma';
 import { PrismaService } from '@teable/db-main-prisma';
-import type { ICreateBaseVo, IDuplicateBaseRo } from '@teable/openapi';
+import type { IGetBaseVo, IDuplicateBaseRo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { uniq } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
@@ -33,16 +34,18 @@ export class BaseDuplicateService {
     @InjectDbProvider() private readonly dbProvider: IDbProvider
   ) {}
 
-  private async getMaxOrder(spaceId: string) {
+  private async getMaxOrder() {
+    // TODO: Space functionality not yet implemented
+    const userId = this.cls.get('user.id');
     const spaceAggregate = await this.prismaService.txClient().base.aggregate({
-      where: { spaceId, deletedTime: null },
+      where: { userId, deletedTime: null },
       _max: { order: true },
     });
-    return spaceAggregate._max.order || 0;
+    return spaceAggregate._max?.order || 0;
   }
 
   private async duplicateBaseMeta(duplicateBaseRo: IDuplicateBaseRo) {
-    const { spaceId, fromBaseId, name } = duplicateBaseRo;
+    const { fromBaseId, name } = duplicateBaseRo;
     const base = await this.prismaService.txClient().base.findFirst({
       where: {
         id: fromBaseId,
@@ -54,23 +57,25 @@ export class BaseDuplicateService {
     }
     const userId = this.cls.get('user.id');
     const toBaseId = generateBaseId();
-    return await this.prismaService.txClient().base.create({
+    const created = await this.prismaService.txClient().base.create({
       data: {
         id: toBaseId,
         name: name ? name : base.name,
         icon: base.icon,
-        order: (await this.getMaxOrder(spaceId)) + 1,
-        spaceId: spaceId,
+        order: (await this.getMaxOrder()) + 1,
+        userId: userId,
         createdBy: userId,
       },
       select: {
         id: true,
         name: true,
         icon: true,
-        spaceId: true,
-        order: true,
       },
     });
+    return {
+      ...created,
+      role: Role.Owner, // User owns the base they created
+    };
   }
 
   private async duplicateTableMeta(fromBaseId: string, toBaseId: string) {
@@ -413,7 +418,7 @@ export class BaseDuplicateService {
     }
   }
 
-  async duplicate(duplicateBaseRo: IDuplicateBaseRo): Promise<ICreateBaseVo> {
+  async duplicate(duplicateBaseRo: IDuplicateBaseRo): Promise<IGetBaseVo> {
     const { fromBaseId, withRecords } = duplicateBaseRo;
     const newBase = await this.duplicateBaseMeta(duplicateBaseRo);
     const toBaseId = newBase.id;

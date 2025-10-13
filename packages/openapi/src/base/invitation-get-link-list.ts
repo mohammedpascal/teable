@@ -1,13 +1,13 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { baseRolesSchema } from '@teable/core';
 import { axios } from '../axios';
-import { itemSpaceInvitationLinkVoSchema } from '../space/invitation-get-link-list';
+import { itemInvitationLinkVoSchema } from '../types/collaborator';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
 export const LIST_BASE_INVITATION_LINK = '/base/{baseId}/invitation/link';
 
-export const itemBaseInvitationLinkVoSchema = itemSpaceInvitationLinkVoSchema
+export const itemBaseInvitationLinkVoSchema = itemInvitationLinkVoSchema
   .omit({
     role: true,
   })

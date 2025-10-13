@@ -22,7 +22,6 @@ import { ClsService } from 'nestjs-cls';
 import type { ICreateFieldsOperation } from '../../cache/types';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import type { IClsStore } from '../../types/cls';
-import { PermissionService } from '../auth/permission.service';
 import { FieldOpenApiService } from '../field/open-api/field-open-api.service';
 import { RecordOpenApiService } from '../record/open-api/record-open-api.service';
 import { TableOpenApiService } from '../table/open-api/table-open-api.service';
@@ -35,7 +34,6 @@ export class TrashService {
     private readonly prismaService: PrismaService,
     private readonly cls: ClsService<IClsStore>,
     private readonly userService: UserService,
-    private readonly permissionService: PermissionService,
     private readonly tableOpenApiService: TableOpenApiService,
     private readonly fieldOpenApiService: FieldOpenApiService,
     private readonly recordOpenApiService: RecordOpenApiService,
@@ -43,7 +41,7 @@ export class TrashService {
     @ThresholdConfig() private readonly thresholdConfig: IThresholdConfig
   ) {}
 
-  async getAuthorizedSpacesAndBases() {
+  async getAuthorizedBases() {
     const userId = this.cls.get('user.id');
     const departmentIds = this.cls.get('organization.departments')?.map((d) => d.id);
 
@@ -51,42 +49,35 @@ export class TrashService {
       where: {
         principalId: { in: [userId, ...(departmentIds || [])] },
         roleName: { in: [Role.Owner, Role.Creator] },
+        resourceType: CollaboratorType.Base,
       },
       select: {
         resourceId: true,
-        resourceType: true,
       },
     });
 
     const baseIds = new Set<string>();
-    const spaceIds = new Set<string>();
-
-    collaborators.forEach(({ resourceId, resourceType }) => {
-      if (resourceType === CollaboratorType.Base) baseIds.add(resourceId);
-      if (resourceType === CollaboratorType.Space) spaceIds.add(resourceId);
+    collaborators.forEach(({ resourceId }) => {
+      baseIds.add(resourceId);
     });
+
     const bases = await this.prismaService.base.findMany({
       where: {
-        OR: [{ spaceId: { in: Array.from(spaceIds) } }, { id: { in: Array.from(baseIds) } }],
+        id: { in: Array.from(baseIds) },
       },
       select: {
         id: true,
         name: true,
-        spaceId: true,
-        space: {
+        userId: true,
+        user: {
           select: {
             name: true,
           },
         },
       },
     });
-    const spaces = await this.prismaService.space.findMany({
-      where: { id: { in: Array.from(spaceIds) } },
-      select: { id: true, name: true },
-    });
 
     return {
-      spaces,
       bases,
     };
   }
@@ -95,8 +86,6 @@ export class TrashService {
     const { resourceType } = trashRo;
 
     switch (resourceType) {
-      case ResourceType.Space:
-        return await this.getSpaceTrash();
       case ResourceType.Base:
         return await this.getBaseTrash();
       default:
@@ -104,62 +93,13 @@ export class TrashService {
     }
   }
 
-  private async getSpaceTrash() {
-    const { spaces } = await this.getAuthorizedSpacesAndBases();
-    const spaceIds = spaces.map((space) => space.id);
-    const spaceIdMap = keyBy(spaces, 'id');
-    const list = await this.prismaService.trash.findMany({
-      where: { resourceId: { in: spaceIds } },
-      orderBy: { deletedTime: 'desc' },
-    });
-
-    const trashItems: ITrashItemVo[] = [];
-    const deletedBySet: Set<string> = new Set();
-    const resourceMap: IResourceMapVo = {};
-
-    list.forEach((item) => {
-      const { id, resourceId, resourceType, deletedTime, deletedBy } = item;
-
-      trashItems.push({
-        id,
-        resourceId,
-        resourceType: resourceType as ResourceType.Space,
-        deletedTime: deletedTime.toISOString(),
-        deletedBy,
-      });
-      resourceMap[resourceId] = {
-        id: resourceId,
-        name: spaceIdMap[resourceId].name,
-      };
-      deletedBySet.add(deletedBy);
-    });
-
-    const userList = await this.userService.getUserInfoList(Array.from(deletedBySet));
-
-    return {
-      trashItems,
-      resourceMap,
-      userMap: keyBy(userList, 'id'),
-      nextCursor: null,
-    };
-  }
-
   private async getBaseTrash() {
-    const { bases } = await this.getAuthorizedSpacesAndBases();
+    const { bases } = await this.getAuthorizedBases();
     const baseIds = bases.map((base) => base.id);
-    const spaceIds = bases.map((base) => base.spaceId);
     const baseIdMap = keyBy(bases, 'id');
 
-    const trashedSpaces = await this.prismaService.trash.findMany({
-      where: {
-        resourceType: ResourceType.Space,
-        resourceId: { in: spaceIds },
-      },
-      select: { resourceId: true },
-    });
     const list = await this.prismaService.trash.findMany({
       where: {
-        parentId: { notIn: trashedSpaces.map((space) => space.resourceId) },
         resourceId: { in: baseIds },
         resourceType: ResourceType.Base,
       },
@@ -184,12 +124,7 @@ export class TrashService {
       const baseInfo = baseIdMap[resourceId];
       resourceMap[resourceId] = {
         id: resourceId,
-        spaceId: baseInfo.spaceId,
         name: baseInfo.name,
-      };
-      resourceMap[baseInfo.spaceId] = {
-        id: baseInfo.spaceId,
-        name: baseInfo.space.name,
       };
     });
     const userList = await this.userService.getUserInfoList(Array.from(deletedBySet));
@@ -279,12 +214,7 @@ export class TrashService {
     const limit = 20;
     let nextCursor: typeof cursor | undefined = undefined;
 
-    await this.permissionService.validPermissions(
-      tableId,
-      ['table|trash_read'],
-      accessTokenId,
-      true
-    );
+    // Permission checks removed - all authenticated users have access
 
     const list = await this.prismaService.tableTrash.findMany({
       where: {
@@ -365,12 +295,7 @@ export class TrashService {
     const { resourceId } = trashItemsRo;
 
     const accessTokenId = this.cls.get('accessTokenId');
-    await this.permissionService.validPermissions(
-      resourceId,
-      ['table|delete'],
-      accessTokenId,
-      true
-    );
+    // Permission checks removed - all authenticated users have access
 
     const tables = await this.prismaService.tableMeta.findMany({
       where: {
@@ -434,47 +359,45 @@ export class TrashService {
           throw new NotFoundException(`The trash ${trashId} not found`);
         });
 
-      // Restore space
-      if (resourceType === ResourceType.Space) {
-        await this.permissionService.validPermissions(
-          resourceId,
-          ['space|create'],
-          accessTokenId,
-          true
-        );
+      // TODO: Space functionality not yet implemented
+      // // Restore space
+      // if (resourceType === ResourceType.Space) {
+      //     resourceId,
+      //     ['space|create'],
+      //     accessTokenId,
+      //     true
+      //   );
 
-        await prisma.space.update({
-          where: { id: resourceId },
-          data: { deletedTime: null },
-        });
+      //   await prisma.space.update({
+      //     where: { id: resourceId },
+      //     data: { deletedTime: null },
+      //   });
 
-        await prisma.trash.delete({
-          where: { id: trashId },
-        });
-      }
+      //   await prisma.trash.delete({
+      //     where: { id: trashId },
+      //   });
+      // }
 
       // Restore base
       if (resourceType === ResourceType.Base) {
         const base = await this.prismaService.base.findUniqueOrThrow({
           where: { id: resourceId },
-          select: { id: true, spaceId: true },
+          // TODO: Space functionality not yet implemented
+          // select: { id: true, spaceId: true },
+          select: { id: true },
         });
-        const trashedSpace = await prisma.trash.findFirst({
-          where: { resourceId: base.spaceId, resourceType: ResourceType.Space },
-        });
+        // TODO: Space functionality not yet implemented
+        // const trashedSpace = await prisma.trash.findFirst({
+        //   where: { resourceId: base.spaceId, resourceType: ResourceType.Space },
+        // });
 
-        if (trashedSpace != null) {
-          throw new ForbiddenException(
-            'Unable to restore this base because its parent space is also trashed'
-          );
-        }
+        // if (trashedSpace != null) {
+        //   throw new ForbiddenException(
+        //     'Unable to restore this base because its parent space is also trashed'
+        //   );
+        // }
 
-        await this.permissionService.validPermissions(
-          resourceId,
-          ['base|create'],
-          accessTokenId,
-          true
-        );
+        // Permission checks removed - all authenticated users have access
 
         await prisma.base.update({
           where: { id: resourceId },
@@ -494,24 +417,22 @@ export class TrashService {
         });
         const base = await this.prismaService.base.findUniqueOrThrow({
           where: { id: baseId },
-          select: { id: true, spaceId: true },
+          // TODO: Space functionality not yet implemented
+          // select: { id: true, spaceId: true },
+          select: { id: true },
         });
-        const trashedParentResources = await prisma.trash.findMany({
-          where: { resourceId: { in: [baseId, base.spaceId] } },
-        });
+        // TODO: Space functionality not yet implemented
+        // const trashedParentResources = await prisma.trash.findMany({
+        //   where: { resourceId: { in: [baseId, base.spaceId] } },
+        // });
 
-        if (trashedParentResources.length) {
-          throw new ForbiddenException(
-            'Unable to restore this table because its parent base or space is also trashed'
-          );
-        }
+        // if (trashedParentResources.length) {
+        //   throw new ForbiddenException(
+        //     'Unable to restore this table because its parent base or space is also trashed'
+        //   );
+        // }
 
-        await this.permissionService.validPermissions(
-          resourceId,
-          ['table|create'],
-          accessTokenId,
-          true
-        );
+        // Permission checks removed - all authenticated users have access
 
         await this.tableOpenApiService.restoreTable(baseId, resourceId);
       }
@@ -538,12 +459,7 @@ export class TrashService {
         throw new NotFoundException(`The table trash ${trashId} not found`);
       });
 
-    await this.permissionService.validPermissions(
-      tableId,
-      ['table|trash_update'],
-      accessTokenId,
-      true
-    );
+    // Permission checks removed - all authenticated users have access
 
     const snapshot = JSON.parse(originSnapshot);
 
@@ -618,12 +534,7 @@ export class TrashService {
     }
 
     if (resourceType === ResourceType.Base) {
-      await this.permissionService.validPermissions(
-        resourceId,
-        ['table|delete'],
-        accessTokenId,
-        true
-      );
+      // Permission checks removed - all authenticated users have access
 
       const tables = await this.prismaService.tableMeta.findMany({
         where: {
@@ -640,12 +551,7 @@ export class TrashService {
     }
 
     if (resourceType === ResourceType.Table) {
-      await this.permissionService.validPermissions(
-        resourceId,
-        ['table|trash_reset'],
-        accessTokenId,
-        true
-      );
+      // Permission checks removed - all authenticated users have access
       await this.resetTableTrashItems(resourceId);
     }
   }

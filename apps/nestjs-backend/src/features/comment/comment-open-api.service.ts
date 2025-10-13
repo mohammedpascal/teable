@@ -384,15 +384,11 @@ export class CommentOpenApiService {
       .update({
         where: {
           id: commentId,
-          createdBy: this.cls.get('user.id'),
         },
         data: {
           content: JSON.stringify(updateCommentRo.content),
           lastModifiedTime: new Date().toISOString(),
         },
-      })
-      .catch(() => {
-        throw new ForbiddenException('You have no permission to delete this comment');
       });
 
     this.sendCommentPatch(tableId, recordId, CommentPatchType.UpdateComment, result);
@@ -407,14 +403,10 @@ export class CommentOpenApiService {
       .update({
         where: {
           id: commentId,
-          createdBy: this.cls.get('user.id'),
         },
         data: {
           deletedTime: new Date().toISOString(),
         },
-      })
-      .catch(() => {
-        throw new ForbiddenException('You have no permission to delete this comment');
       });
 
     this.sendCommentPatch(tableId, recordId, CommentPatchType.CreateReaction, { id: commentId });

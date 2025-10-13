@@ -1,7 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { PrismaService } from '@teable/db-main-prisma';
-import type { SpaceDeleteEvent, BaseDeleteEvent } from '../events';
+import { BaseDeleteEvent } from '../events';
+// TODO: Space functionality not yet implemented
+// import type { SpaceDeleteEvent, BaseDeleteEvent } from '../events';
 import { Events } from '../events';
 
 @Injectable()
@@ -11,15 +13,15 @@ export class PinListener {
   constructor(private readonly prismaService: PrismaService) {}
 
   @OnEvent(Events.BASE_DELETE, { async: true })
-  @OnEvent(Events.SPACE_DELETE, { async: true })
-  async spaceAndBaseDelete(listenerEvent: SpaceDeleteEvent | BaseDeleteEvent) {
-    let id: string = '';
-    if (listenerEvent.name === Events.SPACE_DELETE) {
-      id = listenerEvent.payload.spaceId;
-    }
-    if (listenerEvent.name === Events.BASE_DELETE) {
-      id = listenerEvent.payload.baseId;
-    }
+  // TODO: Space functionality not yet implemented
+  // @OnEvent(Events.SPACE_DELETE, { async: true })
+  async baseDelete(listenerEvent: BaseDeleteEvent) {
+    // TODO: Space functionality not yet implemented
+    // let id: string = '';
+    // if (listenerEvent.name === Events.SPACE_DELETE) {
+    //   id = listenerEvent.payload.spaceId;
+    // }
+    const id = listenerEvent.payload.baseId;
 
     if (!id) {
       return;

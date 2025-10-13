@@ -1,7 +1,6 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { axios } from '../axios';
-import type { IGetCollaboratorsResponse } from '../space';
-import { collaboratorItem, PrincipalType } from '../space/types';
+import { collaboratorItem, PrincipalType } from '../types/collaborator';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
@@ -55,7 +54,7 @@ export const getBaseCollaboratorList = async <T extends ListBaseCollaboratorRo>(
   baseId: string,
   options?: T
 ) => {
-  return axios.get<IGetCollaboratorsResponse<T>>(
+  return axios.get<ListBaseCollaboratorVo>(
     urlBuilder(BASE_COLLABORATE_LIST, {
       baseId,
     }),

@@ -22,7 +22,6 @@ import {
   IPluginRefreshTokenRo,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
-import { Permissions } from '../auth/decorators/permissions.decorator';
 import { Public } from '../auth/decorators/public.decorator';
 import { ResourceMeta } from '../auth/decorators/resource_meta.decorator';
 import { PluginAuthService } from './plugin-auth.service';
@@ -106,7 +105,6 @@ export class PluginController {
   }
 
   @Post(':pluginId/authCode')
-  @Permissions('base|read')
   @ResourceMeta('baseId', 'body')
   authCode(@Param('pluginId') pluginId: string, @Body('baseId') baseId: string): Promise<string> {
     return this.pluginAuthService.authCode(pluginId, baseId);

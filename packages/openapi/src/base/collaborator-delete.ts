@@ -1,12 +1,12 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { axios } from '../axios';
-import { deleteSpaceCollaboratorRoSchema } from '../space';
+import { deleteCollaboratorRoSchema } from '../types/collaborator';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
 export const DELETE_BASE_COLLABORATOR = '/base/{baseId}/collaborators';
 
-export const deleteBaseCollaboratorRoSchema = deleteSpaceCollaboratorRoSchema;
+export const deleteBaseCollaboratorRoSchema = deleteCollaboratorRoSchema;
 
 export type DeleteBaseCollaboratorRo = z.infer<typeof deleteBaseCollaboratorRoSchema>;
 

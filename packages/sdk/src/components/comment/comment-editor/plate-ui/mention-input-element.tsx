@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import type { UserCollaboratorItem } from '@teable/openapi';
+import type { CollaboratorItem } from '@teable/openapi';
 import { getBaseCollaboratorList, PrincipalType } from '@teable/openapi';
 import { cn, withRef } from '@udecode/cn';
 import { PlateElement } from '@udecode/plate-common/react';
@@ -44,7 +44,7 @@ export const MentionInputElement = withRef<typeof PlateElement>(({ className, ..
     enabled: !!baseId,
   });
 
-  const mentionUsers = (collaboratorsData?.collaborators as UserCollaboratorItem[])?.filter(
+  const mentionUsers = (collaboratorsData?.collaborators as CollaboratorItem[])?.filter(
     (item) => item.userId !== user.id
   );
 
@@ -93,10 +93,10 @@ export const MentionInputElement = withRef<typeof PlateElement>(({ className, ..
                   search
                 )
               }
-              value={item.userName}
+              value={item.userName || item.email || 'Unknown User'}
             >
-              <UserAvatar avatar={item.avatar} name={item.userName} />
-              <span className="pl-1">{item.userName}</span>
+              <UserAvatar avatar={item.avatar} name={item.userName || item.email || 'Unknown User'} />
+              <span className="pl-1">{item.userName || item.email || 'Unknown User'}</span>
             </InlineComboboxItem>
           ))}
         </InlineComboboxContent>

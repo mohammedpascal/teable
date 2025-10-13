@@ -214,12 +214,14 @@ export const extractDefaultFieldsFromFilters = async ({
         type: PrincipalType.User,
       })
     ).data;
-    const cs = collaborators.map((c) => ({
-      id: c.userId,
-      title: c.userName,
-      email: c.email,
-      avatarUrl: c.avatar,
-    }));
+    const cs = collaborators
+      .filter((c) => c.userId) // Filter out collaborators without userId
+      .map((c) => ({
+        id: c.userId!,
+        title: c.userName || c.email || 'Unknown User',
+        email: c.email,
+        avatarUrl: c.avatar,
+      }));
     collectedUserMap = keyBy(cs, 'id');
   }
 

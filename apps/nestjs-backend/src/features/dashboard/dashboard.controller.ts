@@ -23,7 +23,6 @@ import type {
   IGetDashboardInstallPluginVo,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
-import { Permissions } from '../auth/decorators/permissions.decorator';
 import { DashboardService } from './dashboard.service';
 
 @Controller('api/base/:baseId/dashboard')
@@ -31,13 +30,11 @@ export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 
   @Get()
-  @Permissions('base|read')
   getDashboard(@Param('baseId') baseId: string): Promise<IGetDashboardListVo> {
     return this.dashboardService.getDashboard(baseId);
   }
 
   @Get(':id')
-  @Permissions('base|read')
   getDashboardById(
     @Param('baseId') baseId: string,
     @Param('id') id: string
@@ -46,7 +43,6 @@ export class DashboardController {
   }
 
   @Post()
-  @Permissions('base|update')
   createDashboard(
     @Param('baseId') baseId: string,
     @Body(new ZodValidationPipe(createDashboardRoSchema)) ro: ICreateDashboardRo
@@ -55,7 +51,6 @@ export class DashboardController {
   }
 
   @Patch(':id/rename')
-  @Permissions('base|update')
   updateDashboard(
     @Param('baseId') baseId: string,
     @Param('id') id: string,
@@ -65,7 +60,6 @@ export class DashboardController {
   }
 
   @Patch(':id/layout')
-  @Permissions('base|update')
   updateLayout(
     @Param('baseId') baseId: string,
     @Param('id') id: string,
@@ -75,13 +69,11 @@ export class DashboardController {
   }
 
   @Delete(':id')
-  @Permissions('base|update')
   deleteDashboard(@Param('baseId') baseId: string, @Param('id') id: string): Promise<void> {
     return this.dashboardService.deleteDashboard(baseId, id);
   }
 
   @Post(':id/plugin')
-  @Permissions('base|update')
   installPlugin(
     @Param('baseId') baseId: string,
     @Param('id') id: string,
@@ -91,7 +83,6 @@ export class DashboardController {
   }
 
   @Delete(':id/plugin/:pluginInstallId')
-  @Permissions('base|update')
   removePlugin(
     @Param('baseId') baseId: string,
     @Param('id') id: string,
@@ -101,7 +92,6 @@ export class DashboardController {
   }
 
   @Patch(':id/plugin/:pluginInstallId/rename')
-  @Permissions('base|update')
   renamePlugin(
     @Param('baseId') baseId: string,
     @Param('id') id: string,
@@ -112,7 +102,6 @@ export class DashboardController {
   }
 
   @Patch(':id/plugin/:pluginInstallId/update-storage')
-  @Permissions('base|update')
   updatePluginStorage(
     @Param('baseId') baseId: string,
     @Param('id') id: string,
@@ -124,7 +113,6 @@ export class DashboardController {
   }
 
   @Get(':id/plugin/:pluginInstallId')
-  @Permissions('base|read')
   getPluginInstall(
     @Param('baseId') baseId: string,
     @Param('id') id: string,

@@ -12,7 +12,8 @@ import {
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Fragment } from 'react';
-import { BaseCollaboratorModalTrigger } from '@/features/app/components/collaborator-manage/base/BaseCollaboratorModal';
+// TODO: Multi-user collaboration removed
+// import { BaseCollaboratorModalTrigger } from '@/features/app/components/collaborator-manage/base/BaseCollaboratorModal';
 import { tableConfig } from '@/features/i18n/table.config';
 import { usePluginPanelStorage } from '../../../components/plugin-panel/hooks/usePluginPanelStorage';
 import { ExpandViewList } from '../../view/list/ExpandViewList';
@@ -65,7 +66,8 @@ const RightList = ({
           </a>
         </Button>
       </div>
-      <BaseCollaboratorModalTrigger
+      {/* TODO: Multi-user collaboration removed */}
+      {/* <BaseCollaboratorModalTrigger
         base={{
           name: base.name,
           role: base.role,
@@ -76,7 +78,7 @@ const RightList = ({
           <UserPlus className="size-4" />{' '}
           <span className="hidden @md/view-header:inline">{t('space:action.invite')}</span>
         </Button>
-      </BaseCollaboratorModalTrigger>
+      </BaseCollaboratorModalTrigger> */}
     </div>
   );
 };
@@ -100,7 +102,8 @@ const RightMenu = ({ className }: { className?: string }) => {
       <PopoverContent side="bottom" align="start" className="w-32 p-0">
         <div className="flex flex-col">
           <Collaborators className="flex p-2" />
-          <BaseCollaboratorModalTrigger
+          {/* TODO: Multi-user collaboration removed */}
+          {/* <BaseCollaboratorModalTrigger
             base={{
               name: base.name,
               role: base.role,
@@ -110,7 +113,7 @@ const RightMenu = ({ className }: { className?: string }) => {
             <Button variant="ghost" size="xs" className="flex justify-start">
               <UserPlus className="size-4" /> {t('space:action.invite')}
             </Button>
-          </BaseCollaboratorModalTrigger>
+          </BaseCollaboratorModalTrigger> */}
 
           <Button asChild variant="ghost" size="xs" className="flex justify-start">
             <Link

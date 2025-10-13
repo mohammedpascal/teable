@@ -25,8 +25,6 @@ import type {
   IRecordsVo,
   IUpdateRecordRo,
   ITableFullVo,
-  ICreateSpaceRo,
-  ICreateBaseRo,
   IRecordInsertOrderRo,
 } from '@teable/openapi';
 import {
@@ -53,11 +51,7 @@ import {
   getTableById as apiGetTableById,
   updateViewFilter as apiSetViewFilter,
   createView as apiCreateView,
-  createSpace as apiCreateSpace,
-  deleteSpace as apiDeleteSpace,
-  createBase as apiCreateBase,
   deleteBase as apiDeleteBase,
-  permanentDeleteSpace as apiPermanentDeleteSpace,
   permanentDeleteBase as apiPermanentDeleteBase,
 } from '@teable/openapi';
 import { json, urlencoded } from 'express';
@@ -467,26 +461,6 @@ export async function updateViewColumnMeta(
 
 export async function updateViewFilter(tableId: string, viewId: string, filterRo: IFilterRo) {
   const result = await apiSetViewFilter(tableId, viewId, filterRo);
-  return result.data;
-}
-
-export async function createSpace(spaceRo: ICreateSpaceRo) {
-  const result = await apiCreateSpace(spaceRo);
-  return result.data;
-}
-
-export async function deleteSpace(spaceId: string) {
-  const result = await apiDeleteSpace(spaceId);
-  return result.data;
-}
-
-export async function permanentDeleteSpace(spaceId: string) {
-  const result = await apiPermanentDeleteSpace(spaceId);
-  return result.data;
-}
-
-export async function createBase(baseRo: ICreateBaseRo) {
-  const result = await apiCreateBase(baseRo);
   return result.data;
 }
 

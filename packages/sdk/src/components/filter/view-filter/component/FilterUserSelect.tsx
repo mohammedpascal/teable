@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { isMeTag, Me } from '@teable/core';
 import { User as UserIcon } from '@teable/icons';
-import type { UserCollaboratorItem } from '@teable/openapi';
+import type { CollaboratorItem } from '@teable/openapi';
 import { getBaseCollaboratorList, PrincipalType } from '@teable/openapi';
 import { cn } from '@teable/ui-lib';
 import { useCallback, useMemo, useState } from 'react';
@@ -13,6 +13,12 @@ import type { UserField, CreatedByField, LastModifiedByField } from '../../../..
 import { UserTag } from '../../../cell-value';
 import { UserOption } from '../../../editor';
 import { BaseMultipleSelect, BaseSingleSelect } from './base';
+
+type CollaboratorWithRequiredFields = CollaboratorItem & { 
+  userId: string; 
+  userName: string; 
+  email: string; 
+};
 
 interface IFilterUserProps {
   field: UserField | CreatedByField | LastModifiedByField;
@@ -166,7 +172,7 @@ const FilterUserSelect = (props: IFilterUserProps) => {
   return (
     <FilterUserSelectBase
       {...props}
-      data={collaboratorsData.collaborators as UserCollaboratorItem[]}
+      data={collaboratorsData.collaborators?.filter((c) => c.userId && c.userName && c.email) as CollaboratorWithRequiredFields[]}
       onSearch={setSearch}
     />
   );

@@ -2,7 +2,6 @@
 import { z } from 'zod';
 
 export enum ActionPrefix {
-  Space = 'space',
   Base = 'base',
   Table = 'table',
   View = 'view',
@@ -15,20 +14,7 @@ export enum ActionPrefix {
   Enterprise = 'enterprise',
 }
 
-export const spaceActions = [
-  'space|create',
-  'space|delete',
-  'space|read',
-  'space|update',
-  'space|invite_email',
-  'space|invite_link',
-  'space|grant_role',
-] as const;
-export const spaceActionSchema = z.enum(spaceActions);
-export type SpaceAction = z.infer<typeof spaceActionSchema>;
-
 export const baseActions = [
-  'base|create',
   'base|delete',
   'base|read',
   'base|read_all',
@@ -108,7 +94,6 @@ export const enterpriseActionSchema = z.enum(enterpriseActions);
 export type EnterpriseAction = z.infer<typeof enterpriseActionSchema>;
 
 export type Action =
-  | SpaceAction
   | BaseAction
   | TableAction
   | ViewAction
@@ -121,7 +106,6 @@ export type Action =
   | EnterpriseAction;
 
 export type ActionPrefixMap = {
-  [ActionPrefix.Space]: SpaceAction[];
   [ActionPrefix.Base]: BaseAction[];
   [ActionPrefix.Table]: TableAction[];
   [ActionPrefix.View]: ViewAction[];
@@ -134,7 +118,6 @@ export type ActionPrefixMap = {
   [ActionPrefix.Enterprise]: EnterpriseAction[];
 };
 export const actionPrefixMap: ActionPrefixMap = {
-  [ActionPrefix.Space]: [...spaceActions],
   [ActionPrefix.Base]: [...baseActions],
   [ActionPrefix.Table]: [...tableActions],
   [ActionPrefix.View]: [...viewActions],

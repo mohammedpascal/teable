@@ -1,8 +1,8 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { axios } from '../axios';
 import { registerRoute } from '../utils';
-import type { IUsageVo } from './get-space-usage';
-import { usageVoSchema } from './get-space-usage';
+import type { IUsageVo } from './get-base-usage';
+import { usageVoSchema } from './get-base-usage';
 
 export const GET_INSTANCE_USAGE = '/instance/usage';
 

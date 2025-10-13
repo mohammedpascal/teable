@@ -1,7 +1,7 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { baseRolesSchema } from '@teable/core';
 import { axios } from '../axios';
-import type { EmailInvitationVo } from '../space';
+import type { EmailInvitationVo } from '../types/collaborator';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 

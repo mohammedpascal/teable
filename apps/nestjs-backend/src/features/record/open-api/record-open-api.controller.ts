@@ -35,7 +35,6 @@ import {
 import { EmitControllerEvent } from '../../../event-emitter/decorators/emit-controller-event.decorator';
 import { Events } from '../../../event-emitter/events';
 import { ZodValidationPipe } from '../../../zod.validation.pipe';
-import { Permissions } from '../../auth/decorators/permissions.decorator';
 import { RecordService } from '../record.service';
 import { RecordOpenApiService } from './record-open-api.service';
 import { TqlPipe } from './tql.pipe';
@@ -47,7 +46,6 @@ export class RecordOpenApiController {
     private readonly recordOpenApiService: RecordOpenApiService
   ) {}
 
-  @Permissions('record|update')
   @Get(':recordId/history')
   async getRecordHistory(
     @Param('tableId') tableId: string,
@@ -57,7 +55,6 @@ export class RecordOpenApiController {
     return this.recordOpenApiService.getRecordHistory(tableId, recordId, query);
   }
 
-  @Permissions('table_record_history|read')
   @Get('/history')
   async getRecordListHistory(
     @Param('tableId') tableId: string,
@@ -66,7 +63,6 @@ export class RecordOpenApiController {
     return this.recordOpenApiService.getRecordHistory(tableId, undefined, query);
   }
 
-  @Permissions('record|read')
   @Get()
   async getRecords(
     @Param('tableId') tableId: string,
@@ -75,7 +71,6 @@ export class RecordOpenApiController {
     return await this.recordService.getRecords(tableId, query);
   }
 
-  @Permissions('record|read')
   @Get(':recordId')
   async getRecord(
     @Param('tableId') tableId: string,
@@ -85,7 +80,6 @@ export class RecordOpenApiController {
     return await this.recordService.getRecord(tableId, recordId, query);
   }
 
-  @Permissions('record|update')
   @Patch(':recordId')
   async updateRecord(
     @Param('tableId') tableId: string,
@@ -101,7 +95,6 @@ export class RecordOpenApiController {
     );
   }
 
-  @Permissions('record|update')
   @Post(':recordId/:fieldId/uploadAttachment')
   @UseInterceptors(FileInterceptor('file'))
   async uploadAttachment(
@@ -120,7 +113,6 @@ export class RecordOpenApiController {
     );
   }
 
-  @Permissions('record|update')
   @Patch()
   async updateRecords(
     @Param('tableId') tableId: string,
@@ -131,7 +123,6 @@ export class RecordOpenApiController {
       .records;
   }
 
-  @Permissions('record|create')
   @Post()
   @EmitControllerEvent(Events.OPERATION_RECORDS_CREATE)
   async createRecords(
@@ -141,7 +132,6 @@ export class RecordOpenApiController {
     return await this.recordOpenApiService.multipleCreateRecords(tableId, createRecordsRo);
   }
 
-  @Permissions('record|create')
   @Post(':recordId')
   @EmitControllerEvent(Events.OPERATION_RECORDS_CREATE)
   async duplicateRecord(
@@ -152,7 +142,6 @@ export class RecordOpenApiController {
     return await this.recordOpenApiService.duplicateRecord(tableId, recordId, order);
   }
 
-  @Permissions('record|delete')
   @Delete(':recordId')
   async deleteRecord(
     @Param('tableId') tableId: string,
@@ -162,7 +151,6 @@ export class RecordOpenApiController {
     return await this.recordOpenApiService.deleteRecord(tableId, recordId, windowId);
   }
 
-  @Permissions('record|delete')
   @Delete()
   async deleteRecords(
     @Param('tableId') tableId: string,
@@ -172,7 +160,6 @@ export class RecordOpenApiController {
     return await this.recordOpenApiService.deleteRecords(tableId, query.recordIds, windowId);
   }
 
-  @Permissions('record|read')
   @Get('/socket/snapshot-bulk')
   async getSnapshotBulk(
     @Param('tableId') tableId: string,
@@ -182,7 +169,6 @@ export class RecordOpenApiController {
     return this.recordService.getSnapshotBulk(tableId, ids, projection);
   }
 
-  @Permissions('record|read')
   @Get('/socket/doc-ids')
   async getDocIds(
     @Param('tableId') tableId: string,
@@ -191,7 +177,6 @@ export class RecordOpenApiController {
     return this.recordService.getDocIdsByQuery(tableId, query);
   }
 
-  @Permissions('record|read')
   @Get(':recordId/status')
   async getRecordStatus(
     @Param('tableId') tableId: string,

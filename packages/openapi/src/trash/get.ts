@@ -1,14 +1,13 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { FieldType, IdPrefix, ViewType } from '@teable/core';
 import { axios } from '../axios';
-import { userCollaboratorItem } from '../space';
+import { userCollaboratorItem } from '../types/collaborator';
 import { registerRoute } from '../utils';
 import { z } from '../zod';
 
 export const GET_TRASH = '/trash';
 
 export enum ResourceType {
-  Space = 'space',
   Base = 'base',
   Table = 'table',
   View = 'view',
@@ -54,12 +53,7 @@ export const resourceMapVoSchema = z.record(
   z.string(),
   z.union([
     z.object({
-      id: z.string().startsWith(IdPrefix.Space),
-      name: z.string(),
-    }),
-    z.object({
       id: z.string().startsWith(IdPrefix.Base),
-      spaceId: z.string(),
       name: z.string(),
     }),
     z.object({
@@ -79,7 +73,7 @@ export type IRecordSnapshotItemVo = z.infer<typeof recordSnapshotItemVoSchema>;
 export type IResourceMapVo = z.infer<typeof resourceMapVoSchema>;
 
 export const trashRoSchema = z.object({
-  resourceType: z.enum([ResourceType.Space, ResourceType.Base]),
+  resourceType: z.enum([ResourceType.Base]),
 });
 
 export type ITrashRo = z.infer<typeof trashRoSchema>;
@@ -87,7 +81,7 @@ export type ITrashRo = z.infer<typeof trashRoSchema>;
 export const trashItemVoSchema = z.object({
   id: z.string(),
   resourceId: z.string(),
-  resourceType: z.enum([ResourceType.Space, ResourceType.Base, ResourceType.Table]),
+  resourceType: z.enum([ResourceType.Base, ResourceType.Table]),
   deletedTime: z.string(),
   deletedBy: z.string(),
 });
@@ -115,7 +109,7 @@ export type ITrashVo = z.infer<typeof trashVoSchema>;
 export const GetTrashRoute: RouteConfig = registerRoute({
   method: 'get',
   path: GET_TRASH,
-  description: 'Get trash list for spaces or bases',
+  description: 'Get trash list for bases',
   request: {
     query: trashRoSchema,
   },

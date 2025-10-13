@@ -23,14 +23,12 @@ import {
   IPluginPanelUpdateStorageRo,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
-import { Permissions } from '../auth/decorators/permissions.decorator';
 import { PluginPanelService } from './plugin-panel.service';
 
 @Controller('api/table/:tableId/plugin-panel')
 export class PluginPanelController {
   constructor(private readonly pluginPanelService: PluginPanelService) {}
 
-  @Permissions('table|update')
   @Post()
   createPluginPanel(
     @Param('tableId') tableId: string,
@@ -40,13 +38,11 @@ export class PluginPanelController {
     return this.pluginPanelService.createPluginPanel(tableId, createPluginPanelDto);
   }
 
-  @Permissions('table|read')
   @Get()
   getPluginPanels(@Param('tableId') tableId: string): Promise<IPluginPanelListVo> {
     return this.pluginPanelService.getPluginPanels(tableId);
   }
 
-  @Permissions('table|read')
   @Get(':pluginPanelId')
   getPluginPanel(
     @Param('tableId') tableId: string,
@@ -55,7 +51,6 @@ export class PluginPanelController {
     return this.pluginPanelService.getPluginPanel(tableId, pluginPanelId);
   }
 
-  @Permissions('table|update')
   @Patch(':pluginPanelId/rename')
   renamePluginPanel(
     @Param('tableId') tableId: string,
@@ -66,7 +61,6 @@ export class PluginPanelController {
     return this.pluginPanelService.renamePluginPanel(tableId, pluginPanelId, renamePluginPanelDto);
   }
 
-  @Permissions('table|update')
   @Delete(':pluginPanelId')
   async deletePluginPanel(
     @Param('tableId') tableId: string,
@@ -75,7 +69,6 @@ export class PluginPanelController {
     await this.pluginPanelService.deletePluginPanel(tableId, pluginPanelId);
   }
 
-  @Permissions('table|update')
   @Patch(':pluginPanelId/layout')
   updatePluginPanelLayout(
     @Param('tableId') tableId: string,
@@ -90,7 +83,6 @@ export class PluginPanelController {
     );
   }
 
-  @Permissions('table|update')
   @Post(':pluginPanelId/install')
   installPluginPanel(
     @Param('tableId') tableId: string,
@@ -105,7 +97,6 @@ export class PluginPanelController {
     );
   }
 
-  @Permissions('table|update')
   @Delete(':pluginPanelId/plugin/:pluginInstallId')
   removePluginPanelPlugin(
     @Param('tableId') tableId: string,
@@ -115,7 +106,6 @@ export class PluginPanelController {
     return this.pluginPanelService.removePluginPanelPlugin(tableId, pluginPanelId, pluginInstallId);
   }
 
-  @Permissions('table|update')
   @Patch(':pluginPanelId/plugin/:pluginInstallId/rename')
   renamePluginPanelPlugin(
     @Param('tableId') tableId: string,
@@ -132,7 +122,6 @@ export class PluginPanelController {
     );
   }
 
-  @Permissions('table|update')
   @Patch(':pluginPanelId/plugin/:pluginInstallId/update-storage')
   updatePluginPanelPluginStorage(
     @Param('tableId') tableId: string,
@@ -149,7 +138,6 @@ export class PluginPanelController {
     );
   }
 
-  @Permissions('table|read')
   @Get(':pluginPanelId/plugin/:pluginInstallId')
   getPluginPanelPlugin(
     @Param('tableId') tableId: string,

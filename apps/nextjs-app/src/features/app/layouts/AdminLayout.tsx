@@ -1,18 +1,4 @@
-import type { DehydratedState } from '@tanstack/react-query';
-import { Admin, Integration, Settings } from '@teable/icons';
-import type { IUser } from '@teable/sdk';
-import { SessionProvider } from '@teable/sdk';
-import { AppProvider } from '@teable/sdk/context';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import React from 'react';
-import { Sidebar } from '@/features/app/components/sidebar/Sidebar';
-import { SidebarHeaderLeft } from '@/features/app/components/sidebar/SidebarHeaderLeft';
-import { useSdkLocale } from '@/features/app/hooks/useSdkLocale';
-import { AppLayout } from '@/features/app/layouts';
-import { SidebarContent } from '../components/sidebar/SidebarContent';
-import { adminConfig } from '@/features/i18n/admin.config';
+import { useBase } from '@teable/sdk/hooks';
 
 export const AdminLayout: React.FC<{
   children: React.ReactNode;
@@ -24,8 +10,14 @@ export const AdminLayout: React.FC<{
   const { t } = useTranslation(adminConfig.i18nNamespaces);
   const router = useRouter();
 
+  const base = useBase();
+
   const onBack = () => {
-    router.push({ pathname: '/base/bse0' });
+    if (base?.id) {
+      router.push({ pathname: `/base/${base.id}` });
+    } else {
+      router.push({ pathname: '/' });
+    }
   };
 
   const routes = [

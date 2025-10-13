@@ -61,7 +61,7 @@ export class LinkIntegrityService {
         where: {
           id: field.tableId,
           deletedTime: null,
-          base: { deletedTime: null, space: { deletedTime: null } },
+          base: { deletedTime: null },
         },
         select: { id: true, name: true, baseId: true },
       });

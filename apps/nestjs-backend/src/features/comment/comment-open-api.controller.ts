@@ -16,7 +16,6 @@ import {
 import { ZodValidationPipe } from '../../zod.validation.pipe';
 import { AttachmentsStorageService } from '../attachments/attachments-storage.service';
 import StorageAdapter from '../attachments/plugins/adapter';
-import { Permissions } from '../auth/decorators/permissions.decorator';
 import { TqlPipe } from '../record/open-api/tql.pipe';
 import { CommentOpenApiService } from './comment-open-api.service';
 
@@ -28,7 +27,6 @@ export class CommentOpenApiController {
   ) {}
 
   @Get('/:recordId/count')
-  @Permissions('view|read')
   async getRecordCommentCount(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string
@@ -37,7 +35,6 @@ export class CommentOpenApiController {
   }
 
   @Get('/count')
-  @Permissions('view|read')
   async getTableCommentCount(
     @Param('tableId') tableId: string,
     @Query(new ZodValidationPipe(getRecordsRoSchema), TqlPipe) query: IGetRecordsRo
@@ -47,7 +44,6 @@ export class CommentOpenApiController {
 
   @Get('/:recordId/attachment/:path')
   // eslint-disable-next-line sonarjs/no-duplicate-string
-  @Permissions('record|read')
   async getAttachmentPresignedUrl(@Param('path') path: string) {
     const [, token] = path.split('/');
     const bucket = StorageAdapter.getBucket(UploadType.Comment);
@@ -56,7 +52,6 @@ export class CommentOpenApiController {
 
   // eslint-disable-next-line sonarjs/no-duplicate-string
   @Get('/:recordId/subscribe')
-  @Permissions('record|read')
   async getSubscribeDetail(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string
@@ -65,19 +60,16 @@ export class CommentOpenApiController {
   }
 
   @Post('/:recordId/subscribe')
-  @Permissions('record|read')
   async subscribeComment(@Param('tableId') tableId: string, @Param('recordId') recordId: string) {
     return this.commentOpenApiService.subscribeComment(tableId, recordId);
   }
 
   @Delete('/:recordId/subscribe')
-  @Permissions('record|read')
   async unsubscribeComment(@Param('tableId') tableId: string, @Param('recordId') recordId: string) {
     return this.commentOpenApiService.unsubscribeComment(tableId, recordId);
   }
 
   @Get('/:recordId/list')
-  @Permissions('record|read')
   async getCommentList(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string,
@@ -89,7 +81,6 @@ export class CommentOpenApiController {
 
   @Post('/:recordId/create')
   // eslint-disable-next-line sonarjs/no-duplicate-string
-  @Permissions('record|comment')
   async createComment(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string,
@@ -100,13 +91,11 @@ export class CommentOpenApiController {
 
   // eslint-disable-next-line sonarjs/no-duplicate-string
   @Get('/:recordId/:commentId')
-  @Permissions('record|read')
   async getCommentDetail(@Param('commentId') commentId: string): Promise<ICommentVo | null> {
     return this.commentOpenApiService.getCommentDetail(commentId);
   }
 
   @Patch('/:recordId/:commentId')
-  @Permissions('record|comment')
   async updateComment(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string,
@@ -117,7 +106,6 @@ export class CommentOpenApiController {
   }
 
   @Delete('/:recordId/:commentId')
-  @Permissions('record|read')
   async deleteComment(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string,
@@ -127,7 +115,6 @@ export class CommentOpenApiController {
   }
 
   @Delete('/:recordId/:commentId/reaction')
-  @Permissions('record|comment')
   async deleteCommentReaction(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string,
@@ -143,7 +130,6 @@ export class CommentOpenApiController {
   }
 
   @Patch('/:recordId/:commentId/reaction')
-  @Permissions('record|comment')
   async updateCommentReaction(
     @Param('tableId') tableId: string,
     @Param('recordId') recordId: string,

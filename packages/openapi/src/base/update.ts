@@ -2,16 +2,17 @@ import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
-import { createBaseRoSchema } from './create';
 
 export const UPDATE_BASE = '/base/{baseId}';
 
-export const updateBaseRoSchema = createBaseRoSchema.omit({ spaceId: true });
+export const updateBaseRoSchema = z.object({
+  name: z.string().optional(),
+  icon: z.string().emoji().optional(),
+});
 
 export type IUpdateBaseRo = z.infer<typeof updateBaseRoSchema>;
 
 export const updateBaseVoSchema = z.object({
-  spaceId: z.string(),
   name: z.string(),
   icon: z.string().emoji().optional(),
 });

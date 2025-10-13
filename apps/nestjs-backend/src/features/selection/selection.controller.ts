@@ -19,7 +19,6 @@ import {
   ITemporaryPasteRo,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
-import { Permissions } from '../auth/decorators/permissions.decorator';
 import { TqlPipe } from '../record/open-api/tql.pipe';
 import { SelectionService } from './selection.service';
 
@@ -27,7 +26,6 @@ import { SelectionService } from './selection.service';
 export class SelectionController {
   constructor(private selectionService: SelectionService) {}
 
-  @Permissions('record|read')
   @Get('/range-to-id')
   async getIdsFromRanges(
     @Param('tableId') tableId: string,
@@ -36,7 +34,6 @@ export class SelectionController {
     return this.selectionService.getIdsFromRanges(tableId, query);
   }
 
-  @Permissions('record|read')
   @Get('/copy')
   async copy(
     @Param('tableId') tableId: string,
@@ -45,7 +42,6 @@ export class SelectionController {
     return this.selectionService.copy(tableId, query);
   }
 
-  @Permissions('record|update')
   @Patch('/paste')
   async paste(
     @Param('tableId') tableId: string,
@@ -56,7 +52,6 @@ export class SelectionController {
     return { ranges };
   }
 
-  @Permissions('record|read')
   @Patch('/temporaryPaste')
   async temporaryPaste(
     @Param('tableId') tableId: string,
@@ -66,7 +61,6 @@ export class SelectionController {
     return await this.selectionService.temporaryPaste(tableId, temporaryPasteRo);
   }
 
-  @Permissions('record|update')
   @Patch('/clear')
   async clear(
     @Param('tableId') tableId: string,
@@ -77,7 +71,6 @@ export class SelectionController {
     return null;
   }
 
-  @Permissions('record|delete')
   @Delete('/delete')
   async delete(
     @Param('tableId') tableId: string,

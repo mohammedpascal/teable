@@ -11,30 +11,6 @@ const actionsI18nMap: Record<
     description: TKey;
   }
 > = {
-  'space|create': {
-    description: 'permission.actionDescription.spaceCreate',
-  },
-  'space|delete': {
-    description: 'permission.actionDescription.spaceDelete',
-  },
-  'space|read': {
-    description: 'permission.actionDescription.spaceRead',
-  },
-  'space|update': {
-    description: 'permission.actionDescription.spaceUpdate',
-  },
-  'space|invite_email': {
-    description: 'permission.actionDescription.spaceInviteEmail',
-  },
-  'space|invite_link': {
-    description: 'permission.actionDescription.spaceInviteLink',
-  },
-  'space|grant_role': {
-    description: 'permission.actionDescription.spaceGrantRole',
-  },
-  'base|create': {
-    description: 'permission.actionDescription.baseCreate',
-  },
   'base|delete': {
     description: 'permission.actionDescription.baseDelete',
   },
@@ -172,9 +148,6 @@ const actionsI18nMap: Record<
 const actionPrefixI18nMap: Record<ActionPrefix, { title: TKey }> = {
   [ActionPrefix.Base]: {
     title: 'noun.base',
-  },
-  [ActionPrefix.Space]: {
-    title: 'noun.space',
   },
   [ActionPrefix.Table]: {
     title: 'noun.table',

@@ -4,34 +4,16 @@ import { AbstractSeed } from '../seed.abstract';
 import { CREATE_USER_NUM, generateUser } from './user-seeds';
 
 const userId = 'usrTestUserId';
-
-const spaceId = 'spcTestSpaceId';
-const spaceName = 'test space';
-
 const baseId = 'bseTestBaseId';
-const baseName = 'test base';
-
+const baseName = 'Base';
 const collaboratorId = 'usrTestCollaboratorId';
-const generateSpace = (): Prisma.SpaceCreateInput => {
-  return {
-    id: spaceId,
-    name: spaceName,
-    createdBy: userId,
-    lastModifiedBy: userId,
-  };
-};
-
 const generateBase = (): Prisma.BaseCreateInput => {
   return {
     id: baseId,
     name: baseName,
     order: 1,
+    userId: userId, // Set owner for permission checks
     createdBy: userId,
-    space: {
-      connect: {
-        id: spaceId,
-      },
-    },
     lastModifiedBy: userId,
   };
 };
@@ -43,8 +25,8 @@ export const generateCollaborator = async (
 
   return Array.from({ length: connectUserNum + 1 }, (_, i) => ({
     id: `${collaboratorId}_${i}`,
-    resourceId: spaceId,
-    resourceType: 'space',
+    resourceId: baseId,
+    resourceType: 'base',
     roleName: 'owner',
     principalId: userSets[i].id!,
     principalType: 'user',
@@ -52,12 +34,9 @@ export const generateCollaborator = async (
   }));
 };
 
-export class SpaceSeeds extends AbstractSeed {
+export class BaseSeeds extends AbstractSeed {
   execute = async (): Promise<void> => {
     await this.prisma.$transaction(async (tx) => {
-      // Space
-      await this.createSpace(tx);
-
       // Base
       await this.createBase(tx);
 
@@ -65,16 +44,6 @@ export class SpaceSeeds extends AbstractSeed {
       await this.createCollaborator(tx);
     });
   };
-
-  private async createSpace(tx: Prisma.TransactionClient) {
-    const { id: spaceId, ...spaceNonUnique } = generateSpace();
-    const space = await tx.space.upsert({
-      where: { id: spaceId },
-      update: spaceNonUnique,
-      create: { id: spaceId, ...spaceNonUnique },
-    });
-    this.log('UPSERT', `Space ${space.id} - ${space.name}`);
-  }
 
   private async createBase(tx: Prisma.TransactionClient) {
     const { id: baseId, ...baseNonUnique } = generateBase();
@@ -96,7 +65,7 @@ export class SpaceSeeds extends AbstractSeed {
     for (const c of collaboratorSets) {
       const { id, resourceId, principalId, ...collaboratorNonUnique } = c;
       const collaborator = await tx.collaborator.upsert({
-        where: { id, resourceId, resourceType: 'space', principalId },
+        where: { id, resourceId, resourceType: 'base', principalId },
         update: collaboratorNonUnique,
         create: c,
       });

@@ -19,7 +19,6 @@ import {
   IPluginContextMenuUpdateStorageRo,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
-import { Permissions } from '../auth/decorators/permissions.decorator';
 import { PluginContextMenuService } from './plugin-context-menu.service';
 
 @Controller('api/table/:tableId/plugin-context-menu')
@@ -27,7 +26,6 @@ export class PluginContextMenuController {
   constructor(private readonly pluginContextMenuService: PluginContextMenuService) {}
 
   @Post('install')
-  @Permissions('table|update')
   async installPluginContextMenu(
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(pluginContextMenuInstallRoSchema))
@@ -37,7 +35,6 @@ export class PluginContextMenuController {
   }
 
   @Get()
-  @Permissions('table|read')
   async getPluginContextMenuList(
     @Param('tableId') tableId: string
   ): Promise<IPluginContextMenuGetItem[]> {
@@ -45,7 +42,6 @@ export class PluginContextMenuController {
   }
 
   @Get(':pluginInstallId')
-  @Permissions('table|read')
   async getPluginContextMenu(
     @Param('tableId') tableId: string,
     @Param('pluginInstallId') pluginInstallId: string
@@ -54,7 +50,6 @@ export class PluginContextMenuController {
   }
 
   @Get(':pluginInstallId/storage')
-  @Permissions('table|read')
   async getPluginContextMenuStorage(
     @Param('tableId') tableId: string,
     @Param('pluginInstallId') pluginInstallId: string
@@ -63,7 +58,6 @@ export class PluginContextMenuController {
   }
 
   @Patch(':pluginInstallId/rename')
-  @Permissions('table|update')
   async renamePluginContextMenu(
     @Param('tableId') tableId: string,
     @Param('pluginInstallId') pluginInstallId: string,
@@ -74,7 +68,6 @@ export class PluginContextMenuController {
   }
 
   @Put(':pluginInstallId/update-storage')
-  @Permissions('table|update')
   async updatePluginContextMenuStorage(
     @Param('tableId') tableId: string,
     @Param('pluginInstallId') pluginInstallId: string,
@@ -89,7 +82,6 @@ export class PluginContextMenuController {
   }
 
   @Delete(':pluginInstallId')
-  @Permissions('table|update')
   async removePluginContextMenu(
     @Param('tableId') tableId: string,
     @Param('pluginInstallId') pluginInstallId: string
@@ -98,7 +90,6 @@ export class PluginContextMenuController {
   }
 
   @Put(':pluginInstallId/move')
-  @Permissions('table|update')
   async movePluginContextMenu(
     @Param('tableId') tableId: string,
     @Param('pluginInstallId') pluginInstallId: string,

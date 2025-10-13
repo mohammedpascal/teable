@@ -8,20 +8,6 @@ datasource db {
   url      = env("PRISMA_DATABASE_URL")
 }
 
-model Space {
-  id               String    @id @default(cuid())
-  name             String
-  credit           Int?
-  deletedTime      DateTime? @map("deleted_time")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  createdBy        String    @map("created_by")
-  lastModifiedBy   String?   @map("last_modified_by")
-  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
-
-  baseGroup      Base[]
-
-  @@map("space")
-}
 
 model PinResource {
   id               String    @id @default(cuid())
@@ -38,7 +24,7 @@ model PinResource {
 
 model Base {
   id                         String      @id @default(cuid())
-  spaceId                    String      @map("space_id")
+  userId                     String?     @map("user_id")
   name                       String
   order                      Float
   icon                       String?
@@ -48,9 +34,10 @@ model Base {
   createdBy                  String      @map("created_by")
   lastModifiedBy             String?     @map("last_modified_by")
   lastModifiedTime           DateTime?   @updatedAt @map("last_modified_time")
-  space          Space                   @relation(fields: [spaceId], references: [id])
-  tables         TableMeta[]
+  user                       User?       @relation(fields: [userId], references: [id])
+  tables                     TableMeta[]
 
+  @@unique([userId])
   @@index([order])
   @@map("base")
 }
@@ -194,6 +181,7 @@ model User {
   refMeta          String?   @map("ref_meta")
 
   accounts         Account[]
+  base             Base?
   @@map("users")
 }
 

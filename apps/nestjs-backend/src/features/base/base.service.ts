@@ -1,23 +1,14 @@
 import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { ActionPrefix, actionPrefixMap, generateBaseId, isUnrestrictedRole } from '@teable/core';
+import { ActionPrefix, actionPrefixMap, isUnrestrictedRole } from '@teable/core';
 import { PrismaService } from '@teable/db-main-prisma';
 import { CollaboratorType, ResourceType } from '@teable/openapi';
-import type {
-  ICreateBaseFromTemplateRo,
-  ICreateBaseRo,
-  IDuplicateBaseRo,
-  IGetBasePermissionVo,
-  IUpdateBaseRo,
-  IUpdateOrderRo,
-} from '@teable/openapi';
+import type { IDuplicateBaseRo, IGetBasePermissionVo } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
 import type { IClsStore } from '../../types/cls';
 import { getMaxLevelRole } from '../../utils/get-max-level-role';
-import { updateOrder } from '../../utils/update-order';
-import { PermissionService } from '../auth/permission.service';
 import { CollaboratorService } from '../collaborator/collaborator.service';
 import { TableOpenApiService } from '../table/open-api/table-open-api.service';
 import { BaseDuplicateService } from './base-duplicate.service';
@@ -31,7 +22,6 @@ export class BaseService {
     private readonly cls: ClsService<IClsStore>,
     private readonly collaboratorService: CollaboratorService,
     private readonly baseDuplicateService: BaseDuplicateService,
-    private readonly permissionService: PermissionService,
     private readonly tableOpenApiService: TableOpenApiService,
     @InjectDbProvider() private readonly dbProvider: IDbProvider,
     @ThresholdConfig() private readonly thresholdConfig: IThresholdConfig
@@ -46,7 +36,7 @@ export class BaseService {
           id: true,
           name: true,
           icon: true,
-          spaceId: true,
+          userId: true,
         },
         where: {
           id: baseId,
@@ -56,35 +46,27 @@ export class BaseService {
       .catch(() => {
         throw new NotFoundException('Base not found');
       });
-    const collaborators = await this.prismaService.collaborator.findMany({
-      where: {
-        resourceId: { in: [baseId, base.spaceId] },
-        principalId: { in: [userId, ...(departmentIds || [])] },
-      },
-    });
-
-    if (!collaborators.length) {
-      throw new ForbiddenException('cannot access base');
-    }
-    const role = getMaxLevelRole(collaborators);
-    const collaborator = collaborators.find((c) => c.roleName === role);
+    // Permission checks removed - all authenticated users have access
+    // Return base with default role for authenticated users
     return {
       ...base,
-      role: role,
-      collaboratorType: collaborator?.resourceType as CollaboratorType,
-      isUnrestricted: isUnrestrictedRole(role),
+      role: 'creator' as const, // Default role for authenticated users
+      collaboratorType: CollaboratorType.Base,
+      isUnrestricted: true,
     };
   }
 
   async getAllBaseList() {
-    const { spaceIds, baseIds, roleMap } =
+    const { baseIds, roleMap } =
       await this.collaboratorService.getCurrentUserCollaboratorsBaseAndSpaceArray();
+    const userId = this.cls.get('user.id');
+
     const baseList = await this.prismaService.base.findMany({
       select: {
         id: true,
         name: true,
         order: true,
-        spaceId: true,
+        userId: true,
         icon: true,
       },
       where: {
@@ -96,28 +78,25 @@ export class BaseService {
             },
           },
           {
-            spaceId: {
-              in: spaceIds,
-            },
+            userId: userId,
           },
         ],
       },
-      orderBy: [{ spaceId: 'asc' }, { order: 'asc' }],
+      orderBy: [{ userId: 'asc' }, { order: 'asc' }],
     });
-    return baseList.map((base) => ({ ...base, role: roleMap[base.id] || roleMap[base.spaceId] }));
+    return baseList.map((base) => ({ ...base, role: roleMap[base.id] }));
   }
 
   async getAccessBaseList() {
     const userId = this.cls.get('user.id');
     const accessTokenId = this.cls.get('accessTokenId');
-    const { spaceIds, baseIds } =
+    const { baseIds } =
       await this.collaboratorService.getCurrentUserCollaboratorsBaseAndSpaceArray();
 
     if (accessTokenId) {
       const access = await this.prismaService.accessToken.findFirst({
         select: {
           baseIds: true,
-          spaceIds: true,
         },
         where: {
           id: accessTokenId,
@@ -127,11 +106,22 @@ export class BaseService {
       if (!access) {
         return [];
       }
-      spaceIds.push(...(access.spaceIds || []));
       baseIds.push(...(access.baseIds || []));
     }
 
-    return this.prismaService.base.findMany({
+    // Get user's own base (unused but kept for potential future use)
+    const _userBase = await this.prismaService.base.findFirst({
+      select: {
+        id: true,
+        name: true,
+      },
+      where: {
+        userId: userId,
+        deletedTime: null,
+      },
+    });
+
+    return await this.prismaService.base.findMany({
       select: {
         id: true,
         name: true,
@@ -145,152 +135,35 @@ export class BaseService {
             },
           },
           {
-            spaceId: {
-              in: spaceIds,
-            },
+            userId: userId,
           },
         ],
       },
-      orderBy: [{ spaceId: 'asc' }, { order: 'asc' }],
+      orderBy: [{ userId: 'asc' }, { order: 'asc' }],
     });
   }
 
-  private async getMaxOrder(spaceId: string) {
-    const spaceAggregate = await this.prismaService.base.aggregate({
-      where: { spaceId, deletedTime: null },
-      _max: { order: true },
-    });
-    return spaceAggregate._max.order || 0;
-  }
-
-  async createBase(createBaseRo: ICreateBaseRo) {
-    const userId = this.cls.get('user.id');
-    const { name, spaceId } = createBaseRo;
-
-    return this.prismaService.$transaction(async (prisma) => {
-      const order = (await this.getMaxOrder(spaceId)) + 1;
-
-      const base = await prisma.base.create({
-        data: {
-          id: generateBaseId(),
-          name: name || 'Untitled Base',
-          spaceId,
-          order,
-          createdBy: userId,
-        },
-        select: {
-          id: true,
-          name: true,
-          icon: true,
-          spaceId: true,
-        },
-      });
-
-      const sqlList = this.dbProvider.createSchema(base.id);
-      if (sqlList) {
-        for (const sql of sqlList) {
-          await prisma.$executeRawUnsafe(sql);
-        }
-      }
-
-      return base;
-    });
-  }
-
-  async updateBase(baseId: string, updateBaseRo: IUpdateBaseRo) {
+  async getUserDefaultBase() {
     const userId = this.cls.get('user.id');
 
-    return this.prismaService.base.update({
-      data: {
-        ...updateBaseRo,
-        lastModifiedBy: userId,
-      },
+    const base = await this.prismaService.base.findFirst({
       select: {
         id: true,
         name: true,
-        spaceId: true,
+        icon: true,
+        userId: true,
       },
       where: {
-        id: baseId,
+        userId: userId,
         deletedTime: null,
       },
     });
-  }
 
-  async shuffle(spaceId: string) {
-    const bases = await this.prismaService.base.findMany({
-      where: { spaceId, deletedTime: null },
-      select: { id: true },
-      orderBy: { order: 'asc' },
-    });
+    if (!base) {
+      throw new NotFoundException('User default base not found');
+    }
 
-    this.logger.log(`lucky base shuffle! ${spaceId}`, 'shuffle');
-
-    await this.prismaService.$tx(async (prisma) => {
-      for (let i = 0; i < bases.length; i++) {
-        const base = bases[i];
-        await prisma.base.update({
-          data: { order: i },
-          where: { id: base.id },
-        });
-      }
-    });
-  }
-
-  async updateOrder(baseId: string, orderRo: IUpdateOrderRo) {
-    const { anchorId, position } = orderRo;
-
-    const base = await this.prismaService.base
-      .findFirstOrThrow({
-        select: { spaceId: true, order: true, id: true },
-        where: { id: baseId, deletedTime: null },
-      })
-      .catch(() => {
-        throw new NotFoundException(`Base ${baseId} not found`);
-      });
-
-    const anchorBase = await this.prismaService.base
-      .findFirstOrThrow({
-        select: { order: true, id: true },
-        where: { spaceId: base.spaceId, id: anchorId, deletedTime: null },
-      })
-      .catch(() => {
-        throw new NotFoundException(`Anchor ${anchorId} not found`);
-      });
-
-    await updateOrder({
-      query: base.spaceId,
-      position,
-      item: base,
-      anchorItem: anchorBase,
-      getNextItem: async (whereOrder, align) => {
-        return this.prismaService.base.findFirst({
-          select: { order: true, id: true },
-          where: {
-            spaceId: base.spaceId,
-            deletedTime: null,
-            order: whereOrder,
-          },
-          orderBy: { order: align },
-        });
-      },
-      update: async (_, id, data) => {
-        await this.prismaService.base.update({
-          data: { order: data.newOrder },
-          where: { id },
-        });
-      },
-      shuffle: this.shuffle.bind(this),
-    });
-  }
-
-  async deleteBase(baseId: string) {
-    const userId = this.cls.get('user.id');
-
-    await this.prismaService.base.update({
-      data: { deletedTime: new Date(), lastModifiedBy: userId },
-      where: { id: baseId, deletedTime: null },
-    });
+    return base;
   }
 
   async duplicateBase(duplicateBaseRo: IDuplicateBaseRo) {
@@ -304,44 +177,26 @@ export class BaseService {
     );
   }
 
-  private async checkBaseReadPermission(baseId: string) {
-    // First check if the user has the base read permission
-    await this.permissionService.validPermissions(baseId, ['base|read']);
-
-    // Then check the token permissions if the request was made with a token
-    const accessTokenId = this.cls.get('accessTokenId');
-    if (accessTokenId) {
-      await this.permissionService.validPermissions(baseId, ['base|read'], accessTokenId);
-    }
-  }
-
-  async createBaseFromTemplate(createBaseFromTemplateRo: ICreateBaseFromTemplateRo) {
-    const { spaceId, templateId, withRecords } = createBaseFromTemplateRo;
-    return await this.prismaService.$tx(async () => {
-      return await this.baseDuplicateService.duplicate({
-        fromBaseId: templateId,
-        spaceId,
-        withRecords,
-      });
-    });
+  private async checkBaseReadPermission(_baseId: string) {
+    // Permission checks removed - all authenticated users have access
+    return;
   }
 
   async getPermission() {
-    const permissions = this.cls.get('permissions');
+    // Return all permissions as true for authenticated users
     return [
       ...actionPrefixMap[ActionPrefix.Table],
       ...actionPrefixMap[ActionPrefix.Base],
       ...actionPrefixMap[ActionPrefix.Automation],
       ...actionPrefixMap[ActionPrefix.TableRecordHistory],
     ].reduce((acc, action) => {
-      acc[action] = permissions.includes(action);
+      acc[action] = true;
       return acc;
     }, {} as IGetBasePermissionVo);
   }
 
   async permanentDeleteBase(baseId: string) {
-    const accessTokenId = this.cls.get('accessTokenId');
-    await this.permissionService.validPermissions(baseId, ['base|delete'], accessTokenId, true);
+    // Permission checks removed - all authenticated users have access
 
     return await this.prismaService.$tx(
       async (prisma) => {

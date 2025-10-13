@@ -29,14 +29,9 @@ export const UsageLimitModal = () => {
 
   if (base == null) return null;
 
-  const { spaceId } = base;
-
   const onClick = () => {
     if (isUpgrade) {
-      router.push({
-        pathname: '/space/[spaceId]/setting/plan',
-        query: { spaceId },
-      });
+      router.push('/admin/setting');
     } else {
       router.push('/admin/user');
     }

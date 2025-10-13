@@ -23,7 +23,6 @@ import {
   searchIndexByQueryRoSchema,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../../zod.validation.pipe';
-import { Permissions } from '../../auth/decorators/permissions.decorator';
 import { TqlPipe } from '../../record/open-api/tql.pipe';
 import { AggregationOpenApiService } from './aggregation-open-api.service';
 
@@ -32,7 +31,6 @@ export class AggregationOpenApiController {
   constructor(private readonly aggregationOpenApiService: AggregationOpenApiService) {}
 
   @Get()
-  @Permissions('table|read')
   async getAggregation(
     @Param('tableId') tableId: string,
     @Query(new ZodValidationPipe(aggregationRoSchema), TqlPipe) query?: IAggregationRo
@@ -41,7 +39,6 @@ export class AggregationOpenApiController {
   }
 
   @Get('/row-count')
-  @Permissions('table|read')
   async getRowCount(
     @Param('tableId') tableId: string,
     @Query(new ZodValidationPipe(queryBaseSchema), TqlPipe) query?: IQueryBaseRo
@@ -50,7 +47,6 @@ export class AggregationOpenApiController {
   }
 
   @Get('/search-count')
-  @Permissions('table|read')
   async getSearchCount(
     @Param('tableId') tableId: string,
     @Query(new ZodValidationPipe(searchCountRoSchema), TqlPipe) query: ISearchCountRo
@@ -59,7 +55,6 @@ export class AggregationOpenApiController {
   }
 
   @Get('/search-index')
-  @Permissions('table|read')
   async getRecordIndexBySearchOrder(
     @Param('tableId') tableId: string,
     @Query(new ZodValidationPipe(searchIndexByQueryRoSchema), TqlPipe) query: ISearchIndexByQueryRo
@@ -68,7 +63,6 @@ export class AggregationOpenApiController {
   }
 
   @Get('/group-points')
-  @Permissions('table|read')
   async getGroupPoints(
     @Param('tableId') tableId: string,
     @Query(new ZodValidationPipe(groupPointsRoSchema), TqlPipe) query?: IGroupPointsRo
@@ -77,7 +71,6 @@ export class AggregationOpenApiController {
   }
 
   @Get('/calendar-daily-collection')
-  @Permissions('table|read')
   async getCalendarDailyCollection(
     @Param('tableId') tableId: string,
     @Query(new ZodValidationPipe(calendarDailyCollectionRoSchema), TqlPipe)

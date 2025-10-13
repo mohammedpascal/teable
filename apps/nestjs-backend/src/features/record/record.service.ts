@@ -916,15 +916,12 @@ export class RecordService {
 
     const table = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
       where: { id: tableId, deletedTime: null },
-      select: { dbTableName: true, base: { select: { space: { select: { credit: true } } } } },
+      select: { dbTableName: true },
     });
 
     const rowCount = await this.getAllRecordCount(table.dbTableName);
 
-    const maxRowCount =
-      table.base.space.credit == null
-        ? this.thresholdConfig.maxFreeRowLimit
-        : table.base.space.credit;
+    const maxRowCount = this.thresholdConfig.maxFreeRowLimit;
 
     if (rowCount >= maxRowCount) {
       this.logger.log(`Exceed row count: ${maxRowCount}`, 'creditCheck');

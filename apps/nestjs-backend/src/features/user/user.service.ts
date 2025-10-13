@@ -1,18 +1,11 @@
 import https from 'https';
 import { join } from 'path';
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
-import {
-  generateAccountId,
-  generateBaseId,
-  generateSpaceId,
-  generateUserId,
-  minidenticon,
-  Role,
-} from '@teable/core';
+import { generateAccountId, generateBaseId, generateUserId, minidenticon } from '@teable/core';
 import type { Prisma } from '@teable/db-main-prisma';
 import { PrismaService } from '@teable/db-main-prisma';
-import { CollaboratorType, PrincipalType, UploadType } from '@teable/openapi';
-import type { IUserInfoVo, ICreateSpaceRo, IUserNotifyMeta } from '@teable/openapi';
+import { UploadType } from '@teable/openapi';
+import type { IUserInfoVo, IUserNotifyMeta } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import sharp from 'sharp';
 import { EventEmitterService } from '../../event-emitter/event-emitter.service';
@@ -55,51 +48,26 @@ export class UserService {
     });
   }
 
-  async createSpaceBySignup(createSpaceRo: ICreateSpaceRo) {
+  async createDefaultBase() {
     const userId = this.cls.get('user.id');
-    const uniqName = createSpaceRo.name ?? 'Space';
 
-    const space = await this.prismaService.txClient().space.create({
-      select: {
-        id: true,
-        name: true,
-      },
-      data: {
-        id: generateSpaceId(),
-        name: uniqName,
-        createdBy: userId,
-      },
-    });
-    await this.prismaService.txClient().collaborator.create({
-      data: {
-        resourceId: space.id,
-        resourceType: CollaboratorType.Space,
-        roleName: Role.Owner,
-        principalType: PrincipalType.User,
-        principalId: userId,
-        createdBy: userId,
-      },
-    });
-
-    await this.prismaService.txClient().base.create({
+    return await this.prismaService.txClient().base.create({
       data: {
         id: generateBaseId(),
         name: 'Base',
         icon: null,
         order: 1,
-        spaceId: space.id,
+        userId: userId,
         createdBy: userId,
       },
       select: {
         id: true,
         name: true,
         icon: true,
-        spaceId: true,
+        userId: true,
         order: true,
       },
     });
-
-    return space;
   }
 
   async createUserWithSettingCheck(
@@ -164,7 +132,7 @@ export class UserService {
     }
     await this.cls.runWith(this.cls.get(), async () => {
       this.cls.set('user.id', id);
-      await this.createSpaceBySignup({ name: `space` });
+      await this.createDefaultBase();
     });
     return newUser;
   }

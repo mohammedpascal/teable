@@ -9,7 +9,6 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './guard/auth.guard';
 import { LocalAuthModule } from './local-auth/local-auth.module';
-import { PermissionModule } from './permission.module';
 import { SessionStoreService } from './session/session-store.service';
 import { SessionModule } from './session/session.module';
 import { SessionSerializer } from './session/session.serializer';
@@ -28,7 +27,6 @@ import { SessionStrategy } from './strategies/session.strategy';
       return Boolean(env.PASSWORD_LOGIN_DISABLED !== 'true');
     }),
     SocialModule,
-    PermissionModule,
     JwtModule.registerAsync({
       useFactory: (config: IAuthConfig) => ({
         secret: config.jwt.secret,

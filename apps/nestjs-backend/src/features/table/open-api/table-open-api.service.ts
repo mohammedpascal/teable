@@ -43,7 +43,6 @@ import { ThresholdConfig, IThresholdConfig } from '../../../configs/threshold.co
 import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
 import { updateOrder } from '../../../utils/update-order';
-import { PermissionService } from '../../auth/permission.service';
 import { LinkService } from '../../calculation/link.service';
 import { FieldCreatingService } from '../../field/field-calculate/field-creating.service';
 import { FieldSupplementService } from '../../field/field-calculate/field-supplement.service';
@@ -68,7 +67,6 @@ export class TableOpenApiService {
     private readonly fieldOpenApiService: FieldOpenApiService,
     private readonly fieldCreatingService: FieldCreatingService,
     private readonly fieldSupplementService: FieldSupplementService,
-    private readonly permissionService: PermissionService,
     private readonly tableDuplicateService: TableDuplicateService,
     @InjectDbProvider() private readonly dbProvider: IDbProvider,
     @ThresholdConfig() private readonly thresholdConfig: IThresholdConfig,
@@ -614,15 +612,62 @@ export class TableOpenApiService {
   }
 
   async getPermission(baseId: string, tableId: string): Promise<ITablePermissionVo> {
-    let role: IRole | null = await this.permissionService.getRoleByBaseId(baseId);
-    if (!role) {
-      const { spaceId } = await this.permissionService.getUpperIdByBaseId(baseId);
-      role = await this.permissionService.getRoleBySpaceId(spaceId);
-    }
-    if (!role) {
-      throw new NotFoundException(`Role not found`);
-    }
-    return this.getPermissionByRole(tableId, role);
+    // Return all permissions as true for authenticated users
+    const tablePermission = actionPrefixMap[ActionPrefix.Table].reduce(
+      (acc, action) => {
+        acc[action] = true;
+        return acc;
+      },
+      {} as Record<TableAction, boolean>
+    );
+    const viewPermission = actionPrefixMap[ActionPrefix.View].reduce(
+      (acc, action) => {
+        acc[action] = true;
+        return acc;
+      },
+      {} as Record<ViewAction, boolean>
+    );
+    const recordPermission = actionPrefixMap[ActionPrefix.Record].reduce(
+      (acc, action) => {
+        acc[action] = true;
+        return acc;
+      },
+      {} as Record<RecordAction, boolean>
+    );
+
+    const fields = await this.prismaService.field.findMany({
+      where: {
+        tableId,
+        deletedTime: null,
+      },
+    });
+
+    const excludeFieldCreate = actionPrefixMap[ActionPrefix.Field].filter(
+      (action) => action !== 'field|create'
+    );
+    const fieldPermission = fields.reduce(
+      (acc, field) => {
+        acc[field.id] = excludeFieldCreate.reduce(
+          (acc, action) => {
+            acc[action] = true;
+            return acc;
+          },
+          {} as Record<FieldAction, boolean>
+        );
+        return acc;
+      },
+      {} as Record<string, Record<FieldAction, boolean>>
+    );
+
+    return {
+      table: tablePermission,
+      field: {
+        fields: fieldPermission,
+        create: true,
+      },
+      record: recordPermission,
+      view: viewPermission,
+    };
   }
 
   async getPermissionByRole(tableId: string, role: IRole) {
