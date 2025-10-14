@@ -24,7 +24,6 @@ export interface IRenderLayerProps
     | 'width'
     | 'height'
     | 'columns'
-    | 'commentCountMap'
     | 'rowControls'
     | 'imageManager'
     | 'spriteManager'
@@ -69,7 +68,6 @@ export const RenderLayer: FC<React.PropsWithChildren<IRenderLayerProps>> = (prop
     width,
     height,
     columns,
-    commentCountMap,
     isEditing,
     rowControls,
     visibleRegion,
@@ -145,7 +143,6 @@ export const RenderLayer: FC<React.PropsWithChildren<IRenderLayerProps>> = (prop
       width,
       height,
       columns,
-      commentCountMap,
       isEditing,
       rowControls,
       visibleRegion,
@@ -189,7 +186,6 @@ export const RenderLayer: FC<React.PropsWithChildren<IRenderLayerProps>> = (prop
     width,
     height,
     columns,
-    commentCountMap,
     isEditing,
     rowControls,
     visibleRegion,

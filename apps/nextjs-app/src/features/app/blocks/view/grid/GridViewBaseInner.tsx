@@ -35,7 +35,6 @@ import {
   useGridColumnStatistics,
   useGridColumnOrder,
   useGridAsyncRecords,
-  useCommentCountMap,
   useGridIcons,
   useGridTooltipStore,
   hexToRGBA,
@@ -149,15 +148,13 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   const groupCollection = useGridGroupCollection();
 
   const { viewQuery, collapsedGroupIds, onCollapsedGroupChanged } = useGridCollapsedGroup(
-    generateLocalId(tableId, activeViewId),
+    generateLocalId(tableId, activeViewId)
   );
 
-  const { onVisibleRegionChanged, onReset, recordMap, groupPoints, recordsQuery, searchHitIndex } =
+  const { onVisibleRegionChanged, onReset, recordMap, groupPoints, searchHitIndex } =
     useGridAsyncRecords(ssrRecords, undefined, viewQuery, groupPointsServerData);
 
   const isSelectionLoaded = useIsSelectionLoaded();
-
-  const commentCountMap = useCommentCountMap(recordsQuery);
 
   const { onRowOrdered, setDraggingRecordIds } = useGridRowOrder(recordMap);
 
@@ -869,7 +866,6 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
         freezeColumnCount={frozenColumnCount}
         columnStatistics={columnStatistics}
         columns={columns}
-        commentCountMap={commentCountMap}
         customIcons={customIcons}
         rowControls={rowControls}
         collapsedGroupIds={collapsedGroupIds}
@@ -933,7 +929,6 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
             draggable={DraggableType.None}
             selectable={SelectableType.Cell}
             columns={columns}
-            commentCountMap={commentCountMap}
             columnHeaderVisible={false}
             freezeColumnCount={frozenColumnCount}
             customIcons={customIcons}
@@ -966,7 +961,6 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
             selectable={SelectableType.Cell}
             columns={columns}
             columnHeaderVisible={false}
-            commentCountMap={commentCountMap}
             freezeColumnCount={frozenColumnCount}
             customIcons={customIcons}
             getCellContent={getPresortCellContent}

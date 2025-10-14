@@ -17,7 +17,6 @@ export const ExpandRecordContainerBase = forwardRef<
   const { tableId, viewId, recordServerData, onClose, onUpdateRecordIdCallback } = props;
   const router = useRouter();
   const recordId = router.query.recordId as string;
-  const commentId = router.query.commentId as string;
   const [recordIds, setRecordIds] = useState<string[]>();
 
   useImperativeHandle(forwardRef, () => ({
@@ -29,7 +28,6 @@ export const ExpandRecordContainerBase = forwardRef<
       tableId={tableId}
       viewId={viewId}
       recordId={recordId}
-      commentId={commentId}
       recordIds={recordIds}
       serverData={recordServerData}
       model={ExpandRecordModel.Modal}

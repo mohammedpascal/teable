@@ -1,5 +1,5 @@
-import { ArrowUpRight, Code2, Database, MoreHorizontal } from '@teable/icons';
-import { useBaseId, useTableId, useTablePermission } from '@teable/sdk/hooks';
+import { Code2, Database, MoreHorizontal } from '@teable/icons';
+import { useBaseId, useTableId } from '@teable/sdk/hooks';
 import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
@@ -14,7 +14,6 @@ const OthersList = ({
   classNames?: { textClassName?: string; buttonClassName?: string };
   className?: string;
 }) => {
-  const permission = useTablePermission();
   const { t } = useTranslation('table');
   const baseId = useBaseId() as string;
   const tableId = useTableId();

@@ -59,6 +59,15 @@ const actionsI18nMap: Record<
   'table|export': {
     description: 'permission.actionDescription.tableExport',
   },
+  'table|trash_read': {
+    description: 'permission.actionDescription.tableRead',
+  },
+  'table|trash_update': {
+    description: 'permission.actionDescription.tableUpdate',
+  },
+  'table|trash_reset': {
+    description: 'permission.actionDescription.tableDelete',
+  },
   'table_record_history|read': {
     description: 'permission.actionDescription.recordHistoryRead',
   },
@@ -92,9 +101,6 @@ const actionsI18nMap: Record<
   'record|create': {
     description: 'permission.actionDescription.recordCreate',
   },
-  'record|comment': {
-    description: 'permission.actionDescription.recordComment',
-  },
   'record|delete': {
     description: 'permission.actionDescription.recordDelete',
   },
@@ -102,6 +108,9 @@ const actionsI18nMap: Record<
     description: 'permission.actionDescription.recordRead',
   },
   'record|update': {
+    description: 'permission.actionDescription.recordUpdate',
+  },
+  'record|comment': {
     description: 'permission.actionDescription.recordUpdate',
   },
   'automation|create': {

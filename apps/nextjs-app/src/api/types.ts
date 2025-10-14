@@ -9441,29 +9441,26 @@ export interface paths {
       };
     };
   };
-                 *   "zh": {
-                 *     "title": "插件标题",
-                 *     "description": "插件描述"
-                 *   }
-                 * }
-                 */
-                i18n: Record<string, never>;
-                /** @enum {string} */
-                status: "developing" | "reviewing" | "published";
-                pluginUser?: {
-                  id: string;
-                  name: string;
-                  /** Format: email */
-                  email: string;
-                  avatar?: string;
-                };
-                createdTime: string;
-                lastModifiedTime: string;
-              })[];
-          };
-        };
-      };
-    };
+  /**
+   *   "zh": {
+   *     "title": "插件标题",
+   *     "description": "插件描述"
+   *   }
+   * }
+   */
+  i18n: Record<string, never>;
+  /** @enum {string} */
+  status: "developing" | "reviewing" | "published";
+  pluginUser?: {
+    id: string;
+    name: string;
+    /** Format: email */
+    email: string;
+    avatar?: string;
+  };
+  createdTime: string;
+  lastModifiedTime: string;
+})[];
     /** @description Create a plugin */
     post: {
       requestBody?: {

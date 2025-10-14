@@ -64,7 +64,6 @@ Everything you need, right out of the box:
 - [x] Attachments Preview
 - [x] Batch Editing
 - [x] Charts
-- [x] Comments
 - [x] Custom Columns
 - [x] Field Conversion
 - [x] Filtering
@@ -105,7 +104,6 @@ Visualize and interact with data in various ways best suited for their specific 
     <td width="50%"><img alt="Form View" src="static/assets/images/view-form.png"></td>
   </tr>
   <tr>
-    <td width="50%"><img alt="Comments" src="static/assets/images/comments.png"></td>
     <td width="50%"><img alt="Record history" src="static/assets/images/record-history.png"></td>
   </tr>
 </table>

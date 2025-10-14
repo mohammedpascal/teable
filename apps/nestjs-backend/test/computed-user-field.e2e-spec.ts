@@ -2,8 +2,8 @@ import type { INestApplication } from '@nestjs/common';
 import type { IFieldRo, IFieldVo } from '@teable/core';
 import { FieldKeyType, FieldType, Role } from '@teable/core';
 import {
-  deleteSpaceCollaborator,
-  emailSpaceInvitation,
+  deleteBaseCollaborator,
+  emailBaseInvitation,
   getRecord,
   getRecords,
   updateRecord,
@@ -239,9 +239,9 @@ describe('Computed user field (e2e)', () => {
       user2Request.patch<void>(urlBuilder(UPDATE_USER_NAME), { name: 'default' });
       user2 = (await user2Request.get<IUserMeVo>(USER_ME)).data;
 
-      await emailSpaceInvitation({
-        spaceId: globalThis.testConfig.spaceId,
-        emailSpaceInvitationRo: { role: Role.Creator, emails: ['renameUser@example.com'] },
+      await emailBaseInvitation({
+        baseId: globalThis.testConfig.spaceId,
+        emailBaseInvitationRo: { role: Role.Creator, emails: ['renameUser@example.com'] },
       });
       table1 = (
         await user2Request.post<ITableFullVo>(urlBuilder(CREATE_TABLE, { baseId }), {
@@ -254,9 +254,9 @@ describe('Computed user field (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteSpaceCollaborator({
-        spaceId: globalThis.testConfig.spaceId,
-        deleteSpaceCollaboratorRo: {
+      await deleteBaseCollaborator({
+        baseId: globalThis.testConfig.spaceId,
+        deleteBaseCollaboratorRo: {
           principalId: user2.id,
           principalType: PrincipalType.User,
         },

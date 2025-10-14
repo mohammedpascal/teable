@@ -122,7 +122,6 @@ export interface IGridExternalProps {
 
 export interface IGridProps extends IGridExternalProps {
   columns: IGridColumn[];
-  commentCountMap?: Record<string, number>;
   freezeColumnCount?: number;
   rowCount: number;
   rowHeight?: number;
@@ -162,7 +161,6 @@ const {
 const GridBase: ForwardRefRenderFunction<IGridRef, IGridProps> = (props, forwardRef) => {
   const {
     columns,
-    commentCountMap,
     groupCollection,
     collapsedGroupIds,
     draggable = DraggableType.All,
@@ -553,7 +551,6 @@ const GridBase: ForwardRefRenderFunction<IGridRef, IGridProps> = (props, forward
             height={height}
             theme={theme}
             columns={columns}
-            commentCountMap={commentCountMap}
             mouseState={mouseState}
             scrollState={scrollState}
             rowControls={rowControls}
@@ -592,7 +589,6 @@ const GridBase: ForwardRefRenderFunction<IGridRef, IGridProps> = (props, forward
             height={height}
             theme={theme}
             columns={columns}
-            commentCountMap={commentCountMap}
             draggable={draggable}
             selectable={selectable}
             collaborators={collaborators}

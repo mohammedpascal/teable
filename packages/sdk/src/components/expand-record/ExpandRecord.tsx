@@ -13,7 +13,6 @@ import {
   useBaseId,
 } from '../../hooks';
 import type { GridView, IFieldInstance } from '../../model';
-import { CommentPanel } from '../comment';
 import { ExpandRecordHeader } from './ExpandRecordHeader';
 import { ExpandRecordWrap } from './ExpandRecordWrap';
 import { RecordEditor } from './RecordEditor';
@@ -23,18 +22,15 @@ import { ExpandRecordModel } from './type';
 interface IExpandRecordProps {
   recordId: string;
   recordIds?: string[];
-  commentId?: string;
   visible?: boolean;
   model?: ExpandRecordModel;
   serverData?: IRecord;
   recordHistoryVisible?: boolean;
-  commentVisible?: boolean;
   onClose?: () => void;
   onPrev?: (recordId: string) => void;
   onNext?: (recordId: string) => void;
   onCopyUrl?: () => void;
   onRecordHistoryToggle?: () => void;
-  onCommentToggle?: () => void;
   onDelete?: () => Promise<void>;
   onDuplicate?: () => Promise<void>;
 }
@@ -44,17 +40,14 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
     model,
     visible,
     recordId,
-    commentId,
     recordIds,
     serverData,
     recordHistoryVisible,
-    commentVisible,
     onPrev,
     onNext,
     onClose,
     onCopyUrl,
     onRecordHistoryToggle,
-    onCommentToggle,
     onDelete,
     onDuplicate,
   } = props;
@@ -131,14 +124,13 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
       model={isTouchDevice ? ExpandRecordModel.Drawer : model ?? ExpandRecordModel.Modal}
       visible={visible}
       onClose={onClose}
-      className={cn({ 'max-w-5xl': commentVisible })}
+      className="max-w-5xl"
     >
       <div className="flex h-full flex-col">
         {tableId && recordId && (
           <ExpandRecordHeader
             title={record?.title}
             recordHistoryVisible={recordHistoryVisible}
-            commentVisible={commentVisible}
             disabledPrev={disabledPrev}
             disabledNext={disabledNext}
             onClose={onClose}
@@ -146,7 +138,6 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
             onNext={onNextInner}
             onCopyUrl={onCopyUrl}
             onRecordHistoryToggle={onRecordHistoryToggle}
-            onCommentToggle={onCommentToggle}
             onDuplicate={onDuplicate}
             onDelete={onDelete}
             recordId={recordId}
@@ -174,16 +165,6 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
                 <Skeleton className="h-10 w-full rounded" />
               )}
 
-              {commentVisible && baseId && tableId && recordId && (
-                <div className="w-80 shrink-0">
-                  <CommentPanel
-                    tableId={tableId}
-                    recordId={recordId}
-                    baseId={baseId}
-                    commentId={commentId}
-                  />
-                </div>
-              )}
             </div>
           )}
         </div>

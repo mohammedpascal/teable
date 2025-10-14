@@ -1,5 +1,10 @@
 import { z } from '../zod';
 
+export enum ResourceType {
+  Base = 'base',
+  Table = 'table',
+}
+
 export enum PrincipalType {
   User = 'user',
   Department = 'department',

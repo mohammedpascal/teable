@@ -17,7 +17,6 @@ export class RecordCore {
 
   name?: string;
 
-  commentCount!: number;
 
   createdTime!: Date;
 

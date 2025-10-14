@@ -98,7 +98,6 @@ export const InteractionLayerBase: ForwardRefRenderFunction<
     width,
     height,
     columns,
-    commentCountMap,
     draggable,
     selectable,
     rowControls,
@@ -714,7 +713,6 @@ export const InteractionLayerBase: ForwardRefRenderFunction<
           width={width}
           height={height}
           columns={columns}
-          commentCountMap={commentCountMap}
           columnStatistics={columnStatistics}
           coordInstance={coordInstance}
           rowControls={rowControls}

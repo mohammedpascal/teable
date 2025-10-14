@@ -14,7 +14,6 @@ import { TablePermissionProvider } from '@teable/sdk/context/table-permission';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useHotkeys } from 'react-hotkeys-hook';
 import { PluginContextMenu } from '../../components/plugin-context-menu/PluginContextMenu';
 import { View } from '../view/View';
 import { FailAlert } from './FailAlert';

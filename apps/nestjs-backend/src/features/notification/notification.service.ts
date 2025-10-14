@@ -223,43 +223,6 @@ export class NotificationService {
     });
   }
 
-  async sendCommentNotify(params: {
-    baseId: string;
-    tableId: string;
-    recordId: string;
-    commentId: string;
-    toUserId: string;
-    message: string;
-    fromUserId: string;
-  }) {
-    const { toUserId, tableId, message, baseId, commentId, recordId, fromUserId } = params;
-    const toUser = await this.userService.getUserById(toUserId);
-    if (!toUser) {
-      return;
-    }
-    const type = NotificationTypeEnum.Comment;
-    const urlMeta = notificationUrlSchema.parse({
-      baseId: baseId,
-      tableId: tableId,
-      recordId: recordId,
-      commentId: commentId,
-    });
-    const notifyPath = this.generateNotifyPath(type, urlMeta);
-
-    this.sendCommonNotify(
-      {
-        path: notifyPath,
-        fromUserId,
-        toUserId,
-        message,
-        emailConfig: {
-          title: 'Record comment notification',
-          message: message,
-        },
-      },
-      type
-    );
-  }
 
   async getNotifyList(userId: string, query: IGetNotifyListQuery): Promise<INotificationVo> {
     const { notifyStates, cursor } = query;
@@ -345,11 +308,6 @@ export class NotificationService {
       case NotificationTypeEnum.System: {
         const { baseId, tableId } = urlMeta || {};
         return `/base/${baseId}/${tableId}`;
-      }
-      case NotificationTypeEnum.Comment: {
-        const { baseId, tableId, recordId, commentId } = urlMeta || {};
-
-        return `/base/${baseId}/${tableId}${`?recordId=${recordId}&commentId=${commentId}`}`;
       }
       case NotificationTypeEnum.CollaboratorCellTag:
       case NotificationTypeEnum.CollaboratorMultiRowTag: {

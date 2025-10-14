@@ -271,7 +271,6 @@
       "fieldRead": "Read field",
       "fieldUpdate": "Update field",
       "recordCreate": "Create record",
-      "recordComment": "Comment on record",
       "recordDelete": "Delete record",
       "recordRead": "Read record",
       "recordUpdate": "Update record",
@@ -701,33 +700,6 @@
     },
     "aggregation": {
       "title": "Aggregation"
-    }
-  },
-  "comment": {
-    "title": "Comment",
-    "placeholder": "Leave a comment...",
-    "emptyComment": "Start a conversation",
-    "deletedComment": "Deleted Comment",
-    "imageSizeLimit": "Image size could not be greater than {{size}}",
-    "tip": {
-      "editing": "Editing...",
-      "edited": "(Edited)",
-      "onNotify": "Only be notified comment relative to you if you turn off",
-      "offNotify": "You will be notified by all active if you turn on",
-      "reactionUserSuffix": "reacted with {{emoji}} emoji",
-      "me": "You",
-      "connection": "and"
-    },
-    "toolbar": {
-      "link": "Link",
-      "image": "Image"
-    },
-    "floatToolbar": {
-      "editLink": "Edit Link",
-      "caption": "Caption",
-      "delete": "Delete",
-      "linkText": "Link Text",
-      "enterUrl": "Enter URL"
     }
   },
   "memberSelector": {

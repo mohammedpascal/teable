@@ -112,7 +112,6 @@ export const calcCells = (props: ILayoutDrawerProps, renderRegion: RenderRegion)
     hoverCellPosition,
     theme,
     columns,
-    commentCountMap,
     imageManager,
     spriteManager,
     groupCollection,
@@ -269,7 +268,6 @@ export const calcCells = (props: ILayoutDrawerProps, renderRegion: RenderRegion)
           rowControls,
           theme,
           spriteManager,
-          commentCount: recordId ? commentCountMap?.[recordId] : undefined,
         });
       }
 

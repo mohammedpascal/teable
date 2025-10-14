@@ -2,12 +2,11 @@ export * from './get';
 export * from './update';
 export * from './update-order';
 export * from './all-list';
-// TODO: Multi-user collaboration removed
-// export * from './collaborator-get-list';
-// export * from './collaborator-delete';
-// export * from './collaborator-update';
-// export * from './collaborator-add';
-// export * from './get-shared-base';
+export * from './collaborator-get-list';
+export * from './collaborator-delete';
+export * from './collaborator-update';
+export * from './collaborator-add';
+export * from './get-shared-base';
 export * from './duplicate';
 export * from './get-permission';
 export * from './query-data';
