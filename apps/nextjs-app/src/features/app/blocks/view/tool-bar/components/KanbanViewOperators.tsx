@@ -22,7 +22,6 @@ import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { useKanbanStackCollapsedStore } from '../../kanban/store';
 import { ToolBarButton } from '../ToolBarButton';
 import { CoverFieldSelect } from './CoverFieldSelect';
-import { UndoRedoButtons } from './UndoRedoButtons';
 
 export const KanbanViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
@@ -77,8 +76,6 @@ export const KanbanViewOperators: React.FC<{ disabled?: boolean }> = (props) => 
 
   return (
     <div className="flex items-center gap-2">
-      <UndoRedoButtons />
-      <div className="mx-2 h-4 w-px shrink-0 bg-slate-200"></div>
       <CreateRecordModal>
         <Button
           className="size-6 shrink-0 rounded-full p-0"

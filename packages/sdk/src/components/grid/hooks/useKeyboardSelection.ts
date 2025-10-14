@@ -27,8 +27,6 @@ export const useKeyboardSelection = (props: ISelectionKeyboardProps) => {
     setEditing,
     setActiveCell,
     setSelection,
-    onUndo,
-    onRedo,
     onDelete,
     onRowExpand,
     editorRef,
@@ -36,29 +34,6 @@ export const useKeyboardSelection = (props: ISelectionKeyboardProps) => {
   } = props;
   const { pureRowCount, columnCount } = coordInstance;
 
-  useHotkeys(
-    'mod+z',
-    () => {
-      onUndo?.();
-    },
-    {
-      enabled: !isEditing && selection.type !== SelectionRegionType.None,
-      preventDefault: true,
-      enableOnFormTags: ['input', 'select', 'textarea'],
-    }
-  );
-
-  useHotkeys(
-    ['mod+shift+z', 'mod+y'],
-    () => {
-      onRedo?.();
-    },
-    {
-      enabled: !isEditing && selection.type !== SelectionRegionType.None,
-      preventDefault: true,
-      enableOnFormTags: ['input', 'select', 'textarea'],
-    }
-  );
 
   useHotkeys(
     [

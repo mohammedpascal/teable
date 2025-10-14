@@ -27,7 +27,6 @@ import { PluginModule } from './features/plugin/plugin.module';
 import { PluginContextMenuModule } from './features/plugin-context-menu/plugin-context-menu.module';
 import { SelectionModule } from './features/selection/selection.module';
 import { SettingModule } from './features/setting/setting.module';
-import { UndoRedoModule } from './features/undo-redo/open-api/undo-redo.module';
 import { UserModule } from './features/user/user.module';
 import { GlobalModule } from './global/global.module';
 import { InitBootstrapProvider } from './global/init-bootstrap.provider';
@@ -45,7 +44,6 @@ export const appModules = {
     AttachmentsModule,
     WsModule,
     SelectionModule,
-    UndoRedoModule,
     AggregationOpenApiModule,
     UserModule,
     AuthModule,

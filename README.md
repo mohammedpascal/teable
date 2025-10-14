@@ -79,7 +79,6 @@ Everything you need, right out of the box:
 - [x] Search
 - [x] Sorting
 - [x] SQL Query
-- [x] Undo/Redo
 - [x] Validation
 
 ### 🏞️ Multiple Views

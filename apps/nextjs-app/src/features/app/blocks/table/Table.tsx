@@ -5,7 +5,6 @@ import {
   AnchorContext,
   FieldProvider,
   useTable,
-  useUndoRedo,
   ViewProvider,
   PersonalViewProxy,
   PersonalViewProvider,
@@ -39,7 +38,6 @@ export const Table: React.FC<ITableProps> = ({
 }) => {
   const table = useTable();
   const router = useRouter();
-  const { undo, redo } = useUndoRedo();
   const { baseId, tableId, viewId } = router.query as {
     tableId: string;
     viewId: string;
@@ -51,13 +49,6 @@ export const Table: React.FC<ITableProps> = ({
   });
 
   useViewErrorHandler(baseId, tableId, viewId);
-  useHotkeys(`mod+z`, () => undo(), {
-    preventDefault: true,
-  });
-
-  useHotkeys([`mod+shift+z`, `mod+y`], () => redo(), {
-    preventDefault: true,
-  });
 
   return (
     <AnchorContext.Provider value={{ tableId, viewId, baseId }}>

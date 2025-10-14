@@ -9,7 +9,6 @@ import { tableConfig } from '@/features/i18n/table.config';
 import { CalendarConfig } from '../../calendar/components/CalendarConfig';
 import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { ToolBarButton } from '../ToolBarButton';
-import { UndoRedoButtons } from './UndoRedoButtons';
 
 export const CalendarViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
@@ -22,8 +21,6 @@ export const CalendarViewOperators: React.FC<{ disabled?: boolean }> = (props) =
 
   return (
     <div className="flex items-center gap-2">
-      <UndoRedoButtons />
-      <div className="mx-2 h-4 w-px shrink-0 bg-slate-200" />
       <CreateRecordModal>
         <Button
           className="size-6 shrink-0 rounded-full p-0"

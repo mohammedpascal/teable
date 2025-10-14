@@ -68,7 +68,6 @@ import {
   useSSRRecords,
   useTableId,
   useTablePermission,
-  useUndoRedo,
   useView,
   useViewId,
 } from '@teable/sdk/hooks';
@@ -136,7 +135,6 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   const { toast } = useToast();
   const realRowCount = rowCount ?? ssrRecords?.length ?? 0;
   const fieldEditable = useFieldCellEditable();
-  const { undo, redo } = useUndoRedo();
   const { setGridRef, searchCursor, setRecordMap } = useGridSearchStore();
   const [expandRecord, setExpandRecord] = useState<{ tableId: string; recordId: string }>();
   const [newRecords, setNewRecords] = useState<ICreateRecordsRo['records']>();
@@ -902,8 +900,6 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
         onColumnHeaderMenuClick={onColumnHeaderMenuClick}
         onCollapsedGroupChanged={onCollapsedGroupChanged}
         onScrollChanged={onGridScrollChanged}
-        onUndo={undo}
-        onRedo={redo}
         onCopy={onCopy}
         onPaste={onPaste}
         onItemClick={onItemClick}

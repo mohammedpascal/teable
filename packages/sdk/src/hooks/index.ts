@@ -35,7 +35,6 @@ export * from './use-table-listener';
 export * from './use-view-listener';
 export * from './use-lan-dayjs';
 export * from './use-base-id';
-export * from './use-undo-redo';
 export * from './use-comment-count-map';
 export * from './use-organization';
 export * from './use-personal-view';
