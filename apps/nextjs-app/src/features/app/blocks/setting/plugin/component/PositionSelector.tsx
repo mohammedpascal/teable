@@ -15,29 +15,30 @@ export const PositionSelector = (props: {
       [PluginPosition.Dashboard]: t('common:noun.dashboard'),
       [PluginPosition.View]: t('common:noun.view'),
       [PluginPosition.ContextMenu]: t('common:noun.pluginContextMenu'),
-      [PluginPosition.Panel]: t('common:noun.pluginPanel'),
     };
   }, [t]);
   return (
     <div>
-      {Object.values(PluginPosition).map((position) => (
-        <div key={position} className="flex items-center gap-2">
-          <Checkbox
-            id={`position-${position}`}
-            checked={value.includes(position)}
-            onCheckedChange={() => {
-              const newValue = value.includes(position)
-                ? value.filter((v) => v !== position)
-                : [...value, position];
-              onChange(newValue);
-            }}
-          />
+      {Object.values(PluginPosition)
+        .filter((position) => position !== PluginPosition.Panel)
+        .map((position) => (
+          <div key={position} className="flex items-center gap-2">
+            <Checkbox
+              id={`position-${position}`}
+              checked={value.includes(position)}
+              onCheckedChange={() => {
+                const newValue = value.includes(position)
+                  ? value.filter((v) => v !== position)
+                  : [...value, position];
+                onChange(newValue);
+              }}
+            />
 
-          <label htmlFor={`position-${position}`} className="text-sm font-normal">
-            {positionStatic[position]}
-          </label>
-        </div>
-      ))}
+            <label htmlFor={`position-${position}`} className="text-sm font-normal">
+              {positionStatic[position as keyof typeof positionStatic]}
+            </label>
+          </div>
+        ))}
     </div>
   );
 };

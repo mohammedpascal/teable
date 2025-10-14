@@ -1,15 +1,13 @@
 import { FieldType } from '@teable/core';
 import { ExpandRecorder } from '@teable/sdk/components';
-import { ShareViewContext } from '@teable/sdk/context';
 import { useTableId, useView, useFields, useTablePermission } from '@teable/sdk/hooks';
 import type { AttachmentField, GalleryView, IFieldInstance } from '@teable/sdk/model';
-import { useContext, useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { GalleryContext } from './GalleryContext';
 
 export const GalleryProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as GalleryView | undefined;
-  const { shareId } = useContext(ShareViewContext) ?? {};
   const { sort, filter } = view ?? {};
   const permission = useTablePermission();
   const fields = useFields();
@@ -18,13 +16,11 @@ export const GalleryProvider = ({ children }: { children: ReactNode }) => {
   const [expandRecordId, setExpandRecordId] = useState<string>();
 
   const recordQuery = useMemo(() => {
-    const baseQuery = {
+    return {
       orderBy: sort?.sortObjs,
       filter: filter,
     };
-
-    if (shareId) return baseQuery;
-  }, [shareId, sort, filter]);
+  }, [sort, filter]);
 
   const galleryPermission = useMemo(() => {
     return {

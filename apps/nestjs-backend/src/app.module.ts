@@ -25,7 +25,6 @@ import { OAuthModule } from './features/oauth/oauth.module';
 import { OrganizationModule } from './features/organization/organization.module';
 import { PluginModule } from './features/plugin/plugin.module';
 import { PluginContextMenuModule } from './features/plugin-context-menu/plugin-context-menu.module';
-import { PluginPanelModule } from './features/plugin-panel/plugin-panel.module';
 import { SelectionModule } from './features/selection/selection.module';
 import { SettingModule } from './features/setting/setting.module';
 import { UndoRedoModule } from './features/undo-redo/open-api/undo-redo.module';
@@ -62,7 +61,6 @@ export const appModules = {
     DashboardModule,
     CommentOpenApiModule,
     OrganizationModule,
-    PluginPanelModule,
     PluginContextMenuModule,
   ],
   providers: [InitBootstrapProvider],

@@ -17,7 +17,6 @@ import { useRouter } from 'next/router';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { PluginContextMenu } from '../../components/plugin-context-menu/PluginContextMenu';
-import { PluginPanel } from '../../components/plugin-panel/PluginPanel';
 import { View } from '../view/View';
 import { FailAlert } from './FailAlert';
 import { useViewErrorHandler } from './hooks/use-view-error-handler';
@@ -94,7 +93,6 @@ export const Table: React.FC<ITableProps> = ({
                   </ErrorBoundary>
                 </FieldProvider>
               </div>
-              <PluginPanel tableId={tableId} />
               <PluginContextMenu tableId={tableId} baseId={baseId} />
             </div>
           </PersonalViewProxy>

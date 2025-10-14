@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { ThemeProvider } from '@teable/next-themes';
-import { getDashboardInstallPlugin, getPluginPanelPlugin, PluginPosition } from '@teable/openapi';
+import { getDashboardInstallPlugin, PluginPosition } from '@teable/openapi';
 import type { IUIConfig } from '@teable/sdk';
 import { isIframe, usePluginBridge } from '@teable/sdk';
 import { Spin } from '@teable/ui-lib';
@@ -51,21 +51,8 @@ const Container = (props: IPageParams & { uiConfig?: IUIConfig } & IChartServerD
     ),
   });
 
-  const { data: pluginPanelPluginInstall, isLoading: isPluginPanelPluginLoading } = useQuery({
-    queryKey: ['plugin-panel-plugin', tableId, positionId, pluginInstallId],
-    queryFn: () =>
-      getPluginPanelPlugin(tableId!, positionId, pluginInstallId).then((res) => res.data),
-    enabled: Boolean(
-      positionType === PluginPosition.Panel && tableId && positionId && pluginInstallId
-    ),
-  });
-
-  const isLoading =
-    positionType === PluginPosition.Dashboard
-      ? isDashboardPluginInstallLoading
-      : isPluginPanelPluginLoading;
-  const pluginInstall =
-    positionType === PluginPosition.Dashboard ? dashboardPluginInstall : pluginPanelPluginInstall;
+  const isLoading = isDashboardPluginInstallLoading;
+  const pluginInstall = dashboardPluginInstall;
 
   useEffect(() => {
     setIsIframeMode(isIframe);

@@ -5,26 +5,20 @@ import type {
   AcceptInvitationLinkVo,
   IGetBaseVo,
   IGetDefaultViewIdVo,
-  IGetSpaceVo,
   IUpdateNotifyStatusRo,
-  ListSpaceCollaboratorVo,
-  ShareViewGetVo,
   ITableFullVo,
   ITableListVo,
   ISettingVo,
   IUserMeVo,
   IRecordsVo,
   ITableVo,
-  IGetSharedBaseVo,
   IGroupPointsRo,
   IGroupPointsVo,
-  ListSpaceCollaboratorRo,
   IPublicSettingVo,
   IGetDashboardVo,
   IGetDashboardListVo,
   IGetBasePermissionVo,
   ITablePermissionVo,
-  ISubscriptionSummaryVo,
 } from '@teable/openapi';
 import {
   ACCEPT_INVITATION_LINK,
@@ -39,21 +33,14 @@ import {
   GET_RECORDS_URL,
   GET_RECORD_URL,
   GET_SETTING,
-  GET_SHARED_BASE,
-  GET_SPACE,
-  GET_SPACE_LIST,
   GET_TABLE,
   GET_TABLE_LIST,
   GET_VIEW_LIST,
-  SHARE_VIEW_GET,
-  SPACE_COLLABORATE_LIST,
   UPDATE_NOTIFICATION_STATUS,
   USER_ME,
   GET_BASE_PERMISSION,
   GET_TABLE_PERMISSION,
   urlBuilder,
-  GET_SUBSCRIPTION_SUMMARY,
-  GET_SUBSCRIPTION_SUMMARY_LIST,
 } from '@teable/openapi';
 import type { AxiosInstance } from 'axios';
 import { getAxios } from './axios';
@@ -137,20 +124,9 @@ export class SsrApi {
       .then(({ data }) => data);
   }
 
-  async getSpaceById(spaceId: string) {
-    return await this.axios
-      .get<IGetSpaceVo>(urlBuilder(GET_SPACE, { spaceId }))
-      .then(({ data }) => data);
-  }
-
-  async getSpaceList() {
-    return await this.axios.get<IGetSpaceVo[]>(urlBuilder(GET_SPACE_LIST)).then(({ data }) => data);
-  }
-
   async getBaseList() {
     return await this.axios.get<IGetBaseVo[]>(GET_BASE_ALL).then(({ data }) => data);
   }
-
 
   async getBasePermission(baseId: string) {
     return await this.axios
@@ -164,35 +140,9 @@ export class SsrApi {
       .then((res) => res.data);
   }
 
-  async getSpaceCollaboratorList(spaceId: string, query?: ListSpaceCollaboratorRo) {
-    return await this.axios
-      .get<ListSpaceCollaboratorVo>(urlBuilder(SPACE_COLLABORATE_LIST, { spaceId }), {
-        params: query,
-      })
-      .then(({ data }) => data);
-  }
-
-  async getSubscriptionSummary(spaceId: string) {
-    return await this.axios
-      .get<ISubscriptionSummaryVo>(urlBuilder(GET_SUBSCRIPTION_SUMMARY, { spaceId }))
-      .then(({ data }) => data);
-  }
-
-  async getSubscriptionSummaryList() {
-    return await this.axios
-      .get<ISubscriptionSummaryVo[]>(urlBuilder(GET_SUBSCRIPTION_SUMMARY_LIST))
-      .then(({ data }) => data);
-  }
-
   async acceptInvitationLink(acceptInvitationLinkRo: AcceptInvitationLinkRo) {
     return this.axios
       .post<AcceptInvitationLinkVo>(ACCEPT_INVITATION_LINK, acceptInvitationLinkRo)
-      .then(({ data }) => data);
-  }
-
-  async getShareView(shareId: string) {
-    return this.axios
-      .get<ShareViewGetVo>(urlBuilder(SHARE_VIEW_GET, { shareId }))
       .then(({ data }) => data);
   }
 
@@ -212,10 +162,6 @@ export class SsrApi {
 
   async getUserMe() {
     return this.axios.get<IUserMeVo>(USER_ME).then(({ data }) => data);
-  }
-
-  async getSharedBase() {
-    return this.axios.get<IGetSharedBaseVo[]>(GET_SHARED_BASE).then(({ data }) => data);
   }
 
   async getGroupPoints(tableId: string, query: IGroupPointsRo) {

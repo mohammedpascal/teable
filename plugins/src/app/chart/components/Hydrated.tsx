@@ -2,7 +2,6 @@ import { dehydrate } from '@tanstack/react-query';
 import type {
   IGetBaseVo,
   IGetDashboardInstallPluginVo,
-  IPluginPanelPluginGetVo,
   ITableListVo,
   IUserMeVo,
 } from '@teable/openapi';
@@ -11,7 +10,6 @@ import {
   GET_BASE,
   GET_DASHBOARD_INSTALL_PLUGIN,
   GET_TABLE_LIST,
-  PLUGIN_PANEL_PLUGIN_GET,
   PluginPosition,
   urlBuilder,
   USER_ME,
@@ -45,27 +43,6 @@ export const Hydrated = async ({
               baseId,
               dashboardId: positionId,
               installPluginId: pluginInstallId,
-            }),
-            {
-              headers: {
-                cookie,
-              },
-            }
-          )
-          .then((res) => res.data),
-    });
-  }
-
-  if (positionType === PluginPosition.Panel && tableId && positionId && pluginInstallId) {
-    await queryClient.fetchQuery({
-      queryKey: ['plugin-panel-plugin', baseId, positionId, pluginInstallId],
-      queryFn: () =>
-        ssrAxios
-          .get<IPluginPanelPluginGetVo>(
-            urlBuilder(PLUGIN_PANEL_PLUGIN_GET, {
-              tableId,
-              pluginPanelId: positionId,
-              pluginInstallId,
             }),
             {
               headers: {

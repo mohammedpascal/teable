@@ -35,7 +35,6 @@ export interface IAccessTokenForm<T extends IFormType = 'new'> {
     name?: string;
     description?: string;
     scopes?: string[];
-    spaceIds?: string[];
     baseIds?: string[];
     expiredTime?: string;
   };
@@ -48,7 +47,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
   const { user } = useSession();
   const { organization } = useOrganization();
 
-  const [spaceIds, setSpaceIds] = useState<string[] | undefined | null>(defaultData?.spaceIds);
   const [baseIds, setBaseIds] = useState<string[] | undefined | null>(defaultData?.baseIds);
   const [expiredTime, setExpiredTime] = useState<string | undefined>(defaultData?.expiredTime);
   const [name, setName] = useState<string | undefined>(defaultData?.name || '');
@@ -59,7 +57,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
 
   const actionsPrefixes = useMemo(() => {
     const prefixes = [
-      ActionPrefix.Space,
       ActionPrefix.Base,
       ActionPrefix.Table,
       ActionPrefix.View,
@@ -86,7 +83,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
         description,
         scopes,
         expiredTime,
-        spaceIds,
         baseIds,
       }).success;
     }
@@ -94,10 +90,9 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
       name,
       description,
       scopes,
-      spaceIds,
       baseIds,
     }).success;
-  }, [type, name, description, scopes, expiredTime, spaceIds, baseIds]);
+  }, [type, name, description, scopes, expiredTime, baseIds]);
 
   const onSubmitInner = () => {
     if (type === 'new') {
@@ -106,7 +101,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
         description,
         scopes,
         expiredTime: expiredTime!,
-        spaceIds,
         baseIds,
       });
     }
@@ -115,7 +109,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
         name: name!,
         description,
         scopes,
-        spaceIds,
         baseIds,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any);
@@ -182,9 +175,8 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
         </Label>
         <div>
           <AccessSelect
-            value={{ spaceIds: spaceIds || [], baseIds: baseIds || [] }}
-            onChange={({ spaceIds, baseIds }) => {
-              setSpaceIds(spaceIds.length ? spaceIds : null);
+            value={{ baseIds: baseIds || [] }}
+            onChange={({ baseIds }) => {
               setBaseIds(baseIds.length ? baseIds : null);
             }}
           />

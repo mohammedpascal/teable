@@ -30,5 +30,4 @@ export * from './dashboard';
 export * from './comment';
 export * from './organization';
 export * from './integrity';
-export * from './plugin-panel';
 export * from './plugin-context-menu';

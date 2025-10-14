@@ -1,16 +1,14 @@
 import { ColorConfigType, FieldType } from '@teable/core';
 import { ExpandRecorder } from '@teable/sdk/components';
-import { ShareViewContext } from '@teable/sdk/context';
 import { useTableId, useView, useFields, useTablePermission } from '@teable/sdk/hooks';
 import type { CalendarView } from '@teable/sdk/model';
-import { useContext, useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useCalendarFields } from '../hooks';
 import { CalendarContext } from './CalendarContext';
 
 export const CalendarProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as CalendarView | undefined;
-  const { shareId } = useContext(ShareViewContext) ?? {};
   const { sort, filter } = view ?? {};
   const permission = useTablePermission();
   const allFields = useFields({ withHidden: true, withDenied: true });
@@ -19,13 +17,11 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
   const { startDateField, endDateField, titleField, colorConfig } = useCalendarFields();
 
   const recordQuery = useMemo(() => {
-    const baseQuery = {
+    return {
       orderBy: sort?.sortObjs,
       filter: filter,
     };
-
-    if (shareId) return baseQuery;
-  }, [shareId, sort, filter]);
+  }, [sort, filter]);
 
   const calendarPermission = useMemo(() => {
     const startDateEditable = Boolean(startDateField && !startDateField.isComputed);

@@ -24,7 +24,6 @@ export const ReactQueryKeys = {
 
   baseList: () => ['base-list'] as const,
 
-
   tableList: (baseId: string) => ['table-list', baseId] as const,
 
   recordCommentCount: (tableId: string, recordId: string) =>
@@ -113,10 +112,6 @@ export const ReactQueryKeys = {
   getOrganizationMe: () => ['organization-me'] as const,
 
   getIntegrationList: (spaceId: string) => ['integration-list', spaceId] as const,
-
-  getPluginPanelList: (tableId: string) => ['plugin-list', tableId] as const,
-
-  getPluginPanel: (tableId: string, panelId: string) => ['plugin', tableId, panelId] as const,
 
   getPluginContextMenuPlugins: (tableId: string) =>
     ['plugin-context-menu-plugins', tableId] as const,

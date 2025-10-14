@@ -4,7 +4,6 @@ import {
   pluginGetAuthCode,
   PluginPosition,
   updateDashboardPluginStorage,
-  updatePluginPanelStorage,
 } from '@teable/openapi';
 import { useViewId } from '@teable/sdk/hooks';
 import type { IParentBridgeUtilsMethods } from '@teable/sdk/plugin-bridge';
@@ -51,19 +50,13 @@ export const useUtilsEvent = (params: IPluginParams) => {
         console.error('Share plugin does not support updateStorage');
         return Promise.resolve({});
       }
-      switch (positionType) {
-        case PluginPosition.Dashboard:
-          return updateDashboardPluginStorage(baseId!, positionId, pluginInstallId!, storage).then(
-            (res) => res.data.storage ?? {}
-          );
-        case PluginPosition.Panel:
-          return updatePluginPanelStorage(tableId!, positionId, pluginInstallId!, { storage }).then(
-            (res) => res.data.storage ?? {}
-          );
-        default:
-          console.error(`Unsupported position type: ${positionType}`);
-          return Promise.resolve({});
+      if (positionType === PluginPosition.Dashboard) {
+        return updateDashboardPluginStorage(baseId!, positionId, pluginInstallId!, storage).then(
+          (res) => res.data.storage ?? {}
+        );
       }
+      console.error(`Unsupported position type: ${positionType}`);
+      return Promise.resolve({});
     };
     ref.current.getAuthCode = () => {
       // TODO: plugin in share page need to get auth code from share page, need plugin id and shareId to get auth code

@@ -1,5 +1,5 @@
-import { HelpCircle, MoreHorizontal, Puzzle, Settings, UserPlus } from '@teable/icons';
-import { useBase, useTableId, useView } from '@teable/sdk/hooks';
+import { HelpCircle, MoreHorizontal, Settings } from '@teable/icons';
+import { useBase, useTableId } from '@teable/sdk/hooks';
 import {
   Button,
   cn,
@@ -15,14 +15,11 @@ import { Fragment } from 'react';
 // TODO: Multi-user collaboration removed
 // import { BaseCollaboratorModalTrigger } from '@/features/app/components/collaborator-manage/base/BaseCollaboratorModal';
 import { tableConfig } from '@/features/i18n/table.config';
-import { usePluginPanelStorage } from '../../../components/plugin-panel/hooks/usePluginPanelStorage';
 import { ExpandViewList } from '../../view/list/ExpandViewList';
 import { ViewList } from '../../view/list/ViewList';
 
-import { useLockedViewTipStore } from '../store';
 import { AddView } from './AddView';
 import { Collaborators } from './Collaborators';
-import { LockedViewTip } from './LockedViewTip';
 import { TableInfo } from './TableInfo';
 
 const RightList = ({
@@ -35,7 +32,6 @@ const RightList = ({
   const base = useBase();
   const tableId = useTableId();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
-  const { toggleVisible } = usePluginPanelStorage(tableId!);
 
   return (
     <div className={cn('flex', className)}>
@@ -51,14 +47,6 @@ const RightList = ({
           >
             <Settings className="size-4" />
           </Link>
-        </Button>
-        <Button
-          variant="ghost"
-          size="xs"
-          className={cn('flex', buttonClassName)}
-          onClick={toggleVisible}
-        >
-          <Puzzle className="size-4" />
         </Button>
         <Button asChild variant="ghost" size="xs" className={cn('flex', buttonClassName)}>
           <a href={t('help.mainLink')} title={t('help.title')} target="_blank" rel="noreferrer">
@@ -138,16 +126,11 @@ const RightMenu = ({ className }: { className?: string }) => {
 };
 
 export const TableHeader: React.FC = () => {
-  const view = useView();
-  const { visible } = useLockedViewTipStore();
-  const tipVisible = view?.isLocked && visible;
-
   return (
     <Fragment>
       <div
         className={cn(
-          'flex h-[42px] shrink-0 flex-row items-center gap-2 px-4 @container/view-header',
-          tipVisible && 'border-b'
+          'flex h-[42px] shrink-0 flex-row items-center gap-2 px-4 @container/view-header'
         )}
       >
         <TableInfo className="shrink-0 grow-0" />
@@ -163,7 +146,6 @@ export const TableHeader: React.FC = () => {
         <RightList className="hidden gap-2 @md/view-header:flex" />
         <RightMenu className="flex @md/view-header:hidden" />
       </div>
-      {tipVisible && <LockedViewTip />}
     </Fragment>
   );
 };

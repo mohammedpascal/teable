@@ -42,7 +42,6 @@ export enum IdPrefix {
   Plugin = 'plg',
   PluginInstall = 'pli',
   PluginUser = 'plu',
-  PluginPanel = 'plp',
 
   Dashboard = 'dsh',
 
@@ -182,10 +181,6 @@ export function generatePluginInstallId() {
 
 export function generatePluginUserId() {
   return IdPrefix.PluginUser + getRandomString(16);
-}
-
-export function generatePluginPanelId() {
-  return IdPrefix.PluginPanel + getRandomString(16);
 }
 
 export function generateDashboardId() {
