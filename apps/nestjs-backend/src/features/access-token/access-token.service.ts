@@ -22,20 +22,18 @@ export class AccessTokenService {
     T extends {
       description?: string | null;
       scopes: string;
-      spaceIds: string | null;
       baseIds: string | null;
       createdTime?: Date;
       lastUsedTime?: Date | null;
       expiredTime?: Date;
     },
   >(accessTokenEntity: T) {
-    const { scopes, spaceIds, baseIds, createdTime, lastUsedTime, expiredTime, description } =
+    const { scopes, baseIds, createdTime, lastUsedTime, expiredTime, description } =
       accessTokenEntity;
     return {
       ...accessTokenEntity,
       description: description || undefined,
       scopes: JSON.parse(scopes) as Action[],
-      spaceIds: spaceIds ? (JSON.parse(spaceIds) as string[]) : undefined,
       baseIds: baseIds ? (JSON.parse(baseIds) as string[]) : undefined,
       createdTime: createdTime?.toISOString(),
       lastUsedTime: lastUsedTime?.toISOString(),
@@ -85,7 +83,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        spaceIds: true,
         baseIds: true,
         createdTime: true,
         expiredTime: true,
@@ -100,7 +97,7 @@ export class AccessTokenService {
     createAccessToken: CreateAccessTokenRo & { clientId?: string; userId?: string }
   ) {
     const userId = createAccessToken.userId ?? this.cls.get('user.id')!;
-    const { name, description, scopes, spaceIds, baseIds, expiredTime, clientId } =
+    const { name, description, scopes, baseIds, expiredTime, clientId } =
       createAccessToken;
     const id = generateAccessTokenId();
     const sign = getRandomString(16);
@@ -110,7 +107,6 @@ export class AccessTokenService {
         name,
         description,
         scopes: JSON.stringify(scopes),
-        spaceIds: spaceIds === null ? null : JSON.stringify(spaceIds),
         baseIds: baseIds === null ? null : JSON.stringify(baseIds),
         userId,
         sign,
@@ -122,7 +118,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        spaceIds: true,
         baseIds: true,
         expiredTime: true,
         createdTime: true,
@@ -158,7 +153,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        spaceIds: true,
         baseIds: true,
         expiredTime: true,
         lastUsedTime: true,
@@ -172,14 +166,13 @@ export class AccessTokenService {
 
   async updateAccessToken(id: string, updateAccessToken: UpdateAccessTokenRo) {
     const userId = this.cls.get('user.id');
-    const { name, description, scopes, spaceIds, baseIds } = updateAccessToken;
+    const { name, description, scopes, baseIds } = updateAccessToken;
     const accessTokenEntity = await this.prismaService.accessToken.update({
       where: { id, userId },
       data: {
         name,
         description,
         scopes: JSON.stringify(scopes),
-        spaceIds: spaceIds === null ? null : JSON.stringify(spaceIds),
         baseIds: baseIds === null ? null : JSON.stringify(baseIds),
       },
       select: {
@@ -187,7 +180,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        spaceIds: true,
         baseIds: true,
       },
     });
@@ -203,7 +195,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        spaceIds: true,
         baseIds: true,
         createdTime: true,
         expiredTime: true,
@@ -211,9 +202,8 @@ export class AccessTokenService {
       },
     });
     const res = this.transformAccessTokenEntity(item);
-    // filter deleted spaceIds and baseIds
-    const { spaceIds, baseIds } = res;
-    let filteredSpaceIds: string[] | undefined;
+    // filter deleted baseIds
+    const { baseIds } = res;
     let filteredBaseIds: string[] | undefined;
     if (baseIds) {
       const bases = await this.prismaService.base.findMany({
@@ -224,7 +214,6 @@ export class AccessTokenService {
     }
     return {
       ...res,
-      spaceIds: filteredSpaceIds,
       baseIds: filteredBaseIds,
     };
   }

@@ -29,12 +29,12 @@ export class CollaboratorService {
     return [];
   }
 
-  // Stub method - collaboration removed, assume user owns their bases
-  async getCurrentUserCollaboratorsBaseAndSpaceArray(searchRoles?: IRole[]) {
+  // Stub method - collaboration removed, assume user owns their base
+  async getCurrentUserCollaboratorsBaseArray(searchRoles?: IRole[]) {
     // TODO: Multi-user collaboration removed
-    // Return bases owned by user directly instead of through collaborator table
+    // Return base owned by user directly instead of through collaborator table
     const userId = this.cls.get('user.id');
-    const bases = await this.prismaService.txClient().base.findMany({
+    const base = await this.prismaService.txClient().base.findFirst({
       where: {
         userId: userId,
         deletedTime: null,
@@ -44,10 +44,10 @@ export class CollaboratorService {
       },
     });
     
-    const baseIds = bases.map(b => b.id);
+    const baseIds = base ? [base.id] : [];
     const roleMap: Record<string, IRole> = {};
     baseIds.forEach(id => {
-      roleMap[id] = Role.Owner; // User owns their own bases
+      roleMap[id] = Role.Owner; // User owns their own base
     });
     
     return {
@@ -77,23 +77,6 @@ export class CollaboratorService {
     return 0;
   }
 
-  // Keep for invitation service - stub for space collaboration
-  async createSpaceCollaborator({
-    collaborators,
-    spaceId,
-    role,
-    createdBy,
-  }: {
-    collaborators: {
-      principalId: string;
-      principalType: PrincipalType;
-    }[];
-    spaceId: string;
-    role: IRole;
-    createdBy?: string;
-  }) {
-    return 0;
-  }
 
   // Keep for invitation service - validates user can add collaborators
   async validateUserAddRole({

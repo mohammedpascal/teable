@@ -21,7 +21,6 @@ import { map, omit } from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
 import { useBaseId } from '../../../../hooks';
-import { UsageLimitModalType, useUsageLimitModalStore } from '../../../billing/store';
 import { FileZone } from '../../../FileZone';
 import { useAttachmentPreviewI18Map } from '../../../hooks';
 import { getFileCover } from '../utils';
@@ -120,13 +119,6 @@ export const UploadAttachment = (props: IUploadAttachment) => {
             const curUploadingFiles = { ...uploadingFiles };
             delete curUploadingFiles[file.id];
             setUploadingFiles(curUploadingFiles);
-
-            if (code === 402) {
-              return useUsageLimitModalStore.setState({
-                modalType: UsageLimitModalType.Upgrade,
-                modalOpen: true,
-              });
-            }
             toast.error(error ?? t('common.uploadFailed'));
           },
           progressCallback: (file, progress) => {

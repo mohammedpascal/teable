@@ -233,7 +233,6 @@ model Collaborator {
 model Invitation {
   id               String    @id @default(cuid())
   baseId           String?   @map("base_id")
-  spaceId          String?   @map("space_id")
   type             String    @map("type")
   role             String
   invitationCode   String    @map("invitation_code")
@@ -250,7 +249,6 @@ model InvitationRecord {
   id           String   @id @default(cuid())
   invitationId String   @map("invitation_id")
   baseId       String?  @map("base_id")
-  spaceId      String?  @map("space_id")
   type         String   @map("type")
   inviter      String   @map("inviter")
   accepter     String   @map("accepter")
@@ -280,7 +278,6 @@ model AccessToken {
   description      String?
   userId           String    @map("user_id")
   scopes           String
-  spaceIds         String?   @map("space_ids")
   baseIds          String?   @map("base_ids")
   sign             String
   clientId         String?   @map("client_id")
@@ -295,8 +292,6 @@ model AccessToken {
 model Setting {
   instanceId                String    @id @default(cuid()) @map("instance_id")
   disallowSignUp            Boolean?  @map("disallow_sign_up")
-  disallowSpaceCreation     Boolean?  @map("disallow_space_creation")
-  disallowSpaceInvitation   Boolean?  @map("disallow_space_invitation")
   enableEmailVerification   Boolean?  @map("enable_email_verification")
 
   @@map("setting")

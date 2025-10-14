@@ -10,7 +10,6 @@ import { AppLayout } from '@/features/app/layouts';
 import { BaseSideBar } from '../blocks/base/base-side-bar/BaseSideBar';
 import { BaseSidebarHeaderLeft } from '../blocks/base/base-side-bar/BaseSidebarHeaderLeft';
 import { BasePermissionListener } from '../blocks/base/BasePermissionListener';
-import { UsageLimitModal } from '../components/billing/UsageLimitModal';
 import { Sidebar } from '../components/sidebar/Sidebar';
 import { SideBarFooter } from '../components/SideBarFooter';
 import { useSdkLocale } from '../hooks/useSdkLocale';
@@ -59,7 +58,6 @@ export const BaseLayout: React.FC<{
                       <div className="min-w-80 flex-1">{children}</div>
                     </div>
                   </div>
-                  <UsageLimitModal />
                 </TableProvider>
               </BaseProvider>
             </AnchorContext.Provider>

@@ -57,7 +57,7 @@ export class BaseService {
 
   async getAllBaseList() {
     const { baseIds, roleMap } =
-      await this.collaboratorService.getCurrentUserCollaboratorsBaseAndSpaceArray();
+      await this.collaboratorService.getCurrentUserCollaboratorsBaseArray();
     const userId = this.cls.get('user.id');
 
     const baseList = await this.prismaService.base.findMany({
@@ -89,7 +89,7 @@ export class BaseService {
     const userId = this.cls.get('user.id');
     const accessTokenId = this.cls.get('accessTokenId');
     const { baseIds } =
-      await this.collaboratorService.getCurrentUserCollaboratorsBaseAndSpaceArray();
+      await this.collaboratorService.getCurrentUserCollaboratorsBaseArray();
 
     if (accessTokenId) {
       const access = await this.prismaService.accessToken.findFirst({
@@ -107,8 +107,8 @@ export class BaseService {
       baseIds.push(...(access.baseIds || []));
     }
 
-    // Get user's own base (unused but kept for potential future use)
-    const _userBase = await this.prismaService.base.findFirst({
+    // Get user's own base
+    const userBase = await this.prismaService.base.findFirst({
       select: {
         id: true,
         name: true,
@@ -118,25 +118,7 @@ export class BaseService {
       },
     });
 
-    return await this.prismaService.base.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-      where: {
-        OR: [
-          {
-            id: {
-              in: baseIds,
-            },
-          },
-          {
-            userId: userId,
-          },
-        ],
-      },
-      orderBy: [{ userId: 'asc' }, { order: 'asc' }],
-    });
+    return userBase ? [userBase] : [];
   }
 
   async getUserDefaultBase() {

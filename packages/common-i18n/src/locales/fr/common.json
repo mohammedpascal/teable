@@ -197,28 +197,6 @@
   },
   "pagePermissionChangeTip": "Les autorisations de la page ont été mises à jour. Veuillez rafraîchir la page pour voir le contenu le plus récent.",
   "listEmptyTips": "La liste est vide",
-  "billing": {
-    "overLimits": "Dépassement des limites",
-    "overLimitsDescription": "Votre abonnement actuel a dépassé sa limite d'utilisation. Veuillez mettre à niveau votre plan pour continuer à utiliser cette fonctionnalité sans interruption.",
-    "userLimitExceededDescription": "L'instance actuelle a atteint le nombre maximum d'utilisateurs autorisés par votre licence. Veuillez désactiver certains utilisateurs ou mettre à niveau la licence.",
-    "unavailableInPlanTips": "Le plan d'abonnement actuel ne prend pas en charge cette fonctionnalité",
-    "levelTips": "Cet espace est actuellement sur le plan {{level}}",
-    "spaceSubscriptionModal": {
-      "title": "Mettre à niveau le plan d'abonnement de l'espace",
-      "description": "Vous ne pouvez mettre à niveau que les espaces où vous êtes propriétaire"
-    },
-    "status": {
-      "active": "Actif",
-      "canceled": "Annulé",
-      "incomplete": "Incomplet",
-      "incompleteExpired": "Incomplet Expiré",
-      "trialing": "En essai",
-      "pastDue": "En retard",
-      "unpaid": "Non payé",
-      "paused": "En pause",
-      "seatLimitExceeded": "Limite de sièges dépassée"
-    }
-  },
   "admin": {
     "setting": {
       "description": "Modifier les paramètres de votre instance actuelle",

@@ -53,21 +53,7 @@ export class InvitationService {
   }
 
   private async checkBaseInvitation() {
-    const user = this.cls.get('user');
-
-    if (!user?.isAdmin) {
-      const setting = await this.prismaService.setting.findFirst({
-        select: {
-          disallowSpaceInvitation: true,
-        },
-      });
-
-      if (setting?.disallowSpaceInvitation) {
-        throw new ForbiddenException(
-          'The current instance disallow base invitation by the administrator'
-        );
-      }
-    }
+    // Base invitation is always allowed since we removed space functionality
   }
 
   private async emailInvitation({
@@ -333,7 +319,7 @@ export class InvitationService {
     }
 
     if (type === 'email') {
-      return { baseId, spaceId: null };
+      return { baseId };
     }
 
     if (!baseId) {
@@ -381,6 +367,6 @@ export class InvitationService {
         });
       });
     }
-    return { baseId, spaceId: null };
+    return { baseId };
   }
 }

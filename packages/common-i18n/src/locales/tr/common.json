@@ -209,28 +209,6 @@
   },
   "pagePermissionChangeTip": "Sayfa izinleri güncellendi. En son içeriği görmek için lütfen sayfayı yenileyin.",
   "listEmptyTips": "Liste boş",
-  "billing": {
-    "overLimits": "Limit aşımı",
-    "overLimitsDescription": "Mevcut aboneliğiniz kullanım sınırını aştı. Bu özelliği kesintisiz kullanmaya devam etmek için lütfen planınızı yükseltin.",
-    "userLimitExceededDescription": "Mevcut örnek, lisansınızın izin verdiği maksimum kullanıcı sayısına ulaştı. Lütfen bazı kullanıcıları devre dışı bırakın veya lisansı yükseltin.",
-    "unavailableInPlanTips": "Mevcut abonelik planı bu özelliği desteklemiyor",
-    "levelTips": "Bu alan şu anda {{level}} planında",
-    "spaceSubscriptionModal": {
-      "title": "Alan abonelik planını yükselt",
-      "description": "Yalnızca sahibi olduğunuz çalışma alanlarını yükseltebilirsiniz"
-    },
-    "status": {
-      "active": "Aktif",
-      "canceled": "İptal Edildi",
-      "incomplete": "Tamamlanmadı",
-      "incompleteExpired": "Tamamlanmamış Süresi Doldu",
-      "trialing": "Deneme",
-      "pastDue": "Vadesi Geçmiş",
-      "unpaid": "Ödenmemiş",
-      "paused": "Duraklatıldı",
-      "seatLimitExceeded": "Koltuk limiti aşıldı"
-    }
-  },
   "admin": {
     "setting": {
       "description": "Mevcut örneğinizin ayarlarını değiştirin",

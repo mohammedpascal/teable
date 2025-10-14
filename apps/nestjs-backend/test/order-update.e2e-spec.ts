@@ -233,40 +233,4 @@ describe('order update', () => {
     });
   });
 
-  describe('base', () => {
-    // TODO: Space functionality not yet implemented
-    // let space: ICreateSpaceVo;
-    // beforeEach(async () => {
-    //   space = (await createSpace({})).data;
-    // });
-
-    // afterEach(async () => {
-    //   await deleteSpace(space.id);
-    // });
-
-    it('should update base order', async () => {
-      // TODO: Space functionality not yet implemented
-      // const base1 = {
-      //   id: (await createBase({ spaceId: space.id })).data.id,
-      // };
-      // const base2 = {
-      //   id: (await createBase({ spaceId: space.id })).data.id,
-      // };
-      // const base3 = {
-      //   id: (await createBase({ spaceId: space.id })).data.id,
-      // };
-      // await updateBaseOrder({ baseId: base3.id, anchorId: base2.id, position: 'before' });
-      // const bases = (await getBaseList({ spaceId: space.id })).data;
-      // expect(bases).toMatchObject([base1, base3, base2]);
-      // await updateBaseOrder({ baseId: base3.id, anchorId: base1.id, position: 'before' });
-      // const bases2 = (await getBaseList({ spaceId: space.id })).data;
-      // expect(bases2).toMatchObject([base3, base1, base2]);
-      // await updateBaseOrder({ baseId: base3.id, anchorId: base1.id, position: 'after' });
-      // const bases3 = (await getBaseList({ spaceId: space.id })).data;
-      // expect(bases3).toMatchObject([base1, base3, base2]);
-      // await updateBaseOrder({ baseId: base3.id, anchorId: base2.id, position: 'after' });
-      // const bases4 = (await getBaseList({ spaceId: space.id })).data;
-      // expect(bases4).toMatchObject([base1, base2, base3]);
-    });
-  });
 });

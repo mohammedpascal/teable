@@ -1,7 +1,6 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { z } from 'zod';
 import { axios } from '../axios';
-import { BillingProductLevel } from '../billing';
 import { registerRoute, urlBuilder } from '../utils';
 
 export enum UsageFeature {
@@ -59,7 +58,6 @@ export const usageFeatureLimitSchema = z.object({
 });
 
 export const usageVoSchema = z.object({
-  level: z.nativeEnum(BillingProductLevel),
   limit: usageFeatureLimitSchema,
 });
 

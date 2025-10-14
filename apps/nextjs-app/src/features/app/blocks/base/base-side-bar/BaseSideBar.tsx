@@ -1,12 +1,6 @@
 import { Gauge, Settings } from '@teable/icons';
 import { useBasePermission } from '@teable/sdk/hooks';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-  cn,
-} from '@teable/ui-lib/shadcn';
+import { cn } from '@teable/ui-lib/shadcn';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -58,28 +52,18 @@ export const BaseSideBar = () => {
             return (
               <li key={href}>
                 {disabled ? (
-                  <TooltipProvider delayDuration={200}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          className="my-[2px] w-full cursor-not-allowed justify-start text-sm font-normal text-gray-500 hover:bg-background hover:text-gray-500"
-                          variant="ghost"
-                          size="xs"
-                          asChild
-                          disabled
-                        >
-                          <div className="flex">
-                            <Icon className="size-4 shrink-0" />
-                            <p className="truncate">{label}</p>
-                            <div className="grow basis-0"></div>
-                          </div>
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{t('billing.unavailableInPlanTips')}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Button
+                    className="my-[2px] w-full cursor-not-allowed justify-start text-sm font-normal text-gray-500 hover:bg-background hover:text-gray-500"
+                    variant="ghost"
+                    size="xs"
+                    disabled
+                  >
+                    <div className="flex">
+                      <Icon className="size-4 shrink-0" />
+                      <p className="truncate">{label}</p>
+                      <div className="grow basis-0"></div>
+                    </div>
+                  </Button>
                 ) : (
                   <Button
                     variant="ghost"

@@ -236,28 +236,6 @@
   },
   "pagePermissionChangeTip": "I permessi della pagina sono stati aggiornati. Si prega di aggiornare la pagina per vedere il contenuto più recente.",
   "listEmptyTips": "La lista è vuota",
-  "billing": {
-    "overLimits": "Oltre i limiti",
-    "overLimitsDescription": "Il tuo abbonamento attuale ha superato il limite di utilizzo. Si prega di aggiornare il piano per continuare a utilizzare questa funzione senza interruzioni.",
-    "userLimitExceededDescription": "L'istanza corrente ha raggiunto il numero massimo di utenti consentiti dalla tua licenza. Si prega di disattivare alcuni utenti o aggiornare la licenza.",
-    "unavailableInPlanTips": "Il piano di abbonamento attuale non supporta questa funzione",
-    "levelTips": "Questo spazio è attualmente sul piano {{level}}",
-    "spaceSubscriptionModal": {
-      "title": "Aggiorna il piano di abbonamento dello spazio",
-      "description": "Puoi aggiornare solo gli spazi di lavoro di cui sei proprietario"
-    },
-    "status": {
-      "active": "Attivo",
-      "canceled": "Annullato",
-      "incomplete": "Incompleto",
-      "incompleteExpired": "Incompleto Scaduto",
-      "trialing": "In prova",
-      "pastDue": "Scaduto",
-      "unpaid": "Non pagato",
-      "paused": "In pausa",
-      "seatLimitExceeded": "Limite di posti superato"
-    }
-  },
   "admin": {
     "setting": {
       "description": "Modifica le impostazioni per la tua istanza corrente",

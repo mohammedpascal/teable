@@ -236,28 +236,6 @@
   },
   "pagePermissionChangeTip": "Los permisos de la página se han actualizado. ",
   "listEmptyTips": "La lista está vacía",
-  "billing": {
-    "overLimits": "Límites excedidos",
-    "overLimitsDescription": "Tu suscripción actual ha excedido su límite de uso. Por favor, actualiza tu plan para continuar usando esta función sin interrupciones.",
-    "userLimitExceededDescription": "La instancia actual ha alcanzado el número máximo de usuarios permitidos por tu licencia. Por favor, desactiva algunos usuarios o actualiza la licencia.",
-    "unavailableInPlanTips": "El plan de suscripción actual no admite esta función",
-    "levelTips": "Este espacio está actualmente en el plan __var_0__",
-    "spaceSubscriptionModal": {
-      "title": "Plan de suscripción de actualización de Space",
-      "description": "Solo puede actualizar los espacios de trabajo donde es un propietario"
-    },
-    "status": {
-      "active": "Activo",
-      "canceled": "Cancelado",
-      "incomplete": "Incompleto",
-      "incompleteExpired": "Caducado incompleto",
-      "trialing": "Juicio",
-      "pastDue": "Debido a",
-      "unpaid": "No pagado",
-      "paused": "Detenido",
-      "seatLimitExceeded": "Límite de asiento excedido"
-    }
-  },
   "admin": {
     "setting": {
       "description": "Cambie la configuración de su instancia actual",

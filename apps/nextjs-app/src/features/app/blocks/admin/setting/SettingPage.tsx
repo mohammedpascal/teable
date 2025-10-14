@@ -35,8 +35,6 @@ export const SettingPage = (props: ISettingPageProps) => {
   const {
     instanceId,
     disallowSignUp,
-    disallowSpaceCreation,
-    disallowSpaceInvitation,
     enableEmailVerification,
   } = setting;
 
@@ -62,32 +60,6 @@ export const SettingPage = (props: ISettingPageProps) => {
               id="allow-sign-up"
               checked={!disallowSignUp}
               onCheckedChange={(checked) => onValueChange('disallowSignUp', !checked)}
-            />
-          </div>
-          <div className="flex items-center justify-between space-x-2 rounded-lg border p-4 shadow-sm">
-            <div className="space-y-1">
-              <Label htmlFor="allow-sign-up">{t('admin.setting.allowSpaceInvitation')}</Label>
-              <div className="text-[13px] text-gray-500">
-                {t('admin.setting.allowSpaceInvitationDescription')}
-              </div>
-            </div>
-            <Switch
-              id="allow-space-invitation"
-              checked={!disallowSpaceInvitation}
-              onCheckedChange={(checked) => onValueChange('disallowSpaceInvitation', !checked)}
-            />
-          </div>
-          <div className="flex items-center justify-between space-x-2 rounded-lg border p-4 shadow-sm">
-            <div className="space-y-1">
-              <Label htmlFor="allow-space-creation">{t('admin.setting.allowSpaceCreation')}</Label>
-              <div className="text-[13px] text-gray-500">
-                {t('admin.setting.allowSpaceCreationDescription')}
-              </div>
-            </div>
-            <Switch
-              id="allow-space-creation"
-              checked={!disallowSpaceCreation}
-              onCheckedChange={(checked) => onValueChange('disallowSpaceCreation', !checked)}
             />
           </div>
           <div className="flex items-center justify-between space-x-2 rounded-lg border p-4 shadow-sm">

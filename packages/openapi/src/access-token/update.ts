@@ -8,7 +8,6 @@ export const updateAccessTokenRoSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   scopes: z.array(z.string()),
-  spaceIds: z.array(z.string()).nullable().optional(),
   baseIds: z.array(z.string()).nullable().optional(),
 });
 
@@ -19,7 +18,6 @@ export const updateAccessTokenVoSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   scopes: z.array(z.string()),
-  spaceIds: z.array(z.string()).optional(),
   baseIds: z.array(z.string()).optional(),
 });
 

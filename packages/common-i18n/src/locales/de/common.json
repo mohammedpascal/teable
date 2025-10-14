@@ -239,28 +239,6 @@
   },
   "pagePermissionChangeTip": "Die Berechtigungen für die Seite wurden aktualisiert. Bitte aktualisieren Sie die Seite, um den neuesten Inhalt zu sehen.",
   "listEmptyTips": "Die Liste ist leer",
-  "billing": {
-    "overLimits": "Limits überschritten",
-    "overLimitsDescription": "Ihr aktuelles Abonnement hat sein Nutzungslimit überschritten. Bitte aktualisieren Sie Ihr Abonnement, um diese Funktion weiterhin ohne Unterbrechung nutzen zu können.",
-    "userLimitExceededDescription": "Die aktuelle Instanz hat die maximale Anzahl von Benutzern erreicht, die Ihre Lizenz erlaubt. Bitte deaktivieren Sie einige Benutzer oder aktualisieren Sie die Lizenz.",
-    "unavailableInPlanTips": "Der aktuelle Abonnementplan unterstützt diese Funktion nicht",
-    "levelTips": "Dieser Space befindet sich derzeit auf dem {{level}} Plan",
-    "spaceSubscriptionModal": {
-      "title": "Upgrade des Space-Abonnementplans",
-      "description": "Sie können nur Arbeitsbereiche aktualisieren, deren Eigentümer Sie sind."
-    },
-    "status": {
-      "active": "Aktiv",
-      "canceled": "Storniert",
-      "incomplete": "Unvollständig",
-      "incompleteExpired": "Unvollständig Abgelaufen",
-      "trialing": "Testphase",
-      "pastDue": "Überfällig",
-      "unpaid": "Unbezahlt",
-      "paused": "Pausiert",
-      "seatLimitExceeded": "Anzahl der Sitzplätze überschritten"
-    }
-  },
   "admin": {
     "setting": {
       "description": "Ändern Sie die Einstellungen für Ihre aktuelle Instanz",

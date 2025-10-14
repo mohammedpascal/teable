@@ -9,8 +9,4 @@
     "title": "403 - Acceso Denegado",
     "description": "No tienes permiso para acceder a esta página."
   },
-  "paymentRequired": {
-    "title": "402 - Se Requiere Actualizar la Suscripción",
-    "description": "Tu suscripción actual no permite acceder a esta función. <br></br>Por favor, actualiza tu suscripción para continuar."
-  }
 }

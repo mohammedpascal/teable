@@ -14,7 +14,6 @@ export const acceptInvitationLinkRoSchema = z.object({
 export type AcceptInvitationLinkRo = z.infer<typeof acceptInvitationLinkRoSchema>;
 
 export const acceptInvitationLinkVoSchema = z.object({
-  spaceId: z.string().nullable(),
   baseId: z.string().nullable(),
 });
 
@@ -35,7 +34,7 @@ export const AcceptInvitationLinkRoute: RouteConfig = registerRoute({
   },
   responses: {
     201: {
-      description: 'Successful response, return the spaceId or baseId of the invitation link.',
+      description: 'Successful response, return the baseId of the invitation link.',
       content: {
         'application/json': {
           schema: acceptInvitationLinkVoSchema,

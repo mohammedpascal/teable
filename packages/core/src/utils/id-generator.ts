@@ -1,7 +1,6 @@
 import { customAlphabet } from 'nanoid';
 
 export enum IdPrefix {
-  Space = 'spc',
   Base = 'bse',
 
   Table = 'tbl',
@@ -121,10 +120,6 @@ export function identify(id: string): IdPrefix | undefined {
   return (Object.values(IdPrefix) as string[]).includes(idPrefix)
     ? (idPrefix as IdPrefix)
     : undefined;
-}
-
-export function generateSpaceId() {
-  return IdPrefix.Space + '0';
 }
 
 export function generateBaseId() {

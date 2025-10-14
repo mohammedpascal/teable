@@ -124,11 +124,11 @@ export class BaseController {
     @Param('baseId') baseId: string,
     @Param('invitationId') invitationId: string,
     @Body(new ZodValidationPipe(updateBaseInvitationLinkRoSchema))
-    updateSpaceInvitationLinkRo: UpdateBaseInvitationLinkRo
+    updateBaseInvitationLinkRo: UpdateBaseInvitationLinkRo
   ): Promise<UpdateBaseInvitationLinkVo> {
     const res = await this.invitationService.updateInvitationLink({
       invitationId,
-      role: updateSpaceInvitationLinkRo.role,
+      role: updateBaseInvitationLinkRo.role,
       resourceId: baseId,
       resourceType: CollaboratorType.Base,
     });

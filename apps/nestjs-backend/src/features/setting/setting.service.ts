@@ -12,8 +12,6 @@ export class SettingService {
         select: {
           instanceId: true,
           disallowSignUp: true,
-          disallowSpaceCreation: true,
-          disallowSpaceInvitation: true,
           enableEmailVerification: true,
         },
       })

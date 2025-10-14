@@ -43,9 +43,6 @@ export const ReactQueryKeys = {
   commentSubscribeStatus: (tableId: string, recordId: string) =>
     ['comment-notify-status', tableId, recordId] as const,
 
-  subscriptionSummary: (baseId: string) => ['subscription-summary', baseId] as const,
-
-  subscriptionSummaryList: () => ['subscription-summary'] as const,
 
   baseCollaboratorList: (baseId: string, options?: ListBaseCollaboratorRo) =>
     options
@@ -111,7 +108,6 @@ export const ReactQueryKeys = {
 
   getOrganizationMe: () => ['organization-me'] as const,
 
-  getIntegrationList: (spaceId: string) => ['integration-list', spaceId] as const,
 
   getPluginContextMenuPlugins: (tableId: string) =>
     ['plugin-context-menu-plugins', tableId] as const,

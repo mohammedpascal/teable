@@ -13,7 +13,6 @@ export const createAccessTokenRoSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   scopes: z.array(z.string()).min(1),
-  spaceIds: z.array(z.string()).min(1).nullable().optional(),
   baseIds: z.array(z.string()).min(1).nullable().optional(),
   expiredTime: z
     .string()
@@ -30,7 +29,6 @@ export const createAccessTokenVoSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   scopes: z.array(z.string()),
-  spaceIds: z.array(z.string()).nullable().optional(),
   baseIds: z.array(z.string()).nullable().optional(),
   expiredTime: z.string(),
   token: z.string(),
