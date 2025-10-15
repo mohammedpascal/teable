@@ -6,5 +6,4 @@ networks:
 
 volumes:
   teable-db:
-  teable-cache:
   teable-storage:

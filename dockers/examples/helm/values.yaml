@@ -39,7 +39,6 @@ config:
     key: null
     iv: null
 
-  redisDb: 0
 
 minio:
   auth:
@@ -82,12 +81,6 @@ postgresql:
   persistence:
     enabled: true
 
-redis:
-  architecture: standalone
-  auth:
-    existingSecret: teable-secret
-    secretKeys:
-      userPasswordKey: redis-password
 
 ## @section Global parameters
 ## @param replicaCount represents the number of pods that will be created for the application

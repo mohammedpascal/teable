@@ -23,13 +23,6 @@
     secretKeyRef:
       name: {{ $secret }}
       key: accessToken-encryption-iv
-- name: BACKEND_CACHE_PROVIDER
-  value: redis
-- name: BACKEND_CACHE_REDIS_URI
-  valueFrom:
-    secretKeyRef:
-      name: {{ $secret }}
-      key: redis-url
 {{- end -}}
 
 {{- define "teable.env.database" -}}

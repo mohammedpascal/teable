@@ -14,7 +14,6 @@ import { authMiddleware } from './auth.middleware';
 import type { IRawOpMap } from './interface';
 import { RepairAttachmentOpService } from './repair-attachment-op/repair-attachment-op.service';
 import { ShareDbAdapter } from './share-db.adapter';
-import { RedisPubSub } from './sharedb-redis.pubsub';
 
 @Injectable()
 export class ShareDbService extends ShareDBClass {
@@ -34,16 +33,8 @@ export class ShareDbService extends ShareDBClass {
       db: shareDbAdapter,
     });
 
-    const { provider, redis } = this.cacheConfig;
-    if (provider === 'redis') {
-      if (!redis.uri) {
-        throw new Error('Redis URI is required for Redis cache provider.');
-      }
-      const redisPubsub = new RedisPubSub({ redisURI: redis.uri });
-
-      this.logger.log(`> Detected Redis cache; enabled the Redis pub/sub adapter for ShareDB.`);
-      this.pubsub = redisPubsub;
-    }
+    // Redis pub/sub is no longer supported - using in-memory pub/sub
+    this.logger.log(`> Using in-memory pub/sub adapter for ShareDB.`);
 
     authMiddleware(this);
     this.use('submit', this.onSubmit);

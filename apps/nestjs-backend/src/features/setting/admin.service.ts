@@ -61,15 +61,15 @@ export class AdminService {
         break;
       }
       total += attachments.length;
-      await this.attachmentsCropQueueProcessor.queue.addBulk(
-        attachments.map((attachment) => ({
-          name: 'admin_attachment_crop_image',
+      for (const attachment of attachments) {
+        await this.attachmentsCropQueueProcessor.process({
           data: {
             ...attachment,
             bucket: StorageAdapter.getBucket(UploadType.Table),
           },
-        }))
-      );
+          queueName: 'attachments-crop-queue',
+        });
+      }
       this.logger.log(`Processed ${attachments.length} attachments`);
     }
     this.logger.log(`Total processed ${total} attachments`);

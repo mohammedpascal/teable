@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'path';
-import KeyvRedis from '@keyv/redis';
 import KeyvSqlite from '@keyv/sqlite';
 import type { Provider } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
@@ -15,7 +14,7 @@ export const CacheProvider: Provider = {
   provide: CacheService,
   inject: [cacheConfig.KEY],
   useFactory: async (config: ICacheConfig) => {
-    const { provider, sqlite, redis } = config;
+    const { provider, sqlite } = config;
 
     Logger.log(`[Cache Manager Adapter]: ${provider}`);
 
@@ -32,7 +31,6 @@ export const CacheProvider: Provider = {
           uri,
         });
       })
-      .with('redis', () => new KeyvRedis(redis, { useRedisSets: false }))
       .exhaustive();
 
     const keyv = new Keyv({ namespace: 'teable_cache', store: store });

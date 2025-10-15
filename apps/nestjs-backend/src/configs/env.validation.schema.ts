@@ -22,20 +22,13 @@ export const envValidationSchema = Joi.object({
   BRAND_NAME: Joi.string().required(),
 
   // cache
-  BACKEND_CACHE_PROVIDER: Joi.string().valid('memory', 'sqlite', 'redis').default('sqlite'),
+  BACKEND_CACHE_PROVIDER: Joi.string().valid('memory', 'sqlite').default('sqlite'),
   // cache-sqlite
   BACKEND_CACHE_SQLITE_URI: Joi.when('BACKEND_CACHE_PROVIDER', {
     is: 'sqlite',
     then: Joi.string()
       .pattern(/^sqlite:\/\//)
       .message('Cache `sqlite` the URI must start with the protocol `sqlite://`'),
-  }),
-  // cache-redis
-  BACKEND_CACHE_REDIS_URI: Joi.when('BACKEND_CACHE_PROVIDER', {
-    is: 'redis',
-    then: Joi.string()
-      .pattern(/^(redis:\/\/|rediss:\/\/)/)
-      .message('Cache `redis` the URI must start with the protocol `redis://` or `rediss://`'),
   }),
   // github auth
   BACKEND_GITHUB_CLIENT_ID: Joi.when('SOCIAL_AUTH_PROVIDERS', {

@@ -169,12 +169,15 @@ export class AttachmentsService {
         path: true,
       },
     });
-    await this.attachmentsCropQueueProcessor.queue.add('attachment_crop_image', {
-      token: attachment.token,
-      path: attachment.path,
-      mimetype: attachment.mimetype,
-      height: attachment.height,
-      bucket,
+    await this.attachmentsCropQueueProcessor.process({
+      data: {
+        token: attachment.token,
+        path: attachment.path,
+        mimetype: attachment.mimetype,
+        height: attachment.height,
+        bucket,
+      },
+      queueName: 'attachments-crop-queue',
     });
     const filenameHeader = filename
       ? {
