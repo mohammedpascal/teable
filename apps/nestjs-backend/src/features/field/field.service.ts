@@ -100,7 +100,7 @@ export class FieldService implements IReadonlyAdapterService {
     } = fieldInstance;
 
     const agg = await this.prismaService.txClient().field.aggregate({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       _max: {
         order: true,
       },
@@ -138,14 +138,14 @@ export class FieldService implements IReadonlyAdapterService {
     return this.prismaService.txClient().field.upsert({
       where: { id: data.id },
       create: data,
-      update: { ...data, deletedTime: null, version: undefined },
+      update: { ...data, version: undefined },
     });
   }
 
   private async dbCreateFields(tableId: string, fieldInstances: IFieldInstance[]) {
     const userId = this.cls.get('user.id');
     const agg = await this.prismaService.txClient().field.aggregate({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       _max: {
         order: true,
       },
@@ -153,7 +153,7 @@ export class FieldService implements IReadonlyAdapterService {
     const order = agg._max.order == null ? 0 : agg._max.order + 1;
     const existedFieldIds = (
       await this.prismaService.txClient().field.findMany({
-        where: { tableId, deletedTime: null },
+        where: { tableId },
         select: { id: true },
       })
     ).map(({ id }) => id);
@@ -274,12 +274,12 @@ export class FieldService implements IReadonlyAdapterService {
 
   private async alterTableModifyFieldName(fieldId: string, newDbFieldName: string) {
     const { dbFieldName, table } = await this.prismaService.txClient().field.findFirstOrThrow({
-      where: { id: fieldId, deletedTime: null },
+      where: { id: fieldId },
       select: { dbFieldName: true, table: { select: { id: true, dbTableName: true } } },
     });
 
     const existingField = await this.prismaService.txClient().field.findFirst({
-      where: { tableId: table.id, dbFieldName: newDbFieldName, deletedTime: null },
+      where: { tableId: table.id, dbFieldName: newDbFieldName },
       select: { id: true },
     });
 
@@ -300,7 +300,7 @@ export class FieldService implements IReadonlyAdapterService {
 
   private async alterTableModifyFieldType(fieldId: string, newDbFieldType: DbFieldType) {
     const { dbFieldName, table } = await this.prismaService.txClient().field.findFirstOrThrow({
-      where: { id: fieldId, deletedTime: null },
+      where: { id: fieldId },
       select: { dbFieldName: true, table: { select: { dbTableName: true } } },
     });
 
@@ -331,7 +331,7 @@ export class FieldService implements IReadonlyAdapterService {
     const { dbFieldName, table, type, isLookup } = await this.prismaService
       .txClient()
       .field.findFirstOrThrow({
-        where: { id: fieldId, deletedTime: null },
+        where: { id: fieldId },
         select: {
           dbFieldName: true,
           type: true,
@@ -362,7 +362,7 @@ export class FieldService implements IReadonlyAdapterService {
 
   async getField(tableId: string, fieldId: string): Promise<IFieldVo> {
     const field = await this.prismaService.txClient().field.findFirst({
-      where: { id: fieldId, tableId, deletedTime: null },
+      where: { id: fieldId, tableId },
     });
     if (!field) {
       throw new NotFoundException(`field ${fieldId} in table ${tableId} not found`);
@@ -372,7 +372,7 @@ export class FieldService implements IReadonlyAdapterService {
 
   async getFieldsByQuery(tableId: string, query?: IGetFieldsQuery): Promise<IFieldVo[]> {
     const fieldsPlain = await this.prismaService.txClient().field.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       orderBy: [
         {
           isPrimary: {
@@ -405,7 +405,7 @@ export class FieldService implements IReadonlyAdapterService {
     if (query?.viewId) {
       const { viewId } = query;
       const curView = await this.prismaService.txClient().view.findFirst({
-        where: { id: viewId, deletedTime: null },
+        where: { id: viewId },
         select: { id: true, type: true, options: true, columnMeta: true },
       });
       if (!curView) {
@@ -475,7 +475,7 @@ export class FieldService implements IReadonlyAdapterService {
 
   private async checkFieldName(tableId: string, fieldId: string, name: string) {
     const fieldRaw = await this.prismaService.txClient().field.findFirst({
-      where: { tableId, id: { not: fieldId }, name, deletedTime: null },
+      where: { tableId, id: { not: fieldId }, name },
       select: { id: true },
     });
 
@@ -488,7 +488,7 @@ export class FieldService implements IReadonlyAdapterService {
     if (!opData.length) return;
 
     const fieldRaw = await this.prismaService.txClient().field.findMany({
-      where: { tableId, id: { in: opData.map((data) => data.fieldId) }, deletedTime: null },
+      where: { tableId, id: { in: opData.map((data) => data.fieldId) } },
       select: { id: true, version: true },
     });
 
@@ -525,7 +525,7 @@ export class FieldService implements IReadonlyAdapterService {
     if (!fieldIds.length) return;
 
     const fieldRaw = await this.prismaService.txClient().field.findMany({
-      where: { tableId, id: { in: fieldIds }, deletedTime: null },
+      where: { tableId, id: { in: fieldIds } },
       select: { id: true, version: true },
     });
 
@@ -603,21 +603,20 @@ export class FieldService implements IReadonlyAdapterService {
   }
 
   private async deleteMany(tableId: string, fieldData: { docId: string; version: number }[]) {
-    const userId = this.cls.get('user.id');
-
-    for (const data of fieldData) {
-      const { docId: id, version } = data;
-      await this.prismaService.txClient().field.update({
-        where: { id: id },
-        data: { deletedTime: new Date(), lastModifiedBy: userId, version },
-      });
-    }
-    const dbTableName = await this.getDbTableName(tableId);
     const fieldIds = fieldData.map((data) => data.docId);
+    
+    // Get field info before deletion for database cleanup
     const fieldsRaw = await this.prismaService.txClient().field.findMany({
       where: { id: { in: fieldIds } },
       select: { dbFieldName: true },
     });
+    
+    // Delete from database
+    await this.prismaService.txClient().field.deleteMany({
+      where: { id: { in: fieldIds } },
+    });
+    
+    const dbTableName = await this.getDbTableName(tableId);
     await this.alterTableDeleteField(
       dbTableName,
       fieldsRaw.map((field) => field.dbFieldName)

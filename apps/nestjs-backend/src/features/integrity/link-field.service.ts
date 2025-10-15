@@ -18,7 +18,7 @@ export class LinkFieldIntegrityService {
 
   async getIssues(tableId: string, field: LinkFieldDto): Promise<IIntegrityIssue[]> {
     const table = await this.prismaService.tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { name: true, dbTableName: true },
     });
     const { fkHostTableName, foreignKeyName, selfKeyName } = field.options;
@@ -101,23 +101,23 @@ export class LinkFieldIntegrityService {
 
   async fix(tableId: string, fieldId: string): Promise<IIntegrityIssue | undefined> {
     const table = await this.prismaService.tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
 
     const field = await this.prismaService.field.findFirstOrThrow({
-      where: { id: fieldId, type: FieldType.Link, isLookup: null, deletedTime: null },
+      where: { id: fieldId, type: FieldType.Link, isLookup: null },
     });
 
     const linkField = createFieldInstanceByRaw(field) as LinkFieldDto;
 
     const lookupField = await this.prismaService.field.findFirstOrThrow({
-      where: { id: linkField.options.lookupFieldId, deletedTime: null },
+      where: { id: linkField.options.lookupFieldId },
       select: { dbFieldName: true },
     });
 
     const foreignTable = await this.prismaService.tableMeta.findFirstOrThrow({
-      where: { id: linkField.options.foreignTableId, deletedTime: null },
+      where: { id: linkField.options.foreignTableId },
       select: { dbTableName: true },
     });
 

@@ -66,12 +66,12 @@ export class BatchService {
     }
 
     const tableRaw = await this.prismaService.txClient().tableMeta.findMany({
-      where: { id: { in: tableIds }, deletedTime: null },
+      where: { id: { in: tableIds } },
       select: { id: true, dbTableName: true },
     });
 
     const fieldsRaw = await this.prismaService.txClient().field.findMany({
-      where: { id: { in: missingFieldIds }, deletedTime: null },
+      where: { id: { in: missingFieldIds } },
     });
 
     const fields = fieldsRaw.map(createFieldInstanceByRaw);

@@ -186,7 +186,7 @@ export class ViewOpenApiService {
 
     // validate field legal
     const fields = await this.prismaService.field.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: {
         id: true,
         isPrimary: true,
@@ -247,7 +247,7 @@ export class ViewOpenApiService {
     const curView = await this.prismaService.view
       .findFirstOrThrow({
         select: { [key]: true },
-        where: { tableId, id: viewId, deletedTime: null },
+        where: { tableId, id: viewId },
       })
       .catch(() => {
         throw new BadRequestException('View not found');
@@ -294,7 +294,7 @@ export class ViewOpenApiService {
     const curView = await this.prismaService.view
       .findFirstOrThrow({
         select: { options: true, type: true },
-        where: { tableId, id: viewId, deletedTime: null },
+        where: { tableId, id: viewId },
       })
       .catch(() => {
         throw new BadRequestException('View option not found');
@@ -335,7 +335,7 @@ export class ViewOpenApiService {
    */
   async shuffle(tableId: string) {
     const views = await this.prismaService.view.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { id: true, order: true },
       orderBy: { order: 'asc' },
     });
@@ -367,7 +367,7 @@ export class ViewOpenApiService {
     const view = await this.prismaService.view
       .findFirstOrThrow({
         select: { order: true, id: true },
-        where: { tableId, id: viewId, deletedTime: null },
+        where: { tableId, id: viewId },
       })
       .catch(() => {
         throw new NotFoundException(`View ${viewId} not found in the table`);
@@ -376,7 +376,7 @@ export class ViewOpenApiService {
     const anchorView = await this.prismaService.view
       .findFirstOrThrow({
         select: { order: true, id: true },
-        where: { tableId, id: anchorId, deletedTime: null },
+        where: { tableId, id: anchorId },
       })
       .catch(() => {
         throw new NotFoundException(`Anchor ${anchorId} not found in the table`);
@@ -392,7 +392,6 @@ export class ViewOpenApiService {
           select: { order: true, id: true },
           where: {
             tableId,
-            deletedTime: null,
             order: whereOrder,
           },
           orderBy: { order: align },
@@ -645,7 +644,7 @@ export class ViewOpenApiService {
       return [];
     }
     const linkFields = await this.prismaService.field.findMany({
-      where: { tableId, deletedTime: null, type: FieldType.Link },
+      where: { tableId, type: FieldType.Link },
     });
     const linkFieldTableMap = linkFields.reduce(
       (map, field) => {
@@ -665,7 +664,7 @@ export class ViewOpenApiService {
     for (const [foreignTableId, recordSet] of Object.entries(tableRecordMap)) {
       const dbTableName = await this.recordService.getDbTableName(foreignTableId);
       const primaryField = await this.prismaService.field.findFirst({
-        where: { tableId: foreignTableId, isPrimary: true, deletedTime: null },
+        where: { tableId: foreignTableId, isPrimary: true },
       });
       if (!primaryField) {
         continue;
@@ -722,7 +721,7 @@ export class ViewOpenApiService {
         } as IPluginViewOptions,
       });
       const table = await prisma.tableMeta.findUniqueOrThrow({
-        where: { id: tableId, deletedTime: null },
+        where: { id: tableId },
         select: { baseId: true },
       });
       const newPlugin = await prisma.pluginInstall.create({
@@ -761,7 +760,7 @@ export class ViewOpenApiService {
 
   async getPluginInstall(tableId: string, viewId: string) {
     const table = await this.prismaService.tableMeta.findUniqueOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { baseId: true },
     });
     const pluginInstall = await this.prismaService.pluginInstall.findFirst({

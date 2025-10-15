@@ -65,7 +65,7 @@ export class FieldDeletingService {
 
   async getField(tableId: string, fieldId: string): Promise<IFieldInstance | null> {
     const fieldRaw = await this.prismaService.field.findFirst({
-      where: { tableId, id: fieldId, deletedTime: null },
+      where: { tableId, id: fieldId },
     });
     return fieldRaw && createFieldInstanceByRaw(fieldRaw);
   }

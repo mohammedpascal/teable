@@ -354,20 +354,6 @@ export class TableOpenApiService {
       where: { tableId: { in: tableIds } },
     });
 
-    // clean trash for table
-    await this.prismaService.txClient().trash.deleteMany({
-      where: { resourceId: { in: tableIds }, resourceType: ResourceType.Table },
-    });
-
-    // clean table trash
-    await this.prismaService.txClient().tableTrash.deleteMany({
-      where: { tableId: { in: tableIds } },
-    });
-
-    // clean record trash
-    await this.prismaService.txClient().recordTrash.deleteMany({
-      where: { tableId: { in: tableIds } },
-    });
   }
 
   async deleteTable(baseId: string, tableId: string) {
@@ -519,7 +505,7 @@ export class TableOpenApiService {
     const table = await this.prismaService.tableMeta
       .findFirstOrThrow({
         select: { order: true, id: true },
-        where: { baseId, id: tableId, deletedTime: null },
+        where: { baseId, id: tableId },
       })
       .catch(() => {
         throw new NotFoundException(`Table ${tableId} not found`);
@@ -528,7 +514,7 @@ export class TableOpenApiService {
     const anchorTable = await this.prismaService.tableMeta
       .findFirstOrThrow({
         select: { order: true, id: true },
-        where: { baseId, id: anchorId, deletedTime: null },
+        where: { baseId, id: anchorId },
       })
       .catch(() => {
         throw new NotFoundException(`Anchor ${anchorId} not found`);

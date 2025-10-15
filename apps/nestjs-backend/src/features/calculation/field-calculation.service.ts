@@ -187,7 +187,7 @@ export class FieldCalculationService {
 
   async calComputedFieldsByRecordIds(tableId: string, recordIds: string[]) {
     const fieldRaws = await this.prismaService.field.findMany({
-      where: { tableId, isComputed: true, deletedTime: null, hasError: null },
+      where: { tableId, isComputed: true, hasError: null },
       select: { id: true },
     });
 

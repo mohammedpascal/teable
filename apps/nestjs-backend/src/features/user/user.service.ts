@@ -26,9 +26,7 @@ export class UserService {
   ) {}
 
   async getUserById(id: string) {
-    const userRaw = await this.prismaService
-      .txClient()
-      .user.findUnique({ where: { id, deletedTime: null } });
+    const userRaw = await this.prismaService.txClient().user.findUnique({ where: { id } });
 
     return (
       userRaw && {
@@ -43,7 +41,7 @@ export class UserService {
 
   async getUserByEmail(email: string) {
     return await this.prismaService.txClient().user.findUnique({
-      where: { email: email.toLowerCase(), deletedTime: null },
+      where: { email: email.toLowerCase() },
       include: { accounts: true },
     });
   }
@@ -142,7 +140,7 @@ export class UserService {
       data: {
         name,
       },
-      where: { id, deletedTime: null },
+      where: { id },
       select: {
         id: true,
         name: true,
@@ -174,7 +172,7 @@ export class UserService {
       data: {
         avatar: path,
       },
-      where: { id, deletedTime: null },
+      where: { id },
     });
   }
 
@@ -190,7 +188,6 @@ export class UserService {
       update: input as Prisma.AttachmentsUpdateInput,
       where: {
         token: userId,
-        deletedTime: null,
       },
     });
   }
@@ -200,7 +197,7 @@ export class UserService {
       data: {
         notifyMeta: JSON.stringify(notifyMetaRo),
       },
-      where: { id, deletedTime: null },
+      where: { id },
     });
   }
 
@@ -313,7 +310,7 @@ export class UserService {
 
   async refreshLastSignTime(userId: string) {
     await this.prismaService.txClient().user.update({
-      where: { id: userId, deletedTime: null },
+      where: { id: userId },
       data: { lastSignTime: new Date().toISOString() },
     });
   }

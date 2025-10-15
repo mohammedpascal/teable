@@ -223,12 +223,5 @@ export class BaseService {
       where: { id: baseId },
     });
 
-    // delete trash for base
-    await this.prismaService.txClient().trash.deleteMany({
-      where: {
-        resourceId: baseId,
-        resourceType: ResourceType.Base,
-      },
-    });
   }
 }

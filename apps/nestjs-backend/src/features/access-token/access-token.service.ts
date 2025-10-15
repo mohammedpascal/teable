@@ -207,7 +207,7 @@ export class AccessTokenService {
     let filteredBaseIds: string[] | undefined;
     if (baseIds) {
       const bases = await this.prismaService.base.findMany({
-        where: { id: { in: baseIds }, deletedTime: null },
+        where: { id: { in: baseIds } },
         select: { id: true },
       });
       filteredBaseIds = bases.map((base) => base.id);

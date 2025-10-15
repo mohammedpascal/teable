@@ -321,7 +321,6 @@ export class AggregationService {
               ViewType.Calendar,
             ],
           },
-          deletedTime: null,
         },
       })
     );
@@ -374,7 +373,7 @@ export class AggregationService {
 
   async getFieldsData(tableId: string, fieldIds?: string[], withName?: boolean) {
     const fieldsRaw = await this.prisma.field.findMany({
-      where: { tableId, ...(fieldIds ? { id: { in: fieldIds } } : {}), deletedTime: null },
+      where: { tableId, ...(fieldIds ? { id: { in: fieldIds } } : {}) },
     });
 
     const fieldInstances = fieldsRaw.map((field) => createFieldInstanceByRaw(field));

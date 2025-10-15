@@ -139,7 +139,7 @@ export class LocalAuthService {
     const res = await this.prismaService.$tx(async () => {
       if (user) {
         return await this.prismaService.user.update({
-          where: { id: user.id, deletedTime: null },
+          where: { id: user.id },
           data: {
             salt,
             password: hashPassword,
@@ -201,7 +201,7 @@ export class LocalAuthService {
     }
     const { salt: newSalt, hashPassword: newHashPassword } = await this.encodePassword(newPassword);
     await this.prismaService.txClient().user.update({
-      where: { id: userId, deletedTime: null },
+      where: { id: userId },
       data: {
         password: newHashPassword,
         salt: newSalt,
@@ -244,7 +244,7 @@ export class LocalAuthService {
     const { userId } = resetPasswordEmail;
     const { salt, hashPassword } = await this.encodePassword(newPassword);
     await this.prismaService.txClient().user.update({
-      where: { id: userId, deletedTime: null },
+      where: { id: userId },
       data: {
         password: hashPassword,
         salt,
@@ -264,7 +264,7 @@ export class LocalAuthService {
     }
     const { salt, hashPassword } = await this.encodePassword(newPassword);
     await this.prismaService.txClient().user.update({
-      where: { id: userId, deletedTime: null, password: null },
+      where: { id: userId, password: null },
       data: {
         password: hashPassword,
         salt,
@@ -293,7 +293,7 @@ export class LocalAuthService {
     }
     const user = this.cls.get('user');
     await this.prismaService.txClient().user.update({
-      where: { id: user.id, deletedTime: null, deactivatedTime: null },
+      where: { id: user.id, deactivatedTime: null },
       data: { email: newEmail },
     });
     // clear session

@@ -71,7 +71,7 @@ export class ViewService implements IReadonlyAdapterService {
 
   private async polishOrderAndName(tableId: string, viewRo: IViewRo) {
     const viewRaws = await this.prismaService.txClient().view.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { name: true, order: true },
       orderBy: { order: 'asc' },
     });
@@ -145,7 +145,7 @@ export class ViewService implements IReadonlyAdapterService {
     // primary field set visible default
     if ([ViewType.Kanban, ViewType.Gallery, ViewType.Calendar].includes(viewRo.type)) {
       const primaryField = await this.prismaService.txClient().field.findFirstOrThrow({
-        where: { tableId, isPrimary: true, deletedTime: null },
+        where: { tableId, isPrimary: true },
         select: { id: true },
       });
       const columnMeta = innerViewRo.columnMeta ?? {};
@@ -158,7 +158,7 @@ export class ViewService implements IReadonlyAdapterService {
       // set default cover field id for gallery view
       if (innerViewRo.type === ViewType.Gallery) {
         const fields = await this.prismaService.txClient().field.findMany({
-          where: { tableId, deletedTime: null },
+          where: { tableId },
           select: { id: true, type: true },
         });
         const galleryOptions = (innerViewRo.options ?? {}) as IGalleryViewOptions;
@@ -174,7 +174,7 @@ export class ViewService implements IReadonlyAdapterService {
       // set default start date and end date field ids for calendar view
       if (innerViewRo.type === ViewType.Calendar) {
         const fields = await this.prismaService.txClient().field.findMany({
-          where: { tableId, deletedTime: null },
+          where: { tableId },
           select: { id: true, cellValueType: true, isMultipleCellValue: true },
         });
         const calendarOptions = (innerViewRo.options ?? {}) as ICalendarViewOptions;
@@ -201,21 +201,6 @@ export class ViewService implements IReadonlyAdapterService {
     return innerViewRo;
   }
 
-  async restoreView(tableId: string, viewId: string) {
-    await this.prismaService.$tx(async () => {
-      await this.prismaService.txClient().view.update({
-        where: { id: viewId },
-        data: {
-          deletedTime: null,
-        },
-      });
-      const ops = ViewOpBuilder.editor.setViewProperty.build({
-        key: 'lastModifiedTime',
-        newValue: new Date().toISOString(),
-      });
-      await this.updateViewByOps(tableId, viewId, [ops]);
-    });
-  }
 
   async createDbView(tableId: string, viewRo: IViewRo) {
     const userId = this.cls.get('user.id');
@@ -257,7 +242,7 @@ export class ViewService implements IReadonlyAdapterService {
 
   async getViewById(viewId: string): Promise<IViewVo> {
     const viewRaw = await this.prismaService.txClient().view.findUniqueOrThrow({
-      where: { id: viewId, deletedTime: null },
+      where: { id: viewId },
     });
 
     return this.convertViewVoAttachmentUrl(createViewInstanceByRaw(viewRaw) as IViewVo);
@@ -287,7 +272,7 @@ export class ViewService implements IReadonlyAdapterService {
 
   async getViews(tableId: string): Promise<IViewVo[]> {
     const viewRaws = await this.prismaService.txClient().view.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       orderBy: { order: 'asc' },
     });
 
@@ -308,7 +293,7 @@ export class ViewService implements IReadonlyAdapterService {
     const { version } = await this.prismaService
       .txClient()
       .view.findFirstOrThrow({
-        where: { id: viewId, tableId, deletedTime: null },
+        where: { id: viewId, tableId },
       })
       .catch(() => {
         throw new BadRequestException('Table not found');
@@ -325,7 +310,7 @@ export class ViewService implements IReadonlyAdapterService {
     const viewRaw = await this.prismaService
       .txClient()
       .view.findFirstOrThrow({
-        where: { id: viewId, tableId, deletedTime: null },
+        where: { id: viewId, tableId },
         select: {
           sort: true,
           version: true,
@@ -367,7 +352,7 @@ export class ViewService implements IReadonlyAdapterService {
 
   async updateViewByOps(tableId: string, viewId: string, ops: IOtOperation[]) {
     const { version } = await this.prismaService.txClient().view.findFirstOrThrow({
-      where: { id: viewId, tableId, deletedTime: null },
+      where: { id: viewId, tableId },
       select: {
         version: true,
       },
@@ -394,11 +379,8 @@ export class ViewService implements IReadonlyAdapterService {
   }
 
   async del(_version: number, _tableId: string, viewId: string) {
-    await this.prismaService.txClient().view.update({
+    await this.prismaService.txClient().view.delete({
       where: { id: viewId },
-      data: {
-        deletedTime: new Date(),
-      },
     });
   }
 
@@ -406,7 +388,7 @@ export class ViewService implements IReadonlyAdapterService {
   async getColumnsMetaMap(tableId: string, fieldIds: string[]): Promise<IColumnMeta[]> {
     const viewRaws = await this.prismaService.txClient().view.findMany({
       select: { id: true, columnMeta: true },
-      where: { tableId, deletedTime: null },
+      where: { tableId },
     });
 
     const viewRawMap = viewRaws.reduce<{ [viewId: string]: IColumnMeta }>((pre, cur) => {
@@ -432,7 +414,7 @@ export class ViewService implements IReadonlyAdapterService {
       .txClient()
       .view.findUniqueOrThrow({
         select: { columnMeta: true },
-        where: { tableId, id: viewId, deletedTime: null },
+        where: { tableId, id: viewId },
       });
     const columnMeta = JSON.parse(rawColumnMeta);
 
@@ -496,7 +478,7 @@ export class ViewService implements IReadonlyAdapterService {
 
   async getSnapshotBulk(tableId: string, ids: string[]): Promise<ISnapshotBase<IViewVo>[]> {
     const views = await this.prismaService.txClient().view.findMany({
-      where: { tableId, id: { in: ids }, deletedTime: null },
+      where: { tableId, id: { in: ids } },
     });
 
     if (views.length !== ids.length) {
@@ -518,7 +500,7 @@ export class ViewService implements IReadonlyAdapterService {
 
   async getDocIdsByQuery(tableId: string, query?: { includeIds: string[] }) {
     const views = await this.prismaService.txClient().view.findMany({
-      where: { tableId, deletedTime: null, id: { in: query?.includeIds } },
+      where: { tableId, id: { in: query?.includeIds } },
       select: { id: true },
       orderBy: { order: 'asc' },
     });
@@ -529,7 +511,7 @@ export class ViewService implements IReadonlyAdapterService {
   async generateViewOrderColumnMeta(tableId: string) {
     const fields = await this.prismaService.txClient().field.findMany({
       select: { id: true },
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       orderBy: [
         { isPrimary: { sort: 'asc', nulls: 'last' } },
         { order: 'asc' },
@@ -550,7 +532,7 @@ export class ViewService implements IReadonlyAdapterService {
   async initViewColumnMeta(tableId: string, fieldIds: string[], columnsMeta?: IColumnMeta[]) {
     // 1. get all views id and column meta by tableId
     const view = await this.prismaService.txClient().view.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { columnMeta: true, id: true },
     });
 
@@ -594,7 +576,7 @@ export class ViewService implements IReadonlyAdapterService {
         id: true,
         type: true,
       },
-      where: { tableId, deletedTime: null },
+      where: { tableId },
     });
 
     if (!view) {

@@ -1143,7 +1143,7 @@ export class LinkService {
     const { id: primaryFieldId } = await this.prismaService
       .txClient()
       .field.findFirstOrThrow({
-        where: { tableId, deletedTime: null, isPrimary: true },
+        where: { tableId, isPrimary: true },
         select: { id: true },
       })
       .catch(() => {
@@ -1162,7 +1162,6 @@ export class LinkService {
         id: { in: referenceFieldIds },
         type: FieldType.Link,
         isLookup: null,
-        deletedTime: null,
       },
     });
   }

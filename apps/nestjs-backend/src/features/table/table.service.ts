@@ -41,7 +41,7 @@ export class TableService implements IReadonlyAdapterService {
   private async createDBTable(baseId: string, tableRo: ICreateTableRo, createTable = true) {
     const userId = this.cls.get('user.id');
     const tableRaws = await this.prismaService.txClient().tableMeta.findMany({
-      where: { baseId, deletedTime: null },
+      where: { baseId },
       select: { name: true, order: true },
     });
     const tableId = generateTableId();
@@ -174,7 +174,7 @@ export class TableService implements IReadonlyAdapterService {
 
   async getTableMeta(baseId: string, tableId: string): Promise<ITableVo> {
     const tableMeta = await this.prismaService.txClient().tableMeta.findFirst({
-      where: { id: tableId, baseId, deletedTime: null },
+      where: { id: tableId, baseId },
     });
 
     if (!tableMeta) {
@@ -198,7 +198,7 @@ export class TableService implements IReadonlyAdapterService {
 
   async getDefaultViewId(tableId: string) {
     const viewRaw = await this.prismaService.view.findFirst({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { id: true },
       orderBy: { order: 'asc' },
     });
@@ -227,9 +227,9 @@ export class TableService implements IReadonlyAdapterService {
     });
   }
 
-  async deleteTable(baseId: string, tableId: string, deletedTime: Date) {
+  async deleteTable(baseId: string, tableId: string) {
     const result = await this.prismaService.txClient().tableMeta.findFirst({
-      where: { id: tableId, baseId, deletedTime: null },
+      where: { id: tableId, baseId },
     });
 
     if (!result) {
@@ -237,11 +237,9 @@ export class TableService implements IReadonlyAdapterService {
     }
 
     const { version } = result;
-    const userId = this.cls.get('user.id');
 
-    await this.prismaService.txClient().tableMeta.update({
+    await this.prismaService.txClient().tableMeta.delete({
       where: { id: tableId, baseId },
-      data: { version: version + 1, deletedTime, lastModifiedBy: userId },
     });
 
     await this.batchService.saveRawOps(baseId, RawOpType.Del, IdPrefix.Table, [
@@ -249,27 +247,6 @@ export class TableService implements IReadonlyAdapterService {
     ]);
   }
 
-  async restoreTable(baseId: string, tableId: string) {
-    const result = await this.prismaService.txClient().tableMeta.findFirst({
-      where: { id: tableId, baseId, deletedTime: { not: null } },
-    });
-
-    if (!result) {
-      throw new NotFoundException(`Table ${tableId} not found`);
-    }
-
-    const { version } = result;
-    const userId = this.cls.get('user.id');
-
-    await this.prismaService.txClient().tableMeta.update({
-      where: { id: tableId, baseId },
-      data: { version: version + 1, deletedTime: null, lastModifiedBy: userId },
-    });
-
-    await this.batchService.saveRawOps(baseId, RawOpType.Create, IdPrefix.Table, [
-      { docId: tableId, version },
-    ]);
-  }
 
   async updateTable(
     baseId: string,
@@ -295,7 +272,7 @@ export class TableService implements IReadonlyAdapterService {
     const tableRaw = await this.prismaService
       .txClient()
       .tableMeta.findFirstOrThrow({
-        where: { id: tableId, baseId, deletedTime: null },
+        where: { id: tableId, baseId },
         select: {
           ...select,
           version: true,
@@ -346,7 +323,7 @@ export class TableService implements IReadonlyAdapterService {
 
   async getSnapshotBulk(baseId: string, ids: string[]): Promise<ISnapshotBase<ITableVo>[]> {
     const tables = await this.prismaService.txClient().tableMeta.findMany({
-      where: { baseId, id: { in: ids }, deletedTime: null },
+      where: { baseId, id: { in: ids } },
       orderBy: { order: 'asc' },
     });
     const tableTime = await this.getTableLastModifiedTime(ids);
@@ -373,7 +350,6 @@ export class TableService implements IReadonlyAdapterService {
     const { projectionTableIds } = query;
     const tables = await this.prismaService.txClient().tableMeta.findMany({
       where: {
-        deletedTime: null,
         baseId,
         ...(projectionTableIds
           ? {

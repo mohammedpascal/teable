@@ -218,7 +218,6 @@ describe('InvitationService', () => {
         expiredTime: new Date('2022-01-01'),
         baseId: mockBase.id,
         spaceId: null,
-        deletedTime: null,
         createdTime: new Date('2022-01-02'),
         role: Role.Creator,
         createdBy: mockUser.id,
@@ -245,7 +244,6 @@ describe('InvitationService', () => {
         expiredTime: null,
         baseId: mockBase.id,
         spaceId: null,
-        deletedTime: null,
         createdTime: new Date(),
         role: Role.Creator,
         createdBy: mockUser.id,
@@ -268,7 +266,6 @@ describe('InvitationService', () => {
         baseId: mockBase.id,
         type: 'link',
         expiredTime: null,
-        deletedTime: null,
       } as any);
       prismaService.base.findUniqueOrThrow.mockResolvedValue(mockBase as any);
       prismaService.collaborator.count.mockResolvedValue(1);
@@ -291,7 +288,6 @@ describe('InvitationService', () => {
         expiredTime: null,
         baseId: mockBase.id,
         spaceId: null,
-        deletedTime: null,
         createdTime: new Date('2022-01-02'),
         role: Role.Creator,
         createdBy: 'createdBy',

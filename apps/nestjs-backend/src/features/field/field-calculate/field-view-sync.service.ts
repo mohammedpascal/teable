@@ -168,7 +168,7 @@ export class FieldViewSyncService {
         id: true,
         type: true,
       },
-      where: { tableId: tableId, deletedTime: null },
+      where: { tableId: tableId },
     });
 
     if (!views?.length) {
@@ -197,7 +197,7 @@ export class FieldViewSyncService {
 
   async getLinkForeignFields(tableId: string) {
     const linkFields = await this.prismaService.txClient().field.findMany({
-      where: { tableId, type: FieldType.Link, deletedTime: null },
+      where: { tableId, type: FieldType.Link },
     });
     const foreignFieldIds = linkFields
       .map(
@@ -206,7 +206,7 @@ export class FieldViewSyncService {
       )
       .filter(Boolean) as string[];
     return await this.prismaService.txClient().field.findMany({
-      where: { id: { in: foreignFieldIds }, type: FieldType.Link, deletedTime: null },
+      where: { id: { in: foreignFieldIds }, type: FieldType.Link },
     });
   }
 

@@ -77,7 +77,7 @@ describe('AttachmentsService', () => {
 
       // Verify that Prisma method was called with the correct parameters
       expect(prismaService.txClient().field.findMany).toHaveBeenCalledWith({
-        where: { tableId, type: FieldType.Attachment, isLookup: null, deletedTime: null },
+        where: { tableId, type: FieldType.Attachment, isLookup: null },
         select: { id: true },
       });
 

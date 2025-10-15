@@ -37,7 +37,7 @@ export class BaseDuplicateService {
   private async getMaxOrder() {
     const userId = this.cls.get('user.id');
     const spaceAggregate = await this.prismaService.txClient().base.aggregate({
-      where: { userId, deletedTime: null },
+      where: { userId },
       _max: { order: true },
     });
     return spaceAggregate._max?.order || 0;
@@ -48,7 +48,6 @@ export class BaseDuplicateService {
     const base = await this.prismaService.txClient().base.findFirst({
       where: {
         id: fromBaseId,
-        deletedTime: null,
       },
     });
     if (!base) {
@@ -81,7 +80,6 @@ export class BaseDuplicateService {
     const tables = await this.prismaService.txClient().tableMeta.findMany({
       where: {
         baseId: fromBaseId,
-        deletedTime: null,
       },
     });
     const userId = this.cls.get('user.id');
@@ -171,7 +169,6 @@ export class BaseDuplicateService {
     const fieldRaws = await this.prismaService.txClient().field.findMany({
       where: {
         tableId: { in: Object.keys(old2NewTableIdMap) },
-        deletedTime: null,
       },
     });
     const old2NewFieldIdMap = fieldRaws.reduce<Record<string, string>>((acc, fieldRaw) => {
@@ -205,7 +202,6 @@ export class BaseDuplicateService {
     const viewRaws = await this.prismaService.txClient().view.findMany({
       where: {
         tableId: { in: Object.keys(old2NewTableIdMap) },
-        deletedTime: null,
       },
     });
 
@@ -296,7 +292,7 @@ export class BaseDuplicateService {
     const dbTableNameSet = new Set(tableRaws.map((tableRaw) => tableRaw.dbTableName));
 
     const linkFieldRaws = await this.prismaService.txClient().field.findMany({
-      where: { tableId: { in: tableIds }, type: FieldType.Link, deletedTime: null },
+      where: { tableId: { in: tableIds }, type: FieldType.Link },
       select: { id: true, options: true },
     });
 
@@ -372,7 +368,7 @@ export class BaseDuplicateService {
     await this.createSchema(toBaseId);
 
     const tableRaws = await this.prismaService.txClient().tableMeta.findMany({
-      where: { baseId: fromBaseId, deletedTime: null },
+      where: { baseId: fromBaseId },
       select: { id: true, dbTableName: true },
     });
 

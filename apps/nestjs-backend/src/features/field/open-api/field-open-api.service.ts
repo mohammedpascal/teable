@@ -91,7 +91,7 @@ export class FieldOpenApiService {
     if (field.lookupOptions) {
       const { foreignTableId, lookupFieldId, linkFieldId } = field.lookupOptions;
       const foreignField = await this.prismaService.txClient().field.findFirst({
-        where: { tableId: foreignTableId, id: lookupFieldId, deletedTime: null },
+        where: { tableId: foreignTableId, id: lookupFieldId },
         select: { id: true },
       });
 
@@ -99,7 +99,7 @@ export class FieldOpenApiService {
         return false;
       }
       const linkField = await this.prismaService.txClient().field.findFirst({
-        where: { id: linkFieldId, deletedTime: null },
+        where: { id: linkFieldId },
         select: { id: true, options: true },
       });
       if (!linkField) {
@@ -122,7 +122,7 @@ export class FieldOpenApiService {
   private async checkAndUpdateError(tableId: string, field: IFieldInstance) {
     const fieldReferenceIds = this.fieldSupplementService.getFieldReferenceIds(field);
     const refFields = await this.prismaService.txClient().field.findMany({
-      where: { id: { in: fieldReferenceIds }, deletedTime: null },
+      where: { id: { in: fieldReferenceIds } },
       select: { id: true },
     });
 
@@ -159,7 +159,7 @@ export class FieldOpenApiService {
 
   async restoreReference(references: string[]) {
     const fieldRaws = await this.prismaService.txClient().field.findMany({
-      where: { id: { in: references }, deletedTime: null },
+      where: { id: { in: references } },
     });
 
     for (const refFieldRaw of fieldRaws) {
@@ -271,7 +271,7 @@ export class FieldOpenApiService {
   @Timing()
   async deleteFields(tableId: string, fieldIds: string[], windowId?: string) {
     const fieldRaws = await this.prismaService.field.findMany({
-      where: { tableId, id: { in: fieldIds }, deletedTime: null },
+      where: { tableId, id: { in: fieldIds } },
     });
     const fieldVos = fieldIds
       .map((id) => rawField2FieldObj(fieldRaws.find((raw) => raw.id === id)!))
@@ -331,7 +331,7 @@ export class FieldOpenApiService {
   ) {
     const result = await this.prismaService.field
       .findFirstOrThrow({
-        where: { id: fieldId, deletedTime: null },
+        where: { id: fieldId },
         select: { [key]: true },
       })
       .catch(() => {
@@ -339,7 +339,7 @@ export class FieldOpenApiService {
       });
 
     const hasDuplicated = await this.prismaService.field.findFirst({
-      where: { tableId, [key]: value, deletedTime: null },
+      where: { tableId, [key]: value },
       select: { id: true },
     });
 
@@ -371,7 +371,6 @@ export class FieldOpenApiService {
       const oldField = await this.prismaService.field.findFirstOrThrow({
         where: {
           id: fieldId,
-          deletedTime: null,
         },
         select: {
           dbFieldName: true,
@@ -389,7 +388,7 @@ export class FieldOpenApiService {
     if (updateFieldRo.description !== undefined) {
       const { description } = await this.prismaService.field
         .findFirstOrThrow({
-          where: { id: fieldId, deletedTime: null },
+          where: { id: fieldId },
           select: { description: true },
         })
         .catch(() => {

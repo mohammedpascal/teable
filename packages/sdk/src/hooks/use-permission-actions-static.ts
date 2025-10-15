@@ -59,15 +59,6 @@ const actionsI18nMap: Record<
   'table|export': {
     description: 'permission.actionDescription.tableExport',
   },
-  'table|trash_read': {
-    description: 'permission.actionDescription.tableRead',
-  },
-  'table|trash_update': {
-    description: 'permission.actionDescription.tableUpdate',
-  },
-  'table|trash_reset': {
-    description: 'permission.actionDescription.tableDelete',
-  },
   'table_record_history|read': {
     description: 'permission.actionDescription.recordHistoryRead',
   },

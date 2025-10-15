@@ -37,7 +37,6 @@ export class CollaboratorService {
     const base = await this.prismaService.txClient().base.findFirst({
       where: {
         userId: userId,
-        deletedTime: null,
       },
       select: {
         id: true,
@@ -99,7 +98,6 @@ export class CollaboratorService {
         where: {
           id: resourceId,
           userId: userId,
-          deletedTime: null,
         },
         select: { id: true },
       });
@@ -158,7 +156,6 @@ export class CollaboratorService {
       where: {
         id: baseId,
         userId: userId,
-        deletedTime: null,
       },
       select: { id: true },
     });
@@ -290,7 +287,6 @@ export class CollaboratorService {
       where: {
         id: baseId,
         userId: userId,
-        deletedTime: null,
       },
       select: { id: true },
     });
@@ -558,7 +554,6 @@ export class CollaboratorService {
     const bases = await this.prismaService.txClient().base.findMany({
       where: {
         id: { in: baseIds },
-        deletedTime: null,
       },
     });
     return bases.map((base) => ({
@@ -574,7 +569,6 @@ export class CollaboratorService {
     const users = await this.prismaService.txClient().user.findMany({
       where: {
         id: { in: userIds },
-        deletedTime: null,
       },
       select: {
         id: true,

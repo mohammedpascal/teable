@@ -46,7 +46,6 @@ export class AttachmentsStorageService {
     const attachment = await this.prismaService.txClient().attachments.findMany({
       where: {
         token: isArray ? { in: token } : token,
-        deletedTime: null,
       },
       select: {
         path: true,

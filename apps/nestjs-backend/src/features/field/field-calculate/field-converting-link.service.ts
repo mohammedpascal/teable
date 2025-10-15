@@ -40,7 +40,7 @@ export class FieldConvertingLinkService {
   private async symLinkRelationshipChange(newField: LinkFieldDto) {
     // field options has been modified but symmetricFieldId not change
     const fieldRaw = await this.prismaService.txClient().field.findFirstOrThrow({
-      where: { id: newField.options.symmetricFieldId, deletedTime: null },
+      where: { id: newField.options.symmetricFieldId },
     });
 
     const newFieldVo = rawField2FieldObj(fieldRaw);
@@ -189,7 +189,6 @@ export class FieldConvertingLinkService {
     const lookupRelatedFields = await this.prismaService.txClient().field.findMany({
       where: {
         lookupLinkedFieldId: { in: linkFieldIds },
-        deletedTime: null,
       },
       select: { id: true },
     });
@@ -299,7 +298,7 @@ export class FieldConvertingLinkService {
     const fieldId = newField.id;
     const foreignTableId = newField.options.foreignTableId;
     const lookupFieldRaw = await this.prismaService.txClient().field.findFirstOrThrow({
-      where: { id: newField.options.lookupFieldId, deletedTime: null },
+      where: { id: newField.options.lookupFieldId },
     });
     const lookupField = createFieldInstanceByRaw(lookupFieldRaw);
 

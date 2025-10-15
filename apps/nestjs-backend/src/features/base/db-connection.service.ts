@@ -53,7 +53,7 @@ export class DbConnectionService {
       // Verify if the base exists and if the user is the owner
       await prisma.base
         .findFirstOrThrow({
-          where: { id: baseId, deletedTime: null },
+          where: { id: baseId },
         })
         .catch(() => {
           throw new BadRequestException('Only the base owner can remove a db connection');
@@ -125,7 +125,7 @@ export class DbConnectionService {
 
     // Check if the base exists and the user is the owner
     const base = await this.prismaService.base.findFirst({
-      where: { id: baseId, deletedTime: null },
+      where: { id: baseId },
       select: { id: true, schemaPass: true },
     });
 
@@ -198,7 +198,7 @@ export class DbConnectionService {
       return this.prismaService.$tx(async (prisma) => {
         await prisma.base
           .findFirstOrThrow({
-            where: { id: baseId, deletedTime: null },
+            where: { id: baseId },
           })
           .catch(() => {
             throw new BadRequestException('only base owner can public db connection');

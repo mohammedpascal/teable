@@ -147,7 +147,7 @@ export class InvitationService {
 
     const base = await this.prismaService.base.findFirst({
       select: { name: true },
-      where: { id: baseId, deletedTime: null },
+      where: { id: baseId },
     });
     if (!base) {
       throw new BadRequestException('Base not found');
@@ -231,13 +231,12 @@ export class InvitationService {
     resourceId: string;
     resourceType: CollaboratorType;
   }) {
-    await this.prismaService.invitation.update({
+    await this.prismaService.invitation.delete({
       where: {
         id: invitationId,
         type: 'link',
         baseId: resourceId,
       },
-      data: { deletedTime: new Date().toISOString() },
     });
   }
 
@@ -282,7 +281,6 @@ export class InvitationService {
       where: {
         baseId: resourceId,
         type: 'link',
-        deletedTime: null,
       },
     });
     return data.map(({ id, role, createdBy, createdTime, invitationCode }) => ({
@@ -305,7 +303,6 @@ export class InvitationService {
     const linkInvitation = await this.prismaService.invitation.findFirst({
       where: {
         id: invitationId,
-        deletedTime: null,
       },
     });
     if (!linkInvitation) {
@@ -329,7 +326,7 @@ export class InvitationService {
     await this.prismaService
       .txClient()
       .base.findUniqueOrThrow({
-        where: { id: baseId, deletedTime: null },
+        where: { id: baseId },
       })
       .catch(() => {
         throw new NotFoundException(`base ${baseId} not found`);

@@ -71,7 +71,6 @@ export class TableIndexService {
     const fieldsRaw = await this.prismaService.field.findMany({
       where: {
         tableId,
-        deletedTime: null,
       },
     });
 
@@ -122,7 +121,7 @@ export class TableIndexService {
 
   async deleteSearchFieldIndex(tableId: string, field: IFieldInstance) {
     const tableRaw = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
     const { dbTableName } = tableRaw;
@@ -135,7 +134,7 @@ export class TableIndexService {
 
   async createSearchFieldSingleIndex(tableId: string, fieldInstance: IFieldInstance) {
     const tableRaw = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
     const { dbTableName } = tableRaw;
@@ -152,7 +151,7 @@ export class TableIndexService {
     newField: Pick<IFieldInstance, 'id' | 'dbFieldName'>
   ) {
     const tableRaw = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
     const { dbTableName } = tableRaw;
@@ -167,7 +166,7 @@ export class TableIndexService {
 
   async getIndexInfo(tableId: string) {
     const tableRaw = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
     const { dbTableName } = tableRaw;
@@ -184,7 +183,6 @@ export class TableIndexService {
     const fieldsRaw = await this.prismaService.field.findMany({
       where: {
         tableId,
-        deletedTime: null,
       },
     });
 
@@ -218,7 +216,6 @@ export class TableIndexService {
     const tableRaw = await this.prismaService.tableMeta.findFirstOrThrow({
       where: {
         id: tableId,
-        deletedTime: null,
       },
       select: {
         dbTableName: true,
@@ -228,7 +225,6 @@ export class TableIndexService {
     const fieldsRaw = await this.prismaService.field.findMany({
       where: {
         tableId,
-        deletedTime: null,
       },
     });
     const { dbTableName } = tableRaw;

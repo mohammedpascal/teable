@@ -82,14 +82,12 @@ export class TableDuplicateService {
         const viewPlain = await this.prismaService.txClient().view.findMany({
           where: {
             tableId: newTableVo.id,
-            deletedTime: null,
           },
         });
 
         const fieldPlain = await this.prismaService.txClient().field.findMany({
           where: {
             tableId: newTableVo.id,
-            deletedTime: null,
           },
         });
 
@@ -226,7 +224,7 @@ export class TableDuplicateService {
 
   private async duplicateFields(sourceTableId: string, targetTableId: string) {
     const fieldsRaw = await this.prismaService.txClient().field.findMany({
-      where: { tableId: sourceTableId, deletedTime: null },
+      where: { tableId: sourceTableId },
     });
     const fieldsInstances = fieldsRaw.map((f) => createFieldInstanceByRaw(f));
     const sourceToTargetFieldMap: Record<string, string> = {};
@@ -298,7 +296,6 @@ export class TableDuplicateService {
     const { dbTableName } = await this.prismaService.txClient().tableMeta.findUniqueOrThrow({
       where: {
         id: targetTableId,
-        deletedTime: null,
       },
       select: {
         dbTableName: true,
@@ -588,7 +585,6 @@ export class TableDuplicateService {
     const { type: mockType } = await this.prismaService.txClient().field.findUniqueOrThrow({
       where: {
         id: mockFieldId,
-        deletedTime: null,
       },
       select: {
         type: true,
@@ -764,7 +760,7 @@ export class TableDuplicateService {
     sourceToTargetFieldMap: Record<string, string>
   ) {
     const views = await this.prismaService.view.findMany({
-      where: { tableId: sourceTableId, deletedTime: null },
+      where: { tableId: sourceTableId },
     });
     const viewsWithoutPlugin = views.filter((v) => v.type !== ViewType.Plugin);
     const pluginViews = views.filter(({ type }) => type === ViewType.Plugin);
@@ -921,7 +917,6 @@ export class TableDuplicateService {
     const fieldRaw = await this.prismaService.txClient().field.findMany({
       where: {
         tableId: targetTableId,
-        deletedTime: null,
       },
     });
 

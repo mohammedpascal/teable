@@ -424,7 +424,7 @@ export class ReferenceService {
     // when link cell change, we need to get all lookup field
     if (linkFieldIds.length) {
       const lookupFieldRaw = await this.prismaService.txClient().field.findMany({
-        where: { lookupLinkedFieldId: { in: linkFieldIds }, deletedTime: null, hasError: null },
+        where: { lookupLinkedFieldId: { in: linkFieldIds }, hasError: null },
         select: { id: true, lookupLinkedFieldId: true },
       });
       lookupFieldRaw.forEach(
@@ -740,7 +740,7 @@ export class ReferenceService {
       .flat();
 
     const fieldRaws = await this.prismaService.txClient().field.findMany({
-      where: { id: { in: fieldIds }, deletedTime: null },
+      where: { id: { in: fieldIds } },
     });
 
     return fieldRaws.reduce<{ [fieldId: string]: IFieldInstance }>((pre, f) => {
@@ -752,7 +752,7 @@ export class ReferenceService {
   async createAuxiliaryData(allFieldIds: string[]) {
     const prisma = this.prismaService.txClient();
     const fieldRaws = await prisma.field.findMany({
-      where: { id: { in: allFieldIds }, deletedTime: null },
+      where: { id: { in: allFieldIds } },
     });
 
     // if a field that has been looked up  has changed, the link field should be retrieved as context
@@ -764,7 +764,7 @@ export class ReferenceService {
     );
 
     const extraLinkFieldRaws = await prisma.field.findMany({
-      where: { id: { in: extraLinkFieldIds }, deletedTime: null },
+      where: { id: { in: extraLinkFieldIds } },
     });
 
     fieldRaws.push(...extraLinkFieldRaws);

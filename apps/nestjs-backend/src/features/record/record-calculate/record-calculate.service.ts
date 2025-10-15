@@ -251,7 +251,6 @@ export class RecordCalculateService {
     const usersRaw = await this.prismaService.txClient().user.findMany({
       where: {
         id: { in: userIds },
-        deletedTime: null,
       },
       select: {
         id: true,
@@ -313,7 +312,7 @@ export class RecordCalculateService {
     });
 
     const fieldRaws = await this.prismaService.txClient().field.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: {
         id: true,
         name: true,

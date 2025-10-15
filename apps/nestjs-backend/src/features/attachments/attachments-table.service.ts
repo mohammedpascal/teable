@@ -20,7 +20,7 @@ export class AttachmentsTableService {
 
   private async getAttachmentFields(tableId: string) {
     return await this.prismaService.txClient().field.findMany({
-      where: { tableId, type: FieldType.Attachment, isLookup: null, deletedTime: null },
+      where: { tableId, type: FieldType.Attachment, isLookup: null },
       select: { id: true },
     });
   }

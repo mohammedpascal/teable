@@ -23,12 +23,12 @@ export class LinkIntegrityService {
 
   async linkIntegrityCheck(baseId: string): Promise<IIntegrityCheckVo> {
     const tables = await this.prismaService.tableMeta.findMany({
-      where: { baseId, deletedTime: null },
+      where: { baseId },
       select: {
         id: true,
         name: true,
         fields: {
-          where: { type: FieldType.Link, isLookup: null, deletedTime: null },
+          where: { type: FieldType.Link, isLookup: null },
         },
       },
     });
@@ -60,8 +60,7 @@ export class LinkIntegrityService {
       const table = await this.prismaService.tableMeta.findFirst({
         where: {
           id: field.tableId,
-          deletedTime: null,
-          base: { deletedTime: null },
+          base: {},
         },
         select: { id: true, name: true, baseId: true },
       });
@@ -77,7 +76,7 @@ export class LinkIntegrityService {
       });
 
       const base = await this.prismaService.base.findFirstOrThrow({
-        where: { id: table.baseId, deletedTime: null },
+        where: { id: table.baseId },
         select: { id: true, name: true },
       });
 
@@ -112,7 +111,7 @@ export class LinkIntegrityService {
       const options = JSON.parse(field.options as string) as ILinkFieldOptions;
 
       const foreignTable = await this.prismaService.tableMeta.findFirst({
-        where: { id: options.foreignTableId, deletedTime: null },
+        where: { id: options.foreignTableId },
         select: { id: true, baseId: true, dbTableName: true },
       });
 
@@ -162,7 +161,7 @@ export class LinkIntegrityService {
 
       if (options.symmetricFieldId) {
         const symmetricField = await this.prismaService.field.findFirst({
-          where: { id: options.symmetricFieldId, deletedTime: null },
+          where: { id: options.symmetricFieldId },
         });
 
         if (!symmetricField) {
@@ -240,7 +239,7 @@ export class LinkIntegrityService {
     fieldId: string
   ): Promise<IIntegrityIssue | undefined> {
     const field = await this.prismaService.field.findFirstOrThrow({
-      where: { id: fieldId, deletedTime: null },
+      where: { id: fieldId },
     });
 
     const options = JSON.parse(field.options as string) as ILinkFieldOptions;

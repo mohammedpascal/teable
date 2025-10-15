@@ -193,7 +193,6 @@ export class RecordOpenApiService {
       where: {
         tableId,
         [fieldKeyType]: { in: usedFieldIdsOrNames },
-        deletedTime: null,
       },
     });
 
@@ -524,7 +523,6 @@ export class RecordOpenApiService {
       .field.findFirstOrThrow({
         where: {
           id: fieldId,
-          deletedTime: null,
         },
         select: {
           id: true,

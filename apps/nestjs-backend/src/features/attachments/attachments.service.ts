@@ -81,7 +81,7 @@ export class AttachmentsService {
     } else {
       const attachment = await this.prismaService
         .txClient()
-        .attachments.findUnique({ where: { token: tokenInPath, deletedTime: null } });
+        .attachments.findUnique({ where: { token: tokenInPath } });
       if (!attachment) {
         throw new BadRequestException(`Invalid path: ${path}`);
       }

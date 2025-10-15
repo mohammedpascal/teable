@@ -218,7 +218,7 @@ export class RecordService {
     const [fieldId, recordId] = filterLinkCellSelected;
     const fieldRaw = await prisma.field
       .findFirstOrThrow({
-        where: { id: fieldId, deletedTime: null },
+        where: { id: fieldId },
       })
       .catch(() => {
         throw new NotFoundException(`Field ${fieldId} not found`);
@@ -268,7 +268,7 @@ export class RecordService {
 
     const fieldRaw = await prisma.field
       .findFirstOrThrow({
-        where: { id: fieldId, deletedTime: null },
+        where: { id: fieldId },
       })
       .catch(() => {
         throw new NotFoundException(`Field ${fieldId} not found`);
@@ -322,7 +322,7 @@ export class RecordService {
 
     const fieldRaw = await prisma.field
       .findFirstOrThrow({
-        where: { id: fieldId, deletedTime: null },
+        where: { id: fieldId },
       })
       .catch(() => {
         throw new NotFoundException(`Field ${fieldId} not found`);
@@ -395,7 +395,7 @@ export class RecordService {
       .txClient()
       .view.findFirstOrThrow({
         select: { id: true, type: true, filter: true, sort: true, group: true, columnMeta: true },
-        where: { tableId, id: viewId, deletedTime: null },
+        where: { tableId, id: viewId },
       })
       .catch(() => {
         throw new NotFoundException(`View ${viewId} not found`);
@@ -619,7 +619,7 @@ export class RecordService {
 
     const fieldKeyType = query.fieldKeyType || FieldKeyType.Name;
     const view = await this.prismaService.txClient().view.findFirstOrThrow({
-      where: { id: viewId, deletedTime: null },
+      where: { id: viewId },
       select: { id: true, columnMeta: true },
     });
 
@@ -632,7 +632,7 @@ export class RecordService {
     }
 
     const fieldIdOrNames = await this.prismaService.txClient().field.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { id: true, name: true },
     });
 
@@ -915,7 +915,7 @@ export class RecordService {
     }
 
     const table = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
 
@@ -957,7 +957,7 @@ export class RecordService {
     const maxRecordOrder = await this.getMaxRecordOrder(dbTableName);
 
     const views = await this.prismaService.txClient().view.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { id: true },
     });
 
@@ -1055,7 +1055,7 @@ export class RecordService {
     }
 
     const fields = await this.prismaService.txClient().field.findMany({
-      where: { tableId, ...whereParams, deletedTime: null },
+      where: { tableId, ...whereParams },
     });
 
     return fields.map((field) => createFieldInstanceByRaw(field));
@@ -1257,7 +1257,7 @@ export class RecordService {
     });
 
     const primaryFieldRaw = await this.prismaService.txClient().field.findFirstOrThrow({
-      where: { tableId, isPrimary: true, deletedTime: null },
+      where: { tableId, isPrimary: true },
     });
 
     const primaryField = createFieldInstanceByRaw(primaryFieldRaw);
@@ -1367,7 +1367,7 @@ export class RecordService {
     if (viewId) {
       const { columnMeta: viewColumnRawMeta } =
         (await this.prismaService.view.findUnique({
-          where: { id: viewId, deletedTime: null },
+          where: { id: viewId },
           select: { columnMeta: true },
         })) || {};
 
@@ -1454,7 +1454,7 @@ export class RecordService {
     }
 
     const fieldsRaw = await this.prismaService.field.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
     });
     const fieldInstances = fieldsRaw.map((field) => createFieldInstanceByRaw(field));
     const fieldInstanceMap = fieldInstances.reduce(
@@ -1578,7 +1578,7 @@ export class RecordService {
   async getRecordsHeadWithTitles(tableId: string, titles: string[]) {
     const dbTableName = await this.getDbTableName(tableId);
     const field = await this.prismaService.txClient().field.findFirst({
-      where: { tableId, isPrimary: true, deletedTime: null },
+      where: { tableId, isPrimary: true },
     });
     if (!field) {
       throw new BadRequestException(`Could not find primary index ${tableId}`);
@@ -1596,7 +1596,7 @@ export class RecordService {
   async getRecordsHeadWithIds(tableId: string, recordIds: string[]) {
     const dbTableName = await this.getDbTableName(tableId);
     const field = await this.prismaService.txClient().field.findFirst({
-      where: { tableId, isPrimary: true, deletedTime: null },
+      where: { tableId, isPrimary: true },
     });
     if (!field) {
       throw new BadRequestException(`Could not find primary index ${tableId}`);

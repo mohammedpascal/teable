@@ -60,7 +60,6 @@ export class UserInitService implements OnModuleInit {
       },
       where: {
         token: id,
-        deletedTime: null,
       },
     });
     return `/${path}`;

@@ -67,7 +67,6 @@ export class SystemFieldService {
     const fieldsRaw = await this.prismaService.txClient().field.findMany({
       where: {
         tableId,
-        deletedTime: null,
         type: { in: [FieldType.LastModifiedTime, FieldType.LastModifiedBy] },
       },
     });

@@ -138,7 +138,7 @@ export class ImportOpenApiService {
 
     const tableRaw = await this.prismaService.tableMeta
       .findUnique({
-        where: { id: tableId, deletedTime: null },
+        where: { id: tableId },
         select: { name: true },
       })
       .catch(() => {
@@ -146,7 +146,7 @@ export class ImportOpenApiService {
       });
 
     const fieldRaws = await this.prismaService.field.findMany({
-      where: { tableId, deletedTime: null, hasError: null },
+      where: { tableId, hasError: null },
       select: {
         id: true,
         type: true,

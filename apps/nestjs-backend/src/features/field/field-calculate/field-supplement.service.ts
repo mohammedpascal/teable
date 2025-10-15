@@ -91,7 +91,7 @@ export class FieldSupplementService {
     symmetricFieldId: string | undefined
   ) {
     const { baseId } = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { baseId: true },
     });
 
@@ -203,7 +203,7 @@ export class FieldSupplementService {
     if (baseId) {
       await this.prismaService.tableMeta
         .findFirstOrThrow({
-          where: { id: foreignTableId, baseId, deletedTime: null },
+          where: { id: foreignTableId, baseId },
           select: { id: true },
         })
         .catch(() => {
@@ -256,7 +256,7 @@ export class FieldSupplementService {
         ? oldOptions.lookupFieldId
         : (
             await this.prismaService.field.findFirstOrThrow({
-              where: { tableId: foreignTableId, isPrimary: true, deletedTime: null },
+              where: { tableId: foreignTableId, isPrimary: true },
               select: { id: true },
             })
           ).id;
@@ -264,7 +264,7 @@ export class FieldSupplementService {
     if (baseId) {
       await this.prismaService.tableMeta
         .findFirstOrThrow({
-          where: { id: foreignTableId, baseId, deletedTime: null },
+          where: { id: foreignTableId, baseId },
           select: { id: true },
         })
         .catch(() => {
@@ -292,7 +292,7 @@ export class FieldSupplementService {
     // if link target is in the same base, we should not set baseId
     if (baseId) {
       const tableMeta = await this.prismaService.tableMeta.findFirstOrThrow({
-        where: { id: tableId, deletedTime: null },
+        where: { id: tableId },
         select: { id: true, baseId: true },
       });
       if (tableMeta.baseId === baseId) {
@@ -375,7 +375,7 @@ export class FieldSupplementService {
 
     const { linkFieldId, lookupFieldId, foreignTableId } = lookupOptions;
     const linkFieldRaw = await this.prismaService.txClient().field.findFirst({
-      where: { id: linkFieldId, deletedTime: null, type: FieldType.Link },
+      where: { id: linkFieldId, type: FieldType.Link },
       select: { name: true, options: true, isMultipleCellValue: true },
     });
 
@@ -393,7 +393,7 @@ export class FieldSupplementService {
     }
 
     const lookupFieldRaw = await this.prismaService.txClient().field.findFirst({
-      where: { id: lookupFieldId, deletedTime: null },
+      where: { id: lookupFieldId },
     });
 
     if (!lookupFieldRaw) {
@@ -556,7 +556,7 @@ export class FieldSupplementService {
     }
 
     const fieldRaws = await this.prismaService.txClient().field.findMany({
-      where: { id: { in: fieldIds }, deletedTime: null },
+      where: { id: { in: fieldIds } },
     });
 
     const fields = fieldRaws.map((fieldRaw) => createFieldInstanceByRaw(fieldRaw));
@@ -1148,7 +1148,7 @@ export class FieldSupplementService {
 
   private async uniqFieldName(tableId: string, fieldName: string) {
     const fieldRaw = await this.prismaService.txClient().field.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { name: true },
     });
 
@@ -1162,7 +1162,7 @@ export class FieldSupplementService {
 
   private async uniqFieldNames(tableId: string, fieldNames: string[]) {
     const fieldRaw = await this.prismaService.txClient().field.findMany({
-      where: { tableId, deletedTime: null },
+      where: { tableId },
       select: { name: true },
     });
 
@@ -1182,7 +1182,7 @@ export class FieldSupplementService {
 
     const prisma = this.prismaService.txClient();
     const { name: tableName, baseId } = await prisma.tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { name: true, baseId: true },
     });
 
@@ -1389,7 +1389,7 @@ export class FieldSupplementService {
   async deleteLookupFieldReference(linkFieldId: string): Promise<string[]> {
     const prisma = this.prismaService.txClient();
     const fieldsRaw = await prisma.field.findMany({
-      where: { lookupLinkedFieldId: linkFieldId, deletedTime: null },
+      where: { lookupLinkedFieldId: linkFieldId },
       select: { id: true },
     });
 

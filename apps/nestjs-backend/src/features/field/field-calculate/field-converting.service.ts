@@ -352,7 +352,6 @@ export class FieldConvertingService {
     const relatedFieldsRaw = await this.prismaService.field.findMany({
       where: {
         lookupLinkedFieldId: newField.id,
-        deletedTime: null,
       },
     });
 
@@ -449,7 +448,7 @@ export class FieldConvertingService {
     field: MultipleSelectFieldDto
   ): Promise<IOpsMap | undefined> {
     const { dbTableName } = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
 
@@ -507,7 +506,7 @@ export class FieldConvertingService {
     field: SingleSelectFieldDto
   ): Promise<IOpsMap | undefined> {
     const { dbTableName } = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
 
@@ -588,7 +587,7 @@ export class FieldConvertingService {
     field: RatingFieldDto
   ): Promise<IOpsMap | undefined> {
     const { dbTableName } = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
 
@@ -640,7 +639,7 @@ export class FieldConvertingService {
     field: UserFieldDto
   ): Promise<IOpsMap | undefined> {
     const { dbTableName } = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId, deletedTime: null },
+      where: { id: tableId },
       select: { dbTableName: true },
     });
 
