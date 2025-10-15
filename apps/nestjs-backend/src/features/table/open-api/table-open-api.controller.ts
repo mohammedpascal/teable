@@ -144,7 +144,7 @@ export class TableController {
 
   @Delete(':tableId/permanent')
   permanentDeleteTable(@Param('baseId') baseId: string, @Param('tableId') tableId: string) {
-    return this.tableOpenApiService.permanentDeleteTables(baseId, [tableId]);
+    return this.tableOpenApiService.deleteTables(baseId, [tableId]);
   }
 
   @Get(':tableId/permission')

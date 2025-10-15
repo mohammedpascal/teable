@@ -286,7 +286,6 @@ export class NotificationService {
     switch (notifyType) {
       case NotificationTypeEnum.System:
         return { iconUrl: `${origin}/images/favicon/favicon.svg` };
-      case NotificationTypeEnum.Comment:
       case NotificationTypeEnum.CollaboratorCellTag:
       case NotificationTypeEnum.CollaboratorMultiRowTag: {
         const { id, name, avatar } = fromUserSets[fromUserId];
