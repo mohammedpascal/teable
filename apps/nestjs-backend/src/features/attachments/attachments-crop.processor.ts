@@ -4,7 +4,7 @@ import { EventEmitterService } from '../../event-emitter/event-emitter.service';
 import { Events } from '../../event-emitter/events';
 import { AttachmentsStorageService } from '../attachments/attachments-storage.service';
 
-interface IRecordImageJob {
+interface IRecordImageData {
   bucket: string;
   token: string;
   path: string;
@@ -12,11 +12,9 @@ interface IRecordImageJob {
   height?: number | null;
 }
 
-export const ATTACHMENTS_CROP_QUEUE = 'attachments-crop-queue';
-
 @Injectable()
-export class AttachmentsCropQueueProcessor {
-  private logger = new Logger(AttachmentsCropQueueProcessor.name);
+export class AttachmentsCropService {
+  private logger = new Logger(AttachmentsCropService.name);
 
   constructor(
     private readonly prismaService: PrismaService,
@@ -24,15 +22,15 @@ export class AttachmentsCropQueueProcessor {
     private readonly eventEmitterService: EventEmitterService
   ) {}
 
-  public async process(job: { data: IRecordImageJob; queueName: string }) {
-    await this.handleCropImage(job);
+  public async process(data: IRecordImageData) {
+    await this.handleCropImage(data);
     await this.eventEmitterService.emitAsync(Events.CROP_IMAGE_COMPLETE, {
-      token: job.data.token,
+      token: data.token,
     });
   }
 
-  private async handleCropImage(job: { data: IRecordImageJob; queueName: string }) {
-    const { bucket, token, path, mimetype, height } = job.data;
+  private async handleCropImage(data: IRecordImageData) {
+    const { bucket, token, path, mimetype, height } = data;
     if (mimetype.startsWith('image/') && height) {
       const existingThumbnailPath = await this.prismaService.attachments.findUnique({
         where: { token },

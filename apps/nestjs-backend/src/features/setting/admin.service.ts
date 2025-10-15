@@ -7,7 +7,7 @@ import { Response } from 'express';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { Timing } from '../../utils/timing';
-import { AttachmentsCropQueueProcessor } from '../attachments/attachments-crop.processor';
+import { AttachmentsCropService } from '../attachments/attachments-crop.processor';
 import StorageAdapter from '../attachments/plugins/adapter';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AdminService {
   constructor(
     private readonly prismaService: PrismaService,
     @InjectModel('CUSTOM_KNEX') private readonly knex: Knex,
-    private readonly attachmentsCropQueueProcessor: AttachmentsCropQueueProcessor
+    private readonly attachmentsCropService: AttachmentsCropService
   ) {}
 
   async publishPlugin(pluginId: string) {
@@ -62,12 +62,9 @@ export class AdminService {
       }
       total += attachments.length;
       for (const attachment of attachments) {
-        await this.attachmentsCropQueueProcessor.process({
-          data: {
-            ...attachment,
-            bucket: StorageAdapter.getBucket(UploadType.Table),
-          },
-          queueName: 'attachments-crop-queue',
+        await this.attachmentsCropService.process({
+          ...attachment,
+          bucket: StorageAdapter.getBucket(UploadType.Table),
         });
       }
       this.logger.log(`Processed ${attachments.length} attachments`);
