@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PluginProxyModule } from './plugin-proxy.module';
+
 @Module({
-  imports: [PluginProxyModule],
+  imports: [],
   providers: [],
   controllers: [],
 })

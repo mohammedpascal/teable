@@ -14,7 +14,7 @@ export const useSetting = () => {
     disallowSignUp = false,
     disallowSpaceCreation = false,
     disallowSpaceInvitation = false,
-  } = setting ?? {};
+  } = (setting as any) ?? {};
 
   return {
     disallowSignUp,

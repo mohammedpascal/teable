@@ -92,7 +92,7 @@ export const GalleryViewOperators: React.FC<{ disabled?: boolean }> = (props) =>
         filters={view?.filter || null}
         onChange={onFilterChange}
         contentHeader={
-          view.enableShare && (
+          (view as any).enableShare && (
             <div className="flex max-w-full items-center justify-start rounded-t bg-accent px-4 py-2 text-[11px]">
               <Share2 className="mr-4 size-4 shrink-0" />
               <span className="text-muted-foreground">{t('table:toolbar.viewFilterInShare')}</span>

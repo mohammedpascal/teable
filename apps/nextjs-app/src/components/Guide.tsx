@@ -74,7 +74,7 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
           <div className="text-left text-[13px]">
             <Trans
               ns="common"
-              i18nKey="guide.createSpaceTooltipContent"
+              i18nKey="guide.createTableTooltipContent"
               components={{ br: <br /> }}
             />
           </div>

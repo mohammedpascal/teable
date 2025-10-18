@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import type { IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
-import type { IShareViewCollaboratorsRo, UserCollaboratorItem } from '@teable/openapi';
+import type { UserCollaboratorItem } from '@teable/openapi';
 import {
   getBaseCollaboratorList,
-  getShareViewCollaborators,
+  // getShareViewCollaborators,
   GroupPointType,
   PrincipalType,
 } from '@teable/openapi';
 import { ExpandRecorder } from '@teable/sdk/components';
 import { ReactQueryKeys } from '@teable/sdk/config';
-import { ShareViewContext } from '@teable/sdk/context';
+// import { ShareViewContext } from '@teable/sdk/context';
 import {
   useView,
   useFields,
@@ -36,7 +36,8 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as KanbanView | undefined;
   const baseId = useBaseId() as string;
-  const { shareId } = useContext(ShareViewContext) ?? {};
+  // const { shareId } = useContext(ShareViewContext) ?? {};
+  const shareId = undefined; // Temporarily disabled
   const { sort, filter } = view ?? {};
   const permission = useTablePermission();
   const fields = useFields();
@@ -65,18 +66,18 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
 
   const { type, isMultipleCellValue } = stackField ?? {};
 
-  const { data: shareViewCollaborators } = useQuery({
-    queryKey: ReactQueryKeys.shareViewCollaborators(shareId, {
-      type: PrincipalType.User,
-      skip: 0,
-      take: 5000,
-    }),
-    queryFn: ({ queryKey }) =>
-      getShareViewCollaborators(queryKey[1], queryKey[2] as IShareViewCollaboratorsRo).then(
-        (data) => data.data
-      ),
-    enabled: Boolean(shareId && type === FieldType.User && !isMultipleCellValue),
-  });
+  // const { data: shareViewCollaborators } = useQuery({
+  //   queryKey: ReactQueryKeys.shareViewCollaborators(shareId, {
+  //     type: PrincipalType.User,
+  //     skip: 0,
+  //     take: 5000,
+  //   }),
+  //   queryFn: ({ queryKey }) =>
+  //     getShareViewCollaborators(queryKey[1], queryKey[2] as IShareViewCollaboratorsRo).then(
+  //       (data) => data.data
+  //     ),
+  //   enabled: Boolean(shareId && type === FieldType.User && !isMultipleCellValue),
+  // });
 
   const { data: baseCollaborators } = useQuery({
     queryKey: ReactQueryKeys.baseCollaboratorList(baseId, {
@@ -90,9 +91,12 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
     enabled: !shareId && Boolean(baseId && type === FieldType.User && !isMultipleCellValue),
   });
 
-  const userList = shareId
-    ? shareViewCollaborators
-    : (baseCollaborators?.collaborators as UserCollaboratorItem[]);
+  const userList = baseCollaborators?.collaborators?.map(collaborator => ({
+    id: collaborator.userId || '',
+    name: collaborator.userName || '',
+    email: collaborator.email || '',
+    avatar: collaborator.avatar
+  })) as UserCollaboratorItem[] || [];
 
   const kanbanPermission = useMemo(() => {
     return {
@@ -164,13 +168,13 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
 
     if (type === FieldType.User && !isMultipleCellValue && userList) {
       const stackList = userList.map(
-        ({ userId, userName, email, avatar }) =>
-          stackMap[userId] ?? {
-            id: userId,
+        ({ id, name, email, avatar }) =>
+          stackMap[id] ?? {
+            id: id,
             count: 0,
             data: {
-              id: userId,
-              title: userName,
+              id: id,
+              title: name,
               email,
               avatarUrl: avatar,
             },

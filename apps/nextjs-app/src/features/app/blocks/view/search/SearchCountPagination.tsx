@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { ChevronRight, ChevronLeft } from '@teable/icons';
 import type { ISearchIndexByQueryRo, ISearchIndexVo } from '@teable/openapi';
-import { getSearchIndex, getShareViewSearchIndex } from '@teable/openapi';
+import { getSearchIndex } from '@teable/openapi';
 import { type GridView } from '@teable/sdk';
 import { useTableId, useView, useFields, useSearch, useTableListener } from '@teable/sdk/hooks';
 import { Spin } from '@teable/ui-lib/base';
@@ -84,9 +84,7 @@ export const SearchCountPagination = forwardRef<
       filter: view.filter,
     };
 
-    const searchFn = shareView
-      ? (params: ISearchIndexByQueryRo) => getShareViewSearchIndex(view.shareId!, params)
-      : (params: ISearchIndexByQueryRo) => getSearchIndex(tableId!, params);
+    const searchFn = (params: ISearchIndexByQueryRo) => getSearchIndex(tableId!, params);
 
     const result = await searchFn(baseQueryRo);
 

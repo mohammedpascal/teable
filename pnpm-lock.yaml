@@ -607,6 +607,45 @@ importers:
       '@teable/ui-lib':
         specifier: workspace:^
         version: link:../../packages/ui-lib
+      '@univerjs/core':
+        specifier: 0.3.0
+        version: 0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1)
+      '@univerjs/data-validation':
+        specifier: 0.3.0
+        version: 0.3.0(@grpc/grpc-js@1.14.0)(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/engine-formula@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1))(@univerjs/engine-numfmt@0.3.0)(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
+      '@univerjs/design':
+        specifier: 0.3.0
+        version: 0.3.0(clsx@2.1.1)(date-fns@4.1.0)(dayjs@1.11.10)(luxon@3.7.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@univerjs/docs':
+        specifier: 0.3.0
+        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/engine-render@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
+      '@univerjs/docs-ui':
+        specifier: 0.3.0
+        version: 0.3.0(4pm7pex74fae25bugfkgpn2x3m)
+      '@univerjs/engine-formula':
+        specifier: 0.3.0
+        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
+      '@univerjs/engine-render':
+        specifier: 0.3.0
+        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1)
+      '@univerjs/facade':
+        specifier: 0.3.0
+        version: 0.3.0(o2ok3dqcdszbzbqvpghcdsjgqi)
+      '@univerjs/sheets':
+        specifier: 0.3.0
+        version: 0.3.0(@grpc/grpc-js@1.14.0)(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/engine-formula@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1))(@univerjs/engine-numfmt@0.3.0)(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
+      '@univerjs/sheets-data-validation':
+        specifier: 0.3.0
+        version: 0.3.0(vwxhhgcdqk7esggfcju7hpggva)
+      '@univerjs/sheets-formula':
+        specifier: 0.3.0
+        version: 0.3.0(36yktbggfmgsewv2zgv2mey6qi)
+      '@univerjs/sheets-ui':
+        specifier: 0.3.0
+        version: 0.3.0(gc4oriq33ptuh7wb34jkkweckm)
+      '@univerjs/ui':
+        specifier: 0.3.0
+        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/design@0.3.0(clsx@2.1.1)(date-fns@4.1.0)(dayjs@1.11.10)(luxon@3.7.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@univerjs/engine-render@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(clsx@2.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1)(typescript@5.4.3)
       allotment:
         specifier: 1.20.0
         version: 1.20.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -649,6 +688,9 @@ importers:
       i18next:
         specifier: 23.10.1
         version: 23.10.1
+      i18next-resources-to-backend:
+        specifier: 1.2.1
+        version: 1.2.1
       is-port-reachable:
         specifier: 3.1.0
         version: 3.1.0
@@ -659,6 +701,9 @@ importers:
         specifier: 3.1.0
         version: 3.1.0
       lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+      lodash-es:
         specifier: 4.17.21
         version: 4.17.21
       lru-cache:
@@ -851,6 +896,9 @@ importers:
       '@types/sharedb':
         specifier: 3.3.10
         version: 3.3.10
+      '@univerjs/webpack-plugin':
+        specifier: 0.5.1
+        version: 0.5.1(webpack@5.91.0(@swc/core@1.13.5))
       '@vitejs/plugin-react-swc':
         specifier: 3.6.0
         version: 3.6.0(vite@5.4.20(@types/node@20.9.0)(terser@5.44.0))
@@ -1893,157 +1941,6 @@ importers:
       webpack:
         specifier: 5.91.0
         version: 5.91.0(@swc/core@1.13.5)(esbuild@0.20.2)
-
-  plugins:
-    dependencies:
-      '@hookform/resolvers':
-        specifier: 3.3.4
-        version: 3.3.4(react-hook-form@7.51.1(react@18.3.1))
-      '@tanstack/react-query':
-        specifier: 4.36.1
-        version: 4.36.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@teable/common-i18n':
-        specifier: workspace:^
-        version: link:../packages/common-i18n
-      '@teable/core':
-        specifier: workspace:^
-        version: link:../packages/core
-      '@teable/icons':
-        specifier: workspace:^
-        version: link:../packages/icons
-      '@teable/next-themes':
-        specifier: 0.3.5
-        version: 0.3.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@teable/openapi':
-        specifier: workspace:^
-        version: link:../packages/openapi
-      '@teable/sdk':
-        specifier: workspace:^
-        version: link:../packages/sdk
-      '@teable/ui-lib':
-        specifier: workspace:^
-        version: link:../packages/ui-lib
-      '@univerjs/core':
-        specifier: 0.3.0
-        version: 0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1)
-      '@univerjs/data-validation':
-        specifier: 0.3.0
-        version: 0.3.0(@grpc/grpc-js@1.14.0)(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/engine-formula@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1))(@univerjs/engine-numfmt@0.3.0)(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
-      '@univerjs/design':
-        specifier: 0.3.0
-        version: 0.3.0(clsx@2.1.1)(date-fns@4.1.0)(dayjs@1.11.10)(luxon@3.7.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@univerjs/docs':
-        specifier: 0.3.0
-        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/engine-render@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
-      '@univerjs/docs-ui':
-        specifier: 0.3.0
-        version: 0.3.0(4pm7pex74fae25bugfkgpn2x3m)
-      '@univerjs/engine-formula':
-        specifier: 0.3.0
-        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
-      '@univerjs/engine-render':
-        specifier: 0.3.0
-        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1)
-      '@univerjs/facade':
-        specifier: 0.3.0
-        version: 0.3.0(o2ok3dqcdszbzbqvpghcdsjgqi)
-      '@univerjs/sheets':
-        specifier: 0.3.0
-        version: 0.3.0(@grpc/grpc-js@1.14.0)(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/engine-formula@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1))(@univerjs/engine-numfmt@0.3.0)(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(rxjs@7.8.1)
-      '@univerjs/sheets-data-validation':
-        specifier: 0.3.0
-        version: 0.3.0(vwxhhgcdqk7esggfcju7hpggva)
-      '@univerjs/sheets-formula':
-        specifier: 0.3.0
-        version: 0.3.0(36yktbggfmgsewv2zgv2mey6qi)
-      '@univerjs/sheets-ui':
-        specifier: 0.3.0
-        version: 0.3.0(gc4oriq33ptuh7wb34jkkweckm)
-      '@univerjs/ui':
-        specifier: 0.3.0
-        version: 0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(@univerjs/design@0.3.0(clsx@2.1.1)(date-fns@4.1.0)(dayjs@1.11.10)(luxon@3.7.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@univerjs/engine-render@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(@univerjs/rpc@0.3.0(@univerjs/core@0.3.0(@grpc/grpc-js@1.14.0)(react@18.3.1)(rxjs@7.8.1))(rxjs@7.8.1))(clsx@2.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1)(typescript@5.4.3)
-      i18next:
-        specifier: 23.10.1
-        version: 23.10.1
-      i18next-resources-to-backend:
-        specifier: 1.2.1
-        version: 1.2.1
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      lodash-es:
-        specifier: 4.17.21
-        version: 4.17.21
-      lucide-react:
-        specifier: 0.363.0
-        version: 0.363.0(react@18.3.1)
-      next:
-        specifier: 14.2.14
-        version: 14.2.14(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(@playwright/test@1.42.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next-secure-headers:
-        specifier: 2.2.0
-        version: 2.2.0
-      qrcode.react:
-        specifier: 3.1.0
-        version: 3.1.0(react@18.3.1)
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: 18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-hook-form:
-        specifier: 7.51.1
-        version: 7.51.1(react@18.3.1)
-      react-i18next:
-        specifier: 14.1.0
-        version: 14.1.0(i18next@23.10.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-use:
-        specifier: 17.5.1
-        version: 17.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      recharts:
-        specifier: 2.12.3
-        version: 2.12.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      zod:
-        specifier: 3.22.4
-        version: 3.22.4
-      zod-i18n-map:
-        specifier: 2.27.0
-        version: 2.27.0(i18next@23.10.1)(zod@3.22.4)
-    devDependencies:
-      '@types/lodash':
-        specifier: 4.17.0
-        version: 4.17.0
-      '@types/node':
-        specifier: 20.9.0
-        version: 20.9.0
-      '@types/react':
-        specifier: 18.2.69
-        version: 18.2.69
-      '@types/react-dom':
-        specifier: 18.2.22
-        version: 18.2.22
-      '@univerjs/webpack-plugin':
-        specifier: 0.5.1
-        version: 0.5.1(webpack@5.91.0(@swc/core@1.13.5))
-      eslint:
-        specifier: 8.57.0
-        version: 8.57.0
-      eslint-config-next:
-        specifier: 14.2.14
-        version: 14.2.14(eslint@8.57.0)(typescript@5.4.3)
-      postcss:
-        specifier: 8.4.38
-        version: 8.4.38
-      rimraf:
-        specifier: 5.0.5
-        version: 5.0.5
-      tailwindcss:
-        specifier: 3.4.1
-        version: 3.4.1(ts-node@10.9.2(@swc/core@1.13.5)(@types/node@20.9.0)(typescript@5.4.3))
-      typescript:
-        specifier: 5.4.3
-        version: 5.4.3
 
 packages:
 
@@ -35026,7 +34923,7 @@ snapshots:
 
   substyle@9.4.1(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.4.5
+      '@babel/runtime': 7.28.4
       invariant: 2.2.4
       react: 18.3.1
 

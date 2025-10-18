@@ -73,7 +73,7 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
         />
       ) : (
         <Fragment>
-          {view.isLocked && <Lock className="mr-[2px] size-4 shrink-0" />}
+          {'isLocked' in view && (view as any).isLocked && <Lock className="mr-[2px] size-4 shrink-0" />}
           <ViewIcon className="mr-1 size-4 shrink-0" />
         </Fragment>
       )}
@@ -206,15 +206,15 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
                     className="flex justify-start"
                     onClick={(e) => {
                       e.preventDefault();
-                      view.updateLocked(!view.isLocked);
+                      view.updateLocked(!(view as any).isLocked);
                     }}
                   >
-                    {view.isLocked ? (
+                    {(view as any).isLocked ? (
                       <Unlock className="size-3 shrink-0" />
                     ) : (
                       <Lock className="size-3 shrink-0" />
                     )}
-                    {view.isLocked ? t('view.action.unlock') : t('view.action.lock')}
+                    {(view as any).isLocked ? t('view.action.unlock') : t('view.action.lock')}
                   </Button>
                 </>
               )}

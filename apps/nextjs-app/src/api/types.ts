@@ -6051,6 +6051,138 @@ export interface paths {
       };
     };
   };
+  "/base/{baseId}/collaborators": {
+    /** @description List a base collaborator */
+    get: {
+      parameters: {
+        query?: {
+          includeSystem?: boolean | null;
+          skip?: number | null;
+          take?: number | null;
+          search?: string;
+          type?: "user" | "department";
+        };
+        path: {
+          baseId: string;
+        };
+      };
+      responses: {
+        /** @description Successful response, return base collaborator list. */
+        200: {
+          content: {
+            "application/json": {
+              collaborators: ({
+                  /** @enum {string} */
+                  type: "user" | "department";
+                  userId?: string;
+                  userName?: string;
+                  email?: string;
+                  avatar?: string | null;
+                  role: string;
+                  createdTime: string;
+                  resourceType?: string;
+                  isSystem?: boolean;
+                })[];
+              total: number;
+            };
+          };
+        };
+      };
+    };
+    /** @description Delete a base collaborators */
+    delete: {
+      parameters: {
+        query: {
+          principalId: string;
+          principalType: "user" | "department";
+        };
+        path: {
+          baseId: string;
+        };
+      };
+      responses: {
+        /** @description Successful response. */
+        200: {
+          content: never;
+        };
+      };
+    };
+    /** @description Update a base collaborator */
+    patch: {
+      parameters: {
+        path: {
+          invitationId: string;
+          baseId: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            principalId: string;
+            /** @enum {string} */
+            principalType: "user" | "department";
+            /** @enum {string} */
+            role: "creator" | "editor" | "commenter" | "viewer";
+          };
+        };
+      };
+      responses: {
+        /** @description Successful response. */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/base/{baseId}/collaborator": {
+    /** @description Add a collaborator to a base */
+    post: {
+      parameters: {
+        path: {
+          baseId: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            collaborators: ({
+                principalId: string;
+                /** @enum {string} */
+                principalType: "user" | "department";
+              })[];
+            /** @enum {string} */
+            role: "creator" | "editor" | "commenter" | "viewer";
+          };
+        };
+      };
+      responses: {
+        /** @description Successful response. */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/base/shared-base": {
+    get: {
+      responses: {
+        /** @description Returns information about a shared base. */
+        200: {
+          content: {
+            "application/json": {
+              id: string;
+              name: string;
+              icon: string | null;
+              /** @enum {string} */
+              role: "owner" | "creator" | "editor" | "commenter" | "viewer";
+              /** @enum {string} */
+              collaboratorType?: "base";
+            };
+          };
+        };
+      };
+    };
+  };
   "/base/duplicate": {
     /** @description duplicate a base */
     post: {
@@ -9036,11 +9168,10 @@ export interface paths {
         };
       };
       responses: {
-        /** @description Successful response, return the spaceId or baseId of the invitation link. */
+        /** @description Successful response, return the baseId of the invitation link. */
         201: {
           content: {
             "application/json": {
-              spaceId: string | null;
               baseId: string | null;
             };
           };
@@ -9072,7 +9203,7 @@ export interface paths {
                     userAvatarUrl?: string | null;
                   });
                   /** @enum {string} */
-                  notifyType: "system" | "collaboratorCellTag" | "collaboratorMultiRowTag" | "comment";
+                  notifyType: "system" | "collaboratorCellTag" | "collaboratorMultiRowTag";
                   url: string;
                   message: string;
                   isRead: boolean;
@@ -9146,7 +9277,6 @@ export interface paths {
                 name: string;
                 description?: string;
                 scopes: string[];
-                spaceIds?: string[];
                 baseIds?: string[];
                 expiredTime: string;
                 createdTime: string;
@@ -9164,7 +9294,6 @@ export interface paths {
             name: string;
             description?: string;
             scopes: string[];
-            spaceIds?: string[] | null;
             baseIds?: string[] | null;
             /** @example 2024-03-25 */
             expiredTime: string;
@@ -9180,7 +9309,6 @@ export interface paths {
               name: string;
               description?: string;
               scopes: string[];
-              spaceIds?: string[] | null;
               baseIds?: string[] | null;
               expiredTime: string;
               token: string;
@@ -9238,7 +9366,6 @@ export interface paths {
               name: string;
               description?: string;
               scopes: string[];
-              spaceIds?: string[];
               baseIds?: string[];
               expiredTime: string;
               createdTime: string;
@@ -9261,7 +9388,6 @@ export interface paths {
             name: string;
             description?: string;
             scopes: string[];
-            spaceIds?: string[] | null;
             baseIds?: string[] | null;
           };
         };
@@ -9275,7 +9401,6 @@ export interface paths {
               name: string;
               description?: string;
               scopes: string[];
-              spaceIds?: string[];
               baseIds?: string[];
             };
           };
@@ -9441,26 +9566,467 @@ export interface paths {
       };
     };
   };
-  /**
-   *   "zh": {
-   *     "title": "插件标题",
-   *     "description": "插件描述"
-   *   }
-   * }
-   */
-  i18n: Record<string, never>;
-  /** @enum {string} */
-  status: "developing" | "reviewing" | "published";
-  pluginUser?: {
-    id: string;
-    name: string;
-    /** Format: email */
-    email: string;
-    avatar?: string;
+  "/admin/setting": {
+    /** @description Get the instance settings */
+    get: {
+      responses: {
+        /** @description Returns the instance settings. */
+        200: {
+          content: {
+            "application/json": {
+              instanceId: string;
+              disallowSignUp: boolean | null;
+              enableEmailVerification: boolean | null;
+            };
+          };
+        };
+      };
+    };
+    /** @description Get the instance settings */
+    patch: {
+      requestBody?: {
+        content: {
+          "application/json": {
+            disallowSignUp?: boolean;
+            enableEmailVerification?: boolean;
+          };
+        };
+      };
+      responses: {
+        /** @description Update settings successfully. */
+        200: {
+          content: never;
+        };
+      };
+    };
   };
-  createdTime: string;
-  lastModifiedTime: string;
-})[];
+  "/admin/setting/public": {
+    /** @description Get the public instance settings */
+    get: {
+      responses: {
+        /** @description Returns the public instance settings. */
+        200: {
+          content: {
+            "application/json": {
+              instanceId: string;
+              disallowSignUp: boolean | null;
+              enableEmailVerification: boolean | null;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/admin/plugin/{pluginId}/publish": {
+    /** @description Publish a plugin */
+    patch: {
+      parameters: {
+        path: {
+          pluginId: string;
+        };
+      };
+      responses: {
+        /** @description Plugin published successfully. */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/admin/plugin/{pluginId}/unpublish": {
+    /** @description Admin unpublish a plugin */
+    patch: {
+      parameters: {
+        path: {
+          pluginId: string;
+        };
+      };
+      responses: {
+        /** @description Plugin unpublished successfully. */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/base/{baseId}/usage": {
+    /** @description Get usage information for the base */
+    get: {
+      parameters: {
+        path: {
+          baseId: string;
+        };
+      };
+      responses: {
+        /** @description Returns usage information for the base. */
+        200: {
+          content: {
+            "application/json": {
+              limit: {
+                maxRows: number;
+                maxSizeAttachments: number;
+                maxNumDatabaseConnections: number;
+                maxRevisionHistoryDays: number;
+                maxAutomationHistoryDays: number;
+                automationEnable: boolean;
+                auditLogEnable: boolean;
+                adminPanelEnable: boolean;
+                rowColoringEnable: boolean;
+                buttonFieldEnable: boolean;
+                userGroupEnable: boolean;
+                advancedExtensionsEnable: boolean;
+                advancedPermissionsEnable: boolean;
+                passwordRestrictedSharesEnable: boolean;
+                authenticationEnable: boolean;
+                domainVerificationEnable: boolean;
+                organizationEnable: boolean;
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+  "/instance/usage": {
+    /** @description Get usage information for the instance */
+    get: {
+      responses: {
+        /** @description Returns usage information for the instance. */
+        200: {
+          content: {
+            "application/json": {
+              limit: {
+                maxRows: number;
+                maxSizeAttachments: number;
+                maxNumDatabaseConnections: number;
+                maxRevisionHistoryDays: number;
+                maxAutomationHistoryDays: number;
+                automationEnable: boolean;
+                auditLogEnable: boolean;
+                adminPanelEnable: boolean;
+                rowColoringEnable: boolean;
+                buttonFieldEnable: boolean;
+                userGroupEnable: boolean;
+                advancedExtensionsEnable: boolean;
+                advancedPermissionsEnable: boolean;
+                passwordRestrictedSharesEnable: boolean;
+                authenticationEnable: boolean;
+                domainVerificationEnable: boolean;
+                organizationEnable: boolean;
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+  "/oauth/client/{clientId}": {
+    /** @description Get the OAuth application */
+    get: {
+      parameters: {
+        path: {
+          clientId: string;
+        };
+      };
+      responses: {
+        /** @description Returns the OAuth application */
+        200: {
+          content: {
+            "application/json": {
+              clientId: string;
+              name: string;
+              secrets?: {
+                  id: string;
+                  secret: string;
+                  lastUsedTime?: string;
+                }[];
+              scopes?: string[];
+              /** Format: uri */
+              logo?: string;
+              /** Format: uri */
+              homepage: string;
+              redirectUris: string[];
+            };
+          };
+        };
+      };
+    };
+    /** @description Update an OAuth application */
+    put: {
+      parameters: {
+        path: {
+          clientId: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            clientId: string;
+            name: string;
+            secrets?: {
+                id: string;
+                secret: string;
+                lastUsedTime?: string;
+              }[];
+            scopes?: string[];
+            /** Format: uri */
+            logo?: string;
+            /** Format: uri */
+            homepage: string;
+            redirectUris: string[];
+          };
+        };
+      };
+      responses: {
+        /** @description Returns the updated OAuth application */
+        200: {
+          content: {
+            "application/json": {
+              clientId: string;
+              name: string;
+              secrets?: {
+                  id: string;
+                  secret: string;
+                  lastUsedTime?: string;
+                }[];
+              scopes?: string[];
+              /** Format: uri */
+              logo?: string;
+              /** Format: uri */
+              homepage: string;
+              redirectUris: string[];
+            };
+          };
+        };
+      };
+    };
+    /** @description Delete an OAuth application */
+    delete: {
+      parameters: {
+        path: {
+          clientId: string;
+        };
+      };
+      responses: {
+        /** @description OAuth application deleted */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/oauth/client": {
+    /** @description Get the list of OAuth applications */
+    get: {
+      responses: {
+        /** @description Returns the list of OAuth applications */
+        200: {
+          content: {
+            "application/json": {
+                clientId: string;
+                name: string;
+                description?: string;
+                /** Format: uri */
+                logo?: string;
+                /** Format: uri */
+                homepage: string;
+              }[];
+          };
+        };
+      };
+    };
+    /** @description Create a new OAuth application */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": {
+            name: string;
+            description?: string;
+            /** Format: uri */
+            homepage: string;
+            logo?: string;
+            scopes?: (("table|create") | ("table|delete") | ("table|export") | ("table|import") | ("table|read") | ("table|update") | ("view|create") | ("view|delete") | ("view|read") | ("view|update") | ("field|create") | ("field|delete") | ("field|read") | ("field|update") | ("record|comment") | ("record|create") | ("record|delete") | ("record|read") | ("record|update") | ("automation|create") | ("automation|delete") | ("automation|read") | ("automation|update") | ("user|email_read"))[];
+            redirectUris: string[];
+          };
+        };
+      };
+      responses: {
+        /** @description Returns the created OAuth application */
+        201: {
+          content: {
+            "application/json": {
+              clientId: string;
+              name: string;
+              secrets?: {
+                  id: string;
+                  secret: string;
+                  lastUsedTime?: string;
+                }[];
+              scopes?: string[];
+              /** Format: uri */
+              logo?: string;
+              /** Format: uri */
+              homepage: string;
+              redirectUris: string[];
+            };
+          };
+        };
+      };
+    };
+  };
+  "/oauth/client/{clientId}/secret/{secretId}": {
+    /** @description Delete the OAuth secret */
+    delete: {
+      parameters: {
+        path: {
+          secretId: string;
+        };
+      };
+      responses: {
+        /** @description OAuth secret deleted */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/oauth/client/{clientId}/secret": {
+    /** @description Generate a new OAuth secret */
+    post: {
+      parameters: {
+        path: {
+          clientId: string;
+        };
+      };
+      responses: {
+        /** @description Returns the generated OAuth secret */
+        201: {
+          content: {
+            "application/json": {
+              id: string;
+              secret: string;
+              maskedSecret: string;
+              lastUsedTime?: string;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/oauth/decision/{transactionId}": {
+    /** @description Get the OAuth application */
+    get: {
+      parameters: {
+        path: {
+          transactionId: string;
+        };
+      };
+      responses: {
+        /** @description Returns the OAuth application */
+        200: {
+          content: {
+            "application/json": {
+              name: string;
+              description?: string;
+              /** Format: uri */
+              homepage: string;
+              /** Format: uri */
+              logo?: string;
+              scopes?: string[];
+            };
+          };
+        };
+      };
+    };
+  };
+  "/oauth/client/{clientId}/revoke-access": {
+    post: {
+      parameters: {
+        path: {
+          clientId: string;
+        };
+      };
+      responses: {
+        /** @description Revoke access permission successfully */
+        201: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/oauth/client/authorized/list": {
+    /** @description Get the list of authorized applications */
+    get: {
+      responses: {
+        /** @description Returns the list of authorized applications */
+        200: {
+          content: {
+            "application/json": {
+                clientId: string;
+                name: string;
+                /** Format: uri */
+                homepage: string;
+                /** Format: uri */
+                logo?: string;
+                description?: string;
+                scopes?: string[];
+                lastUsedTime?: string;
+                createdUser: {
+                  name: string;
+                  /** Format: email */
+                  email: string;
+                };
+              }[];
+          };
+        };
+      };
+    };
+  };
+  "/plugin": {
+    /** @description Get plugins */
+    get: {
+      responses: {
+        /** @description Returns data about the plugins. */
+        200: {
+          content: {
+            "application/json": ({
+                id: string;
+                name: string;
+                description?: string;
+                detailDesc?: string;
+                logo: string;
+                url?: string;
+                helpUrl?: string;
+                positions: ("dashboard" | "view" | "contextMenu" | "panel")[];
+                /**
+                 * @example {
+                 *   "en": {
+                 *     "title": "Plugin title",
+                 *     "description": "Plugin description"
+                 *   },
+                 *   "zh": {
+                 *     "title": "插件标题",
+                 *     "description": "插件描述"
+                 *   }
+                 * }
+                 */
+                i18n: Record<string, never>;
+                /** @enum {string} */
+                status: "developing" | "reviewing" | "published";
+                pluginUser?: {
+                  id: string;
+                  name: string;
+                  /** Format: email */
+                  email: string;
+                  avatar?: string;
+                };
+                createdTime: string;
+                lastModifiedTime: string;
+              })[];
+          };
+        };
+      };
+    };
     /** @description Create a plugin */
     post: {
       requestBody?: {
@@ -9936,466 +10502,6 @@ export interface paths {
         /** @description Plugin unpublished successfully. */
         200: {
           content: never;
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/{recordId}/{commentId}/reaction": {
-    /** @description create record comment reaction */
-    post: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-          commentId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            reaction: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Successfully create comment reaction. */
-        201: {
-          content: never;
-        };
-      };
-    };
-    /** @description delete record comment reaction */
-    delete: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-          commentId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            reaction: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Successfully delete comment reaction. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/{recordId}/{commentId}": {
-    /** @description Get record comment detail */
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the record's comment detail */
-        200: {
-          content: {
-            "application/json": ({
-                id: string;
-                content: (({
-                    /** @enum {string} */
-                    type: "p";
-                    value?: unknown;
-                    children: ({
-                        /** @enum {string} */
-                        type: "span";
-                        value: string;
-                      } | {
-                        /** @enum {string} */
-                        type: "mention";
-                        value: string;
-                        name?: string;
-                        avatar?: string;
-                      } | {
-                        /** @enum {string} */
-                        type: "a";
-                        value?: unknown;
-                        url: string;
-                        title: string;
-                      })[];
-                  }) | {
-                    /** @enum {string} */
-                    type: "img";
-                    value?: unknown;
-                    path: string;
-                    width?: number;
-                    url?: string;
-                  })[];
-                createdBy: {
-                  id: string;
-                  name: string;
-                  avatar?: string;
-                };
-                reaction?: {
-                    reaction: string;
-                    user: {
-                        id: string;
-                        name: string;
-                        avatar?: string;
-                      }[];
-                  }[] | null;
-                createdTime: string;
-                lastModifiedTime?: string;
-                quoteId?: string;
-                deletedTime?: string;
-              })[];
-          };
-        };
-      };
-    };
-    /** @description delete record comment */
-    delete: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-          commentId: string;
-        };
-      };
-      responses: {
-        /** @description Successfully delete comment. */
-        200: {
-          content: never;
-        };
-      };
-    };
-    /** @description update record comment */
-    patch: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-          commentId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            content: (({
-                /** @enum {string} */
-                type: "p";
-                value?: unknown;
-                children: ({
-                    /** @enum {string} */
-                    type: "span";
-                    value: string;
-                  } | {
-                    /** @enum {string} */
-                    type: "mention";
-                    value: string;
-                    name?: string;
-                    avatar?: string;
-                  } | {
-                    /** @enum {string} */
-                    type: "a";
-                    value?: unknown;
-                    url: string;
-                    title: string;
-                  })[];
-              }) | {
-                /** @enum {string} */
-                type: "img";
-                value?: unknown;
-                path: string;
-                width?: number;
-                url?: string;
-              })[];
-          };
-        };
-      };
-      responses: {
-        /** @description Successfully update comment. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/{recordId}/list": {
-    /** @description Get record comment list */
-    get: {
-      parameters: {
-        query?: {
-          take?: string | number;
-          cursor?: string | null;
-          includeCursor?: boolean | ("true" | "false");
-          direction?: "forward" | "backward";
-        };
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the list of record's comment */
-        200: {
-          content: {
-            "application/json": {
-              comments: ({
-                  id: string;
-                  content: (({
-                      /** @enum {string} */
-                      type: "p";
-                      value?: unknown;
-                      children: ({
-                          /** @enum {string} */
-                          type: "span";
-                          value: string;
-                        } | {
-                          /** @enum {string} */
-                          type: "mention";
-                          value: string;
-                          name?: string;
-                          avatar?: string;
-                        } | {
-                          /** @enum {string} */
-                          type: "a";
-                          value?: unknown;
-                          url: string;
-                          title: string;
-                        })[];
-                    }) | {
-                      /** @enum {string} */
-                      type: "img";
-                      value?: unknown;
-                      path: string;
-                      width?: number;
-                      url?: string;
-                    })[];
-                  createdBy: {
-                    id: string;
-                    name: string;
-                    avatar?: string;
-                  };
-                  reaction?: {
-                      reaction: string;
-                      user: {
-                          id: string;
-                          name: string;
-                          avatar?: string;
-                        }[];
-                    }[] | null;
-                  createdTime: string;
-                  lastModifiedTime?: string;
-                  quoteId?: string;
-                  deletedTime?: string;
-                })[];
-              nextCursor?: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/{recordId}/create": {
-    /** @description create record comment */
-    post: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            quoteId?: string | null;
-            content: (({
-                /** @enum {string} */
-                type: "p";
-                value?: unknown;
-                children: ({
-                    /** @enum {string} */
-                    type: "span";
-                    value: string;
-                  } | {
-                    /** @enum {string} */
-                    type: "mention";
-                    value: string;
-                    name?: string;
-                    avatar?: string;
-                  } | {
-                    /** @enum {string} */
-                    type: "a";
-                    value?: unknown;
-                    url: string;
-                    title: string;
-                  })[];
-              }) | {
-                /** @enum {string} */
-                type: "img";
-                value?: unknown;
-                path: string;
-                width?: number;
-                url?: string;
-              })[];
-          };
-        };
-      };
-      responses: {
-        /** @description Successfully create comment. */
-        201: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/{recordId}/subscribe": {
-    /** @description get record comment subscribe detail */
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      responses: {
-        /** @description Successfully get record comment subscribe detail. */
-        200: {
-          content: {
-            "application/json": {
-              tableId: string;
-              recordId: string;
-              createdBy: string;
-            } | null;
-          };
-        };
-      };
-    };
-    /** @description subscribe record comment's active */
-    post: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      responses: {
-        /** @description Successfully subscribe record comment. */
-        201: {
-          content: never;
-        };
-      };
-    };
-    /** @description unsubscribe record comment */
-    delete: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      responses: {
-        /** @description Successfully subscribe record comment. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/{recordId}/attachment/{path}": {
-    /** @description Get record comment attachment url */
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the record's comment attachment url */
-        200: {
-          content: {
-            "application/json": string;
-          };
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/count": {
-    /** @description Get record comment counts by query */
-    get: {
-      parameters: {
-        query?: {
-          projection?: string[];
-          cellFormat?: "json" | "text";
-          fieldKeyType?: "id" | "name";
-          viewId?: string;
-          ignoreViewQuery?: string | boolean;
-          filterByTql?: string;
-          filter?: string;
-          search?: string[] | ((string | (string | boolean))[]);
-          filterLinkCellCandidate?: string[] | string;
-          filterLinkCellSelected?: string[] | string;
-          selectedRecordIds?: string[];
-          orderBy?: string;
-          groupBy?: string;
-          collapsedGroupIds?: string[];
-          take?: string | number;
-          skip?: string | number;
-        };
-        path: {
-          tableId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the comment counts by query */
-        200: {
-          content: {
-            "application/json": {
-                recordId: string;
-                count: number;
-              }[];
-          };
-        };
-      };
-    };
-  };
-  "/comment/{tableId}/{recordId}/count": {
-    /** @description Get record comment count */
-    get: {
-      parameters: {
-        query?: {
-          projection?: string[];
-          cellFormat?: "json" | "text";
-          fieldKeyType?: "id" | "name";
-          viewId?: string;
-          ignoreViewQuery?: string | boolean;
-          filterByTql?: string;
-          filter?: string;
-          search?: string[] | ((string | (string | boolean))[]);
-          filterLinkCellCandidate?: string[] | string;
-          filterLinkCellSelected?: string[] | string;
-          selectedRecordIds?: string[];
-          orderBy?: string;
-          groupBy?: string;
-          collapsedGroupIds?: string[];
-          take?: string | number;
-          skip?: string | number;
-        };
-        path: {
-          tableId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the comment count by query */
-        200: {
-          content: {
-            "application/json": {
-              count: number;
-            };
-          };
         };
       };
     };

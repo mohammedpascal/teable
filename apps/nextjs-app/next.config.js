@@ -4,6 +4,8 @@ const { readFileSync } = require('node:fs');
 const path = require('node:path');
 const { createSecureHeaders } = require('next-secure-headers');
 const pc = require('picocolors');
+// @ts-ignore - UniverPlugin doesn't have proper type declarations
+const { UniverPlugin } = require('@univerjs/webpack-plugin');
 
 const workspaceRoot = path.resolve(__dirname, '..', '..');
 /**
@@ -247,6 +249,9 @@ const nextConfig = {
         __SENTRY_TRACING__: NEXT_BUILD_ENV_SENTRY_TRACING,
       })
     );
+
+    // Add UniverPlugin for spreadsheet functionality
+    config.plugins.push(new UniverPlugin());
 
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find(

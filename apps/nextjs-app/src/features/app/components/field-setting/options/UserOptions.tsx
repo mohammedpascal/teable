@@ -59,12 +59,18 @@ export const UserOptions = (props: {
     options: IUserFieldOptions
   ): IUserCellValue | IUserCellValue[] | undefined => {
     if (!options.defaultValue || !collaborators) return undefined;
+    const transformedCollaborators = collaborators.map(collaborator => ({
+      userName: collaborator.userName || '',
+      userId: collaborator.userId || '',
+      email: collaborator.email || '',
+      avatar: collaborator.avatar
+    }));
     const userMap = keyBy<{
       userName: string;
       userId: string;
       email: string;
       avatar?: string | null;
-    }>(collaborators, 'userId');
+    }>(transformedCollaborators, 'userId');
     userMap['me'] = {
       userName: t('sdk:filter.currentUser'),
       userId: 'me',

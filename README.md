@@ -123,7 +123,7 @@ More features coming soon, see our <a target="_blank" href="https://app.teable.i
 ```
 .
 ├── apps (AGPL 3.0) 
-│   ├── nextjs-app          (front-end)
+│   ├── nextjs-app          (front-end + plugins)
 │   └── nestjs-backend      (backend)
 ├── packages (MIT)
 │   ├── common-i18n         (locales)
@@ -132,7 +132,6 @@ More features coming soon, see our <a target="_blank" href="https://app.teable.i
 │   ├── db-main-prisma      (schema, migrations, prisma client)
 │   ├── eslint-config-bases (to shared eslint configs)
 │   └── ui-lib              (ui component)
-└── plugins (AGPL 3.0)      (custom plugins)
 
 ```
 
@@ -200,16 +199,7 @@ cd apps/nestjs-backend
 pnpm dev
 ```
 
-By default, the plugin development server is not started. To preview and develop plugins, run:
-```sh
-# build packages
-pnpm build:packages
-
-# start plugin development server
-cd plugins
-pnpm dev
-```
-This will start the plugin development server on port 3002.
+Plugins are now integrated into the main application and will be available automatically when you start the backend server.
 
 
 ## Why Teable?

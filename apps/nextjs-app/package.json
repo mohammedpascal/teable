@@ -88,7 +88,8 @@
     "typescript": "5.4.3",
     "vite-plugin-svgr": "4.2.0",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "2.1.5"
+    "vitest": "2.1.5",
+    "@univerjs/webpack-plugin": "0.5.1"
   },
   "dependencies": {
     "@antv/g6": "4.8.24",
@@ -189,6 +190,21 @@
     "zod": "3.22.4",
     "zod-i18n-map": "2.27.0",
     "zod-validation-error": "3.0.3",
-    "zustand": "4.5.2"
+    "zustand": "4.5.2",
+    "@univerjs/core": "0.3.0",
+    "@univerjs/data-validation": "0.3.0",
+    "@univerjs/design": "0.3.0",
+    "@univerjs/docs": "0.3.0",
+    "@univerjs/docs-ui": "0.3.0",
+    "@univerjs/engine-formula": "0.3.0",
+    "@univerjs/engine-render": "0.3.0",
+    "@univerjs/facade": "0.3.0",
+    "@univerjs/sheets": "0.3.0",
+    "@univerjs/sheets-data-validation": "0.3.0",
+    "@univerjs/sheets-formula": "0.3.0",
+    "@univerjs/sheets-ui": "0.3.0",
+    "@univerjs/ui": "0.3.0",
+    "i18next-resources-to-backend": "1.2.1",
+    "lodash-es": "4.17.21"
   }
 }

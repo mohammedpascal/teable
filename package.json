@@ -55,8 +55,7 @@
     "publish:latest:patch": "node ./scripts/publish.mjs patch latest",
     "publish:latest:minor": "node ./scripts/publish.mjs minor latest",
     "publish:latest:major": "node ./scripts/publish.mjs major latest",
-    "prepare": "run-s install:husky",
-    "run:plugin": "pnpm -F '@teable/plugin' dev"
+    "prepare": "run-s install:husky"
   },
   "dependencies": {
     "cross-env": "7.0.3"

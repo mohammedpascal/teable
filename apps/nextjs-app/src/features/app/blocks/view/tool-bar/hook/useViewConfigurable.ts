@@ -5,6 +5,6 @@ export const useViewConfigurable = () => {
   const permission = useTablePermission();
 
   return {
-    isViewConfigurable: !view?.isLocked && permission['view|update'],
+    isViewConfigurable: !(view as any)?.isLocked && permission['view|update'],
   };
 };

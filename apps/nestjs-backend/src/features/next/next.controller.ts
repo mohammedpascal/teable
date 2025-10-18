@@ -31,6 +31,7 @@ export class NextController {
     'developer/?*',
     'public/?*',
     'enterprise/?*',
+    'plugin/?*',
   ])
   public async home(@Req() req: express.Request, @Res() res: express.Response) {
     await this.nextService.server.getRequestHandler()(req, res);
