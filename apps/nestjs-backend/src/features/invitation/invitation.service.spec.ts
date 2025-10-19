@@ -217,7 +217,6 @@ describe('InvitationService', () => {
         type: 'link',
         expiredTime: new Date('2022-01-01'),
         baseId: mockBase.id,
-        spaceId: null,
         createdTime: new Date('2022-01-02'),
         role: Role.Creator,
         createdBy: mockUser.id,
@@ -243,7 +242,6 @@ describe('InvitationService', () => {
         type: 'email',
         expiredTime: null,
         baseId: mockBase.id,
-        spaceId: null,
         createdTime: new Date(),
         role: Role.Creator,
         createdBy: mockUser.id,
@@ -278,7 +276,6 @@ describe('InvitationService', () => {
         async () => await invitationService.acceptInvitationLink(acceptInvitationLinkRo)
       );
       expect(result.baseId).toEqual(mockBase.id);
-      expect(result.spaceId).toEqual(null);
     });
     it('should create collaborator and invitation record', async () => {
       const mockInvitation = {
@@ -287,7 +284,6 @@ describe('InvitationService', () => {
         type: 'link',
         expiredTime: null,
         baseId: mockBase.id,
-        spaceId: null,
         createdTime: new Date('2022-01-02'),
         role: Role.Creator,
         createdBy: 'createdBy',
@@ -328,7 +324,6 @@ describe('InvitationService', () => {
         createdBy: 'createdBy',
       });
       expect(result.baseId).toEqual(mockInvitation.baseId);
-      expect(result.spaceId).toEqual(null);
     });
   });
 });

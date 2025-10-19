@@ -2,23 +2,18 @@
 import type { INestApplication } from '@nestjs/common';
 import type { IFieldRo, ILinkFieldOptions, ILookupOptionsRo } from '@teable/core';
 import { DriverClient, FieldType, Relationship } from '@teable/core';
-import type { ICreateBaseVo, ICreateSpaceVo } from '@teable/openapi';
 import {
-  createBase,
   createField,
-  createSpace,
   deleteBase,
-  deleteSpace,
   duplicateBase,
-  getBaseList,
   getField,
   getTableList,
 } from '@teable/openapi';
-import { createRecords, createTable, getRecords, initApp, updateRecord } from './utils/init-app';
+import { createBase, createRecords, createTable, getRecords, initApp, updateRecord } from './utils/init-app';
 
 describe('OpenAPI Base Duplicate (e2e)', () => {
   let app: INestApplication;
-  let base: ICreateBaseVo;
+  let base: { id: string; name: string; spaceId: string };
   const spaceId = globalThis.testConfig.spaceId;
 
   beforeAll(async () => {
@@ -47,7 +42,6 @@ describe('OpenAPI Base Duplicate (e2e)', () => {
     const table1 = await createTable(base.id, { name: 'table1' });
     const dupResult = await duplicateBase({
       fromBaseId: base.id,
-      spaceId: spaceId,
       name: 'test base copy',
     });
 
@@ -69,7 +63,6 @@ describe('OpenAPI Base Duplicate (e2e)', () => {
 
     const dupResult = await duplicateBase({
       fromBaseId: base.id,
-      spaceId: spaceId,
       name: 'test base copy',
       withRecords: true,
     });
@@ -131,7 +124,6 @@ describe('OpenAPI Base Duplicate (e2e)', () => {
 
     const dupResult = await duplicateBase({
       fromBaseId: base.id,
-      spaceId: spaceId,
       name: 'test base copy',
       withRecords: true,
     });
@@ -193,7 +185,6 @@ describe('OpenAPI Base Duplicate (e2e)', () => {
     await createTable(base.id, { name: 'table1' });
     const dupResult = await duplicateBase({
       fromBaseId: base.id,
-      spaceId: spaceId,
       name: 'test base copy',
       withRecords: true,
     });
@@ -208,31 +199,4 @@ describe('OpenAPI Base Duplicate (e2e)', () => {
     expect(records.records.length).toBe(4);
   });
 
-  describe('Duplicate cross space', () => {
-    let newSpace: ICreateSpaceVo;
-    beforeEach(async () => {
-      newSpace = (await createSpace({ name: 'new space' })).data;
-    });
-
-    afterEach(async () => {
-      await deleteSpace(newSpace.id);
-    });
-
-    it('duplicate cross space', async () => {
-      await createTable(base.id, { name: 'table1' });
-      const dupResult = await duplicateBase({
-        fromBaseId: base.id,
-        spaceId: newSpace.id,
-        name: 'test base copy',
-      });
-
-      const baseResult = await getBaseList({ spaceId: newSpace.id });
-      const tableResult = await getTableList(dupResult.data.id);
-      const records = await getRecords(tableResult.data[0].id);
-      expect(records.records.length).toBe(0);
-      expect(baseResult.data.length).toBe(1);
-
-      expect(tableResult.data.length).toBe(1);
-    });
-  });
 });

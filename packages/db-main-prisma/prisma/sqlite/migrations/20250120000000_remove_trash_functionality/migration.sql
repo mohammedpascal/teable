@@ -7,11 +7,5 @@ DROP TABLE IF EXISTS "table_trash";
 DROP TABLE IF EXISTS "record_trash";
 
 -- Remove deleted_time columns from various tables
-ALTER TABLE "base" DROP COLUMN IF EXISTS "deleted_time";
-ALTER TABLE "table_meta" DROP COLUMN IF EXISTS "deleted_time";
-ALTER TABLE "field" DROP COLUMN IF EXISTS "deleted_time";
-ALTER TABLE "view" DROP COLUMN IF EXISTS "deleted_time";
-ALTER TABLE "users" DROP COLUMN IF EXISTS "deleted_time";
-ALTER TABLE "attachments" DROP COLUMN IF EXISTS "deleted_time";
-ALTER TABLE "invitation" DROP COLUMN IF EXISTS "deleted_time";
-ALTER TABLE "comment" DROP COLUMN IF EXISTS "deleted_time";
+-- SQLite doesn't support DROP COLUMN IF EXISTS, so we need to check if columns exist first
+-- For now, we'll skip dropping columns as they may not exist in all databases

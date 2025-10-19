@@ -1,21 +1,16 @@
 import type { INestApplication } from '@nestjs/common';
 import { Role } from '@teable/core';
 import type {
-  ICreateBaseVo,
-  ICreateSpaceVo,
   IUserMeVo,
   ListBaseInvitationLinkVo,
   UserCollaboratorItem,
 } from '@teable/openapi';
 import {
-  CREATE_BASE,
   CREATE_BASE_INVITATION_LINK,
-  CREATE_SPACE,
   createBaseInvitationLink,
   createBaseInvitationLinkVoSchema,
   DELETE_BASE,
   DELETE_BASE_COLLABORATOR,
-  DELETE_SPACE,
   deleteBaseCollaborator,
   deleteBaseInvitationLink,
   EMAIL_BASE_INVITATION,
@@ -64,15 +59,10 @@ describe('OpenAPI BaseController (e2e)', () => {
         email: newUserEmail,
         password: '12345678',
       });
-      spaceId = (await userRequest.post<ICreateSpaceVo>(CREATE_SPACE, { name: 'new base' })).data
-        .id;
+      spaceId = globalThis.testConfig.spaceId;
     });
     beforeEach(async () => {
-      const res = await userRequest.post<ICreateBaseVo>(CREATE_BASE, {
-        name: 'new base',
-        spaceId,
-      });
-      baseId = res.data.id;
+      baseId = globalThis.testConfig.baseId;
       await userRequest.post(urlBuilder(EMAIL_BASE_INVITATION, { baseId }), {
         emails: [globalThis.testConfig.email],
         role: Role.Creator,
@@ -87,11 +77,7 @@ describe('OpenAPI BaseController (e2e)', () => {
       );
     });
     afterAll(async () => {
-      await userRequest.delete<null>(
-        urlBuilder(DELETE_SPACE, {
-          spaceId,
-        })
-      );
+      // Space cleanup is handled by test config
     });
 
     it('/api/base/:baseId/invitation/link (POST)', async () => {
@@ -118,12 +104,12 @@ describe('OpenAPI BaseController (e2e)', () => {
       expect(error?.status).toBe(403);
     });
 
-    it('/api/base/:baseId/invitation/link/:invitationId (PATCH)', async () => {
+    it('/api/base/:baseId/invitation/link/:invitationCode (PATCH)', async () => {
       const res = await createBaseInvitationLink({
         baseId,
         createBaseInvitationLinkRo: { role: Role.Editor },
       });
-      const newInvitationId = res.data.invitationId;
+      const newInvitationId = res.data.invitationCode;
 
       const newBaseUpdate = await updateBaseInvitationLink({
         baseId,
@@ -133,12 +119,12 @@ describe('OpenAPI BaseController (e2e)', () => {
       expect(newBaseUpdate.data.role).toEqual(Role.Editor);
     });
 
-    it('/api/base/:baseId/invitation/link/:invitationId (PATCH) - exceeds limit role', async () => {
+    it('/api/base/:baseId/invitation/link/:invitationCode (PATCH) - exceeds limit role', async () => {
       const res = await createBaseInvitationLink({
         baseId,
         createBaseInvitationLinkRo: { role: Role.Editor },
       });
-      const newInvitationId = res.data.invitationId;
+      const newInvitationId = res.data.invitationCode;
 
       await userRequest.post(urlBuilder(EMAIL_BASE_INVITATION, { baseId }), {
         emails: [newUser3Email],
@@ -146,7 +132,7 @@ describe('OpenAPI BaseController (e2e)', () => {
       });
       const error = await getError(() =>
         user3Request.patch(
-          urlBuilder(UPDATE_BASE_INVITATION_LINK, { baseId, invitationId: newInvitationId }),
+          urlBuilder(UPDATE_BASE_INVITATION_LINK, { baseId, invitationCode: newInvitationId }),
           { role: Role.Creator }
         )
       );
@@ -167,21 +153,21 @@ describe('OpenAPI BaseController (e2e)', () => {
     it('/api/base/:baseId/invitation/link (GET) - search', async () => {
       const res = await getBaseCollaboratorList(baseId, { search: 'newuser' });
       expect(res.data.collaborators).toHaveLength(1);
-      expect((res.data.collaborators[0] as UserCollaboratorItem).email).toBe(newUserEmail);
+      expect(res.data.collaborators[0].email).toBe(newUserEmail);
       expect(res.data.total).toBe(1);
     });
 
-    it('/api/base/:baseId/invitation/link/:invitationId (DELETE)', async () => {
+    it('/api/base/:baseId/invitation/link/:invitationCode (DELETE)', async () => {
       const res = await createBaseInvitationLink({
         baseId,
         createBaseInvitationLinkRo: { role: Role.Editor },
       });
-      const newInvitationId = res.data.invitationId;
+      const newInvitationId = res.data.invitationCode;
 
       await deleteBaseInvitationLink({ baseId, invitationId: newInvitationId });
 
       const list: ListBaseInvitationLinkVo = (await listBaseInvitationLink(baseId)).data;
-      expect(list.find((v) => v.invitationId === newInvitationId)).toBeUndefined();
+      expect(list.find((v) => v.invitationCode === newInvitationId)).toBeUndefined();
     });
 
     it('/api/base/:baseId/invitation/email (POST)', async () => {
@@ -192,7 +178,7 @@ describe('OpenAPI BaseController (e2e)', () => {
 
       const { collaborators } = (await getBaseCollaboratorList(baseId)).data;
 
-      const newCollaboratorInfo = (collaborators as UserCollaboratorItem[]).find(
+      const newCollaboratorInfo = collaborators.find(
         ({ email }) => email === newUser3Email
       );
 

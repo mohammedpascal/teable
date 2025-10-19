@@ -1,18 +1,16 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import type { IBaseRole } from '@teable/core';
-import { generateDashboardId, generatePluginInstallId, Role } from '@teable/core';
+import { generateDashboardId, Role } from '@teable/core';
 import { PrismaService } from '@teable/db-main-prisma';
-import { CollaboratorType, PluginPosition, PluginStatus, PrincipalType } from '@teable/openapi';
+import { CollaboratorType, PrincipalType } from '@teable/openapi';
 import type {
   ICreateDashboardRo,
-  IDashboardInstallPluginRo,
-  IGetDashboardInstallPluginVo,
   IGetDashboardListVo,
   IGetDashboardVo,
   IUpdateLayoutDashboardRo,
 } from '@teable/openapi';
-import type { IDashboardLayout, IDashboardPluginItem } from '@teable/openapi/src/dashboard/types';
+import type { IDashboardLayout } from '@teable/openapi/src/dashboard/types';
 import { ClsService } from 'nestjs-cls';
 import type { IClsStore } from '../../types/cls';
 import { CollaboratorService } from '../collaborator/collaborator.service';
@@ -57,37 +55,34 @@ export class DashboardService {
         throw new NotFoundException('Dashboard not found');
       });
 
-    const plugins = await this.prismaService.pluginInstall.findMany({
+    const widgets = await this.prismaService.dashboardWidget.findMany({
       where: {
-        positionId: dashboard.id,
-        position: PluginPosition.Dashboard,
+        dashboardId: dashboard.id,
       },
       select: {
         id: true,
         name: true,
-        pluginId: true,
-        plugin: {
-          select: {
-            url: true,
-          },
-        },
+        type: true,
+        config: true,
+        position: true,
       },
     });
 
     return {
       ...dashboard,
       layout: dashboard.layout ? JSON.parse(dashboard.layout) : undefined,
-      pluginMap: plugins.reduce(
-        (acc, plugin) => {
-          acc[plugin.id] = {
-            id: plugin.pluginId,
-            pluginInstallId: plugin.id,
-            name: plugin.name,
-            url: plugin.plugin.url ?? undefined,
+      widgetMap: widgets.reduce(
+        (acc, widget) => {
+          acc[widget.id] = {
+            id: widget.id,
+            name: widget.name,
+            type: widget.type,
+            config: widget.config,
+            position: widget.position,
           };
           return acc;
         },
-        {} as Record<string, IDashboardPluginItem>
+        {} as Record<string, any>
       ),
     };
   }
@@ -166,104 +161,6 @@ export class DashboardService {
       });
   }
 
-  private async validatePluginPublished(_baseId: string, pluginId: string) {
-    return this.prismaService.plugin
-      .findFirstOrThrow({
-        where: {
-          id: pluginId,
-          status: PluginStatus.Published,
-        },
-      })
-      .catch(() => {
-        throw new NotFoundException('Plugin not found');
-      });
-  }
-
-  async installPlugin(baseId: string, id: string, ro: IDashboardInstallPluginRo) {
-    const userId = this.cls.get('user.id');
-    await this.validatePluginPublished(baseId, ro.pluginId);
-
-    return this.prismaService.$tx(async () => {
-      const newInstallPlugin = await this.prismaService.txClient().pluginInstall.create({
-        data: {
-          id: generatePluginInstallId(),
-          baseId,
-          positionId: id,
-          position: PluginPosition.Dashboard,
-          name: ro.name,
-          pluginId: ro.pluginId,
-          createdBy: userId,
-        },
-        select: {
-          id: true,
-          name: true,
-          pluginId: true,
-          plugin: {
-            select: {
-              pluginUser: true,
-            },
-          },
-        },
-      });
-      if (newInstallPlugin.plugin.pluginUser) {
-        // invite pluginUser to base
-        const exist = await this.prismaService.txClient().collaborator.count({
-          where: {
-            principalId: newInstallPlugin.plugin.pluginUser,
-            principalType: PrincipalType.User,
-            resourceId: baseId,
-            resourceType: CollaboratorType.Base,
-          },
-        });
-
-        if (!exist) {
-          await this.collaboratorService.createBaseCollaborator({
-            collaborators: [
-              {
-                principalId: newInstallPlugin.plugin.pluginUser,
-                principalType: PrincipalType.User,
-              },
-            ],
-            baseId,
-            role: Role.Owner as IBaseRole,
-          });
-        }
-      }
-
-      const dashboard = await this.prismaService.txClient().dashboard.findFirstOrThrow({
-        where: {
-          id,
-          baseId,
-        },
-        select: {
-          layout: true,
-        },
-      });
-      const layout = dashboard.layout ? (JSON.parse(dashboard.layout) as IDashboardLayout) : [];
-      layout.push({
-        pluginInstallId: newInstallPlugin.id,
-        x: (layout.length * 2) % 12,
-        y: Number.MAX_SAFE_INTEGER, // puts it at the bottom
-        w: 2,
-        h: 2,
-      });
-      await this.prismaService.txClient().dashboard.update({
-        where: {
-          id,
-        },
-        data: {
-          layout: JSON.stringify(layout),
-        },
-      });
-      return {
-        id,
-        pluginId: newInstallPlugin.pluginId,
-        pluginInstallId: newInstallPlugin.id,
-        name: ro.name,
-      };
-    });
-  }
-
   private async validateDashboard(baseId: string, dashboardId: string) {
     await this.prismaService
       .txClient()
@@ -278,123 +175,94 @@ export class DashboardService {
       });
   }
 
-  async removePlugin(baseId: string, dashboardId: string, pluginInstallId: string) {
-    return this.prismaService.$tx(async () => {
-      await this.prismaService
-        .txClient()
-        .pluginInstall.delete({
-          where: {
-            id: pluginInstallId,
-            baseId,
-            positionId: dashboardId,
-            plugin: {
-              status: PluginStatus.Published,
-            },
-          },
-        })
-        .catch(() => {
-          throw new NotFoundException('Plugin not found');
-        });
-      const dashboard = await this.prismaService.txClient().dashboard.findFirstOrThrow({
-        where: {
-          id: dashboardId,
-          baseId,
-        },
-        select: {
-          layout: true,
-        },
-      });
-      const layout = dashboard.layout ? (JSON.parse(dashboard.layout) as IDashboardLayout) : [];
-      const index = layout.findIndex((item) => item.pluginInstallId === pluginInstallId);
-      if (index !== -1) {
-        layout.splice(index, 1);
-        await this.prismaService.txClient().dashboard.update({
-          where: {
-            id: dashboardId,
-          },
-          data: {
-            layout: JSON.stringify(layout),
-          },
-        });
-      }
-    });
-  }
-
-  private async validateAndGetPluginInstall(pluginInstallId: string) {
-    return this.prismaService
-      .txClient()
-      .pluginInstall.findFirstOrThrow({
-        where: {
-          id: pluginInstallId,
-          plugin: {
-            status: PluginStatus.Published,
-          },
-        },
-      })
-      .catch(() => {
-        throw new NotFoundException('Plugin not found');
-      });
-  }
-
-  async renamePlugin(baseId: string, dashboardId: string, pluginInstallId: string, name: string) {
-    return this.prismaService.$tx(async () => {
-      await this.validateDashboard(baseId, dashboardId);
-      const plugin = await this.validateAndGetPluginInstall(pluginInstallId);
-      await this.prismaService.txClient().pluginInstall.update({
-        where: {
-          id: pluginInstallId,
-        },
-        data: {
-          name,
-        },
-      });
-      return {
-        id: plugin.pluginId,
-        pluginInstallId,
-        name,
-      };
-    });
-  }
-
-  async updatePluginStorage(
+  // Widget management methods
+  async createWidget(
     baseId: string,
     dashboardId: string,
-    pluginInstallId: string,
-    storage?: Record<string, unknown>
+    widgetData: { name: string; type: string; config?: string; position?: string }
   ) {
-    return this.prismaService.$tx(async () => {
-      await this.validateDashboard(baseId, dashboardId);
-      await this.validateAndGetPluginInstall(pluginInstallId);
-      const res = await this.prismaService.txClient().pluginInstall.update({
-        where: {
-          id: pluginInstallId,
-        },
-        data: {
-          storage: storage ? JSON.stringify(storage) : null,
-        },
-      });
-      return {
-        baseId,
+    const userId = this.cls.get('user.id');
+
+    // Verify dashboard exists and user has access
+    const dashboard = await this.prismaService.dashboard.findFirstOrThrow({
+      where: { id: dashboardId, baseId },
+    });
+
+    // Create the widget
+    const widget = await this.prismaService.dashboardWidget.create({
+      data: {
         dashboardId,
-        pluginInstallId: res.id,
-        storage: res.storage ? JSON.parse(res.storage) : undefined,
-      };
+        name: widgetData.name,
+        type: widgetData.type,
+        config: widgetData.config,
+        position: widgetData.position,
+        createdBy: userId,
+      },
+    });
+
+    // Add widget to dashboard layout
+    const currentLayout = dashboard.layout ? JSON.parse(dashboard.layout) : [];
+    const newLayoutItem = {
+      widgetId: widget.id,
+      x: 0,
+      y: 0,
+      w: 6,
+      h: 4,
+    };
+    
+    const updatedLayout = [...currentLayout, newLayoutItem];
+    
+    await this.prismaService.dashboard.update({
+      where: { id: dashboardId },
+      data: { layout: JSON.stringify(updatedLayout) },
+    });
+
+    return widget;
+  }
+
+  async updateWidget(
+    baseId: string,
+    dashboardId: string,
+    widgetId: string,
+    widgetData: { name?: string; config?: string; position?: string }
+  ) {
+    const userId = this.cls.get('user.id');
+
+    // Verify dashboard and widget exist
+    await this.prismaService.dashboardWidget.findFirstOrThrow({
+      where: {
+        id: widgetId,
+        dashboardId,
+        dashboard: { baseId },
+      },
+    });
+
+    return await this.prismaService.dashboardWidget.update({
+      where: { id: widgetId },
+      data: {
+        ...widgetData,
+        lastModifiedBy: userId,
+      },
     });
   }
 
-  async getPluginInstall(
-    baseId: string,
-    dashboardId: string,
-    pluginInstallId: string
-  ): Promise<IGetDashboardInstallPluginVo> {
-    await this.validateDashboard(baseId, dashboardId);
-    const plugin = await this.validateAndGetPluginInstall(pluginInstallId);
-    return {
-      name: plugin.name,
-      baseId: plugin.baseId,
-      pluginId: plugin.pluginId,
-      pluginInstallId: plugin.id,
-      storage: plugin.storage ? JSON.parse(plugin.storage) : undefined,
-    };
+  async deleteWidget(baseId: string, dashboardId: string, widgetId: string) {
+    // Verify dashboard and widget exist
+    const dashboard = await this.prismaService.dashboard.findFirstOrThrow({
+      where: { id: dashboardId, baseId },
+    });
+
+    await this.prismaService.dashboardWidget.delete({
+      where: { id: widgetId },
+    });
+
+    // Remove widget from dashboard layout
+    const currentLayout = dashboard.layout ? JSON.parse(dashboard.layout) : [];
+    const updatedLayout = currentLayout.filter((item: any) => item.widgetId !== widgetId);
+    
+    await this.prismaService.dashboard.update({
+      where: { id: dashboardId },
+      data: { layout: JSON.stringify(updatedLayout) },
+    });
   }
 }

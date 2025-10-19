@@ -523,7 +523,6 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       expect(sourceViews.length).toBe(targetViews.length);
       let assertViewsString = JSON.stringify(
         sourceViews
-          .filter((f) => f.type !== ViewType.Plugin)
           .map((v) => ({
             ...omit(v, [
               'createdBy',
@@ -545,7 +544,6 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
 
       expect(assertViews).toEqual(
         targetViews
-          .filter((f) => f.type !== ViewType.Plugin)
           .map((v) => ({
             ...omit(v, [
               'createdBy',

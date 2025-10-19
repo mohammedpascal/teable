@@ -19,7 +19,6 @@ import { useTranslation } from 'next-i18next';
 import { useRef, useState } from 'react';
 import { dashboardConfig } from '@/features/i18n/dashboard.config';
 import { MenuDeleteItem } from '../components/MenuDeleteItem';
-import { AddPluginDialog } from './components/AddPluginDialog';
 import { DashboardSwitcher } from './components/DashboardSwitcher';
 
 export const DashboardHeader = (props: { dashboardId: string }) => {
@@ -99,14 +98,6 @@ export const DashboardHeader = (props: { dashboardId: string }) => {
         onChange={(e) => setRename(e.target.value)}
       />
       <div className="flex items-center gap-2">
-        {canManage && (
-          <AddPluginDialog dashboardId={dashboardId}>
-            <Button variant={'outline'} size={'xs'}>
-              <Plus />
-              {t('dashboard:addPlugin')}
-            </Button>
-          </AddPluginDialog>
-        )}
         {canManage && (
           <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
             <DropdownMenuTrigger asChild>

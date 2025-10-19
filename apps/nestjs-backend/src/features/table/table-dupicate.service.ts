@@ -762,13 +762,12 @@ export class TableDuplicateService {
     const views = await this.prismaService.view.findMany({
       where: { tableId: sourceTableId },
     });
-    const viewsWithoutPlugin = views.filter((v) => v.type !== ViewType.Plugin);
-    const pluginViews = views.filter(({ type }) => type === ViewType.Plugin);
+    const viewsToDuplicate = views;
     const sourceToTargetViewMap = {} as Record<string, string>;
     const userId = this.cls.get('user.id');
     const prisma = this.prismaService.txClient();
     await prisma.view.createMany({
-      data: viewsWithoutPlugin.map((view) => {
+      data: viewsToDuplicate.map((view) => {
         const fieldsToReplace = ['columnMeta', 'options', 'sort', 'group', 'filter'] as const;
 
         const updatedFields = fieldsToReplace.reduce(
@@ -801,113 +800,10 @@ export class TableDuplicateService {
       }),
     });
 
-    // duplicate plugin view
-    await this.duplicatePluginViews(
-      targetTableId,
-      pluginViews,
-      sourceToTargetViewMap,
-      sourceToTargetFieldMap
-    );
 
     return sourceToTargetViewMap;
   }
 
-  private async duplicatePluginViews(
-    targetTableId: string,
-    pluginViews: View[],
-    sourceToTargetViewMap: Record<string, string>,
-    sourceToTargetFieldMap: Record<string, string>
-  ) {
-    const prisma = this.prismaService.txClient();
-
-    if (!pluginViews.length) return;
-
-    const pluginData = await prisma.pluginInstall.findMany({
-      where: {
-        id: {
-          in: pluginViews.map((v) => (v.options ? JSON.parse(v.options).pluginInstallId : null)),
-        },
-      },
-    });
-
-    for (const view of pluginViews) {
-      const plugin = view.options ? JSON.parse(view.options) : null;
-      if (!plugin) {
-        throw new BadGatewayException('Duplicate plugin view error: pluginId not found');
-      }
-      const { pluginInstallId, pluginId } = plugin;
-
-      const newPluginInsId = generatePluginInstallId();
-      const newViewId = generateViewId();
-
-      sourceToTargetViewMap[view.id] = newViewId;
-
-      const pluginInfo = pluginData.find((p) => p.id === pluginInstallId);
-
-      if (!pluginInfo) continue;
-
-      let curPluginStorage = pluginInfo?.storage;
-      let pluginOptions = plugin.options;
-
-      if (curPluginStorage) {
-        Object.entries(sourceToTargetFieldMap).forEach(([key, value]) => {
-          curPluginStorage = curPluginStorage?.replaceAll(key, value) || null;
-        });
-      }
-
-      if (pluginOptions) {
-        Object.entries(sourceToTargetFieldMap).forEach(([key, value]) => {
-          pluginOptions = pluginOptions.replaceAll(key, value);
-        });
-        pluginOptions = pluginOptions.replaceAll(pluginId, newPluginInsId);
-      }
-
-      const fieldsToReplace = ['columnMeta', 'options', 'sort', 'group', 'filter'] as const;
-
-      const updatedFields = fieldsToReplace.reduce(
-        (acc, field) => {
-          if (view[field]) {
-            acc[field] = Object.entries(sourceToTargetFieldMap).reduce(
-              (result, [key, value]) => result.replaceAll(key, value),
-              view[field]!
-            );
-          }
-          return acc;
-        },
-        {} as Partial<typeof view>
-      );
-
-      await prisma.pluginInstall.create({
-        data: {
-          ...pluginInfo,
-          createdBy: this.cls.get('user.id'),
-          id: newPluginInsId,
-          createdTime: new Date().toISOString(),
-          lastModifiedBy: null,
-          lastModifiedTime: null,
-          storage: curPluginStorage,
-          positionId: newViewId,
-        },
-      });
-
-      await prisma.view.create({
-        data: {
-          ...view,
-          createdTime: new Date().toISOString(),
-          createdBy: this.cls.get('user.id'),
-          version: 1,
-          tableId: targetTableId,
-          id: newViewId,
-          // TODO: View sharing functionality not yet implemented
-          // shareId: generateShareId(),
-          options: pluginOptions,
-          ...updatedFields,
-        },
-      });
-    }
-
-    return sourceToTargetViewMap;
-  }
 
   private async repairDuplicateOmit(
     sourceToTargetFieldMap: Record<string, string>,

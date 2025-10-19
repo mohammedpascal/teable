@@ -63,20 +63,10 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
 
   const commonPart = (
     <div className="relative flex w-full items-center overflow-hidden px-0.5">
-      {view.type === ViewType.Plugin ? (
-        <Image
-          className="mr-1 size-4 shrink-0"
-          width={16}
-          height={16}
-          src={view.options.pluginLogo}
-          alt={view.name}
-        />
-      ) : (
-        <Fragment>
-          {'isLocked' in view && (view as any).isLocked && <Lock className="mr-[2px] size-4 shrink-0" />}
-          <ViewIcon className="mr-1 size-4 shrink-0" />
-        </Fragment>
-      )}
+      <Fragment>
+        {'isLocked' in view && (view as any).isLocked && <Lock className="mr-[2px] size-4 shrink-0" />}
+        <ViewIcon className="mr-1 size-4 shrink-0" />
+      </Fragment>
       <div className="flex flex-1 items-center justify-center overflow-hidden">
         <div className="truncate text-xs font-medium leading-5">{view.name}</div>
       </div>

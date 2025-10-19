@@ -70,7 +70,6 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
       description: 'token1',
       scopes: ['table|read', 'record|read'],
       baseIds: [baseId],
-      spaceIds: [spaceId],
       expiredTime: dayjs(Date.now() + 1000 * 60 * 60 * 24).format('YYYY-MM-DD'),
     };
     table = await createTable(baseId, { name: 'table1' });
@@ -112,14 +111,12 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
       description: 'new desc',
       scopes: ['table|read', 'record|read', 'record|create'],
       baseIds: null,
-      spaceIds: null,
     };
     const { data } = await updateAccessToken(newAccessToken.id, updateRo);
     expect(data).toEqual({
       ...updateRo,
       id: newAccessToken.id,
       baseIds: undefined,
-      spaceIds: undefined,
     });
   });
 

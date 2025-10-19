@@ -2,15 +2,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import {
   createDashboardRoSchema,
-  dashboardInstallPluginRoSchema,
   ICreateDashboardRo,
   IRenameDashboardRo,
   IUpdateLayoutDashboardRo,
   renameDashboardRoSchema,
   updateLayoutDashboardRoSchema,
-  IDashboardInstallPluginRo,
-  dashboardPluginUpdateStorageRoSchema,
-  IDashboardPluginUpdateStorageRo,
 } from '@teable/openapi';
 import type {
   ICreateDashboardVo,
@@ -18,9 +14,6 @@ import type {
   IRenameDashboardVo,
   IUpdateLayoutDashboardVo,
   IGetDashboardListVo,
-  IDashboardInstallPluginVo,
-  IDashboardPluginUpdateStorageVo,
-  IGetDashboardInstallPluginVo,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
 import { DashboardService } from './dashboard.service';
@@ -73,51 +66,32 @@ export class DashboardController {
     return this.dashboardService.deleteDashboard(baseId, id);
   }
 
-  @Post(':id/plugin')
-  installPlugin(
+  // Widget management endpoints
+  @Post(':id/widget')
+  createWidget(
     @Param('baseId') baseId: string,
-    @Param('id') id: string,
-    @Body(new ZodValidationPipe(dashboardInstallPluginRoSchema)) ro: IDashboardInstallPluginRo
-  ): Promise<IDashboardInstallPluginVo> {
-    return this.dashboardService.installPlugin(baseId, id, ro);
+    @Param('id') dashboardId: string,
+    @Body() widgetData: { name: string; type: string; config?: string; position?: string }
+  ) {
+    return this.dashboardService.createWidget(baseId, dashboardId, widgetData);
   }
 
-  @Delete(':id/plugin/:pluginInstallId')
-  removePlugin(
+  @Patch(':id/widget/:widgetId')
+  updateWidget(
     @Param('baseId') baseId: string,
-    @Param('id') id: string,
-    @Param('pluginInstallId') pluginInstallId: string
-  ): Promise<void> {
-    return this.dashboardService.removePlugin(baseId, id, pluginInstallId);
+    @Param('id') dashboardId: string,
+    @Param('widgetId') widgetId: string,
+    @Body() widgetData: { name?: string; config?: string; position?: string }
+  ) {
+    return this.dashboardService.updateWidget(baseId, dashboardId, widgetId, widgetData);
   }
 
-  @Patch(':id/plugin/:pluginInstallId/rename')
-  renamePlugin(
+  @Delete(':id/widget/:widgetId')
+  deleteWidget(
     @Param('baseId') baseId: string,
-    @Param('id') id: string,
-    @Param('pluginInstallId') pluginInstallId: string,
-    @Body(new ZodValidationPipe(renameDashboardRoSchema)) ro: IRenameDashboardRo
-  ): Promise<IRenameDashboardVo> {
-    return this.dashboardService.renamePlugin(baseId, id, pluginInstallId, ro.name);
-  }
-
-  @Patch(':id/plugin/:pluginInstallId/update-storage')
-  updatePluginStorage(
-    @Param('baseId') baseId: string,
-    @Param('id') id: string,
-    @Param('pluginInstallId') pluginInstallId: string,
-    @Body(new ZodValidationPipe(dashboardPluginUpdateStorageRoSchema))
-    ro: IDashboardPluginUpdateStorageRo
-  ): Promise<IDashboardPluginUpdateStorageVo> {
-    return this.dashboardService.updatePluginStorage(baseId, id, pluginInstallId, ro.storage);
-  }
-
-  @Get(':id/plugin/:pluginInstallId')
-  getPluginInstall(
-    @Param('baseId') baseId: string,
-    @Param('id') id: string,
-    @Param('pluginInstallId') pluginInstallId: string
-  ): Promise<IGetDashboardInstallPluginVo> {
-    return this.dashboardService.getPluginInstall(baseId, id, pluginInstallId);
+    @Param('id') dashboardId: string,
+    @Param('widgetId') widgetId: string
+  ) {
+    return this.dashboardService.deleteWidget(baseId, dashboardId, widgetId);
   }
 }

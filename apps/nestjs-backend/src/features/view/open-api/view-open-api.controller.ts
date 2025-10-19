@@ -37,17 +37,11 @@ import {
   IUpdateOrderRo,
   updateRecordOrdersRoSchema,
   IUpdateRecordOrdersRo,
-  viewInstallPluginRoSchema,
-  IViewInstallPluginRo,
-  viewPluginUpdateStorageRoSchema,
-  IViewPluginUpdateStorageRo,
   viewLockedRoSchema,
   IViewLockedRo,
 } from '@teable/openapi';
 import type {
   IGetViewFilterLinkRecordsVo,
-  IGetViewInstallPluginVo,
-  IViewInstallPluginVo,
 } from '@teable/openapi';
 import { ZodValidationPipe } from '../../..//zod.validation.pipe';
 import { EmitControllerEvent } from '../../../event-emitter/decorators/emit-controller-event.decorator';
@@ -272,28 +266,4 @@ export class ViewOpenApiController {
     return this.viewService.getDocIdsByQuery(tableId, undefined);
   }
 
-  @Post('/plugin')
-  async pluginInstall(
-    @Param('tableId') tableId: string,
-    @Body(new ZodValidationPipe(viewInstallPluginRoSchema)) ro: IViewInstallPluginRo
-  ): Promise<IViewInstallPluginVo> {
-    return this.viewOpenApiService.pluginInstall(tableId, ro);
-  }
-
-  @Get(':viewId/plugin')
-  getPluginInstall(
-    @Param('tableId') tableId: string,
-    @Param('viewId') viewId: string
-  ): Promise<IGetViewInstallPluginVo> {
-    return this.viewOpenApiService.getPluginInstall(tableId, viewId);
-  }
-
-  @Patch(':viewId/plugin/:pluginInstallId')
-  async pluginUpdateStorage(
-    @Param('viewId') viewId: string,
-    @Body(new ZodValidationPipe(viewPluginUpdateStorageRoSchema))
-    ro: IViewPluginUpdateStorageRo
-  ) {
-    return this.viewOpenApiService.updatePluginStorage(viewId, ro.storage);
-  }
 }

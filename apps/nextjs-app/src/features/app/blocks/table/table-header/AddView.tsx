@@ -15,7 +15,6 @@ import { useCallback, useState } from 'react';
 import { GUIDE_CREATE_VIEW } from '@/components/Guide';
 import { VIEW_ICON_MAP } from '../../view/constant';
 import { useAddView } from '../../view/list/useAddView';
-import { AddPluginView } from './AddPluginView';
 
 export const AddView: React.FC = () => {
   const addView = useAddView();
@@ -53,6 +52,11 @@ export const AddView: React.FC = () => {
       name: t('view.category.form'),
       type: ViewType.Form,
       Icon: VIEW_ICON_MAP[ViewType.Form],
+    },
+    {
+      name: 'Chart',
+      type: ViewType.Chart,
+      Icon: VIEW_ICON_MAP[ViewType.Chart],
     },
   ];
 
@@ -96,8 +100,6 @@ export const AddView: React.FC = () => {
             </Button>
           );
         })}
-        <Separator />
-        <AddPluginView onClose={closePopover} />
       </PopoverContent>
     </Popover>
   );

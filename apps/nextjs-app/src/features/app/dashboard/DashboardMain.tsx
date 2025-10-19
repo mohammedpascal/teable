@@ -6,17 +6,16 @@ import { useBaseId, useBasePermission } from '@teable/sdk/hooks';
 import { Spin } from '@teable/ui-lib/base';
 import { Button } from '@teable/ui-lib/shadcn';
 import { isEmpty } from 'lodash';
-import { useTranslation } from 'next-i18next';
-import { dashboardConfig } from '@/features/i18n/dashboard.config';
-import { AddPluginDialog } from './components/AddPluginDialog';
+import { useRef } from 'react';
+import { CreateWidgetDialog, type ICreateWidgetDialogRef } from './components/CreateWidgetDialog';
 import { DashboardGrid } from './DashboardGrid';
 
 export const DashboardMain = (props: { dashboardId: string }) => {
   const { dashboardId } = props;
-  const { t } = useTranslation(dashboardConfig.i18nNamespaces);
   const baseId = useBaseId()!;
   const basePermissions = useBasePermission();
   const canManage = basePermissions?.['base|update'];
+  const createWidgetDialogRef = useRef<ICreateWidgetDialogRef>(null);
   const { data: dashboardData, isLoading } = useQuery({
     queryKey: ReactQueryKeys.getDashboard(dashboardId),
     queryFn: () => getDashboard(baseId, dashboardId).then((res) => res.data),
@@ -28,17 +27,17 @@ export const DashboardMain = (props: { dashboardId: string }) => {
       </div>
     );
   }
-  if (isEmpty(dashboardData?.pluginMap) && !isLoading) {
+  if (isEmpty(dashboardData?.widgetMap) && !isLoading) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-3">
-        <p>{t('common:pluginCenter.pluginEmpty.title')}</p>
+        <p>No widgets added yet</p>
         {canManage && (
-          <AddPluginDialog dashboardId={dashboardId}>
+          <CreateWidgetDialog ref={createWidgetDialogRef} dashboardId={dashboardId}>
             <Button size={'xs'}>
               <Plus />
-              {t('dashboard:addPlugin')}
+              Add Widget
             </Button>
-          </AddPluginDialog>
+          </CreateWidgetDialog>
         )}
       </div>
     );

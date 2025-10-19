@@ -470,7 +470,7 @@ describe('OpenAPI FieldController (e2e)', () => {
       const fieldRaw = await prisma.field.findUnique({
         where: { id: field.id },
       });
-      expect(fieldRaw?.deletedTime).toBeTruthy();
+      expect(fieldRaw).toBeNull();
     });
 
     it('should forbid to delete a primary field', async () => {
@@ -516,7 +516,7 @@ describe('OpenAPI FieldController (e2e)', () => {
       const fieldRaw = await prisma.field.findUnique({
         where: { id: textField.id },
       });
-      expect(fieldRaw?.deletedTime).toBeTruthy();
+      expect(fieldRaw).toBeNull();
     });
 
     it('should delete a formula field, a -> b delete b', async () => {
@@ -550,7 +550,7 @@ describe('OpenAPI FieldController (e2e)', () => {
       const fieldRaw = await prisma.field.findUnique({
         where: { id: formulaField.id },
       });
-      expect(fieldRaw?.deletedTime).toBeTruthy();
+      expect(fieldRaw).toBeNull();
     });
 
     it('should delete a middle formula field, a -> b -> c delete b', async () => {
@@ -591,7 +591,7 @@ describe('OpenAPI FieldController (e2e)', () => {
       const fieldRaw = await prisma.field.findUnique({
         where: { id: formula1Field.id },
       });
-      expect(fieldRaw?.deletedTime).toBeTruthy();
+      expect(fieldRaw).toBeNull();
     });
 
     it('should delete a link field', async () => {
@@ -653,15 +653,15 @@ describe('OpenAPI FieldController (e2e)', () => {
         )
       ).rejects.toThrow();
 
-      // formula field should be marked as deleted
+      // formula field should be deleted from database
       const fieldRaw = await prisma.field.findUnique({
         where: { id: linkField.id },
       });
-      expect(fieldRaw?.deletedTime).toBeTruthy();
+      expect(fieldRaw).toBeNull();
       const symmetricalFieldRaw = await prisma.field.findUnique({
         where: { id: symmetricFieldId },
       });
-      expect(symmetricalFieldRaw?.deletedTime).toBeTruthy();
+      expect(symmetricalFieldRaw).toBeNull();
     });
 
     it('should delete a link with lookup field and a referenced formula', async () => {

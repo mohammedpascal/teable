@@ -17,8 +17,6 @@ import { NextModule } from './features/next/next.module';
 import { NotificationModule } from './features/notification/notification.module';
 import { OAuthModule } from './features/oauth/oauth.module';
 import { OrganizationModule } from './features/organization/organization.module';
-import { PluginModule } from './features/plugin/plugin.module';
-import { PluginContextMenuModule } from './features/plugin-context-menu/plugin-context-menu.module';
 import { SelectionModule } from './features/selection/selection.module';
 import { SettingModule } from './features/setting/setting.module';
 import { UserModule } from './features/user/user.module';
@@ -49,10 +47,8 @@ export const appModules = {
     ExportOpenApiModule,
     SettingModule,
     OAuthModule,
-    PluginModule,
     DashboardModule,
     OrganizationModule,
-    PluginContextMenuModule,
   ],
   providers: [InitBootstrapProvider],
 };

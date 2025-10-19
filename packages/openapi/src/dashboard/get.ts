@@ -2,7 +2,7 @@ import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
-import { dashboardLayoutSchema, dashboardPluginItemSchema } from './types';
+import { dashboardLayoutSchema, dashboardWidgetItemSchema } from './types';
 
 export const GET_DASHBOARD = '/base/{baseId}/dashboard/{id}';
 
@@ -10,7 +10,7 @@ export const getDashboardVoSchema = z.object({
   id: z.string(),
   name: z.string(),
   layout: dashboardLayoutSchema.optional(),
-  pluginMap: z.record(z.string(), dashboardPluginItemSchema).optional(),
+  widgetMap: z.record(z.string(), dashboardWidgetItemSchema).optional(),
 });
 
 export type IGetDashboardVo = z.infer<typeof getDashboardVoSchema>;

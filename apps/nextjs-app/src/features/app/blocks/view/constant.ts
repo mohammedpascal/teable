@@ -4,8 +4,8 @@ import {
   ClipboardList as Form,
   LayoutGrid as Gallery,
   Kanban,
-  Component,
   Calendar,
+  BarChart2 as Chart,
 } from '@teable/icons';
 
 export const VIEW_ICON_MAP = {
@@ -15,5 +15,5 @@ export const VIEW_ICON_MAP = {
   [ViewType.Gallery]: Gallery,
   [ViewType.Calendar]: Calendar,
   [ViewType.Form]: Form,
-  [ViewType.Plugin]: Component,
+  [ViewType.Chart]: Chart,
 };

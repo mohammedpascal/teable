@@ -13,7 +13,6 @@ import {
   urlBuilder,
   CREATE_FIELD,
   CREATE_TABLE,
-  emailBaseInvitation,
   PrincipalType,
 } from '@teable/openapi';
 import type { IUserMeVo, ITableFullVo } from '@teable/openapi';
@@ -33,7 +32,7 @@ describe('Computed user field (e2e)', () => {
     const appCtx = await initApp();
     app = appCtx.app;
     const base = await createBase({ name: 'base1', spaceId });
-    baseId = base.id;
+    baseId = base.data.id;
   });
 
   afterAll(async () => {

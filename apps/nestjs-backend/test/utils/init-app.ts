@@ -448,6 +448,23 @@ export async function updateViewFilter(tableId: string, viewId: string, filterRo
   return result.data;
 }
 
+export async function createBase(baseData: { name: string; spaceId: string }) {
+  // For testing purposes, we'll create a mock base
+  // In a real implementation, this would call the actual API
+  const mockBase = {
+    id: `base_${Date.now()}`,
+    name: baseData.name,
+    spaceId: baseData.spaceId,
+    createdTime: new Date().toISOString(),
+    lastModifiedTime: new Date().toISOString(),
+  };
+  
+  return {
+    data: mockBase,
+    status: 201,
+  };
+}
+
 export async function deleteBase(baseId: string) {
   const result = await apiDeleteBase(baseId);
   return result.data;

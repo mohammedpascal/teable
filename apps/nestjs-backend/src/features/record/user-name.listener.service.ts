@@ -26,16 +26,12 @@ export class UserNameListener {
     const spaceBaseQuery = this.knex('collaborator')
       .join('space', 'collaborator.resource_id', 'space.id')
       .join('base', 'space.id', 'base.space_id')
-      .whereNull('space.deleted_time')
-      .whereNull('base.deleted_time')
       .where('collaborator.principal_id', userId)
       .where('collaborator.principal_type', PrincipalType.User)
       .select('base.id as base_id', 'collaborator.principal_id as user_id');
     const baseQuery = this.knex('collaborator')
       .join('base', 'collaborator.resource_id', 'base.id')
       .join('space', 'base.space_id', 'space.id')
-      .whereNull('space.deleted_time')
-      .whereNull('base.deleted_time')
       .where('collaborator.principal_type', PrincipalType.User)
       .select('base.id as base_id', 'collaborator.principal_id as user_id');
     const query = this.knex
@@ -44,8 +40,6 @@ export class UserNameListener {
       .join('field', 'table_meta.id', 'field.table_id')
       .from('c')
       .whereIn('field.type', [FieldType.User, FieldType.CreatedBy, FieldType.LastModifiedBy])
-      .whereNull('table_meta.deleted_time')
-      .whereNull('field.deleted_time')
       .select({
         id: 'field.id',
         tableId: 'field.table_id',

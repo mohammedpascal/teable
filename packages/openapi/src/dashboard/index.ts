@@ -10,3 +10,4 @@ export * from './plugin-remove';
 export * from './plugin-rename';
 export * from './plugin-get';
 export * from './plugin-update-storage';
+export * from './widget';

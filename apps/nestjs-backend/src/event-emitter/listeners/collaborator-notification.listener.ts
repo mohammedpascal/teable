@@ -141,7 +141,7 @@ export class CollaboratorNotificationListener {
       })
       .from(this.knex.ref('table_meta').as('tm'))
       .join(this.knex.ref('field').as('f'), (clause) => {
-        clause.on('tm.id', 'f.table_id').andOnNull('tm.deleted_time').andOnNull('f.deleted_time');
+        clause.on('tm.id', 'f.table_id');
       })
       .where('f.table_id', tableId)
       .andWhere('f.type', FieldType.User);

@@ -78,7 +78,7 @@ describe('DashboardController', () => {
 
   it('/api/dashboard/:id/layout (PATCH)', async () => {
     const res = await createDashboard(baseId, dashboardRo);
-    const layout = [{ pluginInstallId: 'plugin-install-id', x: 0, y: 0, w: 1, h: 1 }];
+    const layout = [{ widgetId: 'widget-id', x: 0, y: 0, w: 1, h: 1 }];
     const updateRes = await updateLayoutDashboard(baseId, res.data.id, layout);
     expect(updateRes.data.layout).toEqual(layout);
     await deleteDashboard(baseId, res.data.id);
@@ -151,7 +151,7 @@ describe('DashboardController', () => {
       });
       await removePlugin(baseId, dashboardId, installRes.data.pluginInstallId);
       const dashboard = await getDashboard(baseId, dashboardId);
-      expect(dashboard?.data?.pluginMap?.[pluginId]).toBeUndefined();
+      expect(dashboard?.data?.widgetMap?.[pluginId]).toBeUndefined();
     });
   });
 });

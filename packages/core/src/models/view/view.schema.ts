@@ -4,11 +4,11 @@ import { columnMetaSchema } from './column-meta.schema';
 import { ViewType } from './constant';
 import {
   calendarViewOptionSchema,
+  chartViewOptionSchema,
   formViewOptionSchema,
   galleryViewOptionSchema,
   gridViewOptionSchema,
   kanbanViewOptionSchema,
-  pluginViewOptionSchema,
 } from './derivate';
 import { filterSchema } from './filter';
 import { groupSchema } from './group';
@@ -60,7 +60,7 @@ export const viewRoSchema = viewVoSchema
       [ViewType.Gallery]: galleryViewOptionSchema,
       [ViewType.Calendar]: calendarViewOptionSchema,
       [ViewType.Grid]: gridViewOptionSchema,
-      [ViewType.Plugin]: pluginViewOptionSchema,
+      [ViewType.Chart]: chartViewOptionSchema,
     } as const;
     if (!(type in optionsSchemaMap)) {
       return ctx.addIssue({
@@ -70,10 +70,7 @@ export const viewRoSchema = viewVoSchema
       });
     }
     const optionsSchema = optionsSchemaMap[type as keyof typeof optionsSchemaMap];
-    const result =
-      type === ViewType.Plugin
-        ? optionsSchema.safeParse(data.options)
-        : optionsSchema.optional().safeParse(data.options);
+    const result = optionsSchema.optional().safeParse(data.options);
     if (!result.success) {
       const issue = result.error.issues[0];
       ctx.addIssue(

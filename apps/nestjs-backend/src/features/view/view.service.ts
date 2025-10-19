@@ -15,7 +15,6 @@ import type {
   IFilter,
   IKanbanViewOptions,
   IFilterSet,
-  IPluginViewOptions,
   IGalleryViewOptions,
   ICalendarViewOptions,
 } from '@teable/core';
@@ -259,13 +258,6 @@ export class ViewService implements IReadonlyAdapterService {
         (formOptions.logoUrl = formOptions.logoUrl
           ? getFullStorageUrl(StorageAdapter.getBucket(UploadType.Form), formOptions.logoUrl)
           : undefined);
-    }
-    if (viewVo.type === ViewType.Plugin) {
-      const pluginOptions = viewVo.options as IPluginViewOptions;
-      pluginOptions.pluginLogo = getFullStorageUrl(
-        StorageAdapter.getBucket(UploadType.Plugin),
-        pluginOptions.pluginLogo
-      );
     }
     return viewVo;
   }

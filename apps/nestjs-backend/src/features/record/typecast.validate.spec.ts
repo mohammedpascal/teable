@@ -384,10 +384,7 @@ describe('TypeCastAndValidate', () => {
       avatarUrl: expect.stringContaining('api/attachments/read/public/avatar/2'),
     };
     beforeEach(() => {
-      collaboratorService.getUserCollaboratorsByTableId.mockResolvedValue([
-        { id: '1', name: 'bob', email: 'bob@example.com', avatar: null, isSystem: false },
-        { id: '2', name: 'tom', email: 'tom@example.com', avatar: null, isSystem: false },
-      ]);
+      collaboratorService.getUserCollaboratorsByTableId.mockResolvedValue([]);
     });
 
     it('string cell value', async () => {

@@ -470,7 +470,6 @@ export class PostgresProvider implements IDbProvider {
         name: 'name',
         lookupOptions: 'lookup_options',
       })
-      .whereNull('deleted_time')
       .whereRaw(`lookup_options::json->>'${optionsKey}' = ?`, [value])
       .toQuery();
   }
@@ -497,7 +496,6 @@ export class PostgresProvider implements IDbProvider {
         options: 'options',
         cellValueType: 'cell_value_type',
       })
-      .whereNull('deleted_time')
       .whereNull('is_lookup')
       .whereRaw(`options::json->>'${optionsKey}' = ?`, [value])
       .where('type', type)

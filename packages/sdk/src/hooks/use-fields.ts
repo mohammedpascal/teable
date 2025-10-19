@@ -35,7 +35,10 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
         ) {
           return columnMeta?.[id]?.visible;
         }
-        return !columnMeta?.[id]?.hidden;
+        if (viewType === ViewType.Chart) {
+          return !(columnMeta?.[id] as any)?.hidden;
+        }
+        return !(columnMeta?.[id] as any)?.hidden;
       };
       const hasPermission = () => {
         if (withDenied || fieldsPermission[id]?.['field|read']) {

@@ -23,7 +23,6 @@ import { useTranslation, Trans } from 'next-i18next';
 import { Fragment, useCallback, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { tableConfig } from '@/features/i18n/table.config';
-import { PluginMenu } from './PluginMenu';
 
 export interface IMenuItemProps<T> {
   type: T;
@@ -220,7 +219,6 @@ export const RecordMenu = () => {
     return null;
   }
 
-  const pluginItemIndex = menuItemGroups.length - 2;
   return (
     <>
       <Popover open={visible}>
@@ -231,18 +229,8 @@ export const RecordMenu = () => {
           <Command ref={recordMenuRef} className="rounded-md border-none shadow-none" style={style}>
             <CommandList className="max-h-96">
               {menuItemGroups.map((items, index) => {
-                if (index === pluginItemIndex) {
-                  return (
-                    <PluginMenu
-                      key={`plugin-menu-${tableId}`}
-                      tableId={tableId}
-                      closeRecordMenu={closeRecordMenu}
-                    />
-                  );
-                }
-
                 const nextItems = menuItemGroups[index + 1] ?? [];
-                const hasNextItems = nextItems.length > 0 || index + 1 === pluginItemIndex;
+                const hasNextItems = nextItems.length > 0;
                 if (!items.length) return null;
 
                 return (

@@ -14,7 +14,6 @@ import { TablePermissionProvider } from '@teable/sdk/context/table-permission';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ErrorBoundary } from 'react-error-boundary';
-import { PluginContextMenu } from '../../components/plugin-context-menu/PluginContextMenu';
 import { View } from '../view/View';
 import { FailAlert } from './FailAlert';
 import { useViewErrorHandler } from './hooks/use-view-error-handler';
@@ -83,7 +82,6 @@ export const Table: React.FC<ITableProps> = ({
                   </ErrorBoundary>
                 </FieldProvider>
               </div>
-              <PluginContextMenu tableId={tableId} baseId={baseId} />
             </div>
           </PersonalViewProxy>
         </ViewProvider>

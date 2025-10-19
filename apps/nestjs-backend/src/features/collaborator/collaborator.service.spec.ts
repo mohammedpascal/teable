@@ -38,7 +38,7 @@ describe('CollaboratorService', () => {
     });
   });
 
-  describe('createSpaceCollaborator', () => {
+  describe('createBaseCollaborator', () => {
     it('should create collaborator correctly', async () => {
       prismaService.collaborator.count.mockResolvedValue(0);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,18 +48,18 @@ describe('CollaboratorService', () => {
         {
           user: mockUser,
           tx: {},
-          permissions: getPermissions(Role.Owner),
+          permissions: getPermissions(Role.Creator),
         },
         async () => {
-          await collaboratorService.createSpaceCollaborator({
+          await collaboratorService.createBaseCollaborator({
             collaborators: [
               {
                 principalId: mockUser.id,
                 principalType: PrincipalType.User,
               },
             ],
-            role: Role.Owner,
-            spaceId: mockSpace.id,
+            role: Role.Creator,
+            baseId: 'mock-base-id',
           });
         }
       );
@@ -83,15 +83,15 @@ describe('CollaboratorService', () => {
       prismaService.collaborator.count.mockResolvedValue(1);
 
       await expect(
-        collaboratorService.createSpaceCollaborator({
+        collaboratorService.createBaseCollaborator({
           collaborators: [
             {
               principalId: mockUser.id,
               principalType: PrincipalType.User,
             },
           ],
-          role: Role.Owner,
-          spaceId: mockSpace.id,
+          role: Role.Creator,
+          baseId: 'mock-base-id',
         })
       ).rejects.toThrow('has already existed in space');
     });

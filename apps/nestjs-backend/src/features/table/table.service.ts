@@ -153,7 +153,6 @@ export class TableService implements IReadonlyAdapterService {
           .select('id')
           .from('view')
           .whereRaw('view.table_id = table_meta.id')
-          .whereRaw('view.deleted_time is null')
           .orderBy('order')
           .limit(1),
       })
