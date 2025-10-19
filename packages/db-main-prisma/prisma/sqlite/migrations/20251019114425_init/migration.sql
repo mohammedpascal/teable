@@ -1,28 +1,16 @@
 -- CreateTable
-CREATE TABLE "space" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "name" TEXT NOT NULL,
-    "deleted_time" DATETIME,
-    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "created_by" TEXT NOT NULL,
-    "last_modified_by" TEXT,
-    "last_modified_time" DATETIME
-);
-
--- CreateTable
 CREATE TABLE "base" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "space_id" TEXT NOT NULL,
+    "user_id" TEXT,
     "name" TEXT NOT NULL,
     "order" REAL NOT NULL,
     "icon" TEXT,
     "schema_pass" TEXT,
-    "deleted_time" DATETIME,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "created_by" TEXT NOT NULL,
     "last_modified_by" TEXT,
     "last_modified_time" DATETIME,
-    CONSTRAINT "base_space_id_fkey" FOREIGN KEY ("space_id") REFERENCES "space" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "base_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -37,7 +25,6 @@ CREATE TABLE "table_meta" (
     "order" REAL NOT NULL,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_modified_time" DATETIME,
-    "deleted_time" DATETIME,
     "created_by" TEXT NOT NULL,
     "last_modified_by" TEXT,
     CONSTRAINT "table_meta_base_id_fkey" FOREIGN KEY ("base_id") REFERENCES "base" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
@@ -64,10 +51,10 @@ CREATE TABLE "field" (
     "lookup_linked_field_id" TEXT,
     "lookup_options" TEXT,
     "table_id" TEXT NOT NULL,
+    "order" REAL NOT NULL,
     "version" INTEGER NOT NULL,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_modified_time" DATETIME,
-    "deleted_time" DATETIME,
     "created_by" TEXT NOT NULL,
     "last_modified_by" TEXT,
     CONSTRAINT "field_table_id_fkey" FOREIGN KEY ("table_id") REFERENCES "table_meta" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
@@ -87,12 +74,9 @@ CREATE TABLE "view" (
     "order" REAL NOT NULL,
     "version" INTEGER NOT NULL,
     "column_meta" TEXT NOT NULL,
-    "enable_share" BOOLEAN,
-    "share_id" TEXT,
-    "share_meta" TEXT,
+    "is_locked" BOOLEAN,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_modified_time" DATETIME,
-    "deleted_time" DATETIME,
     "created_by" TEXT NOT NULL,
     "last_modified_by" TEXT,
     CONSTRAINT "view_table_id_fkey" FOREIGN KEY ("table_id") REFERENCES "table_meta" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
@@ -135,11 +119,14 @@ CREATE TABLE "users" (
     "phone" TEXT,
     "email" TEXT NOT NULL,
     "avatar" TEXT,
+    "is_system" BOOLEAN,
+    "is_admin" BOOLEAN,
     "notify_meta" TEXT,
     "last_sign_time" DATETIME,
+    "deactivated_time" DATETIME,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deleted_time" DATETIME,
-    "last_modified_time" DATETIME
+    "last_modified_time" DATETIME,
+    "ref_meta" TEXT
 );
 
 -- CreateTable
@@ -156,7 +143,6 @@ CREATE TABLE "account" (
 -- CreateTable
 CREATE TABLE "attachments" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "bucket" TEXT NOT NULL,
     "token" TEXT NOT NULL,
     "hash" TEXT NOT NULL,
     "size" INTEGER NOT NULL,
@@ -164,10 +150,10 @@ CREATE TABLE "attachments" (
     "path" TEXT NOT NULL,
     "width" INTEGER,
     "height" INTEGER,
-    "deleted_time" DATETIME,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "created_by" TEXT NOT NULL,
-    "last_modified_by" TEXT
+    "last_modified_by" TEXT,
+    "thumbnail_path" TEXT
 );
 
 -- CreateTable
@@ -186,68 +172,13 @@ CREATE TABLE "attachments_table" (
 );
 
 -- CreateTable
-CREATE TABLE "automation_workflow" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "workflow_id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "description" TEXT,
-    "deployment_status" TEXT NOT NULL DEFAULT 'undeployed',
-    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" DATETIME,
-    "deleted_time" DATETIME,
-    "created_by" TEXT NOT NULL,
-    "last_modified_by" TEXT
-);
-
--- CreateTable
-CREATE TABLE "automation_workflow_trigger" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "trigger_id" TEXT NOT NULL,
-    "workflow_id" TEXT NOT NULL,
-    "description" TEXT,
-    "trigger_type" TEXT,
-    "input_expressions" TEXT,
-    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" DATETIME,
-    "deleted_time" DATETIME,
-    "created_by" TEXT NOT NULL,
-    "last_modified_by" TEXT
-);
-
--- CreateTable
-CREATE TABLE "automation_workflow_action" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "action_id" TEXT NOT NULL,
-    "workflow_id" TEXT NOT NULL,
-    "description" TEXT,
-    "action_type" TEXT,
-    "input_expressions" TEXT,
-    "next_node_id" TEXT,
-    "parent_node_id" TEXT,
-    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" DATETIME,
-    "deleted_time" DATETIME,
-    "created_by" TEXT NOT NULL,
-    "last_modified_by" TEXT
-);
-
--- CreateTable
-CREATE TABLE "automation_workflow_execution_history" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "workflow_id" TEXT NOT NULL,
-    "execution_type" TEXT NOT NULL,
-    "execution_result" TEXT NOT NULL,
-    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
--- CreateTable
 CREATE TABLE "collaborator" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "role_name" TEXT NOT NULL,
-    "base_id" TEXT,
-    "space_id" TEXT,
-    "user_id" TEXT NOT NULL,
-    "deleted_time" DATETIME,
+    "resource_type" TEXT NOT NULL,
+    "resource_id" TEXT NOT NULL,
+    "principal_id" TEXT NOT NULL,
+    "principal_type" TEXT NOT NULL,
     "created_by" TEXT NOT NULL,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_modified_time" DATETIME,
@@ -258,7 +189,6 @@ CREATE TABLE "collaborator" (
 CREATE TABLE "invitation" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "base_id" TEXT,
-    "space_id" TEXT,
     "type" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "invitation_code" TEXT NOT NULL,
@@ -266,8 +196,7 @@ CREATE TABLE "invitation" (
     "create_by" TEXT NOT NULL,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_modified_time" DATETIME,
-    "last_modified_by" TEXT,
-    "deleted_time" DATETIME
+    "last_modified_by" TEXT
 );
 
 -- CreateTable
@@ -275,7 +204,6 @@ CREATE TABLE "invitation_record" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "invitation_id" TEXT NOT NULL,
     "base_id" TEXT,
-    "space_id" TEXT,
     "type" TEXT NOT NULL,
     "inviter" TEXT NOT NULL,
     "accepter" TEXT NOT NULL,
@@ -285,13 +213,11 @@ CREATE TABLE "invitation_record" (
 -- CreateTable
 CREATE TABLE "notification" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "from_user" TEXT,
-    "to_user" TEXT,
     "from_user_id" TEXT NOT NULL,
     "to_user_id" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "message" TEXT NOT NULL,
-    "url_meta" TEXT,
+    "url_path" TEXT,
     "is_read" BOOLEAN NOT NULL DEFAULT false,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "created_by" TEXT NOT NULL
@@ -304,17 +230,171 @@ CREATE TABLE "access_token" (
     "description" TEXT,
     "user_id" TEXT NOT NULL,
     "scopes" TEXT NOT NULL,
-    "space_ids" TEXT,
     "base_ids" TEXT,
     "sign" TEXT NOT NULL,
+    "client_id" TEXT,
     "expired_time" DATETIME NOT NULL,
     "last_used_time" DATETIME,
     "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_modified_time" DATETIME
 );
 
+-- CreateTable
+CREATE TABLE "setting" (
+    "instance_id" TEXT NOT NULL PRIMARY KEY,
+    "disallow_sign_up" BOOLEAN,
+    "enable_email_verification" BOOLEAN
+);
+
+-- CreateTable
+CREATE TABLE "oauth_app" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "logo" TEXT,
+    "homepage" TEXT NOT NULL,
+    "description" TEXT,
+    "client_id" TEXT NOT NULL,
+    "redirect_uris" TEXT,
+    "scopes" TEXT,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "last_modified_time" DATETIME,
+    "created_by" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "oauth_app_authorized" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "client_id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "authorized_time" DATETIME NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "oauth_app_secret" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "client_id" TEXT NOT NULL,
+    "secret" TEXT NOT NULL,
+    "masked_secret" TEXT NOT NULL,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+    "last_used_time" DATETIME
+);
+
+-- CreateTable
+CREATE TABLE "oauth_app_token" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "app_secret_id" TEXT NOT NULL,
+    "refresh_token_sign" TEXT NOT NULL,
+    "expired_time" DATETIME NOT NULL,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "record_history" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "table_id" TEXT NOT NULL,
+    "record_id" TEXT NOT NULL,
+    "field_id" TEXT NOT NULL,
+    "before" TEXT NOT NULL,
+    "after" TEXT NOT NULL,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "plugin" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "detail_desc" TEXT,
+    "logo" TEXT NOT NULL,
+    "help_url" TEXT,
+    "status" TEXT NOT NULL,
+    "positions" TEXT NOT NULL,
+    "url" TEXT,
+    "secret" TEXT NOT NULL,
+    "masked_secret" TEXT NOT NULL,
+    "i18n" TEXT,
+    "config" TEXT,
+    "plugin_user" TEXT,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "last_modified_time" DATETIME,
+    "created_by" TEXT NOT NULL,
+    "last_modified_by" TEXT
+);
+
+-- CreateTable
+CREATE TABLE "plugin_install" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "plugin_id" TEXT NOT NULL,
+    "base_id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "position_id" TEXT NOT NULL,
+    "position" TEXT NOT NULL,
+    "storage" TEXT,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+    "last_modified_time" DATETIME,
+    "last_modified_by" TEXT,
+    CONSTRAINT "plugin_install_plugin_id_fkey" FOREIGN KEY ("plugin_id") REFERENCES "plugin" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "dashboard" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "base_id" TEXT NOT NULL,
+    "layout" TEXT,
+    "created_by" TEXT NOT NULL,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "last_modified_time" DATETIME,
+    "last_modified_by" TEXT
+);
+
+-- CreateTable
+CREATE TABLE "dashboard_widget" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "dashboard_id" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "config" TEXT,
+    "position" TEXT,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+    "last_modified_time" DATETIME,
+    "last_modified_by" TEXT,
+    CONSTRAINT "dashboard_widget_dashboard_id_fkey" FOREIGN KEY ("dashboard_id") REFERENCES "dashboard" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "integration" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "resource_id" TEXT NOT NULL,
+    "config" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "enable" BOOLEAN,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "last_modified_time" DATETIME
+);
+
+-- CreateTable
+CREATE TABLE "plugin_context_menu" (
+    "table_id" TEXT NOT NULL,
+    "plugin_install_id" TEXT NOT NULL,
+    "order" REAL NOT NULL,
+    "created_time" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+    "last_modified_time" DATETIME,
+    "last_modified_by" TEXT,
+    CONSTRAINT "plugin_context_menu_table_id_fkey" FOREIGN KEY ("table_id") REFERENCES "table_meta" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 -- CreateIndex
 CREATE INDEX "base_order_idx" ON "base"("order");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "base_user_id_key" ON "base"("user_id");
 
 -- CreateIndex
 CREATE INDEX "table_meta_order_idx" ON "table_meta"("order");
@@ -356,22 +436,34 @@ CREATE UNIQUE INDEX "account_provider_provider_id_key" ON "account"("provider", 
 CREATE UNIQUE INDEX "attachments_token_key" ON "attachments"("token");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "automation_workflow_workflow_id_key" ON "automation_workflow"("workflow_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "automation_workflow_trigger_trigger_id_key" ON "automation_workflow_trigger"("trigger_id");
-
--- CreateIndex
-CREATE INDEX "automation_workflow_trigger_workflow_id_idx" ON "automation_workflow_trigger"("workflow_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "automation_workflow_action_action_id_key" ON "automation_workflow_action"("action_id");
-
--- CreateIndex
-CREATE INDEX "automation_workflow_action_workflow_id_idx" ON "automation_workflow_action"("workflow_id");
-
--- CreateIndex
-CREATE INDEX "automation_workflow_execution_history_workflow_id_idx" ON "automation_workflow_execution_history"("workflow_id");
+CREATE UNIQUE INDEX "collaborator_resource_type_resource_id_principal_id_principal_type_key" ON "collaborator"("resource_type", "resource_id", "principal_id", "principal_type");
 
 -- CreateIndex
 CREATE INDEX "notification_to_user_id_is_read_created_time_idx" ON "notification"("to_user_id", "is_read", "created_time");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "oauth_app_client_id_key" ON "oauth_app"("client_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "oauth_app_authorized_client_id_user_id_key" ON "oauth_app_authorized"("client_id", "user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "oauth_app_secret_secret_key" ON "oauth_app_secret"("secret");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "oauth_app_token_refresh_token_sign_key" ON "oauth_app_token"("refresh_token_sign");
+
+-- CreateIndex
+CREATE INDEX "record_history_table_id_record_id_created_time_idx" ON "record_history"("table_id", "record_id", "created_time");
+
+-- CreateIndex
+CREATE INDEX "record_history_table_id_created_time_idx" ON "record_history"("table_id", "created_time");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "plugin_secret_key" ON "plugin"("secret");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "integration_resource_id_key" ON "integration"("resource_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "plugin_context_menu_plugin_install_id_key" ON "plugin_context_menu"("plugin_install_id");
