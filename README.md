@@ -137,15 +137,6 @@ More features coming soon, see our <a target="_blank" href="https://app.teable.i
 
 ## Deploy
 
-### Deploy With Docker
-
-```sh
-cd dockers/examples/standalone/
-docker-compose up -d
-```
-
-for more details, see [install teable](https://help.teable.io/en/deploy/docker)
-
 ### One Click Deployment
 
 These platforms are easy to deploy with one click and come with free credits.

@@ -25,13 +25,6 @@ endif
 
 ENV_PATH ?= ./apps/nextjs-app
 
-DOCKER_COMPOSE ?= docker compose
-
-DOCKER_COMPOSE_ENV_FILE := $(wildcard ./dockers/.env)
-COMPOSE_FILES := $(wildcard ./dockers/*.yml)
-COMPOSE_FILE_ARGS := --env-file $(DOCKER_COMPOSE_ENV_FILE) $(foreach yml,$(COMPOSE_FILES),-f $(yml))
-
-NETWORK_MODE ?= teablenet
 CI_JOB_ID ?= 0
 CI ?= 0
 
@@ -47,67 +40,13 @@ SQLITE_PRISMA_DATABASE_URL ?= file:../../db/main.db
 # set param statement_cache_size=1 to avoid query error `ERROR: cached plan must not change result type` after alter column type (modify field type)
 POSTGES_PRISMA_DATABASE_URL ?= postgresql://teable:teable\@127.0.0.1:5432/teable?schema=public\&statement_cache_size=1
 
-# If the first make argument is "start", "stop"...
-ifeq (docker.start,$(firstword $(MAKECMDGOALS)))
-    SERVICE_TARGET = true
-else ifeq (docker.stop,$(firstword $(MAKECMDGOALS)))
-    SERVICE_TARGET = true
-else ifeq (docker.restart,$(firstword $(MAKECMDGOALS)))
-    SERVICE_TARGET = true
-else ifeq (docker.up,$(firstword $(MAKECMDGOALS)))
-    SERVICE_TARGET = true
-else ifeq (docker.await,$(firstword $(MAKECMDGOALS)))
-    SERVICE_TARGET = true
-else ifeq (docker.run,$(firstword $(MAKECMDGOALS)))
-    RUN_TARGET = true
-else ifeq (docker.integration,$(firstword $(MAKECMDGOALS)))
-    INTEGRATION_TARGET = true
-endif
 
-ifdef SERVICE_TARGET
-    # .. then use the rest as arguments for the make target
-    SERVICE := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-    # ...and turn them into do-nothing targets
-    $(eval $(SERVICE):;@:)
-else ifdef RUN_TARGET
-    # Isolate second argument as service, the rest is arguments for run command
-    SERVICE := $(wordlist 2, 2, $(MAKECMDGOALS))
-    SERVICE_ARGS := $(wordlist 3, $(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-else ifdef INTEGRATION_TARGET
-    # Isolate second argument as integration module, the rest as arguments
-    INTEGRATION_MODULE := $(wordlist 2, 2, $(MAKECMDGOALS))
-     $(eval $(INTEGRATION_MODULE):;@:)
-    INTEGRATION_ARGS := $(wordlist 3, $(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-    $(eval $(INTEGRATION_ARGS):;@:)
-endif
-
-#
-# Never use the network=host mode when running CI jobs, and add extra
-# distinguishing identifiers to the network name and container names to
-# prevent collisions with jobs from the same project running at the same
-# time.
-#
-ifneq ($(CI_JOB_ID),)
-    NETWORK_MODE := teablenet-$(CI_JOB_ID)
-endif
 
 ifeq ($(CI),0)
     export NODE_ENV = development
 endif
 
 
-ifeq ($(UNAME_S),Linux)
-	DOCKER_GID ?= $(shell getent group docker | cut -d: -f 3)
-else ifeq ($(UNAME_S),Darwin)
-	DOCKER_GID ?= $(shell id -g)
-else
-    $(error Sorry, '${UNAME_S}' is not supported yet)
-endif
-
-
-DOCKER_COMPOSE_ARGS := DOCKER_UID=$(shell id -u) \
-	DOCKER_GID=$(DOCKER_GID) \
-    NETWORK_MODE=$(NETWORK_MODE)
 
 
 define print_db_mode_options
@@ -125,78 +64,8 @@ endef
 .PHONY: db-mode sqlite.mode postgres.mode gen-prisma-schema gen-sqlite-prisma-schema gen-postgres-prisma-schema
 .DEFAULT_GOAL := help
 
-docker.create.network:
-ifneq ($(NETWORK_MODE),host)
-	@docker network inspect $(NETWORK_MODE) &> /dev/null || ([ $$? -ne 0 ] && docker network create $(NETWORK_MODE))
-	$(info ${GREEN}network $(NETWORK_MODE) create success${RESET})
-endif
-
-docker.rm.network:
-ifneq ($(NETWORK_MODE),host)
-	@docker network inspect $(NETWORK_MODE) &> /dev/null && ([ $$? -eq 0 ] && docker network rm $(NETWORK_MODE)) || true
-	$(warning ${GREEN}network $(NETWORK_MODE) removed${RESET})
-endif
 
 
-docker.run: docker.create.network
-	$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) run -T --no-deps --rm $(SERVICE) $(SERVICE_ARGS)
-
-docker.up: docker.create.network
-	@$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) up --no-recreate -d $(SERVICE)
-
-docker.down: docker.rm.network
-	$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) down
-
-docker.start:
-	$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) start $(SERVICE)
-
-docker.stop:
-	$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) stop $(SERVICE)
-
-docker.restart:
-	make docker.stop $(SERVICE)
-	make docker.start $(SERVICE)
-
-TIME := 0
-docker.await: ## max timeout of 300
-	@time=$(TIME); \
-	for i in $(SERVICE); do \
-		current_service=$$($(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) ps -q $${i}); \
-		if [ -z "$${current_service}" ]; then \
-			continue; \
-		fi; \
-		service_has_health=$$(docker inspect -f '{{.State.Health.Status}}' $${current_service}); \
-		if [ -z "$${service_has_health}" ]; then \
-			continue; \
-		fi; \
-		while [ "$$(docker inspect -f '{{.State.Health.Status}}' $${current_service})" != "healthy" ] ; do \
-			sleep 1; \
-			time=$$(expr $$time + 1); \
-			if [ $${time} -gt $(TIMEOUT) ]; then \
-				echo "${YELLOW}Timeout reached waiting for $${i} to become healthy${RESET}"; \
-				docker logs $${i}; \
-				exit 1; \
-			fi; \
-		done; \
-		echo "${GREEN}Service $${i} is healthy${RESET}"; \
-	done
-
-docker.status:
-	$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) ps
-
-docker.images:
-	$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) images
-
-
-build.app:
-	@zx --version || pnpm add -g zx; \
-  	zx scripts/build-image.mjs --file=dockers/teable/Dockerfile \
-		  --tag=teable:develop
-
-build.db-migrate:
-	@zx --version || pnpm add -g zx; \
-  	zx scripts/build-image.mjs --file=dockers/teable/Dockerfile.db-migrate \
-		  --tag=teable-db-migrate:develop
 
 
 sqlite.integration.test:
@@ -206,17 +75,13 @@ sqlite.integration.test:
 	pnpm -F "./packages/**" run build; \
 	pnpm g:test-e2e-cover
 
-postgres.integration.test: docker.create.network
-	@TEST_PG_CONTAINER_NAME=teable-postgres-$(CI_JOB_ID); \
-	docker rm -fv $$TEST_PG_CONTAINER_NAME | true; \
-	$(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE) $(COMPOSE_FILE_ARGS) run -p 25432:5432 -d -T --no-deps --rm --name $$TEST_PG_CONTAINER_NAME teable-postgres; \
-	chmod +x scripts/wait-for; \
-	scripts/wait-for 127.0.0.1:25432 --timeout=15 -- echo 'pg database started successfully' && \
-		export PRISMA_DATABASE_URL=postgresql://teable:teable@127.0.0.1:25432/e2e_test_teable?schema=public\&statement_cache_size=1 && \
+postgres.integration.test:
+	@echo "PostgreSQL integration test requires manual database setup"
+	@echo "Please ensure PostgreSQL is running and accessible at postgresql://teable:teable@127.0.0.1:5432/e2e_test_teable"
+	@export PRISMA_DATABASE_URL=postgresql://teable:teable@127.0.0.1:5432/e2e_test_teable?schema=public\&statement_cache_size=1 && \
 		make postgres.mode && \
 		pnpm -F "./packages/**" run build && \
-		pnpm g:test-e2e-cover && \
-		docker rm -fv $$TEST_PG_CONTAINER_NAME
+		pnpm g:test-e2e-cover
 
 gen-sqlite-prisma-schema:
 	@cd ./packages/db-main-prisma; \
@@ -304,8 +169,7 @@ switch-db-mode:		## Switch Database environment
       	make sqlite.mode; \
     elif [ "$$command" = "2" ] || [ "$$command" = "postges" ] || [ "$$command" = "pg" ]; then \
       	make switch.prisma.env RUN_DB_MODE=postges; \
-		make docker.up teable-postgres; \
-    	make docker.await teable-postgres; \
+		echo "Please ensure PostgreSQL is running and accessible at postgresql://teable:teable@127.0.0.1:5432/teable"; \
     	make postgres.mode; \
     else \
       	echo "Unknown command.";  fi
