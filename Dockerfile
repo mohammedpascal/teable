@@ -1,15 +1,14 @@
-# Use Node.js 20 Alpine base
-FROM node:20-alpine
+# Use Debian-based Node.js (glibc) to avoid musl issues
+FROM node:20-bookworm-slim
 
 # Install essential build dependencies
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
   python3 \
   g++ \
+  make \
   git \
-  libc6-compat \
-  bash \
   curl \
-  make
+  && rm -rf /var/lib/apt/lists/*
 
 # Fix Corepack signature issue
 ENV COREPACK_ENABLE_STRICT_VERIFY=false
@@ -26,16 +25,18 @@ COPY apps/nestjs-backend/package.json ./apps/nestjs-backend/
 COPY apps/nextjs-app/package.json ./apps/nextjs-app/
 COPY packages ./packages
 
-# Install dependencies (skip frozen lockfile if needed)
+# Disable Husky prepare scripts
+
+# Install dependencies
 RUN pnpm install --no-frozen-lockfile
 
 # Copy source code
 COPY . .
 
-# Build the project
-RUN npm_config_build_from_source=true pnpm rebuild esbuild @swc/core sqlite3 && pnpm build
+# ✅ Build project (no musl/glibc issues now)
+RUN pnpm rebuild esbuild @swc/core sqlite3 && pnpm build
 
-# Set runtime environment variables
+# Environment variables
 ENV NODE_ENV=production
 ENV NEXTJS_DIR=apps/nextjs-app
 ENV PRISMA_DATABASE_URL=file:./db/main.db
@@ -43,7 +44,7 @@ ENV PUBLIC_ORIGIN=https://teable-teable-nneax4-899199-95-217-164-24.traefik.me/
 ENV BRAND_NAME=Teable
 ENV SECRET_KEY=defaultSecretKey
 
-# Expose web port
+# Expose app port
 EXPOSE 3000
 
 # Start app
