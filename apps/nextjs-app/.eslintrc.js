@@ -37,6 +37,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     // https://github.com/vercel/next.js/discussions/16832
     '@next/next/no-img-element': 'off',
     // For the sake of example

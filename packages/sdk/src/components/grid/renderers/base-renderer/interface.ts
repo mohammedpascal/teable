@@ -100,19 +100,6 @@ export interface IProcessBarProps extends IRectangle {
   radius?: number;
 }
 
-export interface IChartLineProps extends IRectangle {
-  values: number[];
-  color: string;
-  axisColor: string;
-  font: string;
-  hoverX?: number;
-  hoverAmount?: number;
-  yAxis?: [number, number];
-  displayValues?: string[];
-}
-
-export type IChartBarProps = Omit<IChartLineProps, 'hoverAmount'>;
-
 export interface ITextInfo {
   text: string;
   width: number;

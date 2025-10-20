@@ -1,10 +1,10 @@
-import { ColorUtils, Colors, MultiNumberDisplayType } from '@teable/core';
+import { ColorUtils, Colors } from '@teable/core';
 import type { IMultiNumberShowAs } from '@teable/core';
 import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib/shadcn';
 import { Label } from '@teable/ui-lib/shadcn/ui/label';
 import { useTranslation } from 'next-i18next';
-import { tableConfig } from '@/features/i18n/table.config';
 import { ColorPicker } from '../options/SelectOptions';
+import { tableConfig } from '@/features/i18n/table.config';
 
 const numberFlag = 'Number';
 
@@ -27,14 +27,6 @@ export const MultiNumberShowAs: React.FC<IMultiNumberShowAsProps> = (props) => {
     {
       type: numberFlag,
       text: t('table:field.editor.number'),
-    },
-    {
-      type: MultiNumberDisplayType.Bar,
-      text: t('table:field.editor.chartBar'),
-    },
-    {
-      type: MultiNumberDisplayType.Line,
-      text: t('table:field.editor.chartLine'),
     },
   ];
 

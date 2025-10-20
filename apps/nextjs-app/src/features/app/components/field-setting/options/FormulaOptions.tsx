@@ -119,10 +119,7 @@ export const FormulaOptionsInner = (props: {
             closeable
             className="flex size-auto max-w-full overflow-hidden rounded-sm p-0 outline-0 md:w-auto"
           >
-            <FormulaEditor
-              expression={expression}
-              onConfirm={onExpressionChange}
-            />
+            <FormulaEditor expression={expression} onConfirm={onExpressionChange} />
           </DialogContent>
         </Dialog>
       </div>

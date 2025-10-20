@@ -3,7 +3,6 @@ import { assertNever, ViewType } from '@teable/core';
 import { plainToInstance } from 'class-transformer';
 import type { Doc } from 'sharedb/lib/client';
 import { CalendarView } from './calendar.view';
-import { ChartView } from './chart.view';
 import { FormView } from './form.view';
 import { GalleryView } from './gallery.view';
 import { GridView } from './grid.view';
@@ -22,8 +21,6 @@ export function createViewInstance(view: IViewVo, doc?: Doc<IViewVo>) {
         return plainToInstance(GalleryView, view);
       case ViewType.Calendar:
         return plainToInstance(CalendarView, view);
-      case ViewType.Chart:
-        return plainToInstance(ChartView, view);
       case ViewType.Gantt:
         throw new Error('did not implement yet');
       default:

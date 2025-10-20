@@ -22,7 +22,7 @@ import {
 } from '@teable/sdk/hooks';
 import type { KanbanView, IFieldInstance, AttachmentField } from '@teable/sdk/model';
 import type { ReactNode } from 'react';
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { UNCATEGORIZED_STACK_ID } from '../constant';
 import { KanbanContext } from './KanbanContext';
 
@@ -91,12 +91,13 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
     enabled: !shareId && Boolean(baseId && type === FieldType.User && !isMultipleCellValue),
   });
 
-  const userList = baseCollaborators?.collaborators?.map(collaborator => ({
-    id: collaborator.userId || '',
-    name: collaborator.userName || '',
-    email: collaborator.email || '',
-    avatar: collaborator.avatar
-  })) as UserCollaboratorItem[] || [];
+  const userList =
+    (baseCollaborators?.collaborators?.map((collaborator) => ({
+      id: collaborator.userId || '',
+      name: collaborator.userName || '',
+      email: collaborator.email || '',
+      avatar: collaborator.avatar,
+    })) as UserCollaboratorItem[]) || [];
 
   const kanbanPermission = useMemo(() => {
     return {

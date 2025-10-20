@@ -3,7 +3,6 @@ import { assertNever, ViewType } from '@teable/core';
 import type { View } from '@teable/db-main-prisma';
 import { plainToInstance } from 'class-transformer';
 import { CalendarViewDto } from './calendar-view.dto';
-import { ChartViewDto } from './chart-view.dto';
 import { FormViewDto } from './form-view.dto';
 import { GalleryViewDto } from './gallery-view.dto';
 import { GridViewDto } from './grid-view.dto';
@@ -23,8 +22,6 @@ export function createViewInstanceByRaw(viewRaw: View) {
       return plainToInstance(CalendarViewDto, viewVo);
     case ViewType.Form:
       return plainToInstance(FormViewDto, viewVo);
-    case ViewType.Chart:
-      return plainToInstance(ChartViewDto, viewVo);
     case ViewType.Gantt:
       throw new Error('did not implement yet');
     default:

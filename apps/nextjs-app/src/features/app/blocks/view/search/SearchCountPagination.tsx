@@ -36,7 +36,6 @@ export const SearchCountPagination = forwardRef<
   ISearchCountPaginationRef,
   ISearchCountPaginationProps
 >((props: ISearchCountPaginationProps, ref) => {
-  const { shareView } = props;
   const { value, searchQuery } = useSearch();
   const tableId = useTableId();
   const view = useView() as GridView;

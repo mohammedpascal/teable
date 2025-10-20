@@ -35,9 +35,6 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
         ) {
           return columnMeta?.[id]?.visible;
         }
-        if (viewType === ViewType.Chart) {
-          return !(columnMeta?.[id] as any)?.hidden;
-        }
         return !(columnMeta?.[id] as any)?.hidden;
       };
       const hasPermission = () => {

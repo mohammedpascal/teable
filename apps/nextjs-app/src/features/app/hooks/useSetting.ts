@@ -3,6 +3,12 @@ import { getPublicSetting } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { useSession } from '@teable/sdk/hooks';
 
+interface ISetting {
+  disallowSignUp?: boolean;
+  disallowSpaceCreation?: boolean;
+  disallowSpaceInvitation?: boolean;
+}
+
 export const useSetting = () => {
   const { user } = useSession();
   const { data: setting, isLoading } = useQuery({
@@ -14,7 +20,7 @@ export const useSetting = () => {
     disallowSignUp = false,
     disallowSpaceCreation = false,
     disallowSpaceInvitation = false,
-  } = (setting as any) ?? {};
+  } = (setting as ISetting) ?? {};
 
   return {
     disallowSignUp,

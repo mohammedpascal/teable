@@ -1,8 +1,7 @@
 import { z } from 'zod';
 
-export enum GetTokenType {
-  chart = 'chart',
-}
+export enum GetTokenType {}
+// Add other plugin types here as needed
 
 export const getTokenRoSchema = z.object({
   baseId: z.string(),

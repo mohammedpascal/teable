@@ -63,10 +63,10 @@ export const TableOperation = (props: ITableOperationProps) => {
   const defaultTableName = useMemo(
     () =>
       getUniqName(
-        `${table?.name} ${t('space:baseModal.copy')}`,
+        `${table?.name} space:baseModal.copy`,
         tables.map((t) => t.name)
       ),
-    [t, table?.name, tables]
+    [table?.name, tables]
   );
 
   const [duplicateOption, setDuplicateOption] = useState({
@@ -233,7 +233,6 @@ export const TableOperation = (props: ITableOperationProps) => {
         content={
           <div className="space-y-2 text-sm">
             <p>1. {t('table:table.deleteTip1')}</p>
-            <p>2. {t('table:table.deleteTip2')}</p>
           </div>
         }
         onCancel={() => setDeleteConfirm(false)}

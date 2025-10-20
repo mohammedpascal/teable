@@ -69,7 +69,7 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
     () => ({
       [StepKey.CreateSpace]: {
         target: `.${GUIDE_CREATE_SPACE}`,
-        title: <div className="text-base">{t('guide.createSpaceTooltipTitle')}</div>,
+        title: <div className="text-base">createSpaceTooltipTitle</div>,
         content: (
           <div className="text-left text-[13px]">
             <Trans
@@ -83,8 +83,8 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
       },
       [StepKey.CreateBase]: {
         target: `.${GUIDE_CREATE_BASE}`,
-        title: <div className="text-base">{t('guide.createBaseTooltipTitle')}</div>,
-        content: <div className="text-left text-[13px]">{t('guide.createBaseTooltipContent')}</div>,
+        title: <div className="text-base">createBaseTooltipTitle</div>,
+        content: <div className="text-left text-[13px]">createBaseTooltipContent</div>,
         disableBeacon: true,
       },
       [StepKey.CreateTable]: {

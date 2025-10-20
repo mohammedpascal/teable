@@ -4,11 +4,11 @@ import { ViewFilter, VisibleFields, useTablePermission, CreateRecordModal } from
 import { useView } from '@teable/sdk/hooks/use-view';
 import { Button, cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
-import { GUIDE_VIEW_FILTERING } from '@/components/Guide';
-import { tableConfig } from '@/features/i18n/table.config';
 import { CalendarConfig } from '../../calendar/components/CalendarConfig';
 import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { ToolBarButton } from '../ToolBarButton';
+import { GUIDE_VIEW_FILTERING } from '@/components/Guide';
+import { tableConfig } from '@/features/i18n/table.config';
 
 export const CalendarViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
@@ -54,18 +54,7 @@ export const CalendarViewOperators: React.FC<{ disabled?: boolean }> = (props) =
           </ToolBarButton>
         )}
       </VisibleFields>
-      <ViewFilter
-        filters={view?.filter || null}
-        onChange={onFilterChange}
-        contentHeader={
-          (view as any).enableShare && (
-            <div className="flex max-w-full items-center justify-start rounded-t bg-accent px-4 py-2 text-[11px]">
-              <Share2 className="mr-4 size-4 shrink-0" />
-              <span className="text-muted-foreground">{t('table:toolbar.viewFilterInShare')}</span>
-            </div>
-          )
-        }
-      >
+      <ViewFilter filters={view?.filter || null} onChange={onFilterChange}>
         {(text, isActive) => (
           <ToolBarButton
             disabled={disabled}

@@ -4,7 +4,6 @@ import { columnMetaSchema } from './column-meta.schema';
 import { ViewType } from './constant';
 import {
   calendarViewOptionSchema,
-  chartViewOptionSchema,
   formViewOptionSchema,
   galleryViewOptionSchema,
   gridViewOptionSchema,
@@ -60,7 +59,6 @@ export const viewRoSchema = viewVoSchema
       [ViewType.Gallery]: galleryViewOptionSchema,
       [ViewType.Calendar]: calendarViewOptionSchema,
       [ViewType.Grid]: gridViewOptionSchema,
-      [ViewType.Chart]: chartViewOptionSchema,
     } as const;
     if (!(type in optionsSchemaMap)) {
       return ctx.addIssue({

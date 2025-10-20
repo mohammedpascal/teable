@@ -29,7 +29,7 @@ const Node: NextPageWithLayout = () => {
                 components={{
                   HelpCenter: (
                     <a
-                      href={t('help.mainLink')}
+                      href={'https://help.teable.io'}
                       className="text-blue-500 hover:text-blue-700"
                       target="_blank"
                       rel="noreferrer"

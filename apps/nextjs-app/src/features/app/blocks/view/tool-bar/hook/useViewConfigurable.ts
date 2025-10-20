@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useTablePermission, useView } from '@teable/sdk/hooks';
 
 export const useViewConfigurable = () => {
-  const view = useView();
+  const view = useView() as any;
   const permission = useTablePermission();
 
   return {
-    isViewConfigurable: !(view as any)?.isLocked && permission['view|update'],
+    isViewConfigurable: !view?.isLocked && permission['view|update'],
   };
 };

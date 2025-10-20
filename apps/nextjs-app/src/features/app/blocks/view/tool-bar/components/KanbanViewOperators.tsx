@@ -16,12 +16,12 @@ import { useView } from '@teable/sdk/hooks/use-view';
 import { Button, Label, Switch, cn } from '@teable/ui-lib/shadcn';
 import { Trans, useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useRef } from 'react';
-import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING } from '@/components/Guide';
-import { tableConfig } from '@/features/i18n/table.config';
 import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { useKanbanStackCollapsedStore } from '../../kanban/store';
 import { ToolBarButton } from '../ToolBarButton';
 import { CoverFieldSelect } from './CoverFieldSelect';
+import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING } from '@/components/Guide';
+import { tableConfig } from '@/features/i18n/table.config';
 
 export const KanbanViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
@@ -163,18 +163,7 @@ export const KanbanViewOperators: React.FC<{ disabled?: boolean }> = (props) => 
           </ToolBarButton>
         )}
       </VisibleFields>
-      <ViewFilter
-        filters={view?.filter || null}
-        onChange={onFilterChange}
-        contentHeader={
-          (view as any).enableShare && (
-            <div className="flex max-w-full items-center justify-start rounded-t bg-accent px-4 py-2 text-[11px]">
-              <Share2 className="mr-4 size-4 shrink-0" />
-              <span className="text-muted-foreground">{t('table:toolbar.viewFilterInShare')}</span>
-            </div>
-          )
-        }
-      >
+      <ViewFilter filters={view?.filter || null} onChange={onFilterChange}>
         {(text, isActive) => (
           <ToolBarButton
             disabled={disabled}

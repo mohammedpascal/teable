@@ -42,11 +42,6 @@ export const AddView: React.FC = () => {
       type: ViewType.Form,
       Icon: VIEW_ICON_MAP[ViewType.Form],
     },
-    {
-      name: 'Chart',
-      type: ViewType.Chart,
-      Icon: VIEW_ICON_MAP[ViewType.Chart],
-    },
   ];
 
   const onClick = (type: ViewType, name: string) => {

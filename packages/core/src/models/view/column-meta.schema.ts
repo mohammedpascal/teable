@@ -26,8 +26,6 @@ export type IFormColumnMeta = z.infer<typeof formColumnMetaSchema>;
 
 export type IPluginColumnMeta = z.infer<typeof pluginColumnMetaSchema>;
 
-export type IChartColumnMeta = z.infer<typeof chartColumnMetaSchema>;
-
 export type IColumn = z.infer<typeof columnSchema>;
 
 export type IGridColumn = z.infer<typeof gridColumnSchema>;
@@ -105,21 +103,12 @@ export const pluginColumnSchema = columnSchemaBase.merge(
   })
 );
 
-export const chartColumnSchema = columnSchemaBase.merge(
-  z.object({
-    hidden: z.boolean().optional().openapi({
-      description: 'If column hidden in the chart view.',
-    }),
-  })
-);
-
 export const columnSchema = z.union([
   gridColumnSchema,
   kanbanColumnSchema,
   galleryColumnSchema,
   formColumnSchema,
   pluginColumnSchema,
-  chartColumnSchema,
 ]);
 
 export const columnMetaSchema = z.record(z.string().startsWith(IdPrefix.Field), columnSchema);
@@ -154,11 +143,6 @@ export const pluginColumnMetaSchema = z.record(
   pluginColumnSchema
 );
 
-export const chartColumnMetaSchema = z.record(
-  z.string().startsWith(IdPrefix.Field),
-  chartColumnSchema
-);
-
 export const columnMetaRoSchema = z
   .object({
     fieldId: z
@@ -171,7 +155,6 @@ export const columnMetaRoSchema = z
       kanbanColumnSchema.partial().strict(),
       formColumnSchema.partial().strict(),
       pluginColumnSchema.partial().strict(),
-      chartColumnSchema.partial().strict(),
     ]),
   })
   .array();

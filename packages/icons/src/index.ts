@@ -13,7 +13,6 @@ export { default as ArrowUpDown } from './components/ArrowUpDown';
 export { default as ArrowUpRight } from './components/ArrowUpRight';
 export { default as Audio } from './components/Audio';
 export { default as Azure } from './components/Azure';
-export { default as BarChart2 } from './components/BarChart2';
 export { default as Bell } from './components/Bell';
 export { default as Boolean } from './components/Boolean';
 export { default as Building2 } from './components/Building2';

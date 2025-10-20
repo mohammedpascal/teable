@@ -8,7 +8,7 @@ import type { IFieldInstance } from '../../../model';
 import { getFileCover, isSystemFileIcon } from '../../editor';
 import { GRID_DEFAULT } from '../../grid/configs';
 import type { IGridColumn } from '../../grid/interface';
-import type { ChartType, ICell, INumberShowAs as IGridNumberShowAs } from '../../grid/renderers';
+import type { ICell, INumberShowAs as IGridNumberShowAs } from '../../grid/renderers';
 import { CellType } from '../../grid/renderers';
 import { cellDate2String, convertNextImageUrl } from '../utils';
 
@@ -169,16 +169,6 @@ const useGenerateGroupCellFn = () => {
                     ...optionShowAs,
                     color: ColorUtils.getHexForColor(optionShowAs.color),
                   };
-
-            if (showAs && isMultiple && Array.isArray(cellValue)) {
-              return {
-                type: CellType.Chart,
-                data: cellValue as number[],
-                displayData: cellValue.map((v) => field.item2String(v)),
-                chartType: showAs.type as unknown as ChartType,
-                color: showAs.color,
-              };
-            }
 
             return {
               type: CellType.Number,

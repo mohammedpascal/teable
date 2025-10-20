@@ -171,5 +171,4 @@ export class SsrApi {
       })
       .then(({ data }) => data);
   }
-
 }

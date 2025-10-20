@@ -1,5 +1,4 @@
 import { booleanCellRenderer } from './booleanCellRenderer';
-import { chartCellRenderer } from './chartCellRenderer';
 import { imageCellRenderer } from './imageCellRenderer';
 import { CellType } from './interface';
 import { linkCellRenderer } from './linkCellRenderer';
@@ -29,8 +28,6 @@ export const getCellRenderer = (cellType: CellType) => {
       return imageCellRenderer;
     case CellType.Rating:
       return ratingCellRenderer;
-    case CellType.Chart:
-      return chartCellRenderer;
     case CellType.User:
       return userCellRenderer;
     case CellType.Loading:

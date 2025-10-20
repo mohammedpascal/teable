@@ -54,7 +54,6 @@ export const SignForm: FC<ISignForm> = (props) => {
             query: window.location.search || undefined,
             referer: document.referrer || undefined,
           },
-          defaultSpaceName: t('space:initialSpaceName', { name: form.email.split('@')[0] }),
         });
       }
       throw new Error('Invalid type');

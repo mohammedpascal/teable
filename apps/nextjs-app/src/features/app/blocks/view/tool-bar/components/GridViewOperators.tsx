@@ -5,11 +5,11 @@ import { useView } from '@teable/sdk/hooks/use-view';
 import { cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useRef } from 'react';
-import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING, GUIDE_VIEW_GROUPING } from '@/components/Guide';
-import { tableConfig } from '@/features/i18n/table.config';
 import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { ToolBarButton } from '../ToolBarButton';
 import { useToolBarStore } from './useToolBarStore';
+import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING, GUIDE_VIEW_GROUPING } from '@/components/Guide';
+import { tableConfig } from '@/features/i18n/table.config';
 
 export const GridViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
@@ -31,7 +31,7 @@ export const GridViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
     return <div></div>;
   }
   return (
-    <div className="flex @sm/toolbar:gap-1">
+    <div className="@sm/toolbar:gap-1 flex">
       <HideFields>
         {(text, isActive) => (
           <ToolBarButton
@@ -44,18 +44,7 @@ export const GridViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
           </ToolBarButton>
         )}
       </HideFields>
-      <ViewFilter
-        filters={view?.filter || null}
-        onChange={onFilterChange}
-        contentHeader={
-          (view as any).enableShare && (
-            <div className="flex max-w-full items-center justify-start rounded-t bg-accent px-4 py-2 text-[11px]">
-              <Share2 className="mr-4 size-4 shrink-0" />
-              <span className="text-muted-foreground">{t('table:toolbar.viewFilterInShare')}</span>
-            </div>
-          )
-        }
-      >
+      <ViewFilter filters={view?.filter || null} onChange={onFilterChange}>
         {(text, isActive) => (
           <ToolBarButton
             disabled={disabled}

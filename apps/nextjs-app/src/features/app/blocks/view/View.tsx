@@ -1,7 +1,6 @@
 import { ViewType } from '@teable/core';
 import { useView } from '@teable/sdk';
 import { CalendarView } from './calendar/CalendarView';
-import { ChartView } from './chart/ChartView';
 import { FormView } from './form/FormView';
 import { GalleryView } from './gallery/GalleryView';
 import { GridView } from './grid/GridView';
@@ -24,8 +23,6 @@ export const View = (props: IViewBaseProps) => {
         return <GalleryView />;
       case ViewType.Calendar:
         return <CalendarView />;
-      case ViewType.Chart:
-        return <ChartView />;
       default:
         return null;
     }

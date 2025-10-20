@@ -5,7 +5,7 @@ import { keyBy } from 'lodash';
 import { LRUCache } from 'lru-cache';
 import { useCallback, useMemo } from 'react';
 import colors from 'tailwindcss/colors';
-import type { ChartType, ICell, IGridColumn, INumberShowAs as IGridNumberShowAs } from '../..';
+import type { ICell, IGridColumn, INumberShowAs as IGridNumberShowAs } from '../..';
 import {
   CellType,
   hexToRGBA,
@@ -321,17 +321,6 @@ export const useCreateCellValue2GridDisplay = (rowHeight?: RowHeightLevel) => {
                     ...optionShowAs,
                     color: ColorUtils.getHexForColor(optionShowAs.color),
                   };
-
-            if (showAs && isMultiple && Array.isArray(cellValue)) {
-              return {
-                ...baseCellProps,
-                type: CellType.Chart,
-                data: cellValue as number[],
-                displayData: cellValue.map((v) => field.item2String(v)),
-                chartType: showAs.type as unknown as ChartType,
-                color: showAs.color,
-              };
-            }
 
             return {
               ...baseCellProps,

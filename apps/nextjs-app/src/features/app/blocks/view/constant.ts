@@ -5,7 +5,6 @@ import {
   LayoutGrid as Gallery,
   Kanban,
   Calendar,
-  BarChart2 as Chart,
 } from '@teable/icons';
 
 export const VIEW_ICON_MAP = {
@@ -15,5 +14,4 @@ export const VIEW_ICON_MAP = {
   [ViewType.Gallery]: Gallery,
   [ViewType.Calendar]: Calendar,
   [ViewType.Form]: Form,
-  [ViewType.Chart]: Chart,
 };

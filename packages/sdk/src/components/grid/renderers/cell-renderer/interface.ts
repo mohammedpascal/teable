@@ -10,7 +10,6 @@ export enum CellType {
   Number = 'Number',
   Select = 'Select',
   Image = 'Image',
-  Chart = 'Chart',
   Rating = 'Rating',
   User = 'User',
   Boolean = 'Boolean',
@@ -75,19 +74,6 @@ export interface INumberCell extends IEditableCell {
   data: number | null | undefined;
   displayData: string | string[];
   showAs?: INumberShowAs;
-}
-
-export enum ChartType {
-  Bar = 'bar',
-  Line = 'line',
-}
-
-export interface IChartCell extends IEditableCell {
-  type: CellType.Chart;
-  data: number[];
-  displayData: string[];
-  chartType?: ChartType;
-  color?: string;
 }
 
 export interface IBooleanCell extends IEditableCell {
@@ -160,7 +146,6 @@ export type IInnerCell =
   | IImageCell
   | IRatingCell
   | IBooleanCell
-  | IChartCell
   | IUserCell;
 
 export type ICell = IInnerCell | ILoadingCell;
