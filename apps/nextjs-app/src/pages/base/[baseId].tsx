@@ -5,7 +5,6 @@ import type { GetServerSideProps } from 'next';
 import { Trans, useTranslation } from 'next-i18next';
 import type { ReactElement } from 'react';
 import { BaseLayout } from '@/features/app/layouts/BaseLayout';
-import { dashboardConfig } from '@/features/i18n/dashboard.config';
 import ensureLogin from '@/lib/ensureLogin';
 import { getTranslationsProps } from '@/lib/i18n';
 import type { NextPageWithLayout } from '@/lib/type';
@@ -13,7 +12,7 @@ import withAuthSSR from '@/lib/withAuthSSR';
 import withEnv from '@/lib/withEnv';
 
 const Node: NextPageWithLayout = () => {
-  const { t } = useTranslation(dashboardConfig.i18nNamespaces);
+  const { t } = useTranslation(['table', 'common']);
   return (
     <div className="h-full flex-col md:flex">
       <div className="flex h-full flex-1 flex-col gap-2 lg:gap-4">

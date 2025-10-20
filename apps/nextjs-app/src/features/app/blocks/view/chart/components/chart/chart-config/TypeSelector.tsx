@@ -4,7 +4,6 @@ import { ChevronsUpDown, Table2 } from '@teable/icons';
 import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import { BarChart, LineChart, PieChart, AreaChart } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { IChartConfig } from '../chart-show/types';
 
 export const TypeSelector = (props: {
@@ -14,37 +13,36 @@ export const TypeSelector = (props: {
 }) => {
   const { className, type, onChange } = props;
   const [open, setOpen] = useState(false);
-  const { t } = useTranslation();
 
   const options = useMemo(() => {
     return [
       {
-        label: t('chart.bar'),
+        label: 'Bar',
         value: 'bar',
         Icon: BarChart,
       },
       {
-        label: t('chart.line'),
+        label: 'Line',
         value: 'line',
         Icon: LineChart,
       },
       {
-        label: t('chart.pie'),
+        label: 'Pie',
         value: 'pie',
         Icon: PieChart,
       },
       {
-        label: t('chart.area'),
+        label: 'Area',
         value: 'area',
         Icon: AreaChart,
       },
       {
-        label: t('chart.table'),
+        label: 'Table',
         value: 'table',
         Icon: Table2,
       },
     ] as const;
-  }, [t]);
+  }, []);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -55,7 +53,7 @@ export const TypeSelector = (props: {
           className={cn('w-full justify-between h-8 font-normal', className)}
         >
           {options.find((o) => o.value === type)?.label ?? (
-            <span className="text-muted-foreground">{t('form.chartType.placeholder')}</span>
+            <span className="text-muted-foreground">Select chart type</span>
           )}
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>

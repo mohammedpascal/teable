@@ -1,7 +1,6 @@
 import { Settings } from '@teable/icons';
 import { Button, Input, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useBaseQueryData } from '../../../../hooks/useBaseQueryData';
 import { useFilterNumberColumns } from '../../../../hooks/useFilterNumberColumns';
 import type { IPieConfig } from '../../chart-show/types';
@@ -12,16 +11,15 @@ import { SwitchEditor } from '../common/SwitchEditor';
 
 export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConfig) => void }) => {
   const { config, onChange } = props;
-  const { t } = useTranslation();
   const baseQueryData = useBaseQueryData();
-  const xColumns = baseQueryData?.columns ?? [];
-  const yColumns = useFilterNumberColumns(baseQueryData?.columns);
+  const xColumns = baseQueryData?.columns?.map(({ id, name }) => ({ column: id, name })) ?? [];
+  const yColumns = useFilterNumberColumns().map(({ id, name }) => ({ column: id, name }));
   const [decimal, setDecimal] = useState<number | undefined>(config.measure?.decimal);
   const [prefix, setPrefix] = useState<string | undefined>(config.measure?.prefix);
   const [suffix, setSuffix] = useState<string | undefined>(config.measure?.suffix);
   return (
     <div className="space-y-4">
-      <ConfigItem label={t('form.pie.dimension')}>
+      <ConfigItem label="Dimension">
         <ColumnSelector
           value={config.dimension}
           onChange={(val) => {
@@ -30,7 +28,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
           columns={xColumns}
         />
       </ConfigItem>
-      <ConfigItem label={t('form.pie.measure')}>
+      <ConfigItem label="Measure">
         <div className="flex items-center gap-2 ">
           <ColumnSelector
             className="flex-1"
@@ -54,7 +52,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="space-y-4">
-                <ConfigItem label={t('form.decimal')}>
+                <ConfigItem label="Decimal">
                   <Input
                     className="h-7 text-[13px]"
                     type="number"
@@ -78,7 +76,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
                     }}
                   />
                 </ConfigItem>
-                <ConfigItem label={t('form.prefix')}>
+                <ConfigItem label="Prefix">
                   <Input
                     className="h-7 text-[13px]"
                     value={prefix ?? ''}
@@ -96,7 +94,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
                     }}
                   />
                 </ConfigItem>
-                <ConfigItem label={t('form.suffix')}>
+                <ConfigItem label="Suffix">
                   <Input
                     className="h-7 text-[13px]"
                     value={suffix ?? ''}
@@ -120,7 +118,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
         </div>
       </ConfigItem>
       <SwitchEditor
-        label={t('form.showLabel')}
+        label="Show Label"
         value={config.showLabel}
         onChange={(val) => {
           onChange({
@@ -130,7 +128,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
         }}
       />
       <SwitchEditor
-        label={t('form.pie.showTotal')}
+        label="Show Total"
         value={config.showTotal}
         onChange={(val) => {
           onChange({
@@ -140,7 +138,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
         }}
       />
       <SwitchEditor
-        label={t('form.showLegend')}
+        label="Show Legend"
         value={config.showLegend}
         onChange={(val) => {
           onChange({
@@ -149,7 +147,7 @@ export const PieForm = (props: { config: IPieConfig; onChange: (config: IPieConf
           });
         }}
       />
-      <ConfigItem label={t('form.padding.label')}>
+      <ConfigItem label="Padding">
         <PaddingEditor
           value={config.padding}
           onChange={(val) => {

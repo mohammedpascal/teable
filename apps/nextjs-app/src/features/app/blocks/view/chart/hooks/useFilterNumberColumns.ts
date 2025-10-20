@@ -1,3 +1,4 @@
+import { FieldType } from '@teable/core';
 import { useFields } from '@teable/sdk';
 import { useMemo } from 'react';
 
@@ -6,14 +7,17 @@ export const useFilterNumberColumns = () => {
 
   return useMemo(() => {
     if (!fields) return [];
-    
-    return fields.filter(field => {
+
+    return fields.filter((field) => {
       // Filter for number-like fields that can be used in charts
-      return field.type === 'number' || 
-             field.type === 'currency' || 
-             field.type === 'percent' ||
-             field.type === 'rating' ||
-             field.type === 'count';
+      const fieldType = field.type as FieldType;
+      return (
+        fieldType === FieldType.Number ||
+        fieldType === FieldType.Rating ||
+        fieldType === FieldType.Count ||
+        fieldType === FieldType.Duration ||
+        fieldType === FieldType.AutoNumber
+      );
     });
   }, [fields]);
 };

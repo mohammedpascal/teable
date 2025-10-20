@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import type { IChartConfig } from '../chart-show/types';
 import { AreaForm } from './form/AreaForm';
 import { BarForm } from './form/BarForm';
@@ -11,7 +10,6 @@ export const ChartForm = (props: {
   onChange: (value: IChartConfig) => void;
 }) => {
   const { value, onChange } = props;
-  const { t } = useTranslation();
   switch (value.type) {
     case 'bar':
       return <BarForm config={value} onChange={onChange} />;

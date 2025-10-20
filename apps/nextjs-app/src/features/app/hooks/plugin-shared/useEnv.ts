@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { EvnContext } from '../../components/plugin-shared/EnvProvider';
+import { EnvContext } from '@/lib/server-env';
 
 export const useEnv = () => {
-  return useContext(EvnContext);
+  return useContext(EnvContext);
 };

@@ -1,24 +1,24 @@
 import { cn } from '@teable/ui-lib';
 import { useContext } from 'react';
-import { ChartContext } from './ChartProvider';
 import { ChartForm } from './chart/chart-config/ChartForm';
 import { TypeSelector } from './chart/chart-config/TypeSelector';
+import { ChartContext } from './ChartProvider';
 
 export const ChartSetting = ({ className }: { className?: string }) => {
   const { options, onOptionsChange } = useContext(ChartContext);
 
-  const handleTypeChange = (type: any) => {
-    const newConfig = { ...options?.config, type };
+  const handleTypeChange = (type: string) => {
+    const newConfig = { ...options?.config, type: type as string };
     onOptionsChange({
       ...options,
-      config: newConfig,
+      config: newConfig as Record<string, unknown>,
     });
   };
 
-  const handleConfigChange = (config: any) => {
+  const handleConfigChange = (config: Record<string, unknown>) => {
     onOptionsChange({
       ...options,
-      config,
+      config: config as Record<string, unknown>,
     });
   };
 
@@ -44,16 +44,12 @@ export const ChartSetting = ({ className }: { className?: string }) => {
       <div className="space-y-4">
         <div>
           <h3 className="text-sm font-medium">Chart Type</h3>
-          <TypeSelector
-            type={options.config.type}
-            onChange={handleTypeChange}
-            className="mt-2"
-          />
+          <TypeSelector type={options.config.type} onChange={handleTypeChange} className="mt-2" />
         </div>
         <div>
           <h3 className="text-sm font-medium">Configuration</h3>
           <ChartForm
-            value={options.config}
+            value={options.config as Record<string, unknown>}
             onChange={handleConfigChange}
           />
         </div>

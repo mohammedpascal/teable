@@ -1,6 +1,5 @@
 import { Input, Label } from '@teable/ui-lib';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { IChartPadding } from '../../chart-show/types';
 
 export const PaddingEditor = (props: {
@@ -8,12 +7,11 @@ export const PaddingEditor = (props: {
   onChange: (value?: IChartPadding) => void;
 }) => {
   const { value, onChange } = props;
-  const { t } = useTranslation();
   const [padding, setPadding] = useState(value);
   return (
     <div className="flex flex-col gap-2 p-0.5">
       <div className="flex items-center gap-2">
-        <Label className="w-14 text-right text-xs">{t('form.padding.top')}</Label>
+        <Label className="w-14 text-right text-xs">Top</Label>
         <Input
           type="number"
           className="h-7 text-[13px]"
@@ -29,7 +27,7 @@ export const PaddingEditor = (props: {
         />
       </div>
       <div className="flex items-center gap-2">
-        <Label className="w-14 text-right text-xs">{t('form.padding.right')}</Label>
+        <Label className="w-14 text-right text-xs">Right</Label>
         <Input
           type="number"
           className="h-7 text-[13px]"
@@ -45,7 +43,7 @@ export const PaddingEditor = (props: {
         />
       </div>
       <div className="flex items-center gap-2">
-        <Label className="w-14 text-right text-xs">{t('form.padding.bottom')}</Label>
+        <Label className="w-14 text-right text-xs">Bottom</Label>
         <Input
           type="number"
           className="h-7 text-[13px]"
@@ -61,7 +59,7 @@ export const PaddingEditor = (props: {
         />
       </div>
       <div className="flex items-center gap-2">
-        <Label className="w-14 text-right text-xs">{t('form.padding.left')}</Label>
+        <Label className="w-14 text-right text-xs">Left</Label>
         <Input
           type="number"
           className="h-7 text-[13px]"

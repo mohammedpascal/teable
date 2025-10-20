@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CellFormat } from '@teable/core';
-import { CellValue } from '@teable/sdk';
 import { TableBody, TableCell, TableHead, TableHeader, TableRow, Table } from '@teable/ui-lib';
 import { useMemo } from 'react';
 import { useBaseQueryData } from '../../../../hooks/useBaseQueryData';
@@ -8,10 +6,14 @@ import type { ITableConfig } from '../types';
 import { sortTableColumns, tableConfigColumnsToMap } from '../utils';
 
 export const ChartTable = (props: { config?: ITableConfig }) => {
-  const queryData = useBaseQueryData(CellFormat.Json);
+  const queryData = useBaseQueryData();
   const { config } = props;
   const { columns: configColumns } = config ?? {};
-  const columns = queryData?.columns;
+  const columns = queryData?.columns?.map(({ id, name, type }) => ({
+    column: id,
+    name,
+    type: type as any,
+  }));
   const configColumnMap = useMemo(() => tableConfigColumnsToMap(configColumns), [configColumns]);
 
   const sortedColumns = useMemo(
@@ -39,23 +41,15 @@ export const ChartTable = (props: { config?: ITableConfig }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {queryData?.rows.slice(0, 50).map((row, index) => (
-            <TableRow key={index}>
-              {queryData.columns.map(({ column, fieldSource }) => (
-                <TableCell key={column}>
-                  {fieldSource ? (
-                    <CellValue
-                      formatImageUrl={(url) => url}
-                      field={fieldSource as any}
-                      value={row[column]}
-                    />
-                  ) : (
-                    `${row[column]}`
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
+          {queryData?.rows
+            .slice(0, 50)
+            .map((row: Record<string, unknown>, index: number) => (
+              <TableRow key={index}>
+                {columns?.map(({ column }: { column: string; name: string }) => (
+                  <TableCell key={column}>{`${row[column]}`}</TableCell>
+                ))}
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>

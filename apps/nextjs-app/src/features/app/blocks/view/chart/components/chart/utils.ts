@@ -1,5 +1,5 @@
 import type { IBaseQueryColumn } from '@teable/openapi';
-import type { ITableConfigColumn } from '../types';
+import type { ITableConfigColumn } from './chart-show/types';
 
 const isEmptyObject = (obj: Record<string, unknown>) => {
   return Object.keys(obj).length === 0 && obj.constructor === Object;

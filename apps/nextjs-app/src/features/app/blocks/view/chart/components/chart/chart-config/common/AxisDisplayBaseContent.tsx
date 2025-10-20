@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import type { IChartBaseAxisDisplay } from '../../chart-show/types';
 import { ComboLineStyleEditor } from './ComboLineStyleEditor';
 import { ComboTypeEditor } from './ComboTypeEditor';
@@ -10,7 +9,6 @@ export const AxisDisplayBaseContent = (props: {
   onChange: (value: IChartBaseAxisDisplay) => void;
 }) => {
   const { value: displayValue, onChange } = props;
-  const { t } = useTranslation();
   return (
     <>
       <ConfigItem label="Display Type">
@@ -41,7 +39,7 @@ export const AxisDisplayBaseContent = (props: {
         />
       </ConfigItem>
       {displayValue.type !== 'bar' && (
-        <ConfigItem label={t('form.combo.lineStyle.label')}>
+        <ConfigItem label={'Line Style'}>
           <ComboLineStyleEditor
             value={displayValue.lineStyle}
             onChange={(val) => {
@@ -53,7 +51,7 @@ export const AxisDisplayBaseContent = (props: {
           />
         </ConfigItem>
       )}
-      <ConfigItem label={t('form.combo.yAxis.position')}>
+      <ConfigItem label={'Y-axis position'}>
         <YAxisPositionEditor
           value={displayValue.position}
           onChange={(val) => {

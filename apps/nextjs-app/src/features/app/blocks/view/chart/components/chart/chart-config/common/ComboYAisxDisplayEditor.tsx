@@ -1,6 +1,5 @@
 import { Input } from '@teable/ui-lib';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { IChartYAxisDisplay } from '../../chart-show/types';
 import { ConfigItem } from './ConfigItem';
 
@@ -9,14 +8,13 @@ export const ComboYAxisDisplayEditor = (props: {
   onChange: (value?: IChartYAxisDisplay) => void;
 }) => {
   const { value, onChange } = props;
-  const { t } = useTranslation();
   const [label, setLabel] = useState(value?.label || '');
   const [max, setMax] = useState(value?.range?.max);
   const [min, setMin] = useState(value?.range?.min);
 
   return (
     <div className="space-y-2">
-      <ConfigItem label={t('form.label')}>
+      <ConfigItem label="Label">
         <Input
           className="h-8 text-[13px]"
           value={label}
@@ -24,11 +22,9 @@ export const ComboYAxisDisplayEditor = (props: {
           onChange={(e) => setLabel(e.target.value)}
         />
       </ConfigItem>
-      <ConfigItem label={t('form.combo.range.label')}>
+      <ConfigItem label="Range">
         <div className="flex items-center gap-1">
-          <span className="text-muted-foreground whitespace-nowrap">
-            {t('form.combo.range.min')}
-          </span>
+          <span className="whitespace-nowrap text-muted-foreground">Min</span>
           <Input
             type="number"
             className="h-7 text-[13px]"
@@ -44,9 +40,7 @@ export const ComboYAxisDisplayEditor = (props: {
               });
             }}
           />
-          <span className="text-muted-foreground ml-2 whitespace-nowrap">
-            {t('form.combo.range.max')}
-          </span>
+          <span className="ml-2 whitespace-nowrap text-muted-foreground">Max</span>
           <Input
             type="number"
             className="h-7 text-[13px]"

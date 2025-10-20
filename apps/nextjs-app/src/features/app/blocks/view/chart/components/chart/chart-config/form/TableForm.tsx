@@ -13,7 +13,6 @@ import {
   Input,
 } from '@teable/ui-lib';
 import { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useBaseQueryData } from '../../../../hooks/useBaseQueryData';
 import type { ITableConfig } from '../../chart-show/types';
 import { sortTableColumns, tableConfigColumnsToMap } from '../../utils';
@@ -27,10 +26,11 @@ export const TableForm = (props: {
   const { config, onChange } = props;
   const { columns: configColumns } = config;
   const queryData = useBaseQueryData();
-  const columns = queryData?.columns;
+  const columns = queryData?.columns?.map(({ id, name, type }) => ({ column: id, name, type })) as
+    | IBaseQueryColumn[]
+    | undefined;
   const [sortedColumns, setSortedColumns] = useState<IBaseQueryColumn[]>([]);
   const isHydrated = useIsHydrated();
-  const { t } = useTranslation();
   const configColumnMap = useMemo(() => tableConfigColumnsToMap(configColumns), [configColumns]);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export const TableForm = (props: {
   };
 
   return (
-    <ConfigItem label={t('form.tableConfig')}>
+    <ConfigItem label="Table Configuration">
       <div className="space-y-4">
         <DndKitContext onDragEnd={onDragEndHandler}>
           <Droppable items={sortedColumns.map((v) => v.column)}>
@@ -127,7 +127,7 @@ export const TableForm = (props: {
                     {...attributes}
                     {...listeners}
                     style={style}
-                    className="bg-background flex items-center gap-2 rounded border p-1"
+                    className="flex items-center gap-2 rounded border bg-background p-1"
                   >
                     <DraggableHandle />
                     <div className="flex-1 text-[13px]">{column.name}</div>
@@ -138,13 +138,13 @@ export const TableForm = (props: {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="space-y-2">
-                        <ConfigItem label={t('form.width')}>
+                        <ConfigItem label="Width">
                           <NumberInput
                             value={configColumnMap[column.column]?.width}
                             onValueChange={(val) => onWidthChange(column.column, val)}
                           />
                         </ConfigItem>
-                        <ConfigItem label={t('form.label')}>
+                        <ConfigItem label="Label">
                           <LabelInput
                             value={configColumnMap[column.column]?.label}
                             onChange={(val) => onLabelChange(column.column, val)}

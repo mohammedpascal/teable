@@ -38,7 +38,13 @@ export const ChartCombo = (props: { config: IComboConfig; defaultType?: IComboTy
   const { config, defaultType = 'bar' } = props;
 
   const queryData = useBaseQueryData();
-  const chartConfig = useComboConfig(config, queryData?.columns);
+  const columns =
+    queryData?.columns?.map(({ id, name, type }) => ({
+      column: id,
+      name,
+      type: type as string,
+    })) ?? [];
+  const chartConfig = useComboConfig(config, columns as any);
   const { isExpand } = useUIConfig();
   const [hoverLegend, setHoverLegend] = useState<string>();
   const [hiddenLegends, setHiddenLegends] = useState<string[]>([]);

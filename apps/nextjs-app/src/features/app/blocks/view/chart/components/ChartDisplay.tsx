@@ -1,18 +1,15 @@
 import { Spin } from '@teable/ui-lib';
 import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useBaseQueryData } from '../hooks/useBaseQueryData';
-import { ChartContext } from './ChartProvider';
 import { ChartCombo } from './chart/chart-show/combo/Combo';
 import { ChartPie } from './chart/chart-show/pie/Pie';
 import { ChartTable } from './chart/chart-show/table/ChartTable';
+import { ChartContext } from './ChartProvider';
 
 export const ChartDisplay = (props: { previewTable?: boolean }) => {
   const { previewTable } = props;
   const { options } = useContext(ChartContext);
   const queryData = useBaseQueryData();
-
-  const { t } = useTranslation();
 
   if (!queryData) {
     return (
@@ -32,12 +29,12 @@ export const ChartDisplay = (props: { previewTable?: boolean }) => {
     case 'bar':
     case 'line':
     case 'area':
-      return <ChartCombo config={options.config} defaultType={options?.config?.type} />;
+      return <ChartCombo config={options.config as any} defaultType={options?.config?.type} />;
     case 'pie':
-      return <ChartPie config={options.config} />;
+      return <ChartPie config={options.config as any} />;
     case 'table':
-      return <ChartTable config={options.config} />;
+      return <ChartTable config={options.config as any} />;
     default:
-      return <div>{t('notSupport')}</div>;
+      return <div>Chart type not supported</div>;
   }
 };

@@ -1,8 +1,6 @@
 import { Settings, X } from '@teable/icons';
 import { Button, Input, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useBaseQueryData } from '../../../../hooks/useBaseQueryData';
 import { useFilterNumberColumns } from '../../../../hooks/useFilterNumberColumns';
 import { AxisDisplayBaseContent } from '../common/AxisDisplayBaseContent';
 import { ColumnSelector } from '../common/ColumnSelector';
@@ -18,12 +16,11 @@ export const ComboYAxisEditor = (props: {
 }) => {
   const { value, selectedColumns, onChange, onDelete, hiddenDelete } = props;
 
-  const baseQueryData = useBaseQueryData();
-  const allColumns = useFilterNumberColumns(baseQueryData?.columns ?? []);
+  const allColumns = useFilterNumberColumns();
 
-  const columns = allColumns.filter(
-    ({ column }) => column === value.column || !selectedColumns.includes(column)
-  );
+  const columns = allColumns
+    .filter(({ id }) => id === value.column || !selectedColumns.includes(id))
+    .map(({ id, name }) => ({ column: id, name }));
 
   const displayValue = value?.display;
   const onChangeConfig = (config: Omit<ComboYAxis, 'column'>) => {
@@ -71,7 +68,6 @@ const YAxisConfigEditor = (props: {
   onChange: (value: Omit<ComboYAxis, 'column'>) => void;
 }) => {
   const { value, onChange, className } = props;
-  const { t } = useTranslation();
   const [suffix, setSuffix] = useState(value.suffix);
   const [prefix, setPrefix] = useState(value.prefix);
   const [decimal, setDecimal] = useState(value.decimal);
@@ -90,7 +86,7 @@ const YAxisConfigEditor = (props: {
             onChange({ ...value, display: val });
           }}
         />
-        <ConfigItem label={t('form.label')}>
+        <ConfigItem label="Label">
           <Input
             className="h-7 text-[13px]"
             value={label || ''}
@@ -98,7 +94,7 @@ const YAxisConfigEditor = (props: {
             onChange={(e) => setLabel(e.target.value)}
           />
         </ConfigItem>
-        <ConfigItem label={t('form.prefix')}>
+        <ConfigItem label="Prefix">
           <Input
             className="h-7 text-[13px]"
             value={prefix || ''}
@@ -106,7 +102,7 @@ const YAxisConfigEditor = (props: {
             onChange={(e) => setPrefix(e.target.value)}
           />
         </ConfigItem>
-        <ConfigItem label={t('form.suffix')}>
+        <ConfigItem label="Suffix">
           <Input
             className="h-7 text-[13px]"
             value={suffix || ''}
@@ -114,7 +110,7 @@ const YAxisConfigEditor = (props: {
             onChange={(e) => setSuffix(e.target.value)}
           />
         </ConfigItem>
-        <ConfigItem label={t('form.decimal')}>
+        <ConfigItem label="Decimal">
           <Input
             value={decimal ?? ''}
             className="h-7 text-[13px]"

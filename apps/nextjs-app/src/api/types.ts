@@ -10865,11 +10865,9 @@ export interface paths {
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: {
-  };
+  schemas: Record<string, never>;
   responses: never;
-  parameters: {
-  };
+  parameters: Record<string, never>;
   requestBodies: never;
   headers: never;
   pathItems: never;

@@ -19,9 +19,9 @@ export const ComboXAxisEditor = (props: {
 
   const baseQueryData = useBaseQueryData();
   const columns =
-    baseQueryData?.columns?.filter(
-      ({ column }) => column === value.column || !selectedColumns.includes(column)
-    ) ?? [];
+    baseQueryData?.columns
+      ?.filter(({ id }) => id === value.column || !selectedColumns.includes(id))
+      ?.map(({ id, name }) => ({ column: id, name })) ?? [];
 
   const displayValue = value?.display;
   const onChangeDisplay = (display: IChartBaseAxisDisplay) => {

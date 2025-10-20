@@ -1,6 +1,5 @@
 import { Label, RadioGroup, RadioGroupItem } from '@teable/ui-lib';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { IChartBaseAxisDisplay } from '../../chart-show/types';
 
 type ILineStyle = Extract<IChartBaseAxisDisplay, { lineStyle: unknown }>['lineStyle'];
@@ -10,23 +9,22 @@ export const ComboLineStyleEditor = (props: {
   onChange: (value: ILineStyle) => void;
 }) => {
   const { value: displayValue, onChange } = props;
-  const { t } = useTranslation();
   const lineStyles = useMemo(() => {
     return [
       {
-        label: t('form.combo.lineStyle.normal'),
+        label: 'Normal',
         value: 'normal',
       },
       {
-        label: t('form.combo.lineStyle.linear'),
+        label: 'Linear',
         value: 'linear',
       },
       {
-        label: t('form.combo.lineStyle.step'),
+        label: 'Step',
         value: 'step',
       },
     ];
-  }, [t]);
+  }, []);
 
   return (
     <RadioGroup className="flex gap-4" value={displayValue} onValueChange={onChange}>

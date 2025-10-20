@@ -1,4 +1,4 @@
-import type { IComboConfig, IComboType } from '../../../types';
+import type { IComboConfig, IComboType } from '../../chart-show/types';
 
 export type ComboXAxis = NonNullable<IComboConfig['xAxis']>[number];
 export type ComboYAxis = NonNullable<IComboConfig['yAxis']>[number];

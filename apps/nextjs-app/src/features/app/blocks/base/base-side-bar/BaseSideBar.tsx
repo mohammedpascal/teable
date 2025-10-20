@@ -1,5 +1,4 @@
-import { Gauge, Settings } from '@teable/icons';
-import { useBasePermission } from '@teable/sdk/hooks';
+import { Settings } from '@teable/icons';
 import { cn } from '@teable/ui-lib/shadcn';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import Link from 'next/link';
@@ -15,8 +14,6 @@ export const BaseSideBar = () => {
   const { baseId } = router.query;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
 
-  const basePermission = useBasePermission();
-
   const pageRoutes: {
     href: string;
     label: string;
@@ -26,19 +23,12 @@ export const BaseSideBar = () => {
     () =>
       [
         {
-          href: `/base/${baseId}/dashboard`,
-          label: t('common:noun.dashboard'),
-          Icon: Gauge,
-          hidden: !basePermission?.['base|read'],
-        },
-
-        {
           href: `/base/${baseId}/design`,
           label: t('table:table.design'),
           Icon: Settings,
         },
-      ].filter((item) => !item.hidden),
-    [baseId, basePermission, t]
+      ],
+    [baseId, t]
   );
 
   return (

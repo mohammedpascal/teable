@@ -1,6 +1,5 @@
 import { Input, Label, Switch } from '@teable/ui-lib';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { IGoalLine } from '../../chart-show/types';
 import { ConfigItem } from './ConfigItem';
 
@@ -9,7 +8,6 @@ export const GoalLineEditor = (props: {
   onChange: (value?: IGoalLine) => void;
 }) => {
   const { value, onChange } = props;
-  const { t } = useTranslation();
   const [text, setText] = useState(value?.label);
   const [number, setNumber] = useState(value?.value);
 
@@ -17,7 +15,7 @@ export const GoalLineEditor = (props: {
     <div>
       <div className="flex items-center justify-between">
         <Label className="text-sm font-normal" htmlFor="goal-line-switch">
-          {t('form.combo.goalLine.label')}
+          Goal Line
         </Label>
         <Switch
           id="goal-line-switch"
@@ -32,7 +30,7 @@ export const GoalLineEditor = (props: {
       </div>
       {value?.enabled && (
         <div className="space-y-3">
-          <ConfigItem label={t('form.value')}>
+          <ConfigItem label="Value">
             <Input
               type="number"
               className="h-7 text-[13px]"
@@ -49,7 +47,7 @@ export const GoalLineEditor = (props: {
               }}
             />
           </ConfigItem>
-          <ConfigItem label={t('form.label')}>
+          <ConfigItem label="Label">
             <Input
               className="h-7 text-[13px]"
               value={text || ''}

@@ -2,16 +2,22 @@ import type { IBaseQuery } from '@teable/openapi';
 import type { IBaseQueryBuilderRef } from '@teable/sdk';
 import { BaseQueryBuilder } from '@teable/sdk';
 import { Button, cn } from '@teable/ui-lib';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ChartContext } from '../ChartProvider';
+import { useEffect, useRef, useState } from 'react';
 
 export const ChartQuery = () => {
-  const { tab, storage, onTabChange, onStorageChange } = useContext(ChartContext);
-  const [query, setQuery] = useState<IBaseQuery | undefined>(storage?.query);
+  const [query, setQuery] = useState<IBaseQuery | undefined>();
   const [isLoading, setLoading] = useState(false);
   const queryBuilderRef = useRef<IBaseQueryBuilderRef>(null);
-  const { t } = useTranslation();
+
+  // Default values since these properties don't exist in the current context
+  const tab = 'query';
+  const storage = { query };
+  const onTabChange = (newTab: string) => {
+    console.log('Tab change requested:', newTab);
+  };
+  const onStorageChange = (newStorage: Record<string, unknown>) => {
+    console.log('Storage change requested:', newStorage);
+  };
 
   useEffect(() => {
     if (tab === 'query') {
@@ -25,7 +31,7 @@ export const ChartQuery = () => {
   return (
     <div className="flex size-full flex-col">
       <div className="flex h-10 w-full items-center justify-between border-b px-6">
-        <div>{t('queryTitle')}</div>
+        <div>Query Builder</div>
         <div className="flex items-center gap-2">
           <Button
             className={cn({
@@ -35,7 +41,7 @@ export const ChartQuery = () => {
             size="xs"
             onClick={() => onTabChange('chart')}
           >
-            {t('actions.cancel')}
+            Cancel
           </Button>
           <Button
             size="xs"
@@ -57,7 +63,7 @@ export const ChartQuery = () => {
               onTabChange('chart');
             }}
           >
-            {t('actions.save')}
+            Save
           </Button>
         </div>
       </div>

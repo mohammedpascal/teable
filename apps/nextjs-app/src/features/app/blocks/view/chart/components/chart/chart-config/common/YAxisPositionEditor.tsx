@@ -1,6 +1,5 @@
 import { Label, RadioGroup, RadioGroupItem } from '@teable/ui-lib';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { IChartBaseAxisDisplay } from '../../chart-show/types';
 
 export const YAxisPositionEditor = (props: {
@@ -8,23 +7,22 @@ export const YAxisPositionEditor = (props: {
   onChange: (value: IChartBaseAxisDisplay['position']) => void;
 }) => {
   const { value: position, onChange } = props;
-  const { t } = useTranslation();
   const positions = useMemo(() => {
     return [
       {
-        label: t('form.combo.position.auto'),
+        label: 'Auto',
         value: 'auto',
       },
       {
-        label: t('form.combo.position.left'),
+        label: 'Left',
         value: 'left',
       },
       {
-        label: t('form.combo.position.right'),
+        label: 'Right',
         value: 'right',
       },
     ] as const;
-  }, [t]);
+  }, []);
 
   return (
     <RadioGroup className="flex gap-4" value={position} onValueChange={onChange}>

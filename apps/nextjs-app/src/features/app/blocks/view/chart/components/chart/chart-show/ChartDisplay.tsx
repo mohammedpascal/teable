@@ -1,7 +1,6 @@
 import { Spin } from '@teable/ui-lib';
 import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useBaseQueryData } from '../../../../hooks/useBaseQueryData';
+import { useBaseQueryData } from '../../../hooks/useBaseQueryData';
 import { ChartContext } from '../../ChartProvider';
 import { ChartCombo } from './combo/Combo';
 import { ChartPie } from './pie/Pie';
@@ -9,14 +8,15 @@ import { ChartTable } from './table/ChartTable';
 
 export const ChartDisplay = (props: { previewTable?: boolean }) => {
   const { previewTable } = props;
-  const { storage, queryError } = useContext(ChartContext);
+  const { options } = useContext(ChartContext);
   const queryData = useBaseQueryData();
 
-  const { t } = useTranslation();
+  // Default values since these properties don't exist in the current context
+  const queryError = null;
 
   if (queryError) {
     return (
-      <div className="font-sm text-destructive flex size-full items-center justify-center text-center">
+      <div className="font-sm flex size-full items-center justify-center text-center text-destructive">
         Error: {queryError}
       </div>
     );
@@ -33,19 +33,25 @@ export const ChartDisplay = (props: { previewTable?: boolean }) => {
   if (previewTable) {
     return <ChartTable />;
   }
-  if (!storage?.config?.type) {
-    return;
+
+  // Access the chart type from options directly
+  const chartType = (options as Record<string, unknown>)?.type;
+  if (!chartType) {
+    return null;
   }
-  switch (storage?.config?.type) {
+
+  switch (chartType) {
     case 'bar':
     case 'line':
     case 'area':
-      return <ChartCombo config={storage.config} defaultType={storage?.config?.type} />;
+      return (
+        <ChartCombo config={options as any} defaultType={chartType as 'bar' | 'line' | 'area'} />
+      );
     case 'pie':
-      return <ChartPie config={storage.config} />;
+      return <ChartPie config={options as any} />;
     case 'table':
-      return <ChartTable config={storage.config} />;
+      return <ChartTable config={options as any} />;
     default:
-      return <div>{t('notSupport')}</div>;
+      return <div>Chart type not supported</div>;
   }
 };

@@ -5,8 +5,8 @@ import type { Payload } from 'recharts/types/component/DefaultLegendContent';
 import type { PieSectorDataItem } from 'recharts/types/polar/Pie';
 import { useBaseQueryData } from '../../../../hooks/useBaseQueryData';
 import { useUIConfig } from '../../../../hooks/useUIConfig';
-import type { IPieConfig } from '../types';
 import { TooltipItem } from '../combo/TooltipItem';
+import type { IPieConfig } from '../types';
 import { PieLegendContent } from './PieLegendContent';
 import { usePieConfig } from './usePieConfig';
 import { useRefObserve } from './useRefObserve';
@@ -24,7 +24,10 @@ export const ChartPie = (props: { config: IPieConfig }) => {
     if (!queryData?.rows || !measure) {
       return 0;
     }
-    return queryData.rows.reduce((acc, cur) => acc + (cur[measure.column] as number), 0);
+    return queryData.rows.reduce(
+      (acc: number, cur: Record<string, unknown>) => acc + (cur[measure.column] as number),
+      0
+    );
   }, [queryData?.rows, config.measure]);
 
   const chartData = useMemo(() => {
@@ -32,7 +35,7 @@ export const ChartPie = (props: { config: IPieConfig }) => {
     if (!queryData?.rows || !dimension) {
       return [];
     }
-    return queryData.rows.map((row, index) => ({
+    return queryData.rows.map((row: Record<string, unknown>, index: number) => ({
       ...row,
       value: `pie-${index}`,
       fill: `var(--color-pie-${index})`,

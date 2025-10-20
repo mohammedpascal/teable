@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import type { IAreaConfig } from '../../chart-show/types';
 import { SwitchEditor } from '../common/SwitchEditor';
 import { ComboForm } from './ComboForm';
@@ -8,7 +7,6 @@ export const AreaForm = (props: {
   onChange: (config: IAreaConfig) => void;
 }) => {
   const { config, onChange } = props;
-  const { t } = useTranslation();
 
   return (
     <div className="space-y-5">
@@ -23,7 +21,7 @@ export const AreaForm = (props: {
         }}
       />
       <SwitchEditor
-        label={t('form.combo.stack')}
+        label={'Stack'}
         value={config.stack}
         onChange={(checked) => {
           onChange({

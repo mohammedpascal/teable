@@ -1,6 +1,5 @@
 import { cn, ScrollArea } from '@teable/ui-lib';
 import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { ChartContext } from '../../ChartProvider';
 import { ChartForm } from './ChartForm';
 import { ConfigItem } from './common/ConfigItem';
@@ -10,8 +9,8 @@ import { TypeSelector } from './TypeSelector';
 export const ChartSetting = (props: { className?: string }) => {
   const { className } = props;
   const { options, onOptionsChange } = useContext(ChartContext);
-  const { t } = useTranslation();
-  const config = (options as any)?.chart?.config;
+  const config = (options as Record<string, unknown>)?.chart as Record<string, unknown> | undefined;
+  const chartConfig = config?.config as Record<string, unknown> | undefined;
   if (!options) {
     return;
   }
@@ -22,30 +21,30 @@ export const ChartSetting = (props: { className?: string }) => {
       <div className="mt-9 space-y-4">
         <ConfigItem label="Chart Type">
           <TypeSelector
-            type={config?.type}
+            type={chartConfig?.type as 'bar' | 'line' | 'area' | 'pie' | 'table' | undefined}
             onChange={(type) =>
               onOptionsChange({
                 ...options,
                 chart: {
-                  ...(options as any).chart,
-                  config: { type },
+                  ...(config || {}),
+                  config: { type: type as string },
                 },
-              } as any)
+              } as Record<string, unknown>)
             }
           />
         </ConfigItem>
         <div>
-          {config && (
+          {chartConfig && (
             <ChartForm
-              value={config}
+              value={chartConfig as any}
               onChange={(config) => {
                 onOptionsChange({
                   ...options,
                   chart: {
-                    ...(options as any).chart,
-                    config,
+                    ...(config || {}),
+                    config: config as Record<string, unknown>,
                   },
-                } as any);
+                } as Record<string, unknown>);
               }}
             />
           )}

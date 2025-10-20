@@ -32,11 +32,7 @@ export const SettingPage = (props: ISettingPageProps) => {
 
   if (!setting) return null;
 
-  const {
-    instanceId,
-    disallowSignUp,
-    enableEmailVerification,
-  } = setting;
+  const { instanceId, disallowSignUp, enableEmailVerification } = setting;
 
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden px-8 py-6">

@@ -1,11 +1,9 @@
-import { useTranslation } from 'react-i18next';
 import type { IBarConfig } from '../../chart-show/types';
 import { SwitchEditor } from '../common/SwitchEditor';
 import { ComboForm } from './ComboForm';
 
 export const BarForm = (props: { config: IBarConfig; onChange: (config: IBarConfig) => void }) => {
   const { config, onChange } = props;
-  const { t } = useTranslation();
   return (
     <div className="space-y-5">
       <ComboForm
@@ -19,7 +17,7 @@ export const BarForm = (props: { config: IBarConfig; onChange: (config: IBarConf
         }}
       />
       <SwitchEditor
-        label={t('form.combo.stack')}
+        label="Stack"
         value={config.stack}
         onChange={(checked) => {
           onChange({

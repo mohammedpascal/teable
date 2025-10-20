@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
   Separator,
 } from '@teable/ui-lib';
-import { useTranslation } from 'react-i18next';
 import { useBaseQueryData } from '../../../../hooks/useBaseQueryData';
 import { useFilterNumberColumns } from '../../../../hooks/useFilterNumberColumns';
 import type { IComboConfig, IComboType } from '../../chart-show/types';
@@ -31,15 +30,14 @@ export const ComboForm = (props: {
   onChange: (config: IComboConfig) => void;
 }) => {
   const { type, config, onChange } = props;
-  const { t } = useTranslation();
   const baseQueryData = useBaseQueryData();
   const xColumns = baseQueryData?.columns ?? [];
-  const yColumns = useFilterNumberColumns(baseQueryData?.columns);
+  const yColumns = useFilterNumberColumns();
   const selectedXColumns = config.xAxis?.map((x) => x.column) ?? [];
   const selectedYColumns = config.yAxis?.map((y) => y.column) ?? [];
 
-  const canAddXColumns = xColumns.filter((v) => !selectedXColumns.includes(v.column));
-  const canAddYColumns = yColumns.filter((v) => !selectedYColumns.includes(v.column));
+  const canAddXColumns = xColumns.filter((v) => !selectedXColumns.includes(v.id));
+  const canAddYColumns = yColumns.filter((v) => !selectedYColumns.includes(v.id));
   const onChangeXAxis = (xAxisItem: ComboYAxis, index: number) => {
     const newXAxis = config.xAxis ? [...config.xAxis!] : [];
     newXAxis[index] = xAxisItem;
@@ -108,7 +106,7 @@ export const ComboForm = (props: {
 
   return (
     <div className="space-y-6">
-      <ConfigItem label={t('form.combo.xAxis.label')}>
+      <ConfigItem label="X Axis">
         <div>
           <div className="space-y-2">
             {config.xAxis?.map((xAxisItem, index) => (
@@ -129,15 +127,15 @@ export const ComboForm = (props: {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="mt-2 block h-auto p-0" variant="link">
-                  {t('form.combo.addXAxis')}
+                  Add X Axis
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-52">
                 {canAddXColumns.map((column) => (
                   <DropdownMenuItem
-                    key={column.column}
+                    key={column.id}
                     onClick={() => {
-                      onAddXAxis(column.column);
+                      onAddXAxis(column.id);
                     }}
                   >
                     {column.name}
@@ -148,7 +146,7 @@ export const ComboForm = (props: {
           )}
         </div>
       </ConfigItem>
-      <ConfigItem label={t('form.combo.yAxis.label')}>
+      <ConfigItem label="Y Axis">
         <div>
           <div className="space-y-3">
             {config.yAxis?.map((yAxisItem, index) => (
@@ -168,15 +166,15 @@ export const ComboForm = (props: {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="mt-2 block h-auto p-0" variant="link">
-                  {t('form.combo.addYAxis')}
+                  Add Y Axis
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-52">
                 {canAddYColumns.map((column) => (
                   <DropdownMenuItem
-                    key={column.column}
+                    key={column.id}
                     onClick={() => {
-                      onAddYAxis(column.column);
+                      onAddYAxis(column.id);
                     }}
                   >
                     {column.name}
@@ -191,7 +189,7 @@ export const ComboForm = (props: {
         <Separator />
         <Accordion type="multiple" className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger>{t('form.combo.xDisplay.label')}</AccordionTrigger>
+            <AccordionTrigger>X Display</AccordionTrigger>
             <AccordionContent>
               <ComboXAxisDisplayEditor
                 value={config.xAxisDisplay}
@@ -205,7 +203,7 @@ export const ComboForm = (props: {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger>{t('form.combo.yDisplay.label')}</AccordionTrigger>
+            <AccordionTrigger>Y Display</AccordionTrigger>
             <AccordionContent>
               <ComboYAxisDisplayEditor
                 value={config.yAxisDisplay}
@@ -219,7 +217,7 @@ export const ComboForm = (props: {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger>{t('form.padding.label')}</AccordionTrigger>
+            <AccordionTrigger>Padding</AccordionTrigger>
             <AccordionContent>
               <PaddingEditor
                 value={config.padding}
@@ -235,7 +233,7 @@ export const ComboForm = (props: {
         </Accordion>
       </div>
       <SwitchEditor
-        label={t('form.showLabel')}
+        label="Show Label"
         value={config.showLabel}
         onChange={(val) => {
           onChange({

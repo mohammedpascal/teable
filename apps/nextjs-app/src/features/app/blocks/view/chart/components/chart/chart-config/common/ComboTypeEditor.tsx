@@ -1,7 +1,6 @@
 import { Label, RadioGroup, RadioGroupItem } from '@teable/ui-lib';
 import { AreaChart, BarChart, LineChart } from 'lucide-react';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { IChartBaseAxisDisplay } from '../../chart-show/types';
 
 export const ComboTypeEditor = (props: {
@@ -9,26 +8,25 @@ export const ComboTypeEditor = (props: {
   onChange: (value: IChartBaseAxisDisplay['type']) => void;
 }) => {
   const { value: displayType, onChange } = props;
-  const { t } = useTranslation();
   const displayTypes = useMemo(() => {
     return [
       {
-        label: t('chart.bar'),
+        label: 'Bar',
         value: 'bar',
         Icon: BarChart,
       },
       {
-        label: t('chart.line'),
+        label: 'Line',
         value: 'line',
         Icon: LineChart,
       },
       {
-        label: t('chart.area'),
+        label: 'Area',
         value: 'area',
         Icon: AreaChart,
       },
     ] as const;
-  }, [t]);
+  }, []);
 
   return (
     <RadioGroup className="flex gap-4" value={displayType} onValueChange={onChange}>
