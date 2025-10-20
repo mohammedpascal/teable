@@ -45,7 +45,7 @@
     "g:typecheck": "pnpm -r --parallel typecheck",
     "generate-openapi-types": "node scripts/generate-openapi-types.mjs",
     "install:playwright": "playwright install",
-    "install:husky": "node .husky/install.mjs",
+    "install:husky1": "node .husky/install.mjs",
     "nuke:node_modules": "pnpm -r exec -- rm -fr node_modules",
     "publish:beta:prerelease": "node ./scripts/publish.mjs prerelease beta",
     "publish:beta:patch": "node ./scripts/publish.mjs prepatch beta",
@@ -57,7 +57,7 @@
     "publish:latest:patch": "node ./scripts/publish.mjs patch latest",
     "publish:latest:minor": "node ./scripts/publish.mjs minor latest",
     "publish:latest:major": "node ./scripts/publish.mjs major latest",
-    "prepare": "run-s install:husky"
+    "prepare1": "run-s install:husky"
   },
   "dependencies": {
     "cross-env": "7.0.3"
