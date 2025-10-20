@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  teable:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXTJS_DIR=apps/nextjs-app
+      - PRISMA_DATABASE_URL=file:./db/main.db
+      - PUBLIC_ORIGIN=http://localhost:3000
+      - BRAND_NAME=Teable
+      - SECRET_KEY=defaultSecretKey
+    volumes:
+      - ./db:/app/db
+    restart: unless-stopped
