@@ -24,7 +24,9 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/nestjs-backend/package.json ./apps/nestjs-backend/
 COPY apps/nextjs-app/package.json ./apps/nextjs-app/
-COPY packages/*/package.json ./packages/*/
+
+# ✅ Copy all packages (instead of only their package.json files)
+COPY packages ./packages
 
 # Install dependencies (skip frozen lockfile if needed)
 RUN pnpm install --no-frozen-lockfile
