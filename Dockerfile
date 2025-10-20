@@ -33,6 +33,9 @@ RUN pnpm install --no-frozen-lockfile
 # Copy source code
 COPY . .
 
+# Set up database and generate Prisma Client
+RUN make sqlite.mode
+
 # ✅ Build project (no musl/glibc issues now)
 RUN pnpm rebuild esbuild @swc/core sqlite3 && pnpm build
 
