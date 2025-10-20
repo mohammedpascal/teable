@@ -33,7 +33,7 @@ RUN pnpm install --no-frozen-lockfile
 COPY . .
 
 # Build the project
-RUN pnpm rebuild esbuild @swc/core sqlite3 --build-from-source && pnpm build
+RUN npm_config_build_from_source=true pnpm rebuild esbuild @swc/core sqlite3 && pnpm build
 
 # Set runtime environment variables
 ENV NODE_ENV=production
