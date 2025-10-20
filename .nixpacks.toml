@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "glibc", "gcc", "make", "python3", "git"]
+
+[phases.install]
+cmds = ["corepack enable", "pnpm install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm build"]
+
+[phases.start]
+cmd = "pnpm start"
