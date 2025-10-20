@@ -26,9 +26,9 @@ COPY apps/nestjs-backend/package.json ./apps/nestjs-backend/
 COPY apps/nextjs-app/package.json ./apps/nextjs-app/
 COPY packages ./packages
 
-# ✅ Skip Husky and prepare hooks during CI/Docker builds
-ENV HUSKY=0
-ENV CI=true
+# ✅ Disable Husky prepare script before install
+# This removes the "prepare" and "install:husky" lines from package.json
+RUN sed -i '/"prepare":/d' package.json && sed -i '/"install:husky":/d' package.json
 
 # Install dependencies (skip frozen lockfile if needed)
 RUN pnpm install --no-frozen-lockfile
