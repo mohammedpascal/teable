@@ -53,4 +53,4 @@ ENV NODE_ENV=production
 EXPOSE 3000
 
 # Start app
-CMD ["sh", "-c", "pnpm start"]
+CMD ["sh", "-c", "cd apps/nestjs-backend && pnpm start"]
