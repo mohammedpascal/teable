@@ -44,6 +44,7 @@ export class ConfigModule {
     console.log('  PUBLIC_ORIGIN:', process.env.PUBLIC_ORIGIN);
     console.log('  BRAND_NAME:', process.env.BRAND_NAME);
     console.log('  NEXTJS_DIR:', process.env.NEXTJS_DIR);
+    console.log('🔗 Database URL loaded:', process.env.PRISMA_DATABASE_URL ? '✅ Yes' : '❌ No');
 
     return BaseConfigModule.forRoot({
       isGlobal: true,

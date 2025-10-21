@@ -33,6 +33,13 @@ RUN pnpm install --no-frozen-lockfile
 # Copy source code
 COPY . .
 
+
+// print the environment variables
+RUN echo "PUBLIC_ORIGIN=$PUBLIC_ORIGIN"
+RUN echo "PRISMA_DATABASE_URL=$PRISMA_DATABASE_URL"
+RUN echo "BRAND_NAME=$BRAND_NAME"
+RUN echo "NODE_ENV=$NODE_ENV"
+
 # Set up database and generate Prisma Client
 RUN make postgres.mode
 
