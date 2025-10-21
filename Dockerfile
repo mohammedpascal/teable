@@ -39,17 +39,8 @@ RUN make sqlite.mode
 # ✅ Build project (no musl/glibc issues now)
 RUN pnpm rebuild esbuild @swc/core sqlite3 && pnpm build
 
-
-# Environment variables
-ENV NODE_ENV=production
-ENV NEXTJS_DIR=apps/nextjs-app
-ENV PRISMA_DATABASE_URL=file:./db/main.db
-ENV PUBLIC_ORIGIN=https://teable-teable-nneax4-899199-95-217-164-24.traefik.me/
-ENV BRAND_NAME=Teable
-ENV SECRET_KEY=defaultSecretKey
-
 # Expose app port
 EXPOSE 3000
 
 # Start app
-CMD ["pnpm", "start"]
+CMD ["sh", "-c", "pnpm start"]
