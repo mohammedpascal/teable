@@ -34,7 +34,7 @@ RUN pnpm install --no-frozen-lockfile
 COPY . .
 
 # Set up database and generate Prisma Client
-#RUN make postgres.mode
+RUN make postgres.mode
 
 # ✅ Build project (no musl/glibc issues now)
 RUN pnpm rebuild esbuild @swc/core && pnpm build
