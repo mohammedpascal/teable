@@ -34,15 +34,15 @@ RUN pnpm install --no-frozen-lockfile
 COPY . .
 
 # Set up database and generate Prisma Client
-RUN make sqlite.mode
+#RUN make postgres.mode
 
 # ✅ Build project (no musl/glibc issues now)
-RUN pnpm rebuild esbuild @swc/core sqlite3 && pnpm build
+RUN pnpm rebuild esbuild @swc/core && pnpm build
 
 ENV PUBLIC_ORIGIN=http://localhost:3000
 
 ENV PRISMA_DATABASE_URL=file:../../db/main.db
-ENV PUBLIC_DATABASE_PROXY=127.0.0.1:5432
+#ENV PUBLIC_DATABASE_PROXY=127.0.0.1:5432
 
 ENV BRAND_NAME=Teable
 
