@@ -24,6 +24,7 @@
   ],
   "scripts": {
     "start": "cross-env NEXTJS_DIR=apps/nextjs-app node ./apps/nestjs-backend/dist/index.js",
+    "dev": "pnpm -F @teable/backend dev",
     "clean:global-cache": "rimraf ./.cache",
     "deps:check": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName .ncurc.yml --workspaces --root --mergeConfig",
     "deps:update": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName .ncurc.yml -u --workspaces --root --mergeConfig",
