@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import * as fs from 'fs';
 import path from 'path';
 import type { DynamicModule } from '@nestjs/common';
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule as BaseConfigModule } from '@nestjs/config';
 import * as dotenv from 'dotenv';
 import { authConfig } from './auth.config';
 import { baseConfig } from './base.config';
-import { bootstrapConfigs, nextJsConfig } from './bootstrap.config';
+import { bootstrapConfigs } from './bootstrap.config';
 import { cacheConfig } from './cache.config';
 import { envValidationSchema } from './env.validation.schema';
 import { loggerConfig } from './logger.config';
@@ -35,8 +36,9 @@ export class ConfigModule {
     console.log('🔍 Loading .env from:', envPath);
 
     // Load the .env file
-    dotenv.config({ path: envPath });
-
+    if (fs.existsSync(envPath)) {
+      dotenv.config({ path: envPath });
+    }
     console.log('  NODE_ENV:', process.env.NODE_ENV);
     console.log('  PRISMA_DATABASE_URL:', process.env.PRISMA_DATABASE_URL);
     console.log('  PUBLIC_ORIGIN:', process.env.PUBLIC_ORIGIN);
