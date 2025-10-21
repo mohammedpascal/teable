@@ -32,7 +32,7 @@ const configurations = [
 export class ConfigModule {
   static register(): DynamicModule {
     // Load .env file from the nestjs-backend directory
-    const envPath = path.join(process.cwd(), '../../.env');
+    const envPath = path.join(process.cwd(), './.env');
     console.log('🔍 Loading .env from:', envPath);
 
     // Load the .env file
@@ -43,6 +43,7 @@ export class ConfigModule {
     console.log('  PRISMA_DATABASE_URL:', process.env.PRISMA_DATABASE_URL);
     console.log('  PUBLIC_ORIGIN:', process.env.PUBLIC_ORIGIN);
     console.log('  BRAND_NAME:', process.env.BRAND_NAME);
+    console.log('  NEXTJS_DIR:', process.env.NEXTJS_DIR);
 
     return BaseConfigModule.forRoot({
       isGlobal: true,
