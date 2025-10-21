@@ -34,7 +34,7 @@ RUN pnpm install --no-frozen-lockfile
 COPY . .
 
 
-// print the environment variables
+#print the environment variables
 RUN echo "PUBLIC_ORIGIN=$PUBLIC_ORIGIN"
 RUN echo "PRISMA_DATABASE_URL=$PRISMA_DATABASE_URL"
 RUN echo "BRAND_NAME=$BRAND_NAME"
