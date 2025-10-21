@@ -41,7 +41,8 @@ RUN pnpm rebuild esbuild @swc/core && pnpm build
 
 ENV PUBLIC_ORIGIN=http://localhost:3000
 
-ENV PRISMA_DATABASE_URL=file:../../db/main.db
+ENV PRISMA_DATABASE_URL=postgresql://postgres:postgres@95.217.164.24:54321/default
+
 #ENV PUBLIC_DATABASE_PROXY=127.0.0.1:5432
 
 ENV BRAND_NAME=Teable
