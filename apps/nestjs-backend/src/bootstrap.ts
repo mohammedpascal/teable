@@ -76,6 +76,19 @@ export async function bootstrap() {
 
   // Auto-run migrations in development mode
   if (process.env.NODE_ENV === 'development') {
+    // Always generate Prisma client
+    try {
+      console.log('🔄 Generating Prisma client...');
+      await execAsync('npx prisma generate', {
+        cwd: path.join(__dirname, '..'),
+        env: process.env,
+      });
+      console.log('✅ Prisma client generated successfully');
+    } catch (error) {
+      console.error('❌ Failed to generate Prisma client:', error);
+      // Don't exit the process, let the app start and handle the error
+    }
+
     try {
       console.log('🔄 Running database migrations...');
       await execAsync('npx prisma migrate deploy', {
