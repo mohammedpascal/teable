@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import path from 'path';
 import type { DynamicModule } from '@nestjs/common';
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule as BaseConfigModule } from '@nestjs/config';
+import { config } from 'dotenv';
 import { authConfig } from './auth.config';
 import { baseConfig } from './base.config';
-import { bootstrapConfigs, nextJsConfig } from './bootstrap.config';
+import { bootstrapConfigs } from './bootstrap.config';
 import { cacheConfig } from './cache.config';
 import { envValidationSchema } from './env.validation.schema';
 import { loggerConfig } from './logger.config';
@@ -13,6 +13,10 @@ import { mailConfig } from './mail.config';
 import { oauthConfig } from './oauth.config';
 import { storageConfig } from './storage';
 import { thresholdConfig } from './threshold.config';
+
+config();
+
+console.log('🔍 Config module loaded:', process.env);
 
 const configurations = [
   ...bootstrapConfigs,
@@ -34,15 +38,6 @@ export class ConfigModule {
       cache: true,
       expandVariables: true,
       load: configurations,
-      envFilePath: ['.env.development.local', '.env.development', '.env'].map((str) => {
-        const nextJsDir = nextJsConfig().dir;
-        const envDir = nextJsDir ? path.join(process.cwd(), nextJsDir, str) : str;
-
-        Logger.attachBuffer();
-        Logger.log(`[Env File Path]: ${envDir}`);
-        Logger.detachBuffer();
-        return envDir;
-      }),
       validationSchema: envValidationSchema,
     });
   }
