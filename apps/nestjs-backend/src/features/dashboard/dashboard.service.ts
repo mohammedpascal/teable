@@ -2,7 +2,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import type { IBaseRole } from '@teable/core';
 import { generateDashboardId, Role } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { CollaboratorType, PrincipalType } from '@teable/openapi';
 import type {
   ICreateDashboardRo,

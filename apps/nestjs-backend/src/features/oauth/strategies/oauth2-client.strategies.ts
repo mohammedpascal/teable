@@ -1,8 +1,8 @@
 import { UnauthorizedException, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { PrismaService } from '@teable/db-main-prisma';
 import * as bcrypt from 'bcrypt';
 import { Strategy } from 'passport-oauth2-client-password';
+import { PrismaService } from '../../../prisma';
 import type { IExchangeClient } from '../types';
 
 @Injectable()

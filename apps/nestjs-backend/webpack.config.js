@@ -21,9 +21,27 @@ module.exports = function (options) {
       path: path.join(__dirname, 'dist'),
       filename: '[name].js',
     },
+    resolve: {
+      extensions: ['.ts', '.js'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts?$/,
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+          },
+          exclude: [/node_modules/, /.e2e-spec.ts$/],
+        },
+      ],
+    },
     plugins: [
       new CopyPlugin({
-        patterns: [{ from: 'src/features/mail-sender/templates', to: 'templates' }],
+        patterns: [
+          { from: 'src/features/mail-sender/templates', to: 'templates' },
+          { from: 'prisma', to: 'prisma' },
+        ],
       }),
     ],
   };

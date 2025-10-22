@@ -51,7 +51,7 @@ const fromExtractors = (extractors: IFromExtractor[]) => {
   }
 
   return function (request: Request) {
-    let token = null;
+    let token: string | null = null;
     let index = 0;
     while (!token && index < extractors.length) {
       token = extractors[index](request);

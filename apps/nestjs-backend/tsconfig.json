@@ -13,10 +13,10 @@
     "sourceMap": true,
     "allowJs": false,
     "outDir": "./dist",
+    "noImplicitAny": false,
     "paths": {
       "@teable/core": ["../../packages/core/src"],
-      "@teable/openapi": ["../../packages/openapi/src"],
-      "@teable/db-main-prisma": ["../../packages/db-main-prisma/src"],
+      "@teable/openapi": ["../../packages/openapi/src"]
     },
     "types": ["vitest/globals"],
   },

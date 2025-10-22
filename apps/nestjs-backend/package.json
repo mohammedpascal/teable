@@ -41,7 +41,7 @@
     "test": "run-s test-unit test-e2e",
     "test-unit": "vitest run --silent --bail 1",
     "test-unit-cover": "pnpm test-unit --coverage",
-    "pre-test-e2e": "cross-env NODE_ENV=test pnpm -F @teable/db-main-prisma prisma-db-seed -- --e2e",
+    "pre-test-e2e": "cross-env NODE_ENV=test pnpm prisma:seed -- --e2e",
     "test-e2e": "pnpm pre-test-e2e && vitest run --config ./vitest-e2e.config.ts --silent --bail 1",
     "test-e2e-cover": "pnpm test-e2e --coverage",
     "typecheck": "tsc --project ./tsconfig.json --noEmit",
@@ -49,7 +49,13 @@
     "fix-all-files": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx --fix",
     "flamegraph-home": "npx 0x --output-dir './.debug/flamegraph/{pid}.0x' --on-port 'autocannon http://localhost:$PORT --duration 20' -- node ../../node_modules/.bin/next start",
     "merge-cover": "istanbul-merge --out ./coverage/nestjs-backend/coverage-final.json ./coverage/e2e/coverage-final.json ./coverage/unit/coverage-final.json",
-    "generate-cover": "nyc report --report-dir=coverage/nestjs-backend --temp-dir=coverage/nestjs-backend -r text -r html -r clover"
+    "generate-cover": "nyc report --report-dir=coverage/nestjs-backend --temp-dir=coverage/nestjs-backend -r text -r html -r clover",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:migrate:reset": "prisma migrate reset",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "tsx ./prisma/seed.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
@@ -101,6 +107,7 @@
     "sync-directory": "6.0.5",
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
+    "tsx": "4.7.1",
     "typescript": "5.4.3",
     "unplugin-swc": "1.4.4",
     "vite-tsconfig-paths": "4.3.2",
@@ -138,7 +145,6 @@
     "@prisma/instrumentation": "6.2.1",
     "@teable/common-i18n": "workspace:^",
     "@teable/core": "workspace:^",
-    "@teable/db-main-prisma": "workspace:^",
     "@teable/openapi": "workspace:^",
     "@teamwork/websocket-json-stream": "2.0.0",
     "@types/papaparse": "5.3.14",
@@ -200,5 +206,8 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
     "zod": "3.22.4",
     "zod-validation-error": "3.0.3"
+  },
+  "prisma": {
+    "seed": "tsx ./prisma/seed.ts"
   }
 }

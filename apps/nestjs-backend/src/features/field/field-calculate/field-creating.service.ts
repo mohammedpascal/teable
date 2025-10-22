@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import type { IColumnMeta } from '@teable/core';
 import { FieldType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../../prisma';
 import { ViewService } from '../../view/view.service';
 import { FieldService } from '../field.service';
 import type { IFieldInstance } from '../model/factory';

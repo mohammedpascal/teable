@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import type { Action } from '@teable/core';
 import { generateAccessTokenId, getRandomString } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type {
   CreateAccessTokenRo,
   RefreshAccessTokenRo,

@@ -11,8 +11,8 @@ import {
   SYSTEM_USER_ID,
   assertNever,
 } from '@teable/core';
-import type { Prisma } from '@teable/db-main-prisma';
-import { PrismaService } from '@teable/db-main-prisma';
+import type { Prisma } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import {
   UploadType,
   type IGetNotifyListQuery,

@@ -2,9 +2,9 @@ import { Readable } from 'stream';
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import type { IAttachmentCellValue, IFilter } from '@teable/core';
 import { FieldType, mergeFilter, ViewType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import type { Response } from 'express';
 import Papa from 'papaparse';
+import { PrismaService } from '../../../prisma';
 import { FieldService } from '../../field/field.service';
 import { createFieldInstanceByVo } from '../../field/model/factory';
 import { RecordService } from '../../record/record.service';
@@ -32,7 +32,7 @@ export class ExportOpenApiService {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       read() {},
     });
-    let viewRaw = null;
+    let viewRaw: any = null;
 
     const tableRaw = await this.prismaService.tableMeta
       .findUnique({

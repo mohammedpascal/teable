@@ -1,7 +1,9 @@
 import 'dayjs/plugin/timezone';
 import 'dayjs/plugin/utc';
+import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { promisify } from 'util';
 import type { INestApplication } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -21,6 +23,8 @@ import type { IBaseConfig } from './configs/base.config';
 import type { ISecurityWebConfig, IApiDocConfig } from './configs/bootstrap.config';
 import { GlobalExceptionFilter } from './filter/global-exception.filter';
 import otelSDK from './tracing';
+
+const execAsync = promisify(exec);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const module: any;
@@ -67,6 +71,23 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
 
 export async function bootstrap() {
   otelSDK.start();
+
+  console.log('Process auto run migrations: ', process.env.NODE_ENV === 'development');
+
+  // Auto-run migrations in development mode
+  if (process.env.NODE_ENV === 'development') {
+    try {
+      console.log('🔄 Running database migrations...');
+      await execAsync('npx prisma migrate deploy', {
+        cwd: path.join(__dirname, '..'),
+        env: process.env,
+      });
+      console.log('✅ Database migrations completed successfully');
+    } catch (error) {
+      console.error('❌ Failed to run database migrations:', error);
+      // Don't exit the process, let the app start and handle the error
+    }
+  }
 
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   const configService = app.get(ConfigService);

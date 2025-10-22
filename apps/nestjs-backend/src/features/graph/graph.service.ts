@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import type { IFieldRo, ILinkFieldOptions, IConvertFieldRo } from '@teable/core';
 import { FieldType, Relationship } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type {
   IGraphEdge,
   IGraphNode,

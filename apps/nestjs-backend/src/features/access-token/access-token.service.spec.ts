@@ -2,9 +2,9 @@
 import { UnauthorizedException } from '@nestjs/common';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
-import { PrismaService } from '@teable/db-main-prisma';
 import { mockDeep, mockReset } from 'vitest-mock-extended';
 import { GlobalModule } from '../../global/global.module';
+import { PrismaService } from '../../prisma';
 import { AccessTokenModule } from './access-token.module';
 import { AccessTokenService } from './access-token.service';
 

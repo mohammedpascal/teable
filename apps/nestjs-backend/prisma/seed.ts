@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ParseArgsConfig } from 'node:util';
 import { parseArgs } from 'node:util';
-import type { parseDsnOrThrow } from '@httpx/dsn-parser';
-import { parseDsn as parse } from '@httpx/dsn-parser';
 import { PrismaClient } from '@prisma/client';
-import { SpaceSeeds } from '../src/seeds/e2e/space-seeds';
-import { UserSeeds } from '../src/seeds/e2e/user-seeds';
+import { SpaceSeeds } from '../src/prisma/seeds/e2e/space-seeds';
+import { UserSeeds } from '../src/prisma/seeds/e2e/user-seeds';
 
-export type IDsn = ReturnType<typeof parseDsnOrThrow>;
+export type IDsn = {
+  host: string;
+  driver: string;
+  port?: number;
+};
 
 export function parseDsn(dsn: string): IDsn {
-  const parsedDsn = parse(dsn);
   if (dsn.startsWith('file:')) {
     return {
       host: 'localhost',
@@ -18,14 +19,16 @@ export function parseDsn(dsn: string): IDsn {
     };
   }
 
-  if (!parsedDsn.success) {
-    throw new Error(`DATABASE_URL ${parsedDsn.reason}`);
-  }
-  if (!parsedDsn.value.port) {
-    throw new Error(`DATABASE_URL must provide a port`);
+  if (dsn.startsWith('postgres')) {
+    const url = new URL(dsn);
+    return {
+      host: url.hostname,
+      driver: 'postgresql',
+      port: parseInt(url.port) || 5432,
+    };
   }
 
-  return parsedDsn.value;
+  throw new Error(`Unsupported database URL: ${dsn}`);
 }
 
 let prisma: PrismaClient | undefined;
@@ -38,7 +41,7 @@ const options: ParseArgsConfig['options'] = {
 async function main() {
   const {
     values: { e2e, log },
-  } = parseArgs({ options });
+  } = parseArgs({ options }) as unknown as { values: { e2e: boolean; log: boolean } };
   const databaseUrl = process.env.PRISMA_DATABASE_URL!;
   const { driver } = parseDsn(databaseUrl);
 

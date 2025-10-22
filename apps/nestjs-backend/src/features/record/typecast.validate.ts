@@ -14,7 +14,7 @@ import {
   IdPrefix,
   nullsToUndefined,
 } from '@teable/core';
-import type { PrismaService } from '@teable/db-main-prisma';
+import type { PrismaService } from '../../prisma';
 import { isObject, keyBy, map } from 'lodash';
 import { fromZodError } from 'zod-validation-error';
 import type { AttachmentsStorageService } from '../attachments/attachments-storage.service';

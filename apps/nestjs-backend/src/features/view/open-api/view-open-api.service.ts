@@ -27,7 +27,6 @@ import {
   IdPrefix,
   generateOperationId,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import type {
   IGetViewFilterLinkRecordsVo,
   IUpdateOrderRo,
@@ -40,6 +39,7 @@ import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
 import { EventEmitterService } from '../../../event-emitter/event-emitter.service';
 import { Events } from '../../../event-emitter/events';
+import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';
 import { Timing } from '../../../utils/timing';
 import { updateMultipleOrders, updateOrder } from '../../../utils/update-order';
@@ -682,7 +682,4 @@ export class ViewOpenApiService {
     }
     return res;
   }
-
-
-
 }

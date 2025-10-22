@@ -42,7 +42,7 @@ import {
   SingleLineTextFieldCore,
   UserFieldCore,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../../prisma';
 import { Knex } from 'knex';
 import { keyBy, merge, mergeWith } from 'lodash';
 import { InjectModel } from 'nest-knexjs';

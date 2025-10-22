@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import type { IRecord } from '@teable/core';
 import { IdPrefix } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../prisma';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';

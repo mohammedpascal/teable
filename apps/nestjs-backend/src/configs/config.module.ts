@@ -16,7 +16,7 @@ import { thresholdConfig } from './threshold.config';
 
 config();
 
-console.log('🔍 Config module loaded:', process.env);
+console.log('🔍 Config module loaded:', process.env.PRISMA_DATABASE_URL);
 
 const configurations = [
   ...bootstrapConfigs,

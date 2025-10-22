@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { FieldType } from '@teable/core';
 import type { IAttachmentCellValue, IRecord } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
-import type { Prisma } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
+import type { Prisma } from '../../prisma';
 import type { IChangeRecord } from '../../event-emitter/events';
 
 @Injectable()

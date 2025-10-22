@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import type { IAttachmentCellValue } from '@teable/core';
 import { CellFormat, FieldType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import { BaseQueryColumnType, BaseQueryJoinType } from '@teable/openapi';
 import type { IBaseQueryJoin, IBaseQuery, IBaseQueryVo, IBaseQueryColumn } from '@teable/openapi';
 import { Knex } from 'knex';
@@ -9,6 +8,7 @@ import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
+import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';
 import { FieldService } from '../../field/field.service';
 import {

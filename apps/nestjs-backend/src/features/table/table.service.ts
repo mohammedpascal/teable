@@ -7,8 +7,8 @@ import {
   IdPrefix,
   nullsToUndefined,
 } from '@teable/core';
-import type { Prisma } from '@teable/db-main-prisma';
-import { PrismaService } from '@teable/db-main-prisma';
+import type { Prisma } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import type { ICreateTableRo, ITableVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { FieldType } from '@teable/core';
-import { Field, PrismaService } from '@teable/db-main-prisma';
+import { Field, PrismaService } from '../../prisma';
 import { IUserInfoVo, PrincipalType } from '@teable/openapi';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';

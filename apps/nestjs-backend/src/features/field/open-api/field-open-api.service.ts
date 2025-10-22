@@ -16,13 +16,13 @@ import type {
   ILinkFieldOptions,
   IGetFieldsQuery,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import { instanceToPlain } from 'class-transformer';
 import { groupBy } from 'lodash';
 import { ClsService } from 'nestjs-cls';
 import { ThresholdConfig, IThresholdConfig } from '../../../configs/threshold.config';
 import { EventEmitterService } from '../../../event-emitter/event-emitter.service';
 import { Events } from '../../../event-emitter/events';
+import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';
 import { Timing } from '../../../utils/timing';
 import { FieldCalculationService } from '../../calculation/field-calculation.service';

@@ -2,7 +2,7 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import type { IOtOperation } from '@teable/core';
 import { IdPrefix, RecordOpBuilder } from '@teable/core';
-import { PrismaService, wrapWithValidationErrorHandler } from '@teable/db-main-prisma';
+import { PrismaService, wrapWithValidationErrorHandler } from '../../prisma';
 import { Knex } from 'knex';
 import { groupBy, isEmpty, keyBy } from 'lodash';
 import { customAlphabet } from 'nanoid';

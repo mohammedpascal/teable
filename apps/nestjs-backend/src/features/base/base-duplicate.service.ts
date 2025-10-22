@@ -8,8 +8,8 @@ import {
   generateViewId,
   Role,
 } from '@teable/core';
-import type { Field } from '@teable/db-main-prisma';
-import { PrismaService } from '@teable/db-main-prisma';
+import type { Field } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import type { IGetBaseVo, IDuplicateBaseRo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { uniq } from 'lodash';

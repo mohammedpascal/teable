@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IUserCellValue } from '@teable/core';
 import { Colors, FieldType, UserFieldCore } from '@teable/core';
-import type { PrismaService } from '@teable/db-main-prisma';
+import type { PrismaService } from '../../prisma';
 import { plainToInstance } from 'class-transformer';
 import { vi } from 'vitest';
 import { mockDeep, mockReset } from 'vitest-mock-extended';

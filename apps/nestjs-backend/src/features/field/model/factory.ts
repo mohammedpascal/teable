@@ -1,7 +1,7 @@
 import type { IFieldVo, DbFieldType, CellValueType } from '@teable/core';
 import { assertNever, FieldType } from '@teable/core';
-import type { Field } from '@teable/db-main-prisma';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
+import type { Field } from '../../../prisma';
 import { AttachmentFieldDto } from './field-dto/attachment-field.dto';
 import { AutoNumberFieldDto } from './field-dto/auto-number-field.dto';
 import { CheckboxFieldDto } from './field-dto/checkbox-field.dto';

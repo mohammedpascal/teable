@@ -1,5 +1,5 @@
 import type { Action, IFieldVo } from '@teable/core';
-import type { Prisma } from '@teable/db-main-prisma';
+import type { Prisma } from '../prisma';
 import type { ClsStore } from 'nestjs-cls';
 import type { IRawOpMap } from '../share-db/interface';
 

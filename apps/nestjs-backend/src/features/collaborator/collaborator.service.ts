@@ -3,7 +3,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { Injectable } from '@nestjs/common';
 import { Role, type IBaseRole, type IRole } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { CollaboratorType, PrincipalType } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import type { IClsStore } from '../../types/cls';
@@ -114,7 +114,7 @@ export class CollaboratorService {
 /*
 import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import { canManageRole, getRandomString, Role, type IBaseRole, type IRole } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type { AddBaseCollaboratorRo, CollaboratorItem } from '@teable/openapi';
 import { CollaboratorType, UploadType, PrincipalType } from '@teable/openapi';
 import { Knex } from 'knex';

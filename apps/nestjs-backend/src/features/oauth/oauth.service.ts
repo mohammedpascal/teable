@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { generateClientId, getRandomString, nullsToUndefined } from '@teable/core';
-import { Prisma, PrismaService } from '@teable/db-main-prisma';
+import { Prisma, PrismaService } from '../../prisma';
 import type {
   AuthorizedVo,
   GenerateOAuthSecretVo,

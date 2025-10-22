@@ -4,7 +4,7 @@ import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type { Mock, MockInstance } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 import { CacheService } from '../../cache/cache.service';

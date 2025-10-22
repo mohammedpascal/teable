@@ -8,7 +8,6 @@ import {
   getActionTriggerChannel,
   getTableImportChannel,
 } from '@teable/core';
-import { Prisma, PrismaService } from '@teable/db-main-prisma';
 import type {
   IAnalyzeRo,
   IImportOptionRo,
@@ -19,6 +18,7 @@ import { difference, toString } from 'lodash';
 import { ClsService } from 'nestjs-cls';
 import type { CreateOp } from 'sharedb';
 import type { LocalPresence } from 'sharedb/lib/client';
+import { Prisma, PrismaService } from '../../../prisma';
 
 import { ShareDbService } from '../../../share-db/share-db.service';
 import type { IClsStore } from '../../../types/cls';
@@ -63,7 +63,7 @@ export class ImportOpenApiService {
     });
 
     // only record base table info, not include records
-    const tableResult = [];
+    const tableResult: any[] = [];
 
     for (const [sheetKey, value] of Object.entries(worksheets)) {
       const { importData, useFirstRowAsHeader, columns, name } = value;

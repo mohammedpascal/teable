@@ -27,10 +27,10 @@ import {
   DriverClient,
   CellFormat,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import { type ITableFullVo } from '@teable/openapi';
 import { DB_PROVIDER_SYMBOL } from '../src/db-provider/db.provider';
 import type { IDbProvider } from '../src/db-provider/db.provider.interface';
+import { PrismaService } from '../src/prisma';
 import {
   getRecords,
   createField,
@@ -91,7 +91,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     const sourceField = await createField(table.id, sourceFieldRo);
     await createdCallback?.(sourceField);
     if (appendBlankRow) {
-      const records = [];
+      const records: any[] = [];
       for (let i = 0; i < appendBlankRow; i++) {
         records.push({ fields: {} });
       }

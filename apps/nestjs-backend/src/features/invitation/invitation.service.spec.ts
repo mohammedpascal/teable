@@ -3,7 +3,7 @@ import { BadRequestException, ForbiddenException, NotFoundException } from '@nes
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import { getPermissions, Role } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { CollaboratorType, PrincipalType } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { vi } from 'vitest';

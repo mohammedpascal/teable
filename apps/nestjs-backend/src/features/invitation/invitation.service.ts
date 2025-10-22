@@ -8,7 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import type { IBaseRole } from '@teable/core';
 import { generateInvitationId } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import {
   CollaboratorType,
   PrincipalType,

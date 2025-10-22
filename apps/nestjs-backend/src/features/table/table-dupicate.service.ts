@@ -7,8 +7,8 @@ import {
   ViewType,
   generatePluginInstallId,
 } from '@teable/core';
-import type { View } from '@teable/db-main-prisma';
-import { PrismaService } from '@teable/db-main-prisma';
+import type { View } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import type { IDuplicateTableRo, IDuplicateTableVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { get, pick } from 'lodash';

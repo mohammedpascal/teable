@@ -29,8 +29,8 @@ import {
   FieldType,
   CellValueType,
 } from '@teable/core';
-import type { Prisma } from '@teable/db-main-prisma';
-import { PrismaService } from '@teable/db-main-prisma';
+import type { Prisma } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import { UploadType } from '@teable/openapi';
 import { Knex } from 'knex';
 import { isEmpty, merge } from 'lodash';

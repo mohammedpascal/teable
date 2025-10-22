@@ -1,7 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import type { INestApplication } from '@nestjs/common';
 import { FieldKeyType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../src/prisma';
 import type { ITableFullVo } from '@teable/openapi';
 // TODO: Space functionality not yet implemented
 // import { createBase, createSpace, deleteBase, deleteSpace } from '@teable/openapi';

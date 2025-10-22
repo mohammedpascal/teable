@@ -13,7 +13,7 @@ import {
   RecordOpBuilder,
   Relationship,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type { IUserInfoVo } from '@teable/openapi';
 import { instanceToPlain } from 'class-transformer';
 import { Knex } from 'knex';

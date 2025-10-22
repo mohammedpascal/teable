@@ -1,6 +1,6 @@
 import { Injectable, Logger, ForbiddenException } from '@nestjs/common';
 import { FieldOpBuilder, FieldType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../../prisma';
 import { Timing } from '../../../utils/timing';
 import { TableIndexService } from '../../table/table-index.service';
 import { FieldService } from '../field.service';

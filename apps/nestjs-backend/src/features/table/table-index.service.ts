@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { CellValueType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { TableIndex } from '@teable/openapi';
 import type { IGetAbnormalVo, ITableIndexType, IToggleIndexRo } from '@teable/openapi';
 import { Knex } from 'knex';

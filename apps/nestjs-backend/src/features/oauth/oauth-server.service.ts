@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { getRandomString, nullsToUndefined } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type { DecisionInfoGetVo } from '@teable/openapi';
 import type { Response, Request } from 'express';
 import { difference, pick } from 'lodash';

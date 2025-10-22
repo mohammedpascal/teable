@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ActionPrefix, actionPrefixMap, isUnrestrictedRole } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { CollaboratorType, ResourceType } from '@teable/openapi';
 import type { IDuplicateBaseRo, IGetBasePermissionVo } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';

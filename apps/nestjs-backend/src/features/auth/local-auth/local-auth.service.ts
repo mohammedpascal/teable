@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { generateUserId, getRandomString, HttpErrorCode } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import type { IChangePasswordRo, ISignup } from '@teable/openapi';
 import * as bcrypt from 'bcrypt';
 import { isEmpty } from 'lodash';
@@ -23,6 +22,7 @@ import { CustomHttpException } from '../../../custom.exception';
 import { EventEmitterService } from '../../../event-emitter/event-emitter.service';
 import { Events } from '../../../event-emitter/events';
 import { UserSignUpEvent } from '../../../event-emitter/events/user/user.event';
+import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';
 import { second } from '../../../utils/second';
 import { MailSenderService } from '../../mail-sender/mail-sender.service';

@@ -1,7 +1,7 @@
 import { Session } from 'node:inspector';
 import { Readable } from 'node:stream';
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { PluginStatus, UploadType } from '@teable/openapi';
 import { Response } from 'express';
 import { Knex } from 'knex';

@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { UploadType } from '@teable/openapi';
 import { CacheService } from '../../cache/cache.service';
 import { IStorageConfig, StorageConfig } from '../../configs/storage';

@@ -24,7 +24,6 @@ import {
   actionPrefixMap,
   getBasePermission,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import { ResourceType } from '@teable/openapi';
 import type {
   ICreateRecordsRo,
@@ -42,6 +41,7 @@ import { InjectModel } from 'nest-knexjs';
 import { ThresholdConfig, IThresholdConfig } from '../../../configs/threshold.config';
 import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
+import { PrismaService } from '../../../prisma';
 import { updateOrder } from '../../../utils/update-order';
 import { LinkService } from '../../calculation/link.service';
 import { FieldCreatingService } from '../../field/field-calculate/field-creating.service';
@@ -353,7 +353,6 @@ export class TableOpenApiService {
     await this.prismaService.txClient().recordHistory.deleteMany({
       where: { tableId: { in: tableIds } },
     });
-
   }
 
   async deleteTable(baseId: string, tableId: string) {
@@ -528,10 +527,10 @@ export class TableOpenApiService {
       getNextItem: async (whereOrder, align) => {
         return this.prismaService.tableMeta.findFirst({
           select: { order: true, id: true },
-        where: {
-          baseId,
-          order: whereOrder,
-        },
+          where: {
+            baseId,
+            order: whereOrder,
+          },
           orderBy: { order: align },
         });
       },

@@ -1,6 +1,7 @@
 # build
 build
 dist
+.env
 
 # testing
 /coverage

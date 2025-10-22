@@ -6,7 +6,7 @@
 import type { INestApplication } from '@nestjs/common';
 import type { IFieldRo, ILinkFieldOptions } from '@teable/core';
 import { FieldType, Relationship } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../src/prisma';
 import type { ITableFullVo } from '@teable/openapi';
 import {
   checkBaseIntegrity,

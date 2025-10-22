@@ -21,7 +21,7 @@ import {
   DateFormattingPreset,
   TimeFormatting,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { RangeType } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { vi } from 'vitest';

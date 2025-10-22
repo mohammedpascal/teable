@@ -1,7 +1,7 @@
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
-import { PrismaService } from '@teable/db-main-prisma';
 import { vi } from 'vitest';
+import { PrismaService } from '../../../prisma';
 import { AggregationService } from '../aggregation.service';
 import { AggregationOpenApiController } from './aggregation-open-api.controller';
 import { AggregationOpenApiService } from './aggregation-open-api.service';

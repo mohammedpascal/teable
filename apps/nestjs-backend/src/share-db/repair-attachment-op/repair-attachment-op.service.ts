@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import type { IAttachmentCellValue, IOtOperation } from '@teable/core';
 import { RecordOpBuilder } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import { UploadType } from '@teable/openapi';
 import type { EditOp, CreateOp, DeleteOp } from 'sharedb';
 import { CacheService } from '../../cache/cache.service';
 import { AttachmentsStorageService } from '../../features/attachments/attachments-storage.service';
 import StorageAdapter from '../../features/attachments/plugins/adapter';
+import { PrismaService } from '../../prisma';
 import { getTableThumbnailToken } from '../../utils/generate-thumbnail-path';
 import { Timing } from '../../utils/timing';
 import type { IRawOpMap } from '../interface';

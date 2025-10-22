@@ -2,11 +2,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import type { IRecord, IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import { Knex } from 'knex';
 import { has, intersection, isEmpty, keyBy } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
 import { NotificationService } from '../../features/notification/notification.service';
+import { PrismaService } from '../../prisma';
 import type { IChangeRecord, IChangeValue, RecordCreateEvent, RecordUpdateEvent } from '../events';
 import { Events } from '../events';
 

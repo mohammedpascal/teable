@@ -8,7 +8,7 @@ import { Readable } from 'stream';
 import { BadRequestException, HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import type { IAttachmentItem } from '@teable/core';
 import { generateAttachmentId } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import {
   axios,
   UploadType,

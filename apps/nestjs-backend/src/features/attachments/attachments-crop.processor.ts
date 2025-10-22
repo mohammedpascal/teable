@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@teable/db-main-prisma';
 import { EventEmitterService } from '../../event-emitter/event-emitter.service';
 import { Events } from '../../event-emitter/events';
+import { PrismaService } from '../../prisma';
 import { AttachmentsStorageService } from '../attachments/attachments-storage.service';
 
 interface IRecordImageData {

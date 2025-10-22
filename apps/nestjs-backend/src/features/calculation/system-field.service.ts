@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import type { FieldKeyType } from '@teable/core';
 import { FieldType } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';

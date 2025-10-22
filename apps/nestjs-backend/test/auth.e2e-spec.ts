@@ -2,7 +2,7 @@
 import type { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HttpErrorCode } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../src/prisma';
 import type { IGetTempTokenVo, IUserMeVo } from '@teable/openapi';
 import {
   CHANGE_EMAIL,

@@ -16,8 +16,6 @@ import {
   StatisticsFunc,
   ViewType,
 } from '@teable/core';
-import type { Prisma } from '@teable/db-main-prisma';
-import { PrismaService } from '@teable/db-main-prisma';
 import type {
   IAggregationField,
   IGetRecordsRo,
@@ -39,6 +37,7 @@ import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService, type Prisma } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { convertValueToStringify, string2Hash } from '../../utils';
 import type { IFieldInstance } from '../field/model/factory';

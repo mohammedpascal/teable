@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { FieldType, type ILinkFieldOptions } from '@teable/core';
-import type { Field } from '@teable/db-main-prisma';
-import { PrismaService } from '@teable/db-main-prisma';
+import type { Field } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import { IntegrityIssueType, type IIntegrityCheckVo, type IIntegrityIssue } from '@teable/openapi';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';

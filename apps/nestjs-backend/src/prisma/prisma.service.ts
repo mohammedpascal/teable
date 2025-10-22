@@ -3,8 +3,8 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import type { Prisma } from '@prisma/client';
 import { nanoid } from 'nanoid';
-import type { ClsService } from 'nestjs-cls';
-import { PostgresErrorCode, SqliteErrorCode } from './db.error';
+import { ClsService } from 'nestjs-cls';
+import { PostgresErrorCode } from './db.error';
 
 interface ITx {
   client?: Prisma.TransactionClient;
@@ -19,16 +19,13 @@ export const wrapWithValidationErrorHandler = async (fn: () => Promise<unknown>)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     const code = e.meta?.code ?? e.code;
-    if (code === PostgresErrorCode.UNIQUE_VIOLATION || code === SqliteErrorCode.UNIQUE_VIOLATION) {
+    if (code === PostgresErrorCode.UNIQUE_VIOLATION) {
       throw new HttpException(
         'Duplicate detected! Please ensure that all fields with unique value validation are indeed unique.',
         HttpStatus.BAD_REQUEST
       );
     }
-    if (
-      code === PostgresErrorCode.NOT_NULL_VIOLATION ||
-      code === SqliteErrorCode.NOT_NULL_VIOLATION
-    ) {
+    if (code === PostgresErrorCode.NOT_NULL_VIOLATION) {
       throw new HttpException(
         'One or more required fields were not provided! Please ensure all mandatory fields are filled.',
         HttpStatus.BAD_REQUEST
@@ -135,11 +132,7 @@ export class PrismaService
 
     // 🔍 LOG DATABASE CONNECTION INFO
     const databaseUrl = process.env.PRISMA_DATABASE_URL || 'NOT SET!';
-    const driver = databaseUrl.startsWith('file:')
-      ? 'SQLite'
-      : databaseUrl.startsWith('postgres')
-        ? 'PostgreSQL'
-        : 'Unknown';
+    const driver = databaseUrl.startsWith('postgres') ? 'PostgreSQL' : 'Unknown';
 
     this.logger.log('='.repeat(80));
     this.logger.log(`🔍 PRISMA CONNECTED TO: ${driver}`);

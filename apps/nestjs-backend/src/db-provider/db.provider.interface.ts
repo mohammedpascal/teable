@@ -1,5 +1,5 @@
 import type { DriverClient, FieldType, IFilter, ILookupOptionsVo, ISortItem } from '@teable/core';
-import type { Prisma } from '@teable/db-main-prisma';
+import type { Prisma } from '../prisma';
 import type { IAggregationField, ISearchIndexByQueryRo, TableIndex } from '@teable/openapi';
 import type { Knex } from 'knex';
 import type { IFieldInstance } from '../features/field/model/factory';

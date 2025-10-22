@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import type { IDsn } from '@teable/core';
 import { DriverClient, parseDsn } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type { IDbConnectionVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { nanoid } from 'nanoid';

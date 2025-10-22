@@ -35,8 +35,6 @@ import {
   parseGroup,
   Relationship,
 } from '@teable/core';
-import type { Prisma } from '@teable/db-main-prisma';
-import { PrismaService, wrapWithValidationErrorHandler } from '@teable/db-main-prisma';
 import type {
   ICreateRecordsRo,
   IGetRecordQuery,
@@ -56,6 +54,8 @@ import { CacheService } from '../../cache/cache.service';
 import { ThresholdConfig, IThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import type { Prisma } from '../../prisma';
+import { wrapWithValidationErrorHandler, PrismaService } from '../../prisma';
 import { RawOpType } from '../../share-db/interface';
 import type { IClsStore } from '../../types/cls';
 import { convertValueToStringify, string2Hash } from '../../utils';

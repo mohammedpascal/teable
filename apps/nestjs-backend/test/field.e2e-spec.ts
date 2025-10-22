@@ -16,7 +16,7 @@ import {
   SingleLineTextFieldCore,
   TimeFormatting,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../src/prisma';
 import type { ITableFullVo } from '@teable/openapi';
 import type { Knex } from 'knex';
 import type { FieldCreateEvent } from '../src/event-emitter/events';

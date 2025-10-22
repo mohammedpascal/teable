@@ -18,8 +18,8 @@ import {
   checkFieldUniqueValidationEnabled,
   checkFieldValidationEnabled,
 } from '@teable/core';
-import type { Field as RawField, Prisma } from '@teable/db-main-prisma';
-import { PrismaService, wrapWithValidationErrorHandler } from '@teable/db-main-prisma';
+import type { Field as RawField, Prisma } from '../../prisma';
+import { PrismaService, wrapWithValidationErrorHandler } from '../../prisma';
 import { instanceToPlain } from 'class-transformer';
 import { Knex } from 'knex';
 import { keyBy, sortBy } from 'lodash';

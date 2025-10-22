@@ -1,7 +1,7 @@
 import type { IViewVo } from '@teable/core';
 import { assertNever, ViewType } from '@teable/core';
-import type { View } from '@teable/db-main-prisma';
 import { plainToInstance } from 'class-transformer';
+import type { View } from '../../../prisma';
 import { CalendarViewDto } from './calendar-view.dto';
 import { FormViewDto } from './form-view.dto';
 import { GalleryViewDto } from './gallery-view.dto';

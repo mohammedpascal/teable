@@ -2,7 +2,7 @@ import type { DynamicModule, MiddlewareConsumer, ModuleMetadata, NestModule } fr
 import { Global, Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { context, trace } from '@opentelemetry/api';
-import { PrismaModule } from '@teable/db-main-prisma';
+import { PrismaModule } from '../prisma/prisma.module';
 import type { Request } from 'express';
 import { nanoid } from 'nanoid';
 import { ClsMiddleware, ClsModule } from 'nestjs-cls';

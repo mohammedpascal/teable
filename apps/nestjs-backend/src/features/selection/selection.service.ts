@@ -25,7 +25,7 @@ import {
   singleNumberShowAsSchema,
   stringifyClipboardText,
 } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
+import { PrismaService } from '../../prisma';
 import type {
   IUpdateRecordsRo,
   IRangesToIdQuery,

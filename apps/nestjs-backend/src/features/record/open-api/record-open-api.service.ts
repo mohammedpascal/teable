@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import type { IAttachmentCellValue, IAttachmentItem, IMakeOptional } from '@teable/core';
 import { FieldKeyType, FieldType, generateOperationId } from '@teable/core';
-import { PrismaService } from '@teable/db-main-prisma';
 import { UploadType } from '@teable/openapi';
 import type {
   IRecordHistoryItemVo,
@@ -20,6 +19,7 @@ import { bufferCount, concatMap, from, lastValueFrom, reduce } from 'rxjs';
 import { IThresholdConfig, ThresholdConfig } from '../../../configs/threshold.config';
 import { EventEmitterService } from '../../../event-emitter/event-emitter.service';
 import { Events } from '../../../event-emitter/events';
+import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';
 import { AttachmentsStorageService } from '../../attachments/attachments-storage.service';
 import { AttachmentsService } from '../../attachments/attachments.service';
