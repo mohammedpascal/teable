@@ -23,14 +23,14 @@
     "!apps/electron"
   ],
   "scripts": {
-    "start1": "cross-env NEXTJS_DIR=apps/nextjs-app node ./apps/nestjs-backend/dist/index.js",
+    "start": "cross-env NEXTJS_DIR=apps/nextjs-app  node ./apps/nestjs-backend/dist/index.js",
     "dev": "pnpm -F @teable/backend dev",
-    "start": "pnpm -F @teable/backend dev",
+    "start1": "pnpm -F @teable/backend dev",
     "clean:global-cache": "rimraf ./.cache",
     "deps:check": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName .ncurc.yml --workspaces --root --mergeConfig",
     "deps:update": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName .ncurc.yml -u --workspaces --root --mergeConfig",
     "build:packages": "pnpm -r -F './packages/**' build",
-    "build": "pnpm -r run build",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 pnpm -r run build",
     "g:build": "pnpm -r run build",
     "g:build-changed": "pnpm -r -F '...[origin/main]' build",
     "g:check-dist": "pnpm -r --parallel check-dist",
