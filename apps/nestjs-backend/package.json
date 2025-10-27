@@ -31,7 +31,7 @@
     ]
   },
   "scripts": {
-    "build": "nest build",
+    "build": "npx prisma generate && nest build",
     "clean": "rimraf ./out ./coverage ./main ./dist ./tsconfig.tsbuildinfo ./node_modules/.cache",
     "dev": "nest start --webpackPath ./webpack.dev.js -w",
     "start": "nest start",
