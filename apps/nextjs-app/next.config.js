@@ -2,10 +2,10 @@
 
 const { readFileSync } = require('node:fs');
 const path = require('node:path');
+const { UniverPlugin } = require('@univerjs/webpack-plugin');
 const { createSecureHeaders } = require('next-secure-headers');
 const pc = require('picocolors');
 // @ts-ignore - UniverPlugin doesn't have proper type declarations
-const { UniverPlugin } = require('@univerjs/webpack-plugin');
 
 const workspaceRoot = path.resolve(__dirname, '..', '..');
 /**
@@ -177,16 +177,7 @@ const nextConfig = {
     unoptimized: false,
   },
 
-  // Standalone build
-  // @link https://nextjs.org/docs/advanced-features/output-file-tracing#automatically-copying-traced-files-experimental
-  ...(NEXT_BUILD_ENV_OUTPUT === 'standalone'
-    ? { output: 'standalone', outputFileTracing: true }
-    : {}),
-
   experimental: {
-    // @link https://nextjs.org/docs/advanced-features/output-file-tracing#caveats
-    ...(NEXT_BUILD_ENV_OUTPUT === 'standalone' ? { outputFileTracingRoot: workspaceRoot } : {}),
-
     // Prefer loading of ES Modules over CommonJS
     // @link {https://nextjs.org/blog/next-11-1#es-modules-support|Blog 11.1.0}
     // @link {https://github.com/vercel/next.js/discussions/27876|Discussion}
