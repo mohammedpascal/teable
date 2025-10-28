@@ -1,17 +1,14 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import type { IBaseRole } from '@teable/core';
-import { generateDashboardId, Role } from '@teable/core';
-import { PrismaService } from '../../prisma';
-import { CollaboratorType, PrincipalType } from '@teable/openapi';
+import { generateDashboardId } from '@teable/core';
 import type {
   ICreateDashboardRo,
   IGetDashboardListVo,
   IGetDashboardVo,
   IUpdateLayoutDashboardRo,
 } from '@teable/openapi';
-import type { IDashboardLayout } from '@teable/openapi/src/dashboard/types';
 import { ClsService } from 'nestjs-cls';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { CollaboratorService } from '../collaborator/collaborator.service';
 
@@ -209,9 +206,9 @@ export class DashboardService {
       w: 6,
       h: 4,
     };
-    
+
     const updatedLayout = [...currentLayout, newLayoutItem];
-    
+
     await this.prismaService.dashboard.update({
       where: { id: dashboardId },
       data: { layout: JSON.stringify(updatedLayout) },
@@ -259,7 +256,7 @@ export class DashboardService {
     // Remove widget from dashboard layout
     const currentLayout = dashboard.layout ? JSON.parse(dashboard.layout) : [];
     const updatedLayout = currentLayout.filter((item: any) => item.widgetId !== widgetId);
-    
+
     await this.prismaService.dashboard.update({
       where: { id: dashboardId },
       data: { layout: JSON.stringify(updatedLayout) },

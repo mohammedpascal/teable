@@ -1,19 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import type { IBaseRole } from '@teable/core';
-import {
-  duplicateBaseRoSchema,
-  IDuplicateBaseRo,
-  baseQuerySchemaRo,
-  IBaseQuerySchemaRo,
-  createBaseInvitationLinkRoSchema,
-  CreateBaseInvitationLinkRo,
-  updateBaseInvitationLinkRoSchema,
-  emailBaseInvitationRoSchema,
-  EmailBaseInvitationRo,
-  UpdateBaseInvitationLinkRo,
-  CollaboratorType,
-} from '@teable/openapi';
 import type {
   CreateBaseInvitationLinkVo,
   EmailInvitationVo,
@@ -24,10 +11,22 @@ import type {
   ListBaseInvitationLinkVo,
   UpdateBaseInvitationLinkVo,
 } from '@teable/openapi';
+import {
+  baseQuerySchemaRo,
+  CollaboratorType,
+  CreateBaseInvitationLinkRo,
+  createBaseInvitationLinkRoSchema,
+  duplicateBaseRoSchema,
+  EmailBaseInvitationRo,
+  emailBaseInvitationRoSchema,
+  IBaseQuerySchemaRo,
+  IDuplicateBaseRo,
+  UpdateBaseInvitationLinkRo,
+  updateBaseInvitationLinkRoSchema,
+} from '@teable/openapi';
 import { EmitControllerEvent } from '../../event-emitter/decorators/emit-controller-event.decorator';
 import { Events } from '../../event-emitter/events';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
-import { ResourceMeta } from '../auth/decorators/resource_meta.decorator';
 import { InvitationService } from '../invitation/invitation.service';
 import { BaseQueryService } from './base-query/base-query.service';
 import { BaseService } from './base.service';

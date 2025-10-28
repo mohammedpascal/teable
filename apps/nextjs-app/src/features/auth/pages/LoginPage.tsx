@@ -26,7 +26,7 @@ export const LoginPage = (props: { children?: React.ReactNode | React.ReactNode[
       router.push(redirect);
     } else {
       router.push({
-        pathname: '/space',
+        pathname: '/',
         query: router.query,
       });
     }

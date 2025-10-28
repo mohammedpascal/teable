@@ -2,8 +2,6 @@ import https from 'https';
 import { join } from 'path';
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { generateAccountId, generateBaseId, generateUserId, minidenticon } from '@teable/core';
-import type { Prisma } from '../../prisma';
-import { PrismaService } from '../../prisma';
 import { UploadType } from '@teable/openapi';
 import type { IUserInfoVo, IUserNotifyMeta } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
@@ -11,6 +9,8 @@ import sharp from 'sharp';
 import { EventEmitterService } from '../../event-emitter/event-emitter.service';
 import { Events } from '../../event-emitter/events';
 import { UserSignUpEvent } from '../../event-emitter/events/user/user.event';
+import { PrismaService } from '../../prisma';
+import type { Prisma } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import StorageAdapter from '../attachments/plugins/adapter';
 import { InjectStorageAdapter } from '../attachments/plugins/storage';
@@ -131,6 +131,8 @@ export class UserService {
     await this.cls.runWith(this.cls.get(), async () => {
       this.cls.set('user.id', id);
       await this.createDefaultBase();
+
+      console.log('defulat base created');
     });
     return newUser;
   }

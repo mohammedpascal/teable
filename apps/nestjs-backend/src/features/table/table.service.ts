@@ -7,14 +7,14 @@ import {
   IdPrefix,
   nullsToUndefined,
 } from '@teable/core';
-import type { Prisma } from '../../prisma';
-import { PrismaService } from '../../prisma';
 import type { ICreateTableRo, ITableVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
+import type { Prisma } from '../../prisma';
 import type { IReadonlyAdapterService } from '../../share-db/interface';
 import { RawOpType } from '../../share-db/interface';
 import type { IClsStore } from '../../types/cls';
@@ -107,6 +107,7 @@ export class TableService implements IReadonlyAdapterService {
     });
 
     for (const sql of createTableSchema.toSQL()) {
+      console.log('sql', sql.sql);
       await this.prismaService.txClient().$executeRawUnsafe(sql.sql);
     }
     return tableMeta;
@@ -245,7 +246,6 @@ export class TableService implements IReadonlyAdapterService {
       { docId: tableId, version },
     ]);
   }
-
 
   async updateTable(
     baseId: string,
