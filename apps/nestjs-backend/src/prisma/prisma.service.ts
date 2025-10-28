@@ -97,19 +97,23 @@ export class PrismaService
     }
 
     await this.cls.runWith(this.cls.get(), async () => {
-      result = await super.$transaction<R>(async (prisma) => {
-        this.cls.set('tx.client', prisma);
-        this.cls.set('tx.id', nanoid());
-        this.cls.set('tx.timeStr', new Date().toISOString());
-        try {
-          // can not delete await here
-          return await fn(prisma);
-        } finally {
-          this.cls.set('tx.client', undefined);
-          this.cls.set('tx.id', undefined);
-          this.cls.set('tx.timeStr', undefined);
-        }
-      }, options);
+      result = await super.$transaction<R>(
+        async (prisma) => {
+          this.cls.set('tx.client', prisma);
+          this.cls.set('tx.id', nanoid());
+          this.cls.set('tx.timeStr', new Date().toISOString());
+          try {
+            // can not delete await here
+            return await fn(prisma);
+          } finally {
+            console.log('transactionId', this.cls.get('tx.id'));
+            this.cls.set('tx.client', undefined);
+            this.cls.set('tx.id', undefined);
+            this.cls.set('tx.timeStr', undefined);
+          }
+        },
+        { ...options, timeout: 30000 }
+      );
       this.afterTxCb?.();
     });
 

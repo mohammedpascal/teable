@@ -18,8 +18,6 @@ import {
   checkFieldUniqueValidationEnabled,
   checkFieldValidationEnabled,
 } from '@teable/core';
-import type { Field as RawField, Prisma } from '../../prisma';
-import { PrismaService, wrapWithValidationErrorHandler } from '../../prisma';
 import { instanceToPlain } from 'class-transformer';
 import { Knex } from 'knex';
 import { keyBy, sortBy } from 'lodash';
@@ -28,6 +26,8 @@ import { ClsService } from 'nestjs-cls';
 import { CustomHttpException } from '../../custom.exception';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService, wrapWithValidationErrorHandler } from '../../prisma';
+import type { Field as RawField, Prisma } from '../../prisma';
 import type { IReadonlyAdapterService } from '../../share-db/interface';
 import { RawOpType } from '../../share-db/interface';
 import type { IClsStore } from '../../types/cls';
