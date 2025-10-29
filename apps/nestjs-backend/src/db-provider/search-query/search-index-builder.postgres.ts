@@ -100,7 +100,8 @@ export class IndexBuilderPostgres extends IndexBuilderAbstract {
   }
 
   createSingleIndexSql(dbTableName: string, field: IFieldInstance): string | null {
-    const [schema, table] = dbTableName.split('.');
+    const schema = 'public';
+    const table = dbTableName;
     const indexName = this.getIndexName(table, field);
     const expression = FieldFormatter.getIndexExpression(field);
     if (expression === null) {
@@ -111,7 +112,8 @@ export class IndexBuilderPostgres extends IndexBuilderAbstract {
   }
 
   getDropIndexSql(dbTableName: string): string {
-    const [schema, table] = dbTableName.split('.');
+    const schema = 'public';
+    const table = dbTableName;
     const searchFactor = this.getSearchFactor();
     return `
       DO $$ 
@@ -145,7 +147,8 @@ export class IndexBuilderPostgres extends IndexBuilderAbstract {
   }
 
   getExistTableIndexSql(dbTableName: string): string {
-    const [schema, table] = dbTableName.split('.');
+    const schema = 'public';
+    const table = dbTableName;
     const searchFactor = this.getSearchFactor();
     return `
       SELECT EXISTS (
@@ -158,7 +161,8 @@ export class IndexBuilderPostgres extends IndexBuilderAbstract {
   }
 
   getDeleteSingleIndexSql(dbTableName: string, field: IFieldInstance): string {
-    const [schema, table] = dbTableName.split('.');
+    const schema = 'public';
+    const table = dbTableName;
     const indexName = this.getIndexName(table, field);
 
     return `DROP INDEX IF EXISTS "${schema}"."${indexName}"`;
@@ -169,7 +173,8 @@ export class IndexBuilderPostgres extends IndexBuilderAbstract {
     oldField: Pick<IFieldInstance, 'id' | 'dbFieldName'>,
     newField: Pick<IFieldInstance, 'id' | 'dbFieldName'>
   ): string {
-    const [schema, table] = dbTableName.split('.');
+    const schema = 'public';
+    const table = dbTableName;
     const oldIndexName = this.getIndexName(table, oldField);
     const newIndexName = this.getIndexName(table, newField);
 
@@ -180,7 +185,7 @@ export class IndexBuilderPostgres extends IndexBuilderAbstract {
   }
 
   getIndexInfoSql(dbTableName: string): string {
-    const [, table] = dbTableName.split('.');
+    const table = dbTableName;
     const searchFactor = this.getSearchFactor();
     return `
     SELECT * FROM pg_indexes 
@@ -189,7 +194,7 @@ AND indexname like '${searchFactor}%'`;
   }
 
   getAbnormalIndex(dbTableName: string, fields: IFieldInstance[], existingIndex: IPgIndex[]) {
-    const [, table] = dbTableName.split('.');
+    const table = dbTableName;
     const expectExistIndex = fields
       .filter(({ cellValueType }) => !unSupportCellValueType.includes(cellValueType))
       .map((field) => {

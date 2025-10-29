@@ -133,7 +133,7 @@ export const TableDetail = () => {
     toast(t('actions.updateSucceed'));
   };
 
-  const dbTableName = table.dbTableName.split('.')[1];
+  const dbTableName = table.dbTableName;
 
   return (
     <div className="grid gap-4 md:grid-cols-2">

@@ -12,7 +12,10 @@ try {
       case DriverClient.Sqlite:
         return knex(this.client.config).raw(`PRAGMA table_info(??)`, tableName);
       case DriverClient.Pg: {
-        const [schema, name] = tableName.split('.');
+        const schema = 'public';
+        const name = tableName;
+
+        console.log({ schema, name });
         this.select({
           name: 'column_name',
           type: 'data_type',

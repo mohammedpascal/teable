@@ -247,9 +247,6 @@ export class RecordService {
   }
 
   private isJunctionTable(dbTableName: string) {
-    if (dbTableName.includes('.')) {
-      return dbTableName.split('.')[1].startsWith('junction');
-    }
     return dbTableName.split('_')[1].startsWith('junction');
   }
 

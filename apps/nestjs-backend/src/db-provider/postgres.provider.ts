@@ -56,14 +56,15 @@ export class PostgresProvider implements IDbProvider {
   }
 
   renameTableName(oldTableName: string, newTableName: string) {
-    const nameWithoutSchema = this.splitTableName(newTableName)[1];
-    return [
-      this.knex.raw('ALTER TABLE ?? RENAME TO ??', [oldTableName, nameWithoutSchema]).toQuery(),
-    ];
+    return [this.knex.raw('ALTER TABLE ?? RENAME TO ??', [oldTableName, newTableName]).toQuery()];
   }
 
   dropTable(tableName: string): string {
     return this.knex.raw('DROP TABLE IF EXISTS ?? CASCADE', [tableName]).toQuery();
+  }
+
+  splitTableName(tableName: string): string[] {
+    return ['public', tableName];
   }
 
   async checkColumnExist(
@@ -71,7 +72,10 @@ export class PostgresProvider implements IDbProvider {
     columnName: string,
     prisma: PrismaClient
   ): Promise<boolean> {
-    const [schemaName, dbTableName] = this.splitTableName(tableName);
+    const schemaName = 'public';
+    const dbTableName = tableName;
+
+    console.log({ schemaName, dbTableName });
     const sql = this.knex
       .raw(
         'SELECT EXISTS (SELECT FROM information_schema.columns WHERE table_schema = ? AND table_name = ? AND column_name = ?) AS exists',
@@ -83,7 +87,8 @@ export class PostgresProvider implements IDbProvider {
   }
 
   checkTableExist(tableName: string): string {
-    const [schemaName, dbTableName] = this.splitTableName(tableName);
+    const schemaName = 'public';
+    const dbTableName = tableName;
     return this.knex
       .raw(
         'SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_schema = ? AND table_name = ?) AS exists',
@@ -116,7 +121,8 @@ export class PostgresProvider implements IDbProvider {
   }
 
   columnInfo(tableName: string): string {
-    const [schemaName, dbTableName] = tableName.split('.');
+    const schemaName = 'public';
+
     return this.knex
       .select({
         name: 'column_name',
@@ -124,7 +130,7 @@ export class PostgresProvider implements IDbProvider {
       .from('information_schema.columns')
       .where({
         table_schema: schemaName,
-        table_name: dbTableName,
+        table_name: tableName,
       })
       .toQuery();
   }
@@ -196,12 +202,8 @@ export class PostgresProvider implements IDbProvider {
     ];
   }
 
-  splitTableName(tableName: string): string[] {
-    return tableName.split('.');
-  }
-
   joinDbTableName(schemaName: string, dbTableName: string) {
-    return `${schemaName}.${dbTableName}`;
+    return `${dbTableName}`;
   }
 
   duplicateTable(
@@ -211,19 +213,19 @@ export class PostgresProvider implements IDbProvider {
     withData?: boolean
   ): string {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, dbTableName] = this.splitTableName(tableName);
     return this.knex
       .raw(`CREATE TABLE ??.?? AS TABLE ??.?? ${withData ? '' : 'WITH NO DATA'}`, [
         toSchema,
-        dbTableName,
+        tableName,
         fromSchema,
-        dbTableName,
+        tableName,
       ])
       .toQuery();
   }
 
   alterAutoNumber(tableName: string): string[] {
-    const [schema, dbTableName] = this.splitTableName(tableName);
+    const schema = 'public';
+    const dbTableName = tableName;
     const seqName = `${schema}_${dbTableName}_seq`;
     return [
       this.knex.raw(`CREATE SEQUENCE ??`, [seqName]).toQuery(),

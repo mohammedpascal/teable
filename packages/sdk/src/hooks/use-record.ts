@@ -10,6 +10,7 @@ import { useTableId } from './use-table-id';
 
 export const useRecord = (recordId: string | undefined, initData?: IRecord) => {
   const { connection, connected } = useConnection();
+
   const tableId = useTableId();
 
   const fields = useFields();
