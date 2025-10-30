@@ -247,7 +247,7 @@ export class RecordService {
   }
 
   private isJunctionTable(dbTableName: string) {
-    return dbTableName.split('_')[1].startsWith('junction');
+    return dbTableName.split('_')[1]?.startsWith('junction') ?? false;
   }
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
