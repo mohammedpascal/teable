@@ -1,14 +1,6 @@
 import { BadGatewayException, Injectable, Logger } from '@nestjs/common';
 import type { IFormulaFieldOptions, ILinkFieldOptions, ILookupOptionsRo } from '@teable/core';
-import {
-  generateViewId,
-  generateShareId,
-  FieldType,
-  ViewType,
-  generatePluginInstallId,
-} from '@teable/core';
-import type { View } from '../../prisma';
-import { PrismaService } from '../../prisma';
+import { FieldType, generateShareId, generateViewId } from '@teable/core';
 import type { IDuplicateTableRo, IDuplicateTableVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { get, pick } from 'lodash';
@@ -17,6 +9,7 @@ import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import type { IFieldInstance } from '../field/model/factory';
 import { createFieldInstanceByRaw, rawField2FieldObj } from '../field/model/factory';
@@ -800,10 +793,8 @@ export class TableDuplicateService {
       }),
     });
 
-
     return sourceToTargetViewMap;
   }
-
 
   private async repairDuplicateOmit(
     sourceToTargetFieldMap: Record<string, string>,

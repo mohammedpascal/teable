@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Param, Res, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ExportOpenApiService } from './export-open-api.service';
 

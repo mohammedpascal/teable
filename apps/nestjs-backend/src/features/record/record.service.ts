@@ -306,6 +306,7 @@ export class RecordService {
   async buildLinkCandidateQuery(
     queryBuilder: Knex.QueryBuilder,
     tableId: string,
+    dbTableName: string,
     filterLinkCellCandidate: [string, string] | string
   ) {
     const prisma = this.prismaService.txClient();
@@ -530,7 +531,12 @@ export class RecordService {
     }
 
     if (query.filterLinkCellCandidate) {
-      await this.buildLinkCandidateQuery(queryBuilder, tableId, query.filterLinkCellCandidate);
+      await this.buildLinkCandidateQuery(
+        queryBuilder,
+        tableId,
+        dbTableName,
+        query.filterLinkCellCandidate
+      );
     }
 
     if (query.filterLinkCellSelected) {
