@@ -13,9 +13,8 @@ import { ReactQueryKeys } from '../../config';
 import { useTranslation } from '../../context/app/i18n';
 import { useFieldStaticGetter, useIsHydrated, useTableId } from '../../hooks';
 import type { IFieldInstance } from '../../model';
-import { CellValue } from '../cell-value';
+import { CellValue, UserTag } from '../cell-value';
 import { OverflowTooltip } from '../cell-value/components';
-import { CollaboratorWithHoverCard } from '../collaborator';
 import { InfiniteTable } from '../table';
 
 interface IRecordHistoryProps {
@@ -85,11 +84,11 @@ export const RecordHistory = (props: IRecordHistoryProps) => {
 
           if (!user) return null;
 
-          const { id, name, avatar, email } = user;
+          const { name, avatar } = user;
 
           return (
             <div className="flex justify-center">
-              <CollaboratorWithHoverCard id={id} name={name} avatar={avatar} email={email} />
+              <UserTag name={name || 'Unknown'} avatar={avatar} />
             </div>
           );
         },

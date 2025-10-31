@@ -7,7 +7,6 @@ import { plainToInstance } from 'class-transformer';
 import { vi } from 'vitest';
 import { mockDeep, mockReset } from 'vitest-mock-extended';
 import type { AttachmentsStorageService } from '../attachments/attachments-storage.service';
-import type { CollaboratorService } from '../collaborator/collaborator.service';
 import type { FieldConvertingService } from '../field/field-calculate/field-converting.service';
 import type { IFieldInstance } from '../field/model/factory';
 import type { SingleSelectFieldDto } from '../field/model/field-dto/single-select-field.dto';
@@ -27,14 +26,12 @@ describe('TypeCastAndValidate', () => {
   const fieldConvertingService = mockDeep<FieldConvertingService>();
   const recordService = mockDeep<RecordService>();
   const attachmentsStorageService = mockDeep<AttachmentsStorageService>();
-  const collaboratorService = mockDeep<CollaboratorService>();
 
   const services = {
     prismaService,
     fieldConvertingService,
     recordService,
     attachmentsStorageService,
-    collaboratorService,
   };
   const tableId = 'tableId';
 
@@ -42,7 +39,6 @@ describe('TypeCastAndValidate', () => {
     mockReset(fieldConvertingService);
     mockReset(prismaService);
     mockReset(recordService);
-    mockReset(collaboratorService);
   });
 
   describe('typecastCellValuesWithField', () => {
@@ -384,7 +380,6 @@ describe('TypeCastAndValidate', () => {
       avatarUrl: expect.stringContaining('api/attachments/read/public/avatar/2'),
     };
     beforeEach(() => {
-      collaboratorService.getUserCollaboratorsByTableId.mockResolvedValue([]);
     });
 
     it('string cell value', async () => {

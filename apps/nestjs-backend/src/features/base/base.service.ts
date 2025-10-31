@@ -1,15 +1,13 @@
-import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { ActionPrefix, actionPrefixMap, isUnrestrictedRole } from '@teable/core';
-import { PrismaService } from '../../prisma';
-import { CollaboratorType, ResourceType } from '@teable/openapi';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ActionPrefix, actionPrefixMap } from '@teable/core';
+import { CollaboratorType } from '@teable/openapi';
 import type { IDuplicateBaseRo, IGetBasePermissionVo } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
-import { getMaxLevelRole } from '../../utils/get-max-level-role';
-import { CollaboratorService } from '../collaborator/collaborator.service';
 import { TableOpenApiService } from '../table/open-api/table-open-api.service';
 import { BaseDuplicateService } from './base-duplicate.service';
 
@@ -20,7 +18,6 @@ export class BaseService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly cls: ClsService<IClsStore>,
-    private readonly collaboratorService: CollaboratorService,
     private readonly baseDuplicateService: BaseDuplicateService,
     private readonly tableOpenApiService: TableOpenApiService,
     @InjectDbProvider() private readonly dbProvider: IDbProvider,
@@ -28,8 +25,6 @@ export class BaseService {
   ) {}
 
   async getBaseById(baseId: string) {
-    const userId = this.cls.get('user.id');
-    const departmentIds = this.cls.get('organization.departments')?.map((d) => d.id);
     const base = await this.prismaService.base
       .findFirstOrThrow({
         select: {
@@ -56,8 +51,6 @@ export class BaseService {
   }
 
   async getAllBaseList() {
-    const { baseIds, roleMap } =
-      await this.collaboratorService.getCurrentUserCollaboratorsBaseArray();
     const userId = this.cls.get('user.id');
 
     const baseList = await this.prismaService.base.findMany({
@@ -69,27 +62,16 @@ export class BaseService {
         icon: true,
       },
       where: {
-        OR: [
-          {
-            id: {
-              in: baseIds,
-            },
-          },
-          {
-            userId: userId,
-          },
-        ],
+        userId: userId,
       },
       orderBy: [{ userId: 'asc' }, { order: 'asc' }],
     });
-    return baseList.map((base) => ({ ...base, role: roleMap[base.id] }));
+    return baseList.map((base) => ({ ...base, role: 'creator' as const }));
   }
 
   async getAccessBaseList() {
     const userId = this.cls.get('user.id');
     const accessTokenId = this.cls.get('accessTokenId');
-    const { baseIds } =
-      await this.collaboratorService.getCurrentUserCollaboratorsBaseArray();
 
     if (accessTokenId) {
       const access = await this.prismaService.accessToken.findFirst({
@@ -101,10 +83,23 @@ export class BaseService {
           userId,
         },
       });
-      if (!access) {
+      if (!access || !access.baseIds) {
         return [];
       }
-      baseIds.push(...(access.baseIds || []));
+      const baseIds = Array.isArray(access.baseIds) ? access.baseIds : [];
+      if (baseIds.length === 0) {
+        return [];
+      }
+      // Return bases from access token
+      return this.prismaService.base.findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+        where: {
+          id: { in: baseIds },
+        },
+      });
     }
 
     // Get user's own base
@@ -222,6 +217,5 @@ export class BaseService {
     await this.prismaService.txClient().base.delete({
       where: { id: baseId },
     });
-
   }
 }

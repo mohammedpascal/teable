@@ -11,7 +11,6 @@ import {
   type IQueryBaseRo,
   type ResourceType,
   type IGetRecordsRo,
-  type ListBaseCollaboratorRo,
   type ICalendarDailyCollectionRo,
   type IGetDepartmentListRo,
   type IGetDepartmentUserRo,
@@ -27,11 +26,6 @@ export const ReactQueryKeys = {
   tableList: (baseId: string) => ['table-list', baseId] as const,
 
 
-
-  baseCollaboratorList: (baseId: string, options?: ListBaseCollaboratorRo) =>
-    options
-      ? (['base-collaborator-list', baseId, options] as const)
-      : (['base-collaborator-list', baseId] as const),
 
   notifyList: (filter: { status: NotificationStatesEnum }) =>
     ['notification', 'list', filter] as const,

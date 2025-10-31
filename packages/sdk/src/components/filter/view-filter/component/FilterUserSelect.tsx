@@ -1,13 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import { isMeTag, Me } from '@teable/core';
 import { User as UserIcon } from '@teable/icons';
 import type { CollaboratorItem } from '@teable/openapi';
-import { getBaseCollaboratorList, PrincipalType } from '@teable/openapi';
 import { cn } from '@teable/ui-lib';
-import { useCallback, useMemo, useState } from 'react';
-import { ReactQueryKeys } from '../../../../config/react-query-keys';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
-import { useBaseId } from '../../../../hooks/use-base-id';
 import { useSession } from '../../../../hooks/use-session';
 import type { UserField, CreatedByField, LastModifiedByField } from '../../../../model';
 import { UserTag } from '../../../cell-value';
@@ -155,25 +151,11 @@ const defaultData = {
 };
 
 const FilterUserSelect = (props: IFilterUserProps) => {
-  const baseId = useBaseId();
-  const [search, setSearch] = useState('');
-  const { data: collaboratorsData = defaultData } = useQuery({
-    queryKey: ReactQueryKeys.baseCollaboratorList(baseId as string, {
-      includeSystem: true,
-      skip: 0,
-      take: 100,
-      search,
-      type: PrincipalType.User,
-    }),
-    queryFn: ({ queryKey }) =>
-      getBaseCollaboratorList(queryKey[1], queryKey[2]).then((res) => res.data),
-  });
-
+  // Collaboration removed - return empty user list
   return (
     <FilterUserSelectBase
       {...props}
-      data={collaboratorsData.collaborators?.filter((c) => c.userId && c.userName && c.email) as CollaboratorWithRequiredFields[]}
-      onSearch={setSearch}
+      data={[]}
     />
   );
 };

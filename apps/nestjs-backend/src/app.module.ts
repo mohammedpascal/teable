@@ -5,7 +5,6 @@ import { AggregationOpenApiModule } from './features/aggregation/open-api/aggreg
 import { AttachmentsModule } from './features/attachments/attachments.module';
 import { AuthModule } from './features/auth/auth.module';
 import { BaseModule } from './features/base/base.module';
-import { CollaboratorModule } from './features/collaborator/collaborator.module';
 import { DashboardModule } from './features/dashboard/dashboard.module';
 import { ExportOpenApiModule } from './features/export/open-api/export-open-api.module';
 import { FieldOpenApiModule } from './features/field/open-api/field-open-api.module';
@@ -39,7 +38,6 @@ export const appModules = {
     AggregationOpenApiModule,
     UserModule,
     AuthModule,
-    CollaboratorModule,
     InvitationModule,
     NotificationModule,
     AccessTokenModule,

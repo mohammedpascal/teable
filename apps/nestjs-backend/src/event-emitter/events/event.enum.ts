@@ -52,9 +52,6 @@ export enum Events {
   USER_PASSWORD_CHANGE = 'user.password.change',
   // USER_PASSWORD_FORGOT = 'user.password.forgot'
 
-  COLLABORATOR_CREATE = 'collaborator.create',
-  COLLABORATOR_DELETE = 'collaborator.delete',
-
   WORKFLOW_ACTIVATE = 'workflow.activate',
   WORKFLOW_DEACTIVATE = 'workflow.deactivate',
 

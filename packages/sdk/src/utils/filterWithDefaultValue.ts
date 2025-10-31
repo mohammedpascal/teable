@@ -22,7 +22,7 @@ import {
   yesterday,
   exactDate as exactDateConst,
 } from '@teable/core';
-import { getBaseCollaboratorList, getRecords, PrincipalType } from '@teable/openapi';
+import { getRecords } from '@teable/openapi';
 import { keyBy } from 'lodash';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -209,20 +209,8 @@ export const extractDefaultFieldsFromFilters = async ({
   collectRelationIds(filter, fieldMap);
 
   if (collectedUserIds.length > 0) {
-    const { collaborators } = (
-      await getBaseCollaboratorList(baseId, {
-        type: PrincipalType.User,
-      })
-    ).data;
-    const cs = collaborators
-      .filter((c) => c.userId) // Filter out collaborators without userId
-      .map((c) => ({
-        id: c.userId!,
-        title: c.userName || c.email || 'Unknown User',
-        email: c.email,
-        avatarUrl: c.avatar,
-      }));
-    collectedUserMap = keyBy(cs, 'id');
+    // Collaboration removed - user list not available
+    // collectedUserMap will remain empty
   }
 
   if (Object.keys(collectedLinkIdMap).length > 0) {

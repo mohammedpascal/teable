@@ -3,15 +3,14 @@ import { BadRequestException, ForbiddenException, NotFoundException } from '@nes
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import { getPermissions, Role } from '@teable/core';
-import { PrismaService } from '../../prisma';
-import { CollaboratorType, PrincipalType } from '@teable/openapi';
+import { CollaboratorType } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { vi } from 'vitest';
 import { mockDeep, mockReset } from 'vitest-mock-extended';
 import { GlobalModule } from '../../global/global.module';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { generateInvitationCode } from '../../utils/code-generate';
-import { CollaboratorService } from '../collaborator/collaborator.service';
 import { MailSenderService } from '../mail-sender/mail-sender.service';
 import { InvitationModule } from './invitation.module';
 import { InvitationService } from './invitation.service';
@@ -22,7 +21,6 @@ const mockInvitationCode = generateInvitationCode(mockInvitationId);
 describe('InvitationService', () => {
   const prismaService = mockDeep<PrismaService>();
   const mailSenderService = mockDeep<MailSenderService>();
-  const collaboratorService = mockDeep<CollaboratorService>();
 
   let invitationService: InvitationService;
   let clsService: ClsService<IClsStore>;
@@ -39,8 +37,6 @@ describe('InvitationService', () => {
       .useValue(prismaService)
       .overrideProvider(MailSenderService)
       .useValue(mailSenderService)
-      .overrideProvider(CollaboratorService)
-      .useValue(collaboratorService)
       .compile();
 
     clsService = module.get<ClsService<IClsStore>>(ClsService);
@@ -109,7 +105,6 @@ describe('InvitationService', () => {
         id: mockInvitationId,
         invitationCode: mockInvitationCode,
       } as any);
-      collaboratorService.validateUserAddRole.mockResolvedValue();
 
       const result = await clsService.runWith(
         {
@@ -124,16 +119,7 @@ describe('InvitationService', () => {
           })
       );
 
-      expect(collaboratorService.createBaseCollaborator).toHaveBeenCalledWith({
-        collaborators: [
-          {
-            principalId: mockInvitedUser.id,
-            principalType: PrincipalType.User,
-          },
-        ],
-        baseId: 'base1',
-        role: Role.Creator,
-      });
+      // Collaboration removed - no longer calling createBaseCollaborator
       expect(prismaService.invitationRecord.create).toHaveBeenCalledWith({
         data: {
           inviter: mockUser.id,
@@ -151,7 +137,6 @@ describe('InvitationService', () => {
       prismaService.base.findFirst.mockResolvedValue({ id: 'base1' } as any);
       prismaService.user.findMany.mockResolvedValue([mockInvitedUser as any]);
       prismaService.$tx.mockRejectedValue(new Error('tx error'));
-      collaboratorService.validateUserAddRole.mockResolvedValue();
       vi.spyOn(invitationService as any, 'checkBaseInvitation').mockResolvedValue(true);
       await clsService.runWith(
         {
@@ -248,7 +233,6 @@ describe('InvitationService', () => {
         lastModifiedBy: null,
         lastModifiedTime: null,
       });
-      prismaService.collaborator.count.mockImplementation(() => Promise.resolve(0) as any);
       await clsService.runWith(
         {
           user: mockUser,
@@ -257,16 +241,14 @@ describe('InvitationService', () => {
         },
         async () => await invitationService.acceptInvitationLink(acceptInvitationLinkRo)
       );
-      expect(prismaService.collaborator.count).toHaveBeenCalledTimes(0);
     });
-    it('exist collaborator', async () => {
+    it('exist collaborator - collaboration removed, always creates invitation record', async () => {
       prismaService.invitation.findFirst.mockResolvedValue({
         baseId: mockBase.id,
         type: 'link',
         expiredTime: null,
       } as any);
       prismaService.base.findUniqueOrThrow.mockResolvedValue(mockBase as any);
-      prismaService.collaborator.count.mockResolvedValue(1);
       const result = await clsService.runWith(
         {
           user: mockUser,
@@ -277,7 +259,7 @@ describe('InvitationService', () => {
       );
       expect(result.baseId).toEqual(mockBase.id);
     });
-    it('should create collaborator and invitation record', async () => {
+    it('should create invitation record', async () => {
       const mockInvitation = {
         id: mockInvitationId,
         invitationCode: mockInvitationCode,
@@ -292,7 +274,6 @@ describe('InvitationService', () => {
       };
       prismaService.invitation.findFirst.mockResolvedValue(mockInvitation);
       prismaService.base.findUniqueOrThrow.mockResolvedValue(mockBase as any);
-      prismaService.collaborator.count.mockResolvedValue(0);
 
       const result = await clsService.runWith(
         {
@@ -312,17 +293,7 @@ describe('InvitationService', () => {
           baseId: mockInvitation.baseId,
         },
       });
-      expect(collaboratorService.createBaseCollaborator).toHaveBeenCalledWith({
-        collaborators: [
-          {
-            principalId: mockUser.id,
-            principalType: PrincipalType.User,
-          },
-        ],
-        baseId: mockBase.id,
-        role: Role.Creator,
-        createdBy: 'createdBy',
-      });
+      // Collaboration removed - no longer creating collaborators
       expect(result.baseId).toEqual(mockInvitation.baseId);
     });
   });

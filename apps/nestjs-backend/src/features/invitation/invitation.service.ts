@@ -8,7 +8,6 @@ import {
 import { ConfigService } from '@nestjs/config';
 import type { IBaseRole } from '@teable/core';
 import { generateInvitationId } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import {
   CollaboratorType,
   PrincipalType,
@@ -21,9 +20,9 @@ import dayjs from 'dayjs';
 import { pick } from 'lodash';
 import { ClsService } from 'nestjs-cls';
 import type { IMailConfig } from '../../configs/mail.config';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { generateInvitationCode } from '../../utils/code-generate';
-import { CollaboratorService } from '../collaborator/collaborator.service';
 import { MailSenderService } from '../mail-sender/mail-sender.service';
 import { UserService } from '../user/user.service';
 
@@ -34,7 +33,6 @@ export class InvitationService {
     private readonly cls: ClsService<IClsStore>,
     private readonly configService: ConfigService,
     private readonly mailSenderService: MailSenderService,
-    private readonly collaboratorService: CollaboratorService,
     private readonly userService: UserService
   ) {}
 
@@ -70,14 +68,6 @@ export class InvitationService {
     resourceType: CollaboratorType;
   }) {
     const user = this.cls.get('user');
-    const departmentIds = this.cls.get('organization.departments')?.map((d) => d.id);
-    await this.collaboratorService.validateUserAddRole({
-      departmentIds,
-      userId: user.id,
-      addRole: role,
-      resourceId,
-      resourceType,
-    });
     const invitationEmails = emails.map((email) => email.toLowerCase());
     const sendUsers = await this.prismaService.user.findMany({
       select: { id: true, name: true, email: true },
@@ -95,17 +85,6 @@ export class InvitationService {
 
       const result: EmailInvitationVo = {};
       for (const sendUser of sendUsers) {
-        // create collaborator link
-        await this.collaboratorService.createBaseCollaborator({
-          collaborators: [
-            {
-              principalId: sendUser.id,
-              principalType: PrincipalType.User,
-            },
-          ],
-          baseId: resourceId,
-          role,
-        });
         // generate invitation record
         const { id, invitationCode } = await this.generateInvitation({
           type: 'email',
@@ -171,14 +150,6 @@ export class InvitationService {
     resourceId: string;
     resourceType: CollaboratorType;
   }): Promise<ItemBaseInvitationLinkVo> {
-    const departmentIds = this.cls.get('organization.departments')?.map((d) => d.id);
-    await this.collaboratorService.validateUserAddRole({
-      departmentIds,
-      userId: this.cls.get('user.id'),
-      addRole: role,
-      resourceId,
-      resourceType,
-    });
     const { id, createdBy, createdTime, invitationCode } = await this.generateInvitation({
       role,
       resourceId,
@@ -251,14 +222,6 @@ export class InvitationService {
     resourceId: string;
     resourceType: CollaboratorType;
   }) {
-    const departmentIds = this.cls.get('organization.departments')?.map((d) => d.id);
-    await this.collaboratorService.validateUserAddRole({
-      departmentIds,
-      userId: this.cls.get('user.id'),
-      addRole: role,
-      resourceId,
-      resourceType,
-    });
     const { id } = await this.prismaService.invitation.update({
       where: {
         id: invitationId,
@@ -341,17 +304,6 @@ export class InvitationService {
     });
     if (!exist) {
       await this.prismaService.$tx(async () => {
-        await this.collaboratorService.createBaseCollaborator({
-          collaborators: [
-            {
-              principalId: currentUserId,
-              principalType: PrincipalType.User,
-            },
-          ],
-          baseId,
-          role: role as IBaseRole,
-          createdBy,
-        });
         // save invitation record for audit
         await this.prismaService.txClient().invitationRecord.create({
           data: {

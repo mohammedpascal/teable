@@ -75,7 +75,6 @@ export class PostgresProvider implements IDbProvider {
     const schemaName = 'public';
     const dbTableName = tableName;
 
-    console.log({ schemaName, dbTableName });
     const sql = this.knex
       .raw(
         'SELECT EXISTS (SELECT FROM information_schema.columns WHERE table_schema = ? AND table_name = ? AND column_name = ?) AS exists',

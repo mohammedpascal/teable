@@ -2,7 +2,6 @@ import type { INestApplication } from '@nestjs/common';
 import type { IFieldRo, IFieldVo } from '@teable/core';
 import { FieldKeyType, FieldType, Role } from '@teable/core';
 import {
-  deleteBaseCollaborator,
   emailBaseInvitation,
   getRecord,
   getRecords,
@@ -13,7 +12,6 @@ import {
   urlBuilder,
   CREATE_FIELD,
   CREATE_TABLE,
-  PrincipalType,
 } from '@teable/openapi';
 import type { IUserMeVo, ITableFullVo } from '@teable/openapi';
 import type { AxiosInstance } from 'axios';
@@ -253,13 +251,7 @@ describe('Computed user field (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteBaseCollaborator({
-        baseId: globalThis.testConfig.spaceId,
-        deleteBaseCollaboratorRo: {
-          principalId: user2.id,
-          principalType: PrincipalType.User,
-        },
-      });
+      // Collaboration removed - no longer deleting collaborators
       await deleteTable(baseId, table1.id);
     });
 
@@ -283,7 +275,7 @@ describe('Computed user field (e2e)', () => {
       });
     });
 
-    it('should update createBy fields when user rename - base collaborator', async () => {
+    it('should update createBy fields when user rename', async () => {
       const user3Request = await createNewUserAxios({
         email: 'renameUser3@example.com',
         password: '12345678',

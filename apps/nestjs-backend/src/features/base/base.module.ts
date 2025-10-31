@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { DbProvider } from '../../db-provider/db.provider';
-import { CollaboratorModule } from '../collaborator/collaborator.module';
 import { FieldModule } from '../field/field.module';
 import { InvitationModule } from '../invitation/invitation.module';
 import { RecordModule } from '../record/record.module';
@@ -15,7 +14,6 @@ import { DbConnectionService } from './db-connection.service';
 @Module({
   controllers: [BaseController],
   imports: [
-    CollaboratorModule,
     FieldModule,
     TableModule,
     InvitationModule,

@@ -3,10 +3,7 @@ import type { IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
 import type { UserCollaboratorItem } from '@teable/openapi';
 import {
-  getBaseCollaboratorList,
-  // getShareViewCollaborators,
   GroupPointType,
-  PrincipalType,
 } from '@teable/openapi';
 import { ExpandRecorder } from '@teable/sdk/components';
 import { ReactQueryKeys } from '@teable/sdk/config';
@@ -79,25 +76,8 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
   //   enabled: Boolean(shareId && type === FieldType.User && !isMultipleCellValue),
   // });
 
-  const { data: baseCollaborators } = useQuery({
-    queryKey: ReactQueryKeys.baseCollaboratorList(baseId, {
-      includeSystem: true,
-      skip: 0,
-      take: 5000,
-      type: PrincipalType.User,
-    }),
-    queryFn: ({ queryKey }) =>
-      getBaseCollaboratorList(queryKey[1], queryKey[2]).then((data) => data.data),
-    enabled: !shareId && Boolean(baseId && type === FieldType.User && !isMultipleCellValue),
-  });
-
-  const userList =
-    (baseCollaborators?.collaborators?.map((collaborator) => ({
-      id: collaborator.userId || '',
-      name: collaborator.userName || '',
-      email: collaborator.email || '',
-      avatar: collaborator.avatar,
-    })) as UserCollaboratorItem[]) || [];
+  // Collaboration removed - user list not available
+  const userList: UserCollaboratorItem[] = [];
 
   const kanbanPermission = useMemo(() => {
     return {

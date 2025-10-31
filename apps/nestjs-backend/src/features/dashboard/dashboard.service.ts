@@ -10,14 +10,11 @@ import type {
 import { ClsService } from 'nestjs-cls';
 import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
-import { CollaboratorService } from '../collaborator/collaborator.service';
-
 @Injectable()
 export class DashboardService {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly cls: ClsService<IClsStore>,
-    private readonly collaboratorService: CollaboratorService
+    private readonly cls: ClsService<IClsStore>
   ) {}
 
   async getDashboard(baseId: string): Promise<IGetDashboardListVo> {

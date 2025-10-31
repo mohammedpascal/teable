@@ -18,7 +18,6 @@ import type { PrismaService } from '../../prisma';
 import { isObject, keyBy, map } from 'lodash';
 import { fromZodError } from 'zod-validation-error';
 import type { AttachmentsStorageService } from '../attachments/attachments-storage.service';
-import type { CollaboratorService } from '../collaborator/collaborator.service';
 import type { FieldConvertingService } from '../field/field-calculate/field-converting.service';
 import type { IFieldInstance } from '../field/model/factory';
 import type { LinkFieldDto } from '../field/model/field-dto/link-field.dto';
@@ -32,7 +31,6 @@ interface IServices {
   fieldConvertingService: FieldConvertingService;
   recordService: RecordService;
   attachmentsStorageService: AttachmentsStorageService;
-  collaboratorService: CollaboratorService;
 }
 
 interface IObjectType {
@@ -316,12 +314,8 @@ export class TypeCastAndValidate {
         }
         return stringCvArr[0];
       });
-      ctx = await this.services.collaboratorService.getUserCollaboratorsByTableId(this.tableId, {
-        containsIn: {
-          keys: ['id', 'name', 'email', 'phone'],
-          values: userStrArray.flat(),
-        },
-      });
+      // Collaboration removed - return empty array
+      ctx = [];
     }
 
     return this.mapFieldsCellValuesWithValidate(cellValues, (cellValue: unknown) => {

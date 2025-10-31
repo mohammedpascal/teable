@@ -19,7 +19,6 @@ import { ExpandViewList } from '../../view/list/ExpandViewList';
 import { ViewList } from '../../view/list/ViewList';
 
 import { AddView } from './AddView';
-import { Collaborators } from './Collaborators';
 import { TableInfo } from './TableInfo';
 
 const RightList = ({
@@ -35,7 +34,6 @@ const RightList = ({
 
   return (
     <div className={cn('flex', className)}>
-      <Collaborators className="flex" />
       <div className="flex">
         <Button asChild variant="ghost" size="xs" className={cn('flex', buttonClassName)}>
           <Link
@@ -89,7 +87,6 @@ const RightMenu = ({ className }: { className?: string }) => {
       </PopoverTrigger>
       <PopoverContent side="bottom" align="start" className="w-32 p-0">
         <div className="flex flex-col">
-          <Collaborators className="flex p-2" />
           {/* TODO: Multi-user collaboration removed */}
           {/* <BaseCollaboratorModalTrigger
             base={{

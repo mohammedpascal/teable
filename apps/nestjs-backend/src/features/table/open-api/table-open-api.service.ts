@@ -24,7 +24,6 @@ import {
   actionPrefixMap,
   getBasePermission,
 } from '@teable/core';
-import { ResourceType } from '@teable/openapi';
 import type {
   ICreateRecordsRo,
   ICreateTableRo,

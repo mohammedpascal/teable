@@ -1,13 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import type { IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
 import type { CollaboratorItem } from '@teable/openapi';
-import { getBaseCollaboratorList, PrincipalType } from '@teable/openapi';
 import type { ForwardRefRenderFunction } from 'react';
-import React, { forwardRef, useState } from 'react';
-import { ReactQueryKeys } from '../../../config';
+import React, { forwardRef } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
-import { useBaseId } from '../../../hooks';
 import type { ICellEditor, ICellEditorContext } from '../type';
 
 type CollaboratorWithRequiredFields = CollaboratorItem & {
@@ -29,23 +25,10 @@ export interface IUserEditorMainProps extends ICellEditor<IUserCellValue | IUser
 
 const DefaultDataWrapper = forwardRef<IUserEditorRef, IUserEditorMainProps>((props, ref) => {
   const { t } = useTranslation();
-  const baseId = useBaseId();
-  const [search, setSearch] = useState('');
-  const { data, isLoading } = useQuery({
-    queryKey: ReactQueryKeys.baseCollaboratorList(baseId as string, {
-      search: search,
-      type: PrincipalType.User,
-    }),
-    queryFn: ({ queryKey }) =>
-      getBaseCollaboratorList(queryKey[1], queryKey[2]).then((res) => res.data),
-  });
-
+  // Collaboration removed - return empty collaborator list
   const collaborators = props.includeMe
-    ? [
-        { userId: 'me', userName: t('filter.currentUser'), email: '' },
-        ...(data?.collaborators?.filter((c) => c.userId) || []),
-      ]
-    : data?.collaborators?.filter((c) => c.userId);
+    ? [{ userId: 'me', userName: t('filter.currentUser'), email: '' }]
+    : [];
 
   return (
     <UserEditorBase
@@ -55,9 +38,8 @@ const DefaultDataWrapper = forwardRef<IUserEditorRef, IUserEditorMainProps>((pro
           (c) => c.userId && c.userName && c.email
         ) as CollaboratorWithRequiredFields[]
       }
-      isLoading={isLoading}
+      isLoading={false}
       ref={ref}
-      onSearch={setSearch}
     />
   );
 });

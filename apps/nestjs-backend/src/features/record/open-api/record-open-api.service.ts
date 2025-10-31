@@ -26,7 +26,6 @@ import { AttachmentsService } from '../../attachments/attachments.service';
 import StorageAdapter from '../../attachments/plugins/adapter';
 import { getFullStorageUrl } from '../../attachments/plugins/utils';
 import { SystemFieldService } from '../../calculation/system-field.service';
-import { CollaboratorService } from '../../collaborator/collaborator.service';
 import { FieldConvertingService } from '../../field/field-calculate/field-converting.service';
 import { createFieldInstanceByRaw } from '../../field/model/factory';
 import { ViewOpenApiService } from '../../view/open-api/view-open-api.service';
@@ -45,7 +44,6 @@ export class RecordOpenApiService {
     private readonly fieldConvertingService: FieldConvertingService,
     private readonly systemFieldService: SystemFieldService,
     private readonly attachmentsStorageService: AttachmentsStorageService,
-    private readonly collaboratorService: CollaboratorService,
     private readonly viewService: ViewService,
     private readonly viewOpenApiService: ViewOpenApiService,
     private readonly eventEmitterService: EventEmitterService,
@@ -237,7 +235,6 @@ export class RecordOpenApiService {
           fieldConvertingService: this.fieldConvertingService,
           recordService: this.recordService,
           attachmentsStorageService: this.attachmentsStorageService,
-          collaboratorService: this.collaboratorService,
         },
         field,
         tableId,

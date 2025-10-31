@@ -39,7 +39,6 @@ import type { ICellContext } from '../../calculation/utils/changes';
 import { formatChangesToOps } from '../../calculation/utils/changes';
 import type { IOpsMap } from '../../calculation/utils/compose-maps';
 import { composeOpMaps } from '../../calculation/utils/compose-maps';
-import { CollaboratorService } from '../../collaborator/collaborator.service';
 import { FieldService } from '../field.service';
 import type { IFieldInstance, IFieldMap } from '../model/factory';
 import { createFieldInstanceByRaw, createFieldInstanceByVo } from '../model/factory';
@@ -66,7 +65,6 @@ export class FieldConvertingService {
     private readonly fieldConvertingLinkService: FieldConvertingLinkService,
     private readonly fieldSupplementService: FieldSupplementService,
     private readonly fieldCalculationService: FieldCalculationService,
-    private readonly collaboratorService: CollaboratorService,
     @InjectModel('CUSTOM_KNEX') private readonly knex: Knex
   ) {}
 
@@ -884,15 +882,8 @@ export class FieldConvertingService {
       return oldField.cellValue2String(oldCellValue);
     });
 
-    const tableCollaborators = await this.collaboratorService.getUserCollaboratorsByTableId(
-      tableId,
-      {
-        containsIn: {
-          keys: ['id', 'name', 'email', 'phone'],
-          values: oldCvStrArr.filter((cvStr) => cvStr != null) as string[],
-        },
-      }
-    );
+    // Collaboration removed - return empty array
+    const tableCollaborators: any[] = [];
 
     records.forEach((record, index) => {
       const oldCellValue = record.fields[fieldId];
