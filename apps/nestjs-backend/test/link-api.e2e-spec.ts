@@ -9,8 +9,6 @@ import { Colors, FieldKeyType, FieldType, NumberFormattingType, Relationship } f
 import type { ITableFullVo } from '@teable/openapi';
 import {
   convertField,
-  // TODO: Space functionality not yet implemented
-  // createBase,
   deleteBase,
   deleteRecords,
   updateDbTableName,

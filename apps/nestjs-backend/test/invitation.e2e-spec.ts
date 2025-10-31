@@ -1,15 +1,8 @@
 import type { INestApplication } from '@nestjs/common';
 import { Role } from '@teable/core';
 import type { CreateBaseInvitationLinkVo } from '@teable/openapi';
-// TODO: Space functionality not yet implemented
-// import type { CreateSpaceInvitationLinkVo } from '@teable/openapi';
 import {
   ACCEPT_INVITATION_LINK,
-  // TODO: Space functionality not yet implemented
-  // createSpace as apiCreateSpace,
-  // createSpaceInvitationLink as apiCreateSpaceInvitationLink,
-  // deleteSpace as apiDeleteSpace,
-  // getSpaceCollaboratorList as apiGetSpaceCollaboratorList,
   PrincipalType,
 } from '@teable/openapi';
 import type { AxiosInstance } from 'axios';

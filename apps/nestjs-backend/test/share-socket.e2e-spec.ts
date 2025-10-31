@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { INestApplication } from '@nestjs/common';
 import { IdPrefix, ViewType } from '@teable/core';
-// TODO: View sharing functionality not yet implemented
-// import { enableShareView as apiEnableShareView } from '@teable/openapi';
 import { map } from 'lodash';
 import { type Doc } from 'sharedb/lib/client';
 import { ShareDbService } from '../src/share-db/share-db.service';
@@ -38,16 +36,12 @@ describe('Share (socket-e2e) (e2e)', () => {
     });
     tableId = table.id;
     viewId = table.defaultViewId!;
-    // TODO: View sharing functionality not yet implemented
-    // const shareResult = await apiEnableShareView({ tableId, viewId });
     fieldIds = map(table.fields, 'id');
     // hidden last one field
     const field = table.fields[fieldIds.length - 1];
     await updateViewColumnMeta(tableId, viewId, [
       { fieldId: field.id, columnMeta: { hidden: true } },
     ]);
-    // TODO: View sharing functionality not yet implemented
-    // shareId = shareResult.data.shareId;
   });
 
   afterAll(async () => {
@@ -77,23 +71,13 @@ describe('Share (socket-e2e) (e2e)', () => {
 
   it('Retrieve fields other than those that are hidden', async () => {
     // TODO: View sharing functionality not yet implemented
-    // const collection = `${IdPrefix.Field}_${tableId}`;
-    // const fields = await getQuery(collection, shareId);
-    // expect(fields.length).toEqual(fieldIds.length - 1);
   });
 
   it('Reading the view query will only get the one that was shared', async () => {
     // TODO: View sharing functionality not yet implemented
-    // const collection = `${IdPrefix.View}_${tableId}`;
-    // const views = await getQuery(collection, shareId);
-    // expect(views.length).toEqual(1);
-    // expect(views[0].id).toEqual(viewId);
   });
 
   it('shareId error', async () => {
     // TODO: View sharing functionality not yet implemented
-    // const collection = `${IdPrefix.View}_${tableId}`;
-    // const error = await getError(() => getQuery(collection, 'error'));
-    // expect(error?.code).toEqual('validation_error');
   });
 });

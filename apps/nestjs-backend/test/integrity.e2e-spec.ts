@@ -11,8 +11,6 @@ import type { ITableFullVo } from '@teable/openapi';
 import {
   checkBaseIntegrity,
   convertField,
-  // TODO: Space functionality not yet implemented
-  // createBase,
   deleteBase,
   fixBaseIntegrity,
   getRecord,

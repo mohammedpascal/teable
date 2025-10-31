@@ -38,8 +38,6 @@ import {
 import dayjs from 'dayjs';
 import { createNewUserAxios } from './utils/axios-instance/new-user';
 import { getError } from './utils/get-error';
-// TODO: Space functionality not yet implemented
-// import { createTable, initApp, permanentDeleteSpace } from './utils/init-app';
 import { createTable, initApp } from './utils/init-app';
 
 describe('OpenAPI AccessTokenController (e2e)', () => {

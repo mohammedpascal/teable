@@ -1,17 +1,9 @@
 import type { INestApplication } from '@nestjs/common';
 import { ViewType } from '@teable/core';
 import type { ITableFullVo, IGetBaseVo } from '@teable/openapi';
-// TODO: Space functionality not yet implemented
-// import type { ITableFullVo, ICreateBaseVo, ICreateSpaceVo } from '@teable/openapi';
 import {
-  // TODO: Space functionality not yet implemented
-  // createBase,
-  // createSpace,
   createTable,
   deleteBase,
-  // TODO: Space functionality not yet implemented
-  // deleteSpace,
-  // getBaseList,
   getTableList,
   updateBaseOrder,
   updateRecordOrders,

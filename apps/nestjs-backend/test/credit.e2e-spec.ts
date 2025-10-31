@@ -3,8 +3,6 @@ import type { INestApplication } from '@nestjs/common';
 import { FieldKeyType } from '@teable/core';
 import { PrismaService } from '../src/prisma';
 import type { ITableFullVo } from '@teable/openapi';
-// TODO: Space functionality not yet implemented
-// import { createBase, createSpace, deleteBase, deleteSpace } from '@teable/openapi';
 import { createRecords, createTable, deleteTable, initApp } from './utils/init-app';
 
 describe('Credit limit (e2e)', () => {

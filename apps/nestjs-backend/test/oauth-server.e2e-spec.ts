@@ -18,8 +18,6 @@ import { omit } from 'lodash';
 import { createNewUserAxios } from './utils/axios-instance/new-user';
 import { getError } from './utils/get-error';
 import { initApp } from './utils/init-app';
-// TODO: Space functionality not yet implemented
-// import { createBase, initApp } from './utils/init-app';
 
 const oauthData = {
   name: 'test',

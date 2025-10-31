@@ -12,8 +12,6 @@ import {
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Fragment } from 'react';
-// TODO: Multi-user collaboration removed
-// import { BaseCollaboratorModalTrigger } from '@/features/app/components/collaborator-manage/base/BaseCollaboratorModal';
 import { tableConfig } from '@/features/i18n/table.config';
 import { ExpandViewList } from '../../view/list/ExpandViewList';
 import { ViewList } from '../../view/list/ViewList';
@@ -52,19 +50,6 @@ const RightList = ({
           </a>
         </Button>
       </div>
-      {/* TODO: Multi-user collaboration removed */}
-      {/* <BaseCollaboratorModalTrigger
-        base={{
-          name: base.name,
-          role: base.role,
-          id: base.id,
-        }}
-      >
-        <Button variant="default" size="xs" className="flex">
-          <UserPlus className="size-4" />{' '}
-          <span className="hidden @md/view-header:inline">{t('space:action.invite')}</span>
-        </Button>
-      </BaseCollaboratorModalTrigger> */}
     </div>
   );
 };
@@ -87,19 +72,6 @@ const RightMenu = ({ className }: { className?: string }) => {
       </PopoverTrigger>
       <PopoverContent side="bottom" align="start" className="w-32 p-0">
         <div className="flex flex-col">
-          {/* TODO: Multi-user collaboration removed */}
-          {/* <BaseCollaboratorModalTrigger
-            base={{
-              name: base.name,
-              role: base.role,
-              id: base.id,
-            }}
-          >
-            <Button variant="ghost" size="xs" className="flex justify-start">
-              <UserPlus className="size-4" /> {t('space:action.invite')}
-            </Button>
-          </BaseCollaboratorModalTrigger> */}
-
           <Button asChild variant="ghost" size="xs" className="flex justify-start">
             <Link
               href={{
