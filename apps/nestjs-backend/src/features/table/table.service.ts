@@ -238,6 +238,16 @@ export class TableService implements IReadonlyAdapterService {
 
     const { version } = result;
 
+    // Delete related fields first to avoid foreign key constraint violations
+    await this.prismaService.txClient().field.deleteMany({
+      where: { tableId },
+    });
+
+    // Delete related views
+    await this.prismaService.txClient().view.deleteMany({
+      where: { tableId },
+    });
+
     await this.prismaService.txClient().tableMeta.delete({
       where: { id: tableId, baseId },
     });

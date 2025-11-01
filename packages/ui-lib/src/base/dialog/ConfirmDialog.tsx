@@ -65,12 +65,12 @@ export const ConfirmDialog = (props: IConfirmDialogProps) => {
         {content}
         <DialogFooter>
           {cancelText && (
-            <Button size={'sm'} variant={'ghost'} onClick={onCancel}>
+            <Button size={'sm'} variant={'ghost'} onClick={onCancel} disabled={confirmLoading}>
               {cancelText}
             </Button>
           )}
           {confirmText && (
-            <Button size={'sm'} onClick={onConfirm}>
+            <Button size={'sm'} onClick={onConfirm} disabled={confirmLoading}>
               {confirmLoading && <Spin />}
               {confirmText}
             </Button>

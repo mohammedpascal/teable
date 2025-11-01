@@ -1,10 +1,12 @@
 import { Table2 } from '@teable/icons';
 import { AnchorContext, FieldProvider, TablePermissionProvider } from '@teable/sdk/context';
-import { useTables } from '@teable/sdk/hooks';
-import { Selector } from '@teable/ui-lib/base';
-import { Tabs, TabsContent } from '@teable/ui-lib/shadcn';
+import { useBase, useTable, useTables, useTablePermission } from '@teable/sdk/hooks';
+import { ConfirmDialog, Selector } from '@teable/ui-lib/base';
+import { Button, Tabs, TabsContent } from '@teable/ui-lib/shadcn';
+import { Trash2 } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
 import { FieldSetting } from '../view/field/FieldSetting';
 import { DataTable } from './data-table/DataTable';
 import { TableDetail } from './TableDetail';
@@ -41,6 +43,101 @@ const TablePicker = ({
       }))}
       placeholder={t('table:field.editor.selectTable')}
     />
+  );
+};
+
+const DangerZone = () => {
+  const table = useTable();
+  const base = useBase();
+  const tables = useTables();
+  const router = useRouter();
+  const { t } = useTranslation(['common', 'table']);
+  const permission = useTablePermission();
+  const canDelete = permission['table|delete'];
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { baseId, tableId: routerTableId } = router.query;
+
+  if (!table || !canDelete) return null;
+
+  const deleteTable = async () => {
+    const tableId = table?.id;
+
+    if (!tableId) return;
+
+    try {
+      setIsDeleting(true);
+      await base.deleteTable(tableId);
+
+      const firstTableId = tables.find((t) => t.id !== tableId)?.id;
+      if (routerTableId === tableId) {
+        router.push(
+          firstTableId
+            ? {
+                pathname: '/base/[baseId]/design',
+                query: { baseId, tableId: firstTableId },
+              }
+            : {
+                pathname: '/base/[baseId]',
+                query: { baseId },
+              }
+        );
+      }
+    } catch (error) {
+      console.error('Failed to delete table:', error);
+      setIsDeleting(false);
+    }
+  };
+
+  return (
+    <>
+      <div className="mt-8 border-t pt-6">
+        <div className="space-y-4">
+          <div>
+            <h3 className="text-lg font-semibold text-destructive">Danger Zone</h3>
+            <p className="text-sm text-muted-foreground">Irreversible and destructive actions</p>
+          </div>
+          <div className="flex items-center justify-between rounded-lg border border-destructive/50 bg-destructive/5 p-4">
+            <div className="space-y-0.5">
+              <div className="font-medium">
+                {t('common:actions.delete')} {t('common:noun.table')}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Once you delete a table, there is no going back. Please be certain.
+              </div>
+            </div>
+            <Button variant="destructive" onClick={() => setDeleteConfirm(true)}>
+              <Trash2 className="mr-2 size-4" />
+              {t('common:actions.delete')}
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <ConfirmDialog
+        open={deleteConfirm}
+        onOpenChange={(open) => {
+          if (!isDeleting) {
+            setDeleteConfirm(open);
+          }
+        }}
+        title={t('table:table.deleteConfirm', { tableName: table?.name })}
+        cancelText={t('common:actions.cancel')}
+        confirmText={t('common:actions.confirm')}
+        confirmLoading={isDeleting}
+        content={
+          <div className="space-y-2 text-sm">
+            <p>1. {t('table:table.deleteTip1')}</p>
+          </div>
+        }
+        onCancel={() => {
+          if (!isDeleting) {
+            setDeleteConfirm(false);
+          }
+        }}
+        onConfirm={deleteTable}
+      />
+    </>
   );
 };
 
@@ -82,6 +179,9 @@ export const TableTabs = () => {
                   <FieldSetting />
                 </FieldProvider>
               </div>
+
+              {/* Danger Zone */}
+              <DangerZone />
             </TabsContent>
           </TablePermissionProvider>
         </AnchorContext.Provider>
