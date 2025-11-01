@@ -161,7 +161,6 @@
     "instanceId": "Instanz ID",
     "beta": "Beta",
     "global": "Global",
-    "organizationPanel": "Organization Panel",
     "unknownError": "Unbekannter Fehler"
   },
   "level": {
@@ -226,10 +225,6 @@
       "desc_other": "Diese Base wird mit {{count}} Kollaborateuren geteilt.",
       "baseTitle": "Base Kollaborateure",
       "collaboratorSearchPlaceholder": "Finde einen Base Kollaborateur via Name oder E-Mail"
-    },
-    "addOrgCollaborator": {
-      "title": "Organisationskollaborateur hinzufügen",
-      "placeholder": "Organisationskollaborateur oder Abteilung auswählen"
     }
   },
   "help": {

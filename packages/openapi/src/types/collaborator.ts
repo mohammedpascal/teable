@@ -2,7 +2,6 @@ import { z } from '../zod';
 
 export enum PrincipalType {
   User = 'user',
-  Department = 'department',
 }
 
 export enum CollaboratorType {

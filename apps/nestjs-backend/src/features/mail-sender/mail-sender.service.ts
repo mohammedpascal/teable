@@ -33,29 +33,6 @@ export class MailSenderService {
     });
   }
 
-  inviteEmailOptions(info: {
-    name: string;
-    email: string;
-    resourceName: string;
-    resourceType: CollaboratorType;
-    inviteUrl: string;
-  }) {
-    const { name, email, inviteUrl, resourceName } = info;
-    const resourceAlias = 'Base';
-    return {
-      subject: `${name} (${email}) invited you to their ${resourceAlias} ${resourceName} - ${this.baseConfig.brandName}`,
-      template: 'normal',
-      context: {
-        name,
-        email,
-        resourceName,
-        resourceAlias,
-        inviteUrl,
-        partialBody: 'invite',
-      },
-    };
-  }
-
   collaboratorCellTagEmailOptions(info: {
     notifyId: string;
     fromUserName: string;

@@ -11,11 +11,9 @@ import { FieldOpenApiModule } from './features/field/open-api/field-open-api.mod
 import { HealthModule } from './features/health/health.module';
 import { ImportOpenApiModule } from './features/import/open-api/import-open-api.module';
 import { IntegrityModule } from './features/integrity/integrity.module';
-import { InvitationModule } from './features/invitation/invitation.module';
 import { NextModule } from './features/next/next.module';
 import { NotificationModule } from './features/notification/notification.module';
 import { OAuthModule } from './features/oauth/oauth.module';
-import { OrganizationModule } from './features/organization/organization.module';
 import { SelectionModule } from './features/selection/selection.module';
 import { SettingModule } from './features/setting/setting.module';
 import { UserModule } from './features/user/user.module';
@@ -38,7 +36,6 @@ export const appModules = {
     AggregationOpenApiModule,
     UserModule,
     AuthModule,
-    InvitationModule,
     NotificationModule,
     AccessTokenModule,
     ImportOpenApiModule,
@@ -46,7 +43,6 @@ export const appModules = {
     SettingModule,
     OAuthModule,
     DashboardModule,
-    OrganizationModule,
   ],
   providers: [InitBootstrapProvider],
 };

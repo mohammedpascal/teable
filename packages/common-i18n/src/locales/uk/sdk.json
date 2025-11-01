@@ -729,14 +729,12 @@
       "linkText": "Текст посилання"
       "enterUrl": "Введіть URL"
     }
-  }
+  },
   "memberSelector": {
-    "title": "Виберіть учасників"
-    "memberSelectorSearchPlaceholder": "Пошук учасників..."
-    "departmentSelectorSearchPlaceholder": "Шукати відділи..."
-    "selected": "Вибрано"
-    "noSelected": "Не вибрано"
+    "title": "Виберіть учасників",
+    "memberSelectorSearchPlaceholder": "Пошук учасників...",
+    "selected": "Вибрано",
+    "noSelected": "Не вибрано",
     "empty": "Немає учасників"
-    "emptyDepartment": "Немає відділів"
   }
 }

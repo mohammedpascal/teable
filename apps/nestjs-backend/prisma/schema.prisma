@@ -218,32 +218,9 @@ model AttachmentsTable {
 // A database migration is needed to drop the collaborator table:
 // Run: pnpm -F @teable/nestjs-backend prisma migrate dev --name remove_collaborator_table
 
-model Invitation {
-  id               String    @id @default(cuid())
-  baseId           String?   @map("base_id")
-  type             String    @map("type")
-  role             String
-  invitationCode   String    @map("invitation_code")
-  expiredTime      DateTime? @map("expired_time")
-  createdBy        String    @map("create_by")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
-  lastModifiedBy   String?   @map("last_modified_by")
-
-  @@map("invitation")
-}
-
-model InvitationRecord {
-  id           String   @id @default(cuid())
-  invitationId String   @map("invitation_id")
-  baseId       String?  @map("base_id")
-  type         String   @map("type")
-  inviter      String   @map("inviter")
-  accepter     String   @map("accepter")
-  createdTime  DateTime @default(now()) @map("created_time")
-
-  @@map("invitation_record")
-}
+// NOTE: Invitation and InvitationRecord models removed - invitation feature has been removed
+// A database migration is needed to drop these tables:
+// Run: pnpm -F @teable/nestjs-backend prisma migrate dev --name remove_invitation_tables
 
 model Notification {
   id          String   @id @default(cuid())

@@ -185,16 +185,6 @@ export class BaseService {
   }
 
   async cleanBaseRelatedData(baseId: string) {
-    // delete invitation for base
-    await this.prismaService.txClient().invitation.deleteMany({
-      where: { baseId },
-    });
-
-    // delete invitation record for base
-    await this.prismaService.txClient().invitationRecord.deleteMany({
-      where: { baseId },
-    });
-
     // delete base
     await this.prismaService.txClient().base.delete({
       where: { id: baseId },

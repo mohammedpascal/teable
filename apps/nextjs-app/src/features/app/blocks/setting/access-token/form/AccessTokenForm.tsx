@@ -5,7 +5,7 @@ import {
   type UpdateAccessTokenRo,
   updateAccessTokenRoSchema,
 } from '@teable/openapi';
-import { useSession, useOrganization } from '@teable/sdk/hooks';
+import { useSession } from '@teable/sdk/hooks';
 import { Spin } from '@teable/ui-lib/base';
 import { Button, Input, Label, Separator } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
@@ -45,7 +45,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
   const { t } = useTranslation(personalAccessTokenConfig.i18nNamespaces);
 
   const { user } = useSession();
-  const { organization } = useOrganization();
 
   const [baseIds, setBaseIds] = useState<string[] | undefined | null>(defaultData?.baseIds);
   const [expiredTime, setExpiredTime] = useState<string | undefined>(defaultData?.expiredTime);
@@ -70,11 +69,8 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
     if (user.isAdmin) {
       prefixes.push(ActionPrefix.Instance);
     }
-    if (organization?.isAdmin) {
-      prefixes.push(ActionPrefix.Enterprise);
-    }
     return prefixes;
-  }, [user.isAdmin, organization?.isAdmin]);
+  }, [user.isAdmin]);
 
   const disableSubmit = useMemo(() => {
     if (type === 'new') {

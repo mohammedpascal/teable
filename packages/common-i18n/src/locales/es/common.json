@@ -157,7 +157,6 @@
     "instanceId": "ID de Instancia",
     "beta": "Beta",
     "global": "Global",
-    "organizationPanel": "Panel de Organización",
     "unknownError": "Error desconocido",
     "float": "Flotar"
   },
@@ -223,10 +222,6 @@
       "desc_other": "Esta base se comparte con los colaboradores __var_0__.",
       "baseTitle": "Colaboradores base",
       "collaboratorSearchPlaceholder": "Encuentre un colaborador base por nombre o correo electrónico"
-    },
-    "addOrgCollaborator": {
-      "title": "Agregar colaborador de organización",
-      "placeholder": "Seleccionar miembro o departamento de la organización"
     }
   },
   "help": {

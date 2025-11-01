@@ -157,7 +157,6 @@
     "instanceId": "ID istanza",
     "beta": "Beta",
     "global": "Globale",
-    "organizationPanel": "Pannello dell'organizzazione",
     "unknownError": "Errore sconosciuto",
     "float": "Virgola mobile"
   },
@@ -223,10 +222,6 @@
       "desc_other": "Questa base è condivisa con {{count}} collaboratori.",
       "baseTitle": "Collaboratori della base",
       "collaboratorSearchPlaceholder": "Trova un collaboratore della base per nome o email"
-    },
-    "addOrgCollaborator": {
-      "title": "Aggiungi collaboratore dell'organizzazione",
-      "placeholder": "Seleziona membro dell'organizzazione o dipartimento"
     }
   },
   "help": {

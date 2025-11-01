@@ -18,8 +18,6 @@ export enum IdPrefix {
   User = 'usr',
   Account = 'aco',
 
-  Invitation = 'inv',
-
   Share = 'shr',
 
   Notification = 'not',
@@ -44,9 +42,6 @@ export enum IdPrefix {
   Dashboard = 'dsh',
 
   Operation = 'opr',
-
-  Organization = 'org',
-  OrganizationDepartment = 'odp',
 
   Integration = 'int',
 }
@@ -73,7 +68,6 @@ export function generateViewId() {
 export function generateRecordId() {
   return IdPrefix.Record + getRandomString(16);
 }
-
 
 export function generateChoiceId() {
   return IdPrefix.Choice + getRandomString(8);
@@ -120,10 +114,6 @@ export function identify(id: string): IdPrefix | undefined {
 
 export function generateBaseId() {
   return IdPrefix.Base + '0';
-}
-
-export function generateInvitationId() {
-  return IdPrefix.Invitation + getRandomString(16);
 }
 
 export function generateShareId() {
@@ -180,14 +170,6 @@ export function generateDashboardId() {
 
 export function generateOperationId() {
   return IdPrefix.Operation + getRandomString(16);
-}
-
-export function generateOrganizationId() {
-  return IdPrefix.Organization + getRandomString(16);
-}
-
-export function generateOrganizationDepartmentId() {
-  return IdPrefix.OrganizationDepartment + getRandomString(16);
 }
 
 export function generateIntegrationId() {

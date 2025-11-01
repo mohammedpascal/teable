@@ -729,14 +729,12 @@
       "linkText": "Link Text"
       "enterUrl": "Enter URL"
     }
-  }
+  },
   "memberSelector": {
-    "title": "Select Members"
-    "memberSelectorSearchPlaceholder": "Search members..."
-    "departmentSelectorSearchPlaceholder": "Search departments..."
-    "selected": "Selected"
-    "noSelected": "No selected"
+    "title": "Select Members",
+    "memberSelectorSearchPlaceholder": "Search members...",
+    "selected": "Selected",
+    "noSelected": "No selected",
     "empty": "No members"
-    "emptyDepartment": "No departments"
   }
 }

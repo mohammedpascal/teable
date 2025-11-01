@@ -27,7 +27,6 @@ export class AuthController {
   async me(@Req() request: Express.Request) {
     return {
       ...request.user,
-      organization: this.cls.get('organization'),
     };
   }
 

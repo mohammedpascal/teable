@@ -1,8 +1,6 @@
 import type { IFieldVo, IGetFieldsQuery, IRecord, IViewVo } from '@teable/core';
 import { FieldKeyType } from '@teable/core';
 import type {
-  AcceptInvitationLinkRo,
-  AcceptInvitationLinkVo,
   IGetBaseVo,
   IGetDefaultViewIdVo,
   IUpdateNotifyStatusRo,
@@ -19,7 +17,6 @@ import type {
   ITablePermissionVo,
 } from '@teable/openapi';
 import {
-  ACCEPT_INVITATION_LINK,
   GET_BASE,
   GET_BASE_ALL,
   GET_DEFAULT_VIEW_ID,
@@ -134,12 +131,6 @@ export class SsrApi {
     return await this.axios
       .get<ITablePermissionVo>(urlBuilder(GET_TABLE_PERMISSION, { baseId, tableId }))
       .then((res) => res.data);
-  }
-
-  async acceptInvitationLink(acceptInvitationLinkRo: AcceptInvitationLinkRo) {
-    return this.axios
-      .post<AcceptInvitationLinkVo>(ACCEPT_INVITATION_LINK, acceptInvitationLinkRo)
-      .then(({ data }) => data);
   }
 
   async updateNotificationStatus(notificationId: string, data: IUpdateNotifyStatusRo) {

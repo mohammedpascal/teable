@@ -1,6 +1,6 @@
-import type { Prisma } from '../../prisma';
 import { UploadType, type IUserMeVo } from '@teable/openapi';
 import { pick } from 'lodash';
+import type { Prisma } from '../../prisma';
 import StorageAdapter from '../attachments/plugins/adapter';
 import { getFullStorageUrl } from '../attachments/plugins/utils';
 

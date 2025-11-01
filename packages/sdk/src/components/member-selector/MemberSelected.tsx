@@ -1,9 +1,8 @@
 import { X } from '@teable/icons';
 import { Button, ScrollArea } from '@teable/ui-lib';
 import { useTranslation } from '../../context/app/i18n';
-import { DepartmentItem } from './components/DepartmentItem';
 import { UserItem } from './components/UserItem';
-import { TreeNodeType, type SelectedMemberWithData } from './types';
+import { type SelectedMemberWithData } from './types';
 
 interface SelectedMembersProps {
   selectedMembers: SelectedMemberWithData[];
@@ -36,15 +35,7 @@ export function MemberSelected({ selectedMembers, onRemove }: SelectedMembersPro
               </span>
             </Button>
           );
-          return data.type === TreeNodeType.DEPARTMENT ? (
-            <DepartmentItem
-              key={id}
-              name={data.name}
-              checked={false}
-              suffix={suffix}
-              showCheckbox={false}
-            />
-          ) : (
+          return (
             <UserItem
               key={id}
               name={data.name}

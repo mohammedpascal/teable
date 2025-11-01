@@ -2,16 +2,13 @@ import { Button, cn, DialogFooter, DialogHeader, DialogTitle, Separator } from '
 import type { ReactNode } from 'react';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { useTranslation } from '../../context/app/i18n';
-import { DepartmentList } from './DepartmentList';
 import { MemberSelected } from './MemberSelected';
 import { SearchInput } from './SearchInput';
 import type { SelectedMemberWithData, TreeNode } from './types';
 
 interface IMemberContentProps {
   className?: string;
-  departmentId?: string;
   defaultSelectedMembers?: SelectedMemberWithData[];
-  disabledDepartment?: boolean;
   header?: ReactNode;
   onLoadData?: () => SelectedMemberWithData[];
   onCancel?: () => void;
@@ -29,9 +26,7 @@ export const MemberContent = forwardRef<IMemberContentRef, IMemberContentProps>(
     {
       header,
       className,
-      departmentId,
       defaultSelectedMembers,
-      disabledDepartment,
       onCancel,
       onConfirm,
       onLoadData,
@@ -88,16 +83,13 @@ export const MemberContent = forwardRef<IMemberContentRef, IMemberContentProps>(
         </div>
         <div className="grid min-h-0 flex-1 grid-cols-2 gap-4">
           <div className="flex min-h-0 flex-col">
-            <div className="h-8"></div>
+            <div className="h-8 px-2 text-sm font-medium text-muted-foreground">
+              {t('memberSelector.userList')}
+            </div>
             <div className="min-h-0 flex-1 rounded-lg border">
-              <DepartmentList
-                departmentId={departmentId}
-                selectedMembers={selectedMembers}
-                onSelect={handleSelect}
-                className="h-full"
-                search={search}
-                disabledDepartment={disabledDepartment}
-              />
+              <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+                {t('memberSelector.userListPlaceholder')}
+              </div>
             </div>
           </div>
           <div className="flex min-h-0 flex-col">

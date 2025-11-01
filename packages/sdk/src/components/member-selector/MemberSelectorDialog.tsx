@@ -6,9 +6,7 @@ import type { SelectedMemberWithData } from './types';
 
 interface IMemberSelectorDialogProps {
   defaultSelectedMembers?: SelectedMemberWithData[];
-  departmentId?: string;
   children?: React.ReactNode;
-  disabledDepartment?: boolean;
   header?: React.ReactNode;
   onLoadData?: () => SelectedMemberWithData[];
   onConfirm?: (members: SelectedMemberWithData[]) => void;
@@ -28,8 +26,6 @@ export const MemberSelectorDialog = React.forwardRef<
     {
       header,
       children,
-      departmentId,
-      disabledDepartment,
       defaultSelectedMembers,
       onConfirm,
       onCancel,
@@ -70,8 +66,6 @@ export const MemberSelectorDialog = React.forwardRef<
             ref={contentRef}
             header={header}
             className="h-[80vh]"
-            departmentId={departmentId}
-            disabledDepartment={disabledDepartment}
             defaultSelectedMembers={defaultSelectedMembers}
             onCancel={() => {
               handleChange(false);

@@ -161,7 +161,6 @@
     "instanceId": "Instance ID",
     "beta": "Beta",
     "global": "Global",
-    "organizationPanel": "Organization Panel",
     "unknownError": "Unknown error",
     "pluginContextMenu": "Context Menu",
     "plugin": "Plugins"
@@ -224,10 +223,6 @@
       "desc_other": "This base is shared with {{count}} collaborators.",
       "baseTitle": "Base collaborators",
       "collaboratorSearchPlaceholder": "Find a base collaborator by name or email"
-    },
-    "addOrgCollaborator": {
-      "title": "Add organization collaborator",
-      "placeholder": "Select organization member or department"
     }
   },
   "help": {
