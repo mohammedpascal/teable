@@ -45,7 +45,6 @@ model TableMeta {
   base             Base      @relation(fields: [baseId], references: [id])
   fields           Field[]
   views            View[]
-  pluginContextMenu PluginContextMenu[]
 
   @@index([order])
   @@map("table_meta")
@@ -437,18 +436,4 @@ model Integration {
   lastModifiedTime  DateTime? @updatedAt @map("last_modified_time")
 
   @@map("integration")
-}
-
-model PluginContextMenu {
-  tableId          String    @map("table_id")
-  pluginInstallId  String    @map("plugin_install_id") @unique
-  order            Float     @map("order")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  createdBy        String    @map("created_by")
-  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
-  lastModifiedBy   String?   @map("last_modified_by")
-
-  table            TableMeta @relation(fields: [tableId], references: [id], onDelete: Cascade)
-
-  @@map("plugin_context_menu")
 }

@@ -78,11 +78,5 @@ export const ReactQueryKeys = {
   calendarDailyCollection: (tableId: string, query: ICalendarDailyCollectionRo) =>
     ['calendar-daily-collection', tableId, query] as const,
 
-  getPluginContextMenuPlugins: (tableId: string) =>
-    ['plugin-context-menu-plugins', tableId] as const,
-
-  getPluginContextMenuPlugin: (tableId: string, pluginInstallId: string) =>
-    ['plugin-context-menu-plugin', tableId, pluginInstallId] as const,
-
   getPublicSetting: () => ['public-setting'] as const,
 };

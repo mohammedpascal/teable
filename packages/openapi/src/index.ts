@@ -22,4 +22,3 @@ export * from './admin';
 export * from './plugin';
 export * from './dashboard';
 export * from './integrity';
-export * from './plugin-context-menu';
