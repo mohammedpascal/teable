@@ -27,8 +27,6 @@ export enum IdPrefix {
   AuthorityMatrix = 'aut',
   AuthorityMatrixRole = 'aur',
 
-  License = 'lic',
-
   OAuthClient = 'clt',
 
   Window = 'win',
@@ -138,10 +136,6 @@ export function generateAuthorityMatrixId() {
 
 export function generateAuthorityMatrixRoleId() {
   return IdPrefix.AuthorityMatrixRole + getRandomString(16);
-}
-
-export function generateLicenseId() {
-  return IdPrefix.License + getRandomString(16);
 }
 
 export function generateClientId() {

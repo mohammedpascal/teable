@@ -13,7 +13,6 @@ import { ImportOpenApiModule } from './features/import/open-api/import-open-api.
 import { IntegrityModule } from './features/integrity/integrity.module';
 import { NextModule } from './features/next/next.module';
 import { NotificationModule } from './features/notification/notification.module';
-import { OAuthModule } from './features/oauth/oauth.module';
 import { SelectionModule } from './features/selection/selection.module';
 import { SettingModule } from './features/setting/setting.module';
 import { UserModule } from './features/user/user.module';
@@ -41,7 +40,6 @@ export const appModules = {
     ImportOpenApiModule,
     ExportOpenApiModule,
     SettingModule,
-    OAuthModule,
     DashboardModule,
   ],
   providers: [InitBootstrapProvider],

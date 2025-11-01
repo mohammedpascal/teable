@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../prisma';
 import type { ISettingVo, IUpdateSettingRo } from '@teable/openapi';
+import { PrismaService } from '../../prisma';
 
 @Injectable()
 export class SettingService {

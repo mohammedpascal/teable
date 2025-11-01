@@ -129,8 +129,7 @@
     "automation": "オートメーション",
     "authorityMatrix": "権限マトリクス",
     "adminPanel": "管理パネル",
-    "license": "ライセンス",
-    "instanceId": "ライセンスID",
+    "instanceId": "インスタンスID",
     "beta": "ベータ"
   },
   "level": {

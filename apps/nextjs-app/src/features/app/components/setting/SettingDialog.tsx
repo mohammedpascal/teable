@@ -1,4 +1,4 @@
-import { Bell, Link, Settings, UserEdit } from '@teable/icons';
+import { Bell, Settings, UserEdit } from '@teable/icons';
 import { useIsTouchDevice } from '@teable/sdk/hooks';
 import {
   Dialog,
@@ -14,7 +14,6 @@ import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { System } from '@/features/app/components/setting/System';
 import { Account } from './Account';
-import { Integration } from './integration/Integration';
 import { Notifications } from './Notifications';
 import { useSettingStore } from './useSettingStore';
 
@@ -39,11 +38,6 @@ export const SettingDialog = () => {
         key: 'notifications',
         name: t('settings.notify.title'),
         Icon: Bell,
-      },
-      {
-        key: 'integration',
-        name: t('settings.integration.title'),
-        Icon: Link,
       },
     ];
   }, [t]);
@@ -84,13 +78,6 @@ export const SettingDialog = () => {
         className="mt-0 size-full overflow-y-auto overflow-x-hidden"
       >
         <Notifications />
-      </TabsContent>
-      <TabsContent
-        tabIndex={-1}
-        value="integration"
-        className="mt-0 size-full overflow-y-auto overflow-x-hidden"
-      >
-        <Integration />
       </TabsContent>
     </Tabs>
   );

@@ -93,7 +93,6 @@ export { default as Layers } from './components/Layers';
 export { default as LayoutGrid } from './components/LayoutGrid';
 export { default as LayoutList } from './components/LayoutList';
 export { default as LayoutTemplate } from './components/LayoutTemplate';
-export { default as License } from './components/License';
 export { default as Lingyiwanwu } from './components/Lingyiwanwu';
 export { default as Link } from './components/Link';
 export { default as ListChecks } from './components/ListChecks';

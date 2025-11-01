@@ -20,7 +20,6 @@ export * from './utils';
 export * from './zod';
 export * from './admin';
 export * from './usage';
-export * from './oauth';
 export * from './plugin';
 export * from './dashboard';
 export * from './integrity';

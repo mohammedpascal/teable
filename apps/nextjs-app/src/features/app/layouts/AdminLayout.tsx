@@ -37,7 +37,7 @@ export const AdminLayout: React.FC<{
   const routes = [
     {
       Icon: Settings,
-      label: t('settings.title'),
+      label: t('settings.title1'),
       route: '/admin/setting',
       pathTo: '/admin/setting',
     },
