@@ -4,7 +4,6 @@ import { useTablePermission } from '@teable/sdk/hooks';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { GridViewOperators } from './components';
 import { useViewConfigurable } from './hook';
-import { Others } from './Others';
 
 export const GridToolBar: React.FC = () => {
   const permission = useTablePermission();
@@ -25,7 +24,6 @@ export const GridToolBar: React.FC = () => {
       <div className="mx-2 h-4 w-px shrink-0 bg-slate-200"></div>
       <div className="flex flex-1 justify-between @container/toolbar">
         <GridViewOperators disabled={!isViewConfigurable} />
-        <Others />
       </div>
     </div>
   );
