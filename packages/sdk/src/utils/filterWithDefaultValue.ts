@@ -208,11 +208,6 @@ export const extractDefaultFieldsFromFilters = async ({
 
   collectRelationIds(filter, fieldMap);
 
-  if (collectedUserIds.length > 0) {
-    // Collaboration removed - user list not available
-    // collectedUserMap will remain empty
-  }
-
   if (Object.keys(collectedLinkIdMap).length > 0) {
     let allRecords: IRecord[] = [];
     for (const [tableId, ids] of Object.entries(collectedLinkIdMap)) {

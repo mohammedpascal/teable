@@ -1,6 +1,5 @@
 import { isMeTag, Me } from '@teable/core';
 import { User as UserIcon } from '@teable/icons';
-import type { CollaboratorItem } from '@teable/openapi';
 import { cn } from '@teable/ui-lib';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
@@ -10,10 +9,11 @@ import { UserTag } from '../../../cell-value';
 import { UserOption } from '../../../editor';
 import { BaseMultipleSelect, BaseSingleSelect } from './base';
 
-type CollaboratorWithRequiredFields = CollaboratorItem & { 
+type CollaboratorWithRequiredFields = { 
   userId: string; 
   userName: string; 
   email: string; 
+  avatar?: string | null;
 };
 
 interface IFilterUserProps {

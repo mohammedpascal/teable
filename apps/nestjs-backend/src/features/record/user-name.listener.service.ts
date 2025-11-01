@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { FieldType } from '@teable/core';
 import { Field, PrismaService } from '../../prisma';
-import { IUserInfoVo, PrincipalType } from '@teable/openapi';
+import { IUserInfoVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { InjectDbProvider } from '../../db-provider/db.provider';
@@ -23,22 +23,12 @@ export class UserNameListener {
   ) {}
 
   private async getFieldsForUser(userId: string) {
-    const spaceBaseQuery = this.knex('collaborator')
-      .join('space', 'collaborator.resource_id', 'space.id')
-      .join('base', 'space.id', 'base.space_id')
-      .where('collaborator.principal_id', userId)
-      .where('collaborator.principal_type', PrincipalType.User)
-      .select('base.id as base_id', 'collaborator.principal_id as user_id');
-    const baseQuery = this.knex('collaborator')
-      .join('base', 'collaborator.resource_id', 'base.id')
-      .join('space', 'base.space_id', 'space.id')
-      .where('collaborator.principal_type', PrincipalType.User)
-      .select('base.id as base_id', 'collaborator.principal_id as user_id');
+    // Query all user fields from all bases since user references can appear in any base
+    // and we need to update the user's name wherever they are referenced
     const query = this.knex
-      .with('c', this.knex.union([spaceBaseQuery, baseQuery]))
-      .join('table_meta', 'c.base_id', 'table_meta.base_id')
+      .join('table_meta', 'table_meta.base_id', 'base.id')
       .join('field', 'table_meta.id', 'field.table_id')
-      .from('c')
+      .from('base')
       .whereIn('field.type', [FieldType.User, FieldType.CreatedBy, FieldType.LastModifiedBy])
       .select({
         id: 'field.id',

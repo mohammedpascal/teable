@@ -882,9 +882,6 @@ export class FieldConvertingService {
       return oldField.cellValue2String(oldCellValue);
     });
 
-    // Collaboration removed - return empty array
-    const tableCollaborators: any[] = [];
-
     records.forEach((record, index) => {
       const oldCellValue = record.fields[fieldId];
       if (oldCellValue == null) {
@@ -900,7 +897,7 @@ export class FieldConvertingService {
         return;
       }
       const newCellValue = newField.convertStringToCellValue(cellStr, {
-        userSets: tableCollaborators,
+        userSets: [],
       });
 
       opsMap[record.id].push(

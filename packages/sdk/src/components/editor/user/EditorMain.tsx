@@ -1,15 +1,15 @@
 import type { IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
-import type { CollaboratorItem } from '@teable/openapi';
 import type { ForwardRefRenderFunction } from 'react';
 import React, { forwardRef } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import type { ICellEditor, ICellEditorContext } from '../type';
 
-type CollaboratorWithRequiredFields = CollaboratorItem & {
+type CollaboratorWithRequiredFields = {
   userId: string;
   userName: string;
   email: string;
+  avatar?: string | null;
 };
 import type { IUserEditorRef } from './EditorBase';
 import { UserEditorBase } from './EditorBase';
@@ -25,7 +25,7 @@ export interface IUserEditorMainProps extends ICellEditor<IUserCellValue | IUser
 
 const DefaultDataWrapper = forwardRef<IUserEditorRef, IUserEditorMainProps>((props, ref) => {
   const { t } = useTranslation();
-  // Collaboration removed - return empty collaborator list
+  // Collaboration feature removed - returns minimal user list (only "me" if includeMe is true)
   const collaborators = props.includeMe
     ? [{ userId: 'me', userName: t('filter.currentUser'), email: '' }]
     : [];

@@ -21,8 +21,7 @@ export const UserOptions = (props: {
   const baseId = useBaseId();
 
   // Collaboration removed - user list not available
-  const collaborators = undefined;
-  const isLoading = false;
+  const collaborators: undefined = undefined;
 
   const onIsMultipleChange = (checked: boolean) => {
     onChange?.({
@@ -110,16 +109,14 @@ export const UserOptions = (props: {
               {t('table:field.editor.notifyUsers')}
             </Label>
           </div>
-          {!isLoading && (
-            <DefaultValue onReset={() => onDefaultValueChange(undefined)}>
-              <UserEditor
-                value={defaultValueToUser(options)}
-                onChange={onDefaultValueChange}
-                options={options}
-                includeMe
-              />
-            </DefaultValue>
-          )}
+          <DefaultValue onReset={() => onDefaultValueChange(undefined)}>
+            <UserEditor
+              value={defaultValueToUser(options)}
+              onChange={onDefaultValueChange}
+              options={options}
+              includeMe
+            />
+          </DefaultValue>
         </div>
       )}
     </div>
