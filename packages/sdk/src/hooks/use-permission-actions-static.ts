@@ -35,9 +35,6 @@ const actionsI18nMap: Record<
   'base|table_export': {
     description: 'permission.actionDescription.tableExport',
   },
-  'base|authority_matrix_config': {
-    description: 'permission.actionDescription.baseAuthorityMatrixConfig',
-  },
   'base|db_connection': {
     description: 'permission.actionDescription.baseDbConnect',
   },
@@ -104,18 +101,6 @@ const actionsI18nMap: Record<
   'record|comment': {
     description: 'permission.actionDescription.recordUpdate',
   },
-  'automation|create': {
-    description: 'permission.actionDescription.automationCreate',
-  },
-  'automation|delete': {
-    description: 'permission.actionDescription.automationDelete',
-  },
-  'automation|read': {
-    description: 'permission.actionDescription.automationRead',
-  },
-  'automation|update': {
-    description: 'permission.actionDescription.automationUpdate',
-  },
   'user|email_read': {
     description: 'permission.actionDescription.userEmailRead',
   },
@@ -151,9 +136,6 @@ const actionPrefixI18nMap: Record<ActionPrefix, { title: TKey }> = {
   },
   [ActionPrefix.Record]: {
     title: 'noun.record',
-  },
-  [ActionPrefix.Automation]: {
-    title: 'noun.automation',
   },
   [ActionPrefix.User]: {
     title: 'noun.user',

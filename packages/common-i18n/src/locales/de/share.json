@@ -7,6 +7,5 @@
   "toolbar": {
     "filterLinkSelectPlaceholder": "Auswählen..."
   },
-  "openOnNewPage": "Auf neuer Seite öffnen",
-  "errorTips": "Die Freigabequelle hat eine Authority Matrix aktiviert, die Anzeige ist nicht erlaubt"
+  "openOnNewPage": "Auf neuer Seite öffnen"
 }

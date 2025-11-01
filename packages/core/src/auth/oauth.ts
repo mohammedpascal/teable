@@ -1,5 +1,4 @@
 import type {
-  AutomationAction,
   FieldAction,
   RecordAction,
   TableAction,
@@ -13,7 +12,6 @@ export const OAUTH_ACTIONS: (
   | FieldAction
   | RecordAction
   | UserAction
-  | AutomationAction
 )[] = [
   'table|create',
   'table|delete',
@@ -34,9 +32,5 @@ export const OAUTH_ACTIONS: (
   'record|delete',
   'record|read',
   'record|update',
-  'automation|create',
-  'automation|delete',
-  'automation|read',
-  'automation|update',
   'user|email_read',
 ];

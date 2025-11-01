@@ -18,11 +18,6 @@ export class UserInitService implements OnModuleInit {
 
   async onModuleInit() {
     /*
-    await this.uploadStatic(
-      'automationRobot',
-      'static/system/automation-robot.png',
-      UploadType.Avatar
-    );
     await this.uploadStatic('anonymous', 'static/system/anonymous.png', UploadType.Avatar);
 */
     this.logger.log('System users initialized');

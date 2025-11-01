@@ -6,7 +6,7 @@ import { Strategy } from 'passport-github2';
 import { AuthConfig } from '../../../configs/auth.config';
 import type { authConfig } from '../../../configs/auth.config';
 import { UserService } from '../../user/user.service';
-import { OauthStoreService } from '../oauth/oauth.store';
+import { OauthStoreService } from '../social/oauth-store.service';
 import { pickUserMe } from '../utils';
 
 @Injectable()

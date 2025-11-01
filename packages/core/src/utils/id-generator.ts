@@ -10,11 +10,6 @@ export enum IdPrefix {
   Attachment = 'act',
   Choice = 'cho',
 
-  Workflow = 'wfl',
-  WorkflowTrigger = 'wtr',
-  WorkflowAction = 'wac',
-  WorkflowDecision = 'wde',
-
   User = 'usr',
   Account = 'aco',
 
@@ -23,9 +18,6 @@ export enum IdPrefix {
   Notification = 'not',
 
   AccessToken = 'acc',
-
-  AuthorityMatrix = 'aut',
-  AuthorityMatrixRole = 'aur',
 
   OAuthClient = 'clt',
 
@@ -75,22 +67,6 @@ export function generateAttachmentId() {
   return IdPrefix.Attachment + getRandomString(16);
 }
 
-export function generateWorkflowId() {
-  return IdPrefix.Workflow + getRandomString(16);
-}
-
-export function generateWorkflowTriggerId() {
-  return IdPrefix.WorkflowTrigger + getRandomString(16);
-}
-
-export function generateWorkflowActionId() {
-  return IdPrefix.WorkflowAction + getRandomString(16);
-}
-
-export function generateWorkflowDecisionId() {
-  return IdPrefix.WorkflowDecision + getRandomString(16);
-}
-
 export function generateUserId() {
   return IdPrefix.User + getRandomString(16);
 }
@@ -128,14 +104,6 @@ export function generateAccessTokenId() {
 
 export function generateAccountId() {
   return IdPrefix.Account + getRandomString(16);
-}
-
-export function generateAuthorityMatrixId() {
-  return IdPrefix.AuthorityMatrix + getRandomString(16);
-}
-
-export function generateAuthorityMatrixRoleId() {
-  return IdPrefix.AuthorityMatrixRole + getRandomString(16);
 }
 
 export function generateClientId() {

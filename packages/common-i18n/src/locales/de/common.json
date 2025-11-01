@@ -154,8 +154,6 @@
     "field": "Feld",
     "record": "Datensatz",
     "dashboard": "Dashboard",
-    "automation": "Automatisierung",
-    "authorityMatrix": "Authority Matrix",
     "adminPanel": "Admin Panel",
     "instanceId": "Instanz ID",
     "beta": "Beta",
@@ -307,8 +305,8 @@
       "viewer": "Betrachter"
     },
     "description": {
-      "owner": "Vollständige Konfiguration und Bearbeitung von Bases, Automatisierungen, Authority Matrizen und Verwaltung von Space Einstellungen und Abrechnung",
-      "creator": "Vollständige Konfiguration und Bearbeitung von Bases, Automatisierungen und Authority Matrizen",
+      "owner": "Vollständige Konfiguration und Bearbeitung von Bases und Verwaltung von Space Einstellungen und Abrechnung",
+      "creator": "Vollständige Konfiguration und Bearbeitung von Bases",
       "editor": "Kann Datensätze und Ansichten bearbeiten, aber keine Tabellen oder Felder konfigurieren",
       "commenter": "Kann Datensätze kommentieren",
       "viewer": "Kann nicht bearbeiten oder kommentieren"

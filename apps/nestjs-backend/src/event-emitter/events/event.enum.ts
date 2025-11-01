@@ -52,9 +52,6 @@ export enum Events {
   USER_PASSWORD_CHANGE = 'user.password.change',
   // USER_PASSWORD_FORGOT = 'user.password.forgot'
 
-  WORKFLOW_ACTIVATE = 'workflow.activate',
-  WORKFLOW_DEACTIVATE = 'workflow.deactivate',
-
   CROP_IMAGE = 'crop.image',
   CROP_IMAGE_COMPLETE = 'crop.image.complete',
 

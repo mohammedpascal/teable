@@ -144,7 +144,6 @@ export class BaseService {
     return [
       ...actionPrefixMap[ActionPrefix.Table],
       ...actionPrefixMap[ActionPrefix.Base],
-      ...actionPrefixMap[ActionPrefix.Automation],
       ...actionPrefixMap[ActionPrefix.TableRecordHistory],
     ].reduce((acc, action) => {
       acc[action] = true;

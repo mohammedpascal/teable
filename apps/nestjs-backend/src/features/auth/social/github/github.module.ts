@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from '../../../user/user.module';
-import { OauthStoreService } from '../../oauth/oauth.store';
+import { OauthStoreService } from '../oauth-store.service';
 import { GithubStrategy } from '../../strategies/github.strategy';
 import { GithubController } from './github.controller';
 

@@ -63,7 +63,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
       ActionPrefix.Record,
       ActionPrefix.TableRecordHistory,
       ActionPrefix.User,
-      ActionPrefix.Automation,
     ];
 
     if (user.isAdmin) {

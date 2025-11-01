@@ -150,8 +150,6 @@
     "field": "Campo",
     "record": "Record",
     "dashboard": "Dashboard",
-    "automation": "Automazione",
-    "authorityMatrix": "Matrice di autorità",
     "adminPanel": "Pannello di amministrazione",
     "instanceId": "ID istanza",
     "beta": "Beta",
@@ -297,8 +295,8 @@
       "viewer": "Visualizzatore"
     },
     "description": {
-      "owner": "Può configurare e modificare completamente basi, automazione, matrici di autorità e gestire le impostazioni e la fatturazione dello spazio",
-      "creator": "Può configurare e modificare completamente basi, automazione e abilitare la matrice di autorità",
+      "owner": "Può configurare e modificare completamente basi e gestire le impostazioni e la fatturazione dello spazio",
+      "creator": "Può configurare e modificare completamente basi",
       "editor": "Può modificare record e viste, ma non può configurare tabelle o campi",
       "commenter": "Può commentare i record",
       "viewer": "Non può modificare o commentare"

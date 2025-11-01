@@ -7,7 +7,6 @@ export enum ActionPrefix {
   View = 'view',
   Record = 'record',
   Field = 'field',
-  Automation = 'automation',
   User = 'user',
   TableRecordHistory = 'table_record_history',
   Instance = 'instance',
@@ -23,7 +22,6 @@ export const baseActions = [
   'base|invite_link',
   'base|table_import',
   'base|table_export',
-  'base|authority_matrix_config',
   'base|db_connection',
   'base|query_data',
 ] as const;
@@ -65,15 +63,6 @@ export const recordActions = [
 export const recordActionSchema = z.enum(recordActions);
 export type RecordAction = z.infer<typeof recordActionSchema>;
 
-export const automationActions = [
-  'automation|create',
-  'automation|delete',
-  'automation|read',
-  'automation|update',
-] as const;
-export const automationActionSchema = z.enum(automationActions);
-export type AutomationAction = z.infer<typeof automationActionSchema>;
-
 export const userActions = ['user|email_read'] as const;
 export const userActionSchema = z.enum(userActions);
 export type UserAction = z.infer<typeof userActionSchema>;
@@ -96,7 +85,6 @@ export type Action =
   | ViewAction
   | FieldAction
   | RecordAction
-  | AutomationAction
   | UserAction
   | TableRecordHistoryAction
   | InstanceAction
@@ -108,7 +96,6 @@ export type ActionPrefixMap = {
   [ActionPrefix.View]: ViewAction[];
   [ActionPrefix.Field]: FieldAction[];
   [ActionPrefix.Record]: RecordAction[];
-  [ActionPrefix.Automation]: AutomationAction[];
   [ActionPrefix.User]: UserAction[];
   [ActionPrefix.TableRecordHistory]: TableRecordHistoryAction[];
   [ActionPrefix.Instance]: InstanceAction[];
@@ -120,7 +107,6 @@ export const actionPrefixMap: ActionPrefixMap = {
   [ActionPrefix.View]: [...viewActions],
   [ActionPrefix.Field]: [...fieldActions],
   [ActionPrefix.Record]: [...recordActions],
-  [ActionPrefix.Automation]: [...automationActions],
   [ActionPrefix.TableRecordHistory]: [...tableRecordHistoryActions],
   [ActionPrefix.User]: [...userActions],
   [ActionPrefix.Instance]: [...instanceActions],

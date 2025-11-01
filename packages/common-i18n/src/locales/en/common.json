@@ -154,8 +154,6 @@
     "field": "Field",
     "record": "Record",
     "dashboard": "Dashboard",
-    "automation": "Automation",
-    "authorityMatrix": "Authority Matrix",
     "adminPanel": "Admin Panel",
     "instanceId": "Instance ID",
     "beta": "Beta",
@@ -301,8 +299,8 @@
       "viewer": "Viewer"
     },
     "description": {
-      "owner": "Can fully configure and edit bases, automation, authority matrices and manage base settings and billing",
-      "creator": "Can fully configure and edit bases, automation and enable the authority matrix",
+      "owner": "Can fully configure and edit bases and manage base settings and billing",
+      "creator": "Can fully configure and edit bases",
       "editor": "Can edit records and views, but cannot configure tables or fields",
       "commenter": "Can comment on records",
       "viewer": "Cannot edit or comment"
