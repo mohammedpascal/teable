@@ -1,4 +1,4 @@
-import { HelpCircle, MoreHorizontal, Settings } from '@teable/icons';
+import { Code2, MoreHorizontal, Settings } from '@teable/icons';
 import { useBase, useTableId } from '@teable/sdk/hooks';
 import {
   Button,
@@ -33,6 +33,19 @@ const RightList = ({
   return (
     <div className={cn('flex', className)}>
       <div className="flex">
+        <Button asChild variant="outline" size="xs" className={cn('flex', buttonClassName)}>
+          <Link
+            href={{
+              pathname: '/developer/tool/query-builder',
+              query: { baseId: base.id, tableId },
+            }}
+            target="_blank"
+            title={t('table:toolbar.others.api.restfulApi')}
+          >
+            <Code2 className="size-4" />
+            <span className="">API</span>
+          </Link>
+        </Button>
         <Button asChild variant="ghost" size="xs" className={cn('flex', buttonClassName)}>
           <Link
             href={{
@@ -43,11 +56,6 @@ const RightList = ({
           >
             <Settings className="size-4" />
           </Link>
-        </Button>
-        <Button asChild variant="ghost" size="xs" className={cn('flex', buttonClassName)}>
-          <a href={t('help.mainLink')} title={t('help.title')} target="_blank" rel="noreferrer">
-            <HelpCircle className="size-4" />
-          </a>
         </Button>
       </div>
     </div>
@@ -75,6 +83,17 @@ const RightMenu = ({ className }: { className?: string }) => {
           <Button asChild variant="ghost" size="xs" className="flex justify-start">
             <Link
               href={{
+                pathname: '/developer/tool/query-builder',
+                query: { baseId: base.id, tableId },
+              }}
+              target="_blank"
+            >
+              <Code2 className="size-4" /> {t('table:toolbar.others.api.restfulApi')}
+            </Link>
+          </Button>
+          <Button asChild variant="ghost" size="xs" className="flex justify-start">
+            <Link
+              href={{
                 pathname: '/base/[baseId]/design',
                 query: { baseId: base.id, tableId },
               }}
@@ -82,11 +101,6 @@ const RightMenu = ({ className }: { className?: string }) => {
             >
               <Settings className="size-4" /> {t('table:table.design')}
             </Link>
-          </Button>
-          <Button asChild variant="ghost" size="xs" className="flex justify-start">
-            <a href={t('help.mainLink')} title={t('help.title')} target="_blank" rel="noreferrer">
-              <HelpCircle className="size-4" /> {t('help.title')}
-            </a>
           </Button>
         </div>
       </PopoverContent>
