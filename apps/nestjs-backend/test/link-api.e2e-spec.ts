@@ -7,12 +7,7 @@ import type { INestApplication } from '@nestjs/common';
 import type { IFieldRo, IFieldVo, ILinkFieldOptions, ILookupOptionsVo } from '@teable/core';
 import { Colors, FieldKeyType, FieldType, NumberFormattingType, Relationship } from '@teable/core';
 import type { ITableFullVo } from '@teable/openapi';
-import {
-  convertField,
-  deleteBase,
-  deleteRecords,
-  updateDbTableName,
-} from '@teable/openapi';
+import { convertField, deleteRecords, updateDbTableName } from '@teable/openapi';
 import {
   createField,
   createRecords,
@@ -33,7 +28,6 @@ import {
 describe('OpenAPI link (e2e)', () => {
   let app: INestApplication;
   const baseId = globalThis.testConfig.baseId;
-  const spaceId = globalThis.testConfig.spaceId;
   const split = globalThis.testConfig.driver === 'postgresql' ? '.' : '_';
 
   beforeAll(async () => {
@@ -3187,6 +3181,5 @@ describe('OpenAPI link (e2e)', () => {
 
       expect(newTable3LookupField.data).toBeDefined();
     });
-  // });
-  */
+  });
 });

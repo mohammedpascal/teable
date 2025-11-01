@@ -1,7 +1,7 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ActionPrefix, actionPrefixMap } from '@teable/core';
-import { CollaboratorType } from '@teable/openapi';
 import type { IGetBasePermissionVo } from '@teable/openapi';
+import { CollaboratorType } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
@@ -12,8 +12,6 @@ import { TableOpenApiService } from '../table/open-api/table-open-api.service';
 
 @Injectable()
 export class BaseService {
-  private logger = new Logger(BaseService.name);
-
   constructor(
     private readonly prismaService: PrismaService,
     private readonly cls: ClsService<IClsStore>,
