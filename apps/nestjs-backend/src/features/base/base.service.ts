@@ -112,33 +112,6 @@ export class BaseService {
     return userBase ? [userBase] : [];
   }
 
-  async getUserDefaultBase() {
-    const userId = this.cls.get('user.id');
-
-    const base = await this.prismaService.base.findFirst({
-      select: {
-        id: true,
-        name: true,
-        icon: true,
-        userId: true,
-      },
-      where: {
-        userId: userId,
-      },
-    });
-
-    if (!base) {
-      throw new NotFoundException('User default base not found');
-    }
-
-    return base;
-  }
-
-  private async checkBaseReadPermission(_baseId: string) {
-    // Permission checks removed - all authenticated users have access
-    return;
-  }
-
   async getPermission() {
     // Return all permissions as true for authenticated users
     return [

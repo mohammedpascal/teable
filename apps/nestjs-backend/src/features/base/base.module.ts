@@ -10,12 +10,7 @@ import { BaseService } from './base.service';
 
 @Module({
   controllers: [BaseController],
-  imports: [
-    FieldModule,
-    TableModule,
-    TableOpenApiModule,
-    RecordModule,
-  ],
+  imports: [FieldModule, TableModule, TableOpenApiModule, RecordModule],
   providers: [DbProvider, BaseService, BaseQueryService],
   exports: [BaseService],
 })
