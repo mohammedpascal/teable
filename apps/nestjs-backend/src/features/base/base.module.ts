@@ -7,7 +7,6 @@ import { TableModule } from '../table/table.module';
 import { BaseQueryService } from './base-query/base-query.service';
 import { BaseController } from './base.controller';
 import { BaseService } from './base.service';
-import { DbConnectionService } from './db-connection.service';
 
 @Module({
   controllers: [BaseController],
@@ -17,7 +16,7 @@ import { DbConnectionService } from './db-connection.service';
     TableOpenApiModule,
     RecordModule,
   ],
-  providers: [DbProvider, BaseService, DbConnectionService, BaseQueryService],
-  exports: [BaseService, DbConnectionService],
+  providers: [DbProvider, BaseService, BaseQueryService],
+  exports: [BaseService],
 })
 export class BaseModule {}

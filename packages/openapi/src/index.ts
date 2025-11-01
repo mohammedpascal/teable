@@ -10,7 +10,6 @@ export * from './selection';
 export * from './plan';
 export * from './attachment';
 export * from './auth';
-export * from './db-connection';
 export * from './notification';
 export * from './user';
 export * from './access-token';
