@@ -180,7 +180,7 @@ describe('OpenAPI ImportController (e2e)', () => {
     for (let i = 0; i < bases.length; i++) {
       const [baseId, id] = bases[i];
       await deleteTable(baseId, id);
-      await apiDeleteBase(baseId);
+      // Base 'bse0' cannot be deleted, so we skip base deletion
     }
     await app.close();
   });

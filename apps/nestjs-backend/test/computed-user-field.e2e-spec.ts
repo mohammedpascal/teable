@@ -18,22 +18,20 @@ import { EventEmitterService } from '../src/event-emitter/event-emitter.service'
 import { Events } from '../src/event-emitter/events';
 import { createNewUserAxios } from './utils/axios-instance/new-user';
 import { createAwaitWithEvent } from './utils/event-promise';
-import { createBase, createField, createTable, deleteBase, initApp } from './utils/init-app';
+import { createField, createTable, initApp } from './utils/init-app';
 
 describe('Computed user field (e2e)', () => {
   let app: INestApplication;
   const spaceId = globalThis.testConfig.spaceId;
   const userName = globalThis.testConfig.userName;
-  let baseId: string;
+  const baseId = globalThis.testConfig.baseId; // Use fixed base 'bse0'
   beforeAll(async () => {
     const appCtx = await initApp();
     app = appCtx.app;
-    const base = await createBase({ name: 'base1', spaceId });
-    baseId = base.data.id;
   });
 
   afterAll(async () => {
-    await deleteBase(baseId);
+    // Base 'bse0' cannot be deleted, so we skip deletion
     await app.close();
   });
 

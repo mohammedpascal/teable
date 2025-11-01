@@ -449,10 +449,10 @@ export async function updateViewFilter(tableId: string, viewId: string, filterRo
 }
 
 export async function createBase(baseData: { name: string; spaceId: string }) {
-  // For testing purposes, we'll create a mock base
-  // In a real implementation, this would call the actual API
-  const mockBase = {
-    id: `base_${Date.now()}`,
+  // The system now has only one fixed base with id 'bse0' that cannot be deleted
+  // Return the fixed base instead of creating a new one
+  const fixedBase = {
+    id: 'bse0',
     name: baseData.name,
     spaceId: baseData.spaceId,
     createdTime: new Date().toISOString(),
@@ -460,12 +460,18 @@ export async function createBase(baseData: { name: string; spaceId: string }) {
   };
   
   return {
-    data: mockBase,
-    status: 201,
+    data: fixedBase,
+    status: 200,
   };
 }
 
 export async function deleteBase(baseId: string) {
+  // The system now has only one fixed base with id 'bse0' that cannot be deleted
+  // This is a no-op since bases cannot be deleted
+  if (baseId === 'bse0') {
+    return { success: true };
+  }
+  // For safety, still try to delete if it's not the fixed base
   const result = await apiDeleteBase(baseId);
   return result.data;
 }

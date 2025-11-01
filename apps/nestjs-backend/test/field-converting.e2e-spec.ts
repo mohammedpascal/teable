@@ -74,9 +74,22 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
-      await deleteTable(baseId, table3.id);
+      // Only delete tables if they were successfully created
+      if (table1?.id) {
+        await deleteTable(baseId, table1.id).catch(() => {
+          // Ignore deletion errors (table might already be deleted)
+        });
+      }
+      if (table2?.id) {
+        await deleteTable(baseId, table2.id).catch(() => {
+          // Ignore deletion errors (table might already be deleted)
+        });
+      }
+      if (table3?.id) {
+        await deleteTable(baseId, table3.id).catch(() => {
+          // Ignore deletion errors (table might already be deleted)
+        });
+      }
     });
   };
 
@@ -91,7 +104,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     const sourceField = await createField(table.id, sourceFieldRo);
     await createdCallback?.(sourceField);
     if (appendBlankRow) {
-      const records: any[] = [];
+      const records: Array<{ fields: Record<string, unknown> }> = [];
       for (let i = 0; i < appendBlankRow; i++) {
         records.push({ fields: {} });
       }

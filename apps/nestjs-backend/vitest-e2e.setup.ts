@@ -36,7 +36,7 @@ globalThis.testConfig = {
   password: '12345678',
   userId: 'usrTestUserId',
   spaceId: 'spcTestSpaceId',
-  baseId: 'bseTestBaseId',
+  baseId: 'bse0',
   driver: DriverClient.Sqlite,
 };
 
@@ -78,8 +78,11 @@ function compileWorkerFile() {
 async function setup() {
   dotenv.config({ path: '../nextjs-app' });
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const databaseUrl = process.env.PRISMA_DATABASE_URL!;
+  const databaseUrl = process.env.PRISMA_DATABASE_URL;
+
+  if (!databaseUrl) {
+    throw new Error('PRISMA_DATABASE_URL environment variable is not set');
+  }
 
   console.log('database-url: ', databaseUrl);
   const { driver } = parseDsn(databaseUrl);
