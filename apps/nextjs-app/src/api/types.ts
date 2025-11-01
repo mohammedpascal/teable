@@ -6183,40 +6183,6 @@ export interface paths {
       };
     };
   };
-  "/base/duplicate": {
-    /** @description duplicate a base */
-    post: {
-      parameters: {
-        path: {
-          baseId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            /** @description The base to duplicate */
-            fromBaseId: string;
-            /** @description Whether to duplicate the records */
-            withRecords?: boolean;
-            /** @description The name of the duplicated base */
-            name?: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns information about a successfully duplicated base. */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-              icon: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
   "/base/{baseId}/permission": {
     /** @description Get a base permission */
     get: {

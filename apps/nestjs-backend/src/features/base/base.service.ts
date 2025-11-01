@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ActionPrefix, actionPrefixMap } from '@teable/core';
 import { CollaboratorType } from '@teable/openapi';
-import type { IDuplicateBaseRo, IGetBasePermissionVo } from '@teable/openapi';
+import type { IGetBasePermissionVo } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
@@ -9,7 +9,6 @@ import { IDbProvider } from '../../db-provider/db.provider.interface';
 import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { TableOpenApiService } from '../table/open-api/table-open-api.service';
-import { BaseDuplicateService } from './base-duplicate.service';
 
 @Injectable()
 export class BaseService {
@@ -18,7 +17,6 @@ export class BaseService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly cls: ClsService<IClsStore>,
-    private readonly baseDuplicateService: BaseDuplicateService,
     private readonly tableOpenApiService: TableOpenApiService,
     @InjectDbProvider() private readonly dbProvider: IDbProvider,
     @ThresholdConfig() private readonly thresholdConfig: IThresholdConfig
@@ -136,17 +134,6 @@ export class BaseService {
     }
 
     return base;
-  }
-
-  async duplicateBase(duplicateBaseRo: IDuplicateBaseRo) {
-    // permission check, base read permission
-    await this.checkBaseReadPermission(duplicateBaseRo.fromBaseId);
-    return await this.prismaService.$tx(
-      async () => {
-        return await this.baseDuplicateService.duplicate(duplicateBaseRo);
-      },
-      { timeout: this.thresholdConfig.bigTransactionTimeout }
-    );
   }
 
   private async checkBaseReadPermission(_baseId: string) {

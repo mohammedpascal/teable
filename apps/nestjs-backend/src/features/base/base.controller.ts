@@ -16,16 +16,12 @@ import {
   CollaboratorType,
   CreateBaseInvitationLinkRo,
   createBaseInvitationLinkRoSchema,
-  duplicateBaseRoSchema,
   EmailBaseInvitationRo,
   emailBaseInvitationRoSchema,
   IBaseQuerySchemaRo,
-  IDuplicateBaseRo,
   UpdateBaseInvitationLinkRo,
   updateBaseInvitationLinkRoSchema,
 } from '@teable/openapi';
-import { EmitControllerEvent } from '../../event-emitter/decorators/emit-controller-event.decorator';
-import { Events } from '../../event-emitter/events';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
 import { InvitationService } from '../invitation/invitation.service';
 import { BaseQueryService } from './base-query/base-query.service';
@@ -40,15 +36,6 @@ export class BaseController {
     private readonly baseQueryService: BaseQueryService,
     private readonly invitationService: InvitationService
   ) {}
-
-  @Post('duplicate')
-  @EmitControllerEvent(Events.BASE_CREATE)
-  async duplicateBase(
-    @Body(new ZodValidationPipe(duplicateBaseRoSchema))
-    duplicateBaseRo: IDuplicateBaseRo
-  ): Promise<IGetBaseVo> {
-    return await this.baseService.duplicateBase(duplicateBaseRo);
-  }
 
   @Get(':baseId')
   async getBaseById(@Param('baseId') baseId: string): Promise<IGetBaseVo> {
