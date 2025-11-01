@@ -308,36 +308,6 @@ describe('OpenAPI OAuthController (e2e)', () => {
       },
     });
     expect(userInfo.data.email).toBeUndefined();
-    // TODO: Space functionality not yet implemented
-    // const base = await createBase({
-    //   spaceId: globalThis.testConfig.spaceId,
-    //   name: 'oauth-server-test',
-    // });
-    // const tableListRes = await anonymousAxios.get<ITableListVo>(
-    //   urlBuilder(GET_TABLE_LIST, { baseId: base.id }),
-    //   {
-    //     headers: {
-    //       Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`,
-    //     },
-    //   }
-    // );
-    // expect(tableListRes.status).toBe(200);
-    // expect(tableListRes.data).toEqual(expect.any(Array));
-
-    // // no scope table|create
-    // const error = await getError(() =>
-    //   anonymousAxios.post(
-    //     `/base/${base.id}/table`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `${tokenRes.data.token_type} ${tokenRes.data.access_token}`,
-    //       },
-    //     }
-    //   )
-    // );
-    // await deleteBase(base.id);
-    // expect(error?.status).toBe(403);
   });
 
   it('/api/oauth/access_token (POST) - refresh token', async () => {

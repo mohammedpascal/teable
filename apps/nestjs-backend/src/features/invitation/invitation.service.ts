@@ -295,27 +295,18 @@ export class InvitationService {
         throw new NotFoundException(`base ${baseId} not found`);
       });
 
-    const exist = await this.prismaService.txClient().collaborator.count({
-      where: {
-        principalId: currentUserId,
-        principalType: PrincipalType.User,
-        resourceId: baseId,
-      },
-    });
-    if (!exist) {
-      await this.prismaService.$tx(async () => {
-        // save invitation record for audit
-        await this.prismaService.txClient().invitationRecord.create({
-          data: {
-            invitationId: linkInvitation.id,
-            inviter: createdBy,
-            accepter: currentUserId,
-            type: 'link',
-            baseId,
-          },
-        });
+    await this.prismaService.$tx(async () => {
+      // save invitation record for audit
+      await this.prismaService.txClient().invitationRecord.create({
+        data: {
+          invitationId: linkInvitation.id,
+          inviter: createdBy,
+          accepter: currentUserId,
+          type: 'link',
+          baseId,
+        },
       });
-    }
+    });
     return { baseId };
   }
 }

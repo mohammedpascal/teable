@@ -198,11 +198,6 @@ export class BaseService {
   }
 
   async cleanBaseRelatedData(baseId: string) {
-    // delete collaborators for base
-    await this.prismaService.txClient().collaborator.deleteMany({
-      where: { resourceId: baseId, resourceType: CollaboratorType.Base },
-    });
-
     // delete invitation for base
     await this.prismaService.txClient().invitation.deleteMany({
       where: { baseId },

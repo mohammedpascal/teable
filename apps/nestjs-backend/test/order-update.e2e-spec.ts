@@ -188,40 +188,8 @@ describe('order update', () => {
   });
 
   describe('table', () => {
-    // TODO: Space functionality not yet implemented
-    // const spaceId = globalThis.testConfig.spaceId;
-    // let base: ICreateBaseVo;
-    // beforeEach(async () => {
-    //   base = (await createBase({ spaceId, name: 'base1' })).data;
-    // });
-
-    // afterEach(async () => {
-    //   await deleteBase(base.id);
-    // });
-
     it('should update table order', async () => {
-      // TODO: Space functionality not yet implemented
-      // const table1 = {
-      //   id: (await createTable(base.id)).data.id,
-      // };
-      // const table2 = {
-      //   id: (await createTable(base.id)).data.id,
-      // };
-      // const table3 = {
-      //   id: (await createTable(base.id)).data.id,
-      // };
-      // await updateTableOrder(base.id, table3.id, { anchorId: table2.id, position: 'before' });
-      // const tables = (await getTableList(base.id)).data;
-      // expect(tables).toMatchObject([table1, table3, table2]);
-      // await updateTableOrder(base.id, table3.id, { anchorId: table1.id, position: 'before' });
-      // const tables2 = (await getTableList(base.id)).data;
-      // expect(tables2).toMatchObject([table3, table1, table2]);
-      // await updateTableOrder(base.id, table3.id, { anchorId: table1.id, position: 'after' });
-      // const tables3 = (await getTableList(base.id)).data;
-      // expect(tables3).toMatchObject([table1, table3, table2]);
-      // await updateTableOrder(base.id, table3.id, { anchorId: table2.id, position: 'after' });
-      // const tables4 = (await getTableList(base.id)).data;
-      // expect(tables4).toMatchObject([table1, table2, table3]);
+      // Test placeholder - table ordering tests would go here
     });
   });
 

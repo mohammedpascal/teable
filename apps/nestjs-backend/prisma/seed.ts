@@ -2,7 +2,6 @@
 import type { ParseArgsConfig } from 'node:util';
 import { parseArgs } from 'node:util';
 import { PrismaClient } from '@prisma/client';
-import { SpaceSeeds } from '../src/prisma/seeds/e2e/space-seeds';
 import { UserSeeds } from '../src/prisma/seeds/e2e/user-seeds';
 
 export type IDsn = {
@@ -55,9 +54,6 @@ async function main() {
   if (e2e) {
     const userSeeds = new UserSeeds(prisma, driver as any, Boolean(log));
     await userSeeds.execute();
-
-    const spaceSeeds = new SpaceSeeds(prisma, driver as any, Boolean(log));
-    await spaceSeeds.execute();
   }
 }
 

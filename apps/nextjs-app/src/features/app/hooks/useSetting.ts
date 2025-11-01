@@ -5,8 +5,6 @@ import { useSession } from '@teable/sdk/hooks';
 
 interface ISetting {
   disallowSignUp?: boolean;
-  disallowSpaceCreation?: boolean;
-  disallowSpaceInvitation?: boolean;
 }
 
 export const useSetting = () => {
@@ -16,15 +14,9 @@ export const useSetting = () => {
     queryFn: () => getPublicSetting().then(({ data }) => data),
   });
 
-  const {
-    disallowSignUp = false,
-    disallowSpaceCreation = false,
-    disallowSpaceInvitation = false,
-  } = (setting as ISetting) ?? {};
+  const { disallowSignUp = false } = (setting as ISetting) ?? {};
 
   return {
     disallowSignUp,
-    disallowSpaceCreation: !user.isAdmin && (isLoading || disallowSpaceCreation),
-    disallowSpaceInvitation: !user.isAdmin && (isLoading || disallowSpaceInvitation),
   };
 };

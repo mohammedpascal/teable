@@ -227,11 +227,6 @@ describe('OpenAPI ImportController (e2e)', () => {
     it.each(testFileFormats.filter((format) => format !== TestFileFormat.TXT))(
       'should create a new Table from %s file',
       async (format) => {
-        // TODO: Space functionality not yet implemented - using existing base
-        // const spaceRes = await apiCreateSpace({ name: `test${format}` });
-        // const spaceId = spaceRes?.data?.id;
-        // const baseRes = await apiCreateBase({ spaceId });
-        // const baseId = baseRes.data.id;
         const baseId = globalThis.testConfig.baseId;
 
         const fileType = testSupportTypeMap[format].fileType;
@@ -288,11 +283,6 @@ describe('OpenAPI ImportController (e2e)', () => {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     it('should import data into Table from file', async () => {
-      // TODO: Space functionality not yet implemented - using existing base
-      // const spaceRes = await apiCreateSpace({ name: 'test1' });
-      // const spaceId = spaceRes?.data?.id;
-      // const baseRes = await apiCreateBase({ spaceId });
-      // const baseId = baseRes.data.id;
       const baseId = globalThis.testConfig.baseId;
 
       const format = SUPPORTEDTYPE.CSV;

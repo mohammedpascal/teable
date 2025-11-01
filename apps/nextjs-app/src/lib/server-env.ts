@@ -14,8 +14,6 @@ export interface IServerEnv {
   // global settings
   globalSettings?: {
     disallowSignUp?: boolean;
-    disallowSpaceCreation?: boolean;
-    disallowSpaceInvitation?: boolean;
     aiConfig?: {
       enable: boolean;
     };
