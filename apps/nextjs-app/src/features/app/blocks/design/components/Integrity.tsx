@@ -26,7 +26,7 @@ export const IntegrityButton = () => {
     <Popover>
       <PopoverTrigger asChild>
         <Button size="xs" variant="outline" onClick={() => refetch()}>
-          {t('table:table.integrity.check')}
+          Check Integrity
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">

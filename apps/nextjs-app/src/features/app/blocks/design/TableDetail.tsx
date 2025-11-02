@@ -131,7 +131,7 @@ export const TableDetail = () => {
   const dbTableName = table.dbTableName;
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="mt-8 flex items-center justify-center gap-4">
       <EditableField
         label={t('table:table.nameForTable')}
         value={table.name}
