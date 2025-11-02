@@ -7,7 +7,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@teable/ui-lib/shadcn';
@@ -35,17 +34,17 @@ export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
+        <DropdownMenuItem
+          className="flex cursor-pointer gap-2 font-normal"
+          onClick={() => setting.setOpen(true)}
+        >
+          <User className="mt-0.5 size-4 shrink-0" />
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user.name}</p>
             <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
           </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex gap-2" onClick={() => setting.setOpen(true)}>
-          <User className="size-4 shrink-0" />
-          {t('settings.account.title')}
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
 
         <DropdownMenuItem
           className="flex gap-2"
