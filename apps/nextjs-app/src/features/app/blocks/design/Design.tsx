@@ -16,7 +16,7 @@ export const Design = () => {
         <div className="h-screen overflow-y-auto bg-background">
           {/* Header */}
           <div className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="flex items-center gap-2 px-4 py-1">
+            <div className="flex items-center gap-2 px-4 py-2">
               <h1 className="text-lg font-semibold">{t('table:table.design')}</h1>
               {tableId && (
                 <TablePicker
