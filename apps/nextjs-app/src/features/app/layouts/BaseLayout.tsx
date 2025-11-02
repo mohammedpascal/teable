@@ -50,8 +50,8 @@ export const BaseLayout: React.FC<{
       {
         Icon: Code2,
         label: 'API' as React.ReactNode,
-        route: '/developer/tool/query-builder',
-        pathTo: `/developer/tool/query-builder`,
+        route: '/base/[baseId]/query-builder',
+        pathTo: `/base/${baseId}/query-builder`,
       },
     ];
   }, [baseId, tableId]);
