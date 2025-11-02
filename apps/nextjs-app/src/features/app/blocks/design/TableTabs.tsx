@@ -11,7 +11,7 @@ import { FieldSetting } from '../view/field/FieldSetting';
 import { DataTable } from './data-table/DataTable';
 import { TableDetail } from './TableDetail';
 
-const TablePicker = ({
+export const TablePicker = ({
   tableId,
   readonly,
   onChange,
@@ -155,16 +155,6 @@ export const TableTabs = () => {
       }
       className="space-y-4"
     >
-      <div className="flex items-center justify-between">
-        <TablePicker
-          tableId={tableId}
-          readonly={false}
-          onChange={(tableId) =>
-            router.push({ pathname: router.pathname, query: { ...router.query, tableId } })
-          }
-        />
-      </div>
-
       {tables.map((table) => (
         <AnchorContext.Provider key={table.id} value={{ baseId, tableId: table.id }}>
           <TablePermissionProvider baseId={baseId}>
