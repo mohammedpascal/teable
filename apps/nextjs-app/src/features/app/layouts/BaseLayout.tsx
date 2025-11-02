@@ -44,7 +44,7 @@ export const BaseLayout: React.FC<{
       },
       {
         Icon: Key,
-        label: t('personalAccessToken') as React.ReactNode,
+        label: 'Access Tokens' as React.ReactNode,
         route: '/base/[baseId]/setting',
         pathTo: `/base/${baseId}/setting`,
       },

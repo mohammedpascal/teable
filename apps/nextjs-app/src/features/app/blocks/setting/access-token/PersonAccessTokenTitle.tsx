@@ -22,7 +22,7 @@ export const PersonAccessTokenTitle = (props: IPersonAccessTokenTitleProps) => {
       case 'edit':
         return t('token:edit.title');
       default:
-        return t('setting:personalAccessToken');
+        return 'Access Tokens';
     }
   }, [formType, t]);
 

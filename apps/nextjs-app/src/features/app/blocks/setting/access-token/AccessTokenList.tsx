@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Action } from '@teable/core';
-import { ArrowUpRight, Plus } from '@teable/icons';
 import { deleteAccessToken, listAccessToken } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { usePermissionActionsStatic } from '@teable/sdk/hooks';
@@ -16,7 +15,6 @@ import {
   Button,
   Input,
 } from '@teable/ui-lib/shadcn';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useRef, useState } from 'react';
@@ -78,27 +76,6 @@ export const AccessTokenList = (props: { newToken?: string }) => {
           </div>
         </div>
       )}
-      <div className="flex justify-end gap-2">
-        <Button size={'xs'} variant="link" className="space-x-1" asChild>
-          <Link href="/developer/tool/query-builder">
-            <ArrowUpRight />
-            {t('developer:apiQueryBuilder')}
-          </Link>
-        </Button>
-        <Button
-          size={'xs'}
-          className="space-x-1"
-          onClick={() => {
-            router.push({
-              pathname: router.pathname,
-              query: { ...router.query, form: 'new' },
-            });
-          }}
-        >
-          <Plus />
-          {t('token:new.button')}
-        </Button>
-      </div>
       <Table>
         {!listResult?.length && (
           <TableCaption className="text-center">{t('token:empty.list')}</TableCaption>
