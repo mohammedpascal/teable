@@ -46,53 +46,6 @@ export class BaseService {
     };
   }
 
-  async getAccessBaseList() {
-    const userId = this.cls.get('user.id');
-    const accessTokenId = this.cls.get('accessTokenId');
-
-    if (accessTokenId) {
-      const access = await this.prismaService.accessToken.findFirst({
-        select: {
-          baseIds: true,
-        },
-        where: {
-          id: accessTokenId,
-          userId,
-        },
-      });
-      if (!access || !access.baseIds) {
-        return [];
-      }
-      const baseIds = Array.isArray(access.baseIds) ? access.baseIds : [];
-      if (baseIds.length === 0) {
-        return [];
-      }
-      // Return bases from access token
-      return this.prismaService.base.findMany({
-        select: {
-          id: true,
-          name: true,
-        },
-        where: {
-          id: { in: baseIds },
-        },
-      });
-    }
-
-    // Get user's own base
-    const userBase = await this.prismaService.base.findFirst({
-      select: {
-        id: true,
-        name: true,
-      },
-      where: {
-        userId: userId,
-      },
-    });
-
-    return userBase ? [userBase] : [];
-  }
-
   async getPermission() {
     // Return all permissions as true for authenticated users
     return [

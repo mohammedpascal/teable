@@ -1,10 +1,8 @@
-import { ArrowUpRight, Database, Table2 } from '@teable/icons';
+import { ArrowUpRight, Table2 } from '@teable/icons';
 import { AnchorContext, TableProvider } from '@teable/sdk/context';
 import { useBaseId, useTableId, useTables } from '@teable/sdk/hooks';
-import { Button } from '@teable/ui-lib/shadcn';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
 import { Selector } from '@/components/Selector';
 import { tableConfig } from '@/features/i18n/table.config';
 
@@ -16,41 +14,12 @@ interface ISelectTableProps {
 
 export const SelectTable = ({ baseId, tableId, onChange }: ISelectTableProps) => {
   const { t } = useTranslation(tableConfig.i18nNamespaces);
-  const [enableSelectBase, setEnableSelectBase] = useState(Boolean(baseId));
   const selfTableId = useTableId();
   const selfBaseId = useBaseId();
   const selectedBaseId = baseId || selfBaseId!;
 
   return (
     <div className="flex flex-col gap-1">
-      {enableSelectBase && (
-        <>
-          <div className="neutral-content label-text flex h-7 items-center justify-between">
-            {t('table:field.editor.linkBase')}
-            <Button
-              size="xs"
-              variant="link"
-              onClick={() => {
-                setEnableSelectBase(false);
-                onChange?.(undefined, undefined);
-              }}
-              className="text-xs text-slate-500 underline"
-            >
-              {t('common:actions.cancel')}
-            </Button>
-          </div>
-          <BasePicker
-            baseId={selectedBaseId}
-            onChange={(baseId) => {
-              if (baseId === selfBaseId) {
-                onChange?.(undefined, undefined);
-              } else {
-                onChange?.(baseId);
-              }
-            }}
-          />
-        </>
-      )}
       <AnchorContext.Provider value={{ baseId: selectedBaseId }}>
         <div className="neutral-content label-text flex h-7 items-center justify-between">
           <span className="flex items-center gap-1">
@@ -61,16 +30,6 @@ export const SelectTable = ({ baseId, tableId, onChange }: ISelectTableProps) =>
               </Link>
             )}
           </span>
-          {!enableSelectBase && (
-            <Button
-              size="xs"
-              variant="link"
-              onClick={() => setEnableSelectBase(true)}
-              className="text-xs text-slate-500 underline"
-            >
-              {t('table:field.editor.linkFromExternalBase')}
-            </Button>
-          )}
         </div>
         <TableProvider>
           <TablePicker
@@ -114,38 +73,6 @@ const TablePicker = ({ tableId, selfTableId, readonly, onChange }: ITablePickerP
         icon: table.icon || <Table2 className="size-4 shrink-0" />,
       }))}
       placeholder={t('table:field.editor.selectTable')}
-    />
-  );
-};
-
-interface IBasePickerProps {
-  baseId: string;
-  readonly?: boolean;
-  onChange?: (baseId: string) => void;
-}
-
-const BasePicker = ({ baseId, onChange }: IBasePickerProps) => {
-  const { t } = useTranslation(tableConfig.i18nNamespaces);
-  let bases: { id: string; name: string; icon?: string }[] | undefined = undefined;
-
-  if (baseId && !bases?.find((base) => base.id === baseId)) {
-    bases = bases?.concat({
-      id: baseId!,
-      name: t('table:field.editor.baseNoPermission'),
-    });
-  }
-
-  return (
-    <Selector
-      className="w-full"
-      selectedId={baseId}
-      onChange={(baseId) => onChange?.(baseId)}
-      candidates={bases?.map((base) => ({
-        id: base.id,
-        name: base.name,
-        icon: base.icon || <Database className="size-4 shrink-0" />,
-      }))}
-      placeholder={t('table:field.editor.selectBase')}
     />
   );
 };
