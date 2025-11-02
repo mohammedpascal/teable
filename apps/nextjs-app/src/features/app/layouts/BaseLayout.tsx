@@ -1,8 +1,8 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Code2, Key, Settings } from '@teable/icons';
+import { Settings } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
-import { NotificationProvider, SessionProvider } from '@teable/sdk';
 import type { IUser } from '@teable/sdk';
+import { NotificationProvider, SessionProvider } from '@teable/sdk';
 import { AnchorContext, AppProvider, BaseProvider, TableProvider } from '@teable/sdk/context';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -30,31 +30,15 @@ export const BaseLayout: React.FC<{
   const navigationRoutes = useMemo(() => {
     if (!baseId) return [];
 
-    const designPath = tableId
-      ? `/base/${baseId}/design?tableId=${tableId}`
-      : `/base/${baseId}/design`;
-
     return [
       {
         Icon: Settings,
-        label: 'Design' as React.ReactNode,
-        route: '/base/[baseId]/design',
-        pathTo: designPath,
-      },
-      {
-        Icon: Key,
-        label: 'Access Tokens' as React.ReactNode,
-        route: '/base/[baseId]/setting',
-        pathTo: `/base/${baseId}/setting`,
-      },
-      {
-        Icon: Code2,
-        label: 'API' as React.ReactNode,
-        route: '/base/[baseId]/query-builder',
-        pathTo: `/base/${baseId}/query-builder`,
+        label: 'Settings' as React.ReactNode,
+        route: '/base/[baseId]/settings',
+        pathTo: `/base/${baseId}/settings`,
       },
     ];
-  }, [baseId, tableId]);
+  }, [baseId]);
 
   return (
     <AppLayout>

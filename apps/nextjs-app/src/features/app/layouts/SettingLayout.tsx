@@ -14,7 +14,7 @@ import { useSettingRoute } from './useSettingRoute';
 export const SettingLayout: React.FC<{
   children: React.ReactNode;
   user?: IUser;
-  driver: DriverClient;
+  driver?: DriverClient;
   dehydratedState?: unknown;
 }> = ({ children, user, dehydratedState }) => {
   const router = useRouter();
@@ -23,9 +23,14 @@ export const SettingLayout: React.FC<{
   const { t } = useTranslation(['setting', 'common']);
 
   const routes = useSettingRoute();
+  const baseId = router.query.baseId as string | undefined;
 
   const onBack = () => {
-    router.push('/');
+    if (baseId) {
+      router.push(`/base/${baseId}`);
+    } else {
+      router.push('/');
+    }
   };
 
   return (
