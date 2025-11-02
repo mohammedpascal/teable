@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { CellFormat, FieldKeyType, type IFilterSet, type ISortItem } from '@teable/core';
 import { ArrowUpRight } from '@teable/icons';
 import type { IQueryBaseRo } from '@teable/openapi';
-import { getBaseAll, getTableList } from '@teable/openapi';
+import { getTableList } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { StandaloneViewProvider } from '@teable/sdk/context';
 import { Button, ToggleGroup, ToggleGroupItem } from '@teable/ui-lib/shadcn';
@@ -21,10 +21,11 @@ import { SearchBuilder } from './SearchBuilder';
 import { OrderByBuilder } from './SortBuilder';
 import { ViewBuilder } from './ViewBuilder';
 
+const baseId = 'bse0';
+
 export const QueryBuilder = () => {
   const { t } = useTranslation(developerConfig.i18nNamespaces);
   const router = useRouter();
-  const [baseId, setBaseId] = useState<string>(router.query.baseId as string);
   const [tableId, setTableId] = useState<string>(router.query.tableId as string);
   const [viewId, setViewId] = useState<string>();
   const [filter, setFilter] = useState<IFilterSet | null>(null);
@@ -32,10 +33,6 @@ export const QueryBuilder = () => {
   const [cellFormat, setCellFormat] = useState<CellFormat>();
   const [orderBy, setOrderBy] = useState<ISortItem[]>();
   const [search, setSearch] = useState<IQueryBaseRo['search']>();
-  const { data: baseListReq } = useQuery({
-    queryKey: ReactQueryKeys.baseAll(),
-    queryFn: () => getBaseAll().then((data) => data.data),
-  });
 
   const { data: tableListReq } = useQuery({
     queryKey: ReactQueryKeys.tableList(baseId as string),
@@ -58,17 +55,7 @@ export const QueryBuilder = () => {
           </div>
           <p>{t('developer:chooseSource')}</p>
           <div className="flex flex-col gap-2">
-            <h1>1. {t('common:noun.base')}</h1>
-            <Selector
-              className="w-80"
-              placeholder={t('developer:action.selectBase')}
-              candidates={baseListReq}
-              selectedId={baseId}
-              onChange={(id) => setBaseId(id)}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <h1>2. {t('common:noun.table')}</h1>
+            <h1>{t('common:noun.table')}</h1>
             <Selector
               className="w-80"
               placeholder={t('developer:action.selectTable')}

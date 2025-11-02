@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import type { IGetBaseAllVo, IGetBasePermissionVo, IGetBaseVo } from '@teable/openapi';
 import { baseQuerySchemaRo, IBaseQuerySchemaRo } from '@teable/openapi';
@@ -15,7 +14,7 @@ export class BaseController {
 
   @Get(':baseId')
   async getBaseById(@Param('baseId') baseId: string): Promise<IGetBaseVo> {
-    return await this.baseService.getBaseById(baseId);
+    return this.baseService.getBaseById(baseId);
   }
 
   @Get('access/all')
@@ -25,7 +24,7 @@ export class BaseController {
 
   @Get(':baseId/permission')
   async getPermission(): Promise<IGetBasePermissionVo> {
-    return await this.baseService.getPermission();
+    return this.baseService.getPermission();
   }
 
   @Get(':baseId/query')
