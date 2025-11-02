@@ -144,12 +144,6 @@ export const TableOperation = (props: ITableOperationProps) => {
           className="min-w-[160px]"
           onClick={(e) => e.stopPropagation()}
         >
-          {menuPermission.updateTable && (
-            <DropdownMenuItem onClick={() => onRename?.()}>
-              <Pencil className="mr-2" />
-              {t('table:table.rename')}
-            </DropdownMenuItem>
-          )}
           <DropdownMenuItem asChild>
             <Link
               href={{

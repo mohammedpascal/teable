@@ -1,6 +1,6 @@
 import { BadGatewayException, Injectable, Logger } from '@nestjs/common';
 import type { IFormulaFieldOptions, ILinkFieldOptions, ILookupOptionsRo } from '@teable/core';
-import { FieldType, generateShareId, generateViewId } from '@teable/core';
+import { FieldType, generateViewId } from '@teable/core';
 import type { IDuplicateTableRo, IDuplicateTableVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { get, pick } from 'lodash';
@@ -787,7 +787,6 @@ export class TableDuplicateService {
           version: 1,
           tableId: targetTableId,
           id: newViewId,
-          shareId: generateShareId(),
           ...updatedFields,
         };
       }),
