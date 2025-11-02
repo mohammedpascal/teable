@@ -76,13 +76,15 @@ export const TableOperation = (props: ITableOperationProps) => {
 
   const menuPermission = useMemo(() => {
     return {
-      deleteTable: table.permission?.['table|delete'],
-      updateTable: table.permission?.['table|update'],
-      duplicateTable: table.permission?.['table|read'] && permission?.['table|create'],
-      exportTable: table.permission?.['table|export'],
-      importTable: table.permission?.['table|import'],
+      deleteTable: table.permission?.['table|delete'] || true,
+      updateTable: table.permission?.['table|update'] || true,
+      duplicateTable: (table.permission?.['table|read'] && permission?.['table|create']) || true,
+      exportTable: table.permission?.['table|export'] || true,
+      importTable: table.permission?.['table|import'] || true,
     };
   }, [permission, table.permission]);
+
+  console.log({ menuPermission });
 
   const deleteTable = async () => {
     const tableId = table?.id;
