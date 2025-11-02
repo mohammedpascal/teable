@@ -1,15 +1,12 @@
 import { AnchorContext, TablePermissionProvider } from '@teable/sdk/context';
-import { Separator } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { BaseDetail } from './BaseDetail';
-import { TableTabs } from './TableTabs';
 import { IntegrityButton } from './components/Integrity';
+import { TableTabs } from './TableTabs';
 
 export const Design = () => {
   const router = useRouter();
   const baseId = router.query.baseId as string;
-  const tableId = router.query.tableId as string | undefined;
   const { t } = useTranslation(['table']);
 
   return (
@@ -25,11 +22,6 @@ export const Design = () => {
           </div>
 
           <div className="space-y-4 p-4 pb-8">
-            {/* Top Section: Base Info */}
-            <BaseDetail />
-
-            <Separator />
-
             <TableTabs />
           </div>
         </div>
