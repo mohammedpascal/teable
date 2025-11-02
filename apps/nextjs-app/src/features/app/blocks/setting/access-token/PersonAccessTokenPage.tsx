@@ -1,7 +1,6 @@
-import { ArrowUpRight, Plus } from '@teable/icons';
+import { Plus } from '@teable/icons';
 import type { CreateAccessTokenVo, UpdateAccessTokenVo } from '@teable/openapi';
 import { Button } from '@teable/ui-lib/shadcn';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useRef } from 'react';
@@ -17,7 +16,6 @@ export const PersonAccessTokenPage = () => {
   const { baseId, form: _form, id: _id, ...restQuery } = router.query;
   const formType = router.query.form as IFormType;
   const newTokenRef = useRef<string>();
-  const { t } = useTranslation('common');
   const { t: tokenT } = useTranslation(personalAccessTokenConfig.i18nNamespaces);
 
   const backList = () => {
@@ -54,12 +52,6 @@ export const PersonAccessTokenPage = () => {
 
   const headerActions = !formType ? (
     <>
-      <Button size={'xs'} variant="link" className="space-x-1" asChild>
-        <Link href="/developer/tool/query-builder">
-          <ArrowUpRight />
-          {tokenT('developer:apiQueryBuilder')}
-        </Link>
-      </Button>
       <Button
         size={'xs'}
         className="space-x-1"
