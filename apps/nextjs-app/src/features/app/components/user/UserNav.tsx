@@ -1,6 +1,6 @@
 import { ExitIcon } from '@radix-ui/react-icons';
 import { useMutation } from '@tanstack/react-query';
-import { Code, User } from '@teable/icons';
+import { User } from '@teable/icons';
 import { signout } from '@teable/openapi';
 import { useSession } from '@teable/sdk/hooks';
 import {
@@ -46,13 +46,6 @@ export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem
-          className="flex gap-2"
-          onClick={() => router.push('/setting/personal-access-token')}
-        >
-          <Code className="size-4 shrink-0" />
-          {t('settings.account.manageToken')}
-        </DropdownMenuItem>
         <DropdownMenuItem className="flex gap-2" onClick={loginOutClick} disabled={isLoading}>
           <ExitIcon className="size-4 shrink-0" />
           {t('settings.nav.logout')}
