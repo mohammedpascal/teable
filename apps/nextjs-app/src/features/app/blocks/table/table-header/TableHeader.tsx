@@ -11,7 +11,7 @@ import {
 } from '@teable/ui-lib/shadcn';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { TableOperation } from '../../table-list/TableOperation';
 import { ExpandViewList } from '../../view/list/ExpandViewList';
@@ -20,36 +20,26 @@ import { ViewList } from '../../view/list/ViewList';
 import { AddView } from './AddView';
 import { TableInfo } from './TableInfo';
 
-const RightList = ({
-  className,
-  buttonClassName,
-}: {
-  className?: string;
-  buttonClassName?: string;
-}) => {
-  const base = useBase();
-  const tableId = useTableId();
+const RightList = ({ className }: { className?: string }) => {
   const table = useTable();
-  const { t } = useTranslation(tableConfig.i18nNamespaces);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className={cn('flex', className)}>
       <div className="flex">
-        <Button asChild variant="outline" size="xs" className={cn('flex', buttonClassName)}>
-          <Link
-            href={{
-              pathname: '/developer/tool/query-builder',
-              query: { baseId: base.id, tableId },
-            }}
-            target="_blank"
-            title={t('table:toolbar.others.api.restfulApi')}
-          >
-            <Code2 className="size-4" />
-            <span className="">API</span>
-          </Link>
+        <Button onClick={() => setOpen(true)} variant="ghost" size="xs" className={cn('flex')}>
+          <MoreHorizontal className="size-4" />
         </Button>
       </div>
-      {table && <TableOperation table={table} />}
+
+      {table && (
+        <TableOperation
+          table={table}
+          className="size-4 shrink-0 sm:opacity-0 sm:group-hover:opacity-100"
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
     </div>
   );
 };
