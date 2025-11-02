@@ -1,16 +1,18 @@
 import type { DehydratedState } from '@tanstack/react-query';
+import { Key, Settings } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
 import { NotificationProvider, SessionProvider } from '@teable/sdk';
 import type { IUser } from '@teable/sdk';
 import { AnchorContext, AppProvider, BaseProvider, TableProvider } from '@teable/sdk/context';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { AppLayout } from '@/features/app/layouts';
 import { BaseSideBar } from '../blocks/base/base-side-bar/BaseSideBar';
 import { BaseSidebarHeaderLeft } from '../blocks/base/base-side-bar/BaseSidebarHeaderLeft';
 import { BasePermissionListener } from '../blocks/base/BasePermissionListener';
 import { Sidebar } from '../components/sidebar/Sidebar';
+import { SidebarContent } from '../components/sidebar/SidebarContent';
 import { SideBarFooter } from '../components/SideBarFooter';
 import { useSdkLocale } from '../hooks/useSdkLocale';
 
@@ -24,6 +26,26 @@ export const BaseLayout: React.FC<{
   const { baseId, tableId, viewId } = router.query;
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
+  const { t } = useTranslation(['setting', 'common']);
+
+  const navigationRoutes = useMemo(() => {
+    if (!baseId) return [];
+
+    return [
+      {
+        Icon: Settings,
+        label: 'Design' as React.ReactNode,
+        route: '/base/[baseId]/design',
+        pathTo: `/base/${baseId}/design`,
+      },
+      {
+        Icon: Key,
+        label: t('personalAccessToken') as React.ReactNode,
+        route: '/base/[baseId]/setting',
+        pathTo: `/base/${baseId}/setting`,
+      },
+    ];
+  }, [baseId, t]);
 
   return (
     <AppLayout>
@@ -52,6 +74,9 @@ export const BaseLayout: React.FC<{
                             <BaseSideBar />
                           </div>
                           <div className="grow basis-0" />
+                          {navigationRoutes.length > 0 && (
+                            <SidebarContent routes={navigationRoutes} />
+                          )}
                           <SideBarFooter />
                         </Fragment>
                       </Sidebar>

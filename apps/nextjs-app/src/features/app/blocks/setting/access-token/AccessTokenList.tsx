@@ -54,7 +54,7 @@ export const AccessTokenList = (props: { newToken?: string }) => {
   const onEdit = (id: string) => {
     router.push({
       pathname: router.pathname,
-      query: { form: 'edit', id },
+      query: { ...router.query, form: 'edit', id },
     });
   };
 
@@ -88,12 +88,12 @@ export const AccessTokenList = (props: { newToken?: string }) => {
         <Button
           size={'xs'}
           className="space-x-1"
-          onClick={() =>
+          onClick={() => {
             router.push({
               pathname: router.pathname,
-              query: { form: 'new' },
-            })
-          }
+              query: { ...router.query, form: 'new' },
+            });
+          }}
         >
           <Plus />
           {t('token:new.button')}
