@@ -1,5 +1,5 @@
 import { Code2, MoreHorizontal, Settings } from '@teable/icons';
-import { useBase, useTableId } from '@teable/sdk/hooks';
+import { useBase, useTable, useTableId } from '@teable/sdk/hooks';
 import {
   Button,
   cn,
@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Fragment } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
+import { TableOperation } from '../../table-list/TableOperation';
 import { ExpandViewList } from '../../view/list/ExpandViewList';
 import { ViewList } from '../../view/list/ViewList';
 
@@ -28,6 +29,7 @@ const RightList = ({
 }) => {
   const base = useBase();
   const tableId = useTableId();
+  const table = useTable();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
 
   return (
@@ -47,6 +49,7 @@ const RightList = ({
           </Link>
         </Button>
       </div>
+      {table && <TableOperation table={table} />}
     </div>
   );
 };
