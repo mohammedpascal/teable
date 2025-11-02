@@ -122,11 +122,6 @@ export const TableDetail = () => {
     toast(t('actions.updateSucceed'));
   };
 
-  const handleUpdateDescription = async (newDescription: string | null) => {
-    await table.updateDescription(newDescription);
-    toast(t('actions.updateSucceed'));
-  };
-
   const handleUpdateDbTableName = async (newDbTableName: string | null) => {
     if (newDbTableName == null) return;
     await table.updateDbTableName(newDbTableName);
@@ -136,27 +131,25 @@ export const TableDetail = () => {
   const dbTableName = table.dbTableName;
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <div className="space-y-2">
-        <EditableField
-          label={t('table:table.nameForTable')}
-          value={table.name}
-          editable={canUpdate}
-          onSave={handleUpdateTableName}
-        />
-        <EditableField
-          label={t('table:table.dbTableName')}
-          value={dbTableName}
-          editable={canUpdate}
-          onSave={handleUpdateDbTableName}
-        />
+    <div className="flex items-center justify-center gap-4">
+      <EditableField
+        label={t('table:table.nameForTable')}
+        value={table.name}
+        editable={canUpdate}
+        onSave={handleUpdateTableName}
+      />
+      <EditableField
+        label={t('table:table.dbTableName')}
+        value={dbTableName}
+        editable={canUpdate}
+        onSave={handleUpdateDbTableName}
+      />
 
-        <div>
-          <label className="text-xs text-muted-foreground">{t('table:lastModifiedTime')}</label>
-          <pre className="max-h-0h-[72px] overflow-y-auto text-sm">
-            {dayjs(table?.lastModifiedTime).fromNow()}
-          </pre>
-        </div>
+      <div>
+        <label className="text-xs text-muted-foreground">{t('table:lastModifiedTime')}</label>
+        <pre className="max-h-0h-[72px] overflow-y-auto text-sm">
+          {dayjs(table?.lastModifiedTime).fromNow()}
+        </pre>
       </div>
     </div>
   );

@@ -91,10 +91,16 @@ const DangerZone = () => {
 
   return (
     <>
-      <Button variant="destructive" onClick={() => setDeleteConfirm(true)}>
-        <Trash2 className="mr-2 size-4" />
-        {t('common:actions.delete')}
-      </Button>
+      <div className="flex justify-center">
+        <Button
+          variant="outline"
+          className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+          onClick={() => setDeleteConfirm(true)}
+        >
+          <Trash2 className="mr-2 size-4" />
+          {t('common:actions.delete')} {table.name} table
+        </Button>
+      </div>
 
       <ConfirmDialog
         open={deleteConfirm}
