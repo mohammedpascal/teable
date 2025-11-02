@@ -254,7 +254,7 @@ export const PreviewScript = ({
           onChange={(v) => setToken(v.target.value)}
         />
         <Button variant="link" asChild>
-          <Link href="/setting/personal-access-token" target="_blank">
+          <Link href="/settings/access-tokens" target="_blank">
             <ArrowUpRight className="size-4" />
             {t('developer:createNewToken')}
           </Link>

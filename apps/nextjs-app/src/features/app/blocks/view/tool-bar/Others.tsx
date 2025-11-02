@@ -41,7 +41,7 @@ const OthersList = ({
           >
             <Link
               href={{
-                pathname: '/developer/tool/query-builder',
+                pathname: '/settings/query-builder',
                 query: { baseId, tableId },
               }}
               target="_blank"

@@ -65,7 +65,7 @@ const RightMenu = ({ className }: { className?: string }) => {
           <Button asChild variant="ghost" size="xs" className="flex justify-start">
             <Link
               href={{
-                pathname: '/developer/tool/query-builder',
+                pathname: '/settings/query-builder',
                 query: { baseId: base.id, tableId },
               }}
               target="_blank"

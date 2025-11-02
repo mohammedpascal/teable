@@ -32,20 +32,20 @@ export const useSettingRoute = () => {
       {
         Icon: Key,
         label: t('personalAccessToken'),
-        route: '/setting/personal-access-token',
-        pathTo: '/setting/personal-access-token',
+        route: '/settings/access-tokens',
+        pathTo: '/settings/access-tokens',
       },
       {
         Icon: Code2,
         label: t('developer:apiQueryBuilder'),
-        route: '/developer/tool/query-builder',
-        pathTo: '/developer/tool/query-builder',
+        route: '/settings/query-builder',
+        pathTo: '/settings/query-builder',
       },
       {
         Icon: Settings,
         label: t('settings.title1'),
-        route: '/admin/setting',
-        pathTo: '/admin/setting',
+        route: '/settings',
+        pathTo: '/settings',
       },
     ];
   }, [t, baseId]);

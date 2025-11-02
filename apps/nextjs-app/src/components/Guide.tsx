@@ -159,7 +159,7 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
                   // eslint-disable-next-line jsx-a11y/anchor-has-content
                   <a
                     className="text-violet-500"
-                    href="/setting/personal-access-token"
+                    href="/settings/access-tokens"
                     target="_blank"
                   />
                 ),

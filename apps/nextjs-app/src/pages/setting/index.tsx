@@ -8,7 +8,7 @@ const Node: NextPageWithLayout = () => {
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
-      destination: `/setting/personal-access-token`,
+      destination: `/settings/access-tokens`,
       permanent: false,
     },
   };
