@@ -31,12 +31,16 @@ export const BaseLayout: React.FC<{
   const navigationRoutes = useMemo(() => {
     if (!baseId) return [];
 
+    const designPath = tableId
+      ? `/base/${baseId}/design?tableId=${tableId}`
+      : `/base/${baseId}/design`;
+
     return [
       {
         Icon: Settings,
         label: 'Design' as React.ReactNode,
         route: '/base/[baseId]/design',
-        pathTo: `/base/${baseId}/design`,
+        pathTo: designPath,
       },
       {
         Icon: Key,
@@ -45,7 +49,7 @@ export const BaseLayout: React.FC<{
         pathTo: `/base/${baseId}/setting`,
       },
     ];
-  }, [baseId, t]);
+  }, [baseId, tableId, t]);
 
   return (
     <AppLayout>
