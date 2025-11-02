@@ -1,10 +1,10 @@
 import { AnchorContext, TablePermissionProvider } from '@teable/sdk/context';
-import { Button, Separator } from '@teable/ui-lib/shadcn';
-import { ChevronLeft } from 'lucide-react';
+import { Separator } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { BaseDetail } from './BaseDetail';
 import { TableTabs } from './TableTabs';
+import { IntegrityButton } from './components/Integrity';
 
 export const Design = () => {
   const router = useRouter();
@@ -12,25 +12,15 @@ export const Design = () => {
   const tableId = router.query.tableId as string | undefined;
   const { t } = useTranslation(['table']);
 
-  const handleBack = () => {
-    if (tableId) {
-      router.push(`/base/${baseId}/${tableId}`);
-    } else {
-      router.push(`/base/${baseId}`);
-    }
-  };
-
   return (
     <AnchorContext.Provider value={{ baseId }}>
       <TablePermissionProvider baseId={baseId}>
         <div className="h-screen overflow-y-auto bg-background">
           {/* Header */}
           <div className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="flex items-center gap-2 px-4 py-1">
-              <Button variant="ghost" size="icon" onClick={handleBack}>
-                <ChevronLeft className="size-4" />
-              </Button>
+            <div className="flex items-center justify-between gap-2 px-4 py-1">
               <h1 className="text-lg font-semibold">{t('table:table.design')}</h1>
+              <IntegrityButton />
             </div>
           </div>
 
