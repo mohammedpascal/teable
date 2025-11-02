@@ -1,5 +1,5 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Key, Settings } from '@teable/icons';
+import { Code2, Key, Settings } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
 import { NotificationProvider, SessionProvider } from '@teable/sdk';
 import type { IUser } from '@teable/sdk';
@@ -26,7 +26,6 @@ export const BaseLayout: React.FC<{
   const { baseId, tableId, viewId } = router.query;
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
-  const { t } = useTranslation(['setting', 'common']);
 
   const navigationRoutes = useMemo(() => {
     if (!baseId) return [];
@@ -48,8 +47,14 @@ export const BaseLayout: React.FC<{
         route: '/base/[baseId]/setting',
         pathTo: `/base/${baseId}/setting`,
       },
+      {
+        Icon: Code2,
+        label: 'API' as React.ReactNode,
+        route: '/developer/tool/query-builder',
+        pathTo: `/developer/tool/query-builder`,
+      },
     ];
-  }, [baseId, tableId, t]);
+  }, [baseId, tableId]);
 
   return (
     <AppLayout>

@@ -46,17 +46,6 @@ const RightList = ({
             <span className="">API</span>
           </Link>
         </Button>
-        <Button asChild variant="ghost" size="xs" className={cn('flex', buttonClassName)}>
-          <Link
-            href={{
-              pathname: '/base/[baseId]/design',
-              query: { baseId: base.id, tableId },
-            }}
-            title={t('table:table.design')}
-          >
-            <Settings className="size-4" />
-          </Link>
-        </Button>
       </div>
     </div>
   );
