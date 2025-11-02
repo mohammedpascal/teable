@@ -1,13 +1,13 @@
-import type { CreateAccessTokenVo, UpdateAccessTokenVo } from '@teable/openapi';
 import { ArrowUpRight, Plus } from '@teable/icons';
+import type { CreateAccessTokenVo, UpdateAccessTokenVo } from '@teable/openapi';
 import { Button } from '@teable/ui-lib/shadcn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useRef } from 'react';
+import { personalAccessTokenConfig } from '@/features/i18n/personal-access-token.config';
 import { SettingRight } from '../SettingRight';
 import { AccessTokenList } from './AccessTokenList';
-import { personalAccessTokenConfig } from '@/features/i18n/personal-access-token.config';
 import type { IFormType } from './form/AccessTokenForm';
 import { PersonAccessTokenForm } from './PersonAccessTokenForm';
 import { PersonAccessTokenTitle } from './PersonAccessTokenTitle';
@@ -52,30 +52,29 @@ export const PersonAccessTokenPage = () => {
     }
   }, [router.query]);
 
-  const headerActions =
-    !formType ? (
-      <>
-        <Button size={'xs'} variant="link" className="space-x-1" asChild>
-          <Link href="/developer/tool/query-builder">
-            <ArrowUpRight />
-            {tokenT('developer:apiQueryBuilder')}
-          </Link>
-        </Button>
-        <Button
-          size={'xs'}
-          className="space-x-1"
-          onClick={() => {
-            router.push({
-              pathname: router.pathname,
-              query: { ...router.query, form: 'new' },
-            });
-          }}
-        >
-          <Plus />
-          {tokenT('token:new.button')}
-        </Button>
-      </>
-    ) : undefined;
+  const headerActions = !formType ? (
+    <>
+      <Button size={'xs'} variant="link" className="space-x-1" asChild>
+        <Link href="/developer/tool/query-builder">
+          <ArrowUpRight />
+          {tokenT('developer:apiQueryBuilder')}
+        </Link>
+      </Button>
+      <Button
+        size={'xs'}
+        className="space-x-1"
+        onClick={() => {
+          router.push({
+            pathname: router.pathname,
+            query: { ...router.query, form: 'new' },
+          });
+        }}
+      >
+        <Plus />
+        {tokenT('token:new.button')}
+      </Button>
+    </>
+  ) : undefined;
 
   return (
     <SettingRight
