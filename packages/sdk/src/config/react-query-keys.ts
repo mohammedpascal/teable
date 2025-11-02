@@ -17,8 +17,6 @@ import {
 export const ReactQueryKeys = {
   base: (baseId: string) => ['base', baseId] as const,
 
-  baseAll: () => ['base-all'] as const,
-
   baseList: () => ['base-list'] as const,
 
   tableList: (baseId: string) => ['table-list', baseId] as const,

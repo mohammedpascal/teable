@@ -46,25 +46,6 @@ export class BaseService {
     };
   }
 
-  async getAllBaseList() {
-    const userId = this.cls.get('user.id');
-
-    const baseList = await this.prismaService.base.findMany({
-      select: {
-        id: true,
-        name: true,
-        order: true,
-        userId: true,
-        icon: true,
-      },
-      where: {
-        userId: userId,
-      },
-      orderBy: [{ userId: 'asc' }, { order: 'asc' }],
-    });
-    return baseList.map((base) => ({ ...base, role: 'creator' as const }));
-  }
-
   async getAccessBaseList() {
     const userId = this.cls.get('user.id');
     const accessTokenId = this.cls.get('accessTokenId');

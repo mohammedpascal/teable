@@ -1,8 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import { X } from '@teable/icons';
 import type { IGetBaseVo } from '@teable/openapi';
-import { getBaseAll } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
 import { Button } from '@teable/ui-lib/shadcn';
 import { isEmpty } from 'lodash';
 import { useMemo } from 'react';
@@ -16,10 +13,7 @@ interface IAccessListProps {
 export const AccessList = (props: IAccessListProps) => {
   const { baseIds, onDeleteBaseId } = props;
 
-  const { data: baseList } = useQuery({
-    queryKey: ReactQueryKeys.baseAll(),
-    queryFn: () => getBaseAll().then((data) => data.data),
-  });
+  const baseList: IGetBaseVo[] | undefined = undefined;
 
   const baseMap = useMemo(() => {
     const baseMap: Record<string, IGetBaseVo> = {};

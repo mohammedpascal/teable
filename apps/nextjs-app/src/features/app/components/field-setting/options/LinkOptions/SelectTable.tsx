@@ -1,7 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
 import { ArrowUpRight, Database, Table2 } from '@teable/icons';
-import { getBaseAll } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
 import { AnchorContext, TableProvider } from '@teable/sdk/context';
 import { useBaseId, useTableId, useTables } from '@teable/sdk/hooks';
 import { Button } from '@teable/ui-lib/shadcn';
@@ -129,13 +126,7 @@ interface IBasePickerProps {
 
 const BasePicker = ({ baseId, onChange }: IBasePickerProps) => {
   const { t } = useTranslation(tableConfig.i18nNamespaces);
-  let { data: bases } = useQuery({
-    queryKey: ReactQueryKeys.baseAll(),
-    queryFn: () =>
-      getBaseAll().then((data) => data.data) as Promise<
-        { id: string; name: string; icon?: string }[]
-      >,
-  });
+  let bases: { id: string; name: string; icon?: string }[] | undefined = undefined;
 
   if (baseId && !bases?.find((base) => base.id === baseId)) {
     bases = bases?.concat({

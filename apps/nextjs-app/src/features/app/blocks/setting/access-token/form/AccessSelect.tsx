@@ -1,7 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
 import { Database, Plus } from '@teable/icons';
-import { getBaseAll } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
 import { Spin } from '@teable/ui-lib/base';
 import {
   Button,
@@ -34,10 +31,8 @@ export const AccessSelect = (props: IAccessSelectProps) => {
   const [bases, setBases] = useState<string[]>(value?.baseIds || []);
   const [open, setOpen] = useState(false);
 
-  const { data: baseList, isLoading: baseListLoading } = useQuery({
-    queryKey: ReactQueryKeys.baseAll(),
-    queryFn: () => getBaseAll().then((data) => data.data),
-  });
+  const baseList: never[] | undefined = undefined;
+  const baseListLoading = false;
 
   const onChangeInner = (baseId?: string) => {
     onChange({

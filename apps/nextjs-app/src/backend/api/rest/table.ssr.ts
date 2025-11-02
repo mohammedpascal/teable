@@ -18,7 +18,6 @@ import type {
 } from '@teable/openapi';
 import {
   GET_BASE,
-  GET_BASE_ALL,
   GET_DEFAULT_VIEW_ID,
   GET_FIELD_LIST,
   GET_GROUP_POINTS,
@@ -115,10 +114,6 @@ export class SsrApi {
     return await this.axios
       .get<IGetBaseVo>(urlBuilder(GET_BASE, { baseId }))
       .then(({ data }) => data);
-  }
-
-  async getBaseList() {
-    return await this.axios.get<IGetBaseVo[]>(GET_BASE_ALL).then(({ data }) => data);
   }
 
   async getBasePermission(baseId: string) {

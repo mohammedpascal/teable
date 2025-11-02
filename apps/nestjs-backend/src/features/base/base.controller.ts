@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import type { IGetBaseAllVo, IGetBasePermissionVo, IGetBaseVo } from '@teable/openapi';
+import type { IGetBasePermissionVo, IGetBaseVo } from '@teable/openapi';
 import { baseQuerySchemaRo, IBaseQuerySchemaRo } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
 import { BaseQueryService } from './base-query/base-query.service';
@@ -15,11 +15,6 @@ export class BaseController {
   @Get(':baseId')
   async getBaseById(@Param('baseId') baseId: string): Promise<IGetBaseVo> {
     return this.baseService.getBaseById(baseId);
-  }
-
-  @Get('access/all')
-  async getAllBase(): Promise<IGetBaseAllVo> {
-    return this.baseService.getAllBaseList();
   }
 
   @Get(':baseId/permission')
