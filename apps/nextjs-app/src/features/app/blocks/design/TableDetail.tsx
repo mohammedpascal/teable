@@ -150,15 +150,7 @@ export const TableDetail = () => {
           editable={canUpdate}
           onSave={handleUpdateDbTableName}
         />
-      </div>
-      <div>
-        <EditableField
-          label={t('table:table.descriptionForTable')}
-          value={table.description}
-          editable={canUpdate}
-          multiline={true}
-          onSave={handleUpdateDescription}
-        />
+
         <div>
           <label className="text-xs text-muted-foreground">{t('table:lastModifiedTime')}</label>
           <pre className="max-h-0h-[72px] overflow-y-auto text-sm">

@@ -1,6 +1,6 @@
 import { Table2 } from '@teable/icons';
 import { AnchorContext, FieldProvider, TablePermissionProvider } from '@teable/sdk/context';
-import { useBase, useTable, useTables, useTablePermission } from '@teable/sdk/hooks';
+import { useBase, useTable, useTablePermission, useTables } from '@teable/sdk/hooks';
 import { ConfirmDialog, Selector } from '@teable/ui-lib/base';
 import { Button, Tabs, TabsContent } from '@teable/ui-lib/shadcn';
 import { Trash2 } from 'lucide-react';
@@ -91,28 +91,10 @@ const DangerZone = () => {
 
   return (
     <>
-      <div className="mt-8 border-t pt-6">
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-lg font-semibold text-destructive">Danger Zone</h3>
-            <p className="text-sm text-muted-foreground">Irreversible and destructive actions</p>
-          </div>
-          <div className="flex items-center justify-between rounded-lg border border-destructive/50 bg-destructive/5 p-4">
-            <div className="space-y-0.5">
-              <div className="font-medium">
-                {t('common:actions.delete')} {t('common:noun.table')}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Once you delete a table, there is no going back. Please be certain.
-              </div>
-            </div>
-            <Button variant="destructive" onClick={() => setDeleteConfirm(true)}>
-              <Trash2 className="mr-2 size-4" />
-              {t('common:actions.delete')}
-            </Button>
-          </div>
-        </div>
-      </div>
+      <Button variant="destructive" onClick={() => setDeleteConfirm(true)}>
+        <Trash2 className="mr-2 size-4" />
+        {t('common:actions.delete')}
+      </Button>
 
       <ConfirmDialog
         open={deleteConfirm}
@@ -159,9 +141,6 @@ export const TableTabs = () => {
         <AnchorContext.Provider key={table.id} value={{ baseId, tableId: table.id }}>
           <TablePermissionProvider baseId={baseId}>
             <TabsContent value={table.id} className="space-y-4">
-              {/* Table Details */}
-              <TableDetail />
-
               {/* Fields Table */}
               <div className="overflow-x-auto rounded-md border">
                 <FieldProvider>
@@ -169,6 +148,9 @@ export const TableTabs = () => {
                   <FieldSetting />
                 </FieldProvider>
               </div>
+
+              {/* Table Details */}
+              <TableDetail />
 
               {/* Danger Zone */}
               <DangerZone />
