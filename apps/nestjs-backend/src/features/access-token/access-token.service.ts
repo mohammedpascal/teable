@@ -22,19 +22,17 @@ export class AccessTokenService {
     T extends {
       description?: string | null;
       scopes: string;
-      baseIds: string | null;
       createdTime?: Date;
       lastUsedTime?: Date | null;
       expiredTime?: Date;
     },
   >(accessTokenEntity: T) {
-    const { scopes, baseIds, createdTime, lastUsedTime, expiredTime, description } =
+    const { scopes, createdTime, lastUsedTime, expiredTime, description } =
       accessTokenEntity;
     return {
       ...accessTokenEntity,
       description: description || undefined,
       scopes: JSON.parse(scopes) as Action[],
-      baseIds: baseIds ? (JSON.parse(baseIds) as string[]) : undefined,
       createdTime: createdTime?.toISOString(),
       lastUsedTime: lastUsedTime?.toISOString(),
       expiredTime: expiredTime?.toISOString(),
@@ -83,7 +81,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        baseIds: true,
         createdTime: true,
         expiredTime: true,
         lastUsedTime: true,
@@ -97,7 +94,7 @@ export class AccessTokenService {
     createAccessToken: CreateAccessTokenRo & { clientId?: string; userId?: string }
   ) {
     const userId = createAccessToken.userId ?? this.cls.get('user.id')!;
-    const { name, description, scopes, baseIds, expiredTime, clientId } =
+    const { name, description, scopes, expiredTime, clientId } =
       createAccessToken;
     const id = generateAccessTokenId();
     const sign = getRandomString(16);
@@ -107,7 +104,6 @@ export class AccessTokenService {
         name,
         description,
         scopes: JSON.stringify(scopes),
-        baseIds: baseIds === null ? null : JSON.stringify(baseIds),
         userId,
         sign,
         clientId,
@@ -118,7 +114,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        baseIds: true,
         expiredTime: true,
         createdTime: true,
         lastUsedTime: true,
@@ -166,21 +161,19 @@ export class AccessTokenService {
 
   async updateAccessToken(id: string, updateAccessToken: UpdateAccessTokenRo) {
     const userId = this.cls.get('user.id');
-    const { name, description, scopes, baseIds } = updateAccessToken;
+    const { name, description, scopes } = updateAccessToken;
     const accessTokenEntity = await this.prismaService.accessToken.update({
       where: { id, userId },
       data: {
         name,
         description,
         scopes: JSON.stringify(scopes),
-        baseIds: baseIds === null ? null : JSON.stringify(baseIds),
       },
       select: {
         id: true,
         name: true,
         description: true,
         scopes: true,
-        baseIds: true,
       },
     });
     return this.transformAccessTokenEntity(accessTokenEntity);
@@ -195,20 +188,11 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        baseIds: true,
         createdTime: true,
         expiredTime: true,
         lastUsedTime: true,
       },
     });
-    const res = this.transformAccessTokenEntity(item);
-    // filter deleted baseIds
-    // Note: baseId filtering removed from where clause per requirements
-    // This filtering logic is disabled as it requires baseId in where clause
-    const { baseIds } = res;
-    return {
-      ...res,
-      baseIds: baseIds, // No filtering - returns original baseIds regardless of existence
-    };
+    return this.transformAccessTokenEntity(item);
   }
 }

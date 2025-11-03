@@ -13,7 +13,6 @@ export const createAccessTokenRoSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   scopes: z.array(z.string()).min(1),
-  baseIds: z.array(z.string()).min(1).nullable().optional(),
   expiredTime: z
     .string()
     .refine(isValidDateString, {
@@ -29,7 +28,6 @@ export const createAccessTokenVoSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   scopes: z.array(z.string()),
-  baseIds: z.array(z.string()).nullable().optional(),
   expiredTime: z.string(),
   token: z.string(),
   createdTime: z.string(),

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ActionPrefix, actionPrefixMap } from '@teable/core';
 import type { IGetBasePermissionVo } from '@teable/openapi';
 import { PrismaService } from '../../prisma';

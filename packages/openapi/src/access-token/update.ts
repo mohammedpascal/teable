@@ -8,7 +8,6 @@ export const updateAccessTokenRoSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   scopes: z.array(z.string()),
-  baseIds: z.array(z.string()).nullable().optional(),
 });
 
 export type UpdateAccessTokenRo = z.infer<typeof updateAccessTokenRoSchema>;
@@ -18,7 +17,6 @@ export const updateAccessTokenVoSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   scopes: z.array(z.string()),
-  baseIds: z.array(z.string()).optional(),
 });
 
 export type UpdateAccessTokenVo = z.infer<typeof updateAccessTokenVoSchema>;

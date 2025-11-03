@@ -197,7 +197,6 @@ CREATE TABLE "access_token" (
     "description" TEXT,
     "user_id" TEXT NOT NULL,
     "scopes" TEXT NOT NULL,
-    "base_ids" TEXT,
     "sign" TEXT NOT NULL,
     "client_id" TEXT,
     "expired_time" TIMESTAMP(3) NOT NULL,

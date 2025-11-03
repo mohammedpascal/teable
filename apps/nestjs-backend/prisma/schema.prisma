@@ -217,7 +217,6 @@ model AccessToken {
   description      String?
   userId           String    @map("user_id")
   scopes           String
-  baseIds          String?   @map("base_ids")
   sign             String
   clientId         String?   @map("client_id")
   expiredTime      DateTime  @map("expired_time")
