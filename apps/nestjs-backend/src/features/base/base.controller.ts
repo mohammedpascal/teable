@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import type { IGetBasePermissionVo, IGetBaseVo } from '@teable/openapi';
 import { baseQuerySchemaRo, IBaseQuerySchemaRo } from '@teable/openapi';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
@@ -23,10 +23,7 @@ export class BaseController {
   }
 
   @Get(':baseId/query')
-  async sqlQuery(
-    @Param('baseId') baseId: string,
-    @Query(new ZodValidationPipe(baseQuerySchemaRo)) query: IBaseQuerySchemaRo
-  ) {
-    return this.baseQueryService.baseQuery(baseId, query.query, query.cellFormat);
+  async sqlQuery(@Query(new ZodValidationPipe(baseQuerySchemaRo)) query: IBaseQuerySchemaRo) {
+    return this.baseQueryService.baseQuery(query.query, query.cellFormat);
   }
 }

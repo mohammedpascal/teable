@@ -98,7 +98,6 @@ export class BaseQueryService {
   }
 
   async baseQuery(
-    baseId: string,
     baseQuery: IBaseQuery,
     cellFormat: CellFormat = CellFormat.Json
   ): Promise<IBaseQueryVo> {
