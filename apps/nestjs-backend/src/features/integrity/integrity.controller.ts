@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import type { IIntegrityCheckVo, IIntegrityIssue } from '@teable/openapi';
 import { LinkIntegrityService } from './link-integrity.service';
 
@@ -6,13 +6,13 @@ import { LinkIntegrityService } from './link-integrity.service';
 export class IntegrityController {
   constructor(private readonly linkIntegrityService: LinkIntegrityService) {}
 
-  @Get('base/:baseId/link-check')
-  async checkBaseIntegrity(@Param('baseId') baseId: string): Promise<IIntegrityCheckVo> {
-    return await this.linkIntegrityService.linkIntegrityCheck(baseId);
+  @Get('base/bse0/link-check')
+  async checkBaseIntegrity(): Promise<IIntegrityCheckVo> {
+    return await this.linkIntegrityService.linkIntegrityCheck('bse0');
   }
 
-  @Post('base/:baseId/link-fix')
-  async fixBaseIntegrity(@Param('baseId') baseId: string): Promise<IIntegrityIssue[]> {
-    return await this.linkIntegrityService.linkIntegrityFix(baseId);
+  @Post('base/bse0/link-fix')
+  async fixBaseIntegrity(): Promise<IIntegrityIssue[]> {
+    return await this.linkIntegrityService.linkIntegrityFix('bse0');
   }
 }

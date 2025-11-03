@@ -33,7 +33,7 @@ export class Table extends TableCore {
 
   protected doc!: Doc<ITableVo>;
 
-  baseId!: string;
+  baseId = 'bse0';
 
   permission?: { [key in TableAction]: boolean };
 

@@ -12,7 +12,7 @@ export class BaseController {
     private readonly baseQueryService: BaseQueryService
   ) {}
 
-  @Get(':baseId')
+  @Get('')
   async getBaseById(): Promise<IGetBaseVo> {
     return {
       id: 'bse0',
@@ -20,12 +20,12 @@ export class BaseController {
     };
   }
 
-  @Get(':baseId/permission')
+  @Get('bse0/permission')
   async getPermission(): Promise<IGetBasePermissionVo> {
     return this.baseService.getPermission();
   }
 
-  @Get(':baseId/query')
+  @Get('bse0/query')
   async sqlQuery(@Query(new ZodValidationPipe(baseQuerySchemaRo)) query: IBaseQuerySchemaRo) {
     return this.baseQueryService.baseQuery(query.query, query.cellFormat);
   }

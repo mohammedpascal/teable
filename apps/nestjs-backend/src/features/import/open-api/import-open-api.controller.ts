@@ -1,13 +1,13 @@
-import { Controller, Get, UseGuards, Query, Post, Body, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import type { IAnalyzeVo, ITableFullVo } from '@teable/openapi';
 import {
   analyzeRoSchema,
   IAnalyzeRo,
   IImportOptionRo,
-  importOptionRoSchema,
   IInplaceImportOptionRo,
+  importOptionRoSchema,
   inplaceImportOptionRoSchema,
 } from '@teable/openapi';
-import type { ITableFullVo, IAnalyzeVo } from '@teable/openapi';
 import { ZodValidationPipe } from '../../../zod.validation.pipe';
 import { TokenAccess } from '../../auth/decorators/token.decorator';
 
@@ -24,21 +24,19 @@ export class ImportController {
     return await this.importOpenService.analyze(analyzeRo);
   }
 
-  @Post(':baseId')
+  @Post('')
   async createTableFromImport(
-    @Param('baseId') baseId: string,
     @Body(new ZodValidationPipe(importOptionRoSchema)) importRo: IImportOptionRo
   ): Promise<ITableFullVo[]> {
-    return await this.importOpenService.createTableFromImport(baseId, importRo);
+    return await this.importOpenService.createTableFromImport('bse0', importRo);
   }
 
-  @Patch(':baseId/:tableId')
+  @Patch('bse0/:tableId')
   async inplaceImportTable(
-    @Param('baseId') baseId: string,
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(inplaceImportOptionRoSchema))
     inplaceImportRo: IInplaceImportOptionRo
   ): Promise<void> {
-    return await this.importOpenService.inplaceImportTable(baseId, tableId, inplaceImportRo);
+    return await this.importOpenService.inplaceImportTable('bse0', tableId, inplaceImportRo);
   }
 }
