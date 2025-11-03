@@ -16,7 +16,7 @@ export const BasePermissionListener = () => {
 
   const { data: base, refetch } = useQuery({
     queryKey: ReactQueryKeys.base(baseId!),
-    queryFn: ({ queryKey }) => getBaseById(queryKey[1]).then((res) => res.data),
+    queryFn: ({ queryKey }) => getBaseById().then((res) => res.data),
     enabled: !!baseId,
   });
 

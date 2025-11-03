@@ -16,7 +16,7 @@ export const BaseProvider: FC<IBaseProviderProps> = ({ children, fallback }) => 
   const { data: baseData } = useQuery({
     queryKey: ReactQueryKeys.base(baseId as string),
     queryFn: ({ queryKey }) =>
-      queryKey[1] ? getBaseById(queryKey[1]).then((res) => res.data) : undefined,
+      queryKey[1] ? getBaseById().then((res) => res.data) : undefined,
   });
 
   const { data: basePermissionData } = useQuery({

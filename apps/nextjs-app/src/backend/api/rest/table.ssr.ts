@@ -110,10 +110,11 @@ export class SsrApi {
       .then(({ data }) => data);
   }
 
-  async getBaseById(baseId: string) {
-    return await this.axios
-      .get<IGetBaseVo>(urlBuilder(GET_BASE, { baseId }))
-      .then(({ data }) => data);
+  async getBaseById() {
+    return {
+      id: 'bse0',
+      name: 'Base',
+    };
   }
 
   async getBasePermission(baseId: string) {

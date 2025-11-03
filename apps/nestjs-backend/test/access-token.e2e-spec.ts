@@ -46,7 +46,6 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
       name: 'token1',
       description: 'token1',
       scopes: ['table|read', 'record|read'],
-      baseIds: [baseId],
       expiredTime: dayjs(Date.now() + 1000 * 60 * 60 * 24).format('YYYY-MM-DD'),
     };
     table = await createTable(baseId, { name: 'table1' });
@@ -110,7 +109,6 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
     expect(refreshAccessTokenVoSchema.safeParse(res.data).success).toEqual(true);
   });
 
-
   describe('validate accessToken permission', () => {
     let tableReadToken: string;
     let recordReadToken: string;
@@ -171,6 +169,5 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
       );
       expect(error?.status).toEqual(403);
     });
-
   });
 });

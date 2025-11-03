@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import type {
-  IFieldRo,
   IConvertFieldRo,
-  NotificationStatesEnum,
+  IFieldRo,
   IGetFieldsQuery,
+  NotificationStatesEnum,
 } from '@teable/core';
 import {
   type IAggregationRo,
+  type ICalendarDailyCollectionRo,
   type IGroupPointsRo,
   type IQueryBaseRo,
-  type ResourceType,
-  type IGetRecordsRo,
-  type ICalendarDailyCollectionRo,
 } from '@teable/openapi';
 
 export const ReactQueryKeys = {
@@ -20,8 +18,6 @@ export const ReactQueryKeys = {
   baseList: () => ['base-list'] as const,
 
   tableList: (baseId: string) => ['table-list', baseId] as const,
-
-
 
   notifyList: (filter: { status: NotificationStatesEnum }) =>
     ['notification', 'list', filter] as const,

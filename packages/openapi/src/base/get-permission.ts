@@ -1,8 +1,4 @@
-import type {
-  BaseAction,
-  TableAction,
-  TableRecordHistoryAction,
-} from '@teable/core';
+import type { BaseAction, TableAction, TableRecordHistoryAction } from '@teable/core';
 import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';

@@ -7,7 +7,7 @@ import { PrismaService } from '../../prisma';
 export class BaseService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getBaseById(baseId: string) {
+  async getBaseById() {
     return {
       id: 'bse0',
       name: 'Base',

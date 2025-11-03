@@ -43,7 +43,7 @@ export const Table: React.FC<ITableProps> = ({
   };
   const { data: base } = useQuery({
     queryKey: ReactQueryKeys.base(baseId as string),
-    queryFn: ({ queryKey }) => getBaseById(queryKey[1]).then((res) => res.data),
+    queryFn: ({ queryKey }) => getBaseById().then((res) => res.data),
   });
 
   useViewErrorHandler(baseId, tableId, viewId);

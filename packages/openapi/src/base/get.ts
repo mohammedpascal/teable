@@ -36,10 +36,9 @@ export const GetBaseRoute: RouteConfig = registerRoute({
   tags: ['base'],
 });
 
-export const getBaseById = async (baseId: string) => {
-  return axios.get<IGetBaseVo>(
-    urlBuilder(GET_BASE, {
-      baseId,
-    })
-  );
+export const getBaseById = async () => {
+  return {
+    id: 'bse0',
+    name: 'Base',
+  };
 };

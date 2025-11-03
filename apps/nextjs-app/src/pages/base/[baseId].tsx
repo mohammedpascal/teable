@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps = withEnv(
         queryClient.fetchQuery({
           queryKey: ReactQueryKeys.base(baseId as string),
           queryFn: ({ queryKey }) =>
-            queryKey[1] ? ssrApi.getBaseById(baseId as string) : undefined,
+            queryKey[1] ? ssrApi.getBaseById() : undefined,
         }),
 
         queryClient.fetchQuery({

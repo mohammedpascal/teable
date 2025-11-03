@@ -148,7 +148,6 @@ export class AccessTokenService {
         name: true,
         description: true,
         scopes: true,
-        baseIds: true,
         expiredTime: true,
         lastUsedTime: true,
       },
