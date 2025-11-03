@@ -10,12 +10,9 @@ datasource db {
 
 model Base {
   id                         String      @id @default(cuid())
-  userId                     String?     @map("user_id")
   name                       String
-  user                       User?       @relation(fields: [userId], references: [id])
   tables                     TableMeta[]
 
-  @@unique([userId])
   @@map("base")
 }
 
@@ -152,7 +149,6 @@ model User {
   refMeta          String?   @map("ref_meta")
 
   accounts         Account[]
-  base             Base?
   @@map("users")
 }
 

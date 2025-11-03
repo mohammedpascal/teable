@@ -33,52 +33,6 @@ export class MailSenderService {
     });
   }
 
-  collaboratorCellTagEmailOptions(info: {
-    notifyId: string;
-    fromUserName: string;
-    refRecord: {
-      baseId: string;
-      tableId: string;
-      tableName: string;
-      fieldName: string;
-      recordIds: string[];
-    };
-  }) {
-    const {
-      notifyId,
-      fromUserName,
-      refRecord: { baseId, tableId, fieldName, tableName, recordIds },
-    } = info;
-    let subject, partialBody;
-    const refLength = recordIds.length;
-
-    const viewRecordUrlPrefix = `${this.mailConfig.origin}/base/${baseId}/${tableId}`;
-
-    if (refLength <= 1) {
-      subject = `${fromUserName} added you to the ${fieldName} field of a record in ${tableName}`;
-      partialBody = 'collaborator-cell-tag';
-    } else {
-      subject = `${fromUserName} added you to ${refLength} records in ${tableName}`;
-      partialBody = 'collaborator-multi-row-tag';
-    }
-
-    return {
-      notifyMessage: subject,
-      subject: `${subject} - ${this.baseConfig.brandName}`,
-      template: 'normal',
-      context: {
-        notifyId,
-        fromUserName,
-        refLength,
-        tableName,
-        fieldName,
-        recordIds,
-        viewRecordUrlPrefix,
-        partialBody,
-      },
-    };
-  }
-
   commonEmailOptions(info: {
     to: string;
     title: string;

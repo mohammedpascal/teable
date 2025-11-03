@@ -1,7 +1,6 @@
 -- CreateTable
 CREATE TABLE "base" (
     "id" TEXT NOT NULL,
-    "user_id" TEXT,
     "name" TEXT NOT NULL,
 
     CONSTRAINT "base_pkey" PRIMARY KEY ("id")
@@ -426,9 +425,6 @@ CREATE TABLE "plugin_context_menu" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "base_user_id_key" ON "base"("user_id");
-
--- CreateIndex
 CREATE INDEX "table_meta_order_idx" ON "table_meta"("order");
 
 -- CreateIndex
@@ -499,9 +495,6 @@ CREATE UNIQUE INDEX "integration_resource_id_key" ON "integration"("resource_id"
 
 -- CreateIndex
 CREATE UNIQUE INDEX "plugin_context_menu_plugin_install_id_key" ON "plugin_context_menu"("plugin_install_id");
-
--- AddForeignKey
-ALTER TABLE "base" ADD CONSTRAINT "base_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "table_meta" ADD CONSTRAINT "table_meta_base_id_fkey" FOREIGN KEY ("base_id") REFERENCES "base"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

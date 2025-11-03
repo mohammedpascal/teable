@@ -2,17 +2,14 @@ import { Injectable, Logger } from '@nestjs/common';
 import type { ISendMailOptions } from '@nestjs-modules/mailer';
 import type { INotificationBuffer, INotificationUrl } from '@teable/core';
 import {
+  assertNever,
   generateNotificationId,
   getUserNotificationChannel,
   NotificationStatesEnum,
   NotificationTypeEnum,
   notificationUrlSchema,
-  userIconSchema,
   SYSTEM_USER_ID,
-  assertNever,
 } from '@teable/core';
-import type { Prisma } from '../../prisma';
-import { PrismaService } from '../../prisma';
 import {
   UploadType,
   type IGetNotifyListQuery,
@@ -22,6 +19,8 @@ import {
 } from '@teable/openapi';
 import { keyBy } from 'lodash';
 import { IMailConfig, MailConfig } from '../../configs/mail.config';
+import type { Prisma } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import { ShareDbService } from '../../share-db/share-db.service';
 import StorageAdapter from '../attachments/plugins/adapter';
 import { getFullStorageUrl } from '../attachments/plugins/utils';
@@ -39,87 +38,6 @@ export class NotificationService {
     private readonly userService: UserService,
     @MailConfig() private readonly mailConfig: IMailConfig
   ) {}
-
-  async sendCollaboratorNotify(params: {
-    fromUserId: string;
-    toUserId: string;
-    refRecord: {
-      baseId: string;
-      tableId: string;
-      tableName: string;
-      fieldName: string;
-      recordIds: string[];
-    };
-  }): Promise<void> {
-    const { fromUserId, toUserId, refRecord } = params;
-    const [fromUser, toUser] = await Promise.all([
-      this.userService.getUserById(fromUserId),
-      this.userService.getUserById(toUserId),
-    ]);
-
-    if (!fromUser || !toUser || fromUserId === toUserId) {
-      return;
-    }
-
-    const notifyId = generateNotificationId();
-    const emailOptions = this.mailSenderService.collaboratorCellTagEmailOptions({
-      notifyId,
-      fromUserName: fromUser.name,
-      refRecord,
-    });
-
-    const userIcon = userIconSchema.parse({
-      userId: fromUser.id,
-      userName: fromUser.name,
-      userAvatarUrl:
-        fromUser?.avatar &&
-        getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), fromUser.avatar),
-    });
-
-    const urlMeta = notificationUrlSchema.parse({
-      baseId: refRecord.baseId,
-      tableId: refRecord.tableId,
-      ...(refRecord.recordIds.length === 1 ? { recordId: refRecord.recordIds[0] } : {}),
-    });
-    const type =
-      refRecord.recordIds.length > 1
-        ? NotificationTypeEnum.CollaboratorMultiRowTag
-        : NotificationTypeEnum.CollaboratorCellTag;
-
-    const notifyPath = this.generateNotifyPath(type as NotificationTypeEnum, urlMeta);
-
-    const data: Prisma.NotificationCreateInput = {
-      id: notifyId,
-      fromUserId,
-      toUserId,
-      type,
-      message: emailOptions.notifyMessage,
-      urlPath: notifyPath,
-      createdBy: fromUserId,
-    };
-    const notifyData = await this.createNotify(data);
-
-    const unreadCount = (await this.unreadCount(toUser.id)).unreadCount;
-
-    const socketNotification = {
-      notification: {
-        id: notifyData.id,
-        message: notifyData.message,
-        notifyIcon: userIcon,
-        notifyType: notifyData.type as NotificationTypeEnum,
-        url: this.mailConfig.origin + notifyPath,
-        isRead: false,
-        createdTime: notifyData.createdTime.toISOString(),
-      },
-      unreadCount: unreadCount,
-    };
-
-    this.sendNotifyBySocket(toUser.id, socketNotification);
-
-    if (toUser.notifyMeta && toUser.notifyMeta.email) {
-      this.sendNotifyByMail(toUser.email, emailOptions);
-    }
-  }
 
   async sendCommonNotify(
     params: {
@@ -222,7 +140,6 @@ export class NotificationService {
       },
     });
   }
-
 
   async getNotifyList(userId: string, query: IGetNotifyListQuery): Promise<INotificationVo> {
     const { notifyStates, cursor } = query;
