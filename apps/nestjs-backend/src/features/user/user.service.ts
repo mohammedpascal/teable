@@ -1,7 +1,7 @@
 import https from 'https';
 import { join } from 'path';
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { generateAccountId, generateBaseId, generateUserId, minidenticon } from '@teable/core';
+import { generateAccountId, generateUserId, minidenticon } from '@teable/core';
 import { UploadType } from '@teable/openapi';
 import type { IUserInfoVo, IUserNotifyMeta } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
@@ -43,21 +43,6 @@ export class UserService {
     return await this.prismaService.txClient().user.findUnique({
       where: { email: email.toLowerCase() },
       include: { accounts: true },
-    });
-  }
-
-  async createDefaultBase() {
-    const userId = this.cls.get('user.id');
-
-    return await this.prismaService.txClient().base.create({
-      data: {
-        id: generateBaseId(),
-        name: 'Base',
-      },
-      select: {
-        id: true,
-        name: true,
-      },
     });
   }
 
@@ -123,9 +108,6 @@ export class UserService {
     }
     await this.cls.runWith(this.cls.get(), async () => {
       this.cls.set('user.id', id);
-      await this.createDefaultBase();
-
-      console.log('defulat base created');
     });
     return newUser;
   }

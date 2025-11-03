@@ -8,13 +8,6 @@ datasource db {
   url      = env("PRISMA_DATABASE_URL")
 }
 
-model Base {
-  id                         String      @id @default(cuid())
-  name                       String
-
-  @@map("base")
-}
-
 model TableMeta {
   id               String    @id
   name             String

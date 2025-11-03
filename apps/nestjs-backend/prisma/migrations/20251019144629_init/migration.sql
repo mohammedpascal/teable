@@ -1,12 +1,4 @@
 -- CreateTable
-CREATE TABLE "base" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-
-    CONSTRAINT "base_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "table_meta" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
