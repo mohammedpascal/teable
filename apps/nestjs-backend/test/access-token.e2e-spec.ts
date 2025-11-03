@@ -84,7 +84,6 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
       name: 'new token',
       description: 'new desc',
       scopes: ['table|read', 'record|read', 'record|create'],
-      baseIds: null,
     };
     const { data } = await updateAccessToken(newAccessToken.id, updateRo);
     expect(data).toEqual({
