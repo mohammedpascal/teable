@@ -62,7 +62,6 @@ export class BaseService {
     return await this.prismaService.$tx(
       async (prisma) => {
         const tables = await prisma.tableMeta.findMany({
-          where: { baseId },
           select: { id: true },
         });
         const tableIds = tables.map(({ id }) => id);

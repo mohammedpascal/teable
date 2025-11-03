@@ -315,7 +315,7 @@ export class BaseQueryService {
     const tableMeta = await this.prismaService
       .txClient()
       .tableMeta.findUniqueOrThrow({
-        where: { id: tableId, baseId },
+        where: { id: tableId },
         select: { dbTableName: true },
       })
       .catch(() => {

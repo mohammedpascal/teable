@@ -11,14 +11,12 @@ datasource db {
 model Base {
   id                         String      @id @default(cuid())
   name                       String
-  tables                     TableMeta[]
 
   @@map("base")
 }
 
 model TableMeta {
   id               String    @id
-  baseId           String    @map("base_id")
   name             String
   description      String?
   icon             String?
@@ -29,7 +27,6 @@ model TableMeta {
   lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
   createdBy        String    @map("created_by")
   lastModifiedBy   String?   @map("last_modified_by")
-  base             Base      @relation(fields: [baseId], references: [id])
   fields           Field[]
   views            View[]
 

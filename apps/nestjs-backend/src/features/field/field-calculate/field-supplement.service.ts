@@ -42,7 +42,6 @@ import {
   SingleLineTextFieldCore,
   UserFieldCore,
 } from '@teable/core';
-import { PrismaService } from '../../../prisma';
 import { Knex } from 'knex';
 import { keyBy, merge, mergeWith } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
@@ -50,6 +49,7 @@ import type { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
+import { PrismaService } from '../../../prisma';
 import { majorFieldKeysChanged } from '../../../utils/major-field-keys-changed';
 import { ReferenceService } from '../../calculation/reference.service';
 import { hasCycle } from '../../calculation/utils/dfs';
@@ -86,15 +86,11 @@ export class FieldSupplementService {
   }
 
   private async getJunctionTableName(
+    baseId: string,
     tableId: string,
     fieldId: string,
     symmetricFieldId: string | undefined
   ) {
-    const { baseId } = await this.prismaService.txClient().tableMeta.findFirstOrThrow({
-      where: { id: tableId },
-      select: { baseId: true },
-    });
-
     const junctionTableName = symmetricFieldId
       ? `junction_${fieldId}_${symmetricFieldId}`
       : `junction_${fieldId}`;
@@ -113,6 +109,7 @@ export class FieldSupplementService {
   }
 
   private async generateLinkOptionsVo(params: {
+    baseId: string | undefined;
     tableId: string;
     optionsRo: ILinkFieldOptionsRo;
     fieldId: string;
@@ -122,6 +119,7 @@ export class FieldSupplementService {
     foreignTableName: string;
   }): Promise<ILinkFieldOptions> {
     const {
+      baseId,
       tableId,
       optionsRo,
       fieldId,
@@ -139,7 +137,15 @@ export class FieldSupplementService {
     };
 
     if (relationship === Relationship.ManyMany) {
-      const fkHostTableName = await this.getJunctionTableName(tableId, fieldId, symmetricFieldId);
+      if (!baseId) {
+        throw new BadRequestException('baseId is required for ManyMany relationship');
+      }
+      const fkHostTableName = await this.getJunctionTableName(
+        baseId,
+        tableId,
+        fieldId,
+        symmetricFieldId
+      );
       return {
         ...common,
         fkHostTableName,
@@ -165,9 +171,10 @@ export class FieldSupplementService {
          * so we should not modify the foreign table when `isOneWay` enable.
          * Instead, we will create a junction table to store the foreign key.
          */
-        fkHostTableName: isOneWay
-          ? await this.getJunctionTableName(tableId, fieldId, symmetricFieldId)
-          : foreignTableName,
+        fkHostTableName:
+          isOneWay && baseId
+            ? await this.getJunctionTableName(baseId, tableId, fieldId, symmetricFieldId)
+            : foreignTableName,
         selfKeyName: this.getForeignKeyFieldName(symmetricFieldId),
         foreignKeyName: isOneWay ? this.getForeignKeyFieldName(fieldId) : '__id',
       };
@@ -200,20 +207,8 @@ export class FieldSupplementService {
       select: { id: true },
     });
 
-    if (baseId) {
-      await this.prismaService.tableMeta
-        .findFirstOrThrow({
-          where: { id: foreignTableId, baseId },
-          select: { id: true },
-        })
-        .catch(() => {
-          throw new BadRequestException(
-            `foreignTableId ${foreignTableId} is not exist in base ${baseId}`
-          );
-        });
-    }
-
     return this.generateLinkOptionsVo({
+      baseId,
       tableId,
       optionsRo,
       fieldId,
@@ -261,20 +256,10 @@ export class FieldSupplementService {
             })
           ).id;
 
-    if (baseId) {
-      await this.prismaService.tableMeta
-        .findFirstOrThrow({
-          where: { id: foreignTableId, baseId },
-          select: { id: true },
-        })
-        .catch(() => {
-          throw new BadRequestException(
-            `foreignTableId ${foreignTableId} is not exist in base ${baseId}`
-          );
-        });
-    }
+    // Note: baseId validation removed since tables are no longer associated with bases
 
     return this.generateLinkOptionsVo({
+      baseId,
       tableId,
       optionsRo: newOptionsRo,
       fieldId,
@@ -286,22 +271,8 @@ export class FieldSupplementService {
   }
 
   private async prepareLinkField(tableId: string, field: IFieldRo) {
-    let options = field.options as ILinkFieldOptionsRo;
-    const { baseId, relationship, foreignTableId } = options;
-
-    // if link target is in the same base, we should not set baseId
-    if (baseId) {
-      const tableMeta = await this.prismaService.tableMeta.findFirstOrThrow({
-        where: { id: tableId },
-        select: { id: true, baseId: true },
-      });
-      if (tableMeta.baseId === baseId) {
-        options = {
-          ...options,
-          baseId: undefined,
-        };
-      }
-    }
+    const options = field.options as ILinkFieldOptionsRo;
+    const { relationship, foreignTableId } = options;
 
     const fieldId = field.id ?? generateFieldId();
     const optionsVo = await this.generateNewLinkOptionsVo(tableId, fieldId, options);
@@ -1181,9 +1152,9 @@ export class FieldSupplementService {
     }
 
     const prisma = this.prismaService.txClient();
-    const { name: tableName, baseId } = await prisma.tableMeta.findFirstOrThrow({
+    const { name: tableName } = await prisma.tableMeta.findFirstOrThrow({
       where: { id: tableId },
-      select: { name: true, baseId: true },
+      select: { name: true },
     });
 
     const fieldName = await this.uniqFieldName(tableId, tableName);
@@ -1207,7 +1178,7 @@ export class FieldSupplementService {
       dbFieldName,
       type: FieldType.Link,
       options: {
-        baseId: field.options.baseId ? baseId : undefined,
+        baseId: field.options.baseId,
         relationship,
         foreignTableId: tableId,
         lookupFieldId,

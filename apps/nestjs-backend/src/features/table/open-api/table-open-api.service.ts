@@ -215,7 +215,6 @@ export class TableOpenApiService {
     const tablesMeta = await this.prismaService.txClient().tableMeta.findMany({
       orderBy: { order: 'asc' },
       where: {
-        baseId,
         id: includeTableIds ? { in: includeTableIds } : undefined,
       },
     });
@@ -414,7 +413,7 @@ export class TableOpenApiService {
     const dbTableName = this.dbProvider.joinDbTableName(baseId, dbTableNameRo);
     const existDbTableName = await this.prismaService.tableMeta
       .findFirst({
-        where: { baseId, dbTableName },
+        where: { dbTableName },
         select: { id: true },
       })
       .catch(() => {
@@ -427,7 +426,7 @@ export class TableOpenApiService {
 
     const { dbTableName: oldDbTableName } = await this.prismaService.tableMeta
       .findFirstOrThrow({
-        where: { id: tableId, baseId },
+        where: { id: tableId },
         select: { dbTableName: true },
       })
       .catch(() => {
@@ -482,7 +481,6 @@ export class TableOpenApiService {
 
   async shuffle(baseId: string) {
     const tables = await this.prismaService.tableMeta.findMany({
-      where: { baseId },
       select: { id: true },
       orderBy: { order: 'asc' },
     });
@@ -503,7 +501,7 @@ export class TableOpenApiService {
     const table = await this.prismaService.tableMeta
       .findFirstOrThrow({
         select: { order: true, id: true },
-        where: { baseId, id: tableId },
+        where: { id: tableId },
       })
       .catch(() => {
         throw new NotFoundException(`Table ${tableId} not found`);
@@ -512,7 +510,7 @@ export class TableOpenApiService {
     const anchorTable = await this.prismaService.tableMeta
       .findFirstOrThrow({
         select: { order: true, id: true },
-        where: { baseId, id: anchorId },
+        where: { id: anchorId },
       })
       .catch(() => {
         throw new NotFoundException(`Anchor ${anchorId} not found`);
@@ -527,7 +525,6 @@ export class TableOpenApiService {
         return this.prismaService.tableMeta.findFirst({
           select: { order: true, id: true },
           where: {
-            baseId,
             order: whereOrder,
           },
           orderBy: { order: align },

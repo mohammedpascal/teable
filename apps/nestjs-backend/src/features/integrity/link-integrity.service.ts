@@ -23,7 +23,6 @@ export class LinkIntegrityService {
 
   async linkIntegrityCheck(baseId: string): Promise<IIntegrityCheckVo> {
     const tables = await this.prismaService.tableMeta.findMany({
-      where: { baseId },
       select: {
         id: true,
         name: true,
@@ -60,9 +59,8 @@ export class LinkIntegrityService {
       const table = await this.prismaService.tableMeta.findFirst({
         where: {
           id: field.tableId,
-          base: {},
         },
-        select: { id: true, name: true, baseId: true },
+        select: { id: true, name: true },
       });
 
       if (!table) {
@@ -75,15 +73,8 @@ export class LinkIntegrityService {
         fields: [field],
       });
 
-      const base = await this.prismaService.base.findFirstOrThrow({
-        where: { id: table.baseId },
-        select: { id: true, name: true },
-      });
-
       if (tableIssues.length > 0) {
         linkFieldIssues.push({
-          baseId: base.id,
-          baseName: base.name,
           tableId: field.tableId,
           tableName: table.name,
           fieldId: field.id,
@@ -112,7 +103,7 @@ export class LinkIntegrityService {
 
       const foreignTable = await this.prismaService.tableMeta.findFirst({
         where: { id: options.foreignTableId },
-        select: { id: true, baseId: true, dbTableName: true },
+        select: { id: true, dbTableName: true },
       });
 
       if (!foreignTable) {

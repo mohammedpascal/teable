@@ -9,7 +9,6 @@ CREATE TABLE "base" (
 -- CreateTable
 CREATE TABLE "table_meta" (
     "id" TEXT NOT NULL,
-    "base_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
     "icon" TEXT,
@@ -353,9 +352,6 @@ CREATE INDEX "record_history_table_id_created_time_idx" ON "record_history"("tab
 
 -- CreateIndex
 CREATE UNIQUE INDEX "plugin_secret_key" ON "plugin"("secret");
-
--- AddForeignKey
-ALTER TABLE "table_meta" ADD CONSTRAINT "table_meta_base_id_fkey" FOREIGN KEY ("base_id") REFERENCES "base"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "field" ADD CONSTRAINT "field_table_id_fkey" FOREIGN KEY ("table_id") REFERENCES "table_meta"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
