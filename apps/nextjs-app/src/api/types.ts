@@ -6044,7 +6044,6 @@ export interface paths {
                 role: "owner" | "creator" | "editor" | "commenter" | "viewer";
                 /** @enum {string} */
                 collaboratorType?: "base";
-                isUnrestricted?: boolean;
               })[];
           };
         };

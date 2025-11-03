@@ -2,23 +2,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ActionPrefix, actionPrefixMap } from '@teable/core';
 import type { IGetBasePermissionVo } from '@teable/openapi';
 import { CollaboratorType } from '@teable/openapi';
-import { ClsService } from 'nestjs-cls';
-import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
-import { InjectDbProvider } from '../../db-provider/db.provider';
-import { IDbProvider } from '../../db-provider/db.provider.interface';
 import { PrismaService } from '../../prisma';
-import type { IClsStore } from '../../types/cls';
-import { TableOpenApiService } from '../table/open-api/table-open-api.service';
 
 @Injectable()
 export class BaseService {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly cls: ClsService<IClsStore>,
-    private readonly tableOpenApiService: TableOpenApiService,
-    @InjectDbProvider() private readonly dbProvider: IDbProvider,
-    @ThresholdConfig() private readonly thresholdConfig: IThresholdConfig
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async getBaseById(baseId: string) {
     const base = await this.prismaService.base
@@ -40,7 +28,6 @@ export class BaseService {
       ...base,
       role: 'creator' as const, // Default role for authenticated users
       collaboratorType: CollaboratorType.Base,
-      isUnrestricted: true,
     };
   }
 
@@ -54,42 +41,5 @@ export class BaseService {
       acc[action] = true;
       return acc;
     }, {} as IGetBasePermissionVo);
-  }
-
-  async deleteBase(baseId: string) {
-    // Permission checks removed - all authenticated users have access
-
-    return await this.prismaService.$tx(
-      async (prisma) => {
-        const tables = await prisma.tableMeta.findMany({
-          select: { id: true },
-        });
-        const tableIds = tables.map(({ id }) => id);
-
-        await this.dropBase(baseId, tableIds);
-        await this.tableOpenApiService.cleanReferenceFieldIds(tableIds);
-        await this.tableOpenApiService.cleanTablesRelatedData(baseId, tableIds);
-        await this.cleanBaseRelatedData(baseId);
-      },
-      {
-        timeout: this.thresholdConfig.bigTransactionTimeout,
-      }
-    );
-  }
-
-  async dropBase(baseId: string, tableIds: string[]) {
-    const sql = this.dbProvider.dropSchema(baseId);
-    if (sql) {
-      return await this.prismaService.txClient().$executeRawUnsafe(sql);
-    }
-    await this.tableOpenApiService.dropTables(tableIds);
-  }
-
-  async cleanBaseRelatedData(_baseId: string) {
-    // delete base
-    // Note: baseId removed from where clause per requirements
-    // WARNING: This will delete ALL bases in the database - needs refactoring
-    // The baseId parameter is still required for identification but cannot be used in where clause
-    await this.prismaService.txClient().base.deleteMany({});
   }
 }
