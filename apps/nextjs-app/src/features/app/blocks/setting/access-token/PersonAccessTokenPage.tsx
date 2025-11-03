@@ -13,7 +13,8 @@ import { PersonAccessTokenTitle } from './PersonAccessTokenTitle';
 
 export const PersonAccessTokenPage = () => {
   const router = useRouter();
-  const { baseId, form: _form, id: _id, ...restQuery } = router.query;
+  const baseId = 'bse0';
+  const { form: _form, id: _id, ...restQuery } = router.query;
   const formType = router.query.form as IFormType;
   const newTokenRef = useRef<string>();
   const { t: tokenT } = useTranslation(personalAccessTokenConfig.i18nNamespaces);
@@ -21,8 +22,8 @@ export const PersonAccessTokenPage = () => {
   const backList = () => {
     newTokenRef.current = undefined;
     router.push({
-      pathname: router.pathname,
-      query: { ...restQuery, baseId },
+      pathname: '/settings/access-tokens',
+      query: restQuery,
     });
   };
 
@@ -31,16 +32,16 @@ export const PersonAccessTokenPage = () => {
       newTokenRef.current = (params as CreateAccessTokenVo).token;
     }
     router.push({
-      pathname: router.pathname,
-      query: { ...restQuery, baseId },
+      pathname: '/settings/access-tokens',
+      query: restQuery,
     });
   };
 
   const onRefresh = (token: string) => {
     newTokenRef.current = token;
     router.push({
-      pathname: router.pathname,
-      query: { ...restQuery, baseId },
+      pathname: '/settings/access-tokens',
+      query: restQuery,
     });
   };
 
@@ -57,7 +58,7 @@ export const PersonAccessTokenPage = () => {
         className="space-x-1"
         onClick={() => {
           router.push({
-            pathname: router.pathname,
+            pathname: '/settings/access-tokens',
             query: { ...router.query, form: 'new' },
           });
         }}

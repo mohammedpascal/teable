@@ -15,7 +15,7 @@ const QueryBuilderPage: NextPageWithLayout = () => {
 };
 export const getServerSideProps: GetServerSideProps = withEnv(
   ensureLogin(
-    withAuthSSR(async (context) => {
+    withAuthSSR(async (context, ssrApi) => {
       return {
         props: {
           ...(await getTranslationsProps(context, developerConfig.i18nNamespaces)),

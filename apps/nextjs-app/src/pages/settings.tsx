@@ -1,46 +1,29 @@
 import type { GetServerSideProps } from 'next';
 import type { ReactElement } from 'react';
-import type { ISettingPageProps } from '@/features/app/blocks/admin';
-import { SettingPage } from '@/features/app/blocks/admin';
+import { BaseSettingsPage } from '@/features/app/blocks/setting/BaseSettingsPage';
 import { SettingLayout } from '@/features/app/layouts/SettingLayout';
 import ensureLogin from '@/lib/ensureLogin';
 import { getTranslationsProps } from '@/lib/i18n';
 import type { NextPageWithLayout } from '@/lib/type';
-import withAuthSSR from '@/lib/withAuthSSR';
 import withEnv from '@/lib/withEnv';
 
-const Setting: NextPageWithLayout<ISettingPageProps> = ({ settingServerData }) => (
-  <SettingPage settingServerData={settingServerData} />
-);
+const Settings: NextPageWithLayout = () => {
+  return <BaseSettingsPage />;
+};
 
 export const getServerSideProps: GetServerSideProps = withEnv(
-  ensureLogin(
-    withAuthSSR(async (context, ssrApi) => {
-      const userMe = await ssrApi.getUserMe();
-
-      if (!userMe?.isAdmin) {
-        return {
-          redirect: {
-            destination: '/403',
-            permanent: false,
-          },
-        };
-      }
-
-      const setting = await ssrApi.getSetting();
-      return {
-        props: {
-          settingServerData: setting,
-          ...(await getTranslationsProps(context, 'common')),
-        },
-      };
-    })
-  )
+  ensureLogin(async (context) => {
+    return {
+      props: {
+        ...(await getTranslationsProps(context, ['common', 'setting', 'developer'])),
+      },
+    };
+  })
 );
 
-Setting.getLayout = function getLayout(page: ReactElement, pageProps) {
+Settings.getLayout = function getLayout(page: ReactElement, pageProps) {
   return <SettingLayout {...pageProps}>{page}</SettingLayout>;
 };
 
-export default Setting;
+export default Settings;
 

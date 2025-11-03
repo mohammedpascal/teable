@@ -8,7 +8,7 @@ const Node: NextPageWithLayout = () => {
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
-      destination: `/settings/query-builder`,
+      destination: `/settings/access-tokens`,
       permanent: false,
     },
   };

@@ -51,7 +51,7 @@ export const AccessTokenList = (props: { newToken?: string }) => {
 
   const onEdit = (id: string) => {
     router.push({
-      pathname: router.pathname,
+      pathname: '/settings/access-tokens',
       query: { ...router.query, form: 'edit', id },
     });
   };

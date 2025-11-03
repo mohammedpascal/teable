@@ -10,14 +10,14 @@ export const useSettingRoute = () => {
       {
         Icon: Key,
         label: t('personalAccessToken'),
-        route: '/base/[baseId]/setting',
-        pathTo: `/base/bse0/setting`,
+        route: '/settings/access-tokens',
+        pathTo: `/settings/access-tokens`,
       },
       {
         Icon: Code2,
         label: t('developer:apiQueryBuilder'),
-        route: '/base/[baseId]/query-builder',
-        pathTo: `/base/bse0/query-builder`,
+        route: '/settings/query-builder',
+        pathTo: `/settings/query-builder`,
       },
     ];
   }, [t]);
