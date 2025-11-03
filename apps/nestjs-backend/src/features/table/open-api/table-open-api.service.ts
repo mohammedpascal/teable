@@ -480,7 +480,7 @@ export class TableOpenApiService {
       orderBy: { order: 'asc' },
     });
 
-    this.logger.log(`lucky table shuffle! ${baseId}`, 'shuffle');
+    this.logger.log(`lucky table shuffle! bse0`, 'shuffle');
 
     await this.prismaService.$tx(async () => {
       for (let i = 0; i < tables.length; i++) {

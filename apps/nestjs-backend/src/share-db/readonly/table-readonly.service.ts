@@ -15,7 +15,7 @@ export class TableReadonlyServiceAdapter
 
   getDocIdsByQuery(baseId: string) {
     return this.axios
-      .get(`/base/${baseId}/table/socket/doc-ids`, {
+      .get(`/base/bse0/table/socket/doc-ids`, {
         headers: {
           cookie: this.cls.get('cookie'),
         },
@@ -24,7 +24,7 @@ export class TableReadonlyServiceAdapter
   }
   getSnapshotBulk(baseId: string, ids: string[]) {
     return this.axios
-      .get(`/base/${baseId}/table/socket/snapshot-bulk`, {
+      .get(`/base/bse0/table/socket/snapshot-bulk`, {
         headers: {
           cookie: this.cls.get('cookie'),
         },

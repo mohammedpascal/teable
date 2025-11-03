@@ -222,14 +222,14 @@ export class NotificationService {
   private generateNotifyPath(notifyType: NotificationTypeEnum, urlMeta: INotificationUrl) {
     switch (notifyType) {
       case NotificationTypeEnum.System: {
-        const { baseId, tableId } = urlMeta || {};
-        return `/base/${baseId}/${tableId}`;
+        const { tableId } = urlMeta || {};
+        return `/base/bse0/${tableId}`;
       }
       case NotificationTypeEnum.CollaboratorCellTag:
       case NotificationTypeEnum.CollaboratorMultiRowTag: {
-        const { baseId, tableId, recordId } = urlMeta || {};
+        const { tableId, recordId } = urlMeta || {};
 
-        return `/base/${baseId}/${tableId}${recordId ? `?recordId=${recordId}` : ''}`;
+        return `/base/bse0/${tableId}${recordId ? `?recordId=${recordId}` : ''}`;
       }
       default:
         throw assertNever(notifyType);

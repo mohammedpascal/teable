@@ -15,7 +15,7 @@ interface ITableProviderProps {
 export const TableProvider: FC<ITableProviderProps> = ({ children, serverData }) => {
   const { baseId } = useContext(AnchorContext);
   const { instances: tables } = useInstances({
-    collection: `${IdPrefix.Table}_${baseId}`,
+    collection: `${IdPrefix.Table}_bse0`,
     factory: createTableInstance,
     initData: serverData,
     queryParams: {},

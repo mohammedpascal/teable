@@ -109,7 +109,7 @@ const LinkEditorInnerBase: ForwardRefRenderFunction<ILinkEditorMainRef, ILinkEdi
   const onNavigate = () => {
     if (!baseId) return;
 
-    let path = `/base/${baseId}/${foreignTableId}`;
+    let path = `/base/bse0/${foreignTableId}`;
 
     if (filterByViewId) {
       path += `/${filterByViewId}`;

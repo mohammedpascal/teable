@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = withEnv(
         const defaultView = await ssrApi.getDefaultViewId(baseId, defaultTable.id);
         return {
           redirect: {
-            destination: `/base/${baseId}/${defaultTable.id}/${defaultView.id}`,
+            destination: `/base/bse0/${defaultTable.id}/${defaultView.id}`,
             permanent: false,
           },
         };

@@ -2097,7 +2097,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
 
       // junction should not exist when converting one-way one-many to tow-way one-one
       const query = dbProvider.checkTableExist(
-        `${baseId}${globalThis.testConfig.driver === DriverClient.Sqlite ? '_' : '.'}junction_${createdResult.newField.id}`
+        `bse0${globalThis.testConfig.driver === DriverClient.Sqlite ? '_' : '.'}junction_${createdResult.newField.id}`
       );
 
       const queryResult = await prisma.$queryRawUnsafe<{ exists: boolean }[]>(query);

@@ -69,7 +69,7 @@ export const getServerSideProps = withEnv(
         if (!recordServerData) {
           return {
             redirect: {
-              destination: `/base/${baseId}/${tableId}/${viewId}`,
+              destination: `/base/bse0/${tableId}/${viewId}`,
               permanent: false,
             },
           };

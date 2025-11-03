@@ -162,7 +162,7 @@ describe('OpenAPI link (e2e)', () => {
       expect(getTable1FieldsResult).toHaveLength(3);
       table1.fields = getTable1FieldsResult;
 
-      const fkHostTableName = `${baseId}${split}junction_${table2.fields[2].id}_${
+      const fkHostTableName = `bse0${split}junction_${table2.fields[2].id}_${
         (table2.fields[2].options as ILinkFieldOptions).symmetricFieldId
       }`;
 
@@ -597,7 +597,7 @@ describe('OpenAPI link (e2e)', () => {
       };
 
       const linkField1 = await createField(table1.id, Link1FieldRo);
-      const fkHostTableName = `${baseId}${split}junction_${linkField1.id}_${
+      const fkHostTableName = `bse0${split}junction_${linkField1.id}_${
         (linkField1.options as ILinkFieldOptions).symmetricFieldId
       }`;
 
@@ -642,7 +642,7 @@ describe('OpenAPI link (e2e)', () => {
       };
 
       const linkField1 = await createField(table1.id, Link1FieldRo);
-      const fkHostTableName = `${baseId}${split}junction_${linkField1.id}_${
+      const fkHostTableName = `bse0${split}junction_${linkField1.id}_${
         (linkField1.options as ILinkFieldOptions).symmetricFieldId
       }`;
 
@@ -692,7 +692,7 @@ describe('OpenAPI link (e2e)', () => {
       };
 
       const linkField1 = await createField(table1.id, Link1FieldRo);
-      const fkHostTableName = `${baseId}${split}junction_${linkField1.id}`;
+      const fkHostTableName = `bse0${split}junction_${linkField1.id}`;
 
       expect(linkField1).toMatchObject({
         type: FieldType.Link,

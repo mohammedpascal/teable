@@ -17,7 +17,7 @@ const createUser = (
   pas: any,
   index?: number
 ): Prisma.UserCreateInput => {
-  const id = index === undefined ? baseId : `${baseId}_${index}`;
+  const id = index === undefined ? baseId : `bse0_${index}`;
   return {
     id,
     name: index === undefined ? baseName : `${baseName}_${index}`,
