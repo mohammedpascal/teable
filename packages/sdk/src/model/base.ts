@@ -5,10 +5,9 @@ export class Base implements IGetBaseVo {
   id: string;
   name: string;
 
-  constructor(base: IGetBaseVo) {
-    const { id, name } = base;
-    this.id = id;
-    this.name = name;
+  constructor() {
+    this.id = 'bse0';
+    this.name = 'Base';
   }
 
   async createTable(tableRo?: ICreateTableRo) {

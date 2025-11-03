@@ -1,14 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import type { IFieldVo, IRecord, IViewVo } from '@teable/core';
-import { getBaseById, type IGroupPointsVo } from '@teable/openapi';
+import { type IGroupPointsVo } from '@teable/openapi';
 import {
   AnchorContext,
   FieldProvider,
+  PersonalViewProvider,
+  PersonalViewProxy,
   useTable,
   ViewProvider,
-  PersonalViewProxy,
-  PersonalViewProvider,
-  ReactQueryKeys,
 } from '@teable/sdk';
 import { TablePermissionProvider } from '@teable/sdk/context/table-permission';
 import Head from 'next/head';
@@ -41,10 +39,6 @@ export const Table: React.FC<ITableProps> = ({
     viewId: string;
     baseId: string;
   };
-  const { data: base } = useQuery({
-    queryKey: ReactQueryKeys.base(baseId as string),
-    queryFn: ({ queryKey }) => getBaseById().then((res) => res.data),
-  });
 
   useViewErrorHandler(baseId, tableId, viewId);
 
@@ -52,9 +46,7 @@ export const Table: React.FC<ITableProps> = ({
     <AnchorContext.Provider value={{ tableId, viewId, baseId }}>
       <Head>
         <title>
-          {table?.name
-            ? `${table?.icon ? table.icon + ' ' : ''}${table.name}: ${base?.name} - Teable`
-            : 'Teable'}
+          {table?.name ? `${table?.icon ? table.icon + ' ' : ''}${table.name}: Teable` : 'Teable'}
         </title>
         <style data-fullcalendar></style>
       </Head>

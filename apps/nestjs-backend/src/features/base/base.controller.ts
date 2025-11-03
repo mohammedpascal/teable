@@ -14,7 +14,10 @@ export class BaseController {
 
   @Get(':baseId')
   async getBaseById(): Promise<IGetBaseVo> {
-    return this.baseService.getBaseById();
+    return {
+      id: 'bse0',
+      name: 'Base',
+    };
   }
 
   @Get(':baseId/permission')
