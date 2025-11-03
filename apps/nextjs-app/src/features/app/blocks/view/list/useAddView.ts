@@ -22,11 +22,10 @@ export function useAddView() {
         })
       ).data;
       const viewId = viewDoc.id;
-      const { baseId } = router.query;
       router.push(
         {
-          pathname: '/base/[baseId]/[tableId]/[viewId]',
-          query: { baseId, tableId: table.id, viewId },
+          pathname: '/table/[tableId]/[viewId]',
+          query: { tableId: table.id, viewId },
         },
         undefined,
         { shallow: Boolean(router.query.viewId) }

@@ -19,17 +19,15 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className }) 
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { baseId } = router.query;
   const viewId = router.query.viewId;
 
   const navigateHandler = () => {
     router.push(
       {
-        pathname: '/base/[baseId]/[tableId]/[viewId]',
+        pathname: '/table/[tableId]/[viewId]',
         query: {
           tableId: table.id,
           viewId: table.defaultViewId,
-          baseId: baseId as string,
         },
       },
       undefined,

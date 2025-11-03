@@ -46,7 +46,6 @@ export function useAddTable() {
   const base = useBase();
   const tables = useTables();
   const router = useRouter();
-  const { baseId } = router.query;
   const { t } = useTranslation('table');
   const fieldRos = useDefaultFields();
 
@@ -66,13 +65,13 @@ export function useAddTable() {
     const viewId = tableData.defaultViewId;
     router.push(
       {
-        pathname: '/base/[baseId]/[tableId]/[viewId]',
-        query: { baseId, tableId, viewId },
+        pathname: '/table/[tableId]/[viewId]',
+        query: { tableId, viewId },
       },
       undefined,
       {
         shallow: Boolean(router.query.viewId),
       }
     );
-  }, [t, tables, base, fieldRos, router, baseId]);
+  }, [t, tables, base, fieldRos, router]);
 }

@@ -23,6 +23,7 @@ export class NextController {
     'space/?*',
     'auth/?*',
     'base/?*',
+    'table/?*',
     'invite/?*',
     'share/?*',
     'setting/?*',

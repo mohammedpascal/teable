@@ -33,7 +33,6 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
   const [open, setOpen] = useState(false);
   const tableId = useTableId();
   const router = useRouter();
-  const baseId = router.query.baseId as string;
   const duplicateView = useDuplicateView(view);
   const deleteView = useDeleteView(view.id);
   const permission = useTablePermission();
@@ -49,8 +48,8 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
     resetSearchHandler?.();
     router.push(
       {
-        pathname: '/base/[baseId]/[tableId]/[viewId]',
-        query: { baseId, tableId: tableId, viewId: view.id },
+        pathname: '/table/[tableId]/[viewId]',
+        query: { tableId: tableId, viewId: view.id },
       },
       undefined,
       { shallow: Boolean(view.id) }

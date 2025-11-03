@@ -34,11 +34,11 @@ export const Table: React.FC<ITableProps> = ({
 }) => {
   const table = useTable();
   const router = useRouter();
-  const { baseId, tableId, viewId } = router.query as {
+  const { tableId, viewId } = router.query as {
     tableId: string;
     viewId: string;
-    baseId: string;
   };
+  const baseId = 'bse0';
 
   useViewErrorHandler(baseId, tableId, viewId);
 

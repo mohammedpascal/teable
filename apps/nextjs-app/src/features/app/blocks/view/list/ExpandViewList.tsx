@@ -65,9 +65,8 @@ export const ExpandViewList = () => {
                     onSelect={() => {
                       router.push(
                         {
-                          pathname: '/base/[baseId]/[tableId]/[viewId]',
+                          pathname: '/table/[tableId]/[viewId]',
                           query: {
-                            baseId: router.query.baseId,
                             tableId: router.query.tableId,
                             viewId: id,
                           },

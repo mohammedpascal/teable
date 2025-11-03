@@ -17,11 +17,10 @@ export const useViewErrorHandler = (baseId: string, tableId: string, viewId: str
       const defaultViewId = data.data.defaultViewId;
       router.push(
         {
-          pathname: '/base/[baseId]/[tableId]/[viewId]',
+          pathname: '/table/[tableId]/[viewId]',
           query: {
             tableId,
             viewId: defaultViewId,
-            baseId,
           },
         },
         undefined,

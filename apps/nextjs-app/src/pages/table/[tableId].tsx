@@ -12,10 +12,11 @@ export const getServerSideProps: GetServerSideProps = withAuthSSR(async (context
   const result = await ssrApi.getDefaultViewId('bse0', tableId as string);
   return {
     redirect: {
-      destination: `/table/${tableId}/${result.id}${queryString ? `?${queryString}` : ''}`,
+      destination: `/table/${tableId}/${result.id}?${queryString}`,
       permanent: false,
     },
   };
 });
 
 export default Node;
+

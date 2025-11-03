@@ -36,66 +36,14 @@ const Node: NextPageWithLayout<ITableProps> = ({
 export const getServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR<IViewPageProps>(async (context, ssrApi) => {
-      const { tableId, viewId, recordId, fromNotify: notifyId } = context.query;
-      const queryClient = new QueryClient();
-
-      const baseId = 'bse0';
-
-      await Promise.all([
-        queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.base(baseId),
-          queryFn: () => Promise.resolve({ id: 'bse0', name: 'Base' }),
-        }),
-
-        queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getBasePermission(baseId),
-          queryFn: () => ssrApi.getBasePermission(baseId),
-        }),
-
-        queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getTablePermission(baseId, tableId as string),
-          queryFn: () => ssrApi.getTablePermission(baseId, tableId as string),
-        }),
-      ]);
-
-      let recordServerData;
-      if (recordId) {
-        if (notifyId) {
-          await ssrApi.updateNotificationStatus(notifyId as string, { isRead: true });
-        }
-
-        recordServerData = await ssrApi.getRecord(tableId as string, recordId as string);
-
-        if (!recordServerData) {
-          return {
-            redirect: {
-              destination: `/base/bse0/${tableId}/${viewId}`,
-              permanent: false,
-            },
-          };
-        }
-      }
-
-      const serverData = await getViewPageServerData(
-        ssrApi,
-        baseId as string,
-        tableId as string,
-        viewId as string
-      );
-
-      if (serverData) {
-        const { i18nNamespaces } = tableConfig;
-        return {
-          props: {
-            ...serverData,
-            ...(recordServerData ? { recordServerData } : {}),
-            ...(await getTranslationsProps(context, i18nNamespaces)),
-            dehydratedState: dehydrate(queryClient),
-          },
-        };
-      }
+      const { tableId, viewId, ...queryParams } = context.query;
+      const queryString = new URLSearchParams(queryParams as Record<string, string>).toString();
+      const destination = `/table/${tableId}/${viewId}${queryString ? `?${queryString}` : ''}`;
       return {
-        notFound: true,
+        redirect: {
+          destination,
+          permanent: false,
+        },
       };
     })
   )

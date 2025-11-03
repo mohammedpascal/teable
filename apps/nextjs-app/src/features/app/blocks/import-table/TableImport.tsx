@@ -93,8 +93,8 @@ export const TableImport = (props: ITableImportProps) => {
       onOpenChange?.(false);
       router.push(
         {
-          pathname: '/base/[baseId]/[tableId]/[viewId]',
-          query: { baseId: base.id, tableId, viewId },
+          pathname: '/table/[tableId]/[viewId]',
+          query: { tableId, viewId },
         },
         undefined,
         {
@@ -114,8 +114,8 @@ export const TableImport = (props: ITableImportProps) => {
       routerTableId !== tableId &&
         router.push(
           {
-            pathname: '/base/[baseId]/[tableId]',
-            query: { baseId: base.id, tableId },
+            pathname: '/table/[tableId]',
+            query: { tableId },
           },
           undefined,
           {
