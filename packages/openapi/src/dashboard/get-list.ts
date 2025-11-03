@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const GET_DASHBOARD_LIST = '/base/{baseId}/dashboard';
+export const GET_DASHBOARD_LIST = '/dashboard';
 
 export const getDashboardListVoSchema = z.array(
   z.object({
@@ -18,11 +18,7 @@ export const GetDashboardListRoute: RouteConfig = registerRoute({
   method: 'get',
   path: GET_DASHBOARD_LIST,
   description: 'Get a list of dashboards in base',
-  request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
-  },
+  request: {},
   responses: {
     200: {
       description: 'Returns data about the dashboards.',
@@ -36,6 +32,6 @@ export const GetDashboardListRoute: RouteConfig = registerRoute({
   tags: ['dashboard'],
 });
 
-export const getDashboardList = async (baseId: string) => {
-  return axios.get<IGetDashboardListVo>(urlBuilder(GET_DASHBOARD_LIST, { baseId }));
+export const getDashboardList = async () => {
+  return axios.get<IGetDashboardListVo>(urlBuilder(GET_DASHBOARD_LIST, {}));
 };

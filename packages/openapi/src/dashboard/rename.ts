@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const RENAME_DASHBOARD = '/base/{baseId}/dashboard/{dashboardId}/rename';
+export const RENAME_DASHBOARD = '/dashboard/{dashboardId}/rename';
 
 export const renameDashboardRoSchema = z.object({
   name: z.string(),
@@ -24,7 +24,6 @@ export const RenameDashboardRoute: RouteConfig = registerRoute({
   description: 'Rename a dashboard by id',
   request: {
     params: z.object({
-      baseId: z.string(),
       dashboardId: z.string(),
     }),
     body: {
@@ -48,8 +47,8 @@ export const RenameDashboardRoute: RouteConfig = registerRoute({
   tags: ['dashboard'],
 });
 
-export const renameDashboard = async (baseId: string, dashboardId: string, name: string) => {
-  return axios.patch<IRenameDashboardVo>(urlBuilder(RENAME_DASHBOARD, { baseId, dashboardId }), {
+export const renameDashboard = async (dashboardId: string, name: string) => {
+  return axios.patch<IRenameDashboardVo>(urlBuilder(RENAME_DASHBOARD, { dashboardId }), {
     name,
   });
 };

@@ -17,7 +17,7 @@ export class DashboardService {
     private readonly cls: ClsService<IClsStore>
   ) {}
 
-  async getDashboard(baseId: string): Promise<IGetDashboardListVo> {
+  async getDashboard(): Promise<IGetDashboardListVo> {
     return this.prismaService.dashboard.findMany({
       select: {
         id: true,
@@ -29,7 +29,7 @@ export class DashboardService {
     });
   }
 
-  async getDashboardById(baseId: string, id: string): Promise<IGetDashboardVo> {
+  async getDashboardById(id: string): Promise<IGetDashboardVo> {
     const dashboard = await this.prismaService.dashboard
       .findFirstOrThrow({
         where: {
@@ -72,12 +72,15 @@ export class DashboardService {
           };
           return acc;
         },
-        {} as Record<string, any>
+        {} as Record<
+          string,
+          { id: string; name: string; type: string; config: string | null; position: string | null }
+        >
       ),
     };
   }
 
-  async createDashboard(baseId: string, dashboard: ICreateDashboardRo) {
+  async createDashboard(dashboard: ICreateDashboardRo) {
     const userId = this.cls.get('user.id');
     return this.prismaService.dashboard.create({
       data: {
@@ -92,7 +95,7 @@ export class DashboardService {
     });
   }
 
-  async renameDashboard(baseId: string, id: string, name: string) {
+  async renameDashboard(id: string, name: string) {
     return this.prismaService.dashboard
       .update({
         where: {
@@ -111,7 +114,7 @@ export class DashboardService {
       });
   }
 
-  async updateLayout(baseId: string, id: string, layout: IUpdateLayoutDashboardRo['layout']) {
+  async updateLayout(id: string, layout: IUpdateLayoutDashboardRo['layout']) {
     const ro = await this.prismaService.dashboard
       .update({
         where: {
@@ -135,7 +138,7 @@ export class DashboardService {
     };
   }
 
-  async deleteDashboard(baseId: string, id: string) {
+  async deleteDashboard(id: string) {
     await this.prismaService.dashboard
       .delete({
         where: {
@@ -147,7 +150,7 @@ export class DashboardService {
       });
   }
 
-  private async validateDashboard(baseId: string, dashboardId: string) {
+  private async validateDashboard(dashboardId: string) {
     await this.prismaService
       .txClient()
       .dashboard.findFirstOrThrow({
@@ -162,7 +165,6 @@ export class DashboardService {
 
   // Widget management methods
   async createWidget(
-    baseId: string,
     dashboardId: string,
     widgetData: { name: string; type: string; config?: string; position?: string }
   ) {
@@ -206,7 +208,6 @@ export class DashboardService {
   }
 
   async updateWidget(
-    baseId: string,
     dashboardId: string,
     widgetId: string,
     widgetData: { name?: string; config?: string; position?: string }
@@ -230,7 +231,7 @@ export class DashboardService {
     });
   }
 
-  async deleteWidget(baseId: string, dashboardId: string, widgetId: string) {
+  async deleteWidget(dashboardId: string, widgetId: string) {
     // Verify dashboard and widget exist
     const dashboard = await this.prismaService.dashboard.findFirstOrThrow({
       where: { id: dashboardId },
@@ -242,7 +243,9 @@ export class DashboardService {
 
     // Remove widget from dashboard layout
     const currentLayout = dashboard.layout ? JSON.parse(dashboard.layout) : [];
-    const updatedLayout = currentLayout.filter((item: any) => item.widgetId !== widgetId);
+    const updatedLayout = currentLayout.filter(
+      (item: { widgetId: string }) => item.widgetId !== widgetId
+    );
 
     await this.prismaService.dashboard.update({
       where: { id: dashboardId },

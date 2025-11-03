@@ -27,7 +27,6 @@ const dashboardRo = {
 describe('DashboardController', () => {
   let app: INestApplication;
   let dashboardId: string;
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();
@@ -35,12 +34,12 @@ describe('DashboardController', () => {
   });
 
   beforeEach(async () => {
-    const res = await createDashboard(baseId, dashboardRo);
+    const res = await createDashboard(dashboardRo);
     dashboardId = res.data.id;
   });
 
   afterEach(async () => {
-    await deleteDashboard(baseId, dashboardId);
+    await deleteDashboard(dashboardId);
   });
 
   afterAll(async () => {
@@ -48,39 +47,39 @@ describe('DashboardController', () => {
   });
 
   it('/api/dashboard (POST)', async () => {
-    const res = await createDashboard(baseId, dashboardRo);
+    const res = await createDashboard(dashboardRo);
     expect(createDashboardVoSchema.strict().safeParse(res.data).success).toBe(true);
     expect(res.status).toBe(201);
-    await deleteDashboard(baseId, res.data.id);
+    await deleteDashboard(res.data.id);
   });
 
   it('/api/dashboard/:id (GET)', async () => {
-    const getRes = await getDashboard(baseId, dashboardId);
+    const getRes = await getDashboard(dashboardId);
     expect(getDashboardVoSchema.strict().safeParse(getRes.data).success).toBe(true);
     expect(getRes.data.id).toBe(dashboardId);
   });
 
   it('/api/dashboard/:id (DELETE)', async () => {
-    const res = await createDashboard(baseId, dashboardRo);
-    await deleteDashboard(baseId, res.data.id);
-    const error = await getError(() => getDashboard(baseId, res.data.id));
+    const res = await createDashboard(dashboardRo);
+    await deleteDashboard(res.data.id);
+    const error = await getError(() => getDashboard(res.data.id));
     expect(error?.status).toBe(404);
   });
 
   it('/api/dashboard/:id/rename (PATCH)', async () => {
-    const res = await createDashboard(baseId, dashboardRo);
+    const res = await createDashboard(dashboardRo);
     const newName = 'new-dashboard';
-    const renameRes = await renameDashboard(baseId, res.data.id, newName);
+    const renameRes = await renameDashboard(res.data.id, newName);
     expect(renameRes.data.name).toBe(newName);
-    await deleteDashboard(baseId, res.data.id);
+    await deleteDashboard(res.data.id);
   });
 
   it('/api/dashboard/:id/layout (PATCH)', async () => {
-    const res = await createDashboard(baseId, dashboardRo);
+    const res = await createDashboard(dashboardRo);
     const layout = [{ widgetId: 'widget-id', x: 0, y: 0, w: 1, h: 1 }];
-    const updateRes = await updateLayoutDashboard(baseId, res.data.id, layout);
+    const updateRes = await updateLayoutDashboard(res.data.id, layout);
     expect(updateRes.data.layout).toEqual(layout);
-    await deleteDashboard(baseId, res.data.id);
+    await deleteDashboard(res.data.id);
   });
 
   describe('plugin', () => {
@@ -102,11 +101,11 @@ describe('DashboardController', () => {
     });
 
     it('/api/dashboard/:id/plugin (POST)', async () => {
-      const installRes = await installPlugin(baseId, dashboardId, {
+      const installRes = await installPlugin(dashboardId, {
         name: 'plugin1111',
         pluginId,
       });
-      const dashboard = await getDashboard(baseId, dashboardId);
+      const dashboard = await getDashboard(dashboardId);
       expect(getDashboardVoSchema.safeParse(dashboard.data).success).toBe(true);
       expect(installRes.data.name).toBe('plugin1111');
       expect(dashboardInstallPluginVoSchema.safeParse(installRes.data).success).toBe(true);
@@ -119,7 +118,7 @@ describe('DashboardController', () => {
         positions: [PluginPosition.Dashboard],
       });
       const error = await getError(() =>
-        installPlugin(baseId, dashboardId, {
+        installPlugin(dashboardId, {
           name: 'dddd',
           pluginId: res.data.id,
         })
@@ -129,13 +128,12 @@ describe('DashboardController', () => {
     });
 
     it('/api/dashboard/:id/plugin/:pluginInstallId/rename (PATCH)', async () => {
-      const installRes = await installPlugin(baseId, dashboardId, {
+      const installRes = await installPlugin(dashboardId, {
         name: 'plugin1111',
         pluginId,
       });
       const newName = 'new-plugin';
       const renameRes = await renamePlugin(
-        baseId,
         dashboardId,
         installRes.data.pluginInstallId,
         newName
@@ -145,12 +143,12 @@ describe('DashboardController', () => {
     });
 
     it('/api/dashboard/:id/plugin/:pluginInstallId (DELETE)', async () => {
-      const installRes = await installPlugin(baseId, dashboardId, {
+      const installRes = await installPlugin(dashboardId, {
         name: 'plugin1111',
         pluginId,
       });
-      await removePlugin(baseId, dashboardId, installRes.data.pluginInstallId);
-      const dashboard = await getDashboard(baseId, dashboardId);
+      await removePlugin(dashboardId, installRes.data.pluginInstallId);
+      const dashboard = await getDashboard(dashboardId);
       expect(dashboard?.data?.widgetMap?.[pluginId]).toBeUndefined();
     });
   });

@@ -3,9 +3,9 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const CREATE_WIDGET = '/base/{baseId}/dashboard/{dashboardId}/widget';
-export const UPDATE_WIDGET = '/base/{baseId}/dashboard/{dashboardId}/widget/{widgetId}';
-export const DELETE_WIDGET = '/base/{baseId}/dashboard/{dashboardId}/widget/{widgetId}';
+export const CREATE_WIDGET = '/dashboard/{dashboardId}/widget';
+export const UPDATE_WIDGET = '/dashboard/{dashboardId}/widget/{widgetId}';
+export const DELETE_WIDGET = '/dashboard/{dashboardId}/widget/{widgetId}';
 
 export const createWidgetRoSchema = z.object({
   name: z.string().min(1),
@@ -43,7 +43,6 @@ export const CreateWidgetRoute: RouteConfig = registerRoute({
   description: 'Create a new widget in a dashboard',
   request: {
     params: z.object({
-      baseId: z.string(),
       dashboardId: z.string(),
     }),
     body: {
@@ -104,7 +103,6 @@ export const DeleteWidgetRoute: RouteConfig = registerRoute({
   description: 'Delete a widget from a dashboard',
   request: {
     params: z.object({
-      baseId: z.string(),
       dashboardId: z.string(),
       widgetId: z.string(),
     }),
@@ -117,26 +115,21 @@ export const DeleteWidgetRoute: RouteConfig = registerRoute({
   tags: ['dashboard'],
 });
 
-export const createWidget = async (
-  baseId: string,
-  dashboardId: string,
-  widgetData: CreateWidgetRo
-) => {
-  return axios.post<WidgetVo>(urlBuilder(CREATE_WIDGET, { baseId, dashboardId }), widgetData);
+export const createWidget = async (dashboardId: string, widgetData: CreateWidgetRo) => {
+  return axios.post<WidgetVo>(urlBuilder(CREATE_WIDGET, { dashboardId }), widgetData);
 };
 
 export const updateWidget = async (
-  baseId: string,
   dashboardId: string,
   widgetId: string,
   widgetData: UpdateWidgetRo
 ) => {
   return axios.patch<WidgetVo>(
-    urlBuilder(UPDATE_WIDGET, { baseId, dashboardId, widgetId }),
+    urlBuilder(UPDATE_WIDGET, { dashboardId, widgetId }),
     widgetData
   );
 };
 
-export const deleteWidget = async (baseId: string, dashboardId: string, widgetId: string) => {
-  return axios.delete(urlBuilder(DELETE_WIDGET, { baseId, dashboardId, widgetId }));
+export const deleteWidget = async (dashboardId: string, widgetId: string) => {
+  return axios.delete(urlBuilder(DELETE_WIDGET, { dashboardId, widgetId }));
 };

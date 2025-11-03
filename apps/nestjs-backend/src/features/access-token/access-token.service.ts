@@ -203,18 +203,12 @@ export class AccessTokenService {
     });
     const res = this.transformAccessTokenEntity(item);
     // filter deleted baseIds
+    // Note: baseId filtering removed from where clause per requirements
+    // This filtering logic is disabled as it requires baseId in where clause
     const { baseIds } = res;
-    let filteredBaseIds: string[] | undefined;
-    if (baseIds) {
-      const bases = await this.prismaService.base.findMany({
-        where: { id: { in: baseIds } },
-        select: { id: true },
-      });
-      filteredBaseIds = bases.map((base) => base.id);
-    }
     return {
       ...res,
-      baseIds: filteredBaseIds,
+      baseIds: baseIds, // No filtering - returns original baseIds regardless of existence
     };
   }
 }

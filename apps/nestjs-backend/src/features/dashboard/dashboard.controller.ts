@@ -18,80 +18,68 @@ import type {
 import { ZodValidationPipe } from '../../zod.validation.pipe';
 import { DashboardService } from './dashboard.service';
 
-@Controller('api/base/:baseId/dashboard')
+@Controller('api/dashboard')
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 
   @Get()
-  getDashboard(@Param('baseId') baseId: string): Promise<IGetDashboardListVo> {
-    return this.dashboardService.getDashboard(baseId);
+  getDashboard(): Promise<IGetDashboardListVo> {
+    return this.dashboardService.getDashboard();
   }
 
   @Get(':id')
-  getDashboardById(
-    @Param('baseId') baseId: string,
-    @Param('id') id: string
-  ): Promise<IGetDashboardVo> {
-    return this.dashboardService.getDashboardById(baseId, id);
+  getDashboardById(@Param('id') id: string): Promise<IGetDashboardVo> {
+    return this.dashboardService.getDashboardById(id);
   }
 
   @Post()
   createDashboard(
-    @Param('baseId') baseId: string,
     @Body(new ZodValidationPipe(createDashboardRoSchema)) ro: ICreateDashboardRo
   ): Promise<ICreateDashboardVo> {
-    return this.dashboardService.createDashboard(baseId, ro);
+    return this.dashboardService.createDashboard(ro);
   }
 
   @Patch(':id/rename')
   updateDashboard(
-    @Param('baseId') baseId: string,
     @Param('id') id: string,
     @Body(new ZodValidationPipe(renameDashboardRoSchema)) ro: IRenameDashboardRo
   ): Promise<IRenameDashboardVo> {
-    return this.dashboardService.renameDashboard(baseId, id, ro.name);
+    return this.dashboardService.renameDashboard(id, ro.name);
   }
 
   @Patch(':id/layout')
   updateLayout(
-    @Param('baseId') baseId: string,
     @Param('id') id: string,
     @Body(new ZodValidationPipe(updateLayoutDashboardRoSchema)) ro: IUpdateLayoutDashboardRo
   ): Promise<IUpdateLayoutDashboardVo> {
-    return this.dashboardService.updateLayout(baseId, id, ro.layout);
+    return this.dashboardService.updateLayout(id, ro.layout);
   }
 
   @Delete(':id')
-  deleteDashboard(@Param('baseId') baseId: string, @Param('id') id: string): Promise<void> {
-    return this.dashboardService.deleteDashboard(baseId, id);
+  deleteDashboard(@Param('id') id: string): Promise<void> {
+    return this.dashboardService.deleteDashboard(id);
   }
 
   // Widget management endpoints
   @Post(':id/widget')
   createWidget(
-    @Param('baseId') baseId: string,
     @Param('id') dashboardId: string,
     @Body() widgetData: { name: string; type: string; config?: string; position?: string }
   ) {
-    return this.dashboardService.createWidget(baseId, dashboardId, widgetData);
+    return this.dashboardService.createWidget(dashboardId, widgetData);
   }
 
   @Patch(':id/widget/:widgetId')
   updateWidget(
-    @Param('baseId') baseId: string,
     @Param('id') dashboardId: string,
     @Param('widgetId') widgetId: string,
     @Body() widgetData: { name?: string; config?: string; position?: string }
   ) {
-    return this.dashboardService.updateWidget(baseId, dashboardId, widgetId, widgetData);
+    return this.dashboardService.updateWidget(dashboardId, widgetId, widgetData);
   }
 
   @Delete(':id/widget/:widgetId')
-  deleteWidget(
-    @Param('baseId') baseId: string,
-    @Param('id') dashboardId: string,
-    @Param('widgetId') widgetId: string
-  ) {
-    return this.dashboardService.deleteWidget(baseId, dashboardId, widgetId);
+  deleteWidget(@Param('id') dashboardId: string, @Param('widgetId') widgetId: string) {
+    return this.dashboardService.deleteWidget(dashboardId, widgetId);
   }
 }

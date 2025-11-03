@@ -4,7 +4,7 @@ import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
 export const DASHBOARD_PLUGIN_RENAME =
-  '/base/{baseId}/dashboard/{dashboardId}/plugin/{pluginInstallId}/rename';
+  '/dashboard/{dashboardId}/plugin/{pluginInstallId}/rename';
 
 export const dashboardPluginRenameRoSchema = z.object({
   name: z.string(),
@@ -26,8 +26,7 @@ export const DashboardPluginRenameRoute: RouteConfig = registerRoute({
   description: 'Rename a plugin in a dashboard',
   request: {
     params: z.object({
-      baseId: z.string(),
-      id: z.string(),
+      dashboardId: z.string(),
       pluginInstallId: z.string(),
     }),
     body: {
@@ -52,13 +51,12 @@ export const DashboardPluginRenameRoute: RouteConfig = registerRoute({
 });
 
 export const renamePlugin = async (
-  baseId: string,
   dashboardId: string,
   pluginInstallId: string,
   name: string
 ) => {
   return axios.patch<IDashboardPluginRenameVo>(
-    urlBuilder(DASHBOARD_PLUGIN_RENAME, { baseId, dashboardId, pluginInstallId }),
+    urlBuilder(DASHBOARD_PLUGIN_RENAME, { dashboardId, pluginInstallId }),
     { name }
   );
 };

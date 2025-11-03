@@ -340,7 +340,7 @@ export class TableOpenApiService {
 
     // clean ops for table
     await this.prismaService.txClient().ops.deleteMany({
-      where: { collection: baseId, docId: { in: tableIds } },
+      where: { docId: { in: tableIds } },
     });
 
     await this.prismaService.txClient().tableMeta.deleteMany({

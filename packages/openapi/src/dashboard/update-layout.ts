@@ -4,7 +4,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { dashboardLayoutSchema } from './types';
 
-export const UPDATE_LAYOUT_DASHBOARD = '/base/{baseId}/dashboard/{id}/layout';
+export const UPDATE_LAYOUT_DASHBOARD = '/dashboard/{id}/layout';
 
 export const updateLayoutDashboardRoSchema = z.object({
   layout: dashboardLayoutSchema,
@@ -25,7 +25,6 @@ export const UpdateLayoutDashboardRoute: RouteConfig = registerRoute({
   description: 'Update a dashboard layout by id',
   request: {
     params: z.object({
-      baseId: z.string(),
       id: z.string(),
     }),
     body: {
@@ -50,12 +49,11 @@ export const UpdateLayoutDashboardRoute: RouteConfig = registerRoute({
 });
 
 export const updateLayoutDashboard = async (
-  baseId: string,
   id: string,
   layout: IUpdateLayoutDashboardRo['layout']
 ) => {
   return axios.patch<IUpdateLayoutDashboardVo>(
-    urlBuilder(UPDATE_LAYOUT_DASHBOARD, { baseId, id }),
+    urlBuilder(UPDATE_LAYOUT_DASHBOARD, { id }),
     { layout }
   );
 };

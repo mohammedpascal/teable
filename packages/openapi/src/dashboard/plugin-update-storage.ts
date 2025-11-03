@@ -6,7 +6,7 @@ import type { IPluginInstallStorage } from './types';
 import { pluginInstallStorageSchema } from './types';
 
 export const DASHBOARD_PLUGIN_UPDATE_STORAGE =
-  '/base/{baseId}/dashboard/{dashboardId}/plugin/{pluginInstallId}/update-storage';
+  '/dashboard/{dashboardId}/plugin/{pluginInstallId}/update-storage';
 
 export const dashboardPluginUpdateStorageRoSchema = z.object({
   storage: pluginInstallStorageSchema.optional(),
@@ -29,7 +29,6 @@ export const DashboardPluginUpdateStorageRoute: RouteConfig = registerRoute({
   description: 'Update storage of a plugin in a dashboard',
   request: {
     params: z.object({
-      baseId: z.string(),
       dashboardId: z.string(),
       pluginInstallId: z.string(),
     }),
@@ -55,13 +54,12 @@ export const DashboardPluginUpdateStorageRoute: RouteConfig = registerRoute({
 });
 
 export const updateDashboardPluginStorage = async (
-  baseId: string,
   dashboardId: string,
   pluginInstallId: string,
   storage?: IPluginInstallStorage
 ) => {
   return axios.patch<IDashboardPluginUpdateStorageVo>(
-    urlBuilder(DASHBOARD_PLUGIN_UPDATE_STORAGE, { baseId, dashboardId, pluginInstallId }),
+    urlBuilder(DASHBOARD_PLUGIN_UPDATE_STORAGE, { dashboardId, pluginInstallId }),
     { storage }
   );
 };

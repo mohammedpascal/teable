@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const DASHBOARD_INSTALL_PLUGIN = '/base/{baseId}/dashboard/{id}/plugin';
+export const DASHBOARD_INSTALL_PLUGIN = '/dashboard/{id}/plugin';
 
 export const dashboardInstallPluginRoSchema = z.object({
   name: z.string(),
@@ -27,7 +27,6 @@ export const DashboardInstallPluginRoute: RouteConfig = registerRoute({
   description: 'Install a plugin to a dashboard',
   request: {
     params: z.object({
-      baseId: z.string(),
       id: z.string(),
     }),
     body: {
@@ -51,9 +50,9 @@ export const DashboardInstallPluginRoute: RouteConfig = registerRoute({
   tags: ['dashboard'],
 });
 
-export const installPlugin = async (baseId: string, id: string, ro: IDashboardInstallPluginRo) => {
+export const installPlugin = async (id: string, ro: IDashboardInstallPluginRo) => {
   return axios.post<IDashboardInstallPluginVo>(
-    urlBuilder(DASHBOARD_INSTALL_PLUGIN, { baseId, id }),
+    urlBuilder(DASHBOARD_INSTALL_PLUGIN, { id }),
     ro
   );
 };

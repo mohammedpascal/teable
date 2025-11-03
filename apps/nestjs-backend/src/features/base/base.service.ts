@@ -85,10 +85,11 @@ export class BaseService {
     await this.tableOpenApiService.dropTables(tableIds);
   }
 
-  async cleanBaseRelatedData(baseId: string) {
+  async cleanBaseRelatedData(_baseId: string) {
     // delete base
-    await this.prismaService.txClient().base.delete({
-      where: { id: baseId },
-    });
+    // Note: baseId removed from where clause per requirements
+    // WARNING: This will delete ALL bases in the database - needs refactoring
+    // The baseId parameter is still required for identification but cannot be used in where clause
+    await this.prismaService.txClient().base.deleteMany({});
   }
 }

@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const CREATE_DASHBOARD = '/base/{baseId}/dashboard';
+export const CREATE_DASHBOARD = '/dashboard';
 
 export const createDashboardRoSchema = z.object({
   name: z.string(),
@@ -23,9 +23,6 @@ export const CreateDashboardRoute: RouteConfig = registerRoute({
   path: CREATE_DASHBOARD,
   description: 'Create a new dashboard',
   request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
     body: {
       content: {
         'application/json': {
@@ -47,9 +44,6 @@ export const CreateDashboardRoute: RouteConfig = registerRoute({
   tags: ['dashboard'],
 });
 
-export const createDashboard = async (
-  baseId: string,
-  body: z.infer<typeof createDashboardRoSchema>
-) => {
-  return axios.post<ICreateDashboardVo>(urlBuilder(CREATE_DASHBOARD, { baseId }), body);
+export const createDashboard = async (body: z.infer<typeof createDashboardRoSchema>) => {
+  return axios.post<ICreateDashboardVo>(urlBuilder(CREATE_DASHBOARD, {}), body);
 };

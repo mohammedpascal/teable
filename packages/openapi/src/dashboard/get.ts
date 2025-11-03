@@ -4,7 +4,7 @@ import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 import { dashboardLayoutSchema, dashboardWidgetItemSchema } from './types';
 
-export const GET_DASHBOARD = '/base/{baseId}/dashboard/{id}';
+export const GET_DASHBOARD = '/dashboard/{id}';
 
 export const getDashboardVoSchema = z.object({
   id: z.string(),
@@ -21,7 +21,6 @@ export const GetDashboardRoute: RouteConfig = registerRoute({
   description: 'Get a dashboard by id',
   request: {
     params: z.object({
-      baseId: z.string(),
       id: z.string(),
     }),
   },
@@ -38,6 +37,6 @@ export const GetDashboardRoute: RouteConfig = registerRoute({
   tags: ['dashboard'],
 });
 
-export const getDashboard = async (baseId: string, id: string) => {
-  return axios.get<IGetDashboardVo>(urlBuilder(GET_DASHBOARD, { baseId, id }));
+export const getDashboard = async (id: string) => {
+  return axios.get<IGetDashboardVo>(urlBuilder(GET_DASHBOARD, { id }));
 };

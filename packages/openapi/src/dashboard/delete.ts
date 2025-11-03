@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const DELETE_DASHBOARD = '/base/{baseId}/dashboard/{id}';
+export const DELETE_DASHBOARD = '/dashboard/{id}';
 
 export const DeleteDashboardRoute: RouteConfig = registerRoute({
   method: 'delete',
@@ -11,7 +11,6 @@ export const DeleteDashboardRoute: RouteConfig = registerRoute({
   description: 'Delete a dashboard by id',
   request: {
     params: z.object({
-      baseId: z.string(),
       id: z.string(),
     }),
   },
@@ -23,6 +22,6 @@ export const DeleteDashboardRoute: RouteConfig = registerRoute({
   tags: ['dashboard'],
 });
 
-export const deleteDashboard = async (baseId: string, id: string) => {
-  return axios.delete(urlBuilder(DELETE_DASHBOARD, { baseId, id }));
+export const deleteDashboard = async (id: string) => {
+  return axios.delete(urlBuilder(DELETE_DASHBOARD, { id }));
 };
