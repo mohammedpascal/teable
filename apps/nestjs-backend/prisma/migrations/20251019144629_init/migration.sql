@@ -372,19 +372,6 @@ CREATE TABLE "dashboard_widget" (
 );
 
 -- CreateTable
-CREATE TABLE "integration" (
-    "id" TEXT NOT NULL,
-    "resource_id" TEXT NOT NULL,
-    "config" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
-    "enable" BOOLEAN,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" TIMESTAMP(3),
-
-    CONSTRAINT "integration_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "plugin_context_menu" (
     "table_id" TEXT NOT NULL,
     "plugin_install_id" TEXT NOT NULL,
@@ -460,9 +447,6 @@ CREATE INDEX "record_history_table_id_created_time_idx" ON "record_history"("tab
 
 -- CreateIndex
 CREATE UNIQUE INDEX "plugin_secret_key" ON "plugin"("secret");
-
--- CreateIndex
-CREATE UNIQUE INDEX "integration_resource_id_key" ON "integration"("resource_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "plugin_context_menu_plugin_install_id_key" ON "plugin_context_menu"("plugin_install_id");

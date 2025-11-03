@@ -86,7 +86,6 @@ export { default as HttpRequest } from './components/HttpRequest';
 export { default as Image } from './components/Image';
 export { default as Import } from './components/Import';
 export { default as Inbox } from './components/Inbox';
-export { default as Integration } from './components/Integration';
 export { default as Kanban } from './components/Kanban';
 export { default as Key } from './components/Key';
 export { default as Layers } from './components/Layers';

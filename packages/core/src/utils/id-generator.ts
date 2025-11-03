@@ -32,8 +32,6 @@ export enum IdPrefix {
   Dashboard = 'dsh',
 
   Operation = 'opr',
-
-  Integration = 'int',
 }
 
 const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -132,8 +130,4 @@ export function generateDashboardId() {
 
 export function generateOperationId() {
   return IdPrefix.Operation + getRandomString(16);
-}
-
-export function generateIntegrationId() {
-  return IdPrefix.Integration + getRandomString(16);
 }
