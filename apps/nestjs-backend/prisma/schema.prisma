@@ -278,7 +278,6 @@ model Plugin {
 model PluginInstall {
   id               String    @id @default(cuid())
   pluginId         String    @map("plugin_id")
-  baseId           String    @map("base_id")
   name             String
   positionId       String    @map("position_id")
   position         String

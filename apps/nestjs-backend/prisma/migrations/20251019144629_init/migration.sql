@@ -258,7 +258,6 @@ CREATE TABLE "plugin" (
 CREATE TABLE "plugin_install" (
     "id" TEXT NOT NULL,
     "plugin_id" TEXT NOT NULL,
-    "base_id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "position_id" TEXT NOT NULL,
     "position" TEXT NOT NULL,
