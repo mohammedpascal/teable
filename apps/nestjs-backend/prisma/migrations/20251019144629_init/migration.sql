@@ -177,22 +177,6 @@ CREATE TABLE "attachments_table" (
 );
 
 -- CreateTable
-CREATE TABLE "collaborator" (
-    "id" TEXT NOT NULL,
-    "role_name" TEXT NOT NULL,
-    "resource_type" TEXT NOT NULL,
-    "resource_id" TEXT NOT NULL,
-    "principal_id" TEXT NOT NULL,
-    "principal_type" TEXT NOT NULL,
-    "created_by" TEXT NOT NULL,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" TIMESTAMP(3),
-    "last_modified_by" TEXT,
-
-    CONSTRAINT "collaborator_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "notification" (
     "id" TEXT NOT NULL,
     "from_user_id" TEXT NOT NULL,
@@ -232,58 +216,6 @@ CREATE TABLE "setting" (
     "enable_email_verification" BOOLEAN,
 
     CONSTRAINT "setting_pkey" PRIMARY KEY ("instance_id")
-);
-
--- CreateTable
-CREATE TABLE "oauth_app" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "logo" TEXT,
-    "homepage" TEXT NOT NULL,
-    "description" TEXT,
-    "client_id" TEXT NOT NULL,
-    "redirect_uris" TEXT,
-    "scopes" TEXT,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" TIMESTAMP(3),
-    "created_by" TEXT NOT NULL,
-
-    CONSTRAINT "oauth_app_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "oauth_app_authorized" (
-    "id" TEXT NOT NULL,
-    "client_id" TEXT NOT NULL,
-    "user_id" TEXT NOT NULL,
-    "authorized_time" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "oauth_app_authorized_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "oauth_app_secret" (
-    "id" TEXT NOT NULL,
-    "client_id" TEXT NOT NULL,
-    "secret" TEXT NOT NULL,
-    "masked_secret" TEXT NOT NULL,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "created_by" TEXT NOT NULL,
-    "last_used_time" TIMESTAMP(3),
-
-    CONSTRAINT "oauth_app_secret_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "oauth_app_token" (
-    "id" TEXT NOT NULL,
-    "app_secret_id" TEXT NOT NULL,
-    "refresh_token_sign" TEXT NOT NULL,
-    "expired_time" TIMESTAMP(3) NOT NULL,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "created_by" TEXT NOT NULL,
-
-    CONSTRAINT "oauth_app_token_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -371,17 +303,6 @@ CREATE TABLE "dashboard_widget" (
     CONSTRAINT "dashboard_widget_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "plugin_context_menu" (
-    "table_id" TEXT NOT NULL,
-    "plugin_install_id" TEXT NOT NULL,
-    "order" DOUBLE PRECISION NOT NULL,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "created_by" TEXT NOT NULL,
-    "last_modified_time" TIMESTAMP(3),
-    "last_modified_by" TEXT
-);
-
 -- CreateIndex
 CREATE INDEX "table_meta_order_idx" ON "table_meta"("order");
 
@@ -422,22 +343,7 @@ CREATE UNIQUE INDEX "account_provider_provider_id_key" ON "account"("provider", 
 CREATE UNIQUE INDEX "attachments_token_key" ON "attachments"("token");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "collaborator_resource_type_resource_id_principal_id_princip_key" ON "collaborator"("resource_type", "resource_id", "principal_id", "principal_type");
-
--- CreateIndex
 CREATE INDEX "notification_to_user_id_is_read_created_time_idx" ON "notification"("to_user_id", "is_read", "created_time");
-
--- CreateIndex
-CREATE UNIQUE INDEX "oauth_app_client_id_key" ON "oauth_app"("client_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "oauth_app_authorized_client_id_user_id_key" ON "oauth_app_authorized"("client_id", "user_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "oauth_app_secret_secret_key" ON "oauth_app_secret"("secret");
-
--- CreateIndex
-CREATE UNIQUE INDEX "oauth_app_token_refresh_token_sign_key" ON "oauth_app_token"("refresh_token_sign");
 
 -- CreateIndex
 CREATE INDEX "record_history_table_id_record_id_created_time_idx" ON "record_history"("table_id", "record_id", "created_time");
@@ -447,9 +353,6 @@ CREATE INDEX "record_history_table_id_created_time_idx" ON "record_history"("tab
 
 -- CreateIndex
 CREATE UNIQUE INDEX "plugin_secret_key" ON "plugin"("secret");
-
--- CreateIndex
-CREATE UNIQUE INDEX "plugin_context_menu_plugin_install_id_key" ON "plugin_context_menu"("plugin_install_id");
 
 -- AddForeignKey
 ALTER TABLE "table_meta" ADD CONSTRAINT "table_meta_base_id_fkey" FOREIGN KEY ("base_id") REFERENCES "base"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -468,7 +371,4 @@ ALTER TABLE "plugin_install" ADD CONSTRAINT "plugin_install_plugin_id_fkey" FORE
 
 -- AddForeignKey
 ALTER TABLE "dashboard_widget" ADD CONSTRAINT "dashboard_widget_dashboard_id_fkey" FOREIGN KEY ("dashboard_id") REFERENCES "dashboard"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "plugin_context_menu" ADD CONSTRAINT "plugin_context_menu_table_id_fkey" FOREIGN KEY ("table_id") REFERENCES "table_meta"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 

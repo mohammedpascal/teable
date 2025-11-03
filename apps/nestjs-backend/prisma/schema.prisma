@@ -199,14 +199,6 @@ model AttachmentsTable {
   @@map("attachments_table")
 }
 
-// NOTE: Collaborator model removed - collaboration feature has been removed
-// A database migration is needed to drop the collaborator table:
-// Run: pnpm -F @teable/nestjs-backend prisma migrate dev --name remove_collaborator_table
-
-// NOTE: Invitation and InvitationRecord models removed - invitation feature has been removed
-// A database migration is needed to drop these tables:
-// Run: pnpm -F @teable/nestjs-backend prisma migrate dev --name remove_invitation_tables
-
 model Notification {
   id          String   @id @default(cuid())
   fromUserId  String   @map("from_user_id")
@@ -245,54 +237,6 @@ model Setting {
   enableEmailVerification   Boolean?  @map("enable_email_verification")
 
   @@map("setting")
-}
-model OAuthApp {
-  id               String    @id @default(cuid())
-  name             String
-  logo             String?
-  homepage         String
-  description      String?
-  clientId         String    @unique @map("client_id")
-  redirectUris     String?   @map("redirect_uris")
-  scopes           String?
-  createdTime      DateTime  @default(now()) @map("created_time")
-  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
-  createdBy        String     @map("created_by")
-
-  @@map("oauth_app")
-}
-
-model OAuthAppAuthorized {
-  id               String    @id @default(cuid())
-  clientId         String    @map("client_id")
-  userId           String    @map("user_id")
-  authorizedTime   DateTime  @map("authorized_time")
-
-  @@unique([clientId, userId])
-  @@map("oauth_app_authorized")
-}
-
-model OAuthAppSecret {
-  id              String    @id @default(cuid())
-  clientId        String    @map("client_id")
-  secret          String    @unique
-  maskedSecret    String    @map("masked_secret")
-  createdTime     DateTime  @default(now()) @map("created_time")
-  createdBy       String    @map("created_by")
-  lastUsedTime    DateTime? @map("last_used_time")
-
-  @@map("oauth_app_secret")
-}
-
-model OAuthAppToken {
-  id               String    @id @default(cuid())
-  appSecretId      String    @map("app_secret_id")
-  refreshTokenSign String    @map("refresh_token_sign")  @unique
-  expiredTime      DateTime  @map("expired_time")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  createdBy        String    @map("created_by")
-
-  @@map("oauth_app_token")
 }
 
 model RecordHistory {
@@ -383,31 +327,4 @@ model DashboardWidget {
   dashboard        Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
 
   @@map("dashboard_widget")
-}
-
-model Comment {
-  id               String     @id @default(cuid())
-  tableId          String     @map("table_id")
-  recordId         String     @map("record_id")
-  quoteId          String?    @map("quote_Id")
-  content          String?
-  reaction         String?
-
-  createdTime      DateTime   @default(now()) @map("created_time")
-  createdBy        String     @map("created_by")
-  lastModifiedTime DateTime?  @updatedAt @map("last_modified_time")
-
-  @@map("comment")
-  @@index([tableId, recordId])
-}
-
-model CommentSubscription {
-  tableId          String     @map("table_id")
-  recordId         String     @map("record_id")
-  createdBy        String     @map("created_by")
-  createdTime      DateTime   @default(now()) @map("created_time")
-
-  @@unique([tableId, recordId])
-  @@index([tableId, recordId])
-  @@map("comment_subscription")
 }
