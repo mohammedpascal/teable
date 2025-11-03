@@ -211,8 +211,6 @@
       "description": "Mevcut örneğinizin ayarlarını değiştirin",
       "allowSignUp": "Yeni hesap oluşturmaya izin ver",
       "allowSignUpDescription": "Bu seçeneği devre dışı bırakmak yeni kullanıcı kayıtlarını yasaklar ve kayıt düğmesi artık giriş sayfasında görünmez.",
-      "allowSpaceInvitation": "Alan davetleri göndermeye izin ver",
-      "allowSpaceInvitationDescription": "Bu seçeneği devre dışı bırakmak, yöneticiler dışındaki kullanıcıların başkalarını alanlara davet etmesini engeller. Bu seçeneği etkinleştirmek, yeni hesap kaydı devre dışı bırakılmış olsa bile doğrudan davet edilen kullanıcıların hesap oluşturmasına izin verir.",
       "allowSpaceCreation": "Herkesin yeni alan oluşturmasına izin ver",
       "allowSpaceCreationDescription": "Bu seçeneği devre dışı bırakmak, yöneticiler dışındaki kullanıcıların yeni alan oluşturmasını engeller."
     }

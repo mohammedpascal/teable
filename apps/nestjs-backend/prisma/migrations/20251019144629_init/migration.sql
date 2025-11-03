@@ -193,35 +193,6 @@ CREATE TABLE "collaborator" (
 );
 
 -- CreateTable
-CREATE TABLE "invitation" (
-    "id" TEXT NOT NULL,
-    "base_id" TEXT,
-    "type" TEXT NOT NULL,
-    "role" TEXT NOT NULL,
-    "invitation_code" TEXT NOT NULL,
-    "expired_time" TIMESTAMP(3),
-    "create_by" TEXT NOT NULL,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" TIMESTAMP(3),
-    "last_modified_by" TEXT,
-
-    CONSTRAINT "invitation_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "invitation_record" (
-    "id" TEXT NOT NULL,
-    "invitation_id" TEXT NOT NULL,
-    "base_id" TEXT,
-    "type" TEXT NOT NULL,
-    "inviter" TEXT NOT NULL,
-    "accepter" TEXT NOT NULL,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "invitation_record_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "notification" (
     "id" TEXT NOT NULL,
     "from_user_id" TEXT NOT NULL,

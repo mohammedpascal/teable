@@ -233,8 +233,6 @@
       "description": "Modifica le impostazioni per la tua istanza corrente",
       "allowSignUp": "Consenti la creazione di nuovi account",
       "allowSignUpDescription": "Disabilitando questa opzione si proibiranno le nuove registrazioni degli utenti e il pulsante di registrazione non apparirà più nella pagina di accesso.",
-      "allowSpaceInvitation": "Consenti l'invio di inviti per lo spazio",
-      "allowSpaceInvitationDescription": "Disabilitando questa opzione si impedirà agli utenti diversi dagli amministratori di invitare altri a unirsi agli spazi. Abilitando questa opzione si consentirà agli utenti invitati direttamente di creare un account anche se la registrazione di nuovi account è disabilitata.",
       "allowSpaceCreation": "Consenti a tutti di creare nuovi spazi",
       "allowSpaceCreationDescription": "Disabilitando questa opzione si impedirà agli utenti diversi dagli amministratori di creare nuovi spazi.",
       "enableEmailVerification": "Abilita la verifica email",
@@ -302,6 +300,7 @@
       "viewer": "Non può modificare o commentare"
     }
   },
+  "trash": {
     "type": "Tipo",
     "resetTrash": "Svuota cestino",
     "deletedBy": "Eliminato da",

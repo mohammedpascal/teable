@@ -205,8 +205,6 @@
       "description": "現在のインスタンスの設定を変更する",
       "allowSignUp": "新しいアカウントの作成を許可する",
       "allowSignUpDescription": "このオプションを無効にすると、新規ユーザーの登録が禁止され、ログインページに登録ボタンが表示されなくなります。",
-      "allowSpaceInvitation": "スペースへの招待の送信を許可する",
-      "allowSpaceInvitationDescription": "このオプションを無効にすると、管理者以外のユーザーは他のユーザーをスペースに招待できなくなります。このオプションを有効にすると、新規アカウント登録が無効になっている場合でも、直接招待されたユーザーはアカウントを作成できるようになります。",
       "allowSpaceCreation": "誰でも新しいスペースを作成できるようにする",
       "allowSpaceCreationDescription": "このオプションを無効にすると、管理者以外のユーザーは新しいスペースを作成できなくなります。",
       "generalSettings": "一般設定",

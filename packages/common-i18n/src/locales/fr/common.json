@@ -199,8 +199,6 @@
       "description": "Modifier les paramètres de votre instance actuelle",
       "allowSignUp": "Autoriser la création de nouveaux comptes",
       "allowSignUpDescription": "Désactiver cette option interdira les nouvelles inscriptions d'utilisateur, et le bouton d'inscription n'apparaîtra plus sur la page de connexion.",
-      "allowSpaceInvitation": "Autoriser l'envoi d'invitations à des espaces",
-      "allowSpaceInvitationDescription": "Désactiver cette option empêchera les utilisateurs autres que les administrateurs d'inviter d'autres personnes à rejoindre des espaces. Activer cette option permettra aux utilisateurs invités directement de créer un compte même si l'inscription de nouveaux comptes est désactivée.",
       "allowSpaceCreation": "Autoriser tout le monde à créer de nouveaux espaces",
       "allowSpaceCreationDescription": "Désactiver cette option empêchera les utilisateurs autres que les administrateurs de créer de nouveaux espaces.",
       "generalSettings": "Paramètres généraux",

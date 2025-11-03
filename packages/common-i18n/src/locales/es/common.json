@@ -233,8 +233,6 @@
       "description": "Cambie la configuración de su instancia actual",
       "allowSignUp": "Permitir crear nuevas cuentas",
       "allowSignUpDescription": "Deshabilitar esta opción prohibirá los registros de nuevos usuarios, y el botón de registro ya no aparecerá en la página de inicio de sesión.",
-      "allowSpaceInvitation": "Permitir envío de invitaciones de espacio",
-      "allowSpaceInvitationDescription": "Deshabilitar esta opción evitará que los usuarios que no sean administradores inviten a otros a unir espacios. ",
       "allowSpaceCreation": "Permitir que todos creen nuevos espacios",
       "allowSpaceCreationDescription": "Deshabilitar esta opción evitará que los usuarios que no sean administradores creen nuevos espacios.",
       "enableEmailVerification": "Habilitar la verificación de correo electrónico",
@@ -305,6 +303,7 @@
       "viewer": "No se puede editar o comentar"
     }
   },
+  "trash": {
     "type": "Tipo",
     "resetTrash": "Vaciar papelera",
     "deletedBy": "Eliminado por",

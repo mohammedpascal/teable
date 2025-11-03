@@ -235,9 +235,7 @@
     "setting": {
       "description": "Ändern Sie die Einstellungen für Ihre aktuelle Instanz",
       "allowSignUp": "Erstellen neuer Konten zulassen",
-      "allowSignUpDescription": "Wenn Sie diese Option deaktivieren, werden neue Benutzerregistrierungen verhindert, und die Schaltfläche „Registrieren“ wird nicht mehr auf der Anmeldeseite angezeigt.",
-      "allowSpaceInvitation": "Erlauben Sie das Versenden von Space-Einladungen",
-      "allowSpaceInvitationDescription": "Die Deaktivierung dieser Option verhindert, dass andere Benutzer als Administratoren andere Benutzer zu Spaces einladen können. Wenn Sie diese Option aktivieren, können direkt eingeladene Benutzer ein Konto erstellen, auch wenn die Registrierung neuer Konten deaktiviert ist.",
+      "allowSignUpDescription": "Wenn Sie diese Option deaktivieren, werden neue Benutzerregistrierungen verhindert, und die Schaltfläche \"Registrieren\" wird nicht mehr auf der Anmeldeseite angezeigt.",
       "allowSpaceCreation": "Jedem die Möglichkeit geben, neue Space anzulegen",
       "allowSpaceCreationDescription": "Wenn Sie diese Option deaktivieren, können andere Benutzer als Administratoren keine neuen Spaces erstellen.",
       "enableEmailVerification": "Aktivieren der E-Mail-Überprüfung",
@@ -312,6 +310,7 @@
       "viewer": "Kann nicht bearbeiten oder kommentieren"
     }
   },
+  "trash": {
     "type": "Typ",
     "resetTrash": "Papierkorb leeren",
     "deletedBy": "Gelöscht von",
