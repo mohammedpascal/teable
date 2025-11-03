@@ -56,7 +56,8 @@ const DangerZone = () => {
   const canDelete = permission['table|delete'];
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { baseId, tableId: routerTableId } = router.query;
+  const baseId = 'bse0';
+  const { tableId: routerTableId } = router.query;
 
   if (!table || !canDelete) return null;
 
@@ -74,8 +75,8 @@ const DangerZone = () => {
         router.push(
           firstTableId
             ? {
-                pathname: '/base/[baseId]/design',
-                query: { baseId, tableId: firstTableId },
+                pathname: '/design',
+                query: { tableId: firstTableId },
               }
             : {
                 pathname: '/base/[baseId]',
@@ -133,13 +134,13 @@ export const TableTabs = () => {
   const tables = useTables();
   const router = useRouter();
   const tableId = router.query.tableId as string;
-  const baseId = router.query.baseId as string;
+  const baseId = 'bse0';
 
   return (
     <Tabs
       value={tableId}
       onValueChange={(tableId) =>
-        router.push({ pathname: router.pathname, query: { ...router.query, tableId } })
+        router.push({ pathname: '/design', query: { tableId } })
       }
       className="space-y-4"
     >

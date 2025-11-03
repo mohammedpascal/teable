@@ -6,7 +6,7 @@ import { TableTabs, TablePicker } from './TableTabs';
 
 export const Design = () => {
   const router = useRouter();
-  const baseId = router.query.baseId as string;
+  const baseId = 'bse0';
   const tableId = router.query.tableId as string;
   const { t } = useTranslation(['table']);
 
@@ -22,7 +22,7 @@ export const Design = () => {
                 tableId={tableId}
                 readonly={false}
                 onChange={(tableId) =>
-                  router.push({ pathname: router.pathname, query: { ...router.query, tableId } })
+                  router.push({ pathname: '/design', query: { tableId } })
                 }
               />
               <div className="ml-auto">

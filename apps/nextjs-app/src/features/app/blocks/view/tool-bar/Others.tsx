@@ -58,8 +58,8 @@ const OthersList = ({
           >
             <Link
               href={{
-                pathname: '/base/[baseId]/design',
-                query: { baseId, tableId },
+                pathname: '/design',
+                query: { tableId },
               }}
             >
               <Database className="pr-1 text-lg" />
