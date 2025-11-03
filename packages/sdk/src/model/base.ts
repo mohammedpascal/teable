@@ -1,19 +1,14 @@
-import type { IRole } from '@teable/core';
-import type { IGetBaseVo, ICreateTableRo, CollaboratorType } from '@teable/openapi';
+import type { IGetBaseVo, ICreateTableRo } from '@teable/openapi';
 import { Table } from './table/table';
 
 export class Base implements IGetBaseVo {
   id: string;
   name: string;
-  role: IRole;
-  collaboratorType?: CollaboratorType;
 
   constructor(base: IGetBaseVo) {
-    const { id, name, role, collaboratorType } = base;
+    const { id, name } = base;
     this.id = id;
     this.name = name;
-    this.role = role;
-    this.collaboratorType = collaboratorType;
   }
 
   async createTable(tableRo?: ICreateTableRo) {

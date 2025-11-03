@@ -6042,8 +6042,6 @@ export interface paths {
                 icon: string | null;
                 /** @enum {string} */
                 role: "owner" | "creator" | "editor" | "commenter" | "viewer";
-                /** @enum {string} */
-                collaboratorType?: "base";
               })[];
           };
         };
@@ -6174,8 +6172,6 @@ export interface paths {
               icon: string | null;
               /** @enum {string} */
               role: "owner" | "creator" | "editor" | "commenter" | "viewer";
-              /** @enum {string} */
-              collaboratorType?: "base";
             };
           };
         };
