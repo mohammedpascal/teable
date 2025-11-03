@@ -1,6 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { getBaseById } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
 import { useBaseId, usePermissionUpdateListener } from '@teable/sdk/hooks';
 import { AlertDialog, AlertDialogContent, Button } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
@@ -14,16 +11,9 @@ export const BasePermissionListener = () => {
   const { t } = useTranslation(baseConfig.i18nNamespaces);
   const [open, setOpen] = useState(false);
 
-  const { data: base, refetch } = useQuery({
-    queryKey: ReactQueryKeys.base(baseId!),
-    queryFn: ({ queryKey }) => getBaseById().then((res) => res.data),
-    enabled: !!baseId,
-  });
-
   const onPermissionUpdate = useCallback(async () => {
-    await refetch();
     setOpen(true);
-  }, [refetch]);
+  }, []);
 
   usePermissionUpdateListener(baseId, onPermissionUpdate);
 

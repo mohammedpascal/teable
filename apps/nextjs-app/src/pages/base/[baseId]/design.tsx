@@ -18,20 +18,19 @@ const Node: NextPageWithLayout = () => {
 export const getServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR(async (context, ssrApi) => {
-      const { baseId } = context.query;
+      const baseId = 'bse0';
       const queryClient = new QueryClient();
       const [tables] = await Promise.all([
-        ssrApi.getTables(baseId as string),
+        ssrApi.getTables(baseId),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.base(baseId as string),
-          queryFn: ({ queryKey }) =>
-            queryKey[1] ? ssrApi.getBaseById() : undefined,
+          queryKey: ReactQueryKeys.base('bse0'),
+          queryFn: () => Promise.resolve({ id: 'bse0', name: 'Base' }),
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getBasePermission(baseId as string),
-          queryFn: ({ queryKey }) => ssrApi.getBasePermission(queryKey[1]),
+          queryKey: ReactQueryKeys.getBasePermission(baseId),
+          queryFn: () => ssrApi.getBasePermission(baseId),
         }),
       ]);
 
