@@ -1,28 +1,34 @@
-import { useQuery } from '@tanstack/react-query';
-import { getBasePermission } from '@teable/openapi';
 import type { FC, ReactNode } from 'react';
-import { useMemo } from 'react';
-import { ReactQueryKeys } from '../../config';
 import { Base } from '../../model';
 import { BaseContext } from './BaseContext';
 interface IBaseProviderProps {
   children: ReactNode;
-  fallback?: React.ReactNode;
 }
 
 export const BaseProvider: FC<IBaseProviderProps> = ({ children }) => {
-  const baseId = 'bse0';
-  const { data: basePermissionData } = useQuery({
-    queryKey: ReactQueryKeys.getBasePermission(baseId),
-    queryFn: () => getBasePermission(baseId).then((res) => res.data),
-  });
+  const basePermissionData = {
+    'table|create': true,
+    'table|delete': true,
+    'table|read': true,
+    'table|update': true,
+    'table|import': true,
+    'table|export': true,
+    'base|delete': true,
+    'base|read': true,
+    'base|read_all': true,
+    'base|update': true,
+    'base|invite_email': true,
+    'base|invite_link': true,
+    'base|table_import': true,
+    'base|table_export': true,
+    'base|db_connection': true,
+    'base|query_data': true,
+  };
 
-  const value = useMemo(() => {
-    return {
-      base: new Base(),
-      permission: basePermissionData,
-    };
-  }, [basePermissionData]);
+  const value = {
+    base: new Base(),
+    permission: basePermissionData,
+  };
 
   return <BaseContext.Provider value={value}>{children}</BaseContext.Provider>;
 };

@@ -23,14 +23,9 @@ export const SettingLayout: React.FC<{
   const { t } = useTranslation(['setting', 'common']);
 
   const routes = useSettingRoute();
-  const baseId = router.query.baseId as string | undefined;
 
   const onBack = () => {
-    if (baseId) {
-      router.push(`/base/${baseId}`);
-    } else {
-      router.push('/');
-    }
+    router.push(`/base/bse0`);
   };
 
   return (

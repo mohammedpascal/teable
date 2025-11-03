@@ -23,22 +23,18 @@ export const BaseLayout: React.FC<{
   user?: IUser;
 }> = ({ children, tableServerData, user, dehydratedState }) => {
   const router = useRouter();
-  const { baseId, tableId, viewId } = router.query;
+  const { tableId, viewId } = router.query;
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
 
-  const navigationRoutes = useMemo(() => {
-    if (!baseId) return [];
-
-    return [
-      {
-        Icon: Settings,
-        label: 'Settings' as React.ReactNode,
-        route: '/base/[baseId]/settings',
-        pathTo: `/base/${baseId}/settings`,
-      },
-    ];
-  }, [baseId]);
+  const navigationRoutes = [
+    {
+      Icon: Settings,
+      label: 'Settings' as React.ReactNode,
+      route: '/base/[baseId]/settings',
+      pathTo: `/base/bse0/settings`,
+    },
+  ];
 
   return (
     <AppLayout>
@@ -47,7 +43,7 @@ export const BaseLayout: React.FC<{
           <NotificationProvider>
             <AnchorContext.Provider
               value={{
-                baseId: baseId as string,
+                baseId: 'bse0',
                 tableId: tableId as string,
                 viewId: viewId as string,
               }}
