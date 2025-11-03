@@ -53,17 +53,10 @@ export class UserService {
       data: {
         id: generateBaseId(),
         name: 'Base',
-        icon: null,
-        order: 1,
-        userId: userId,
-        createdBy: userId,
       },
       select: {
         id: true,
         name: true,
-        icon: true,
-        userId: true,
-        order: true,
       },
     });
   }

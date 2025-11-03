@@ -8,24 +8,14 @@ datasource db {
   url      = env("PRISMA_DATABASE_URL")
 }
 
-
-
 model Base {
   id                         String      @id @default(cuid())
   userId                     String?     @map("user_id")
   name                       String
-  order                      Float
-  icon                       String?
-  schemaPass                 String?     @map("schema_pass")
-  createdTime                DateTime    @default(now()) @map("created_time")
-  createdBy                  String      @map("created_by")
-  lastModifiedBy             String?     @map("last_modified_by")
-  lastModifiedTime           DateTime?   @updatedAt @map("last_modified_time")
   user                       User?       @relation(fields: [userId], references: [id])
   tables                     TableMeta[]
 
   @@unique([userId])
-  @@index([order])
   @@map("base")
 }
 

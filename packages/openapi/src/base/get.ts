@@ -10,7 +10,6 @@ export const GET_BASE = '/base/{baseId}';
 export const getBaseItemSchema = z.object({
   id: z.string(),
   name: z.string(),
-  icon: z.string().nullable(),
   role: roleSchema,
   collaboratorType: z.nativeEnum(CollaboratorType).optional(),
   isUnrestricted: z.boolean().optional(),

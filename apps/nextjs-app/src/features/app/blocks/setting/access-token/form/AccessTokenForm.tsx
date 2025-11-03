@@ -1,9 +1,9 @@
 import { ActionPrefix, type Action } from '@teable/core';
 import {
   createAccessTokenRoSchema,
+  updateAccessTokenRoSchema,
   type CreateAccessTokenRo,
   type UpdateAccessTokenRo,
-  updateAccessTokenRoSchema,
 } from '@teable/openapi';
 import { useSession } from '@teable/sdk/hooks';
 import { Spin } from '@teable/ui-lib/base';
@@ -13,7 +13,6 @@ import { useMemo, useState } from 'react';
 import { personalAccessTokenConfig } from '@/features/i18n/personal-access-token.config';
 import { RequireCom } from '../../components/RequireCom';
 import { ScopesSelect } from '../../components/ScopesSelect';
-import { AccessSelect } from './AccessSelect';
 import { ExpirationSelect } from './ExpirationSelect';
 import { RefreshToken } from './RefreshToken';
 
@@ -160,22 +159,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
           onChange={setScopes}
           actionsPrefixes={actionsPrefixes}
         />
-      </div>
-      <div className="space-y-2">
-        <Label aria-required>
-          {t('token:access')}
-          <div className="text-xs font-normal text-muted-foreground">
-            {t('token:formLabelTips.access')}
-          </div>
-        </Label>
-        <div>
-          <AccessSelect
-            value={{ baseIds: baseIds || [] }}
-            onChange={({ baseIds }) => {
-              setBaseIds(baseIds.length ? baseIds : null);
-            }}
-          />
-        </div>
       </div>
       <Separator />
       <div className="space-x-3 text-right">

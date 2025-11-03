@@ -26,8 +26,6 @@ export class BaseService {
         select: {
           id: true,
           name: true,
-          icon: true,
-          userId: true,
         },
         where: {
           id: baseId,

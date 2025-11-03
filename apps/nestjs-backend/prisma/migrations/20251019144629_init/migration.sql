@@ -3,13 +3,6 @@ CREATE TABLE "base" (
     "id" TEXT NOT NULL,
     "user_id" TEXT,
     "name" TEXT NOT NULL,
-    "order" DOUBLE PRECISION NOT NULL,
-    "icon" TEXT,
-    "schema_pass" TEXT,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "created_by" TEXT NOT NULL,
-    "last_modified_by" TEXT,
-    "last_modified_time" TIMESTAMP(3),
 
     CONSTRAINT "base_pkey" PRIMARY KEY ("id")
 );
@@ -431,9 +424,6 @@ CREATE TABLE "plugin_context_menu" (
     "last_modified_time" TIMESTAMP(3),
     "last_modified_by" TEXT
 );
-
--- CreateIndex
-CREATE INDEX "base_order_idx" ON "base"("order");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "base_user_id_key" ON "base"("user_id");
