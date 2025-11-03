@@ -124,13 +124,12 @@ export class BaseQueryService {
     depth: number = 0
   ): Promise<{ queryBuilder: Knex.QueryBuilder; fieldMap: Record<string, IFieldInstance> }> {
     if (typeof baseQuery.from === 'string') {
-      const dbTableName = await this.getDbTableName(baseId, baseQuery.from);
+      const dbTableName = await this.getDbTableName(baseQuery.from);
       const queryBuilder = this.knex(dbTableName);
       const fieldMap = await this.getFieldMap(baseQuery.from, dbTableName);
       return this.parseBaseQueryFromTable(baseQuery, {
         fieldMap,
         queryBuilder,
-        baseId,
         dbTableName,
       });
     }
@@ -148,7 +147,6 @@ export class BaseQueryService {
         {} as Record<string, IFieldInstance>
       ),
       queryBuilder: this.knex(queryBuilder.as(alias)),
-      baseId,
       dbTableName: alias,
     });
   }
@@ -156,19 +154,18 @@ export class BaseQueryService {
   async parseBaseQueryFromTable(
     baseQuery: IBaseQuery,
     context: {
-      baseId: string;
       fieldMap: Record<string, IFieldInstance>;
       queryBuilder: Knex.QueryBuilder;
       dbTableName: string;
     }
   ): Promise<{ queryBuilder: Knex.QueryBuilder; fieldMap: Record<string, IFieldInstance> }> {
-    const { fieldMap, baseId, queryBuilder, dbTableName } = context;
+    const { fieldMap, queryBuilder, dbTableName } = context;
     let currentQueryBuilder = queryBuilder;
     let currentFieldMap = fieldMap;
     if (baseQuery.join) {
       const { queryBuilder: joinedQueryBuilder, fieldMap: joinedFieldMap } = await this.joinTable(
         baseQuery.join,
-        { baseId, fieldMap, queryBuilder }
+        { fieldMap, queryBuilder }
       );
       currentQueryBuilder = joinedQueryBuilder;
       currentFieldMap = joinedFieldMap;
@@ -243,16 +240,15 @@ export class BaseQueryService {
   async joinTable(
     joins: IBaseQueryJoin[],
     context: {
-      baseId: string;
       fieldMap: Record<string, IFieldInstance>;
       queryBuilder: Knex.QueryBuilder;
     }
   ) {
-    const { baseId, fieldMap, queryBuilder } = context;
+    const { fieldMap, queryBuilder } = context;
     let resFieldMap = { ...fieldMap };
     for (const join of joins) {
       const joinTable = join.table;
-      const joinDbTableName = await this.getDbTableName(baseId, joinTable);
+      const joinDbTableName = await this.getDbTableName(joinTable);
       const joinFieldMap = await this.getFieldMap(joinTable, joinDbTableName);
       const joinedField = fieldMap[join.on[0]];
       const joinField = joinFieldMap[join.on[1]];
@@ -311,7 +307,7 @@ export class BaseQueryService {
     );
   }
 
-  private async getDbTableName(baseId: string, tableId: string) {
+  private async getDbTableName(tableId: string) {
     const tableMeta = await this.prismaService
       .txClient()
       .tableMeta.findUniqueOrThrow({

@@ -13,7 +13,7 @@ export class BaseController {
   ) {}
 
   @Get(':baseId')
-  async getBaseById(@Param('baseId') baseId: string): Promise<IGetBaseVo> {
+  async getBaseById(): Promise<IGetBaseVo> {
     return this.baseService.getBaseById();
   }
 
