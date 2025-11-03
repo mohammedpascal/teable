@@ -297,7 +297,6 @@ model PluginInstall {
 model Dashboard {
   id               String    @id @default(cuid())
   name             String
-  baseId           String    @map("base_id")
   layout           String?
   createdBy        String    @map("created_by")
   createdTime      DateTime  @default(now()) @map("created_time")

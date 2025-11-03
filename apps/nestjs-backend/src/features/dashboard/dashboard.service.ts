@@ -19,9 +19,6 @@ export class DashboardService {
 
   async getDashboard(baseId: string): Promise<IGetDashboardListVo> {
     return this.prismaService.dashboard.findMany({
-      where: {
-        baseId,
-      },
       select: {
         id: true,
         name: true,
@@ -37,7 +34,6 @@ export class DashboardService {
       .findFirstOrThrow({
         where: {
           id,
-          baseId,
         },
         select: {
           id: true,
@@ -86,7 +82,6 @@ export class DashboardService {
     return this.prismaService.dashboard.create({
       data: {
         id: generateDashboardId(),
-        baseId,
         name: dashboard.name,
         createdBy: userId,
       },
@@ -101,7 +96,6 @@ export class DashboardService {
     return this.prismaService.dashboard
       .update({
         where: {
-          baseId,
           id,
         },
         data: {
@@ -121,7 +115,6 @@ export class DashboardService {
     const ro = await this.prismaService.dashboard
       .update({
         where: {
-          baseId,
           id,
         },
         data: {
@@ -146,7 +139,6 @@ export class DashboardService {
     await this.prismaService.dashboard
       .delete({
         where: {
-          baseId,
           id,
         },
       })
@@ -160,7 +152,6 @@ export class DashboardService {
       .txClient()
       .dashboard.findFirstOrThrow({
         where: {
-          baseId,
           id: dashboardId,
         },
       })
@@ -179,7 +170,7 @@ export class DashboardService {
 
     // Verify dashboard exists and user has access
     const dashboard = await this.prismaService.dashboard.findFirstOrThrow({
-      where: { id: dashboardId, baseId },
+      where: { id: dashboardId },
     });
 
     // Create the widget
@@ -227,7 +218,6 @@ export class DashboardService {
       where: {
         id: widgetId,
         dashboardId,
-        dashboard: { baseId },
       },
     });
 
@@ -243,7 +233,7 @@ export class DashboardService {
   async deleteWidget(baseId: string, dashboardId: string, widgetId: string) {
     // Verify dashboard and widget exist
     const dashboard = await this.prismaService.dashboard.findFirstOrThrow({
-      where: { id: dashboardId, baseId },
+      where: { id: dashboardId },
     });
 
     await this.prismaService.dashboardWidget.delete({

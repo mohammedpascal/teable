@@ -276,7 +276,6 @@ CREATE TABLE "plugin_install" (
 CREATE TABLE "dashboard" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "base_id" TEXT NOT NULL,
     "layout" TEXT,
     "created_by" TEXT NOT NULL,
     "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
