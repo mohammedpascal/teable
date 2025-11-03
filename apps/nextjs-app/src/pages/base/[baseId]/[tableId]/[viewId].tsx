@@ -36,24 +36,25 @@ const Node: NextPageWithLayout<ITableProps> = ({
 export const getServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR<IViewPageProps>(async (context, ssrApi) => {
-      const { tableId, viewId, baseId, recordId, fromNotify: notifyId } = context.query;
+      const { tableId, viewId, recordId, fromNotify: notifyId } = context.query;
       const queryClient = new QueryClient();
+
+      const baseId = 'bse0';
 
       await Promise.all([
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.base(baseId as string),
-          queryFn: ({ queryKey }) =>
-            queryKey[1] ? Promise.resolve({ id: 'bse0', name: 'Base' }) : undefined,
+          queryKey: ReactQueryKeys.base(baseId),
+          queryFn: () => Promise.resolve({ id: 'bse0', name: 'Base' }),
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getBasePermission(baseId as string),
-          queryFn: ({ queryKey }) => ssrApi.getBasePermission(queryKey[1]),
+          queryKey: ReactQueryKeys.getBasePermission(baseId),
+          queryFn: () => ssrApi.getBasePermission(baseId),
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getTablePermission(baseId as string, tableId as string),
-          queryFn: ({ queryKey }) => ssrApi.getTablePermission(queryKey[1], queryKey[2]),
+          queryKey: ReactQueryKeys.getTablePermission(baseId, tableId as string),
+          queryFn: () => ssrApi.getTablePermission(baseId, tableId as string),
         }),
       ]);
 

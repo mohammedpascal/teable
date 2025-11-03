@@ -50,11 +50,11 @@ const Node: NextPageWithLayout = () => {
 export const getServerSideProps: GetServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR(async (context, ssrApi) => {
-      const { baseId } = context.query;
-      const tables = await ssrApi.getTables(baseId as string);
+      const baseId = 'bse0';
+      const tables = await ssrApi.getTables(baseId);
       const defaultTable = tables[0];
       if (defaultTable) {
-        const defaultView = await ssrApi.getDefaultViewId(baseId as string, defaultTable.id);
+        const defaultView = await ssrApi.getDefaultViewId(baseId, defaultTable.id);
         return {
           redirect: {
             destination: `/base/${baseId}/${defaultTable.id}/${defaultView.id}`,
@@ -72,8 +72,8 @@ export const getServerSideProps: GetServerSideProps = withEnv(
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getBasePermission(baseId as string),
-          queryFn: ({ queryKey }) => ssrApi.getBasePermission(queryKey[1]),
+          queryKey: ReactQueryKeys.getBasePermission(baseId),
+          queryFn: () => ssrApi.getBasePermission(baseId),
         }),
       ]);
 
