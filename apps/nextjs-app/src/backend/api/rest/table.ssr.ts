@@ -1,23 +1,20 @@
 import type { IFieldVo, IGetFieldsQuery, IRecord, IViewVo } from '@teable/core';
 import { FieldKeyType } from '@teable/core';
 import type {
-  IGetBaseVo,
   IGetDefaultViewIdVo,
-  IUpdateNotifyStatusRo,
-  ITableFullVo,
-  ITableListVo,
-  ISettingVo,
-  IUserMeVo,
-  IRecordsVo,
-  ITableVo,
   IGroupPointsRo,
   IGroupPointsVo,
   IPublicSettingVo,
-  IGetBasePermissionVo,
+  IRecordsVo,
+  ISettingVo,
+  ITableFullVo,
+  ITableListVo,
   ITablePermissionVo,
+  ITableVo,
+  IUpdateNotifyStatusRo,
+  IUserMeVo,
 } from '@teable/openapi';
 import {
-  GET_BASE,
   GET_DEFAULT_VIEW_ID,
   GET_FIELD_LIST,
   GET_GROUP_POINTS,
@@ -27,14 +24,14 @@ import {
   GET_SETTING,
   GET_TABLE,
   GET_TABLE_LIST,
+  GET_TABLE_PERMISSION,
   GET_VIEW_LIST,
   UPDATE_NOTIFICATION_STATUS,
   USER_ME,
-  GET_BASE_PERMISSION,
-  GET_TABLE_PERMISSION,
   urlBuilder,
 } from '@teable/openapi';
 import type { AxiosInstance } from 'axios';
+import { BASE_PERMISSION } from '../../../lib/constants';
 import { getAxios } from './axios';
 
 export class SsrApi {
@@ -118,9 +115,7 @@ export class SsrApi {
   }
 
   async getBasePermission(baseId: string) {
-    return await this.axios
-      .get<IGetBasePermissionVo>(urlBuilder(GET_BASE_PERMISSION, { baseId }))
-      .then((res) => res.data);
+    return BASE_PERMISSION;
   }
 
   async getTablePermission(baseId: string, tableId: string) {
