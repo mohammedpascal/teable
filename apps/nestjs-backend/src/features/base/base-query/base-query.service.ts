@@ -102,7 +102,7 @@ export class BaseQueryService {
     baseQuery: IBaseQuery,
     cellFormat: CellFormat = CellFormat.Json
   ): Promise<IBaseQueryVo> {
-    const { queryBuilder, fieldMap } = await this.parseBaseQuery(baseId, baseQuery, 0);
+    const { queryBuilder, fieldMap } = await this.parseBaseQuery(baseQuery, 0);
     const query = queryBuilder.toQuery();
     this.logger.log('baseQuery SQL: ', query);
     const rows = await this.prismaService
@@ -119,7 +119,6 @@ export class BaseQueryService {
   }
 
   async parseBaseQuery(
-    baseId: string,
     baseQuery: IBaseQuery,
     depth: number = 0
   ): Promise<{ queryBuilder: Knex.QueryBuilder; fieldMap: Record<string, IFieldInstance> }> {
@@ -133,7 +132,7 @@ export class BaseQueryService {
         dbTableName,
       });
     }
-    const { queryBuilder, fieldMap } = await this.parseBaseQuery(baseId, baseQuery.from, depth + 1);
+    const { queryBuilder, fieldMap } = await this.parseBaseQuery(baseQuery.from, depth + 1);
     const alias = 'source_query';
     return this.parseBaseQueryFromTable(baseQuery, {
       fieldMap: Object.keys(fieldMap).reduce(
