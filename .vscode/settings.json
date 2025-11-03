@@ -35,10 +35,5 @@
       "pattern": "./packages/*/"
     }
   ],
-  "vitest.maximumConfigs": 10,
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#2D0491",
-    "titleBar.activeBackground": "#3F06CB",
-    "titleBar.activeForeground": "#FDFCFF"
-  }
+  "vitest.maximumConfigs": 10
 }

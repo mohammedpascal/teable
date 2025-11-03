@@ -32,7 +32,6 @@
     "field": "字段",
     "record": "记录",
     "user": "用户",
-    "recordHistory": "记录历史",
     "you": "你",
     "instance": "实例",
     "enterprise": "企业"
@@ -195,15 +194,6 @@
     "duplicateRecord": "复制记录",
     "copyRecordUrl": "复制记录链接",
     "deleteRecord": "删除记录",
-    "recordHistory": {
-      "hiddenRecordHistory": "隐藏记录历史",
-      "showRecordHistory": "显示记录历史",
-      "createdTime": "操作时间",
-      "createdBy": "操作人",
-      "before": "变更前",
-      "after": "变更后",
-      "viewRecord": "查看记录"
-    },
     "showHiddenFields": "显示 {{count}} 个隐藏字段",
     "hideHiddenFields": "隐藏 {{count}} 个隐藏字段"
   },
@@ -289,7 +279,6 @@
       "recordUpdate": "更新记录",
       "userProfileRead": "查看当前用户",
       "userEmailRead": "查看当前用户电子邮件",
-      "recordHistoryRead": "查看记录历史",
       "baseQuery": "查询数据库",
       "instanceRead": "查看实例",
       "instanceUpdate": "更新实例",

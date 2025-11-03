@@ -1,4 +1,4 @@
-import type { BaseAction, TableAction, TableRecordHistoryAction } from '@teable/core';
+import type { BaseAction, TableAction } from '@teable/core';
 import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
@@ -6,7 +6,7 @@ import { z } from '../zod';
 export const GET_BASE_PERMISSION = '/base/{baseId}/permission';
 
 export const GetBasePermissionVoSchema = z.record(
-  z.custom<TableAction | BaseAction | TableRecordHistoryAction>(),
+  z.custom<TableAction | BaseAction>(),
   z.boolean()
 );
 

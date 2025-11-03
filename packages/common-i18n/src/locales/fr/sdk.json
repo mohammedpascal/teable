@@ -163,15 +163,6 @@
   "expandRecord": {
     "copy": "Copier dans le presse-papiers",
     "copyRecordUrl": "Copier l'URL de l'enregistrement",
-    "recordHistory": {
-      "hiddenRecordHistory": "Masquer l'historique des enregistrements",
-      "showRecordHistory": "Afficher l'historique des enregistrements",
-      "createdTime": "Heure de création",
-      "createdBy": "Créé par",
-      "before": "Avant",
-      "after": "Après",
-      "viewRecord": "Voir l'enregistrement"
-    },
     "showHiddenFields": "Afficher {{count}} champs cachés",
     "hideHiddenFields": "Masquer {{count}} champs cachés"
   },
@@ -272,7 +263,6 @@
       "recordUpdate": "Mettre à jour un enregistrement",
       "userProfileRead": "Lire le profil de l'utilisateur",
       "userEmailRead": "Lire l'email de l'utilisateur",
-      "recordHistoryRead": "Lire l'historique des enregistrements",
       "baseQuery": "Interroger la base",
       "instanceRead": "Lire l'instance",
       "instanceUpdate": "Mettre à jour l'instance"
@@ -286,7 +276,6 @@
     "field": "Champ",
     "record": "Enregistrement",
     "user": "Utilisateur",
-    "recordHistory": "Historique des enregistrements",
     "instance": "Instance"
   },
   "formula": {

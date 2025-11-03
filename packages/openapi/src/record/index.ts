@@ -6,7 +6,5 @@ export * from './update-records';
 export * from './delete';
 export * from './duplicate';
 export * from './delete-list';
-export * from './get-record-history';
-export * from './get-record-list-history';
 export * from './upload-attachment';
 export * from './get-record-status';

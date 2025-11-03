@@ -103,9 +103,6 @@ Visualize and interact with data in various ways best suited for their specific 
     <td width="50%"><img alt="Kanban View" src="static/assets/images/view-kanban.png"></td>
     <td width="50%"><img alt="Form View" src="static/assets/images/view-form.png"></td>
   </tr>
-  <tr>
-    <td width="50%"><img alt="Record history" src="static/assets/images/record-history.png"></td>
-  </tr>
 </table>
 
 ### 📊 Charts & Dashboard

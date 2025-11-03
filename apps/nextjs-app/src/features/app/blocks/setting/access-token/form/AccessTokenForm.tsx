@@ -60,7 +60,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
       ActionPrefix.View,
       ActionPrefix.Field,
       ActionPrefix.Record,
-      ActionPrefix.TableRecordHistory,
       ActionPrefix.User,
     ];
 

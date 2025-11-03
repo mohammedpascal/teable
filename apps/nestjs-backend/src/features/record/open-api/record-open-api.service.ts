@@ -3,12 +3,9 @@ import type { IAttachmentCellValue, IAttachmentItem, IMakeOptional } from '@teab
 import { FieldKeyType, FieldType, generateOperationId } from '@teable/core';
 import { UploadType } from '@teable/openapi';
 import type {
-  IRecordHistoryItemVo,
   ICreateRecordsRo,
   ICreateRecordsVo,
-  IGetRecordHistoryQuery,
   IRecord,
-  IRecordHistoryVo,
   IRecordInsertOrderRo,
   IUpdateRecordRo,
   IUpdateRecordsRo,
@@ -398,120 +395,6 @@ export class RecordOpenApiService {
     });
 
     return records;
-  }
-
-  async getRecordHistory(
-    tableId: string,
-    recordId: string | undefined,
-    query: IGetRecordHistoryQuery,
-    excludeFieldIds?: string[]
-  ): Promise<IRecordHistoryVo> {
-    const { cursor, startDate, endDate } = query;
-    const limit = 20;
-
-    const dateFilter: { [key: string]: Date } = {};
-    if (startDate) {
-      dateFilter['gte'] = new Date(startDate);
-    }
-    if (endDate) {
-      dateFilter['lte'] = new Date(endDate);
-    }
-
-    const list = await this.prismaService.recordHistory.findMany({
-      where: {
-        tableId,
-        ...(recordId ? { recordId } : {}),
-        ...(Object.keys(dateFilter).length > 0 ? { createdTime: dateFilter } : {}),
-        ...(excludeFieldIds?.length ? { fieldId: { notIn: excludeFieldIds } } : {}),
-      },
-      select: {
-        id: true,
-        recordId: true,
-        fieldId: true,
-        before: true,
-        after: true,
-        createdTime: true,
-        createdBy: true,
-      },
-      take: limit + 1,
-      cursor: cursor ? { id: cursor } : undefined,
-      orderBy: {
-        createdTime: 'desc',
-      },
-    });
-
-    let nextCursor: typeof cursor | undefined = undefined;
-
-    if (list.length > limit) {
-      const nextItem = list.pop();
-      nextCursor = nextItem?.id;
-    }
-
-    const createdBySet: Set<string> = new Set();
-    const historyList: IRecordHistoryItemVo[] = [];
-
-    for (const item of list) {
-      const { id, recordId, fieldId, before, after, createdTime, createdBy } = item;
-
-      createdBySet.add(createdBy);
-      const beforeObj = JSON.parse(before as string);
-      const afterObj = JSON.parse(after as string);
-      const { meta: beforeMeta, data: beforeData } = beforeObj as IRecordHistoryItemVo['before'];
-      const { meta: afterMeta, data: afterData } = afterObj as IRecordHistoryItemVo['after'];
-      const { type: beforeType } = beforeMeta;
-      const { type: afterType } = afterMeta;
-
-      if (beforeType === FieldType.Attachment) {
-        beforeObj.data = await this.recordService.getAttachmentPresignedCellValue(
-          beforeData as IAttachmentCellValue
-        );
-      }
-
-      if (afterType === FieldType.Attachment) {
-        afterObj.data = await this.recordService.getAttachmentPresignedCellValue(
-          afterData as IAttachmentCellValue
-        );
-      }
-
-      historyList.push({
-        id,
-        tableId,
-        recordId,
-        fieldId,
-        before: beforeObj,
-        after: afterObj,
-        createdTime: createdTime.toISOString(),
-        createdBy,
-      });
-    }
-
-    const userList = await this.prismaService.user.findMany({
-      where: {
-        id: {
-          in: Array.from(createdBySet),
-        },
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        avatar: true,
-      },
-    });
-
-    const handledUserList = userList.map((user) => {
-      const { avatar } = user;
-      return {
-        ...user,
-        avatar: avatar && getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), avatar),
-      };
-    });
-
-    return {
-      historyList,
-      userMap: keyBy(handledUserList, 'id'),
-      nextCursor,
-    };
   }
 
   private async getValidateAttachmentRecord(tableId: string, recordId: string, fieldId: string) {

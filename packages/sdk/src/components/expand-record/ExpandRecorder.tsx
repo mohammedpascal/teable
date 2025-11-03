@@ -2,8 +2,6 @@ import type { IRecord } from '@teable/core';
 import { deleteRecord } from '@teable/openapi';
 import { sonner } from '@teable/ui-lib';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
-import { useLocalStorage } from 'react-use';
-import { LocalStorageKeys } from '../../config/local-storage-keys';
 import { StandaloneViewProvider, ViewProvider } from '../../context';
 import { useTranslation } from '../../context/app/i18n';
 import { useBaseId, useTableId, useTablePermission } from '../../hooks';
@@ -55,12 +53,6 @@ export const ExpandRecorder = (props: IExpandRecorderProps) => {
   const editable = Boolean(permission['record|update']);
   const canRead = Boolean(permission['record|read']);
   const canDelete = Boolean(permission['record|delete']);
-  const [recordHistoryVisible, setRecordHistoryVisible] = useLocalStorage<boolean>(
-    LocalStorageKeys.RecordHistoryVisible,
-    false
-  );
-
-
 
   if (!recordId) {
     return <></>;
@@ -85,11 +77,6 @@ export const ExpandRecorder = (props: IExpandRecorderProps) => {
     toast.success(t('expandRecord.copy'));
   };
 
-  const onRecordHistoryToggle = () => {
-    setRecordHistoryVisible(!recordHistoryVisible);
-  };
-
-
   return (
     <div id={`${tableId}-${recordId}`}>
       <Wrap tableId={tableId}>
@@ -99,13 +86,11 @@ export const ExpandRecorder = (props: IExpandRecorderProps) => {
           recordId={recordId}
           recordIds={recordIds}
           serverData={serverData?.id === recordId ? serverData : undefined}
-          recordHistoryVisible={editable && recordHistoryVisible}
           onClose={onClose}
           onPrev={updateCurrentRecordId}
           onNext={updateCurrentRecordId}
           onCopyUrl={onCopyUrl}
           onDuplicate={viewId ? onDuplicate : undefined}
-          onRecordHistoryToggle={onRecordHistoryToggle}
           onDelete={async () => {
             if (canDelete) await deleteRecord(tableId, recordId);
           }}

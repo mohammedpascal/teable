@@ -273,7 +273,6 @@
     "newTableLabel": "新しいテーブル",
     "rename": "名前を変更",
     "design": "デザイン",
-    "tableRecordHistory": "テーブルレコード履歴",
     "deleteConfirm": "本当に \"{{tableName}}\" を削除してもよろしいですか?",
     "dbTableName": "物理データベース内のテーブル名",
     "schemaName": "物理データベースのスキーマ名",

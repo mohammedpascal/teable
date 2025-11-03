@@ -1,5 +1,5 @@
 import type { IRecord } from '@teable/core';
-import { Skeleton, cn } from '@teable/ui-lib';
+import { Skeleton } from '@teable/ui-lib';
 import { isEqual } from 'lodash';
 import { useCallback, useMemo } from 'react';
 import {
@@ -10,13 +10,11 @@ import {
   useViewId,
   useViews,
   useTableId,
-  useBaseId,
 } from '../../hooks';
 import type { GridView, IFieldInstance } from '../../model';
 import { ExpandRecordHeader } from './ExpandRecordHeader';
 import { ExpandRecordWrap } from './ExpandRecordWrap';
 import { RecordEditor } from './RecordEditor';
-import { RecordHistory } from './RecordHistory';
 import { ExpandRecordModel } from './type';
 
 interface IExpandRecordProps {
@@ -25,12 +23,10 @@ interface IExpandRecordProps {
   visible?: boolean;
   model?: ExpandRecordModel;
   serverData?: IRecord;
-  recordHistoryVisible?: boolean;
   onClose?: () => void;
   onPrev?: (recordId: string) => void;
   onNext?: (recordId: string) => void;
   onCopyUrl?: () => void;
-  onRecordHistoryToggle?: () => void;
   onDelete?: () => Promise<void>;
   onDuplicate?: () => Promise<void>;
 }
@@ -42,12 +38,10 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
     recordId,
     recordIds,
     serverData,
-    recordHistoryVisible,
     onPrev,
     onNext,
     onClose,
     onCopyUrl,
-    onRecordHistoryToggle,
     onDelete,
     onDuplicate,
   } = props;
@@ -55,7 +49,6 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
   const tableId = useTableId();
   const defaultViewId = views?.[0]?.id;
   const viewId = useViewId() ?? defaultViewId;
-  const baseId = useBaseId();
   const allFields = useFields({ withHidden: true, withDenied: true });
   const showFields = useFields();
   const record = useRecord(recordId, serverData);
@@ -130,14 +123,12 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
         {tableId && recordId && (
           <ExpandRecordHeader
             title={record?.title}
-            recordHistoryVisible={recordHistoryVisible}
             disabledPrev={disabledPrev}
             disabledNext={disabledNext}
             onClose={onClose}
             onPrev={onPrevInner}
             onNext={onNextInner}
             onCopyUrl={onCopyUrl}
-            onRecordHistoryToggle={onRecordHistoryToggle}
             onDuplicate={onDuplicate}
             onDelete={onDelete}
             recordId={recordId}
@@ -145,28 +136,21 @@ export const ExpandRecord = (props: IExpandRecordProps) => {
           />
         )}
         <div className="relative flex flex-1 overflow-hidden">
-          {recordHistoryVisible ? (
-            <div className="flex size-full overflow-hidden rounded-b bg-background">
-              <RecordHistory recordId={recordId} />
-            </div>
-          ) : (
-            <div className="relative flex w-full flex-1 justify-between overflow-y-auto">
-              {fields.length > 0 ? (
-                <div className="size-full overflow-auto p-9">
-                  <RecordEditor
-                    record={record}
-                    fields={fields}
-                    hiddenFields={hiddenFields}
-                    onChange={onChange}
-                    readonly={fieldCellReadonly}
-                  />
-                </div>
-              ) : (
-                <Skeleton className="h-10 w-full rounded" />
-              )}
-
-            </div>
-          )}
+          <div className="relative flex w-full flex-1 justify-between overflow-y-auto">
+            {fields.length > 0 ? (
+              <div className="size-full overflow-auto p-9">
+                <RecordEditor
+                  record={record}
+                  fields={fields}
+                  hiddenFields={hiddenFields}
+                  onChange={onChange}
+                  readonly={fieldCellReadonly}
+                />
+              </div>
+            ) : (
+              <Skeleton className="h-10 w-full rounded" />
+            )}
+          </div>
         </div>
       </div>
     </ExpandRecordWrap>

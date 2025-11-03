@@ -346,11 +346,6 @@ export class TableOpenApiService {
     await this.prismaService.txClient().tableMeta.deleteMany({
       where: { id: { in: tableIds } },
     });
-
-    // clean record history for table
-    await this.prismaService.txClient().recordHistory.deleteMany({
-      where: { tableId: { in: tableIds } },
-    });
   }
 
   async deleteTable(baseId: string, tableId: string) {

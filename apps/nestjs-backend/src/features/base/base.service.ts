@@ -16,13 +16,12 @@ export class BaseService {
 
   async getPermission() {
     // Return all permissions as true for authenticated users
-    return [
-      ...actionPrefixMap[ActionPrefix.Table],
-      ...actionPrefixMap[ActionPrefix.Base],
-      ...actionPrefixMap[ActionPrefix.TableRecordHistory],
-    ].reduce((acc, action) => {
-      acc[action] = true;
-      return acc;
-    }, {} as IGetBasePermissionVo);
+    return [...actionPrefixMap[ActionPrefix.Table], ...actionPrefixMap[ActionPrefix.Base]].reduce(
+      (acc, action) => {
+        acc[action] = true;
+        return acc;
+      },
+      {} as IGetBasePermissionVo
+    );
   }
 }

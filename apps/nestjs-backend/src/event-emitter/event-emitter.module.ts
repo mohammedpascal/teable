@@ -8,7 +8,6 @@ import { ShareDbModule } from '../share-db/share-db.module';
 import { EventEmitterService } from './event-emitter.service';
 import { ActionTriggerListener } from './listeners/action-trigger.listener';
 import { AttachmentListener } from './listeners/attachment.listener';
-import { RecordHistoryListener } from './listeners/record-history.listener';
 
 export interface EventEmitterModuleOptions {
   global?: boolean;
@@ -31,12 +30,7 @@ export class EventEmitterModule extends EventEmitterModuleClass {
       imports: [module, ShareDbModule, NotificationModule, AttachmentsTableModule],
       module: EventEmitterModule,
       global,
-      providers: [
-        EventEmitterService,
-        ActionTriggerListener,
-        AttachmentListener,
-        RecordHistoryListener,
-      ],
+      providers: [EventEmitterService, ActionTriggerListener, AttachmentListener],
       exports: [EventEmitterService],
     };
   }

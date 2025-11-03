@@ -2,7 +2,6 @@ import {
   ChevronDown,
   ChevronUp,
   Copy,
-  History,
   Link,
   MoreHorizontal,
   Trash2,
@@ -26,14 +25,12 @@ interface IExpandRecordHeader {
   tableId: string;
   recordId: string;
   title?: string;
-  recordHistoryVisible?: boolean;
   disabledPrev?: boolean;
   disabledNext?: boolean;
   onClose?: () => void;
   onPrev?: () => void;
   onNext?: () => void;
   onCopyUrl?: () => void;
-  onRecordHistoryToggle?: () => void;
   onDelete?: () => Promise<void>;
   onDuplicate?: () => Promise<void>;
 }
@@ -48,14 +45,12 @@ export const ExpandRecordHeader = (props: IExpandRecordHeader) => {
     tableId,
     recordId,
     title,
-    recordHistoryVisible,
     disabledPrev,
     disabledNext,
     onPrev,
     onNext,
     onClose,
     onCopyUrl,
-    onRecordHistoryToggle,
     onDelete,
     onDuplicate,
   } = props;
@@ -116,25 +111,6 @@ export const ExpandRecordHeader = (props: IExpandRecordHeader) => {
               <Link />
             </Button>
           </TooltipWrap>
-          {editable && (
-            <TooltipWrap
-              description={
-                recordHistoryVisible
-                  ? t('expandRecord.recordHistory.hiddenRecordHistory')
-                  : t('expandRecord.recordHistory.showRecordHistory')
-              }
-            >
-              <Button
-                variant={recordHistoryVisible ? 'secondary' : 'ghost'}
-                size={'xs'}
-                onClick={onRecordHistoryToggle}
-              >
-                <History />
-              </Button>
-            </TooltipWrap>
-          )}
-
-
           {canDelete ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="px-2">

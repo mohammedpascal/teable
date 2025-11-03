@@ -106,7 +106,6 @@ export async function initApp() {
   process.env.STORAGE_PREFIX = url;
   const baseConfigService = app.get(baseConfig.KEY) as IBaseConfig;
   baseConfigService.storagePrefix = url;
-  baseConfigService.recordHistoryDisabled = true;
 
   axios.defaults.baseURL = url + '/api';
 
@@ -458,7 +457,7 @@ export async function createBase(baseData: { name: string; spaceId: string }) {
     createdTime: new Date().toISOString(),
     lastModifiedTime: new Date().toISOString(),
   };
-  
+
   return {
     data: fixedBase,
     status: 200,

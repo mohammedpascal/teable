@@ -271,7 +271,6 @@
     "newTableLabel": "Yeni tablo",
     "rename": "Yeniden adlandır",
     "design": "Tasarım",
-    "tableRecordHistory": "Tablo kayıt geçmişi",
     "deleteConfirm": "\"{{tableName}}\" tablosunu silmek istediğinizden emin misiniz?",
     "dbTableName": "Fiziksel veritabanındaki tablo adı",
     "schemaName": "Fiziksel veritabanındaki şema adı",

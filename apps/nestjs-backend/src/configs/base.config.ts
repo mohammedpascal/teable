@@ -11,7 +11,6 @@ export const baseConfig = registerAs('base', () => ({
   secretKey: process.env.SECRET_KEY ?? 'defaultSecretKey',
   publicDatabaseProxy: process.env.PUBLIC_DATABASE_PROXY,
   defaultMaxBaseDBConnections: Number(process.env.DEFAULT_MAX_BASE_DB_CONNECTIONS ?? 20),
-  recordHistoryDisabled: process.env.RECORD_HISTORY_DISABLED === 'true',
   enableEmailCodeConsole: process.env.ENABLE_EMAIL_CODE_CONSOLE === 'true',
   emailCodeExpiresIn: process.env.BACKEND_EMAIL_CODE_EXPIRES_IN ?? '30m',
 }));

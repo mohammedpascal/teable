@@ -23,8 +23,6 @@ export enum IdPrefix {
 
   Window = 'win',
 
-  RecordHistory = 'rhi',
-
   Plugin = 'plg',
   PluginInstall = 'pli',
   PluginUser = 'plu',
@@ -106,10 +104,6 @@ export function generateAccountId() {
 
 export function generateClientId() {
   return IdPrefix.OAuthClient + getRandomString(16).toLocaleLowerCase();
-}
-
-export function generateRecordHistoryId() {
-  return IdPrefix.RecordHistory + getRandomString(24);
 }
 
 export function generatePluginId() {

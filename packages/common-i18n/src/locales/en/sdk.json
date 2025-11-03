@@ -182,15 +182,6 @@
     "duplicateRecord": "Duplicate record",
     "copyRecordUrl": "Copy record URL",
     "deleteRecord": "Delete record",
-    "recordHistory": {
-      "hiddenRecordHistory": "Hide record history",
-      "showRecordHistory": "Show record history",
-      "createdTime": "Created time",
-      "createdBy": "Created by",
-      "before": "Before",
-      "after": "After",
-      "viewRecord": "View record"
-    },
     "showHiddenFields": "Show {{count}} hidden fields",
     "hideHiddenFields": "Hide {{count}} hidden fields"
   },
@@ -275,7 +266,6 @@
       "recordUpdate": "Update record",
       "userProfileRead": "Read current user profile",
       "userEmailRead": "Read current user email",
-      "recordHistoryRead": "Read record history",
       "baseQuery": "Query base",
       "instanceRead": "Read instance",
       "instanceUpdate": "Update instance",
@@ -291,7 +281,6 @@
     "field": "Field",
     "record": "Record",
     "user": "User",
-    "recordHistory": "Record History",
     "you": "You",
     "instance": "Instance",
     "enterprise": "Enterprise"

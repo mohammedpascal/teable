@@ -282,7 +282,6 @@
     "newTableLabel": "Neue Tabelle",
     "rename": "Umbenennen",
     "design": "Design",
-    "tableRecordHistory": "Tabelle Datensatzhistorie",
     "deleteConfirm": "Sind Sie sicher, dass Sie \"{{tableName}}\" löschen möchten?",
     "dbTableName": "Tabelle Name in der physischen Datenbank",
     "schemaName": "Schema Name in der physischen Datenbank",

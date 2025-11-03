@@ -273,7 +273,6 @@
     "newTableLabel": "Nouvelle table",
     "rename": "Renommer",
     "design": "Concevoir",
-    "tableRecordHistory": "Historique des enregistrements de la table",
     "deleteConfirm": "Êtes-vous sûr de vouloir supprimer \"{{tableName}}\" ?",
     "dbTableName": "Nom de la table dans la base de données physique",
     "schemaName": "Nom du schéma dans la base de données physique",

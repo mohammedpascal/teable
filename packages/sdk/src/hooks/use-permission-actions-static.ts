@@ -56,9 +56,6 @@ const actionsI18nMap: Record<
   'table|export': {
     description: 'permission.actionDescription.tableExport',
   },
-  'table_record_history|read': {
-    description: 'permission.actionDescription.recordHistoryRead',
-  },
   'view|create': {
     description: 'permission.actionDescription.viewCreate',
   },
@@ -139,9 +136,6 @@ const actionPrefixI18nMap: Record<ActionPrefix, { title: TKey }> = {
   },
   [ActionPrefix.User]: {
     title: 'noun.user',
-  },
-  [ActionPrefix.TableRecordHistory]: {
-    title: 'noun.recordHistory',
   },
   [ActionPrefix.Instance]: {
     title: 'noun.instance',

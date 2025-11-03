@@ -166,15 +166,6 @@
     "copy": "クリップボードにコピー",
     "copyRecordUrl": "レコードのURLをコピー",
     "deleteRecord": "レコードを削除",
-    "recordHistory": {
-      "hiddenRecordHistory": "レコードの履歴を非表示",
-      "showRecordHistory": "レコードの履歴を表示",
-      "createdTime": "作成日時",
-      "createdBy": "作成者",
-      "before": "以前",
-      "after": "以後",
-      "viewRecord": "レコードを表示"
-    },
     "showHiddenFields": "{{count}} 個の隠しフィールドを表示",
     "hideHiddenFields": "{{count}} 個の隠しフィールドを非表示"
   },
@@ -259,7 +250,6 @@
       "recordUpdate": "レコードの更新",
       "userProfileRead": "ユーザーのプロフィールの読み取り",
       "userEmailRead": "ユーザーメールの読み取り",
-      "recordHistoryRead": "レコード履歴の読み取り",
       "baseQuery": "クエリベース",
       "instanceRead": "インスタンスの読み取り",
       "instanceUpdate": "インスタンスの更新"
@@ -273,7 +263,6 @@
     "field": "フィールド",
     "record": "レコード",
     "user": "ユーザー",
-    "recordHistory": "レコード履歴",
     "instance": "インスタンス"
   },
   "formula": {

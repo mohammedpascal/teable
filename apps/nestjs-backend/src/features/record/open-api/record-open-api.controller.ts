@@ -25,8 +25,6 @@ import {
   updateRecordRoSchema,
   deleteRecordsQuerySchema,
   IDeleteRecordsQuery,
-  getRecordHistoryQuerySchema,
-  IGetRecordHistoryQuery,
   updateRecordsRoSchema,
   IUpdateRecordsRo,
   recordInsertOrderRoSchema,
@@ -45,23 +43,6 @@ export class RecordOpenApiController {
     private readonly recordService: RecordService,
     private readonly recordOpenApiService: RecordOpenApiService
   ) {}
-
-  @Get(':recordId/history')
-  async getRecordHistory(
-    @Param('tableId') tableId: string,
-    @Param('recordId') recordId: string,
-    @Query(new ZodValidationPipe(getRecordHistoryQuerySchema)) query: IGetRecordHistoryQuery
-  ) {
-    return this.recordOpenApiService.getRecordHistory(tableId, recordId, query);
-  }
-
-  @Get('/history')
-  async getRecordListHistory(
-    @Param('tableId') tableId: string,
-    @Query(new ZodValidationPipe(getRecordHistoryQuerySchema)) query: IGetRecordHistoryQuery
-  ) {
-    return this.recordOpenApiService.getRecordHistory(tableId, undefined, query);
-  }
 
   @Get()
   async getRecords(

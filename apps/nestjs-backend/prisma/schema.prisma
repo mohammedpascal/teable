@@ -228,21 +228,6 @@ model Setting {
   @@map("setting")
 }
 
-model RecordHistory {
-  id               String    @id @default(cuid())
-  tableId          String    @map("table_id")
-  recordId         String    @map("record_id")
-  fieldId          String    @map("field_id")
-  before           String    @map("before")
-  after            String    @map("after")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  createdBy        String    @map("created_by")
-
-  @@index([tableId, recordId, createdTime])
-  @@index([tableId, createdTime])
-  @@map("record_history")
-}
-
 model Plugin {
   id               String    @id @default(cuid())
   name             String

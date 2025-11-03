@@ -282,7 +282,6 @@
     "newTableLabel": "Nueva tabla",
     "rename": "Renombrar",
     "design": "Diseñar",
-    "tableRecordHistory": "Historial de registros de tabla",
     "deleteConfirm": "¿Estás seguro de que quieres eliminar \"__var_0__\"?",
     "dbTableName": "Nombre de la tabla en la base de datos física",
     "schemaName": "Nombre del esquema en la base de datos física",

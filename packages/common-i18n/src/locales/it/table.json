@@ -282,7 +282,6 @@
     "newTableLabel": "Nuova tabella",
     "rename": "Rinomina",
     "design": "Progetta",
-    "tableRecordHistory": "Cronologia dei record della tabella",
     "deleteConfirm": "Sei sicuro di voler eliminare \"{{tableName}}\"?",
     "dbTableName": "Nome della tabella nel database fisico",
     "schemaName": "Nome dello schema nel database fisico",
