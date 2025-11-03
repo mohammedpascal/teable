@@ -42,7 +42,12 @@ export class Table extends TableCore {
   }
 
   async updateName(name: string) {
-    return requestWrap(updateTableName)(this.baseId, this.id, { name });
+    await requestWrap(updateTableName)(this.baseId, this.id, { name });
+    // Optimistically update local doc to reflect change immediately
+    if (this.doc && this.doc.data) {
+      this.doc.data.name = name;
+      this.doc.emit('op batch', [], false);
+    }
   }
 
   async updateDbTableName(dbTableName: string) {
