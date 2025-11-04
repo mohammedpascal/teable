@@ -4,7 +4,7 @@ import { sonner } from '@teable/ui-lib';
 import { type FC, type PropsWithChildren } from 'react';
 import { StandaloneViewProvider, ViewProvider } from '../../context';
 import { useTranslation } from '../../context/app/i18n';
-import { useBaseId, useTableId, useTablePermission } from '../../hooks';
+import { useTableId, useTablePermission } from '../../hooks';
 import { Record } from '../../model';
 import { syncCopy } from '../../utils';
 import { ExpandRecord } from './ExpandRecord';
@@ -14,11 +14,10 @@ const { toast } = sonner;
 const Wrap: FC<PropsWithChildren<{ tableId: string }>> = (props) => {
   const { tableId, children } = props;
   const currentTableId = useTableId();
-  const baseId = useBaseId();
 
   if (tableId !== currentTableId) {
     return (
-      <StandaloneViewProvider baseId={baseId} tableId={tableId}>
+      <StandaloneViewProvider tableId={tableId}>
         <ViewProvider>{children}</ViewProvider>
       </StandaloneViewProvider>
     );

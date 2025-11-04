@@ -8,7 +8,6 @@ import { TablePermissionProvider } from '../table-permission';
 import { ViewContext, ViewProvider } from '../view';
 
 export interface IStandaloneViewProvider {
-  baseId: string | undefined;
   tableId: string | undefined;
   viewId?: string;
   fallback?: React.ReactNode;
@@ -19,12 +18,11 @@ export const StandaloneViewProvider: React.FC<IStandaloneViewProvider> = ({
   children,
   viewId,
   tableId,
-  baseId,
   fallback,
 }) => {
   const value = useMemo(() => {
-    return { viewId, tableId, baseId };
-  }, [viewId, tableId, baseId]);
+    return { viewId, tableId };
+  }, [viewId, tableId]);
 
   return (
     <AnchorContext.Provider value={value}>

@@ -42,7 +42,7 @@ export const QueryBuilder = () => {
 
   return (
     <SettingRight title={<SettingRightTitle title={t('developer:apiQueryBuilder')} />}>
-      <StandaloneViewProvider baseId={baseId} tableId={tableId} viewId={viewId}>
+      <StandaloneViewProvider tableId={tableId} viewId={viewId}>
         <div className="flex w-full flex-col gap-4 pb-8 pt-4">
           <div className="text-sm">
             {t('developer:subTitle')}{' '}

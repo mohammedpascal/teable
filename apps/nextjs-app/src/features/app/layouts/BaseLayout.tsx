@@ -43,7 +43,6 @@ export const BaseLayout: React.FC<{
           <NotificationProvider>
             <AnchorContext.Provider
               value={{
-                baseId: 'bse0',
                 tableId: tableId as string,
                 viewId: viewId as string,
               }}

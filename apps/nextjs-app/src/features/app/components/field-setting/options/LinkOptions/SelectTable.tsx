@@ -7,18 +7,17 @@ import { Selector } from '@/components/Selector';
 import { tableConfig } from '@/features/i18n/table.config';
 
 interface ISelectTableProps {
-  baseId?: string;
   tableId?: string;
   onChange?: (baseId?: string, tableId?: string) => void;
 }
 
-export const SelectTable = ({ baseId, tableId, onChange }: ISelectTableProps) => {
+export const SelectTable = ({ tableId, onChange }: ISelectTableProps) => {
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const selfTableId = useTableId();
 
   return (
     <div className="flex flex-col gap-1">
-      <AnchorContext.Provider value={{ baseId: 'bse0' }}>
+      <AnchorContext.Provider value={{ tableId }}>
         <div className="neutral-content label-text flex h-7 items-center justify-between">
           <span className="flex items-center gap-1">
             {t('table:field.editor.linkTable')}
@@ -33,7 +32,7 @@ export const SelectTable = ({ baseId, tableId, onChange }: ISelectTableProps) =>
           <TablePicker
             tableId={tableId}
             selfTableId={selfTableId}
-            onChange={(tableId) => onChange?.(baseId!, tableId)}
+            onChange={(tableId) => onChange?.('bse0', tableId)}
           />
         </TableProvider>
       </AnchorContext.Provider>

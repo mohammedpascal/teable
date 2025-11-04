@@ -134,7 +134,6 @@ export const TableTabs = () => {
   const tables = useTables();
   const router = useRouter();
   const tableId = router.query.tableId as string;
-  const baseId = 'bse0';
 
   return (
     <Tabs
@@ -143,7 +142,7 @@ export const TableTabs = () => {
       className="space-y-4"
     >
       {tables.map((table) => (
-        <AnchorContext.Provider key={table.id} value={{ baseId, tableId: table.id }}>
+        <AnchorContext.Provider key={table.id} value={{ tableId: table.id }}>
           <TablePermissionProvider>
             <TabsContent value={table.id} className="space-y-4">
               {/* Fields Table */}

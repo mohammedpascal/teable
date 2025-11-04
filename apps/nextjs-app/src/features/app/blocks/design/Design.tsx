@@ -6,13 +6,12 @@ import { TableTabs, TablePicker } from './TableTabs';
 
 export const Design = () => {
   const router = useRouter();
-  const baseId = 'bse0';
   const tableId = router.query.tableId as string;
   const { t } = useTranslation(['table']);
 
   return (
-    <AnchorContext.Provider value={{ baseId }}>
-      <TablePermissionProvider >
+    <AnchorContext.Provider value={{ tableId }}>
+      <TablePermissionProvider>
         <div className="h-screen overflow-y-auto bg-background">
           {/* Header */}
           <div className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -21,9 +20,7 @@ export const Design = () => {
               <TablePicker
                 tableId={tableId}
                 readonly={false}
-                onChange={(tableId) =>
-                  router.push({ pathname: '/design', query: { tableId } })
-                }
+                onChange={(tableId) => router.push({ pathname: '/design', query: { tableId } })}
               />
               <div className="ml-auto">
                 <IntegrityButton />

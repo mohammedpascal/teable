@@ -38,19 +38,18 @@ export const Table: React.FC<ITableProps> = ({
     tableId: string;
     viewId: string;
   };
-  const baseId = 'bse0';
 
-  useViewErrorHandler(baseId, tableId, viewId);
+  useViewErrorHandler('bse0', tableId, viewId);
 
   return (
-    <AnchorContext.Provider value={{ tableId, viewId, baseId }}>
+    <AnchorContext.Provider value={{ tableId, viewId }}>
       <Head>
         <title>
           {table?.name ? `${table?.icon ? table.icon + ' ' : ''}${table.name}: Teable` : 'Teable'}
         </title>
         <style data-fullcalendar></style>
       </Head>
-      <TablePermissionProvider >
+      <TablePermissionProvider>
         <ViewProvider serverData={viewServerData}>
           <PersonalViewProxy serverData={viewServerData}>
             <div className="flex h-full grow basis-[500px]">
