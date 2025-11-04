@@ -34,7 +34,6 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
   beforeAll(async () => {
     const appCtx = await initApp();
     app = appCtx.app;
-    baseId = globalThis.testConfig.baseId;
     defaultCreateRo = {
       name: 'token1',
       description: 'token1',

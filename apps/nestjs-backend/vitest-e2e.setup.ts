@@ -11,8 +11,6 @@ interface ITestConfig {
   userName: string;
   userId: string;
   password: string;
-  spaceId: string;
-  baseId: string;
 }
 
 interface IInitAppReturnType {
@@ -35,8 +33,6 @@ globalThis.testConfig = {
   email: 'test@e2e.com',
   password: '12345678',
   userId: 'usrTestUserId',
-  spaceId: 'spcTestSpaceId',
-  baseId: 'bse0',
   driver: DriverClient.Sqlite,
 };
 

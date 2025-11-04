@@ -407,7 +407,7 @@ export class ViewOpenApiService {
           });
         }
       },
-      shuffle: this.shuffle.bind(this),
+      shuffle: () => this.shuffle(tableId),
     });
   }
 

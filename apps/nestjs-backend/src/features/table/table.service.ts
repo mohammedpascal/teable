@@ -315,7 +315,7 @@ export class TableService implements IReadonlyAdapterService {
     await this.createDBTable(snapshot);
   }
 
-  async getSnapshotBulk(baseId: string, ids: string[]): Promise<ISnapshotBase<ITableVo>[]> {
+  async getSnapshotBulk(_: string, ids: string[]): Promise<ISnapshotBase<ITableVo>[]> {
     const tables = await this.prismaService.txClient().tableMeta.findMany({
       where: { id: { in: ids } },
       orderBy: { order: 'asc' },
