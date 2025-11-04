@@ -200,7 +200,7 @@ describe('OpenAPI TableController (e2e)', () => {
       records: [{ fields: {} }],
     });
 
-    const tableResult = await getTable(baseId, tableId);
+    const tableResult = await getTable(tableId);
     const currTime = tableResult.lastModifiedTime;
     expect(new Date(currTime!).getTime() > 0).toBeTruthy();
   });
@@ -214,7 +214,7 @@ describe('OpenAPI TableController (e2e)', () => {
 
     tableId = result.id;
 
-    const tableResult = await getTable(baseId, tableId);
+    const tableResult = await getTable(tableId);
 
     expect(tableResult.dbTableName).toEqual(
       dbProvider.generateDbTableName(baseId, 'my_awesome_table_name' + timeStr)
@@ -232,7 +232,7 @@ describe('OpenAPI TableController (e2e)', () => {
     await updateTableDescription(baseId, tableId, { description: 'newDescription' });
     await updateTableIcon(baseId, tableId, { icon: '😀' });
 
-    const table = await getTable(baseId, tableId);
+    const table = await getTable(tableId);
 
     expect(table.name).toEqual('newTableName');
     expect(table.description).toEqual('newDescription');

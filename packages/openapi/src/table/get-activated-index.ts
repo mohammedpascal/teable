@@ -31,6 +31,8 @@ export const TableActivatedIndexRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const getTableActivatedIndex = (baseId: string, tableId: string) => {
-  return axios.get<ITableIndexType[]>(urlBuilder(TABLE_ACTIVATED_INDEX, { baseId, tableId }));
+export const getTableActivatedIndex = (tableId: string) => {
+  return axios.get<ITableIndexType[]>(
+    urlBuilder(TABLE_ACTIVATED_INDEX, { baseId: 'bse0', tableId })
+  );
 };

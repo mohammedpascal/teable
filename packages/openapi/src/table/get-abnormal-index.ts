@@ -23,7 +23,6 @@ export const TableAbnormalIndexRoute: RouteConfig = registerRoute({
     'Retrieve a list of abnormal database indexes for a specific table by index type. This helps identify potential performance or maintenance issues.',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
       type: tableIndexTypeSchema,
     }),
@@ -41,8 +40,8 @@ export const TableAbnormalIndexRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const getTableAbnormalIndex = (baseId: string, tableId: string, type: TableIndex) => {
-  return axios.get<IGetAbnormalVo>(urlBuilder(TABLE_ABNORMAL_INDEX, { baseId, tableId }), {
+export const getTableAbnormalIndex = (tableId: string, type: TableIndex) => {
+  return axios.get<IGetAbnormalVo>(urlBuilder(TABLE_ABNORMAL_INDEX, { baseId: 'bse0', tableId }), {
     params: { type },
   });
 };

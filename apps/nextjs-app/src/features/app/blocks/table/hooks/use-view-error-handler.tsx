@@ -11,8 +11,7 @@ export const useViewErrorHandler = (baseId: string, tableId: string, viewId: str
   const { connection } = useConnection();
 
   const { mutate: redirectDefaultView } = useMutation({
-    mutationFn: ({ baseId, tableId }: { baseId: string; tableId: string }) =>
-      getTableById(baseId, tableId),
+    mutationFn: (tableId: string) => getTableById(tableId),
     onSuccess: (data) => {
       const defaultViewId = data.data.defaultViewId;
       router.push(
@@ -30,14 +29,14 @@ export const useViewErrorHandler = (baseId: string, tableId: string, viewId: str
   });
 
   useEffect(() => {
-    if (!tableId || !baseId || !connection) {
+    if (!tableId || !connection) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errorHandler = (error: any) => {
       const httpError = new HttpError(error, error?.status || 500);
       if (httpError.code === HttpErrorCode.VIEW_NOT_FOUND) {
-        redirectDefaultView({ baseId, tableId });
+        redirectDefaultView(tableId);
       }
     };
 
@@ -45,7 +44,7 @@ export const useViewErrorHandler = (baseId: string, tableId: string, viewId: str
       if (typeof data === 'object' && data !== null) {
         const { d, del } = data as { d?: string; del?: boolean };
         if (d === viewId && del === true) {
-          redirectDefaultView({ baseId, tableId });
+          redirectDefaultView(tableId);
         }
       }
     };
@@ -62,5 +61,5 @@ export const useViewErrorHandler = (baseId: string, tableId: string, viewId: str
     return () => {
       connection.removeListener('receive', onReceive);
     };
-  }, [baseId, connection, redirectDefaultView, tableId, viewId]);
+  }, [connection, redirectDefaultView, tableId, viewId]);
 };

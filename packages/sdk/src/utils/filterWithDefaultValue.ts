@@ -114,14 +114,12 @@ export const extractDefaultFieldsFromFilters = async ({
   filter,
   fieldMap,
   currentUserId,
-  baseId,
   tableId,
   isAsync = false,
 }: {
   filter: IFilter | undefined;
   fieldMap: Record<string, IFieldVo>;
   currentUserId: string;
-  baseId?: string;
   tableId?: string;
   isAsync?: boolean;
 }): Promise<Record<string, unknown>> => {
@@ -129,7 +127,7 @@ export const extractDefaultFieldsFromFilters = async ({
   let repeatedFieldIds = new Set<string>();
   let collectedUserIds: string[] = [];
   const collectedLinkIdMap: Record<string, string[]> = {};
-  let collectedUserMap: Record<string, IUserCellValue> = {};
+  const collectedUserMap: Record<string, IUserCellValue> = {};
   let collectedLinkMap: Record<string, ILinkCellValue> = {};
 
   const filterItemHandler = async (
@@ -201,7 +199,7 @@ export const extractDefaultFieldsFromFilters = async ({
 
   if (!validateFilterOperators(filter)) return result;
 
-  if (!isAsync || !baseId || !tableId) {
+  if (!isAsync || !tableId) {
     traverse(filter, fieldMap);
     return result;
   }

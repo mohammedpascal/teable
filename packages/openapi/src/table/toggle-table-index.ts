@@ -47,10 +47,9 @@ export const ToggleTableIndexRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const toggleTableIndex = async (
-  baseId: string,
-  tableId: string,
-  toggleIndexRo: IToggleIndexRo
-) => {
-  return axios.post<void>(urlBuilder(TOGGLE_TABLE_INDEX, { baseId, tableId }), toggleIndexRo);
+export const toggleTableIndex = async (tableId: string, toggleIndexRo: IToggleIndexRo) => {
+  return axios.post<void>(
+    urlBuilder(TOGGLE_TABLE_INDEX, { baseId: 'bse0', tableId }),
+    toggleIndexRo
+  );
 };

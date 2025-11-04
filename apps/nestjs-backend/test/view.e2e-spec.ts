@@ -265,7 +265,7 @@ describe('OpenAPI ViewController (e2e)', () => {
         records: linkTable2RecordRo,
       });
 
-      table = (await getTable(baseId, fullTable.id, { includeContent: true })) as ITableFullVo;
+      table = (await getTable(fullTable.id, { includeContent: true })) as ITableFullVo;
     });
 
     afterAll(async () => {

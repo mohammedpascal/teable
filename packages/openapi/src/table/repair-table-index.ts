@@ -27,8 +27,8 @@ export const TableIndexRepairRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const repairTableIndex = (baseId: string, tableId: string, type: TableIndex) => {
-  return axios.patch<void>(urlBuilder(TABLE_INDEX_REPAIR, { baseId, tableId }), undefined, {
+export const repairTableIndex = (tableId: string, type: TableIndex) => {
+  return axios.patch<void>(urlBuilder(TABLE_INDEX_REPAIR, { baseId: 'bse0', tableId }), undefined, {
     params: { type },
   });
 };

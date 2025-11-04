@@ -31,10 +31,10 @@ export const GetTableRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const getTableById = async (baseId: string, tableId: string) => {
+export const getTableById = async (tableId: string) => {
   return axios.get<ITableVo>(
     urlBuilder(GET_TABLE, {
-      baseId,
+      baseId: 'bse0',
       tableId,
     })
   );

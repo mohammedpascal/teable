@@ -9,7 +9,6 @@ import {
   notify as apiNotify,
   analyzeFile as apiAnalyzeFile,
   importTableFromFile as apiImportTableFromFile,
-  deleteBase as apiDeleteBase,
   createTable as apiCreateTable,
   inplaceImportTableFromFile as apiInplaceImportTableFromFile,
   SUPPORTEDTYPE,
@@ -267,7 +266,7 @@ describe('OpenAPI ImportController (e2e)', () => {
 
         await delay(1000);
 
-        const { records } = await apiGetTableById(baseId, table.data[0].id, {
+        const { records } = await apiGetTableById(table.data[0].id, {
           includeContent: true,
         });
 
@@ -345,7 +344,7 @@ describe('OpenAPI ImportController (e2e)', () => {
 
       await delay(1000);
 
-      const { records } = await apiGetTableById(baseId, tableId, {
+      const { records } = await apiGetTableById(tableId, {
         includeContent: true,
       });
 

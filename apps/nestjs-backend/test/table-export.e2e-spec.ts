@@ -173,8 +173,8 @@ const createTables = async (mainTableName?: string, subTableName?: string) => {
 
   await createRecordsWithLink(mainTable.data.id, subTable.data.records[0].id);
 
-  const latestMainTable = await getTable(baseId, mainTable.data.id, { includeContent: true });
-  const latestSubTable = await getTable(baseId, subTable.data.id, { includeContent: true });
+  const latestMainTable = await getTable(mainTable.data.id, { includeContent: true });
+  const latestSubTable = await getTable(subTable.data.id, { includeContent: true });
 
   return { mainTable: latestMainTable, subTable: latestSubTable };
 };

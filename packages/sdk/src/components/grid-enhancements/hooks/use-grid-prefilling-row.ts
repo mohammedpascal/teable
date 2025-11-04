@@ -1,14 +1,7 @@
 import type { IUpdateOrderRo } from '@teable/openapi';
 import { isEqual, keyBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  useBaseId,
-  useFieldCellEditable,
-  useFields,
-  useSession,
-  useTableId,
-  useView,
-} from '../../../hooks';
+import { useFieldCellEditable, useFields, useSession, useTableId, useView } from '../../../hooks';
 import { createRecordInstance } from '../../../model';
 import { extractDefaultFieldsFromFilters } from '../../../utils';
 import { CellType } from '../../grid/interface';
@@ -17,7 +10,6 @@ import { useCreateCellValue2GridDisplay } from './use-grid-columns';
 
 export const useGridPrefillingRow = (columns: (IGridColumn & { id: string })[]) => {
   const view = useView();
-  const baseId = useBaseId();
   const tableId = useTableId();
   const fields = useFields();
   const allFields = useFields({ withHidden: true });
@@ -78,7 +70,6 @@ export const useGridPrefillingRow = (columns: (IGridColumn & { id: string })[]) 
         filter,
         fieldMap: keyBy(allFields, 'id'),
         currentUserId: userId,
-        baseId,
         tableId,
         isAsync: true,
       });

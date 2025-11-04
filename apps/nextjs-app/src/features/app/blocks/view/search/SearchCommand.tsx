@@ -10,7 +10,7 @@ import {
   RecommendedIndexRow,
 } from '@teable/openapi';
 import { LocalStorageKeys } from '@teable/sdk/config';
-import { useBaseId, useFields, useFieldStaticGetter, useTableId, useView } from '@teable/sdk/hooks';
+import { useFields, useFieldStaticGetter, useTableId, useView } from '@teable/sdk/hooks';
 import {
   Command,
   CommandInput,
@@ -63,7 +63,6 @@ export const SearchCommand = forwardRef<ISearchCommandRef, ISearchCommand>((prop
   const fields = useFields();
   const view = useView();
   const fieldStaticGetter = useFieldStaticGetter();
-  const baseId = useBaseId();
   const tableId = useTableId();
 
   const selectedFields = useMemo(() => {
@@ -85,30 +84,29 @@ export const SearchCommand = forwardRef<ISearchCommandRef, ISearchCommand>((prop
 
   const { data: tableActivatedIndex } = useQuery({
     queryKey: ['table-index', tableId],
-    queryFn: () => getTableActivatedIndex(baseId!, tableId!).then(({ data }) => data),
+    queryFn: () => getTableActivatedIndex(tableId!).then(({ data }) => data),
     enabled: !shareView,
   });
 
   const enabledSearchIndex = tableActivatedIndex?.includes(TableIndex.search);
 
   const { data: searchAbnormalIndex, isLoading: getAbnormalLoading } = useQuery({
-    queryKey: ['table-abnormal-index', baseId, tableId, TableIndex.search],
-    queryFn: () =>
-      getTableAbnormalIndex(baseId!, tableId!, TableIndex.search).then(({ data }) => data),
+    queryKey: ['table-abnormal-index', tableId, TableIndex.search],
+    queryFn: () => getTableAbnormalIndex(tableId!, TableIndex.search).then(({ data }) => data),
     enabled: Boolean(enabledSearchIndex && !shareView),
   });
 
   const { mutateAsync: toggleIndexFn, isLoading } = useMutation({
-    mutationFn: (type: TableIndex) => toggleTableIndex(baseId!, tableId!, { type }),
+    mutationFn: (type: TableIndex) => toggleTableIndex(tableId!, { type }),
     onSuccess: () => {
       queryClient.invalidateQueries(['table-index', tableId]);
     },
   });
 
   const { mutateAsync: repairIndexFn, isLoading: repairIndexLoading } = useMutation({
-    mutationFn: (type: TableIndex) => repairTableIndex(baseId!, tableId!, type),
+    mutationFn: (type: TableIndex) => repairTableIndex(tableId!, type),
     onSuccess: () => {
-      queryClient.invalidateQueries(['table-abnormal-index', baseId, tableId, TableIndex.search]);
+      queryClient.invalidateQueries(['table-abnormal-index', tableId, TableIndex.search]);
     },
   });
 
@@ -346,7 +344,7 @@ export const SearchCommand = forwardRef<ISearchCommandRef, ISearchCommand>((prop
                         setActionType(ActionType.create);
                         return;
                       }
-                      baseId && tableId && (await toggleIndexFn(TableIndex.search));
+                      tableId && (await toggleIndexFn(TableIndex.search));
                     }}
                   />
                 </div>

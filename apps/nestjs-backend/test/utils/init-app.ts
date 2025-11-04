@@ -173,11 +173,10 @@ export async function deleteTable(baseId: string, tableId: string, expectStatus?
 type IMakeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export async function getTable(
-  baseId: string,
   tableId: string,
   query?: { includeContent?: boolean; viewId?: string }
 ): Promise<IMakeOptional<ITableFullVo, 'records' | 'views' | 'fields'>> {
-  const result = await apiGetTableById(baseId, tableId);
+  const result = await apiGetTableById(tableId);
   if (query?.includeContent) {
     const { records } = await getRecords(tableId);
     const fields = await getFields(tableId, query.viewId);

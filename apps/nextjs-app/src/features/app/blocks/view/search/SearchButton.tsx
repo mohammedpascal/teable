@@ -1,24 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
 import { ViewType } from '@teable/core';
 import { Search, X } from '@teable/icons';
-import { getTableActivatedIndex, TableIndex, RecommendedIndexRow } from '@teable/openapi';
+import { getTableActivatedIndex, RecommendedIndexRow, TableIndex } from '@teable/openapi';
 import { LocalStorageKeys, useView } from '@teable/sdk';
-import { useBaseId, useFields, useRowCount, useSearch, useTableId } from '@teable/sdk/hooks';
+import { useFields, useRowCount, useSearch, useTableId } from '@teable/sdk/hooks';
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  Button,
+  Checkbox,
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Button,
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-  Checkbox,
 } from '@teable/ui-lib/shadcn';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'next-i18next';
@@ -51,7 +51,6 @@ export const SearchButton = (props: ISearchButtonProps) => {
   const [shouldAlert, setShouldAlert] = useLocalStorage(LocalStorageKeys.SearchIndexAlert, true);
   const [shouldTips, setShouldTips] = useState(true);
   const [noPrompt, setNoPrompt] = useState(false);
-  const baseId = useBaseId();
 
   const [inputValue, setInputValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -80,7 +79,7 @@ export const SearchButton = (props: ISearchButtonProps) => {
 
   const { data: tableActivatedIndex } = useQuery({
     queryKey: ['table-index', tableId],
-    queryFn: () => getTableActivatedIndex(baseId!, tableId!).then(({ data }) => data),
+    queryFn: () => getTableActivatedIndex(tableId!).then(({ data }) => data),
     enabled: !shareView,
   });
 
