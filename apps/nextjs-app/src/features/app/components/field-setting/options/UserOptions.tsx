@@ -1,8 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import type { CellValueType, IUserCellValue, IUserFieldOptions } from '@teable/core';
 import { UserEditor } from '@teable/sdk/components';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useBaseId } from '@teable/sdk/hooks';
 import { Label, Switch } from '@teable/ui-lib';
 import { keyBy } from 'lodash';
 import { useTranslation } from 'next-i18next';
@@ -18,7 +15,6 @@ export const UserOptions = (props: {
   const { options = {}, isLookup, onChange } = props;
   const { isMultiple, shouldNotify } = options;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
-  const baseId = useBaseId();
 
   // Collaboration removed - user list not available
   const collaborators: undefined = undefined;
