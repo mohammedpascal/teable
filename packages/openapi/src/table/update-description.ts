@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const TABLE_DESCRIPTION = '/base/{baseId}/table/{tableId}/description';
+export const TABLE_DESCRIPTION = '/base/bse0/table/{tableId}/description';
 
 export const tableDescriptionRoSchema = z.object({
   description: z.string().nullable(),
@@ -19,7 +19,6 @@ export const updateTableDescriptionRoute: RouteConfig = registerRoute({
     'Update or remove the description of a table. Set to null to remove the description.',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
     body: {
@@ -38,14 +37,9 @@ export const updateTableDescriptionRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const updateTableDescription = async (
-  baseId: string,
-  tableId: string,
-  data: ITableDescriptionRo
-) => {
+export const updateTableDescription = async (tableId: string, data: ITableDescriptionRo) => {
   return axios.put<void>(
     urlBuilder(TABLE_DESCRIPTION, {
-      baseId,
       tableId,
     }),
     data

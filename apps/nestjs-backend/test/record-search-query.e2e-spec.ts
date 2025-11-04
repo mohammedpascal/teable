@@ -50,14 +50,14 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
     let table: ITableFullVo;
     let subTable: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'record_query_x_20',
         fields: x_20.fields,
         records: x_20.records,
       });
 
       const x20Link = x_20_link(table);
-      subTable = await createTable(baseId, {
+      subTable = await createTable({
         name: 'sort_x_20',
         fields: x20Link.fields,
         records: x20Link.records,
@@ -73,8 +73,8 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
-      await deleteTable(baseId, subTable.id);
+      await deleteTable(table.id);
+      await deleteTable(subTable.id);
     });
 
     describe('simple search fields', () => {
@@ -246,7 +246,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
       let table: ITableFullVo;
       let tableName: string;
       beforeEach(async () => {
-        table = await createTable(baseId, {
+        table = await createTable({
           name: 'record_query_x_20',
           fields: x_20.fields,
           records: x_20.records,
@@ -255,7 +255,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
       });
 
       afterEach(async () => {
-        await deleteTable(baseId, table.id);
+        await deleteTable(table.id);
       });
 
       it('should create trgm index', async () => {
@@ -291,7 +291,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
           (f) => f.cellValueType === CellValueType.String
         )! as IFieldInstance;
         // enable search index
-        await toggleTableIndex( table.id, { type: TableIndex.search });
+        await toggleTableIndex(table.id, { type: TableIndex.search });
 
         // delete or update abnormal index
         const tableIndexService = await getTableIndexService(app);
@@ -306,7 +306,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
 
         await repairTableIndex(table.id, TableIndex.search);
 
-        const result2 = await getTableAbnormalIndex( table.id, TableIndex.search);
+        const result2 = await getTableAbnormalIndex(table.id, TableIndex.search);
         expect(result2.data.length).toBe(0);
       });
 
@@ -317,7 +317,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
         )!;
 
         const tableIndexService = await getTableIndexService(app);
-        await toggleTableIndex( table.id, { type: TableIndex.search });
+        await toggleTableIndex(table.id, { type: TableIndex.search });
         const index = (await tableIndexService.getIndexInfo(table.id)) as { indexname: string }[];
         await deleteField(table.id, textfield.id);
         const index2 = (await tableIndexService.getIndexInfo(table.id)) as { indexname: string }[];
@@ -331,7 +331,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
 
       it('should create new field index automatically when field be created with table index', async () => {
         const tableIndexService = await getTableIndexService(app);
-        await toggleTableIndex( table.id, { type: TableIndex.search });
+        await toggleTableIndex(table.id, { type: TableIndex.search });
         const index = (await tableIndexService.getIndexInfo(table.id)) as { indexname: string }[];
         const newField = await createField(table.id, {
           name: 'newField',
@@ -351,7 +351,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
           (f) => f.cellValueType === CellValueType.String && !f.isPrimary
         )!;
         const tableIndexService = await getTableIndexService(app);
-        await toggleTableIndex( table.id, { type: TableIndex.search });
+        await toggleTableIndex(table.id, { type: TableIndex.search });
         const index = (await tableIndexService.getIndexInfo(table.id)) as { indexname: string }[];
         await convertField(table.id, textfield.id, {
           type: FieldType.Checkbox,
@@ -371,7 +371,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
           (f) => f.cellValueType === CellValueType.String && !f.isPrimary
         )!;
         const tableIndexService = await getTableIndexService(app);
-        await toggleTableIndex( table.id, { type: TableIndex.search });
+        await toggleTableIndex(table.id, { type: TableIndex.search });
         const index = (await tableIndexService.getIndexInfo(table.id)) as { indexname: string }[];
         await updateField(table.id, textfield.id, {
           dbFieldName: 'Test_Field',

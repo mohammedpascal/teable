@@ -39,11 +39,11 @@ describe('Computed user field (e2e)', () => {
     let table1: ITableFullVo;
 
     beforeEach(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
+      table1 = await createTable({ name: 'table1' });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
+      await deleteTable(table1.id);
     });
 
     it('should create a created by field', async () => {
@@ -245,7 +245,7 @@ describe('Computed user field (e2e)', () => {
 
     afterAll(async () => {
       // Collaboration removed - no longer deleting collaborators
-      await deleteTable(baseId, table1.id);
+      await deleteTable(table1.id);
     });
 
     it('should update createdBy fields when user rename', async () => {

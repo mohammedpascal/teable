@@ -22,13 +22,13 @@ describe('OpenAPI Field calculation (e2e)', () => {
     const appCtx = await initApp();
     app = appCtx.app;
 
-    tableId = (await createTable(baseId, { name: 'table1' })).id;
+    tableId = (await createTable({ name: 'table1' })).id;
 
     await seeding(tableId, 1000);
   });
 
   afterAll(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
     await app.close();
   });
 

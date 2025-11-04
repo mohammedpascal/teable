@@ -39,11 +39,11 @@ describe('OpenAPI RecordController (e2e)', () => {
   describe('simple curd', () => {
     let table: ITableFullVo;
     beforeEach(async () => {
-      table = await createTable(baseId, { name: 'table1' });
+      table = await createTable({ name: 'table1' });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should get records', async () => {
@@ -365,13 +365,13 @@ describe('OpenAPI RecordController (e2e)', () => {
     let table: ITableFullVo;
 
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'table1',
       });
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     const clearRecords = async () => {
@@ -475,13 +475,13 @@ describe('OpenAPI RecordController (e2e)', () => {
   describe('calculate', () => {
     let table: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'table1',
       });
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should create a record and auto calculate computed field', async () => {
@@ -563,17 +563,17 @@ describe('OpenAPI RecordController (e2e)', () => {
     let table1: ITableFullVo;
     let table2: ITableFullVo;
     beforeEach(async () => {
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
       });
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
       });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should create a record with error field formula', async () => {
@@ -660,13 +660,13 @@ describe('OpenAPI RecordController (e2e)', () => {
   describe('create record with default value', () => {
     let table: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'table1',
       });
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should create a record with default single select', async () => {

@@ -32,11 +32,11 @@ describe('OpenAPI AttachmentController (e2e)', () => {
   });
 
   beforeEach(async () => {
-    table = await createTable(baseId, { name: 'table1' });
+    table = await createTable({ name: 'table1' });
   });
 
   afterEach(async () => {
-    await deleteTable(baseId, table.id);
+    await deleteTable(table.id);
   });
 
   it('should upload and typecast attachment', async () => {

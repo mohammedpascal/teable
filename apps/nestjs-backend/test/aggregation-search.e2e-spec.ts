@@ -21,14 +21,14 @@ describe('OpenAPI AggregationController (e2e)', () => {
   beforeAll(async () => {
     const appCtx = await initApp();
     app = appCtx.app;
-    table = await createTable(baseId, {
+    table = await createTable({
       name: 'record_query_x_20',
       fields: x_20.fields,
       records: x_20.records,
     });
 
     const x20Link = x_20_link(table);
-    subTable = await createTable(baseId, {
+    subTable = await createTable({
       name: 'sort_x_20',
       fields: x20Link.fields,
       records: x20Link.records,
@@ -49,8 +49,8 @@ describe('OpenAPI AggregationController (e2e)', () => {
   });
 
   afterAll(async () => {
-    await deleteTable(baseId, table.id);
-    await deleteTable(baseId, subTable.id);
+    await deleteTable(table.id);
+    await deleteTable(subTable.id);
   });
 
   describe.skip('OpenAPI AggregationController (e2e) get count with search query', () => {

@@ -142,9 +142,9 @@ export async function getTableIndexService(app: INestApplication) {
   return app.get<TableIndexService>(TableIndexService);
 }
 
-export async function createTable(baseId: string, tableVo: ICreateTableRo, expectStatus = 201) {
+export async function createTable(tableVo: ICreateTableRo, expectStatus = 201) {
   try {
-    const res = await apiCreateTable(baseId, tableVo);
+    const res = await apiCreateTable(tableVo);
     expect(res.status).toEqual(expectStatus);
 
     return res.data;
@@ -156,9 +156,9 @@ export async function createTable(baseId: string, tableVo: ICreateTableRo, expec
   }
 }
 
-export async function deleteTable(baseId: string, tableId: string, expectStatus?: number) {
+export async function deleteTable(tableId: string, expectStatus?: number) {
   try {
-    const res = await apiDeleteTable(baseId, tableId);
+    const res = await apiDeleteTable(tableId);
     expectStatus && expect(res.status).toEqual(expectStatus);
 
     return res.data;
@@ -470,6 +470,6 @@ export async function deleteBase(baseId: string) {
     return { success: true };
   }
   // For safety, still try to delete if it's not the fixed base
-  const result = await apiDeleteBase(baseId);
+  const result = await apiDeleteBase();
   return result.data;
 }

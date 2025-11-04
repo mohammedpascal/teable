@@ -5,7 +5,7 @@ import { z } from '../../zod';
 import type { IBaseQuery } from './types';
 import { baseQueryColumnTypeSchema, baseQuerySchema } from './types';
 
-export const BASE_QUERY = '/base/{baseId}/query';
+export const BASE_QUERY = '/base/bse0/query';
 
 export const baseQuerySchemaRo = z.object({
   query: z.string().transform((value, ctx) => {
@@ -52,9 +52,6 @@ export const baseQueryRoute = registerRoute({
   method: 'get',
   description: 'Get base query result',
   request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
     query: baseQuerySchemaRo,
   },
   responses: {
@@ -70,8 +67,8 @@ export const baseQueryRoute = registerRoute({
   tags: ['base'],
 });
 
-export const baseQuery = (baseId: string, query: IBaseQuery, cellFormat?: CellFormat) => {
-  return axios.get<IBaseQueryVo>(urlBuilder(BASE_QUERY, { baseId }), {
+export const baseQuery = (query: IBaseQuery, cellFormat?: CellFormat) => {
+  return axios.get<IBaseQueryVo>(urlBuilder(BASE_QUERY), {
     params: { query: JSON.stringify(query), cellFormat },
   });
 };

@@ -26,7 +26,7 @@ describe('OpenAPI ViewController (e2e) option (PUT) update grid view option', ()
   let viewId: string;
   let viewIds: string[];
   beforeAll(async () => {
-    const result = await createTable(baseId, {
+    const result = await createTable({
       name: 'Table',
       views: [{ type: ViewType.Grid }, { type: ViewType.Form }],
     });
@@ -35,7 +35,7 @@ describe('OpenAPI ViewController (e2e) option (PUT) update grid view option', ()
     viewIds = result.views.map((view) => view.id);
   });
   afterAll(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   it(`/table/{tableId}/view/{viewId}/option (PUT) update option rowHeight`, async () => {
@@ -59,12 +59,12 @@ describe('OpenAPI ViewController (e2e) option (PUT) update form view option', ()
   let tableId: string;
   let viewId: string;
   beforeAll(async () => {
-    const result = await createTable(baseId, { name: 'Table', views: [{ type: ViewType.Form }] });
+    const result = await createTable({ name: 'Table', views: [{ type: ViewType.Form }] });
     tableId = result.id;
     viewId = result.defaultViewId!;
   });
   afterAll(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   it(`/table/{tableId}/view/{viewId}/option (PUT) update option coverUrl`, async () => {

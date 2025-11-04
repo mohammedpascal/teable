@@ -178,7 +178,7 @@ describe('OpenAPI ImportController (e2e)', () => {
     });
     for (let i = 0; i < bases.length; i++) {
       const [baseId, id] = bases[i];
-      await deleteTable(baseId, id);
+      await deleteTable(id);
       // Base 'bse0' cannot be deleted, so we skip base deletion
     }
     await app.close();
@@ -240,7 +240,7 @@ describe('OpenAPI ImportController (e2e)', () => {
         });
         const calculatedColumnHeaders = worksheets[defaultSheetKey].columns;
 
-        const table = await apiImportTableFromFile(baseId, {
+        const table = await apiImportTableFromFile({
           attachmentUrl,
           fileType,
           worksheets: {
@@ -289,7 +289,7 @@ describe('OpenAPI ImportController (e2e)', () => {
       const fileType = testSupportTypeMap[format].fileType;
 
       // create a table
-      const tableRes = await apiCreateTable(baseId, {
+      const tableRes = await apiCreateTable({
         fields: [
           {
             type: FieldType.Number,
@@ -332,7 +332,7 @@ describe('OpenAPI ImportController (e2e)', () => {
       });
 
       // import data into table
-      await apiInplaceImportTableFromFile(baseId, tableId, {
+      await apiInplaceImportTableFromFile(tableId, {
         attachmentUrl,
         fileType,
         insertConfig: {

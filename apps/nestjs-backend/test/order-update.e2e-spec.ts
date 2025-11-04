@@ -26,11 +26,11 @@ describe('order update', () => {
     const baseId = globalThis.testConfig.baseId;
     let table: ITableFullVo;
     beforeEach(async () => {
-      table = (await createTable(baseId, { name: 'table1' })).data;
+      table = (await createTable({ name: 'table1' })).data;
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should update record order', async () => {
@@ -133,11 +133,11 @@ describe('order update', () => {
     const baseId = globalThis.testConfig.baseId;
     let table: ITableFullVo;
     beforeEach(async () => {
-      table = (await createTable(baseId, { name: 'table1' })).data;
+      table = (await createTable({ name: 'table1' })).data;
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should update view order', async () => {

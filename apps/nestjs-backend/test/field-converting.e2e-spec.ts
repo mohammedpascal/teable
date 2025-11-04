@@ -68,25 +68,25 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
 
   const bfAf = () => {
     beforeEach(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
-      table2 = await createTable(baseId, { name: 'table2' });
-      table3 = await createTable(baseId, { name: 'table3' });
+      table1 = await createTable({ name: 'table1' });
+      table2 = await createTable({ name: 'table2' });
+      table3 = await createTable({ name: 'table3' });
     });
 
     afterEach(async () => {
       // Only delete tables if they were successfully created
       if (table1?.id) {
-        await deleteTable(baseId, table1.id).catch(() => {
+        await deleteTable(table1.id).catch(() => {
           // Ignore deletion errors (table might already be deleted)
         });
       }
       if (table2?.id) {
-        await deleteTable(baseId, table2.id).catch(() => {
+        await deleteTable(table2.id).catch(() => {
           // Ignore deletion errors (table might already be deleted)
         });
       }
       if (table3?.id) {
-        await deleteTable(baseId, table3.id).catch(() => {
+        await deleteTable(table3.id).catch(() => {
           // Ignore deletion errors (table might already be deleted)
         });
       }
@@ -1489,7 +1489,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     let refField2: IFieldVo;
 
     beforeEach(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
+      table1 = await createTable({ name: 'table1' });
 
       refField1 = await createField(table1.id, refField1Ro);
       refField2 = await createField(table1.id, refField2Ro);
@@ -1502,7 +1502,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
+      await deleteTable(table1.id);
     });
 
     it('should convert formula and modify expression', async () => {

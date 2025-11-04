@@ -51,11 +51,11 @@ describe('OpenAPI FieldController (e2e)', () => {
     let table1: ITableFullVo;
 
     beforeAll(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
+      table1 = await createTable({ name: 'table1' });
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table1.id);
+      await deleteTable(table1.id);
     });
 
     it('/api/table/{tableId}/field (GET)', async () => {
@@ -107,13 +107,13 @@ describe('OpenAPI FieldController (e2e)', () => {
     let table2: ITableFullVo;
 
     beforeAll(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
-      table2 = await createTable(baseId, { name: 'table2' });
+      table1 = await createTable({ name: 'table1' });
+      table2 = await createTable({ name: 'table2' });
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     async function createFieldByType(
@@ -255,13 +255,13 @@ describe('OpenAPI FieldController (e2e)', () => {
     let table2: ITableFullVo;
 
     beforeAll(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
-      table2 = await createTable(baseId, { name: 'table2' });
+      table1 = await createTable({ name: 'table1' });
+      table2 = await createTable({ name: 'table2' });
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     async function createFieldWithUnique(
@@ -441,13 +441,13 @@ describe('OpenAPI FieldController (e2e)', () => {
     let table2: ITableFullVo;
 
     beforeAll(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
-      table2 = await createTable(baseId, { name: 'table2' });
+      table1 = await createTable({ name: 'table1' });
+      table2 = await createTable({ name: 'table2' });
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     let prisma: PrismaService;

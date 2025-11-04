@@ -15,7 +15,7 @@ describe('Performance test data generator', () => {
     const appCtx = await initApp();
     app = appCtx.app;
 
-    const table = await createTable(baseId, { name: 'table1' });
+    const table = await createTable({ name: 'table1' });
 
     tableId = table.id;
     console.log('createTable', table);

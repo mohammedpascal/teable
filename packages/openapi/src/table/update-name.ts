@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const TABLE_NAME = '/base/{baseId}/table/{tableId}/name';
+export const TABLE_NAME = '/base/bse0/table/{tableId}/name';
 
 export const tableNameRoSchema = z.object({
   name: z.string(),
@@ -19,7 +19,6 @@ export const updateTableNameRoute: RouteConfig = registerRoute({
     'Update the display name of a table. This will not affect the underlying database table name.',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
     body: {
@@ -38,10 +37,9 @@ export const updateTableNameRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const updateTableName = async (baseId: string, tableId: string, data: ITableNameRo) => {
+export const updateTableName = async (tableId: string, data: ITableNameRo) => {
   return axios.put<void>(
     urlBuilder(TABLE_NAME, {
-      baseId,
       tableId,
     }),
     data

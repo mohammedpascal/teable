@@ -34,12 +34,12 @@ describe('OpenAPI FieldController (e2e)', () => {
   });
 
   beforeEach(async () => {
-    const { id, fields: fieldsVo } = await createTable(baseId, { name: 'table' });
+    const { id, fields: fieldsVo } = await createTable({ name: 'table' });
     tableId = id;
     fields = fieldsVo;
   });
   afterEach(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   it('should delete relative view conditions when deleting a field', async () => {

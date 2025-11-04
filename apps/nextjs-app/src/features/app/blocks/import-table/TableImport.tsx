@@ -16,7 +16,7 @@ import {
   importTableFromFile,
   inplaceImportTableFromFile,
 } from '@teable/openapi';
-import { useBase, LocalStorageKeys } from '@teable/sdk';
+import { LocalStorageKeys } from '@teable/sdk';
 import {
   Dialog,
   DialogContent,
@@ -66,7 +66,6 @@ enum Step {
 }
 
 export const TableImport = (props: ITableImportProps) => {
-  const base = useBase();
   const router = useRouter();
   const { t } = useTranslation(['table']);
   const [step, setStep] = useState(Step.UPLOAD);
@@ -85,8 +84,8 @@ export const TableImport = (props: ITableImportProps) => {
   const [shouldTips, setShouldTips] = useState(false);
 
   const { mutateAsync: importNewTableFn, isLoading } = useMutation({
-    mutationFn: async ({ baseId, importRo }: { baseId: string; importRo: IImportOptionRo }) => {
-      return (await importTableFromFile(baseId, importRo)).data;
+    mutationFn: async ({ importRo }: { importRo: IImportOptionRo }) => {
+      return (await importTableFromFile(importRo)).data;
     },
     onSuccess: (data) => {
       const { defaultViewId: viewId, id: tableId } = data[0];
@@ -141,7 +140,6 @@ export const TableImport = (props: ITableImportProps) => {
       }
 
       importNewTableFn({
-        baseId: base.id,
         importRo: {
           worksheets: workSheets,
           ...fileInfo,
@@ -164,7 +162,6 @@ export const TableImport = (props: ITableImportProps) => {
         ),
       };
       inplaceImportFn([
-        base.id,
         tableId as string,
         {
           ...fileInfo,

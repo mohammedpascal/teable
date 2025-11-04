@@ -4,7 +4,7 @@ import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 import type { ITableVo } from './create';
 import { tableVoSchema } from './create';
-export const GET_TABLE = '/base/{baseId}/table/{tableId}';
+export const GET_TABLE = '/base/bse0/table/{tableId}';
 
 export const GetTableRoute: RouteConfig = registerRoute({
   method: 'get',
@@ -14,7 +14,6 @@ export const GetTableRoute: RouteConfig = registerRoute({
     'Retrieve detailed information about a specific table, including its schema, name, and configuration.',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
   },
@@ -34,7 +33,6 @@ export const GetTableRoute: RouteConfig = registerRoute({
 export const getTableById = async (tableId: string) => {
   return axios.get<ITableVo>(
     urlBuilder(GET_TABLE, {
-      baseId: 'bse0',
       tableId,
     })
   );

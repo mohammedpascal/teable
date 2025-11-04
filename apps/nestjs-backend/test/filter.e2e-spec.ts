@@ -29,7 +29,7 @@ describe('OpenAPI ViewController (e2e) option (PUT)', () => {
   let viewId: string;
   let fields: IFieldVo[];
   beforeAll(async () => {
-    const result = await createTable(baseId, {
+    const result = await createTable({
       name: 'Table',
     });
     tableId = result.id;
@@ -37,7 +37,7 @@ describe('OpenAPI ViewController (e2e) option (PUT)', () => {
     fields = result.fields;
   });
   afterAll(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   test(`/table/{tableId}/view/{viewId}/filter (PUT) update filter`, async () => {

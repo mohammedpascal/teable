@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const DB_TABLE_NAME = '/base/{baseId}/table/{tableId}/db-table-name';
+export const DB_TABLE_NAME = '/base/bse0/table/{tableId}/db-table-name';
 
 export const dbTableNameRoSchema = z.object({
   dbTableName: z
@@ -28,7 +28,6 @@ export const updateDbTableNameRoute: RouteConfig = registerRoute({
     'Update the physical database table name. Must be 1-63 characters, start with letter or underscore, contain only letters, numbers and underscore, and be unique within the base.',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
     body: {
@@ -47,10 +46,9 @@ export const updateDbTableNameRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const updateDbTableName = async (baseId: string, tableId: string, data: IDbTableNameRo) => {
+export const updateDbTableName = async (tableId: string, data: IDbTableNameRo) => {
   return axios.put<void>(
     urlBuilder(DB_TABLE_NAME, {
-      baseId,
       tableId,
     }),
     data

@@ -132,14 +132,14 @@ describe('OpenAPI ViewController view order sort (e2e)', () => {
   let fields: IFieldRo[];
 
   beforeEach(async () => {
-    const result = await createTable(baseId, { name: 'Table' });
+    const result = await createTable({ name: 'Table' });
     tableId = result.id;
     viewId = result.defaultViewId!;
     fields = result.fields!;
   });
 
   afterEach(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   it('/api/table/{tableId}/view/{viewId}/sort sort view order (PUT)', async () => {
@@ -165,7 +165,7 @@ describe('OpenAPI Sort (e2e) Base CellValueType', () => {
   let table: ITableFullVo;
 
   beforeAll(async () => {
-    table = await createTable(baseId, {
+    table = await createTable({
       name: 'sort_x_20',
       fields: x_20.fields,
       records: x_20.records,
@@ -173,7 +173,7 @@ describe('OpenAPI Sort (e2e) Base CellValueType', () => {
   });
 
   afterAll(async () => {
-    await deleteTable(baseId, table.id);
+    await deleteTable(table.id);
   });
 
   test.each(typeTests)(
@@ -270,14 +270,14 @@ describe('OpenAPI Sort (e2e) Multiple CellValueType', () => {
   let subTable: ITableFullVo;
 
   beforeAll(async () => {
-    mainTable = await createTable(baseId, {
+    mainTable = await createTable({
       name: 'sort_x_20',
       fields: x_20.fields,
       records: x_20.records,
     });
 
     const x20Link = x_20_link(mainTable);
-    subTable = await createTable(baseId, {
+    subTable = await createTable({
       name: 'sort_x_20',
       fields: x20Link.fields,
       records: x20Link.records,
@@ -292,8 +292,8 @@ describe('OpenAPI Sort (e2e) Multiple CellValueType', () => {
   });
 
   afterAll(async () => {
-    await deleteTable(baseId, mainTable.id);
-    await deleteTable(baseId, subTable.id);
+    await deleteTable(mainTable.id);
+    await deleteTable(subTable.id);
   });
 
   test.each(typeTests)(
@@ -381,7 +381,7 @@ describe('OpenAPI Sort (e2e) Date Formatting', () => {
   };
 
   beforeEach(async () => {
-    const result = await createTable(baseId, {
+    const result = await createTable({
       name: 'sort_by_date',
       fields: originFields,
       records: [
@@ -399,7 +399,7 @@ describe('OpenAPI Sort (e2e) Date Formatting', () => {
   });
 
   afterEach(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   test.each([

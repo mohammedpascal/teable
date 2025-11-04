@@ -21,7 +21,7 @@ describe('Share (socket-e2e) (e2e)', () => {
     app = appCtx.app;
     shareDbService = app.get(ShareDbService);
 
-    const table = await createTable(baseId, {
+    const table = await createTable({
       name: 'table1',
       views: [
         {
@@ -45,7 +45,7 @@ describe('Share (socket-e2e) (e2e)', () => {
   });
 
   afterAll(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
 
     await app.close();
   });

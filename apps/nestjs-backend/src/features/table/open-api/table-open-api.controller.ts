@@ -119,12 +119,11 @@ export class TableController {
 
   @Post(':tableId/duplicate')
   async duplicateTable(
-    @Param('baseId') baseId: string,
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(duplicateTableRoSchema), TablePipe)
     duplicateTableRo: IDuplicateTableRo
   ): Promise<IDuplicateTableVo> {
-    return await this.tableOpenApiService.duplicateTable(baseId, tableId, duplicateTableRo);
+    return await this.tableOpenApiService.duplicateTable('bse0', tableId, duplicateTableRo);
   }
 
   @Delete(':tableId')

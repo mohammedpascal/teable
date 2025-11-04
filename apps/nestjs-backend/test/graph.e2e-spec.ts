@@ -21,18 +21,18 @@ describe('OpenAPI Graph (e2e)', () => {
   });
 
   beforeEach(async () => {
-    table1 = await createTable(baseId, {
+    table1 = await createTable({
       name: 'table1',
     });
-    table2 = await createTable(baseId, {
+    table2 = await createTable({
       name: 'table2',
       records: Array.from({ length: 10 }).map(() => ({ fields: {} })),
     });
   });
 
   afterEach(async () => {
-    await deleteTable(baseId, table1.id);
-    await deleteTable(baseId, table2.id);
+    await deleteTable(table1.id);
+    await deleteTable(table2.id);
   });
 
   it('should create formula field plan', async () => {

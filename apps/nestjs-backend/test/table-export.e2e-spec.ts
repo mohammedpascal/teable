@@ -101,7 +101,7 @@ const mainFields = [
 const createTables = async (mainTableName?: string, subTableName?: string) => {
   const finalMainTableName = mainTableName ?? 'mainTable';
   const finalSubTableName = subTableName ?? 'subTable';
-  const mainTable = await apiCreateTable(baseId, {
+  const mainTable = await apiCreateTable({
     name: finalMainTableName,
     fields: [
       {
@@ -116,7 +116,7 @@ const createTables = async (mainTableName?: string, subTableName?: string) => {
     await apiCreateField(mainTable.data.id, mainFields[i]);
   }
 
-  const subTable = await apiCreateTable(baseId, {
+  const subTable = await apiCreateTable({
     name: finalSubTableName,
     fields: subFields,
     records: [
@@ -268,8 +268,8 @@ describe.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
       const contentType = exportRes?.headers[contentTypeKey];
       const { data: csvData } = exportRes;
 
-      await apiDeleteTable(baseId, mainTable.id);
-      await apiDeleteTable(baseId, subTable.id);
+      await apiDeleteTable(mainTable.id);
+      await apiDeleteTable(subTable.id);
 
       expect(disposition).toBe(`attachment; filename=${encodeURIComponent(mainTable.name)}.csv`);
       expect(contentType).toBe('text/csv; charset=utf-8');
@@ -286,8 +286,8 @@ describe.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
       const contentType = exportRes?.headers['content-type'];
       const { data: csvData } = exportRes;
 
-      await apiDeleteTable(baseId, mainTable.id);
-      await apiDeleteTable(baseId, subTable.id);
+      await apiDeleteTable(mainTable.id);
+      await apiDeleteTable(subTable.id);
 
       expect(disposition).toBe(`attachment; filename=${encodeURIComponent(mainTable.name)}.csv`);
       expect(contentType).toBe('text/csv; charset=utf-8');
@@ -318,8 +318,8 @@ describe.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
       const exportRes = await apiExportCsvFromTable(mainTable.id, view2.id);
       const { data: csvData } = exportRes;
 
-      await apiDeleteTable(baseId, mainTable.id);
-      await apiDeleteTable(baseId, subTable.id);
+      await apiDeleteTable(mainTable.id);
+      await apiDeleteTable(subTable.id);
 
       expect(csvData).toBe(
         `Text field,Number field,Checkbox field,Select field,Date field,Attachment field,User Field,Link field,Link field from lookups sub_Name,Link field from lookups sub_Number,Link field from lookups sub_Checkbox,Link field from lookups sub_SingleSelect\r\ntxt1,1.00,true,x,2022-11-28,test.txt ${txtFileData.presignedUrl},,Name1,Name1,1.00,true,sub_y\r\ntxt2,,,y,2022-11-28,,test,,,,,\r\n,,true,z,,,,,,,,`
@@ -348,8 +348,8 @@ describe.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
       const exportRes = await apiExportCsvFromTable(mainTable.id, view2.id);
       const { data: csvData } = exportRes;
 
-      await apiDeleteTable(baseId, mainTable.id);
-      await apiDeleteTable(baseId, subTable.id);
+      await apiDeleteTable(mainTable.id);
+      await apiDeleteTable(subTable.id);
 
       expect(csvData).toBe(
         `Text field,Checkbox field,Select field,Date field,Attachment field,User Field,Link field,Link field from lookups sub_Name,Link field from lookups sub_Number,Link field from lookups sub_Checkbox,Link field from lookups sub_SingleSelect\r\ntxt1,true,x,2022-11-28,test.txt ${txtFileData.presignedUrl},,Name1,Name1,1.00,true,sub_y\r\ntxt2,,y,2022-11-28,,test,,,,,\r\n,true,z,,,,,,,,`

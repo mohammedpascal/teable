@@ -33,8 +33,6 @@ export class Table extends TableCore {
 
   protected doc!: Doc<ITableVo>;
 
-  baseId = 'bse0';
-
   permission?: { [key in TableAction]: boolean };
 
   async getViews() {
@@ -42,7 +40,7 @@ export class Table extends TableCore {
   }
 
   async updateName(name: string) {
-    await requestWrap(updateTableName)(this.baseId, this.id, { name });
+    await requestWrap(updateTableName)(this.id, { name });
     // Optimistically update local doc to reflect change immediately
     if (this.doc && this.doc.data) {
       this.doc.data.name = name;
@@ -51,19 +49,19 @@ export class Table extends TableCore {
   }
 
   async updateDbTableName(dbTableName: string) {
-    return requestWrap(updateDbTableName)(this.baseId, this.id, { dbTableName });
+    return requestWrap(updateDbTableName)(this.id, { dbTableName });
   }
 
   async updateDescription(description: string | null) {
-    return requestWrap(updateTableDescription)(this.baseId, this.id, { description });
+    return requestWrap(updateTableDescription)(this.id, { description });
   }
 
   async updateIcon(icon: string) {
-    return requestWrap(updateTableIcon)(this.baseId, this.id, { icon });
+    return requestWrap(updateTableIcon)(this.id, { icon });
   }
 
   async updateOrder(orderRo: IUpdateOrderRo) {
-    return requestWrap(updateTableOrder)(this.baseId, this.id, orderRo);
+    return requestWrap(updateTableOrder)(this.id, orderRo);
   }
 
   async createView(viewRo: IViewRo) {

@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const UPDATE_BASE = '/base/{baseId}';
+export const UPDATE_BASE = '/base/bse0';
 
 export const updateBaseRoSchema = z.object({
   name: z.string().optional(),
@@ -22,9 +22,6 @@ export const UpdateBaseRoute: RouteConfig = registerRoute({
   path: UPDATE_BASE,
   description: 'Update a base info',
   request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
     body: {
       content: {
         'application/json': {
@@ -46,12 +43,6 @@ export const UpdateBaseRoute: RouteConfig = registerRoute({
   tags: ['base'],
 });
 
-export const updateBase = async (params: { baseId: string; updateBaseRo: IUpdateBaseRo }) => {
-  const { baseId, updateBaseRo } = params;
-  return axios.patch<IUpdateBaseVo>(
-    urlBuilder(UPDATE_BASE, {
-      baseId,
-    }),
-    updateBaseRo
-  );
+export const updateBase = async (updateBaseRo: IUpdateBaseRo) => {
+  return axios.patch<IUpdateBaseVo>(urlBuilder(UPDATE_BASE), updateBaseRo);
 };

@@ -21,13 +21,13 @@ describe('Test Scheduled Computing', () => {
   });
 
   beforeEach(async () => {
-    table = await createTable(baseId, { name: 'table1', records: [] });
+    table = await createTable({ name: 'table1', records: [] });
     // await seeding(table.id, 3);
     await seeding(table.id, 10_000);
   }, 100_000);
 
   afterEach(async () => {
-    await deleteTable(baseId, table.id);
+    await deleteTable(table.id);
     console.log('clear table: ', table.id);
   });
 

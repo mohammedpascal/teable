@@ -5,7 +5,7 @@ import type { IUpdateOrderRo } from '../view/update-order';
 import { updateOrderRoSchema } from '../view/update-order';
 import { z } from '../zod';
 
-export const TABLE_ORDER = '/base/{baseId}/table/{tableId}/order';
+export const TABLE_ORDER = '/base/bse0/table/{tableId}/order';
 
 export const updateTableOrderRoute: RouteConfig = registerRoute({
   method: 'put',
@@ -15,7 +15,6 @@ export const updateTableOrderRoute: RouteConfig = registerRoute({
     'Update the display order of a table in the base. This affects the order in which tables are shown in the UI.',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
     body: {
@@ -34,14 +33,9 @@ export const updateTableOrderRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const updateTableOrder = async (
-  baseId: string,
-  tableId: string,
-  orderRo: IUpdateOrderRo
-) => {
+export const updateTableOrder = async (tableId: string, orderRo: IUpdateOrderRo) => {
   return axios.put<void>(
     urlBuilder(TABLE_ORDER, {
-      baseId,
       tableId,
     }),
     orderRo

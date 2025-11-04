@@ -130,7 +130,7 @@ export const tableListVoSchema = tableVoSchema.array().openapi({
   description: 'The list of tables.',
 });
 
-export const CREATE_TABLE = '/base/{baseId}/table/';
+export const CREATE_TABLE = '/base/bse0/table/';
 
 export const CreateTableRoute: RouteConfig = registerRoute({
   method: 'post',
@@ -139,9 +139,6 @@ export const CreateTableRoute: RouteConfig = registerRoute({
   description:
     'Create a new table in the specified base with customizable fields, views, and initial records. Default configurations will be applied if not specified.',
   request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
     body: {
       content: {
         'application/json': {
@@ -163,6 +160,6 @@ export const CreateTableRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const createTable = async (baseId: string, tableRo: ICreateTableRo = {}) => {
-  return axios.post<ITableFullVo>(urlBuilder(CREATE_TABLE, { baseId }), tableRo);
+export const createTable = async (tableRo: ICreateTableRo = {}) => {
+  return axios.post<ITableFullVo>(urlBuilder(CREATE_TABLE), tableRo);
 };

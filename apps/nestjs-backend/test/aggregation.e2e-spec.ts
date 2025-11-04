@@ -22,13 +22,7 @@ import {
   TEXT_FIELD_CASES,
   USER_FIELD_CASES,
 } from './data-helpers/caces/aggregation-query';
-import {
-  createTable,
-  deleteTable,
-  initApp,
-  createRecords,
-  createView,
-} from './utils/init-app';
+import { createTable, deleteTable, initApp, createRecords, createView } from './utils/init-app';
 
 describe('OpenAPI AggregationController (e2e)', () => {
   let app: INestApplication;
@@ -66,7 +60,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
   describe('basis field aggregation record', () => {
     let table: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'agg_x_20',
         fields: x_20.fields,
         records: x_20.records,
@@ -74,7 +68,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should get rowCount', async () => {
@@ -484,7 +478,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
   describe('get group point by group', () => {
     let table: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'agg_x_20',
         fields: x_20.fields,
         records: x_20.records,
@@ -492,7 +486,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should get group points with collapsed group IDs', async () => {
@@ -582,7 +576,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
   describe('should get calendar daily collection', () => {
     let table: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'agg_x_20',
         fields: x_20.fields,
         records: x_20.records,
@@ -590,7 +584,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should get calendar daily collection', async () => {
@@ -617,7 +611,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     let viewId: string;
 
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'agg_x_20',
         fields: x_20.fields,
         records: x_20.records,
@@ -639,7 +633,7 @@ describe('OpenAPI AggregationController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should get row count with ignoreViewQuery', async () => {

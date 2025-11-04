@@ -63,13 +63,13 @@ describe('OpenAPI ViewController view group (e2e)', () => {
   let viewId: string;
   let fields: IFieldRo[];
   beforeEach(async () => {
-    const result = await createTable(baseId, { name: 'Table' });
+    const result = await createTable({ name: 'Table' });
     tableId = result.id;
     viewId = result.defaultViewId!;
     fields = result.fields!;
   });
   afterEach(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   test('/api/table/{tableId}/view/{viewId}/viewGroup view group (PUT)', async () => {
@@ -92,7 +92,7 @@ describe('OpenAPI ViewController raw group (e2e) base cellValueType', () => {
   let table: ITableFullVo;
 
   beforeAll(async () => {
-    table = await createTable(baseId, {
+    table = await createTable({
       name: 'group_x_20',
       fields: x_20.fields,
       records: x_20.records,
@@ -100,7 +100,7 @@ describe('OpenAPI ViewController raw group (e2e) base cellValueType', () => {
   });
 
   afterAll(async () => {
-    await deleteTable(baseId, table.id);
+    await deleteTable(table.id);
   });
 
   test.each(typeTests)(

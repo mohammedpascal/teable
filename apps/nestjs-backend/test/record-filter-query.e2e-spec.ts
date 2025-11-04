@@ -100,14 +100,14 @@ describe('OpenAPI Record-Filter-Query (e2e)', () => {
   describe('basis field filter record', () => {
     let table: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'record_query_x_20',
         fields: x_20.fields,
         records: x_20.records,
       });
     });
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     describe('simple filter text field record', () => {
@@ -148,14 +148,14 @@ describe('OpenAPI Record-Filter-Query (e2e)', () => {
     let table: ITableFullVo;
     let subTable: ITableFullVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'record_query_x_20',
         fields: x_20.fields,
         records: x_20.records,
       });
 
       const x20Link = x_20_link(table);
-      subTable = await createTable(baseId, {
+      subTable = await createTable({
         name: 'lookup_filter_x_20',
         fields: x20Link.fields,
         records: x20Link.records,
@@ -171,8 +171,8 @@ describe('OpenAPI Record-Filter-Query (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
-      await deleteTable(baseId, subTable.id);
+      await deleteTable(table.id);
+      await deleteTable(subTable.id);
     });
 
     describe('filter lookup text field record', () => {

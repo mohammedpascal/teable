@@ -2,7 +2,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const GET_DEFAULT_VIEW_ID = '/base/{baseId}/table/{tableId}/default-view-id';
+export const GET_DEFAULT_VIEW_ID = '/base/bse0/table/{tableId}/default-view-id';
 
 export const getDefaultViewIdVoSchema = z.object({
   id: z.string(),
@@ -17,7 +17,6 @@ export const GetDefaultViewIdRoute = registerRoute({
   description: 'Get default view id',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
   },
@@ -34,6 +33,6 @@ export const GetDefaultViewIdRoute = registerRoute({
   tags: ['table'],
 });
 
-export const getDefaultViewId = async (baseId: string, tableId: string) => {
-  return axios.get<IGetDefaultViewIdVo>(urlBuilder(GET_DEFAULT_VIEW_ID, { baseId, tableId }));
+export const getDefaultViewId = async (tableId: string) => {
+  return axios.get<IGetDefaultViewIdVo>(urlBuilder(GET_DEFAULT_VIEW_ID, { tableId }));
 };

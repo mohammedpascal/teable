@@ -11,12 +11,12 @@ export const IntegrityButton = () => {
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['baseIntegrity', base.id],
-    queryFn: () => checkBaseIntegrity(base.id).then(({ data }) => data),
+    queryFn: () => checkBaseIntegrity().then(({ data }) => data),
     enabled: false,
   });
 
   const { mutateAsync: fixIntegrity } = useMutation({
-    mutationFn: () => fixBaseIntegrity(base.id),
+    mutationFn: () => fixBaseIntegrity(),
     onSuccess: () => {
       refetch();
     },

@@ -134,7 +134,7 @@ describe('OpenAPI TableController (e2e)', () => {
   });
 
   afterEach(async () => {
-    await deleteTable(baseId, tableId);
+    await deleteTable(tableId);
   });
 
   it('/api/table/ (POST) with assertData data', async () => {
@@ -175,7 +175,7 @@ describe('OpenAPI TableController (e2e)', () => {
       eventCount++;
     });
 
-    const result = await createTable(baseId, assertData);
+    const result = await createTable(assertData);
 
     tableId = result.id;
     const recordResult = await getRecords(tableId);
@@ -185,7 +185,7 @@ describe('OpenAPI TableController (e2e)', () => {
   });
 
   it('/api/table/ (POST) empty', async () => {
-    const result = await createTable(baseId, { name: 'new table' });
+    const result = await createTable({ name: 'new table' });
 
     tableId = result.id;
     const recordResult = await getRecords(tableId);
@@ -193,7 +193,7 @@ describe('OpenAPI TableController (e2e)', () => {
   });
 
   it('should refresh table lastModifyTime when add a record', async () => {
-    const result = await createTable(baseId, { name: 'new table' });
+    const result = await createTable({ name: 'new table' });
     tableId = result.id;
 
     await createRecords(tableId, {
@@ -207,7 +207,7 @@ describe('OpenAPI TableController (e2e)', () => {
 
   it('should create table with add a record', async () => {
     const timeStr = new Date().getTime() + '';
-    const result = await createTable(baseId, {
+    const result = await createTable({
       name: 'new table',
       dbTableName: 'my_awesome_table_name' + timeStr,
     });
@@ -222,15 +222,15 @@ describe('OpenAPI TableController (e2e)', () => {
   });
 
   it('should update table simple properties', async () => {
-    const result = await createTable(baseId, {
+    const result = await createTable({
       name: 'table',
     });
 
     tableId = result.id;
 
-    await updateTableName(baseId, tableId, { name: 'newTableName' });
-    await updateTableDescription(baseId, tableId, { description: 'newDescription' });
-    await updateTableIcon(baseId, tableId, { icon: '😀' });
+    await updateTableName(tableId, { name: 'newTableName' });
+    await updateTableDescription(tableId, { description: 'newDescription' });
+    await updateTableIcon(tableId, { icon: '😀' });
 
     const table = await getTable(tableId);
 
@@ -240,7 +240,7 @@ describe('OpenAPI TableController (e2e)', () => {
   });
 
   it('should delete table and clean up link and lookup fields', async () => {
-    const table1 = await createTable(baseId, {
+    const table1 = await createTable({
       fields: [
         {
           name: 'name',
@@ -266,7 +266,7 @@ describe('OpenAPI TableController (e2e)', () => {
       ],
     });
 
-    const table2 = await createTable(baseId, {
+    const table2 = await createTable({
       fields: [
         {
           name: 'name',
@@ -331,7 +331,7 @@ describe('OpenAPI TableController (e2e)', () => {
       fieldKeyType: FieldKeyType.Id,
     });
 
-    await apiDeleteTable(baseId, table1.id);
+    await apiDeleteTable(table1.id);
 
     const fields = await getFields(table2.id);
     const { records } = await getRecords(table2.id, { fieldKeyType: FieldKeyType.Id });

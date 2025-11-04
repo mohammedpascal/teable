@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const CHECK_BASE_INTEGRITY = '/integrity/base/{baseId}/link-check';
+export const CHECK_BASE_INTEGRITY = '/integrity/base/bse0/link-check';
 
 // Define the issue types enum
 export enum IntegrityIssueType {
@@ -50,11 +50,7 @@ export const IntegrityCheckRoute: RouteConfig = registerRoute({
   method: 'get',
   path: CHECK_BASE_INTEGRITY,
   description: 'Check integrity of link fields in a base',
-  request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
-  },
+  request: {},
   responses: {
     200: {
       description: 'Returns integrity check results for the base',
@@ -68,10 +64,6 @@ export const IntegrityCheckRoute: RouteConfig = registerRoute({
   tags: ['integrity'],
 });
 
-export const checkBaseIntegrity = async (baseId: string) => {
-  return axios.get<IIntegrityCheckVo>(
-    urlBuilder(CHECK_BASE_INTEGRITY, {
-      baseId,
-    })
-  );
+export const checkBaseIntegrity = async () => {
+  return axios.get<IIntegrityCheckVo>(urlBuilder(CHECK_BASE_INTEGRITY));
 };

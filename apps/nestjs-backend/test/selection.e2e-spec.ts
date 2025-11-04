@@ -21,13 +21,7 @@ import {
   deleteSelection,
   updateViewFilter,
 } from '@teable/openapi';
-import {
-  createField,
-  getRecord,
-  initApp,
-  createTable,
-  deleteTable,
-} from './utils/init-app';
+import { createField, getRecord, initApp, createTable, deleteTable } from './utils/init-app';
 
 describe('OpenAPI SelectionController (e2e)', () => {
   let app: INestApplication;
@@ -40,11 +34,11 @@ describe('OpenAPI SelectionController (e2e)', () => {
   });
 
   beforeEach(async () => {
-    table = await createTable(baseId, { name: 'table1' });
+    table = await createTable({ name: 'table1' });
   });
 
   afterEach(async () => {
-    const result = await deleteTable(baseId, table.id);
+    const result = await deleteTable(table.id);
     console.log('clear table: ', result);
   });
 
@@ -214,7 +208,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
         type: FieldType.SingleLineText,
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
         fields: [textFieldRo],
         records: [
@@ -224,7 +218,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
         ],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo],
         records: [
@@ -236,8 +230,8 @@ describe('OpenAPI SelectionController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should paste 2 manyOne link field in same time', async () => {
@@ -342,7 +336,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
         numberField,
       ];
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
         fields: fields,
         records: [{ fields: { count: 1 } }, { fields: { count: 2 } }, { fields: { count: 3 } }],
@@ -365,7 +359,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
+      await deleteTable(table1.id);
     });
 
     it('should paste expand col formula', async () => {
@@ -397,7 +391,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
     let table: ITableFullVo;
 
     beforeEach(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'table2',
         fields: [
           {
@@ -418,7 +412,7 @@ describe('OpenAPI SelectionController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should delete selected data', async () => {

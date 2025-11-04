@@ -48,14 +48,14 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
     let subTable: ITableFullVo;
     let duplicateTableData: IDuplicateTableVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'record_query_x_20',
         fields: x_20.fields,
         records: x_20.records,
       });
 
       const x20Link = x_20_link(table);
-      subTable = await createTable(baseId, {
+      subTable = await createTable({
         name: 'lookup_filter_x_20',
         fields: x20Link.fields,
         records: x20Link.records,
@@ -70,16 +70,16 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       table.views = await getViews(table.id);
       subTable.fields = (await getFields(subTable.id)).data;
       duplicateTableData = (
-        await duplicateTable(baseId, table.id, {
+        await duplicateTable(table.id, {
           name: 'duplicated_table',
           includeRecords: false,
         })
       ).data;
     });
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
-      await deleteTable(baseId, subTable.id);
-      await deleteTable(baseId, duplicateTableData.id);
+      await deleteTable(table.id);
+      await deleteTable(subTable.id);
+      await deleteTable(duplicateTableData.id);
     });
 
     it('should duplicate all fields and views', () => {
@@ -173,14 +173,14 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
     let lookupField: IFieldVo;
     let formulaField: IFieldVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'record_query_x_20',
         fields: x_20.fields,
         records: x_20.records,
       });
 
       const x20Link = x_20_link(table);
-      subTable = await createTable(baseId, {
+      subTable = await createTable({
         name: 'lookup_filter_x_20',
         fields: x20Link.fields,
         records: x20Link.records,
@@ -228,16 +228,16 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       await deleteField(subTable.id, lookupedField.id);
 
       duplicateTableData = (
-        await duplicateTable(baseId, table.id, {
+        await duplicateTable(table.id, {
           name: 'duplicated_table',
           includeRecords: false,
         })
       ).data;
     });
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
-      await deleteTable(baseId, subTable.id);
-      await deleteTable(baseId, duplicateTableData.id);
+      await deleteTable(table.id);
+      await deleteTable(subTable.id);
+      await deleteTable(duplicateTableData.id);
     });
 
     it('duplicated formula and lookup field should has error', async () => {
@@ -273,14 +273,14 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
     let subTable: ITableFullVo;
     let duplicateTableData: IDuplicateTableVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'record_query_x_20',
         fields: x_20.fields,
         records: x_20.records,
       });
 
       const x20Link = x_20_link(table);
-      subTable = await createTable(baseId, {
+      subTable = await createTable({
         name: 'lookup_filter_x_20',
         fields: x20Link.fields,
         records: x20Link.records,
@@ -308,16 +308,16 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       });
 
       duplicateTableData = (
-        await duplicateTable(baseId, table.id, {
+        await duplicateTable(table.id, {
           name: 'duplicated_table',
           includeRecords: false,
         })
       ).data;
     });
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
-      await deleteTable(baseId, subTable.id);
-      await deleteTable(baseId, duplicateTableData.id);
+      await deleteTable(table.id);
+      await deleteTable(subTable.id);
+      await deleteTable(duplicateTableData.id);
     });
 
     it('should duplicate self link fields', async () => {
@@ -339,14 +339,14 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
     let subTable: ITableFullVo;
     let duplicateTableData: IDuplicateTableVo;
     beforeAll(async () => {
-      table = await createTable(baseId, {
+      table = await createTable({
         name: 'record_query_x_20',
         fields: x_20.fields,
         records: x_20.records,
       });
 
       const x20Link = x_20_link(table);
-      subTable = await createTable(baseId, {
+      subTable = await createTable({
         name: 'lookup_filter_x_20',
         fields: x20Link.fields,
         records: x20Link.records,
@@ -374,9 +374,9 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       });
     });
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
-      await deleteTable(baseId, subTable.id);
-      await deleteTable(baseId, duplicateTableData.id);
+      await deleteTable(table.id);
+      await deleteTable(subTable.id);
+      await deleteTable(duplicateTableData.id);
     });
 
     it('should duplicate all kind of views', async () => {
@@ -509,7 +509,7 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       const sourceViews = await getViews(table.id);
 
       duplicateTableData = (
-        await duplicateTable(baseId, table.id, {
+        await duplicateTable(table.id, {
           name: 'duplicated_table',
           includeRecords: false,
         })
@@ -520,18 +520,17 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       const { fieldMap } = duplicateTableData;
       expect(sourceViews.length).toBe(targetViews.length);
       let assertViewsString = JSON.stringify(
-        sourceViews
-          .map((v) => ({
-            ...omit(v, [
-              'createdBy',
-              'createdTime',
-              'lastModifiedBy',
-              'lastModifiedTime',
-              'shareId',
-              'id',
-            ]),
-            options: omit(v.options, ['pluginId', 'pluginInstallId']),
-          }))
+        sourceViews.map((v) => ({
+          ...omit(v, [
+            'createdBy',
+            'createdTime',
+            'lastModifiedBy',
+            'lastModifiedTime',
+            'shareId',
+            'id',
+          ]),
+          options: omit(v.options, ['pluginId', 'pluginInstallId']),
+        }))
       );
 
       for (const [key, value] of Object.entries(fieldMap)) {
@@ -541,18 +540,17 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
       const assertViews = JSON.parse(assertViewsString);
 
       expect(assertViews).toEqual(
-        targetViews
-          .map((v) => ({
-            ...omit(v, [
-              'createdBy',
-              'createdTime',
-              'lastModifiedBy',
-              'lastModifiedTime',
-              'shareId',
-              'id',
-            ]),
-            options: omit(v.options, ['pluginId', 'pluginInstallId']),
-          }))
+        targetViews.map((v) => ({
+          ...omit(v, [
+            'createdBy',
+            'createdTime',
+            'lastModifiedBy',
+            'lastModifiedTime',
+            'shareId',
+            'id',
+          ]),
+          options: omit(v.options, ['pluginId', 'pluginInstallId']),
+        }))
       );
     });
   });

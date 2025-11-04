@@ -46,7 +46,7 @@ describe('OpenAPI link Select (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
         fields: [textFieldRo, numberFieldRo],
         records: [
@@ -56,7 +56,7 @@ describe('OpenAPI link Select (e2e)', () => {
         ],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo],
         records: [
@@ -71,8 +71,8 @@ describe('OpenAPI link Select (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     describe.each([

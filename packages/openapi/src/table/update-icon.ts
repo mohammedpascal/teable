@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const TABLE_ICON = '/base/{baseId}/table/{tableId}/icon';
+export const TABLE_ICON = '/base/bse0/table/{tableId}/icon';
 
 export const tableIconRoSchema = z.object({
   icon: z.string().emoji(),
@@ -18,7 +18,6 @@ export const updateTableIconRoute: RouteConfig = registerRoute({
   description: 'Update the emoji icon of a table. The icon must be a valid emoji character.',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
     body: {
@@ -37,10 +36,9 @@ export const updateTableIconRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const updateTableIcon = async (baseId: string, tableId: string, data: ITableIconRo) => {
+export const updateTableIcon = async (tableId: string, data: ITableIconRo) => {
   return axios.put<void>(
     urlBuilder(TABLE_ICON, {
-      baseId,
       tableId,
     }),
     data

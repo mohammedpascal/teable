@@ -46,11 +46,11 @@ describe('OpenAPI ViewController (e2e)', () => {
   });
 
   beforeEach(async () => {
-    table = await createTable(baseId, { name: 'table1' });
+    table = await createTable({ name: 'table1' });
   });
 
   afterEach(async () => {
-    const result = await deleteTable(baseId, table.id);
+    const result = await deleteTable(table.id);
     console.log('clear table: ', result);
   });
 
@@ -224,7 +224,7 @@ describe('OpenAPI ViewController (e2e)', () => {
     ];
 
     beforeAll(async () => {
-      const fullTable = await createTable(baseId, {
+      const fullTable = await createTable({
         name: 'filter_link_records',
         fields: [
           {
@@ -235,7 +235,7 @@ describe('OpenAPI ViewController (e2e)', () => {
         records: [],
       });
 
-      linkTable1 = await createTable(baseId, {
+      linkTable1 = await createTable({
         name: 'link_table1',
         fields: [
           ...linkTable1FieldRo,
@@ -250,7 +250,7 @@ describe('OpenAPI ViewController (e2e)', () => {
         records: linkTable1RecordRo,
       });
 
-      linkTable2 = await createTable(baseId, {
+      linkTable2 = await createTable({
         name: 'link_table2',
         fields: [
           ...linkTable2FieldRo,
@@ -269,9 +269,9 @@ describe('OpenAPI ViewController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table.id);
-      await deleteTable(baseId, linkTable1.id);
-      await deleteTable(baseId, linkTable2.id);
+      await deleteTable(table.id);
+      await deleteTable(linkTable1.id);
+      await deleteTable(linkTable2.id);
     });
 
     it('should return filter link records', async () => {
@@ -344,7 +344,7 @@ describe('OpenAPI ViewController (e2e)', () => {
     let gridViewId: string;
     let formViewId: string;
     beforeAll(async () => {
-      const table = await createTable(baseId, { name: 'table' });
+      const table = await createTable({ name: 'table' });
       tableId = table.id;
       const gridView = await createView(table.id, {
         name: 'Grid view',
@@ -359,18 +359,18 @@ describe('OpenAPI ViewController (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, tableId);
+      await deleteTable(tableId);
     });
   });
 
   describe('filter by view ', () => {
     let table: ITableFullVo;
     beforeEach(async () => {
-      table = await createTable(baseId, { name: 'table1' });
+      table = await createTable({ name: 'table1' });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should get records with a field filtered view', async () => {

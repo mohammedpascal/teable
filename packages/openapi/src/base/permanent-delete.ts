@@ -3,17 +3,13 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const DELETE_BASE = '/base/{baseId}';
+export const DELETE_BASE = '/base/bse0';
 
 export const DeleteBaseRoute: RouteConfig = registerRoute({
   method: 'delete',
   path: DELETE_BASE,
   description: 'Delete a base by baseId',
-  request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
-  },
+  request: {},
   responses: {
     200: {
       description: 'Deleted successfully',
@@ -22,10 +18,6 @@ export const DeleteBaseRoute: RouteConfig = registerRoute({
   tags: ['base'],
 });
 
-export const deleteBase = async (baseId: string) => {
-  return await axios.delete<null>(
-    urlBuilder(DELETE_BASE, {
-      baseId,
-    })
-  );
+export const deleteBase = async () => {
+  return await axios.delete<null>(urlBuilder(DELETE_BASE));
 };

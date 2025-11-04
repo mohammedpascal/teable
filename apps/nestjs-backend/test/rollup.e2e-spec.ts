@@ -106,13 +106,13 @@ describe('OpenAPI Rollup field (e2e)', () => {
     app = appCtx.app;
 
     // create table1 with fundamental field
-    table1 = await createTable(baseId, {
+    table1 = await createTable({
       name: 'table1',
       fields: defaultFields.map((f) => ({ ...f, name: f.name + '[table1]' })),
     });
 
     // create table2 with fundamental field
-    table2 = await createTable(baseId, {
+    table2 = await createTable({
       name: 'table2',
       fields: defaultFields.map((f) => ({ ...f, name: f.name + '[table2]' })),
     });
@@ -133,8 +133,8 @@ describe('OpenAPI Rollup field (e2e)', () => {
   });
 
   afterAll(async () => {
-    await deleteTable(baseId, table1.id);
-    await deleteTable(baseId, table2.id);
+    await deleteTable(table1.id);
+    await deleteTable(table2.id);
 
     await app.close();
   });
@@ -510,8 +510,8 @@ describe('OpenAPI Rollup field (e2e)', () => {
     let table2: ITableFullVo;
 
     beforeEach(async () => {
-      table1 = await createTable(baseId, {});
-      table2 = await createTable(baseId, {});
+      table1 = await createTable({});
+      table2 = await createTable({});
     });
 
     it('should update multiple field when rollup  to a same a formula field', async () => {

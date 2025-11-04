@@ -44,8 +44,8 @@ describe('OpenAPI link (e2e)', () => {
     let table2: ITableFullVo;
 
     afterEach(async () => {
-      table1 && (await deleteTable(baseId, table1.id));
-      table2 && (await deleteTable(baseId, table2.id));
+      table1 && (await deleteTable(table1.id));
+      table2 && (await deleteTable(table2.id));
     });
 
     it('should create foreign link field when create a new table with many-one link field', async () => {
@@ -62,7 +62,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -79,7 +79,7 @@ describe('OpenAPI link (e2e)', () => {
           foreignTableId: table1.id,
         },
       };
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo, linkFieldRo],
         records: [
@@ -131,7 +131,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -148,7 +148,7 @@ describe('OpenAPI link (e2e)', () => {
           foreignTableId: table1.id,
         },
       };
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo, linkFieldRo],
         records: [
@@ -207,7 +207,7 @@ describe('OpenAPI link (e2e)', () => {
         type: FieldType.SingleLineText,
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [numberFieldRo, textFieldRo],
       });
 
@@ -220,7 +220,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [numberFieldRo, textFieldRo, linkFieldRo],
       });
@@ -267,7 +267,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -285,7 +285,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo, linkFieldRo],
         records: [
@@ -321,7 +321,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -340,7 +340,6 @@ describe('OpenAPI link (e2e)', () => {
       };
 
       await createTable(
-        baseId,
         {
           name: 'table2',
           fields: [textFieldRo, numberFieldRo, linkFieldRo],
@@ -365,7 +364,7 @@ describe('OpenAPI link (e2e)', () => {
         type: FieldType.SingleLineText,
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -383,7 +382,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      const table2 = await createTable(baseId, {
+      const table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, linkFieldRo],
         records: [
@@ -416,7 +415,7 @@ describe('OpenAPI link (e2e)', () => {
         type: FieldType.SingleLineText,
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -433,7 +432,7 @@ describe('OpenAPI link (e2e)', () => {
           foreignTableId: table1.id,
         },
       };
-      const table2 = await createTable(baseId, {
+      const table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, linkFieldRo],
         records: [
@@ -466,7 +465,7 @@ describe('OpenAPI link (e2e)', () => {
         type: FieldType.SingleLineText,
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -483,7 +482,7 @@ describe('OpenAPI link (e2e)', () => {
           foreignTableId: table1.id,
         },
       };
-      const table2 = await createTable(baseId, {
+      const table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, linkFieldRo],
         records: [
@@ -557,7 +556,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -566,7 +565,7 @@ describe('OpenAPI link (e2e)', () => {
         ],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo],
         records: [
@@ -581,8 +580,8 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should create two way, many many link', async () => {
@@ -831,7 +830,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -840,7 +839,7 @@ describe('OpenAPI link (e2e)', () => {
         ],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo],
         records: [
@@ -867,8 +866,8 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update foreign link field when set a new link in to link field cell', async () => {
@@ -1249,7 +1248,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -1258,7 +1257,7 @@ describe('OpenAPI link (e2e)', () => {
         ],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo],
         records: [
@@ -1285,8 +1284,8 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update foreign link field when set a new link in to link field cell', async () => {
@@ -1654,7 +1653,7 @@ describe('OpenAPI link (e2e)', () => {
           },
         };
 
-        table1 = await createTable(baseId, {
+        table1 = await createTable({
           fields: [textFieldRo, numberFieldRo],
           records: [
             { fields: { 'text field': 'table1_1' } },
@@ -1663,7 +1662,7 @@ describe('OpenAPI link (e2e)', () => {
           ],
         });
 
-        table2 = await createTable(baseId, {
+        table2 = await createTable({
           name: 'table2',
           fields: [textFieldRo, numberFieldRo],
           records: [
@@ -1691,8 +1690,8 @@ describe('OpenAPI link (e2e)', () => {
       });
 
       afterEach(async () => {
-        await deleteTable(baseId, table1.id);
-        await deleteTable(baseId, table2.id);
+        await deleteTable(table1.id);
+        await deleteTable(table2.id);
       });
 
       it('should update foreign link field when set a new link in to link field cell', async () => {
@@ -1864,7 +1863,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -1883,7 +1882,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo, multipleSelectFieldRo, table2LinkFieldRo],
         records: [
@@ -1905,8 +1904,8 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update foreign link field when set a new link in to link field cell', async () => {
@@ -1981,7 +1980,7 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -1990,7 +1989,7 @@ describe('OpenAPI link (e2e)', () => {
         ],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo],
         records: [
@@ -2030,8 +2029,8 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update foreign link field when set a new link in to link field cell', async () => {
@@ -2337,13 +2336,13 @@ describe('OpenAPI link (e2e)', () => {
     let table1: ITableFullVo;
     let table2: ITableFullVo;
     beforeEach(async () => {
-      table1 = await createTable(baseId, { name: 'table1' });
-      table2 = await createTable(baseId, { name: 'table2' });
+      table1 = await createTable({ name: 'table1' });
+      table2 = await createTable({ name: 'table2' });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update many-one record when add both many-one and many-one link', async () => {
@@ -2488,17 +2487,17 @@ describe('OpenAPI link (e2e)', () => {
     let table1: ITableFullVo;
     let table2: ITableFullVo;
     beforeEach(async () => {
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
       });
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
       });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should clean single link record when delete a record', async () => {
@@ -2735,7 +2734,7 @@ describe('OpenAPI link (e2e)', () => {
         type: FieldType.SingleLineText,
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo],
         records: [
           { fields: { 'text field': 'table1_1' } },
@@ -2744,7 +2743,7 @@ describe('OpenAPI link (e2e)', () => {
         ],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo],
         records: [
@@ -2756,8 +2755,8 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update record in two same manyOne link', async () => {
@@ -2853,17 +2852,17 @@ describe('OpenAPI link (e2e)', () => {
     let table1: ITableFullVo;
     let table2: ITableFullVo;
     beforeEach(async () => {
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
       });
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
       });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update primary field cell with another cell', async () => {
@@ -2922,7 +2921,7 @@ describe('OpenAPI link (e2e)', () => {
           },
         };
 
-        table1 = await createTable(baseId, {
+        table1 = await createTable({
           fields: [textFieldRo, numberFieldRo],
           records: [
             { fields: { 'text field': 'table1_1' } },
@@ -2931,7 +2930,7 @@ describe('OpenAPI link (e2e)', () => {
           ],
         });
 
-        table2 = await createTable(baseId, {
+        table2 = await createTable({
           name: 'table2',
           fields: [textFieldRo, numberFieldRo],
           records: [
@@ -2959,8 +2958,8 @@ describe('OpenAPI link (e2e)', () => {
       });
 
       afterEach(async () => {
-        await deleteTable(baseId, table1.id);
-        await deleteTable(baseId, table2.id);
+        await deleteTable(table1.id);
+        await deleteTable(table2.id);
       });
 
       it('should safe delete link field', async () => {
@@ -2989,12 +2988,12 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [textFieldRo, numberFieldRo],
         records: [],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo, numberFieldRo],
         records: [],
@@ -3017,8 +3016,8 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should correct update db table name', async () => {
@@ -3043,8 +3042,8 @@ describe('OpenAPI link (e2e)', () => {
 
       const lookupField = await createField(table2.id, lookupFieldRo);
 
-      await updateDbTableName(baseId, table1.id, { dbTableName: 'newAwesomeName' });
-      const newTable1 = await getTable(baseId, table1.id);
+      await updateDbTableName(table1.id, { dbTableName: 'newAwesomeName' });
+      const newTable1 = await getTable(table1.id);
       const updatedLink1 = await getField(table1.id, table1LinkField.id);
       const updatedLink2 = await getField(table2.id, table2LinkField.id);
       const updatedLookupField = await getField(table2.id, lookupField.id);
@@ -3086,11 +3085,11 @@ describe('OpenAPI link (e2e)', () => {
         },
       };
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         fields: [formulaFieldRo],
       });
 
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [textFieldRo],
         records: [
@@ -3100,7 +3099,7 @@ describe('OpenAPI link (e2e)', () => {
         ],
       });
 
-      table3 = await createTable(baseId, {
+      table3 = await createTable({
         name: 'table3',
         fields: [textFieldRo],
         records: [
@@ -3147,9 +3146,9 @@ describe('OpenAPI link (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
-      await deleteTable(baseId, table3.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
+      await deleteTable(table3.id);
     });
 
     it('should work with cross table lookup', async () => {

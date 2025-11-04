@@ -126,13 +126,13 @@ describe('OpenAPI Lookup field (e2e)', () => {
 
     beforeAll(async () => {
       // create table1 with fundamental field
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
         fields: defaultFields.map((f) => ({ ...f, name: f.name + '[table1]' })),
       });
 
       // create table2 with fundamental field
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: defaultFields.map((f) => ({ ...f, name: f.name + '[table2]' })),
       });
@@ -153,8 +153,8 @@ describe('OpenAPI Lookup field (e2e)', () => {
     });
 
     afterAll(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     beforeEach(async () => {
@@ -617,13 +617,13 @@ describe('OpenAPI Lookup field (e2e)', () => {
     let table1: ITableFullVo;
     let table2: ITableFullVo;
     beforeEach(async () => {
-      table1 = await createTable(baseId, {});
-      table2 = await createTable(baseId, {});
+      table1 = await createTable({});
+      table2 = await createTable({});
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it('should update a simple lookup field', async () => {

@@ -1,6 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import type { INestApplication } from '@nestjs/common';
-import { Role } from '@teable/core';
 import type {
   CreateAccessTokenRo,
   CreateAccessTokenVo,
@@ -8,23 +7,20 @@ import type {
   UpdateAccessTokenRo,
 } from '@teable/openapi';
 import {
+  GET_RECORDS_URL,
+  GET_TABLE_LIST,
   createAccessToken,
+  createAxios,
+  axios as defaultAxios,
   deleteAccessToken,
   listAccessToken,
   listAccessTokenVoSchema,
   refreshAccessToken,
   refreshAccessTokenVoSchema,
   updateAccessToken,
-  GET_TABLE_LIST,
   urlBuilder,
-  GET_RECORDS_URL,
-  createAxios,
-  axios as defaultAxios,
-  deleteBase,
-  getAccessToken,
 } from '@teable/openapi';
 import dayjs from 'dayjs';
-import { createNewUserAxios } from './utils/axios-instance/new-user';
 import { getError } from './utils/get-error';
 import { createTable, initApp } from './utils/init-app';
 
@@ -48,7 +44,7 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
       scopes: ['table|read', 'record|read'],
       expiredTime: dayjs(Date.now() + 1000 * 60 * 60 * 24).format('YYYY-MM-DD'),
     };
-    table = await createTable(baseId, { name: 'table1' });
+    table = await createTable({ name: 'table1' });
     token = (await createAccessToken(defaultCreateRo)).data;
     expect(token).toHaveProperty('id');
   });

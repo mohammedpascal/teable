@@ -4,7 +4,7 @@ import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 import { tableFullVoSchema } from './create';
 
-export const DUPLICATE_TABLE = '/base/{baseId}/table/{tableId}/duplicate';
+export const DUPLICATE_TABLE = '/base/bse0/table/{tableId}/duplicate';
 
 export const duplicateTableRoSchema = z.object({
   name: z.string(),
@@ -31,7 +31,6 @@ export const DuplicateTableRoute: RouteConfig = registerRoute({
   summary: 'Duplicate a table',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
     body: {
@@ -50,14 +49,9 @@ export const DuplicateTableRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const duplicateTable = async (
-  baseId: string,
-  tableId: string,
-  duplicateRo: IDuplicateTableRo
-) => {
+export const duplicateTable = async (tableId: string, duplicateRo: IDuplicateTableRo) => {
   return axios.post<IDuplicateTableVo>(
     urlBuilder(DUPLICATE_TABLE, {
-      baseId,
       tableId,
     }),
     duplicateRo

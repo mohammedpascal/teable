@@ -26,7 +26,7 @@ describe('OpenAPI RecordController (e2e)', () => {
     const batchSize = 1000;
 
     beforeEach(async () => {
-      table2 = await createTable(baseId, {
+      table2 = await createTable({
         name: 'table2',
         fields: [
           {
@@ -53,7 +53,7 @@ describe('OpenAPI RecordController (e2e)', () => {
         ],
       }).then((res) => res.data);
 
-      table1 = await createTable(baseId, {
+      table1 = await createTable({
         name: 'table1',
         fields: [
           {
@@ -127,8 +127,8 @@ describe('OpenAPI RecordController (e2e)', () => {
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table1.id);
-      await deleteTable(baseId, table2.id);
+      await deleteTable(table1.id);
+      await deleteTable(table2.id);
     });
 
     it(

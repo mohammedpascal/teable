@@ -65,7 +65,7 @@ describe('OpenAPI formula (e2e)', () => {
     };
 
     table1Id = (
-      await createTable(baseId, {
+      await createTable({
         name: 'table1',
         fields: [numberFieldRo, textFieldRo, formulaFieldRo],
       })
@@ -73,7 +73,7 @@ describe('OpenAPI formula (e2e)', () => {
   });
 
   afterEach(async () => {
-    await deleteTable(baseId, table1Id);
+    await deleteTable(table1Id);
   });
 
   it('should response calculate record after create', async () => {
@@ -148,7 +148,7 @@ describe('OpenAPI formula (e2e)', () => {
   });
 
   it('should calculate primary field when have link relationship', async () => {
-    const table2: ITableFullVo = await createTable(baseId, { name: 'table2' });
+    const table2: ITableFullVo = await createTable({ name: 'table2' });
     const linkFieldRo: IFieldRo = {
       type: FieldType.Link,
       options: {
@@ -182,11 +182,11 @@ describe('OpenAPI formula (e2e)', () => {
   describe('safe calculate', () => {
     let table: ITableFullVo;
     beforeEach(async () => {
-      table = await createTable(baseId, { name: 'table safe' });
+      table = await createTable({ name: 'table safe' });
     });
 
     afterEach(async () => {
-      await deleteTable(baseId, table.id);
+      await deleteTable(table.id);
     });
 
     it('should safe calculate error function', async () => {
