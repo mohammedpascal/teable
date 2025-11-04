@@ -40,7 +40,7 @@ const InplaceFieldConfigPanel = (props: IInplaceFieldConfigPanel) => {
   );
 
   const { data: table } = useQuery({
-    queryKey: ReactQueryKeys.tableInfo(baseId, tableId),
+    queryKey: ReactQueryKeys.tableInfo(tableId),
     queryFn: () => apiGetTableById(baseId, tableId).then((data) => data.data),
   });
 
@@ -50,8 +50,8 @@ const InplaceFieldConfigPanel = (props: IInplaceFieldConfigPanel) => {
   });
 
   const { data: tablePermission } = useQuery({
-    queryKey: ReactQueryKeys.getTablePermission(baseId!, tableId!),
-    queryFn: ({ queryKey }) => getTablePermission(queryKey[1], queryKey[2]).then((res) => res.data),
+    queryKey: ReactQueryKeys.getTablePermission(tableId),
+    queryFn: () => getTablePermission(tableId).then((res) => res.data),
     enabled: !!tableId,
   });
 

@@ -33,14 +33,13 @@ export const LinkOptions = (props: {
   const relationship = options?.relationship ?? Relationship.ManyOne;
   const foreignTableId = options?.foreignTableId;
   const isOneWay = options?.isOneWay;
-  const baseId = options?.baseId ?? selfBaseId;
 
   const { data: tablePermission } = useQuery({
     refetchOnWindowFocus: false,
-    queryKey: ReactQueryKeys.getTablePermission(baseId, foreignTableId!),
+    queryKey: ReactQueryKeys.getTablePermission(foreignTableId!),
     enabled: !!foreignTableId,
-    queryFn: ({ queryKey }) =>
-      getTablePermission(queryKey[1], queryKey[2])
+    queryFn: () =>
+      getTablePermission(foreignTableId!)
         .then((res) => res.data)
         .catch(() => ({ field: { create: false } })),
   });

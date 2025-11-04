@@ -24,13 +24,13 @@ export const getServerSideProps = withEnv(
         ssrApi.getTables(baseId),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.base('bse0'),
+          queryKey: ReactQueryKeys.base(),
           queryFn: () => Promise.resolve({ id: 'bse0', name: 'Base' }),
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getBasePermission(baseId),
-          queryFn: () => ssrApi.getBasePermission(baseId),
+          queryKey: ReactQueryKeys.getBasePermission(),
+          queryFn: () => ssrApi.getBasePermission(),
         }),
       ]);
 

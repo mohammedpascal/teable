@@ -55,10 +55,10 @@ export const GetTablePermissionRoute = registerRoute({
   tags: ['table'],
 });
 
-export const getTablePermission = async (baseId: string, tableId: string) => {
+export const getTablePermission = async (tableId: string) => {
   return axios.get<ITablePermissionVo>(
     urlBuilder(GET_TABLE_PERMISSION, {
-      baseId,
+      baseId: 'bse0',
       tableId,
     })
   );

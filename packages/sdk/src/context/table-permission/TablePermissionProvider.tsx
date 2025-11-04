@@ -9,17 +9,11 @@ import {
   TablePermissionContextDefaultValue,
 } from './TablePermissionContext';
 
-export const TablePermissionProvider = ({
-  baseId,
-  children,
-}: {
-  baseId: string | undefined;
-  children: React.ReactNode;
-}) => {
+export const TablePermissionProvider = ({ children }: { children: React.ReactNode }) => {
   const tableId = useTableId();
   const { data: tablePermission, refetch } = useQuery({
-    queryKey: ReactQueryKeys.getTablePermission(baseId!, tableId!),
-    queryFn: ({ queryKey }) => getTablePermission(queryKey[1], queryKey[2]).then((res) => res.data),
+    queryKey: ReactQueryKeys.getTablePermission(tableId!),
+    queryFn: () => getTablePermission(tableId!).then((res) => res.data),
     enabled: !!tableId,
   });
 

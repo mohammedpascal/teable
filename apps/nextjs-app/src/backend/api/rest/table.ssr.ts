@@ -114,13 +114,13 @@ export class SsrApi {
     };
   }
 
-  async getBasePermission(baseId: string) {
+  async getBasePermission() {
     return BASE_PERMISSION;
   }
 
-  async getTablePermission(baseId: string, tableId: string) {
+  async getTablePermission(tableId: string) {
     return await this.axios
-      .get<ITablePermissionVo>(urlBuilder(GET_TABLE_PERMISSION, { baseId, tableId }))
+      .get<ITablePermissionVo>(urlBuilder(GET_TABLE_PERMISSION, { baseId: 'bse0', tableId }))
       .then((res) => res.data);
   }
 

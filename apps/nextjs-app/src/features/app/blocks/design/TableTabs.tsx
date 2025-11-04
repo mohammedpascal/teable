@@ -139,14 +139,12 @@ export const TableTabs = () => {
   return (
     <Tabs
       value={tableId}
-      onValueChange={(tableId) =>
-        router.push({ pathname: '/design', query: { tableId } })
-      }
+      onValueChange={(tableId) => router.push({ pathname: '/design', query: { tableId } })}
       className="space-y-4"
     >
       {tables.map((table) => (
         <AnchorContext.Provider key={table.id} value={{ baseId, tableId: table.id }}>
-          <TablePermissionProvider baseId={baseId}>
+          <TablePermissionProvider>
             <TabsContent value={table.id} className="space-y-4">
               {/* Fields Table */}
               <div className="overflow-x-auto rounded-md border">

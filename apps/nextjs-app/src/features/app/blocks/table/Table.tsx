@@ -50,7 +50,7 @@ export const Table: React.FC<ITableProps> = ({
         </title>
         <style data-fullcalendar></style>
       </Head>
-      <TablePermissionProvider baseId={baseId}>
+      <TablePermissionProvider >
         <ViewProvider serverData={viewServerData}>
           <PersonalViewProxy serverData={viewServerData}>
             <div className="flex h-full grow basis-[500px]">

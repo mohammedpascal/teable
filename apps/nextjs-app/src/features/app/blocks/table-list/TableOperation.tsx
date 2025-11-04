@@ -116,7 +116,7 @@ export const TableOperation = (props: ITableOperationProps) => {
         data: { id },
       } = data;
       queryClient.invalidateQueries({
-        queryKey: ReactQueryKeys.tableList(baseId as string),
+        queryKey: ReactQueryKeys.tableList(),
       });
       setDuplicateSetting(false);
       router.push({

@@ -43,18 +43,18 @@ export const getServerSideProps = withEnv(
 
       await Promise.all([
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.base(baseId),
+          queryKey: ReactQueryKeys.base(),
           queryFn: () => Promise.resolve({ id: 'bse0', name: 'Base' }),
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getBasePermission(baseId),
-          queryFn: () => ssrApi.getBasePermission(baseId),
+          queryKey: ReactQueryKeys.getBasePermission(),
+          queryFn: () => ssrApi.getBasePermission(),
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getTablePermission(baseId, tableId as string),
-          queryFn: () => ssrApi.getTablePermission(baseId, tableId as string),
+          queryKey: ReactQueryKeys.getTablePermission( tableId as string),
+          queryFn: () => ssrApi.getTablePermission( tableId as string),
         }),
       ]);
 

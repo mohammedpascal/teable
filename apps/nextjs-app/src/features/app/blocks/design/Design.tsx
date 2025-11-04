@@ -12,7 +12,7 @@ export const Design = () => {
 
   return (
     <AnchorContext.Provider value={{ baseId }}>
-      <TablePermissionProvider baseId={baseId}>
+      <TablePermissionProvider >
         <div className="h-screen overflow-y-auto bg-background">
           {/* Header */}
           <div className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

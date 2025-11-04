@@ -29,7 +29,7 @@ export const StandaloneViewProvider: React.FC<IStandaloneViewProvider> = ({
   return (
     <AnchorContext.Provider value={value}>
       {tableId ? (
-        <TablePermissionProvider baseId={baseId}>
+        <TablePermissionProvider>
           <SearchProvider>
             <FieldProvider fallback={fallback}>
               <ViewProvider>

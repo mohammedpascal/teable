@@ -13,11 +13,11 @@ import {
 } from '@teable/openapi';
 
 export const ReactQueryKeys = {
-  base: (baseId: string) => ['base', baseId] as const,
+  base: () => ['base', 'bse0'] as const,
 
   baseList: () => ['base-list'] as const,
 
-  tableList: (baseId: string) => ['table-list', baseId] as const,
+  tableList: () => ['table-list', 'bse0'] as const,
 
   notifyList: (filter: { status: NotificationStatesEnum }) =>
     ['notification', 'list', filter] as const,
@@ -41,7 +41,7 @@ export const ReactQueryKeys = {
 
   personAccessToken: (id: string) => ['person-access-token-list', id],
 
-  tableInfo: (baseId: string, tableId: string) => ['table-info', baseId, tableId],
+  tableInfo: (tableId: string) => ['table-info', 'bse0', tableId],
 
   field: (tableId: string) => ['field-info', tableId],
 
@@ -51,14 +51,13 @@ export const ReactQueryKeys = {
   getFieldFilterLinkRecords: (tableId: string, fieldId: string) =>
     ['get-field-filter-link-records', tableId, fieldId] as const,
 
-  getTablePermission: (baseId: string, tableId: string) =>
-    ['table-permission', baseId, tableId] as const,
+  getTablePermission: (tableId: string) => ['table-permission', 'bse0', tableId] as const,
 
-  getBasePermission: (baseId: string) => ['base-permission', baseId] as const,
+  getBasePermission: () => ['base-permission', 'bse0'] as const,
 
   getSharedBase: () => ['shared-base-list'] as const,
 
-  getDashboardList: (baseId: string) => ['dashboard-list', baseId] as const,
+  getDashboardList: () => ['dashboard-list', 'bse0'] as const,
 
   getDashboard: (dashboardId: string) => ['dashboard', dashboardId] as const,
 

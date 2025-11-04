@@ -35,7 +35,7 @@ export const QueryBuilder = () => {
   const [search, setSearch] = useState<IQueryBaseRo['search']>();
 
   const { data: tableListReq } = useQuery({
-    queryKey: ReactQueryKeys.tableList(baseId as string),
+    queryKey: ReactQueryKeys.tableList(),
     queryFn: () => getTableList(baseId as string).then((data) => data.data),
     enabled: Boolean(baseId),
   });
