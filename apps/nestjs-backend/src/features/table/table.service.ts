@@ -239,7 +239,7 @@ export class TableService implements IReadonlyAdapterService {
       where: { id: tableId },
     });
 
-    await this.batchService.saveRawOps("bse0", RawOpType.Del, IdPrefix.Table, [
+    await this.batchService.saveRawOps('bse0', RawOpType.Del, IdPrefix.Table, [
       { docId: tableId, version },
     ]);
   }
@@ -311,11 +311,11 @@ export class TableService implements IReadonlyAdapterService {
     return tableRawAfter;
   }
 
-  async create( snapshot: ITableVo) {
+  async create(snapshot: ITableVo) {
     await this.createDBTable(snapshot);
   }
 
-  async getSnapshotBulk(ids: string[]): Promise<ISnapshotBase<ITableVo>[]> {
+  async getSnapshotBulk(baseId: string, ids: string[]): Promise<ISnapshotBase<ITableVo>[]> {
     const tables = await this.prismaService.txClient().tableMeta.findMany({
       where: { id: { in: ids } },
       orderBy: { order: 'asc' },

@@ -94,10 +94,7 @@ export class TableController {
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(dbTableNameRoSchema)) dbTableNameRo: IDbTableNameRo
   ) {
-    return await this.tableOpenApiService.updateDbTableName(
-      tableId,
-      dbTableNameRo.dbTableName
-    );
+    return await this.tableOpenApiService.updateDbTableName(tableId, dbTableNameRo.dbTableName);
   }
 
   @Put(':tableId/order')
@@ -141,7 +138,7 @@ export class TableController {
 
   @Get('/socket/snapshot-bulk')
   async getSnapshotBulk(@Query('ids') ids: string[]) {
-    const snapshotBulk = await this.tableService.getSnapshotBulk(ids);
+    const snapshotBulk = await this.tableService.getSnapshotBulk('', ids);
     return snapshotBulk.map((snapshot) => {
       return {
         ...snapshot,
