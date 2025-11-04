@@ -10,7 +10,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const GET_TABLE_PERMISSION = '/base/{baseId}/table/{tableId}/permission';
+export const GET_TABLE_PERMISSION = '/base/bse0/table/{tableId}/permission';
 
 export type TablePermissionFieldAction = ExcludeAction<FieldAction, 'field|create'>;
 
@@ -38,7 +38,6 @@ export const GetTablePermissionRoute = registerRoute({
     "Retrieve the current user's permissions for a table, including access rights for table operations, views, records, and fields.",
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
   },
@@ -58,7 +57,6 @@ export const GetTablePermissionRoute = registerRoute({
 export const getTablePermission = async (tableId: string) => {
   return axios.get<ITablePermissionVo>(
     urlBuilder(GET_TABLE_PERMISSION, {
-      baseId: 'bse0',
       tableId,
     })
   );

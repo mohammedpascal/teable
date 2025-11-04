@@ -13,7 +13,7 @@ interface ITableProviderProps {
 
 export const TableProvider: FC<ITableProviderProps> = ({ children, serverData }) => {
   const { instances: tables } = useInstances({
-    collection: `${IdPrefix.Table}_bse0`,
+    collection: `${IdPrefix.Table}_`,
     factory: createTableInstance,
     initData: serverData,
     queryParams: {},

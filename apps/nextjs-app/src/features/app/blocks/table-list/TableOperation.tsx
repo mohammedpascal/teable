@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getUniqName } from '@teable/core';
 import {
-  MoreHorizontal,
-  Pencil,
-  Settings,
-  Trash2,
+  Copy,
   Export,
-  Import,
   FileCsv,
   FileExcel,
-  Copy,
+  Import,
+  MoreHorizontal,
+  Settings,
+  Trash2,
 } from '@teable/icons';
 import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
@@ -20,19 +19,19 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSub,
   DropdownMenuPortal,
+  DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  Switch,
-  Label,
+  DropdownMenuTrigger,
   Input,
+  Label,
+  Switch,
 } from '@teable/ui-lib/shadcn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { useDownload } from '../../hooks/useDownLoad';
 import { TableImport } from '../import-table';
@@ -98,12 +97,12 @@ export const TableOperation = (props: ITableOperationProps) => {
       router.push(
         firstTableId
           ? {
-              pathname: '/base/[baseId]/[tableId]',
-              query: { baseId, tableId: firstTableId },
+              pathname: '/table/[tableId]',
+              query: { tableId: firstTableId },
             }
           : {
-              pathname: '/base/[baseId]',
-              query: { baseId },
+              pathname: '/',
+              query: {},
             }
       );
     }
@@ -120,8 +119,8 @@ export const TableOperation = (props: ITableOperationProps) => {
       });
       setDuplicateSetting(false);
       router.push({
-        pathname: '/base/[baseId]/[tableId]',
-        query: { baseId, tableId: id },
+        pathname: '/table/[tableId]',
+        query: { tableId: id },
       });
     },
   });

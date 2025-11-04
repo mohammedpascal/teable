@@ -13,11 +13,11 @@ import {
 } from '@teable/openapi';
 
 export const ReactQueryKeys = {
-  base: () => ['base', 'bse0'] as const,
+  base: () => ['base'] as const,
 
   baseList: () => ['base-list'] as const,
 
-  tableList: () => ['table-list', 'bse0'] as const,
+  tableList: () => ['table-list'] as const,
 
   notifyList: (filter: { status: NotificationStatesEnum }) =>
     ['notification', 'list', filter] as const,
@@ -41,7 +41,7 @@ export const ReactQueryKeys = {
 
   personAccessToken: (id: string) => ['person-access-token-list', id],
 
-  tableInfo: (tableId: string) => ['table-info', 'bse0', tableId],
+  tableInfo: (tableId: string) => ['table-info', tableId],
 
   field: (tableId: string) => ['field-info', tableId],
 
@@ -51,13 +51,13 @@ export const ReactQueryKeys = {
   getFieldFilterLinkRecords: (tableId: string, fieldId: string) =>
     ['get-field-filter-link-records', tableId, fieldId] as const,
 
-  getTablePermission: (tableId: string) => ['table-permission', 'bse0', tableId] as const,
+  getTablePermission: (tableId: string) => ['table-permission', tableId] as const,
 
-  getBasePermission: () => ['base-permission', 'bse0'] as const,
+  getBasePermission: () => ['base-permission'] as const,
 
   getSharedBase: () => ['shared-base-list'] as const,
 
-  getDashboardList: () => ['dashboard-list', 'bse0'] as const,
+  getDashboardList: () => ['dashboard-list'] as const,
 
   getDashboard: (dashboardId: string) => ['dashboard', dashboardId] as const,
 

@@ -5,7 +5,7 @@ import { z } from '../zod';
 import type { TableIndex } from './toggle-table-index';
 import { tableIndexTypeSchema } from './toggle-table-index';
 
-export const TABLE_ABNORMAL_INDEX = '/base/{baseId}/table/{tableId}/abnormal-index';
+export const TABLE_ABNORMAL_INDEX = '/base/bse0/table/{tableId}/abnormal-index';
 
 export const getAbnormalVoSchema = z
   .object({
@@ -41,7 +41,7 @@ export const TableAbnormalIndexRoute: RouteConfig = registerRoute({
 });
 
 export const getTableAbnormalIndex = (tableId: string, type: TableIndex) => {
-  return axios.get<IGetAbnormalVo>(urlBuilder(TABLE_ABNORMAL_INDEX, { baseId: 'bse0', tableId }), {
+  return axios.get<IGetAbnormalVo>(urlBuilder(TABLE_ABNORMAL_INDEX, { tableId }), {
     params: { type },
   });
 };

@@ -5,7 +5,7 @@ import { z } from '../zod';
 import type { TableIndex } from './toggle-table-index';
 import { tableIndexTypeSchema } from './toggle-table-index';
 
-export const TABLE_INDEX_REPAIR = '/base/{baseId}/table/{tableId}/index/repair';
+export const TABLE_INDEX_REPAIR = '/base/bse0/table/{tableId}/index/repair';
 
 export const TableIndexRepairRoute: RouteConfig = registerRoute({
   method: 'patch',
@@ -14,7 +14,6 @@ export const TableIndexRepairRoute: RouteConfig = registerRoute({
   description: 'Repair table index',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
       type: tableIndexTypeSchema,
     }),
@@ -28,7 +27,7 @@ export const TableIndexRepairRoute: RouteConfig = registerRoute({
 });
 
 export const repairTableIndex = (tableId: string, type: TableIndex) => {
-  return axios.patch<void>(urlBuilder(TABLE_INDEX_REPAIR, { baseId: 'bse0', tableId }), undefined, {
+  return axios.patch<void>(urlBuilder(TABLE_INDEX_REPAIR, { tableId }), undefined, {
     params: { type },
   });
 };

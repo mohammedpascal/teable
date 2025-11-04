@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const TOGGLE_TABLE_INDEX = '/base/{baseId}/table/{tableId}/index';
+export const TOGGLE_TABLE_INDEX = '/base/bse0/table/{tableId}/index';
 
 export enum TableIndex {
   search = 'search',
@@ -28,7 +28,6 @@ export const ToggleTableIndexRoute: RouteConfig = registerRoute({
   description: 'Toggle table index',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
     body: {
@@ -48,8 +47,5 @@ export const ToggleTableIndexRoute: RouteConfig = registerRoute({
 });
 
 export const toggleTableIndex = async (tableId: string, toggleIndexRo: IToggleIndexRo) => {
-  return axios.post<void>(
-    urlBuilder(TOGGLE_TABLE_INDEX, { baseId: 'bse0', tableId }),
-    toggleIndexRo
-  );
+  return axios.post<void>(urlBuilder(TOGGLE_TABLE_INDEX, { tableId }), toggleIndexRo);
 };

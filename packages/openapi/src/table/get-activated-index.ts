@@ -5,7 +5,7 @@ import { z } from '../zod';
 import type { ITableIndexType } from './toggle-table-index';
 import { tableIndexTypeSchema } from './toggle-table-index';
 
-export const TABLE_ACTIVATED_INDEX = '/base/{baseId}/table/{tableId}/activated-index';
+export const TABLE_ACTIVATED_INDEX = '/base/bse0/table/{tableId}/activated-index';
 
 export const TableActivatedIndexRoute: RouteConfig = registerRoute({
   method: 'post',
@@ -14,7 +14,6 @@ export const TableActivatedIndexRoute: RouteConfig = registerRoute({
   description: 'Get the activated index of a table',
   request: {
     params: z.object({
-      baseId: z.string(),
       tableId: z.string(),
     }),
   },
@@ -32,7 +31,5 @@ export const TableActivatedIndexRoute: RouteConfig = registerRoute({
 });
 
 export const getTableActivatedIndex = (tableId: string) => {
-  return axios.get<ITableIndexType[]>(
-    urlBuilder(TABLE_ACTIVATED_INDEX, { baseId: 'bse0', tableId })
-  );
+  return axios.get<ITableIndexType[]>(urlBuilder(TABLE_ACTIVATED_INDEX, { tableId }));
 };
