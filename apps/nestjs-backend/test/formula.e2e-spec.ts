@@ -25,7 +25,6 @@ describe('OpenAPI formula (e2e)', () => {
   let numberFieldRo: IFieldRo & { id: string; name: string };
   let textFieldRo: IFieldRo & { id: string; name: string };
   let formulaFieldRo: IFieldRo & { id: string; name: string };
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();

@@ -16,7 +16,6 @@ import { seeding } from './utils/record-mock';
 describe('OpenAPI Field calculation (e2e)', () => {
   let app: INestApplication;
   let tableId = '';
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();

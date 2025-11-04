@@ -12,7 +12,6 @@ describe('OpenAPI AggregationController (e2e)', () => {
   let app: INestApplication;
   let table: ITableFullVo;
   let subTable: ITableFullVo;
-  const baseId = globalThis.testConfig.baseId;
 
   afterAll(async () => {
     await app.close();

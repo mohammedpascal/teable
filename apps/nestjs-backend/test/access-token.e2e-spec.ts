@@ -27,8 +27,6 @@ import { createTable, initApp } from './utils/init-app';
 describe('OpenAPI AccessTokenController (e2e)', () => {
   let app: INestApplication;
   let baseId: string;
-  const email = globalThis.testConfig.email;
-  const email2 = 'accesstoken@example.com';
   let table: ITableFullVo;
   let token: CreateAccessTokenVo;
 

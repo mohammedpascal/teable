@@ -1,9 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import type { INestApplication } from '@nestjs/common';
-import { FieldKeyType } from '@teable/core';
 import { PrismaService } from '../src/prisma';
-import type { ITableFullVo } from '@teable/openapi';
-import { createRecords, createTable, deleteTable, initApp } from './utils/init-app';
+import { initApp } from './utils/init-app';
 
 describe('Credit limit (e2e)', () => {
   let app: INestApplication;
@@ -19,5 +17,4 @@ describe('Credit limit (e2e)', () => {
     process.env.MAX_FREE_ROW_LIMIT = undefined;
     await app.close();
   });
-
 });

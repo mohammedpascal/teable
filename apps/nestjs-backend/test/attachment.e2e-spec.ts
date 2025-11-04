@@ -13,7 +13,6 @@ import { createField, createTable, initApp } from './utils/init-app';
 
 describe('OpenAPI AttachmentController (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
   let table: ITableFullVo;
   let filePath: string;
 

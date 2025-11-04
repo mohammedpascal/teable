@@ -9,8 +9,6 @@ import { createTable, deleteTable, getRecords, getView, initApp } from './utils/
 
 let app: INestApplication;
 
-const baseId = globalThis.testConfig.baseId;
-
 const typeTests = [
   {
     type: CellValueType.String,

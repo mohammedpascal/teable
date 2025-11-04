@@ -7,7 +7,6 @@ import { createField, createTable, deleteTable, initApp } from './utils/init-app
 
 describe('OpenAPI Graph (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
   let table1: ITableFullVo;
   let table2: ITableFullVo;
 

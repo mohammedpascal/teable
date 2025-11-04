@@ -16,11 +16,11 @@ import {
   SingleLineTextFieldCore,
   TimeFormatting,
 } from '@teable/core';
-import { PrismaService } from '../src/prisma';
 import type { ITableFullVo } from '@teable/openapi';
 import type { Knex } from 'knex';
 import type { FieldCreateEvent } from '../src/event-emitter/events';
 import { Events } from '../src/event-emitter/events';
+import { PrismaService } from '../src/prisma';
 import {
   createField,
   createTable,
@@ -34,7 +34,6 @@ import {
 
 describe('OpenAPI FieldController (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
   let event: EventEmitter2;
 
   beforeAll(async () => {

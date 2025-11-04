@@ -51,7 +51,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
   let table1: ITableFullVo;
   let table2: ITableFullVo;
   let table3: ITableFullVo;
-  const baseId = globalThis.testConfig.baseId;
   let dbProvider: IDbProvider;
   let prisma: PrismaService;
 

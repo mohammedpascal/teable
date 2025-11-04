@@ -22,9 +22,7 @@ import { createField, createTable, initApp } from './utils/init-app';
 
 describe('Computed user field (e2e)', () => {
   let app: INestApplication;
-  const spaceId = globalThis.testConfig.spaceId;
   const userName = globalThis.testConfig.userName;
-  const baseId = globalThis.testConfig.baseId; // Use fixed base 'bse0'
   beforeAll(async () => {
     const appCtx = await initApp();
     app = appCtx.app;
@@ -234,7 +232,7 @@ describe('Computed user field (e2e)', () => {
       user2 = (await user2Request.get<IUserMeVo>(USER_ME)).data;
 
       table1 = (
-        await user2Request.post<ITableFullVo>(urlBuilder(CREATE_TABLE, { baseId }), {
+        await user2Request.post<ITableFullVo>(urlBuilder(CREATE_TABLE), {
           name: 'table1',
         })
       ).data;
@@ -274,7 +272,7 @@ describe('Computed user field (e2e)', () => {
         password: '12345678',
       });
       const table = (
-        await user3Request.post<ITableFullVo>(urlBuilder(CREATE_TABLE, { baseId }), {
+        await user3Request.post<ITableFullVo>(urlBuilder(CREATE_TABLE), {
           name: 'table2',
         })
       ).data;

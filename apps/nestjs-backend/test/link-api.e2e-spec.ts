@@ -27,7 +27,6 @@ import {
 
 describe('OpenAPI link (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
   const split = globalThis.testConfig.driver === 'postgresql' ? '.' : '_';
 
   beforeAll(async () => {

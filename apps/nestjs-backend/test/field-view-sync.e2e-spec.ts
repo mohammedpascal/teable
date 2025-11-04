@@ -1,26 +1,22 @@
 import type { INestApplication } from '@nestjs/common';
-import { Optional } from '@prisma/client/runtime/library';
 import type {
-  IConvertFieldRo,
   IFieldVo,
   ISelectFieldChoice,
-  ISelectFieldOptions,
-  IUpdateFieldRo,
+  ISelectFieldOptions
 } from '@teable/core';
-import { FieldType, ViewType, SortFunc, Colors } from '@teable/core';
+import { Colors, FieldType, SortFunc, ViewType } from '@teable/core';
 import {
+  convertField,
   createTable,
   createView,
   deleteField,
   deleteTable,
-  initApp,
   getViews,
-  convertField,
+  initApp,
 } from './utils/init-app';
 
 describe('OpenAPI FieldController (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
   let tableId: string;
   let fields: IFieldVo[];
 

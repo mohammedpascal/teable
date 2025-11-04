@@ -11,10 +11,10 @@ export class Base implements IGetBaseVo {
   }
 
   async createTable(tableRo?: ICreateTableRo) {
-    return Table.createTable(this.id, tableRo);
+    return Table.createTable(tableRo);
   }
 
   async deleteTable(tableId: string) {
-    return Table.deleteTable(this.id, tableId);
+    return Table.deleteTable(tableId);
   }
 }

@@ -23,7 +23,6 @@ describe('order update', () => {
   });
 
   describe('record', () => {
-    const baseId = globalThis.testConfig.baseId;
     let table: ITableFullVo;
     beforeEach(async () => {
       table = (await createTable({ name: 'table1' })).data;

@@ -8,7 +8,6 @@ describe('OpenAPI link field reference (e2e)', () => {
   let app: INestApplication;
   let table1Id = '';
   let table2Id = '';
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();

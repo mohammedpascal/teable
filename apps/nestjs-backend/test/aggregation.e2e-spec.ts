@@ -8,9 +8,8 @@ import {
   getCalendarDailyCollection,
   getGroupPoints,
   getRowCount,
-  getSearchCount,
   getSearchIndex,
-  GroupPointType,
+  GroupPointType
 } from '@teable/openapi';
 import { x_20 } from './data-helpers/20x';
 import {
@@ -22,11 +21,10 @@ import {
   TEXT_FIELD_CASES,
   USER_FIELD_CASES,
 } from './data-helpers/caces/aggregation-query';
-import { createTable, deleteTable, initApp, createRecords, createView } from './utils/init-app';
+import { createRecords, createTable, createView, deleteTable, initApp } from './utils/init-app';
 
 describe('OpenAPI AggregationController (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();
