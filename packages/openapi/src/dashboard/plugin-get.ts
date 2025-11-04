@@ -10,7 +10,6 @@ export const GET_DASHBOARD_INSTALL_PLUGIN =
 export const getDashboardInstallPluginVoSchema = z.object({
   pluginId: z.string(),
   pluginInstallId: z.string(),
-  baseId: z.string(),
   name: z.string(),
   storage: pluginInstallStorageSchema.optional(),
 });

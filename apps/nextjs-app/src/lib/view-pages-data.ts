@@ -13,14 +13,13 @@ export interface IViewPageProps {
 
 export const getViewPageServerData = async (
   ssrApi: SsrApi,
-  baseId: string,
   tableId: string,
   viewId: string
 ): Promise<IViewPageProps | undefined> => {
   const api = ssrApi;
-  const tableResult = await api.getTable(baseId, tableId, viewId);
+  const tableResult = await api.getTable(tableId, viewId);
   if (tableResult) {
-    const tablesResult = await api.getTables(baseId);
+    const tablesResult = await api.getTables();
     const { fields, views, records, extra } = tableResult;
 
     return {

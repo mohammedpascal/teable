@@ -9,7 +9,6 @@ export const GET_VIEW_INSTALL_PLUGIN = '/table/{tableId}/view/{viewId}/plugin';
 export const getViewInstallPluginVoSchema = z.object({
   pluginId: z.string(),
   pluginInstallId: z.string(),
-  baseId: z.string(),
   name: z.string(),
   url: z.string().optional(),
   storage: pluginInstallStorageSchema.optional(),

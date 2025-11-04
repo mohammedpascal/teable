@@ -82,10 +82,6 @@ export function identify(id: string): IdPrefix | undefined {
     : undefined;
 }
 
-export function generateBaseId() {
-  return IdPrefix.Base + '0';
-}
-
 export function generateShareId() {
   return IdPrefix.Share + getRandomString(16);
 }

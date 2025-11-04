@@ -24,11 +24,6 @@ export const integrityIssueSchema = z.object({
 
 // Define the schema for a link field check item
 export const linkFieldCheckItemSchema = z.object({
-  baseId: z
-    .string()
-    .optional()
-    .openapi({ description: 'The base id of the link field with is cross-base' }),
-  baseName: z.string().optional(),
   fieldId: z.string(),
   fieldName: z.string(),
   tableId: z.string(),

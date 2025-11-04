@@ -4,9 +4,7 @@ import { z } from '../zod';
 
 export const PLUGIN_GET_AUTH_CODE = '/plugin/{pluginId}/authCode';
 
-export const pluginGetAuthCodeRoSchema = z.object({
-  baseId: z.string(),
-});
+export const pluginGetAuthCodeRoSchema = z.object({});
 
 export const pluginGetAuthCodeRouter = registerRoute({
   method: 'post',
@@ -39,6 +37,6 @@ export const pluginGetAuthCodeRouter = registerRoute({
   tags: ['plugin'],
 });
 
-export const pluginGetAuthCode = async (pluginId: string, baseId: string) => {
-  return axios.post<string>(urlBuilder(PLUGIN_GET_AUTH_CODE, { pluginId }), { baseId });
+export const pluginGetAuthCode = async (pluginId: string) => {
+  return axios.post<string>(urlBuilder(PLUGIN_GET_AUTH_CODE, { pluginId }), {});
 };

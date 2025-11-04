@@ -72,7 +72,6 @@ export const UpdateWidgetRoute: RouteConfig = registerRoute({
   description: 'Update a widget in a dashboard',
   request: {
     params: z.object({
-      baseId: z.string(),
       dashboardId: z.string(),
       widgetId: z.string(),
     }),

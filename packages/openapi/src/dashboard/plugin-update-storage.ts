@@ -15,7 +15,6 @@ export const dashboardPluginUpdateStorageRoSchema = z.object({
 export type IDashboardPluginUpdateStorageRo = z.infer<typeof dashboardPluginUpdateStorageRoSchema>;
 
 export const dashboardPluginUpdateStorageVoSchema = z.object({
-  baseId: z.string(),
   dashboardId: z.string(),
   pluginInstallId: z.string(),
   storage: pluginInstallStorageSchema.optional(),

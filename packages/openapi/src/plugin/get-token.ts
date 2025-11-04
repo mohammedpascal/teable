@@ -6,7 +6,6 @@ import { z } from '../zod';
 export const PLUGIN_GET_TOKEN = '/plugin/{pluginId}/token';
 
 export const pluginGetTokenRoSchema = z.object({
-  baseId: z.string(),
   secret: z.string(),
   scopes: z.array(z.string()),
   authCode: z.string(),

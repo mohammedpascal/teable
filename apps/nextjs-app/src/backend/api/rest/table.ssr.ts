@@ -43,7 +43,6 @@ export class SsrApi {
   }
 
   async getTable(
-    baseId: string,
     tableId: string,
     viewId?: string
   ): Promise<ITableFullVo & { extra: IRecordsVo['extra'] }> {
@@ -52,7 +51,7 @@ export class SsrApi {
       .get<IViewVo[]>(urlBuilder(GET_VIEW_LIST, { tableId }))
       .then(({ data }) => data);
     const table = await this.axios
-      .get<ITableVo>(urlBuilder(GET_TABLE, { baseId, tableId }), {
+      .get<ITableVo>(urlBuilder(GET_TABLE, { tableId }), {
         params: {
           includeContent: true,
           viewId,
@@ -63,7 +62,7 @@ export class SsrApi {
 
     const currentView = views.find((view) => view.id === viewId);
     const { records, extra } = await this.axios
-      .get<IRecordsVo>(urlBuilder(GET_RECORDS_URL, { baseId, tableId }), {
+      .get<IRecordsVo>(urlBuilder(GET_RECORDS_URL, { tableId }), {
         params: {
           viewId,
           fieldKeyType: FieldKeyType.Id,
@@ -87,15 +86,15 @@ export class SsrApi {
       .then(({ data }) => data);
   }
 
-  async getTables(baseId: string) {
+  async getTables() {
     return this.axios
-      .get<ITableListVo>(urlBuilder(GET_TABLE_LIST, { baseId }))
+      .get<ITableListVo>(urlBuilder(GET_TABLE_LIST, { }))
       .then(({ data }) => data);
   }
 
-  async getDefaultViewId(baseId: string, tableId: string) {
+  async getDefaultViewId(tableId: string) {
     return this.axios
-      .get<IGetDefaultViewIdVo>(urlBuilder(GET_DEFAULT_VIEW_ID, { baseId, tableId }))
+      .get<IGetDefaultViewIdVo>(urlBuilder(GET_DEFAULT_VIEW_ID, { tableId }))
       .then(({ data }) => data);
   }
 
@@ -120,7 +119,7 @@ export class SsrApi {
 
   async getTablePermission(tableId: string) {
     return await this.axios
-      .get<ITablePermissionVo>(urlBuilder(GET_TABLE_PERMISSION, { baseId: 'bse0', tableId }))
+      .get<ITablePermissionVo>(urlBuilder(GET_TABLE_PERMISSION, { tableId }))
       .then((res) => res.data);
   }
 

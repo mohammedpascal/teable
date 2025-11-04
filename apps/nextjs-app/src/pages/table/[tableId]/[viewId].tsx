@@ -39,8 +39,6 @@ export const getServerSideProps = withEnv(
       const { tableId, viewId, recordId, fromNotify: notifyId } = context.query;
       const queryClient = new QueryClient();
 
-      const baseId = 'bse0';
-
       await Promise.all([
         queryClient.fetchQuery({
           queryKey: ReactQueryKeys.base(),
@@ -76,12 +74,7 @@ export const getServerSideProps = withEnv(
         }
       }
 
-      const serverData = await getViewPageServerData(
-        ssrApi,
-        baseId as string,
-        tableId as string,
-        viewId as string
-      );
+      const serverData = await getViewPageServerData(ssrApi, tableId as string, viewId as string);
 
       if (serverData) {
         const { i18nNamespaces } = tableConfig;
