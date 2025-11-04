@@ -18,10 +18,9 @@ const Node: NextPageWithLayout = () => {
 export const getServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR(async (context, ssrApi) => {
-      const baseId = 'bse0';
       const queryClient = new QueryClient();
       const [tables] = await Promise.all([
-        ssrApi.getTables(baseId),
+        ssrApi.getTables(),
 
         queryClient.fetchQuery({
           queryKey: ReactQueryKeys.base(),

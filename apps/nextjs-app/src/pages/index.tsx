@@ -50,11 +50,10 @@ const Node: NextPageWithLayout = () => {
 export const getServerSideProps: GetServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR(async (context, ssrApi) => {
-      const baseId = 'bse0';
-      const tables = await ssrApi.getTables(baseId);
+      const tables = await ssrApi.getTables();
       const defaultTable = tables[0];
       if (defaultTable) {
-        const defaultView = await ssrApi.getDefaultViewId(baseId, defaultTable.id);
+        const defaultView = await ssrApi.getDefaultViewId(defaultTable.id);
         return {
           redirect: {
             destination: `/table/${defaultTable.id}/${defaultView.id}`,
