@@ -83,12 +83,10 @@ export const MemberContent = forwardRef<IMemberContentRef, IMemberContentProps>(
         </div>
         <div className="grid min-h-0 flex-1 grid-cols-2 gap-4">
           <div className="flex min-h-0 flex-col">
-            <div className="h-8 px-2 text-sm font-medium text-muted-foreground">
-              {t('memberSelector.userList')}
-            </div>
+            <div className="h-8 px-2 text-sm font-medium text-muted-foreground">userList</div>
             <div className="min-h-0 flex-1 rounded-lg border">
               <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                {t('memberSelector.userListPlaceholder')}
+                serListPlaceholder
               </div>
             </div>
           </div>
