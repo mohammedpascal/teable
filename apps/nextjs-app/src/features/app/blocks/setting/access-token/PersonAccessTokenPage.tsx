@@ -13,7 +13,6 @@ import { PersonAccessTokenTitle } from './PersonAccessTokenTitle';
 
 export const PersonAccessTokenPage = () => {
   const router = useRouter();
-  const baseId = 'bse0';
   const { form: _form, id: _id, ...restQuery } = router.query;
   const formType = router.query.form as IFormType;
   const newTokenRef = useRef<string>();

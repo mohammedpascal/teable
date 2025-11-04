@@ -1,12 +1,12 @@
 import type { RouteConfig } from '@asteasolutions/zod-to-openapi';
 import { axios } from '../axios';
-import { registerRoute, urlBuilder } from '../utils';
+import { registerRoute } from '../utils';
 import { z } from '../zod';
 import { tableListVoSchema } from './create';
 
 export type ITableListVo = z.infer<typeof tableListVoSchema>;
 
-export const GET_TABLE_LIST = '/base/{baseId}/table';
+export const GET_TABLE_LIST = '/base/bse0/table';
 
 export const GetTableListRoute: RouteConfig = registerRoute({
   method: 'get',
@@ -15,9 +15,7 @@ export const GetTableListRoute: RouteConfig = registerRoute({
   description:
     'Retrieve a list of all tables in the specified base, including their basic information and configurations.',
   request: {
-    params: z.object({
-      baseId: z.string(),
-    }),
+    params: z.object({}),
   },
   responses: {
     200: {
@@ -32,6 +30,6 @@ export const GetTableListRoute: RouteConfig = registerRoute({
   tags: ['table'],
 });
 
-export const getTableList = async (baseId: string) => {
-  return axios.get<ITableListVo>(urlBuilder(GET_TABLE_LIST, { baseId }));
+export const getTableList = async () => {
+  return axios.get<ITableListVo>(GET_TABLE_LIST);
 };

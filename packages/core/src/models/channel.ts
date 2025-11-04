@@ -14,8 +14,8 @@ export function getActionTriggerChannel(tableIdOrViewId: string) {
   return `__action_trigger_${tableIdOrViewId}`;
 }
 
-export function getBasePermissionUpdateChannel(baseId: string) {
-  return `__base_permission_update_bse0`;
+export function getBasePermissionUpdateChannel() {
+  return `__base_permission_update`;
 }
 
 export function getTableImportChannel(tableId: string) {

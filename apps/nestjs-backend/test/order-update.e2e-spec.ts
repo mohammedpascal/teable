@@ -1,22 +1,14 @@
 import type { INestApplication } from '@nestjs/common';
 import { ViewType } from '@teable/core';
-import type { ITableFullVo, IGetBaseVo } from '@teable/openapi';
+import type { ITableFullVo } from '@teable/openapi';
+import { createTable, updateRecordOrders, updateViewOrder } from '@teable/openapi';
 import {
-  createTable,
-  deleteBase,
-  getTableList,
-  updateBaseOrder,
-  updateRecordOrders,
-  updateTableOrder,
-  updateViewOrder,
-} from '@teable/openapi';
-import {
-  initApp,
+  createRecords,
   createView,
   deleteTable,
-  getViews,
   getRecords,
-  createRecords,
+  getViews,
+  initApp,
 } from './utils/init-app';
 
 describe('order update', () => {
@@ -192,5 +184,4 @@ describe('order update', () => {
       // Test placeholder - table ordering tests would go here
     });
   });
-
 });

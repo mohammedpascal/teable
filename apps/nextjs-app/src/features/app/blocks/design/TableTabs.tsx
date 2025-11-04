@@ -56,7 +56,6 @@ const DangerZone = () => {
   const canDelete = permission['table|delete'];
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const baseId = 'bse0';
   const { tableId: routerTableId } = router.query;
 
   if (!table || !canDelete) return null;
@@ -79,8 +78,8 @@ const DangerZone = () => {
                 query: { tableId: firstTableId },
               }
             : {
-                pathname: '/base/[baseId]',
-                query: { baseId },
+                pathname: '/',
+                query: {},
               }
         );
       }

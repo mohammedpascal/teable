@@ -21,8 +21,6 @@ import { SearchBuilder } from './SearchBuilder';
 import { OrderByBuilder } from './SortBuilder';
 import { ViewBuilder } from './ViewBuilder';
 
-const baseId = 'bse0';
-
 export const QueryBuilder = () => {
   const { t } = useTranslation(developerConfig.i18nNamespaces);
   const router = useRouter();
@@ -36,8 +34,7 @@ export const QueryBuilder = () => {
 
   const { data: tableListReq } = useQuery({
     queryKey: ReactQueryKeys.tableList(),
-    queryFn: () => getTableList(baseId as string).then((data) => data.data),
-    enabled: Boolean(baseId),
+    queryFn: () => getTableList().then((data) => data.data),
   });
 
   return (

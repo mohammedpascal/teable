@@ -9,7 +9,7 @@ export const usePermissionUpdateListener = (trigger: () => void) => {
 
   useEffect(() => {
     if (connection == null) return;
-    const channel = getBasePermissionUpdateChannel('bse0');
+    const channel = getBasePermissionUpdateChannel();
     setRemotePresence(connection.getPresence(channel));
 
     remotePresence?.subscribe((err) => err && console.error);

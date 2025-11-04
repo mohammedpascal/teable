@@ -39,7 +39,7 @@ export const Table: React.FC<ITableProps> = ({
     viewId: string;
   };
 
-  useViewErrorHandler('bse0', tableId, viewId);
+  useViewErrorHandler(tableId, viewId);
 
   return (
     <AnchorContext.Provider value={{ tableId, viewId }}>

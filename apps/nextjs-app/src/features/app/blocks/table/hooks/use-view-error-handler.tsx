@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { ConnectionReceiveRequest } from 'sharedb/lib/sharedb';
 
-export const useViewErrorHandler = (baseId: string, tableId: string, viewId: string) => {
+export const useViewErrorHandler = (tableId: string, viewId: string) => {
   const router = useRouter();
   const { connection } = useConnection();
 
