@@ -223,13 +223,13 @@ export class NotificationService {
     switch (notifyType) {
       case NotificationTypeEnum.System: {
         const { tableId } = urlMeta || {};
-        return `/base/bse0/${tableId}`;
+        return `/table/${tableId}`;
       }
       case NotificationTypeEnum.CollaboratorCellTag:
       case NotificationTypeEnum.CollaboratorMultiRowTag: {
         const { tableId, recordId } = urlMeta || {};
 
-        return `/base/bse0/${tableId}${recordId ? `?recordId=${recordId}` : ''}`;
+        return `/table/${tableId}${recordId ? `?recordId=${recordId}` : ''}`;
       }
       default:
         throw assertNever(notifyType);

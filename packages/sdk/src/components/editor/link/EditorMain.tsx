@@ -3,6 +3,7 @@ import { isMultiValueLink } from '@teable/core';
 import { ArrowUpRight, Plus } from '@teable/icons';
 import type { IGetRecordsRo } from '@teable/openapi';
 import { Button, Tabs, TabsList, TabsTrigger } from '@teable/ui-lib';
+import type { ForwardRefRenderFunction } from 'react';
 import {
   forwardRef,
   useCallback,
@@ -12,11 +13,10 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { ForwardRefRenderFunction } from 'react';
 import { AnchorContext, FieldProvider, RowCountProvider } from '../../../context';
 import { useTranslation } from '../../../context/app/i18n';
 import { LinkFilterProvider } from '../../../context/query/LinkFilterProvider';
-import { useBaseId, useLinkFilter, useRowCount, useSearch } from '../../../hooks';
+import { useLinkFilter, useRowCount, useSearch } from '../../../hooks';
 import { CreateRecordModal } from '../../create-record';
 import { SearchInput } from '../../search';
 import { LinkListType } from './interface';
@@ -46,7 +46,6 @@ const LinkEditorInnerBase: ForwardRefRenderFunction<ILinkEditorMainRef, ILinkEdi
 
   const { searchQuery } = useSearch();
   const rowCount = useRowCount() || 0;
-  const baseId = useBaseId();
 
   useImperativeHandle(forwardRef, () => ({
     onReset,
@@ -107,9 +106,7 @@ const LinkEditorInnerBase: ForwardRefRenderFunction<ILinkEditorMainRef, ILinkEdi
   };
 
   const onNavigate = () => {
-    if (!baseId) return;
-
-    let path = `/base/bse0/${foreignTableId}`;
+    let path = `/table/${foreignTableId}`;
 
     if (filterByViewId) {
       path += `/${filterByViewId}`;

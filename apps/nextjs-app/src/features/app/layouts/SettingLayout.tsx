@@ -25,7 +25,7 @@ export const SettingLayout: React.FC<{
   const routes = useSettingRoute();
 
   const onBack = () => {
-    router.push(`/base/bse0`);
+    router.push(`/`);
   };
 
   return (
