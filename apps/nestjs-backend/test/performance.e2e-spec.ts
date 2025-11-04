@@ -9,7 +9,6 @@ import { initApp, deleteTable } from './utils/init-app';
 
 describe('OpenAPI RecordController (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
   const userId = globalThis.testConfig.userId;
   beforeAll(async () => {
     const appCtx = await initApp();

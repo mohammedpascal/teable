@@ -9,7 +9,6 @@ import { seeding } from './utils/record-mock';
 describe('Test Scheduled Computing', () => {
   let app: INestApplication;
   let table: ITableFullVo;
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();

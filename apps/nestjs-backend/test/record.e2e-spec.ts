@@ -24,7 +24,6 @@ import {
 describe('OpenAPI RecordController (e2e)', () => {
   let app: INestApplication;
 
-  const baseId = globalThis.testConfig.baseId;
   const userId = globalThis.testConfig.userId;
 
   beforeAll(async () => {

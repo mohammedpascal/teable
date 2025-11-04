@@ -102,7 +102,7 @@ const defaultFields: IFieldRo[] = [
 
 describe('OpenAPI Lookup field (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
+  
 
   async function updateTableFields(table: ITableFullVo) {
     const tableFields = await getFields(table.id);

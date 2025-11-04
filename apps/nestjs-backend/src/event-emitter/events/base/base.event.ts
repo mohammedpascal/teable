@@ -5,9 +5,9 @@ import { CoreEvent } from '../core-event';
 import { Events } from '../event.enum';
 
 type IBaseCreatePayload = { base: IGetBaseVo };
-type IBaseDeletePayload = { baseId: string };
+type IBaseDeletePayload = {  };
 type IBaseUpdatePayload = IBaseCreatePayload;
-type IBasePermissionUpdatePayload = { baseId: string };
+type IBasePermissionUpdatePayload = {  };
 
 export class BaseCreateEvent extends CoreEvent<IBaseCreatePayload> {
   public readonly name = Events.BASE_CREATE;
@@ -19,8 +19,8 @@ export class BaseCreateEvent extends CoreEvent<IBaseCreatePayload> {
 
 export class BaseDeleteEvent extends CoreEvent<IBaseDeletePayload> {
   public readonly name = Events.BASE_DELETE;
-  constructor(baseId: string, context: IEventContext) {
-    super({ baseId }, context);
+  constructor(context: IEventContext) {
+    super({}, context);
   }
 }
 
@@ -35,8 +35,8 @@ export class BaseUpdateEvent extends CoreEvent<IBaseUpdatePayload> {
 export class BasePermissionUpdateEvent extends CoreEvent<IBasePermissionUpdatePayload> {
   public readonly name = Events.BASE_PERMISSION_UPDATE;
 
-  constructor(baseId: string, context: IEventContext) {
-    super({ baseId }, context);
+  constructor(context: IEventContext) {
+    super({}, context);
   }
 }
 
@@ -52,16 +52,14 @@ export class BaseEventFactory {
         return new BaseCreateEvent(base, context);
       })
       .with(Events.BASE_DELETE, () => {
-        const { baseId } = payload as IBaseDeletePayload;
-        return new BaseDeleteEvent(baseId, context);
+        return new BaseDeleteEvent(context);
       })
       .with(Events.BASE_UPDATE, () => {
         const { base } = payload as IBaseUpdatePayload;
         return new BaseUpdateEvent(base, context);
       })
       .with(Events.BASE_PERMISSION_UPDATE, () => {
-        const { baseId } = payload as IBasePermissionUpdatePayload;
-        return new BasePermissionUpdateEvent(baseId, context);
+        return new BasePermissionUpdateEvent(context);
       })
       .otherwise(() => null);
   }

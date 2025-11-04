@@ -177,9 +177,8 @@ describe('OpenAPI ImportController (e2e)', () => {
       });
     });
     for (let i = 0; i < bases.length; i++) {
-      const [baseId, id] = bases[i];
+      const [, id] = bases[i];
       await deleteTable(id);
-      // Base 'bse0' cannot be deleted, so we skip base deletion
     }
     await app.close();
   });
@@ -220,13 +219,13 @@ describe('OpenAPI ImportController (e2e)', () => {
     });
   });
 
-  describe('/import/{baseId} OpenAPI ImportController (e2e) (Post)', () => {
+  describe('/import/bse0 OpenAPI ImportController (e2e) (Post)', () => {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     it.each(testFileFormats.filter((format) => format !== TestFileFormat.TXT))(
       'should create a new Table from %s file',
       async (format) => {
-        const baseId = globalThis.testConfig.baseId;
+        
 
         const fileType = testSupportTypeMap[format].fileType;
         const attachmentUrl = testFiles[format].url;
@@ -278,11 +277,11 @@ describe('OpenAPI ImportController (e2e)', () => {
     );
   });
 
-  describe('/import/{baseId}/{tableId} OpenAPI ImportController (e2e) (Patch)', () => {
+  describe('/import/bse0/{tableId} OpenAPI ImportController (e2e) (Patch)', () => {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     it('should import data into Table from file', async () => {
-      const baseId = globalThis.testConfig.baseId;
+      
 
       const format = SUPPORTEDTYPE.CSV;
       const attachmentUrl = testFiles[format].url;

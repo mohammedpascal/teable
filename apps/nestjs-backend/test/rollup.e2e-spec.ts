@@ -93,7 +93,7 @@ describe('OpenAPI Rollup field (e2e)', () => {
   let table1: ITableFullVo = {} as any;
   let table2: ITableFullVo = {} as any;
   const tables: ITableFullVo[] = [];
-  const baseId = globalThis.testConfig.baseId;
+  
 
   async function updateTableFields(table: ITableFullVo) {
     const tableFields = await getFields(table.id);

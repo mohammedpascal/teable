@@ -86,7 +86,6 @@ export class FieldSupplementService {
   }
 
   private async getJunctionTableName(
-    baseId: string,
     tableId: string,
     fieldId: string,
     symmetricFieldId: string | undefined
@@ -109,7 +108,6 @@ export class FieldSupplementService {
   }
 
   private async generateLinkOptionsVo(params: {
-    baseId: string | undefined;
     tableId: string;
     optionsRo: ILinkFieldOptionsRo;
     fieldId: string;
@@ -119,7 +117,6 @@ export class FieldSupplementService {
     foreignTableName: string;
   }): Promise<ILinkFieldOptions> {
     const {
-      baseId,
       tableId,
       optionsRo,
       fieldId,
@@ -137,11 +134,7 @@ export class FieldSupplementService {
     };
 
     if (relationship === Relationship.ManyMany) {
-      if (!baseId) {
-        throw new BadRequestException('baseId is required for ManyMany relationship');
-      }
       const fkHostTableName = await this.getJunctionTableName(
-        baseId,
         tableId,
         fieldId,
         symmetricFieldId
@@ -172,8 +165,8 @@ export class FieldSupplementService {
          * Instead, we will create a junction table to store the foreign key.
          */
         fkHostTableName:
-          isOneWay && baseId
-            ? await this.getJunctionTableName(baseId, tableId, fieldId, symmetricFieldId)
+          isOneWay
+            ? await this.getJunctionTableName(tableId, fieldId, symmetricFieldId)
             : foreignTableName,
         selfKeyName: this.getForeignKeyFieldName(symmetricFieldId),
         foreignKeyName: isOneWay ? this.getForeignKeyFieldName(fieldId) : '__id',
@@ -197,7 +190,7 @@ export class FieldSupplementService {
     fieldId: string,
     optionsRo: ILinkFieldOptionsRo
   ): Promise<ILinkFieldOptions> {
-    const { baseId, foreignTableId, isOneWay } = optionsRo;
+    const { foreignTableId, isOneWay } = optionsRo;
     const symmetricFieldId = isOneWay ? undefined : generateFieldId();
     const dbTableName = await this.getDbTableName(tableId);
     const foreignTableName = await this.getDbTableName(foreignTableId);
@@ -208,7 +201,6 @@ export class FieldSupplementService {
     });
 
     return this.generateLinkOptionsVo({
-      baseId,
       tableId,
       optionsRo,
       fieldId,
@@ -225,7 +217,7 @@ export class FieldSupplementService {
     oldOptions: ILinkFieldOptions,
     newOptionsRo: ILinkFieldOptionsRo
   ): Promise<ILinkFieldOptions> {
-    const { baseId, foreignTableId, isOneWay } = newOptionsRo;
+    const { foreignTableId, isOneWay } = newOptionsRo;
 
     const dbTableName = await this.getDbTableName(tableId);
     const foreignTableName = await this.getDbTableName(foreignTableId);
@@ -256,10 +248,8 @@ export class FieldSupplementService {
             })
           ).id;
 
-    // Note: baseId validation removed since tables are no longer associated with bases
 
     return this.generateLinkOptionsVo({
-      baseId,
       tableId,
       optionsRo: newOptionsRo,
       fieldId,
@@ -1178,7 +1168,6 @@ export class FieldSupplementService {
       dbFieldName,
       type: FieldType.Link,
       options: {
-        baseId: field.options.baseId,
         relationship,
         foreignTableId: tableId,
         lookupFieldId,

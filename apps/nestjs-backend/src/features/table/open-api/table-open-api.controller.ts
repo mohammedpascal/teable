@@ -141,7 +141,7 @@ export class TableController {
 
   @Get('/socket/snapshot-bulk')
   async getSnapshotBulk(@Query('ids') ids: string[]) {
-    const snapshotBulk = await this.tableService.getSnapshotBulk('bse0', ids);
+    const snapshotBulk = await this.tableService.getSnapshotBulk(ids);
     return snapshotBulk.map((snapshot) => {
       return {
         ...snapshot,

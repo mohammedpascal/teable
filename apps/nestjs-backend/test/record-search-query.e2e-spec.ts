@@ -35,7 +35,7 @@ const getSearchIndexName = (tableDbName: string, dbFieldName: string, fieldId: s
 
 describe('OpenAPI Record-Search-Query (e2e)', async () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
+  
 
   beforeAll(async () => {
     const appCtx = await initApp();

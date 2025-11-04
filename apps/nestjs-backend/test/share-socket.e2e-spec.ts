@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { INestApplication } from '@nestjs/common';
-import { IdPrefix, ViewType } from '@teable/core';
+import { ViewType } from '@teable/core';
 import { map } from 'lodash';
 import { type Doc } from 'sharedb/lib/client';
 import { ShareDbService } from '../src/share-db/share-db.service';
-import { getError } from './utils/get-error';
-import { initApp, updateViewColumnMeta, createTable, deleteTable } from './utils/init-app';
+import { createTable, deleteTable, initApp, updateViewColumnMeta } from './utils/init-app';
 
 describe('Share (socket-e2e) (e2e)', () => {
   let app: INestApplication;
   let tableId: string;
   let shareId: string;
   let viewId: string;
-  const baseId = globalThis.testConfig.baseId;
   let fieldIds: string[] = [];
   let shareDbService!: ShareDbService;
 

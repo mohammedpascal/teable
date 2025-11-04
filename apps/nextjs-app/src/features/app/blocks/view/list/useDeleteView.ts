@@ -12,10 +12,9 @@ export function useDeleteView(viewId: string) {
     }
 
     await table.deleteView(viewId);
-    const { baseId } = router.query;
     router.push({
-      pathname: '/base/[baseId]/[tableId]',
-      query: { baseId, tableId: table.id },
+      pathname: '/table/[tableId]',
+      query: { tableId: table.id },
     });
   }, [router, table, viewId]);
 }

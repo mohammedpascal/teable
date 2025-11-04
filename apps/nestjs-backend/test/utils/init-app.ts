@@ -462,14 +462,3 @@ export async function createBase(baseData: { name: string; spaceId: string }) {
     status: 200,
   };
 }
-
-export async function deleteBase(baseId: string) {
-  // The system now has only one fixed base with id 'bse0' that cannot be deleted
-  // This is a no-op since bases cannot be deleted
-  if (baseId === 'bse0') {
-    return { success: true };
-  }
-  // For safety, still try to delete if it's not the fixed base
-  const result = await apiDeleteBase();
-  return result.data;
-}

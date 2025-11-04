@@ -34,7 +34,6 @@ import {
 } from './utils/init-app';
 
 let app: INestApplication;
-const baseId = globalThis.testConfig.baseId;
 
 // cellValueType which need to test
 const typeTests = [

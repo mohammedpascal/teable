@@ -21,7 +21,6 @@ import StorageAdapter from '../src/features/attachments/plugins/adapter';
 import { createView, initApp, getTable } from './utils/init-app';
 
 let app: INestApplication;
-const baseId = globalThis.testConfig.baseId;
 const userId = globalThis.testConfig.userId;
 let txtFileData: INotifyVo;
 const contentDispositionKey = 'content-disposition';

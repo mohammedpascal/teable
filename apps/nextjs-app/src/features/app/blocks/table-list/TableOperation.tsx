@@ -55,7 +55,7 @@ export const TableOperation = (props: ITableOperationProps) => {
   const tables = useTables();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { baseId, tableId: routerTableId } = router.query;
+  const { tableId: routerTableId } = router.query;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { trigger } = useDownload({ downloadUrl: `/api/export/${table.id}`, key: 'table' });
 
@@ -109,7 +109,7 @@ export const TableOperation = (props: ITableOperationProps) => {
   };
 
   const { mutateAsync: duplicateTableFn, isLoading } = useMutation({
-    mutationFn: () => duplicateTable(baseId as string, table.id, duplicateOption),
+    mutationFn: () => duplicateTable(table.id, duplicateOption),
     onSuccess: (data) => {
       const {
         data: { id },

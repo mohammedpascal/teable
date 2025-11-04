@@ -66,7 +66,7 @@ const RightMenu = ({ className }: { className?: string }) => {
             <Link
               href={{
                 pathname: '/settings/query-builder',
-                query: { baseId: base.id, tableId },
+                query: { tableId },
               }}
               target="_blank"
             >

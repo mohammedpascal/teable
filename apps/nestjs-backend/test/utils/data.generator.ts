@@ -9,7 +9,6 @@ describe('Performance test data generator', () => {
   let app: INestApplication;
   let tableId = '';
   let fields: IFieldVo[] = [];
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();

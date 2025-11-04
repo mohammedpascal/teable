@@ -21,7 +21,7 @@ export class LinkIntegrityService {
     @InjectDbProvider() private readonly dbProvider: IDbProvider
   ) {}
 
-  async linkIntegrityCheck(baseId: string): Promise<IIntegrityCheckVo> {
+  async linkIntegrityCheck(): Promise<IIntegrityCheckVo> {
     const tables = await this.prismaService.tableMeta.findMany({
       select: {
         id: true,
@@ -32,7 +32,7 @@ export class LinkIntegrityService {
       },
     });
 
-    const crossBaseLinkFieldsQuery = this.dbProvider.optionsQuery(FieldType.Link, 'baseId', baseId);
+    const crossBaseLinkFieldsQuery = this.dbProvider.optionsQuery(FieldType.Link, 'baseId', "bse0");
     const crossBaseLinkFieldsRaw =
       await this.prismaService.$queryRawUnsafe<Field[]>(crossBaseLinkFieldsQuery);
 
@@ -190,8 +190,8 @@ export class LinkIntegrityService {
     return issues;
   }
 
-  async linkIntegrityFix(baseId: string): Promise<IIntegrityIssue[]> {
-    const checkResult = await this.linkIntegrityCheck(baseId);
+  async linkIntegrityFix(): Promise<IIntegrityIssue[]> {
+    const checkResult = await this.linkIntegrityCheck();
     const fixResults: IIntegrityIssue[] = [];
 
     for (const issues of checkResult.linkFieldIssues) {

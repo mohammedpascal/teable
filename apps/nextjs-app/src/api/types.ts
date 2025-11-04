@@ -914,8 +914,7 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                  /** @description the base id of the table that this field is linked to, only required for cross base link */
-                  baseId?: string;
+                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -1283,8 +1282,7 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -1352,8 +1350,7 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -1583,8 +1580,7 @@ export interface paths {
                   color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                 });
               }) | ({
-                /** @description the base id of the table that this field is linked to, only required for cross base link */
-                baseId?: string;
+            
                 /**
                  * @description describe the relationship from this table to the foreign table
                  * @enum {string}
@@ -1960,8 +1956,7 @@ export interface paths {
                   color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                 });
               }) | ({
-                /** @description the base id of the table that this field is linked to, only required for cross base link */
-                baseId?: string;
+            
                 /**
                  * @description describe the relationship from this table to the foreign table
                  * @enum {string}
@@ -2386,8 +2381,7 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -2455,8 +2449,7 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -2676,8 +2669,7 @@ export interface paths {
                   color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                 });
               }) | ({
-                /** @description the base id of the table that this field is linked to, only required for cross base link */
-                baseId?: string;
+            
                 /**
                  * @description describe the relationship from this table to the foreign table
                  * @enum {string}
@@ -3890,12 +3882,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard": {
+  "/base/bse0/dashboard": {
     /** @description Get a list of dashboards in base */
     get: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       responses: {
@@ -3913,8 +3904,7 @@ export interface paths {
     /** @description Create a new dashboard */
     post: {
       parameters: {
-        path: {
-          baseId: string;
+        path: { 
         };
       };
       requestBody?: {
@@ -3937,12 +3927,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{id}": {
+  "/base/bse0/dashboard/{id}": {
     /** @description Get a dashboard by id */
     get: {
       parameters: {
         path: {
-          baseId: string;
           id: string;
         };
       };
@@ -3977,7 +3966,6 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          baseId: string;
           id: string;
         };
       };
@@ -3989,12 +3977,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{dashboardId}/rename": {
+  "/base/bse0/dashboard/{dashboardId}/rename": {
     /** @description Rename a dashboard by id */
     patch: {
       parameters: {
-        path: {
-          baseId: string;
+        path: { 
           dashboardId: string;
         };
       };
@@ -4018,12 +4005,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{id}/layout": {
+  "/base/bse0/dashboard/{id}/layout": {
     /** @description Update a dashboard layout by id */
     patch: {
       parameters: {
         path: {
-          baseId: string;
           id: string;
         };
       };
@@ -4059,12 +4045,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{id}/plugin": {
+  "/base/bse0/dashboard/{id}/plugin": {
     /** @description Install a plugin to a dashboard */
     post: {
       parameters: {
         path: {
-          baseId: string;
           id: string;
         };
       };
@@ -4091,12 +4076,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{dashboardId}/plugin/{pluginInstallId}": {
+  "/base/bse0/dashboard/{dashboardId}/plugin/{pluginInstallId}": {
     /** @description Remove a plugin from a dashboard */
     delete: {
       parameters: {
         path: {
-          baseId: string;
           dashboardId: string;
           pluginInstallId: string;
         };
@@ -4109,12 +4093,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{dashboardId}/plugin/{pluginInstallId}/rename": {
+  "/base/bse0/dashboard/{dashboardId}/plugin/{pluginInstallId}/rename": {
     /** @description Rename a plugin in a dashboard */
     patch: {
       parameters: {
         path: {
-          baseId: string;
           id: string;
           pluginInstallId: string;
         };
@@ -4140,12 +4123,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{dashboardId}/plugin/{installPluginId}": {
+  "/base/bse0/dashboard/{dashboardId}/plugin/{installPluginId}": {
     /** @description Get a dashboard install plugin by id */
     get: {
       parameters: {
         path: {
-          baseId: string;
           dashboardId: string;
           installPluginId: string;
         };
@@ -4157,7 +4139,6 @@ export interface paths {
             "application/json": {
               pluginId: string;
               pluginInstallId: string;
-              baseId: string;
               name: string;
               storage?: {
                 [key: string]: unknown;
@@ -4168,12 +4149,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/dashboard/{dashboardId}/plugin/{pluginInstallId}/update-storage": {
+  "/base/bse0/dashboard/{dashboardId}/plugin/{pluginInstallId}/update-storage": {
     /** @description Update storage of a plugin in a dashboard */
     patch: {
       parameters: {
         path: {
-          baseId: string;
           dashboardId: string;
           pluginInstallId: string;
         };
@@ -4192,7 +4172,6 @@ export interface paths {
         200: {
           content: {
             "application/json": {
-              baseId: string;
               dashboardId: string;
               pluginInstallId: string;
               storage?: {
@@ -4256,7 +4235,6 @@ export interface paths {
             "application/json": {
               pluginId: string;
               pluginInstallId: string;
-              baseId: string;
               name: string;
               url?: string;
               storage?: {
@@ -4524,7 +4502,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/": {
+  "/base/bse0/table/": {
     /**
      * Create table
      * @description Create a new table in the specified base with customizable fields, views, and initial records. Default configurations will be applied if not specified.
@@ -4532,7 +4510,6 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       requestBody?: {
@@ -4701,8 +4678,7 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                  /** @description the base id of the table that this field is linked to, only required for cross base link */
-                  baseId?: string;
+                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -4770,8 +4746,7 @@ export interface paths {
                   shouldNotify?: boolean;
                   defaultValue?: string | "me" | ((string | "me")[]);
                 }) | ({
-                  /** @description the base id of the table that this field is linked to, only required for cross base link */
-                  baseId?: string;
+                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -5160,8 +5135,6 @@ export interface paths {
                       color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                     });
                   }) | ({
-                    /** @description the base id of the table that this field is linked to, only required for cross base link */
-                    baseId?: string;
                     /**
                      * @description describe the relationship from this table to the foreign table
                      * @enum {string}
@@ -5520,7 +5493,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table": {
+  "/base/bse0/table": {
     /**
      * List tables
      * @description Retrieve a list of all tables in the specified base, including their basic information and configurations.
@@ -5528,7 +5501,6 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       responses: {
@@ -5557,7 +5529,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}": {
+  "/base/bse0/table/{tableId}": {
     /**
      * Get table details
      * @description Retrieve detailed information about a specific table, including its schema, name, and configuration.
@@ -5565,7 +5537,6 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5601,7 +5572,6 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5613,7 +5583,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/name": {
+  "/base/bse0/table/{tableId}/name": {
     /**
      * Update table name
      * @description Update the display name of a table. This will not affect the underlying database table name.
@@ -5621,7 +5591,6 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5640,15 +5609,14 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/icon": {
+  "/base/bse0/table/{tableId}/icon": {
     /**
      * Update table tcon
      * @description Update the emoji icon of a table. The icon must be a valid emoji character.
      */
     put: {
       parameters: {
-        path: {
-          baseId: string;
+        path: { 
           tableId: string;
         };
       };
@@ -5667,7 +5635,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/order": {
+  "/base/bse0/table/{tableId}/order": {
     /**
      * Update table order
      * @description Update the display order of a table in the base. This affects the order in which tables are shown in the UI.
@@ -5675,8 +5643,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          baseId: string;
-          tableId: string;
+            tableId: string;
         };
       };
       requestBody?: {
@@ -5696,7 +5663,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/description": {
+  "/base/bse0/table/{tableId}/description": {
     /**
      * Update table description
      * @description Update or remove the description of a table. Set to null to remove the description.
@@ -5704,7 +5671,6 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5723,7 +5689,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/db-table-name": {
+  "/base/bse0/table/{tableId}/db-table-name": {
     /**
      * Update db table name
      * @description Update the physical database table name. Must be 1-63 characters, start with letter or underscore, contain only letters, numbers and underscore, and be unique within the base.
@@ -5731,7 +5697,6 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5751,7 +5716,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/default-view-id": {
+  "/base/bse0/table/{tableId}/default-view-id": {
     /**
      * Get default view id
      * @description Get default view id
@@ -5759,7 +5724,6 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5775,7 +5739,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/permission": {
+  "/base/bse0/table/{tableId}/permission": {
     /**
      * Get table permissions
      * @description Retrieve the current user's permissions for a table, including access rights for table operations, views, records, and fields.
@@ -5783,7 +5747,6 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5815,7 +5778,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/index": {
+  "/base/bse0/table/{tableId}/index": {
     /**
      * Toggle table index
      * @description Toggle table index
@@ -5823,7 +5786,6 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5843,7 +5805,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/activated-index": {
+  "/base/bse0/table/{tableId}/activated-index": {
     /**
      * Get activated index
      * @description Get the activated index of a table
@@ -5851,7 +5813,6 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5865,7 +5826,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/abnormal-index": {
+  "/base/bse0/table/{tableId}/abnormal-index": {
     /**
      * Get abnormal indexes
      * @description Retrieve a list of abnormal database indexes for a specific table by index type. This helps identify potential performance or maintenance issues.
@@ -5873,7 +5834,6 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
           type: "search";
         };
@@ -5890,7 +5850,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/index/repair": {
+  "/base/bse0/table/{tableId}/index/repair": {
     /**
      * Repair table index
      * @description Repair table index
@@ -5898,7 +5858,6 @@ export interface paths {
     patch: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
           type: "search";
         };
@@ -5911,7 +5870,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/table/{tableId}/duplicate": {
+  "/base/bse0/table/{tableId}/duplicate": {
     /**
      * Duplicate a table
      * @description Duplicate a table
@@ -5919,7 +5878,6 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -5939,12 +5897,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}": {
+  "/base/bse0": {
     /** @description Get a base by baseId */
     get: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       responses: {
@@ -5966,7 +5923,6 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       responses: {
@@ -5980,7 +5936,6 @@ export interface paths {
     patch: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       requestBody?: {
@@ -6004,12 +5959,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/order": {
+  "/base/bse0/order": {
     /** @description Update base order */
     put: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       requestBody?: {
@@ -6048,7 +6002,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/collaborators": {
+  "/base/bse0/collaborators": {
     /** @description List a base collaborator */
     get: {
       parameters: {
@@ -6059,8 +6013,7 @@ export interface paths {
           search?: string;
           type?: "user" | "department";
         };
-        path: {
-          baseId: string;
+        path: { 
         };
       };
       responses: {
@@ -6093,8 +6046,7 @@ export interface paths {
           principalId: string;
           principalType: "user" | "department";
         };
-        path: {
-          baseId: string;
+        path: { 
         };
       };
       responses: {
@@ -6109,7 +6061,6 @@ export interface paths {
       parameters: {
         path: {
           invitationId: string;
-          baseId: string;
         };
       };
       requestBody?: {
@@ -6131,12 +6082,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/collaborator": {
+  "/base/bse0/collaborator": {
     /** @description Add a collaborator to a base */
     post: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       requestBody?: {
@@ -6178,12 +6128,11 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/permission": {
+  "/base/bse0/permission": {
     /** @description Get a base permission */
     get: {
       parameters: {
-        path: {
-          baseId: string;
+        path: { 
         };
       };
       responses: {
@@ -6198,7 +6147,7 @@ export interface paths {
       };
     };
   };
-  "/base/{baseId}/query": {
+  "/base/bse0/query": {
     /** @description Get base query result */
     get: {
       parameters: {
@@ -6206,8 +6155,7 @@ export interface paths {
           query: string;
           cellFormat?: "json" | "text";
         };
-        path: {
-          baseId: string;
+          path: { 
         };
       };
       responses: {
@@ -6531,8 +6479,6 @@ export interface paths {
                       color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                     });
                   }) | ({
-                    /** @description the base id of the table that this field is linked to, only required for cross base link */
-                    baseId?: string;
                     /**
                      * @description describe the relationship from this table to the foreign table
                      * @enum {string}
@@ -6969,8 +6915,7 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                  /** @description the base id of the table that this field is linked to, only required for cross base link */
-                  baseId?: string;
+                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -7405,8 +7350,7 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                  /** @description the base id of the table that this field is linked to, only required for cross base link */
-                  baseId?: string;
+                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -7823,8 +7767,7 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -7892,8 +7835,7 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -8166,8 +8108,7 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -8235,8 +8176,7 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              /** @description the base id of the table that this field is linked to, only required for cross base link */
-              baseId?: string;
+              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -8463,7 +8403,6 @@ export interface paths {
              * @enum {integer}
              */
             type: 1 | 2 | 3 | 4 | 5 | 6 | 7;
-            baseId?: string;
           };
         };
       };
@@ -8992,7 +8931,6 @@ export interface paths {
                 name: string;
                 description?: string;
                 scopes: string[];
-                baseIds?: string[];
                 expiredTime: string;
                 createdTime: string;
                 lastUsedTime?: string;
@@ -9009,7 +8947,6 @@ export interface paths {
             name: string;
             description?: string;
             scopes: string[];
-            baseIds?: string[] | null;
             /** @example 2024-03-25 */
             expiredTime: string;
           };
@@ -9024,7 +8961,6 @@ export interface paths {
               name: string;
               description?: string;
               scopes: string[];
-              baseIds?: string[] | null;
               expiredTime: string;
               token: string;
               createdTime: string;
@@ -9081,7 +9017,6 @@ export interface paths {
               name: string;
               description?: string;
               scopes: string[];
-              baseIds?: string[];
               expiredTime: string;
               createdTime: string;
               lastUsedTime?: string;
@@ -9103,7 +9038,6 @@ export interface paths {
             name: string;
             description?: string;
             scopes: string[];
-            baseIds?: string[] | null;
           };
         };
       };
@@ -9116,7 +9050,6 @@ export interface paths {
               name: string;
               description?: string;
               scopes: string[];
-              baseIds?: string[];
             };
           };
         };
@@ -9167,12 +9100,11 @@ export interface paths {
       };
     };
   };
-  "/import/{baseId}": {
+  "/import/bse0": {
     /** @description create table from file */
     post: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       requestBody?: {
@@ -9227,12 +9159,11 @@ export interface paths {
       };
     };
   };
-  "/import/{baseId}/{tableId}": {
+  "/import/bse0/{tableId}": {
     /** @description import table inplace */
     patch: {
       parameters: {
         path: {
-          baseId: string;
           tableId: string;
         };
       };
@@ -10053,7 +9984,6 @@ export interface paths {
       requestBody?: {
         content: {
           "application/json": {
-            baseId: string;
             secret: string;
             scopes: string[];
             authCode: string;
@@ -10119,7 +10049,6 @@ export interface paths {
       requestBody?: {
         content: {
           "application/json": {
-            baseId: string;
           };
         };
       };
@@ -10234,12 +10163,11 @@ export interface paths {
       };
     };
   };
-  "/integrity/base/{baseId}/link-check": {
+  "/integrity/base/bse0/link-check": {
     /** @description Check integrity of link fields in a base */
     get: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       responses: {
@@ -10249,8 +10177,6 @@ export interface paths {
             "application/json": {
               hasIssues: boolean;
               linkFieldIssues: ({
-                  /** @description The base id of the link field with is cross-base */
-                  baseId?: string;
                   baseName?: string;
                   fieldId: string;
                   fieldName: string;
@@ -10268,12 +10194,11 @@ export interface paths {
       };
     };
   };
-  "/integrity/base/{baseId}/link-fix": {
+  "/integrity/base/bse0/link-fix": {
     /** @description Fix integrity of link fields in a base */
     post: {
       parameters: {
         path: {
-          baseId: string;
         };
       };
       responses: {

@@ -32,7 +32,6 @@ import {
 
 describe('OpenAPI TableController for duplicate (e2e)', () => {
   let app: INestApplication;
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();

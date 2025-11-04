@@ -34,7 +34,6 @@ const defaultViews = [
 describe('OpenAPI ViewController (e2e)', () => {
   let app: INestApplication;
   let table: ITableFullVo;
-  const baseId = globalThis.testConfig.baseId;
 
   beforeAll(async () => {
     const appCtx = await initApp();

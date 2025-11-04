@@ -8,11 +8,11 @@ export class IntegrityController {
 
   @Get('base/bse0/link-check')
   async checkBaseIntegrity(): Promise<IIntegrityCheckVo> {
-    return await this.linkIntegrityService.linkIntegrityCheck('bse0');
+    return await this.linkIntegrityService.linkIntegrityCheck();
   }
 
   @Post('base/bse0/link-fix')
   async fixBaseIntegrity(): Promise<IIntegrityIssue[]> {
-    return await this.linkIntegrityService.linkIntegrityFix('bse0');
+    return await this.linkIntegrityService.linkIntegrityFix();
   }
 }

@@ -34,7 +34,6 @@ export interface IAccessTokenForm<T extends IFormType = 'new'> {
     name?: string;
     description?: string;
     scopes?: string[];
-    baseIds?: string[];
     expiredTime?: string;
   };
 }
@@ -45,7 +44,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
 
   const { user } = useSession();
 
-  const [baseIds, setBaseIds] = useState<string[] | undefined | null>(defaultData?.baseIds);
   const [expiredTime, setExpiredTime] = useState<string | undefined>(defaultData?.expiredTime);
   const [name, setName] = useState<string | undefined>(defaultData?.name || '');
   const [description, setDescription] = useState<string | undefined>(
@@ -76,16 +74,14 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
         description,
         scopes,
         expiredTime,
-        baseIds,
       }).success;
     }
     return !updateAccessTokenRoSchema.safeParse({
       name,
       description,
       scopes,
-      baseIds,
     }).success;
-  }, [type, name, description, scopes, expiredTime, baseIds]);
+  }, [type, name, description, scopes, expiredTime]);
 
   const onSubmitInner = () => {
     if (type === 'new') {
@@ -94,7 +90,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
         description,
         scopes,
         expiredTime: expiredTime!,
-        baseIds,
       });
     }
     if (type === 'edit') {
@@ -102,7 +97,6 @@ export const AccessTokenForm = <T extends IFormType>(props: IAccessTokenForm<T>)
         name: name!,
         description,
         scopes,
-        baseIds,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any);
     }

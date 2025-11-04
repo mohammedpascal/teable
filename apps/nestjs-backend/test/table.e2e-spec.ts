@@ -121,7 +121,6 @@ describe('OpenAPI TableController (e2e)', () => {
   let dbProvider: IDbProvider;
   let event: EventEmitter2;
 
-  const baseId = globalThis.testConfig.baseId;
   beforeAll(async () => {
     const appCtx = await initApp();
     app = appCtx.app;
@@ -143,7 +142,6 @@ describe('OpenAPI TableController (e2e)', () => {
       expect(payload).toBeDefined();
       expect(payload.name).toBe(Events.TABLE_CREATE);
       expect(payload?.payload).toBeDefined();
-      expect(payload?.payload?.baseId).toBeDefined();
       expect(payload?.payload?.table).toBeDefined();
       eventCount++;
     });

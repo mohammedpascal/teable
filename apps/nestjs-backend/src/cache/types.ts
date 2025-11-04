@@ -72,6 +72,5 @@ export interface IOAuthTxnStore {
 }
 
 export interface IPluginAuthStore {
-  baseId: string;
   pluginId: string;
 }

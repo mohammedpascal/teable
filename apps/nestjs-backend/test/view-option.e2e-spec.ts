@@ -5,7 +5,6 @@ import { updateViewOptions as apiSetViewOption } from '@teable/openapi';
 import { initApp, getView, createTable, deleteTable } from './utils/init-app';
 
 let app: INestApplication;
-const baseId = globalThis.testConfig.baseId;
 
 beforeAll(async () => {
   const appCtx = await initApp();
