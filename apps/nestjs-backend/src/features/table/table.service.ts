@@ -214,7 +214,7 @@ export class TableService implements IReadonlyAdapterService {
     });
   }
 
-  async deleteTable(baseId: string, tableId: string) {
+  async deleteTable(tableId: string) {
     const result = await this.prismaService.txClient().tableMeta.findFirst({
       where: { id: tableId },
     });

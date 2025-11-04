@@ -161,7 +161,7 @@ const assertHeaders = [
 ];
 
 describe('OpenAPI ImportController (e2e)', () => {
-  const bases: [string, string][] = [];
+  const tables: string[] = [];
 
   beforeAll(async () => {
     const appCtx = await initApp();
@@ -176,8 +176,8 @@ describe('OpenAPI ImportController (e2e)', () => {
         console.log(`delete ${type} test file success!`);
       });
     });
-    for (let i = 0; i < bases.length; i++) {
-      const [, id] = bases[i];
+    for (let i = 0; i < tables.length; i++) {
+      const id = tables[i];
       await deleteTable(id);
     }
     await app.close();
@@ -269,7 +269,7 @@ describe('OpenAPI ImportController (e2e)', () => {
           includeContent: true,
         });
 
-        bases.push([baseId, id]);
+        tables.push(id);
 
         expect(records?.length).toBe(2);
         expect(createdFields).toEqual(assertHeaders);
@@ -347,7 +347,7 @@ describe('OpenAPI ImportController (e2e)', () => {
         includeContent: true,
       });
 
-      bases.push([baseId, tableId]);
+      tables.push(tableId);
 
       const tableRecords = records?.map((r) => {
         const newFields = { ...r.fields };

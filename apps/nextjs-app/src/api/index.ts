@@ -4,7 +4,6 @@ export enum GetTokenType {}
 // Add other plugin types here as needed
 
 export const getTokenRoSchema = z.object({
-  baseId: z.string(),
   pluginId: z.string(),
   type: z.nativeEnum(GetTokenType),
 });

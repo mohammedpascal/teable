@@ -357,7 +357,7 @@ export class TableOpenApiService {
 
     return await this.prismaService.$tx(
       async () => {
-        await this.tableService.deleteTable('bse0', tableId);
+        await this.tableService.deleteTable(tableId);
       },
       {
         timeout: this.thresholdConfig.bigTransactionTimeout,
