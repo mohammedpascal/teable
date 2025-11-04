@@ -94,7 +94,7 @@ export class FieldSupplementService {
     const junctionTableName = symmetricFieldId
       ? `junction_${fieldId}_${symmetricFieldId}`
       : `junction_${fieldId}`;
-    return this.dbProvider.generateDbTableName(baseId, junctionTableName);
+    return this.dbProvider.generateDbTableName(junctionTableName);
   }
 
   private async getDefaultLinkName(foreignTableId: string) {

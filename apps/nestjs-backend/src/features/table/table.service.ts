@@ -38,7 +38,7 @@ export class TableService implements IReadonlyAdapterService {
     return convertNameToValidCharacter(name, 40);
   }
 
-  private async createDBTable(baseId: string, tableRo: ICreateTableRo, createTable = true) {
+  private async createDBTable(tableRo: ICreateTableRo, createTable = true) {
     const userId = this.cls.get('user.id');
     const tableRaws = await this.prismaService.txClient().tableMeta.findMany({
       select: { name: true, order: true },
@@ -52,10 +52,7 @@ export class TableService implements IReadonlyAdapterService {
       }, 0) + 1;
 
     const validTableName = this.generateValidName(uniqName);
-    let dbTableName = this.dbProvider.generateDbTableName(
-      baseId,
-      tableRo.dbTableName || validTableName
-    );
+    let dbTableName = this.dbProvider.generateDbTableName(tableRo.dbTableName || validTableName);
 
     const existTable = await this.prismaService.txClient().tableMeta.findFirst({
       where: { dbTableName: tableRo.dbTableName },
@@ -166,7 +163,7 @@ export class TableService implements IReadonlyAdapterService {
     });
   }
 
-  async getTableMeta(baseId: string, tableId: string): Promise<ITableVo> {
+  async getTableMeta(tableId: string): Promise<ITableVo> {
     const tableMeta = await this.prismaService.txClient().tableMeta.findFirst({
       where: { id: tableId },
     });
@@ -202,13 +199,9 @@ export class TableService implements IReadonlyAdapterService {
     return viewRaw;
   }
 
-  async createTable(
-    baseId: string,
-    snapshot: ICreateTableRo,
-    createTable: boolean = true
-  ): Promise<ITableVo> {
-    const tableVo = await this.createDBTable(baseId, snapshot, createTable);
-    await this.batchService.saveRawOps(baseId, RawOpType.Create, IdPrefix.Table, [
+  async createTable(snapshot: ICreateTableRo, createTable: boolean = true): Promise<ITableVo> {
+    const tableVo = await this.createDBTable(snapshot, createTable);
+    await this.batchService.saveRawOps('bse0', RawOpType.Create, IdPrefix.Table, [
       {
         docId: tableVo.id,
         version: 0,
@@ -252,7 +245,6 @@ export class TableService implements IReadonlyAdapterService {
   }
 
   async updateTable(
-    baseId: string,
     tableId: string,
     input: Omit<
       Prisma.TableMetaUpdateInput,
@@ -308,7 +300,7 @@ export class TableService implements IReadonlyAdapterService {
       data: updateInput,
     });
 
-    await this.batchService.saveRawOps(baseId, RawOpType.Edit, IdPrefix.Table, [
+    await this.batchService.saveRawOps('bse0', RawOpType.Edit, IdPrefix.Table, [
       {
         docId: tableId,
         version: tableRaw.version,
@@ -320,7 +312,7 @@ export class TableService implements IReadonlyAdapterService {
   }
 
   async create(baseId: string, snapshot: ITableVo) {
-    await this.createDBTable(baseId, snapshot);
+    await this.createDBTable(snapshot);
   }
 
   async getSnapshotBulk(baseId: string, ids: string[]): Promise<ISnapshotBase<ITableVo>[]> {

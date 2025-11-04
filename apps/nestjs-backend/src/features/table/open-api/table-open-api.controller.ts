@@ -47,13 +47,13 @@ export class TableController {
 
   @Get(':tableId')
   async getTable(@Param('tableId') tableId: string): Promise<ITableVo> {
-    return await this.tableOpenApiService.getTable('bse0', tableId);
+    return await this.tableOpenApiService.getTable(tableId);
   }
 
   @Get()
   async getTables(): Promise<ITableListVo> {
     try {
-      const result = await this.tableOpenApiService.getTables('bse0');
+      const result = await this.tableOpenApiService.getTables();
       console.log(`✅ TableController.getTables success, found ${result.length} tables`);
       return result;
     } catch (error) {
@@ -67,7 +67,7 @@ export class TableController {
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(tableNameRoSchema)) tableNameRo: ITableNameRo
   ) {
-    return await this.tableOpenApiService.updateName('bse0', tableId, tableNameRo.name);
+    return await this.tableOpenApiService.updateName(tableId, tableNameRo.name);
   }
 
   @Put(':tableId/icon')
@@ -75,7 +75,7 @@ export class TableController {
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(tableIconRoSchema)) tableIconRo: ITableIconRo
   ) {
-    return await this.tableOpenApiService.updateIcon('bse0', tableId, tableIconRo.icon);
+    return await this.tableOpenApiService.updateIcon(tableId, tableIconRo.icon);
   }
 
   @Put(':tableId/description')
@@ -84,7 +84,6 @@ export class TableController {
     @Body(new ZodValidationPipe(tableDescriptionRoSchema)) tableDescriptionRo: ITableDescriptionRo
   ) {
     return await this.tableOpenApiService.updateDescription(
-      'bse0',
       tableId,
       tableDescriptionRo.description
     );
@@ -96,7 +95,6 @@ export class TableController {
     @Body(new ZodValidationPipe(dbTableNameRoSchema)) dbTableNameRo: IDbTableNameRo
   ) {
     return await this.tableOpenApiService.updateDbTableName(
-      'bse0',
       tableId,
       dbTableNameRo.dbTableName
     );
@@ -107,14 +105,14 @@ export class TableController {
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(updateOrderRoSchema)) updateOrderRo: IUpdateOrderRo
   ) {
-    return await this.tableOpenApiService.updateOrder('bse0', tableId, updateOrderRo);
+    return await this.tableOpenApiService.updateOrder(tableId, updateOrderRo);
   }
 
   @Post()
   async createTable(
     @Body(new ZodValidationPipe(tableRoSchema), TablePipe) createTableRo: ICreateTableWithDefault
   ): Promise<ITableFullVo> {
-    return await this.tableOpenApiService.createTable('bse0', createTableRo);
+    return await this.tableOpenApiService.createTable(createTableRo);
   }
 
   @Post(':tableId/duplicate')
@@ -123,22 +121,22 @@ export class TableController {
     @Body(new ZodValidationPipe(duplicateTableRoSchema), TablePipe)
     duplicateTableRo: IDuplicateTableRo
   ): Promise<IDuplicateTableVo> {
-    return await this.tableOpenApiService.duplicateTable('bse0', tableId, duplicateTableRo);
+    return await this.tableOpenApiService.duplicateTable(tableId, duplicateTableRo);
   }
 
   @Delete(':tableId')
   async archiveTable(@Param('tableId') tableId: string) {
-    return await this.tableOpenApiService.deleteTable('bse0', tableId);
+    return await this.tableOpenApiService.deleteTable(tableId);
   }
 
   @Delete(':tableId/permanent')
   permanentDeleteTable(@Param('tableId') tableId: string) {
-    return this.tableOpenApiService.deleteTables('bse0', [tableId]);
+    return this.tableOpenApiService.deleteTables([tableId]);
   }
 
   @Get(':tableId/permission')
   async getPermission(@Param('tableId') tableId: string) {
-    return await this.tableOpenApiService.getPermission('bse0', tableId);
+    return await this.tableOpenApiService.getPermission(tableId);
   }
 
   @Get('/socket/snapshot-bulk')

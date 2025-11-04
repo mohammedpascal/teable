@@ -47,7 +47,7 @@ export class SqliteProvider implements IDbProvider {
     return undefined;
   }
 
-  generateDbTableName(baseId: string, name: string) {
+  generateDbTableName(name: string) {
     return `bse0_${name}`;
   }
 

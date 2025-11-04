@@ -51,7 +51,7 @@ export class PostgresProvider implements IDbProvider {
     return this.knex.raw(`DROP SCHEMA IF EXISTS ?? CASCADE`, [schemaName]).toQuery();
   }
 
-  generateDbTableName(baseId: string, name: string) {
+  generateDbTableName(name: string) {
     return `bse0_${name}`;
   }
 

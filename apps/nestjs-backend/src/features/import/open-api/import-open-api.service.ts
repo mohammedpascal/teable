@@ -52,7 +52,7 @@ export class ImportOpenApiService {
     return await importer.genColumns();
   }
 
-  async createTableFromImport(baseId: string, importRo: IImportOptionRo, maxRowCount?: number) {
+  async createTableFromImport(importRo: IImportOptionRo, maxRowCount?: number) {
     const userId = this.cls.get('user.id');
     const { attachmentUrl, fileType, worksheets, notification = false, tz } = importRo;
 
@@ -95,7 +95,7 @@ export class ImportOpenApiService {
       });
 
       // create table with column
-      const table = await this.tableOpenApiService.createTable(baseId, {
+      const table = await this.tableOpenApiService.createTable({
         name: name,
         fields: fieldsRo,
         views: DEFAULT_VIEWS,
@@ -110,7 +110,6 @@ export class ImportOpenApiService {
       importData &&
         columns.length &&
         this.importRecords(
-          baseId,
           table,
           userId,
           importer,
@@ -125,7 +124,6 @@ export class ImportOpenApiService {
   }
 
   async inplaceImportTable(
-    baseId: string,
     tableId: string,
     inplaceImportRo: IInplaceImportOptionRo,
     maxRowCount?: number,
@@ -173,7 +171,6 @@ export class ImportOpenApiService {
     });
 
     this.importRecords(
-      baseId,
       { id: tableId, name: tableRaw.name },
       userId,
       importer,
@@ -186,7 +183,6 @@ export class ImportOpenApiService {
   }
 
   private importRecords(
-    baseId: string,
     table: { id: string; name: string },
     userId: string,
     importer: CsvImporter | ExcelImporter,
@@ -272,7 +268,6 @@ export class ImportOpenApiService {
             this.logger.error(error?.message, error?.stack);
             notification &&
               this.notificationService.sendImportResultNotify({
-                baseId,
                 tableId: table.id,
                 toUserId: userId,
                 message: `❌ ${table.name} import aborted: ${error.message} fail row range: [${recordCount - records.length}, ${recordCount - 1}]. Please check the data for this range and retry.
@@ -287,7 +282,6 @@ export class ImportOpenApiService {
           workerId === id &&
             notification &&
             this.notificationService.sendImportResultNotify({
-              baseId,
               tableId: table.id,
               toUserId: userId,
               message: `🎉 ${table.name} ${sourceColumnMap ? 'inplace' : ''} imported successfully`,
@@ -298,7 +292,6 @@ export class ImportOpenApiService {
           workerId === id &&
             notification &&
             this.notificationService.sendImportResultNotify({
-              baseId,
               tableId: table.id,
               toUserId: userId,
               message: `❌ ${table.name} import failed: ${data}`,
@@ -310,7 +303,6 @@ export class ImportOpenApiService {
     worker.on('error', (e) => {
       notification &&
         this.notificationService.sendImportResultNotify({
-          baseId,
           tableId: table.id,
           toUserId: userId,
           message: `❌ ${table.name} import failed: ${e.message}`,

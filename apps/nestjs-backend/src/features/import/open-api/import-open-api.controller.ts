@@ -28,7 +28,7 @@ export class ImportController {
   async createTableFromImport(
     @Body(new ZodValidationPipe(importOptionRoSchema)) importRo: IImportOptionRo
   ): Promise<ITableFullVo[]> {
-    return await this.importOpenService.createTableFromImport('bse0', importRo);
+    return await this.importOpenService.createTableFromImport(importRo);
   }
 
   @Patch('bse0/:tableId')
@@ -37,6 +37,6 @@ export class ImportController {
     @Body(new ZodValidationPipe(inplaceImportOptionRoSchema))
     inplaceImportRo: IInplaceImportOptionRo
   ): Promise<void> {
-    return await this.importOpenService.inplaceImportTable('bse0', tableId, inplaceImportRo);
+    return await this.importOpenService.inplaceImportTable(tableId, inplaceImportRo);
   }
 }

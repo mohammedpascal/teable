@@ -18,7 +18,6 @@ export const notificationIconSchema = z.union([systemIconSchema, userIconSchema]
 export type INotificationIcon = z.infer<typeof notificationIconSchema>;
 
 export const tableRecordUrlSchema = z.object({
-  baseId: z.string().startsWith(IdPrefix.Base),
   tableId: z.string().startsWith(IdPrefix.Table),
   recordId: z.string().startsWith(IdPrefix.Record).optional(),
 });

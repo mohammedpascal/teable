@@ -112,20 +112,14 @@ export class NotificationService {
     }
   }
 
-  async sendImportResultNotify(params: {
-    tableId: string;
-    baseId: string;
-    toUserId: string;
-    message: string;
-  }) {
-    const { toUserId, tableId, message, baseId } = params;
+  async sendImportResultNotify(params: { tableId: string; toUserId: string; message: string }) {
+    const { toUserId, tableId, message } = params;
     const toUser = await this.userService.getUserById(toUserId);
     if (!toUser) {
       return;
     }
     const type = NotificationTypeEnum.System;
     const urlMeta = notificationUrlSchema.parse({
-      baseId: baseId,
       tableId: tableId,
     });
     const notifyPath = this.generateNotifyPath(type, urlMeta);

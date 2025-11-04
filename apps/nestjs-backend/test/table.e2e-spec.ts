@@ -217,7 +217,7 @@ describe('OpenAPI TableController (e2e)', () => {
     const tableResult = await getTable(tableId);
 
     expect(tableResult.dbTableName).toEqual(
-      dbProvider.generateDbTableName(baseId, 'my_awesome_table_name' + timeStr)
+      dbProvider.generateDbTableName('my_awesome_table_name' + timeStr)
     );
   });
 

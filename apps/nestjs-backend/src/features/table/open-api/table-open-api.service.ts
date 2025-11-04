@@ -160,9 +160,9 @@ export class TableOpenApiService {
     });
   }
 
-  async createTable(baseId: string, tableRo: ICreateTableWithDefault): Promise<ITableFullVo> {
+  async createTable(tableRo: ICreateTableWithDefault): Promise<ITableFullVo> {
     const schema = await this.prismaService.$tx(async () => {
-      const tableVo = await this.createTableMeta(baseId, tableRo);
+      const tableVo = await this.createTableMeta(tableRo);
       const tableId = tableVo.id;
 
       const preparedFields = await this.prepareFields(tableId, tableRo.fields);
@@ -199,19 +199,19 @@ export class TableOpenApiService {
     };
   }
 
-  async duplicateTable(baseId: string, tableId: string, tableRo: IDuplicateTableRo) {
-    return await this.tableDuplicateService.duplicateTable(baseId, tableId, tableRo);
+  async duplicateTable(tableId: string, tableRo: IDuplicateTableRo) {
+    return await this.tableDuplicateService.duplicateTable(tableId, tableRo);
   }
 
-  async createTableMeta(baseId: string, tableRo: ICreateTableRo) {
-    return await this.tableService.createTable(baseId, tableRo);
+  async createTableMeta(tableRo: ICreateTableRo) {
+    return await this.tableService.createTable(tableRo);
   }
 
-  async getTable(baseId: string, tableId: string): Promise<ITableVo> {
-    return await this.tableService.getTableMeta(baseId, tableId);
+  async getTable(tableId: string): Promise<ITableVo> {
+    return await this.tableService.getTableMeta(tableId);
   }
 
-  async getTables(baseId: string, includeTableIds?: string[]): Promise<ITableVo[]> {
+  async getTables(includeTableIds?: string[]): Promise<ITableVo[]> {
     const tablesMeta = await this.prismaService.txClient().tableMeta.findMany({
       orderBy: { order: 'asc' },
       where: {
@@ -270,7 +270,7 @@ export class TableOpenApiService {
     }
   }
 
-  async deleteTables(baseId: string, tableIds: string[]) {
+  async deleteTables(tableIds: string[]) {
     // If the table has already been deleted, exceptions may occur
     // If the table hasn't been deleted and permanent deletion is executed directly,
     // we need to handle the deletion of associated data
@@ -285,7 +285,7 @@ export class TableOpenApiService {
     return await this.prismaService.$tx(
       async () => {
         await this.dropTables(tableIds);
-        await this.cleanTablesRelatedData(baseId, tableIds);
+        await this.cleanTablesRelatedData(tableIds);
       },
       {
         timeout: this.thresholdConfig.bigTransactionTimeout,
@@ -317,7 +317,7 @@ export class TableOpenApiService {
     });
   }
 
-  async cleanTablesRelatedData(baseId: string, tableIds: string[]) {
+  async cleanTablesRelatedData(tableIds: string[]) {
     // delete field for table
     await this.prismaService.txClient().field.deleteMany({
       where: { tableId: { in: tableIds } },
@@ -348,7 +348,7 @@ export class TableOpenApiService {
     });
   }
 
-  async deleteTable(baseId: string, tableId: string) {
+  async deleteTable(tableId: string) {
     try {
       await this.detachLink(tableId);
     } catch (e) {
@@ -356,8 +356,8 @@ export class TableOpenApiService {
     }
 
     return await this.prismaService.$tx(
-      async (prisma) => {
-        await this.tableService.deleteTable(baseId, tableId);
+      async () => {
+        await this.tableService.deleteTable('bse0', tableId);
       },
       {
         timeout: this.thresholdConfig.bigTransactionTimeout,
@@ -386,26 +386,26 @@ export class TableOpenApiService {
     return this.prismaService.$queryRawUnsafe(combinedQuery);
   }
 
-  async updateName(baseId: string, tableId: string, name: string) {
+  async updateName(tableId: string, name: string) {
     await this.prismaService.$tx(async () => {
-      await this.tableService.updateTable(baseId, tableId, { name });
+      await this.tableService.updateTable(tableId, { name });
     });
   }
 
-  async updateIcon(baseId: string, tableId: string, icon: string) {
+  async updateIcon(tableId: string, icon: string) {
     await this.prismaService.$tx(async () => {
-      await this.tableService.updateTable(baseId, tableId, { icon });
+      await this.tableService.updateTable(tableId, { icon });
     });
   }
 
-  async updateDescription(baseId: string, tableId: string, description: string | null) {
+  async updateDescription(tableId: string, description: string | null) {
     await this.prismaService.$tx(async () => {
-      await this.tableService.updateTable(baseId, tableId, { description });
+      await this.tableService.updateTable(tableId, { description });
     });
   }
 
-  async updateDbTableName(baseId: string, tableId: string, dbTableNameRo: string) {
-    const dbTableName = this.dbProvider.joinDbTableName(baseId, dbTableNameRo);
+  async updateDbTableName(tableId: string, dbTableNameRo: string) {
+    const dbTableName = this.dbProvider.joinDbTableName('bse0', dbTableNameRo);
     const existDbTableName = await this.prismaService.tableMeta
       .findFirst({
         where: { dbTableName },
@@ -466,7 +466,7 @@ export class TableOpenApiService {
         });
       }
 
-      await this.tableService.updateTable(baseId, tableId, { dbTableName });
+      await this.tableService.updateTable(tableId, { dbTableName });
       const renameSql = this.dbProvider.renameTableName(oldDbTableName, dbTableName);
       for (const sql of renameSql) {
         await prisma.$executeRawUnsafe(sql);
@@ -474,7 +474,7 @@ export class TableOpenApiService {
     });
   }
 
-  async shuffle(baseId: string) {
+  async shuffle(_baseId: string) {
     const tables = await this.prismaService.tableMeta.findMany({
       select: { id: true },
       orderBy: { order: 'asc' },
@@ -485,12 +485,12 @@ export class TableOpenApiService {
     await this.prismaService.$tx(async () => {
       for (let i = 0; i < tables.length; i++) {
         const table = tables[i];
-        await this.tableService.updateTable(baseId, table.id, { order: i });
+        await this.tableService.updateTable(table.id, { order: i });
       }
     });
   }
 
-  async updateOrder(baseId: string, tableId: string, orderRo: IUpdateOrderRo) {
+  async updateOrder(tableId: string, orderRo: IUpdateOrderRo) {
     const { anchorId, position } = orderRo;
 
     const table = await this.prismaService.tableMeta
@@ -510,6 +510,8 @@ export class TableOpenApiService {
       .catch(() => {
         throw new NotFoundException(`Anchor ${anchorId} not found`);
       });
+
+    const baseId = 'bse0';
 
     await updateOrder({
       query: baseId,
@@ -531,14 +533,14 @@ export class TableOpenApiService {
         data: { newOrder: number; oldOrder: number }
       ) => {
         await this.prismaService.$tx(async () => {
-          await this.tableService.updateTable(parentId, id, { order: data.newOrder });
+          await this.tableService.updateTable(id, { order: data.newOrder });
         });
       },
       shuffle: this.shuffle.bind(this),
     });
   }
 
-  async getPermission(baseId: string, tableId: string): Promise<ITablePermissionVo> {
+  async getPermission(tableId: string): Promise<ITablePermissionVo> {
     // Return all permissions as true for authenticated users
     const tablePermission = actionPrefixMap[ActionPrefix.Table].reduce(
       (acc, action) => {

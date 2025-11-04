@@ -35,7 +35,7 @@ export class TableDuplicateService {
     @InjectModel('CUSTOM_KNEX') private readonly knex: Knex
   ) {}
 
-  async duplicateTable(baseId: string, tableId: string, duplicateRo: IDuplicateTableRo) {
+  async duplicateTable(tableId: string, duplicateRo: IDuplicateTableRo) {
     const { includeRecords, name } = duplicateRo;
     const {
       id: sourceTableId,
@@ -47,7 +47,7 @@ export class TableDuplicateService {
     });
     return await this.prismaService.$tx(
       async () => {
-        const newTableVo = await this.tableService.createTable(baseId, {
+        const newTableVo = await this.tableService.createTable({
           name,
           icon,
           description,
