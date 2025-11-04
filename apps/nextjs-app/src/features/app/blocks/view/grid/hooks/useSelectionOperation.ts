@@ -1,4 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import { isHTTPS, isLocalhost } from '@/features/app/utils';
+import { serializerHtml } from '@/features/app/utils/clipboard';
+import { tableConfig } from '@/features/i18n/table.config';
 import type { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import type { IFieldVo } from '@teable/core';
@@ -11,14 +14,11 @@ import type {
 } from '@teable/openapi';
 import { clear, copy, deleteSelection, paste, temporaryPaste } from '@teable/openapi';
 import type { CombinedSelection, IRecordIndexMap } from '@teable/sdk';
-import { useBaseId, useFields, useSearch, useTableId, useView, useViewId } from '@teable/sdk';
+import { useFields, useSearch, useTableId, useView, useViewId } from '@teable/sdk';
 import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'next-i18next';
 import { useCallback } from 'react';
-import { isHTTPS, isLocalhost } from '@/features/app/utils';
-import { serializerHtml } from '@/features/app/utils/clipboard';
-import { tableConfig } from '@/features/i18n/table.config';
 import { selectionCoverAttachments } from '../utils';
 import {
   ClipboardTypes,
@@ -35,7 +35,6 @@ export const useSelectionOperation = (props?: {
   copyReq?: UseMutateAsyncFunction<AxiosResponse<ICopyVo>, unknown, IRangesRo, unknown>;
 }) => {
   const { collapsedGroupIds, copyReq } = props || {};
-  const baseId = useBaseId();
   const tableId = useTableId();
   const viewId = useViewId();
   const fields = useFields();
@@ -191,7 +190,6 @@ export const useSelectionOperation = (props?: {
             fields,
             selection,
             recordMap,
-            baseId,
             requestPaste: async (content, type, ranges) => {
               if (updateTemporaryData) {
                 const res = await temporaryPasteReq({ content, ranges });
@@ -221,7 +219,7 @@ export const useSelectionOperation = (props?: {
         console.error('Paste error: ', error);
       }
     },
-    [baseId, viewId, tableId, fields, temporaryPasteReq, pasteReq, t]
+    [viewId, tableId, fields, temporaryPasteReq, pasteReq, t]
   );
 
   const doClear = useCallback(

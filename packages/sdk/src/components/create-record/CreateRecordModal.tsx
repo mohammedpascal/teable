@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import { FieldKeyType } from '@teable/core';
 import { createRecords } from '@teable/openapi';
-import { Dialog, DialogTrigger, DialogContent, Spin, Button } from '@teable/ui-lib';
+import { Button, Dialog, DialogContent, DialogTrigger, Spin } from '@teable/ui-lib';
 import { isEqual, keyBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useCounter } from 'react-use';
 import { useTranslation } from '../../context/app/i18n';
-import { useBaseId, useFields, useSession, useTableId, useView, useViewId } from '../../hooks';
+import { useFields, useSession, useTableId, useView, useViewId } from '../../hooks';
 import type { IFieldInstance, Record } from '../../model';
 import { createRecordInstance, recordInstanceFieldMap } from '../../model';
 import { extractDefaultFieldsFromFilters } from '../../utils/filterWithDefaultValue';
@@ -20,7 +20,6 @@ interface ICreateRecordModalProps {
 export const CreateRecordModal = (props: ICreateRecordModalProps) => {
   const { children, callback } = props;
   const tableId = useTableId();
-  const baseId = useBaseId();
   const viewId = useViewId();
   const view = useView();
   const showFields = useFields();
@@ -109,7 +108,6 @@ export const CreateRecordModal = (props: ICreateRecordModalProps) => {
         filter,
         fieldMap: keyBy(allFields, 'id'),
         currentUserId: userId,
-        baseId,
         tableId,
         isAsync: true,
       });

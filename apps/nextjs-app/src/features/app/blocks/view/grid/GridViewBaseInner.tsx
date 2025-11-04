@@ -1,63 +1,62 @@
 import { useMutation } from '@tanstack/react-query';
 import type { IAttachmentCellValue, IFieldVo } from '@teable/core';
 import {
+  contractColorForTheme,
   FieldKeyType,
   FieldType,
-  RowHeightLevel,
-  contractColorForTheme,
   fieldVoSchema,
+  RowHeightLevel,
   stringifyClipboardText,
 } from '@teable/core';
 import type { ICreateRecordsRo, IGroupPointsVo, IUpdateOrderRo } from '@teable/openapi';
 import { createRecords, UploadType } from '@teable/openapi';
 import type {
-  IRectangle,
-  IPosition,
-  IGridRef,
-  ICellItem,
-  ICell,
-  IInnerCell,
   GridView,
+  ICell,
+  ICellItem,
+  IGridRef,
   IGroupPoint,
+  IInnerCell,
+  IPosition,
+  IRectangle,
   IUseTablePermissionAction,
 } from '@teable/sdk';
 import {
-  Grid,
   CellType,
-  RowControlType,
-  SelectionRegionType,
-  RegionType,
-  DraggableType,
   CombinedSelection,
-  useGridTheme,
+  DraggableType,
+  DragRegionType,
+  emptySelection,
+  ExpandRecorder,
+  extractDefaultFieldsFromFilters,
+  generateLocalId,
+  Grid,
+  hexToRGBA,
+  Record,
+  RegionType,
+  RowControlType,
+  RowCounter,
+  SelectableType,
+  SelectionRegionType,
+  useGridAsyncRecords,
+  useGridCollapsedGroup,
+  useGridColumnOrder,
   useGridColumnResize,
   useGridColumns,
   useGridColumnStatistics,
-  useGridColumnOrder,
-  useGridAsyncRecords,
-  useGridIcons,
-  useGridTooltipStore,
-  hexToRGBA,
-  emptySelection,
-  useGridGroupCollection,
-  useGridCollapsedGroup,
-  RowCounter,
-  generateLocalId,
-  useGridPrefillingRow,
-  SelectableType,
-  useGridRowOrder,
-  ExpandRecorder,
-  useGridViewStore,
-  useGridSelection,
-  Record,
-  DragRegionType,
   useGridFileEvent,
-  extractDefaultFieldsFromFilters,
+  useGridGroupCollection,
+  useGridIcons,
+  useGridPrefillingRow,
+  useGridRowOrder,
+  useGridSelection,
+  useGridTheme,
+  useGridTooltipStore,
+  useGridViewStore,
 } from '@teable/sdk';
 import { GRID_DEFAULT } from '@teable/sdk/components/grid/configs';
 import { useScrollFrameRate } from '@teable/sdk/components/grid/hooks';
 import {
-  useBaseId,
   useFieldCellEditable,
   useFields,
   useIsTouchDevice,
@@ -71,12 +70,12 @@ import {
   useViewId,
 } from '@teable/sdk/hooks';
 import { useToast } from '@teable/ui-lib';
-import { isEqual, keyBy, uniqueId, groupBy } from 'lodash';
+import { groupBy, isEqual, keyBy, uniqueId } from 'lodash';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { usePrevious, useClickAway } from 'react-use';
+import { useClickAway, usePrevious } from 'react-use';
 import { ExpandRecordContainer } from '@/features/app/components/ExpandRecordContainer';
 import type { IExpandRecordContainerRef } from '@/features/app/components/ExpandRecordContainer/types';
 import { uploadFiles } from '@/features/app/utils/uploadFile';
@@ -105,7 +104,6 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   const { groupPointsServerData, onRowExpand } = props;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const router = useRouter();
-  const baseId = useBaseId();
   const tableId = useTableId() as string;
   const activeViewId = useViewId();
   const { user } = useSession();
@@ -204,7 +202,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
 
   const onCellDrop = useCallback(
     async (cell: ICellItem, files: FileList) => {
-      const attachments = await uploadFiles(files, UploadType.Table, baseId);
+      const attachments = await uploadFiles(files, UploadType.Table);
 
       const [columnIndex, rowIndex] = cell;
       const record = recordMap[rowIndex];
@@ -212,14 +210,14 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
       const oldCellValue = (record.getCellValue(field.id) as IAttachmentCellValue) || [];
       await record.updateCell(field.id, [...oldCellValue, ...attachments]);
     },
-    [baseId, fields, recordMap]
+    [fields, recordMap]
   );
 
   const onPrefillingCellDrop = useCallback(
     async (cell: ICellItem, files: FileList) => {
       if (!localRecord) return;
 
-      const attachments = await uploadFiles(files, UploadType.Table, baseId);
+      const attachments = await uploadFiles(files, UploadType.Table);
       const [columnIndex] = cell;
       const field = fields[columnIndex];
       const oldCellValue = (localRecord.getCellValue(field.id) as IAttachmentCellValue) || [];
@@ -228,7 +226,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
         [field.id]: [...oldCellValue, ...attachments],
       }));
     },
-    [baseId, fields, localRecord, setPrefillingFieldValueMap]
+    [fields, localRecord, setPrefillingFieldValueMap]
   );
 
   useGridFileEvent({

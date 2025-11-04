@@ -1,9 +1,9 @@
-import { Code2, Database, MoreHorizontal } from '@teable/icons';
-import { useBaseId, useTableId } from '@teable/sdk/hooks';
-import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import { GUIDE_API_BUTTON } from '@/components/Guide';
+import { Code2, Database, MoreHorizontal } from '@teable/icons';
+import { useTableId } from '@teable/sdk/hooks';
+import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 import { SearchButton } from '../search/SearchButton';
 import { ToolBarButton } from './ToolBarButton';
 
@@ -15,7 +15,6 @@ const OthersList = ({
   className?: string;
 }) => {
   const { t } = useTranslation('table');
-  const baseId = useBaseId() as string;
   const tableId = useTableId();
 
   const { textClassName, buttonClassName } = classNames ?? {};
@@ -42,7 +41,7 @@ const OthersList = ({
             <Link
               href={{
                 pathname: '/settings/query-builder',
-                query: { baseId, tableId },
+                query: { tableId },
               }}
               target="_blank"
             >

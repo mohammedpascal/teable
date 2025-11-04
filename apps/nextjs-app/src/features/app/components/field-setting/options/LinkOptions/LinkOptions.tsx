@@ -1,15 +1,15 @@
+import { tableConfig } from '@/features/i18n/table.config';
 import { useQuery } from '@tanstack/react-query';
 import type { ILinkFieldOptionsRo } from '@teable/core';
 import { Relationship } from '@teable/core';
 import { ArrowUpRight } from '@teable/icons';
 import { getTablePermission } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
-import { useBaseId, useTableId } from '@teable/sdk/hooks';
+import { useTableId } from '@teable/sdk/hooks';
 import { Button, Label, Switch } from '@teable/ui-lib/shadcn';
-import Link from 'next/link';
 import { Trans, useTranslation } from 'next-i18next';
+import Link from 'next/link';
 import { Fragment, useState } from 'react';
-import { tableConfig } from '@/features/i18n/table.config';
 import { MoreLinkOptions } from './MoreLinkOptions';
 import { SelectTable } from './SelectTable';
 
@@ -21,7 +21,6 @@ export const LinkOptions = (props: {
 }) => {
   const { fieldId, options, isLookup, onChange } = props;
   const tableId = useTableId();
-  const selfBaseId = useBaseId() as string;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
 
   const isMoreVisible = Boolean(

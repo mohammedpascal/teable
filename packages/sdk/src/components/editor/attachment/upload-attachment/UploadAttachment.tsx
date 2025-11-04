@@ -1,7 +1,7 @@
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
-  DndContext,
   closestCenter,
+  DndContext,
   KeyboardSensor,
   PointerSensor,
   useSensor,
@@ -13,14 +13,13 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
-import type { IAttachmentItem, IAttachmentCellValue } from '@teable/core';
+import type { IAttachmentCellValue, IAttachmentItem } from '@teable/core';
 import { generateAttachmentId } from '@teable/core';
 import { UploadType, type INotifyVo } from '@teable/openapi';
-import { FilePreviewProvider, Progress, cn, sonner } from '@teable/ui-lib';
+import { cn, FilePreviewProvider, Progress, sonner } from '@teable/ui-lib';
 import { map, omit } from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
-import { useBaseId } from '../../../../hooks';
 import { FileZone } from '../../../FileZone';
 import { useAttachmentPreviewI18Map } from '../../../hooks';
 import { getFileCover } from '../utils';
@@ -51,7 +50,6 @@ export const UploadAttachment = (props: IUploadAttachment) => {
     readonly,
     attachmentManager = defaultAttachmentManager,
   } = props;
-  const baseId = useBaseId();
   const [sortData, setSortData] = useState([...attachments]);
   const [uploadingFiles, setUploadingFiles] = useState<IUploadFileMap>({});
   const listRef = useRef<HTMLDivElement>(null);
@@ -124,15 +122,14 @@ export const UploadAttachment = (props: IUploadAttachment) => {
           progressCallback: (file, progress) => {
             setUploadingFiles((pre) => ({ ...pre, [file.id]: { progress, file: file.instance } }));
           },
-        },
-        baseId
+        }
       );
       setUploadingFiles((pre) => ({ ...pre, ...newUploadMap }));
       setTimeout(() => {
         scrollBottom();
       }, 100);
     },
-    [attachmentManager, baseId, handleSuccess, t, uploadingFiles]
+    [attachmentManager, handleSuccess, t, uploadingFiles]
   );
 
   const scrollBottom = () => {

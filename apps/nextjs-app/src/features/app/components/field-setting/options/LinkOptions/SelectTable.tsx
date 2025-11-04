@@ -1,6 +1,6 @@
 import { ArrowUpRight, Table2 } from '@teable/icons';
 import { AnchorContext, TableProvider } from '@teable/sdk/context';
-import { useBaseId, useTableId, useTables } from '@teable/sdk/hooks';
+import { useTableId, useTables } from '@teable/sdk/hooks';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Selector } from '@/components/Selector';
@@ -15,17 +15,15 @@ interface ISelectTableProps {
 export const SelectTable = ({ baseId, tableId, onChange }: ISelectTableProps) => {
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const selfTableId = useTableId();
-  const selfBaseId = useBaseId();
-  const selectedBaseId = baseId || selfBaseId!;
 
   return (
     <div className="flex flex-col gap-1">
-      <AnchorContext.Provider value={{ baseId: selectedBaseId }}>
+      <AnchorContext.Provider value={{ baseId: 'bse0' }}>
         <div className="neutral-content label-text flex h-7 items-center justify-between">
           <span className="flex items-center gap-1">
             {t('table:field.editor.linkTable')}
             {tableId && (
-              <Link href={`/base/${selectedBaseId}/${tableId}`} target="_blank">
+              <Link href={`/table/${tableId}`} target="_blank">
                 <ArrowUpRight className="size-4 shrink-0" />
               </Link>
             )}

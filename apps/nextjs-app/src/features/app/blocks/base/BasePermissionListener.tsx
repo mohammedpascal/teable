@@ -1,9 +1,9 @@
-import { baseConfig } from '@/features/i18n/base.config';
 import { usePermissionUpdateListener } from '@teable/sdk/hooks';
 import { AlertDialog, AlertDialogContent, Button } from '@teable/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
+import { baseConfig } from '@/features/i18n/base.config';
 
 export const BasePermissionListener = () => {
   const router = useRouter();

@@ -1,23 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
 import type { IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
 import type { UserCollaboratorItem } from '@teable/openapi';
-import {
-  GroupPointType,
-} from '@teable/openapi';
+import { GroupPointType } from '@teable/openapi';
 import { ExpandRecorder } from '@teable/sdk/components';
-import { ReactQueryKeys } from '@teable/sdk/config';
 // import { ShareViewContext } from '@teable/sdk/context';
 import {
-  useView,
-  useFields,
-  useTableId,
-  useGroupPoint,
-  useTablePermission,
   useFieldPermission,
-  useBaseId,
+  useFields,
+  useGroupPoint,
+  useTableId,
+  useTablePermission,
+  useView
 } from '@teable/sdk/hooks';
-import type { KanbanView, IFieldInstance, AttachmentField } from '@teable/sdk/model';
+import type { AttachmentField, IFieldInstance, KanbanView } from '@teable/sdk/model';
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 import { UNCATEGORIZED_STACK_ID } from '../constant';
@@ -32,7 +27,6 @@ const UNCATEGORIZED_STACK_DATA = {
 export const KanbanProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as KanbanView | undefined;
-  const baseId = useBaseId() as string;
   // const { shareId } = useContext(ShareViewContext) ?? {};
   const shareId = undefined; // Temporarily disabled
   const { sort, filter } = view ?? {};
