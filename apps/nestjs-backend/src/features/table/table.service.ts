@@ -340,7 +340,7 @@ export class TableService implements IReadonlyAdapterService {
       });
   }
 
-  async getDocIdsByQuery(baseId: string, query: { projectionTableIds?: string[] } = {}) {
+  async getDocIdsByQuery(_: string, query: { projectionTableIds?: string[] } = {}) {
     const { projectionTableIds } = query;
     const tables = await this.prismaService.txClient().tableMeta.findMany({
       where: {

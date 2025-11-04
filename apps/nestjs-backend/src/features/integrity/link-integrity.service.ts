@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { FieldType, type ILinkFieldOptions } from '@teable/core';
-import type { Field } from '../../prisma';
-import { PrismaService } from '../../prisma';
 import { IntegrityIssueType, type IIntegrityCheckVo, type IIntegrityIssue } from '@teable/openapi';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
+import type { Field } from '../../prisma';
 import { createFieldInstanceByRaw } from '../field/model/factory';
 import type { LinkFieldDto } from '../field/model/field-dto/link-field.dto';
 import { ForeignKeyIntegrityService } from './foreign-key.service';
@@ -32,7 +32,7 @@ export class LinkIntegrityService {
       },
     });
 
-    const crossBaseLinkFieldsQuery = this.dbProvider.optionsQuery(FieldType.Link, 'baseId', "bse0");
+    const crossBaseLinkFieldsQuery = this.dbProvider.optionsQuery(FieldType.Link, 'baseId', 'bse0');
     const crossBaseLinkFieldsRaw =
       await this.prismaService.$queryRawUnsafe<Field[]>(crossBaseLinkFieldsQuery);
 
