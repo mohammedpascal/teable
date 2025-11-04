@@ -31,8 +31,8 @@ export const BaseLayout: React.FC<{
     {
       Icon: Settings,
       label: 'Settings' as React.ReactNode,
-      route: '/settings',
-      pathTo: `/settings`,
+      route: '/settings/access-tokens',
+      pathTo: `/settings/access-tokens`,
     },
   ];
 

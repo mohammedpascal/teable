@@ -53,8 +53,8 @@ export const getServerSideProps = withEnv(
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getTablePermission( tableId as string),
-          queryFn: () => ssrApi.getTablePermission( tableId as string),
+          queryKey: ReactQueryKeys.getTablePermission(tableId as string),
+          queryFn: () => ssrApi.getTablePermission(tableId as string),
         }),
       ]);
 
@@ -106,4 +106,3 @@ Node.getLayout = function getLayout(page: ReactElement, pageProps: IViewPageProp
 };
 
 export default Node;
-
