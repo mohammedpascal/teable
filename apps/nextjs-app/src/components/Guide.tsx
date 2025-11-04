@@ -157,11 +157,7 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
               components={{
                 a: (
                   // eslint-disable-next-line jsx-a11y/anchor-has-content
-                  <a
-                    className="text-violet-500"
-                    href="/settings/access-tokens"
-                    target="_blank"
-                  />
+                  <a className="text-violet-500" href="/settings/access-tokens" target="_blank" />
                 ),
               }}
             />
