@@ -85,11 +85,9 @@ export const LinkOptions = (props: {
   return (
     <div className="flex w-full flex-col gap-2">
       <SelectTable
-        baseId={options?.baseId}
         tableId={options?.foreignTableId}
-        onChange={(baseId, tableId) => {
+        onChange={(tableId) => {
           onChange?.({
-            baseId,
             foreignTableId: tableId,
             relationship,
             isOneWay,

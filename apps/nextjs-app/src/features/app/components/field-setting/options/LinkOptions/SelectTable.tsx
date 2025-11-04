@@ -8,7 +8,7 @@ import { tableConfig } from '@/features/i18n/table.config';
 
 interface ISelectTableProps {
   tableId?: string;
-  onChange?: (baseId?: string, tableId?: string) => void;
+  onChange?: (tableId?: string) => void;
 }
 
 export const SelectTable = ({ tableId, onChange }: ISelectTableProps) => {
@@ -32,7 +32,7 @@ export const SelectTable = ({ tableId, onChange }: ISelectTableProps) => {
           <TablePicker
             tableId={tableId}
             selfTableId={selfTableId}
-            onChange={(tableId) => onChange?.('bse0', tableId)}
+            onChange={(tableId) => onChange?.(tableId)}
           />
         </TableProvider>
       </AnchorContext.Provider>

@@ -63,14 +63,12 @@ export const filePasteHandler = async ({
   fields,
   recordMap,
   selection,
-  baseId,
   requestPaste,
 }: {
   selection: CombinedSelection;
   recordMap: IRecordIndexMap;
   fields: Field[];
   files: FileList;
-  baseId?: string;
   requestPaste: (
     content: string,
     type: RangeType | undefined,
@@ -78,7 +76,7 @@ export const filePasteHandler = async ({
   ) => Promise<unknown>;
 }) => {
   const selectionCell = getSelectionCell(selection);
-  const attachments = await uploadFiles(files, UploadType.Table, baseId);
+  const attachments = await uploadFiles(files, UploadType.Table);
 
   if (selectionCell) {
     const [fieldIndex, recordIndex] = selectionCell;

@@ -8,7 +8,6 @@ interface IUploadTask {
   status: Status;
   progress: number;
   type: UploadType;
-  baseId?: string;
   successCallback: ISuccessCallback;
   errorCallback: IErrorCallback;
   progressCallback: IProgressCallback;
@@ -49,7 +48,6 @@ export class AttachmentManager {
       errorCallback?: IErrorCallback;
       progressCallback?: IProgressCallback;
     },
-    baseId?: string
   ) {
     const { successCallback = noop, errorCallback = noop, progressCallback = noop } = callbackFn;
     for (let i = 0; i < files.length; i++) {
@@ -60,7 +58,6 @@ export class AttachmentManager {
         status: Status.Pending,
         progress: 0,
         type,
-        baseId,
         successCallback: successCallback,
         errorCallback: errorCallback,
         progressCallback: progressCallback,
@@ -84,7 +81,6 @@ export class AttachmentManager {
           type: uploadTask.type,
           contentLength: fileInstance.size,
           contentType: fileInstance.type,
-          baseId: uploadTask?.baseId,
         },
         this.shareId
       ); // Assuming you have an AttachmentApi that provides the upload URL
