@@ -171,11 +171,6 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
 
   const orderedGuideMap: Record<string, EnhanceStep[]> = useMemo(
     () => ({
-      '/space': [
-        { key: StepKey.CreateSpace, step: guideStepMap[StepKey.CreateSpace] },
-        { key: StepKey.CreateBase, step: guideStepMap[StepKey.CreateBase] },
-      ],
-      '/base/[baseId]': [{ key: StepKey.CreateTable, step: guideStepMap[StepKey.CreateTable] }],
       '/table/[tableId]/[viewId]': [
         { key: StepKey.CreateTable, step: guideStepMap[StepKey.CreateTable] },
         { key: StepKey.CreateView, step: guideStepMap[StepKey.CreateView] },

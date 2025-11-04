@@ -26,7 +26,6 @@ import { createTable, initApp } from './utils/init-app';
 
 describe('OpenAPI AccessTokenController (e2e)', () => {
   let app: INestApplication;
-  let baseId: string;
   let table: ITableFullVo;
   let token: CreateAccessTokenVo;
 
@@ -83,7 +82,6 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
     expect(data).toEqual({
       ...updateRo,
       id: newAccessToken.id,
-      baseIds: undefined,
     });
   });
 
@@ -124,7 +122,7 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
     });
 
     it('get table list has table|read permission', async () => {
-      const res = await axios.get(urlBuilder(GET_TABLE_LIST, { baseId }), {
+      const res = await axios.get(urlBuilder(GET_TABLE_LIST, { }), {
         headers: {
           Authorization: `Bearer ${tableReadToken}`,
         },
@@ -134,7 +132,7 @@ describe('OpenAPI AccessTokenController (e2e)', () => {
 
     it('get table list has not table|read permission', async () => {
       const error = await getError(() =>
-        axios.get(urlBuilder(GET_TABLE_LIST, { baseId }), {
+        axios.get(urlBuilder(GET_TABLE_LIST, { }), {
           headers: {
             Authorization: `Bearer ${recordReadToken}`,
           },

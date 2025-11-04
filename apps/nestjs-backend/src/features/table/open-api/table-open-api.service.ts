@@ -474,13 +474,13 @@ export class TableOpenApiService {
     });
   }
 
-  async shuffle(_baseId: string) {
+  async shuffle() {
     const tables = await this.prismaService.tableMeta.findMany({
       select: { id: true },
       orderBy: { order: 'asc' },
     });
 
-    this.logger.log(`lucky table shuffle! bse0`, 'shuffle');
+    this.logger.log(`lucky table shuffle!`, 'shuffle');
 
     await this.prismaService.$tx(async () => {
       for (let i = 0; i < tables.length; i++) {
