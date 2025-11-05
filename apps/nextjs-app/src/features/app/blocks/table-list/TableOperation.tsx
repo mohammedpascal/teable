@@ -47,6 +47,7 @@ interface ITableOperationProps {
 export const TableOperation = (props: ITableOperationProps) => {
   const { table, className, onRename, open, setOpen } = props;
   const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [importVisible, setImportVisible] = useState(false);
   const [duplicateSetting, setDuplicateSetting] = useState(false);
   const [importType, setImportType] = useState(SUPPORTEDTYPE.CSV);
@@ -90,21 +91,28 @@ export const TableOperation = (props: ITableOperationProps) => {
 
     if (!tableId) return;
 
-    await base.deleteTable(tableId);
+    try {
+      setIsDeleting(true);
+      await base.deleteTable(tableId);
 
-    const firstTableId = tables.find((t) => t.id !== tableId)?.id;
-    if (routerTableId === tableId) {
-      router.push(
-        firstTableId
-          ? {
-              pathname: '/table/[tableId]',
-              query: { tableId: firstTableId },
-            }
-          : {
-              pathname: '/',
-              query: {},
-            }
-      );
+      const firstTableId = tables.find((t) => t.id !== tableId)?.id;
+      if (routerTableId === tableId) {
+        router.push(
+          firstTableId
+            ? {
+                pathname: '/table/[tableId]',
+                query: { tableId: firstTableId },
+              }
+            : {
+                pathname: '/',
+                query: {},
+              }
+        );
+      }
+      setDeleteConfirm(false);
+    } catch (error) {
+      console.error('Failed to delete table:', error);
+      setIsDeleting(false);
     }
   };
 
@@ -221,16 +229,25 @@ export const TableOperation = (props: ITableOperationProps) => {
 
       <ConfirmDialog
         open={deleteConfirm}
-        onOpenChange={setDeleteConfirm}
+        onOpenChange={(open) => {
+          if (!isDeleting) {
+            setDeleteConfirm(open);
+          }
+        }}
         title={t('table:table.deleteConfirm', { tableName: table?.name })}
         cancelText={t('common:actions.cancel')}
         confirmText={t('common:actions.confirm')}
+        confirmLoading={isDeleting}
         content={
           <div className="space-y-2 text-sm">
             <p>1. {t('table:table.deleteTip1')}</p>
           </div>
         }
-        onCancel={() => setDeleteConfirm(false)}
+        onCancel={() => {
+          if (!isDeleting) {
+            setDeleteConfirm(false);
+          }
+        }}
         onConfirm={deleteTable}
       />
 
