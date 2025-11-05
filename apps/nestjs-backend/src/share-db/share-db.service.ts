@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { context as otelContext, trace as otelTrace } from '@opentelemetry/api';
 import { FieldOpBuilder, IdPrefix, ViewOpBuilder } from '@teable/core';
-import { PrismaService } from '../prisma';
 import { noop } from 'lodash';
 import { ClsService } from 'nestjs-cls';
 import type { CreateOp, DeleteOp, EditOp } from 'sharedb';
 import ShareDBClass from 'sharedb';
 import { CacheConfig, ICacheConfig } from '../configs/cache.config';
 import { EventEmitterService } from '../event-emitter/event-emitter.service';
+import { PrismaService } from '../prisma';
 import type { IClsStore } from '../types/cls';
 import { Timing } from '../utils/timing';
 import { authMiddleware } from './auth.middleware';
@@ -50,6 +50,7 @@ export class ShareDbService extends ShareDBClass {
       }
 
       if (ops.length) {
+        console.log({ ops, rawOpMaps });
         this.publishOpsMap(rawOpMaps);
         this.eventEmitterService.ops2Event(ops);
       }

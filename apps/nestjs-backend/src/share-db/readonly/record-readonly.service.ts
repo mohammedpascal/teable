@@ -15,10 +15,7 @@ export class RecordReadonlyServiceAdapter
   }
 
   getDocIdsByQuery(tableId: string, query: IGetRecordsRo = {}) {
-    const shareId = this.cls.get('shareViewId');
-    const url = shareId
-      ? `/share/${shareId}/socket/record/doc-ids`
-      : `/table/${tableId}/record/socket/doc-ids`;
+    const url = `/table/${tableId}/record/socket/doc-ids`;
     return this.axios
       .get(url, {
         headers: {
@@ -38,10 +35,7 @@ export class RecordReadonlyServiceAdapter
     recordIds: string[],
     projection?: { [fieldNameOrId: string]: boolean }
   ) {
-    const shareId = this.cls.get('shareViewId');
-    const url = shareId
-      ? `/share/${shareId}/socket/record/snapshot-bulk`
-      : `/table/${tableId}/record/socket/snapshot-bulk`;
+    const url = `/table/${tableId}/record/socket/snapshot-bulk`;
     return this.axios
       .get(url, {
         headers: {

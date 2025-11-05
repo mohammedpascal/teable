@@ -15,10 +15,7 @@ export class FieldReadonlyServiceAdapter
   }
 
   getDocIdsByQuery(tableId: string, query: IGetFieldsQuery = {}) {
-    const shareId = this.cls.get('shareViewId');
-    const url = shareId
-      ? `/share/${shareId}/socket/field/doc-ids`
-      : `/table/${tableId}/field/socket/doc-ids`;
+    const url = `/table/${tableId}/field/socket/doc-ids`;
     return this.axios
       .get(url, {
         headers: {
@@ -29,10 +26,7 @@ export class FieldReadonlyServiceAdapter
       .then((res) => res.data);
   }
   getSnapshotBulk(tableId: string, ids: string[]) {
-    const shareId = this.cls.get('shareViewId');
-    const url = shareId
-      ? `/share/${shareId}/socket/field/snapshot-bulk`
-      : `/table/${tableId}/field/socket/snapshot-bulk`;
+    const url = `/table/${tableId}/field/socket/snapshot-bulk`;
     return this.axios
       .get(url, {
         headers: {

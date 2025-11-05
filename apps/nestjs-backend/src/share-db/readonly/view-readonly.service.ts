@@ -11,10 +11,7 @@ export class ViewReadonlyServiceAdapter extends ReadonlyService implements IRead
   }
 
   getDocIdsByQuery(tableId: string) {
-    const shareId = this.cls.get('shareViewId');
-    const url = shareId
-      ? `/share/${shareId}/socket/view/doc-ids`
-      : `/table/${tableId}/view/socket/doc-ids`;
+    const url = `/table/${tableId}/view/socket/doc-ids`;
     return this.axios
       .get(url, {
         headers: {
@@ -24,10 +21,7 @@ export class ViewReadonlyServiceAdapter extends ReadonlyService implements IRead
       .then((res) => res.data);
   }
   getSnapshotBulk(tableId: string, ids: string[]) {
-    const shareId = this.cls.get('shareViewId');
-    const url = shareId
-      ? `/share/${shareId}/socket/view/snapshot-bulk`
-      : `/table/${tableId}/view/socket/snapshot-bulk`;
+    const url = `/table/${tableId}/view/socket/snapshot-bulk`;
     return this.axios
       .get(url, {
         headers: {

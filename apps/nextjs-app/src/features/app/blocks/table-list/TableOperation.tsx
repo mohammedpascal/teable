@@ -84,8 +84,6 @@ export const TableOperation = (props: ITableOperationProps) => {
     };
   }, [permission, table.permission]);
 
-  console.log({ menuPermission });
-
   const deleteTable = async () => {
     const tableId = table?.id;
 

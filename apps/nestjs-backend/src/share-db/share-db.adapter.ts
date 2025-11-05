@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import type { IRecord } from '@teable/core';
 import { IdPrefix } from '@teable/core';
-import { PrismaService } from '../prisma';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import type { CreateOp, DeleteOp, EditOp } from 'sharedb';
 import ShareDb from 'sharedb';
 import type { SnapshotMeta } from 'sharedb/lib/sharedb';
+import { PrismaService } from '../prisma';
 import type { IClsStore } from '../types/cls';
 import { exceptionParse } from '../utils/exception-parse';
 import type { IReadonlyAdapterService } from './interface';
@@ -109,7 +109,6 @@ export class ShareDbAdapter extends ShareDb.DB {
         {
           ...this.cls.get(),
           cookie: options.cookie,
-          shareViewId: options.shareId,
         },
         async () => {
           const [docType, collectionId] = collection.split('_');
@@ -215,7 +214,6 @@ export class ShareDbAdapter extends ShareDb.DB {
       {
         ...this.cls.get(),
         cookie: options.agentCustom.cookie,
-        shareViewId: options.agentCustom.shareId,
       },
       async () => {
         return this.getSnapshotBulk(collection, [id], projection, options, (err, data) => {
