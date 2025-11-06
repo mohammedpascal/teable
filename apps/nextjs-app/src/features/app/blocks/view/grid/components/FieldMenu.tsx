@@ -12,7 +12,6 @@ import {
   LayoutList,
   ArrowUpDown,
 } from '@teable/icons';
-import { deleteFields } from '@teable/openapi';
 import type { GridView, IUseFieldPermissionAction } from '@teable/sdk';
 import {
   useFields,
@@ -76,7 +75,8 @@ export const FieldMenu = () => {
   const allFields = useFields({ withHidden: true, withDenied: true });
   const fieldSettingRef = useRef<HTMLDivElement>(null);
   const { fields, onSelectionClear } = headerMenu ?? {};
-  const { filterRef, sortRef, groupRef } = useToolBarStore();
+  const { filterRef, sortRef, groupRef, deleteFieldRef, setPendingDeleteFields } =
+    useToolBarStore();
 
   const menuFieldPermission = useMemo(() => {
     if (!fields?.length || !fieldsPermission) {
@@ -317,10 +317,17 @@ export const FieldMenu = () => {
           const fieldIdsSet = new Set(fieldIds);
           const filteredFields = allFields.filter((f) => fieldIdsSet.has(f.id)).filter(Boolean);
           if (filteredFields.length === 0) return;
-          await deleteFields(
-            tableId,
-            filteredFields.map((f) => f.id)
+
+          // Set pending delete fields in store
+          setPendingDeleteFields(
+            filteredFields.map((f) => ({
+              id: f.id,
+              name: f.name,
+            }))
           );
+
+          // Trigger the confirmation widget
+          deleteFieldRef?.current?.click();
         },
       },
     ],

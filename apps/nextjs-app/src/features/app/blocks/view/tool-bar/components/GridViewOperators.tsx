@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react';
 import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { ToolBarButton } from '../ToolBarButton';
 import { useToolBarStore } from './useToolBarStore';
+import { FieldDeleteConfirm } from './FieldDeleteConfirm';
 import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING, GUIDE_VIEW_GROUPING } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
 
@@ -16,16 +17,18 @@ export const GridViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const view = useView();
   const { onFilterChange, onRowHeightChange, onSortChange, onGroupChange } = useToolbarChange();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
-  const { setFilterRef, setSortRef, setGroupRef } = useToolBarStore();
+  const { setFilterRef, setSortRef, setGroupRef, setDeleteFieldRef } = useToolBarStore();
   const filterRef = useRef<HTMLButtonElement>(null);
   const sortRef = useRef<HTMLButtonElement>(null);
   const groupRef = useRef<HTMLButtonElement>(null);
+  const deleteFieldRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setFilterRef(filterRef);
     setSortRef(sortRef);
     setGroupRef(groupRef);
-  }, [setFilterRef, setGroupRef, setSortRef]);
+    setDeleteFieldRef(deleteFieldRef);
+  }, [setFilterRef, setGroupRef, setSortRef, setDeleteFieldRef]);
 
   if (!view) {
     return <div></div>;
@@ -144,6 +147,7 @@ export const GridViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
           </ToolBarButton>
         )}
       </RowHeight>
+      <FieldDeleteConfirm triggerRef={deleteFieldRef} />
     </div>
   );
 };
