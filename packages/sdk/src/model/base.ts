@@ -1,7 +1,7 @@
-import type { IGetBaseVo, ICreateTableRo } from '@teable/openapi';
+import type { ICreateTableRo } from '@teable/openapi';
 import { Table } from './table/table';
 
-export class Base implements IGetBaseVo {
+export class Base {
   id: string;
   name: string;
 

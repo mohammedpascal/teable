@@ -1,18 +1,17 @@
-import type { IGetBaseVo } from '@teable/openapi';
 import { match } from 'ts-pattern';
 import type { IEventContext } from '../core-event';
 import { CoreEvent } from '../core-event';
 import { Events } from '../event.enum';
 
-type IBaseCreatePayload = { base: IGetBaseVo };
-type IBaseDeletePayload = {  };
+type IBaseCreatePayload = { base: { id: string; name: string } };
+type IBaseDeletePayload = Record<string, never>;
 type IBaseUpdatePayload = IBaseCreatePayload;
-type IBasePermissionUpdatePayload = {  };
+type IBasePermissionUpdatePayload = Record<string, never>;
 
 export class BaseCreateEvent extends CoreEvent<IBaseCreatePayload> {
   public readonly name = Events.BASE_CREATE;
 
-  constructor(base: IGetBaseVo, context: IEventContext) {
+  constructor(base: { id: string; name: string }, context: IEventContext) {
     super({ base }, context);
   }
 }
@@ -27,7 +26,7 @@ export class BaseDeleteEvent extends CoreEvent<IBaseDeletePayload> {
 export class BaseUpdateEvent extends CoreEvent<IBaseUpdatePayload> {
   public readonly name = Events.BASE_UPDATE;
 
-  constructor(base: IGetBaseVo, context: IEventContext) {
+  constructor(base: { id: string; name: string }, context: IEventContext) {
     super({ base }, context);
   }
 }

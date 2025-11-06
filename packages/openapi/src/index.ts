@@ -5,7 +5,6 @@ export * from './field';
 export * from './view';
 export * from './aggregation';
 export * from './table';
-export * from './base';
 export * from './selection';
 export * from './plan';
 export * from './attachment';

@@ -50,7 +50,6 @@ import {
   getTableById as apiGetTableById,
   updateViewFilter as apiSetViewFilter,
   createView as apiCreateView,
-  deleteBase as apiDeleteBase,
 } from '@teable/openapi';
 import { json, urlencoded } from 'express';
 import { AppModule } from '../../src/app.module';

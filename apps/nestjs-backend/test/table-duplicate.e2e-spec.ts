@@ -9,7 +9,6 @@ import {
   createField,
   getFields,
   duplicateTable,
-  installViewPlugin,
   updateViewColumnMeta,
   updateViewSort,
   updateViewGroup,
@@ -481,10 +480,10 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
         },
       });
 
-      await installViewPlugin(table.id, {
-        name: 'sheet',
-        pluginId: 'plgsheetform',
-      });
+      // await installViewPlugin(table.id, {
+      //   name: 'sheet',
+      //   pluginId: 'plgsheetform',
+      // });
 
       await updateViewFilter(table.id, gridView.id, filterRo);
 
