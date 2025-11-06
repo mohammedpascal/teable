@@ -480,11 +480,6 @@ describe('OpenAPI TableController for duplicate (e2e)', () => {
         },
       });
 
-      // await installViewPlugin(table.id, {
-      //   name: 'sheet',
-      //   pluginId: 'plgsheetform',
-      // });
-
       await updateViewFilter(table.id, gridView.id, filterRo);
 
       await updateViewColumnMeta(table.id, gridView.id, [
