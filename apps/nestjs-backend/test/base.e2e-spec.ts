@@ -1,7 +1,7 @@
 import type { INestApplication } from '@nestjs/common';
 import { initApp } from './utils/init-app';
 
-describe('OpenAPI BaseController (e2e)', () => {
+describe('Base (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
