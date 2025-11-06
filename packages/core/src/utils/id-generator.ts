@@ -23,10 +23,6 @@ export enum IdPrefix {
 
   Window = 'win',
 
-  Plugin = 'plg',
-  PluginInstall = 'pli',
-  PluginUser = 'plu',
-
   Dashboard = 'dsh',
 
   Operation = 'opr',
@@ -100,18 +96,6 @@ export function generateAccountId() {
 
 export function generateClientId() {
   return IdPrefix.OAuthClient + getRandomString(16).toLocaleLowerCase();
-}
-
-export function generatePluginId() {
-  return IdPrefix.Plugin + getRandomString(16);
-}
-
-export function generatePluginInstallId() {
-  return IdPrefix.PluginInstall + getRandomString(16);
-}
-
-export function generatePluginUserId() {
-  return IdPrefix.PluginUser + getRandomString(16);
 }
 
 export function generateDashboardId() {

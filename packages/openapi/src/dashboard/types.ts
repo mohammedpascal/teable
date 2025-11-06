@@ -12,13 +12,6 @@ export const dashboardLayoutSchema = z.array(
 
 export type IDashboardLayout = z.infer<typeof dashboardLayoutSchema>;
 
-export const dashboardPluginItemSchema = z.object({
-  id: z.string(),
-  pluginInstallId: z.string(),
-  name: z.string(),
-  url: z.string().optional(),
-});
-
 export const dashboardWidgetItemSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -27,9 +20,4 @@ export const dashboardWidgetItemSchema = z.object({
   position: z.string().nullable(),
 });
 
-export type IDashboardPluginItem = z.infer<typeof dashboardPluginItemSchema>;
 export type IDashboardWidgetItem = z.infer<typeof dashboardWidgetItemSchema>;
-
-export const pluginInstallStorageSchema = z.record(z.string(), z.unknown());
-
-export type IPluginInstallStorage = z.infer<typeof pluginInstallStorageSchema>;

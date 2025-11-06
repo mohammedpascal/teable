@@ -15,7 +15,6 @@ export interface ICacheStore {
   [key: `workflow:repeatKey:${string}`]: string;
   [key: `oauth:code:${string}`]: IOAuthCodeState;
   [key: `oauth:txn:${string}`]: IOAuthTxnStore;
-  [key: `plugin:auth-code:${string}`]: IPluginAuthStore;
   [key: `signin:attempts:${string}`]: number;
   [key: `signin:lockout:${string}`]: boolean;
 }
@@ -69,8 +68,4 @@ export interface IOAuthTxnStore {
   scopes: string[];
   userId: string;
   state?: string;
-}
-
-export interface IPluginAuthStore {
-  pluginId: string;
 }

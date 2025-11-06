@@ -209,60 +209,6 @@ CREATE TABLE "setting" (
 );
 
 -- CreateTable
-CREATE TABLE "record_history" (
-    "id" TEXT NOT NULL,
-    "table_id" TEXT NOT NULL,
-    "record_id" TEXT NOT NULL,
-    "field_id" TEXT NOT NULL,
-    "before" TEXT NOT NULL,
-    "after" TEXT NOT NULL,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "created_by" TEXT NOT NULL,
-
-    CONSTRAINT "record_history_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "plugin" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "description" TEXT,
-    "detail_desc" TEXT,
-    "logo" TEXT NOT NULL,
-    "help_url" TEXT,
-    "status" TEXT NOT NULL,
-    "positions" TEXT NOT NULL,
-    "url" TEXT,
-    "secret" TEXT NOT NULL,
-    "masked_secret" TEXT NOT NULL,
-    "i18n" TEXT,
-    "config" TEXT,
-    "plugin_user" TEXT,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" TIMESTAMP(3),
-    "created_by" TEXT NOT NULL,
-    "last_modified_by" TEXT,
-
-    CONSTRAINT "plugin_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "plugin_install" (
-    "id" TEXT NOT NULL,
-    "plugin_id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "position_id" TEXT NOT NULL,
-    "position" TEXT NOT NULL,
-    "storage" TEXT,
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "created_by" TEXT NOT NULL,
-    "last_modified_time" TIMESTAMP(3),
-    "last_modified_by" TEXT,
-
-    CONSTRAINT "plugin_install_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "dashboard" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -333,15 +279,6 @@ CREATE UNIQUE INDEX "attachments_token_key" ON "attachments"("token");
 -- CreateIndex
 CREATE INDEX "notification_to_user_id_is_read_created_time_idx" ON "notification"("to_user_id", "is_read", "created_time");
 
--- CreateIndex
-CREATE INDEX "record_history_table_id_record_id_created_time_idx" ON "record_history"("table_id", "record_id", "created_time");
-
--- CreateIndex
-CREATE INDEX "record_history_table_id_created_time_idx" ON "record_history"("table_id", "created_time");
-
--- CreateIndex
-CREATE UNIQUE INDEX "plugin_secret_key" ON "plugin"("secret");
-
 -- AddForeignKey
 ALTER TABLE "field" ADD CONSTRAINT "field_table_id_fkey" FOREIGN KEY ("table_id") REFERENCES "table_meta"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -350,9 +287,6 @@ ALTER TABLE "view" ADD CONSTRAINT "view_table_id_fkey" FOREIGN KEY ("table_id") 
 
 -- AddForeignKey
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "plugin_install" ADD CONSTRAINT "plugin_install_plugin_id_fkey" FOREIGN KEY ("plugin_id") REFERENCES "plugin"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "dashboard_widget" ADD CONSTRAINT "dashboard_widget_dashboard_id_fkey" FOREIGN KEY ("dashboard_id") REFERENCES "dashboard"("id") ON DELETE CASCADE ON UPDATE CASCADE;
