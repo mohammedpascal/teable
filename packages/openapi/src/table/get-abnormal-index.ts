@@ -5,7 +5,7 @@ import { z } from '../zod';
 import type { TableIndex } from './toggle-table-index';
 import { tableIndexTypeSchema } from './toggle-table-index';
 
-export const TABLE_ABNORMAL_INDEX = '/base/bse0/table/{tableId}/abnormal-index';
+export const TABLE_ABNORMAL_INDEX = '/table/{tableId}/abnormal-index';
 
 export const getAbnormalVoSchema = z
   .object({

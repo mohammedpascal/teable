@@ -5,7 +5,7 @@ import { z } from '../zod';
 import type { ITableIndexType } from './toggle-table-index';
 import { tableIndexTypeSchema } from './toggle-table-index';
 
-export const TABLE_ACTIVATED_INDEX = '/base/bse0/table/{tableId}/activated-index';
+export const TABLE_ACTIVATED_INDEX = '/table/{tableId}/activated-index';
 
 export const TableActivatedIndexRoute: RouteConfig = registerRoute({
   method: 'post',

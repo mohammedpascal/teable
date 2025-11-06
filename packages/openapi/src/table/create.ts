@@ -130,7 +130,7 @@ export const tableListVoSchema = tableVoSchema.array().openapi({
   description: 'The list of tables.',
 });
 
-export const CREATE_TABLE = '/base/bse0/table/';
+export const CREATE_TABLE = '/table/';
 
 export const CreateTableRoute: RouteConfig = registerRoute({
   method: 'post',

@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const DELETE_TABLE = '/base/bse0/table/{tableId}';
+export const DELETE_TABLE = '/table/{tableId}';
 
 export const DeleteTableRoute: RouteConfig = registerRoute({
   method: 'delete',

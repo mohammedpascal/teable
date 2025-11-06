@@ -10,7 +10,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const GET_TABLE_PERMISSION = '/base/bse0/table/{tableId}/permission';
+export const GET_TABLE_PERMISSION = '/table/{tableId}/permission';
 
 export type TablePermissionFieldAction = ExcludeAction<FieldAction, 'field|create'>;
 

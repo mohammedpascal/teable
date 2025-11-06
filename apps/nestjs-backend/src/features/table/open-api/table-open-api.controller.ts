@@ -32,7 +32,7 @@ import { TableService } from '../table.service';
 import { TableOpenApiService } from './table-open-api.service';
 import { TablePipe } from './table.pipe';
 
-@Controller('api/base/bse0/table')
+@Controller('api/table')
 export class TableController {
   constructor(
     private readonly tableService: TableService,

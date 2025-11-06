@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const TABLE_DESCRIPTION = '/base/bse0/table/{tableId}/description';
+export const TABLE_DESCRIPTION = '/table/{tableId}/description';
 
 export const tableDescriptionRoSchema = z.object({
   description: z.string().nullable(),

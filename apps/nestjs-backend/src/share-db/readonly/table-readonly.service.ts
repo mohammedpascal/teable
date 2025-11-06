@@ -13,18 +13,18 @@ export class TableReadonlyServiceAdapter
     super(cls);
   }
 
-  getDocIdsByQuery(baseId: string) {
+  getDocIdsByQuery(_: string) {
     return this.axios
-      .get(`/base/bse0/table/socket/doc-ids`, {
+      .get(`/table/socket/doc-ids`, {
         headers: {
           cookie: this.cls.get('cookie'),
         },
       })
       .then((res) => res.data);
   }
-  getSnapshotBulk(baseId: string, ids: string[]) {
+  getSnapshotBulk(_: string, ids: string[]) {
     return this.axios
-      .get(`/base/bse0/table/socket/snapshot-bulk`, {
+      .get(`/table/socket/snapshot-bulk`, {
         headers: {
           cookie: this.cls.get('cookie'),
         },

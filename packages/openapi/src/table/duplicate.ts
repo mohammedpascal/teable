@@ -4,7 +4,7 @@ import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 import { tableFullVoSchema } from './create';
 
-export const DUPLICATE_TABLE = '/base/bse0/table/{tableId}/duplicate';
+export const DUPLICATE_TABLE = '/table/{tableId}/duplicate';
 
 export const duplicateTableRoSchema = z.object({
   name: z.string(),

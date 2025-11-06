@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const TABLE_ICON = '/base/bse0/table/{tableId}/icon';
+export const TABLE_ICON = '/table/{tableId}/icon';
 
 export const tableIconRoSchema = z.object({
   icon: z.string().emoji(),

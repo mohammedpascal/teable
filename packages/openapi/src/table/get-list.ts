@@ -6,7 +6,7 @@ import { tableListVoSchema } from './create';
 
 export type ITableListVo = z.infer<typeof tableListVoSchema>;
 
-export const GET_TABLE_LIST = '/base/bse0/table';
+export const GET_TABLE_LIST = '/table';
 
 export const GetTableListRoute: RouteConfig = registerRoute({
   method: 'get',

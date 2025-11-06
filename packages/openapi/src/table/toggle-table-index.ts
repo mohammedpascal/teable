@@ -3,7 +3,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const TOGGLE_TABLE_INDEX = '/base/bse0/table/{tableId}/index';
+export const TOGGLE_TABLE_INDEX = '/table/{tableId}/index';
 
 export enum TableIndex {
   search = 'search',

@@ -5,7 +5,7 @@ import type { IUpdateOrderRo } from '../view/update-order';
 import { updateOrderRoSchema } from '../view/update-order';
 import { z } from '../zod';
 
-export const TABLE_ORDER = '/base/bse0/table/{tableId}/order';
+export const TABLE_ORDER = '/table/{tableId}/order';
 
 export const updateTableOrderRoute: RouteConfig = registerRoute({
   method: 'put',

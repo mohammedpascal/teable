@@ -5,7 +5,7 @@ import { z } from '../zod';
 import type { TableIndex } from './toggle-table-index';
 import { tableIndexTypeSchema } from './toggle-table-index';
 
-export const TABLE_INDEX_REPAIR = '/base/bse0/table/{tableId}/index/repair';
+export const TABLE_INDEX_REPAIR = '/table/{tableId}/index/repair';
 
 export const TableIndexRepairRoute: RouteConfig = registerRoute({
   method: 'patch',

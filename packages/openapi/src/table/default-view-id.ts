@@ -2,7 +2,7 @@ import { axios } from '../axios';
 import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 
-export const GET_DEFAULT_VIEW_ID = '/base/bse0/table/{tableId}/default-view-id';
+export const GET_DEFAULT_VIEW_ID = '/table/{tableId}/default-view-id';
 
 export const getDefaultViewIdVoSchema = z.object({
   id: z.string(),

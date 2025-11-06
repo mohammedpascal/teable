@@ -4,7 +4,7 @@ import { registerRoute, urlBuilder } from '../utils';
 import { z } from '../zod';
 import type { ITableVo } from './create';
 import { tableVoSchema } from './create';
-export const GET_TABLE = '/base/bse0/table/{tableId}';
+export const GET_TABLE = '/table/{tableId}';
 
 export const GetTableRoute: RouteConfig = registerRoute({
   method: 'get',
