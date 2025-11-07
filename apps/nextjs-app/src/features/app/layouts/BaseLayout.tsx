@@ -1,4 +1,5 @@
 import type { DehydratedState } from '@tanstack/react-query';
+import { Code2 } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
 import type { IUser } from '@teable/sdk';
 import { NotificationProvider, SessionProvider } from '@teable/sdk';
@@ -26,7 +27,14 @@ export const BaseLayout: React.FC<{
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
 
-  const navigationRoutes: never[] = [];
+  const navigationRoutes: any[] = [
+    {
+      Icon: Code2,
+      label: 'Query Builder' as React.ReactNode,
+      route: '/settings/query-builder',
+      pathTo: `/settings/query-builder`,
+    },
+  ];
 
   return (
     <AppLayout>
