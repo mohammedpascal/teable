@@ -1,5 +1,4 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Settings } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
 import type { IUser } from '@teable/sdk';
 import { NotificationProvider, SessionProvider } from '@teable/sdk';
@@ -27,14 +26,7 @@ export const BaseLayout: React.FC<{
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
 
-  const navigationRoutes = [
-    {
-      Icon: Settings,
-      label: 'Settings' as React.ReactNode,
-      route: '/settings/access-tokens',
-      pathTo: `/settings/access-tokens`,
-    },
-  ];
+  const navigationRoutes: never[] = [];
 
   return (
     <AppLayout>

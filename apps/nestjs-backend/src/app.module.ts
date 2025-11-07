@@ -1,6 +1,5 @@
 import type { ModuleMetadata } from '@nestjs/common';
 import { Module } from '@nestjs/common';
-import { AccessTokenModule } from './features/access-token/access-token.module';
 import { AggregationOpenApiModule } from './features/aggregation/open-api/aggregation-open-api.module';
 import { AttachmentsModule } from './features/attachments/attachments.module';
 import { AuthModule } from './features/auth/auth.module';
@@ -42,7 +41,6 @@ export const appModules = {
     UserModule,
     AuthModule,
     NotificationModule,
-    AccessTokenModule,
     ImportOpenApiModule,
     ExportOpenApiModule,
     SettingModule,

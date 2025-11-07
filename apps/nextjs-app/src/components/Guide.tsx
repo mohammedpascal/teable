@@ -151,16 +151,7 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
         title: <div className="text-base">{t('guide.apiButtonTooltipTitle')}</div>,
         content: (
           <div className="text-left text-[13px]">
-            <Trans
-              ns="common"
-              i18nKey="guide.apiButtonTooltipContent"
-              components={{
-                a: (
-                  // eslint-disable-next-line jsx-a11y/anchor-has-content
-                  <a className="text-violet-500" href="/settings/access-tokens" target="_blank" />
-                ),
-              }}
-            />
+            {t('guide.apiButtonTooltipContent')}
           </div>
         ),
         disableBeacon: true,

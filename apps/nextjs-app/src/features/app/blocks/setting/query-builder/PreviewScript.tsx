@@ -1,7 +1,5 @@
 import type { IGetRecordsRo } from '@teable/openapi';
-import { Button, cn, Input, ToggleGroup, ToggleGroupItem } from '@teable/ui-lib/shadcn';
-import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
+import { cn, Input, ToggleGroup, ToggleGroupItem } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import React, { useState, useMemo, useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -253,12 +251,6 @@ export const PreviewScript = ({
           value={token}
           onChange={(v) => setToken(v.target.value)}
         />
-        <Button variant="link" asChild>
-          <Link href="/settings/access-tokens" target="_blank">
-            <ArrowUpRight className="size-4" />
-            {t('developer:createNewToken')}
-          </Link>
-        </Button>
       </div>
 
       <CodeBlock

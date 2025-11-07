@@ -37,10 +37,6 @@ export const ReactQueryKeys = {
 
   planField: (tableId: string, fieldId: string) => ['field-plan', tableId, fieldId] as const,
 
-  personAccessTokenList: () => ['person-access-token-list'],
-
-  personAccessToken: (id: string) => ['person-access-token-list', id],
-
   tableInfo: (tableId: string) => ['table-info', tableId],
 
   field: (tableId: string) => ['field-info', tableId],
