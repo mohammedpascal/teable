@@ -7,7 +7,7 @@ import { z } from '../zod';
 import type { IImportOptionRo } from './types';
 import { importOptionRoSchema } from './types';
 
-export const IMPORT_TABLE = '/import/bse0';
+export const IMPORT_TABLE = '/import';
 
 export const ImportTableFromFileRoute: RouteConfig = registerRoute({
   method: 'post',

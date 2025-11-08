@@ -31,7 +31,7 @@ export class ImportController {
     return await this.importOpenService.createTableFromImport(importRo);
   }
 
-  @Patch('bse0/:tableId')
+  @Patch(':tableId')
   async inplaceImportTable(
     @Param('tableId') tableId: string,
     @Body(new ZodValidationPipe(inplaceImportOptionRoSchema))

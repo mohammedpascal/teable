@@ -5,7 +5,7 @@ import { z } from '../zod';
 import { inplaceImportOptionRoSchema } from './types';
 import type { IInplaceImportOptionRo } from './types';
 
-export const INPLACE_IMPORT_TABLE = '/import/bse0/{tableId}';
+export const INPLACE_IMPORT_TABLE = '/import/{tableId}';
 
 export const inplaceImportTableFromFileRoute: RouteConfig = registerRoute({
   method: 'patch',

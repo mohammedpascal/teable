@@ -219,7 +219,7 @@ describe('OpenAPI ImportController (e2e)', () => {
     });
   });
 
-  describe('/import/bse0 OpenAPI ImportController (e2e) (Post)', () => {
+  describe('/import OpenAPI ImportController (e2e) (Post)', () => {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     it.each(testFileFormats.filter((format) => format !== TestFileFormat.TXT))(
@@ -277,7 +277,7 @@ describe('OpenAPI ImportController (e2e)', () => {
     );
   });
 
-  describe('/import/bse0/{tableId} OpenAPI ImportController (e2e) (Patch)', () => {
+  describe('/import/{tableId} OpenAPI ImportController (e2e) (Patch)', () => {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     it('should import data into Table from file', async () => {
