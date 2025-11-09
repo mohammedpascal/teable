@@ -413,7 +413,11 @@ export class UserService {
       updateData.isAdmin = data.isAdmin ? true : null;
     }
     if (data.roleId !== undefined) {
-      updateData.roleId = data.roleId;
+      if (data.roleId === null) {
+        updateData.role = { disconnect: true };
+      } else {
+        updateData.role = { connect: { id: data.roleId } };
+      }
     }
 
     const user = await this.prismaService.txClient().user.update({
