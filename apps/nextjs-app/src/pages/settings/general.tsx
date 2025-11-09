@@ -9,7 +9,7 @@ import type { NextPageWithLayout } from '@/lib/type';
 import withAuthSSR from '@/lib/withAuthSSR';
 import withEnv from '@/lib/withEnv';
 
-const Setting: NextPageWithLayout<ISettingPageProps> = ({ settingServerData }) => (
+const GeneralSettingsPage: NextPageWithLayout<ISettingPageProps> = ({ settingServerData }) => (
   <SettingPage settingServerData={settingServerData} />
 );
 
@@ -38,8 +38,9 @@ export const getServerSideProps: GetServerSideProps = withEnv(
   )
 );
 
-Setting.getLayout = function getLayout(page: ReactElement, pageProps) {
+GeneralSettingsPage.getLayout = function getLayout(page: ReactElement, pageProps) {
   return <SettingLayout {...pageProps}>{page}</SettingLayout>;
 };
 
-export default Setting;
+export default GeneralSettingsPage;
+

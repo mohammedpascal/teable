@@ -1,12 +1,12 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Code2, Settings } from '@teable/icons';
+import { Settings } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
 import type { IUser } from '@teable/sdk';
 import { NotificationProvider, SessionProvider } from '@teable/sdk';
 import { AnchorContext, AppProvider, BaseProvider, TableProvider } from '@teable/sdk/context';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment } from 'react';
 import { AppLayout } from '@/features/app/layouts';
 import { BaseSideBar } from '../blocks/base/base-side-bar/BaseSideBar';
 import { BaseSidebarHeaderLeft } from '../blocks/base/base-side-bar/BaseSidebarHeaderLeft';
@@ -29,16 +29,10 @@ export const BaseLayout: React.FC<{
 
   const navigationRoutes: any[] = [
     {
-      Icon: Code2,
-      label: 'Query Builder' as React.ReactNode,
-      route: '/settings/query-builder',
-      pathTo: `/settings/query-builder`,
-    },
-    {
       Icon: Settings,
-      label: 'Users' as React.ReactNode,
-      route: '/settings/users',
-      pathTo: `/settings/users`,
+      label: 'Settings' as React.ReactNode,
+      route: '/settings/general',
+      pathTo: `/settings/general`,
     },
   ];
 
