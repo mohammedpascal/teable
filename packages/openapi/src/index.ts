@@ -14,6 +14,7 @@ export * from './user';
 export * from './import';
 export * from './export';
 export * from './types/collaborator';
+export * from './types/base-query';
 export * from './utils';
 export * from './zod';
 export * from './admin';
