@@ -495,173 +495,6 @@ export interface paths {
       };
     };
   };
-  "/table/{tableId}/record/{recordId}/history": {
-    /**
-     * Get record history
-     * @description Retrieve the change history of a specific record, including field modifications and user information.
-     */
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-          recordId: string;
-        };
-      };
-      responses: {
-        /** @description Get the history list for a record */
-        200: {
-          content: {
-            "application/json": {
-              historyList: ({
-                  id: string;
-                  tableId: string;
-                  recordId: string;
-                  fieldId: string;
-                  before: {
-                    meta: {
-                      /**
-                       * @description The name of the field. can not be duplicated in the table.
-                       * @example Tags
-                       */
-                      name: string;
-                      /**
-                       * @description The field types supported by teable.
-                       * @example singleSelect
-                       * @enum {string}
-                       */
-                      type: "singleLineText" | "longText" | "user" | "attachment" | "checkbox" | "multipleSelect" | "singleSelect" | "date" | "number" | "duration" | "rating" | "formula" | "rollup" | "count" | "link" | "createdTime" | "lastModifiedTime" | "createdBy" | "lastModifiedBy" | "autoNumber" | "button";
-                      /**
-                       * @description The cell value type of the field.
-                       * @enum {string}
-                       */
-                      cellValueType: "string" | "number" | "boolean" | "dateTime";
-                      options?: unknown;
-                    };
-                    data?: unknown;
-                  };
-                  after: {
-                    meta: {
-                      /**
-                       * @description The name of the field. can not be duplicated in the table.
-                       * @example Tags
-                       */
-                      name: string;
-                      /**
-                       * @description The field types supported by teable.
-                       * @example singleSelect
-                       * @enum {string}
-                       */
-                      type: "singleLineText" | "longText" | "user" | "attachment" | "checkbox" | "multipleSelect" | "singleSelect" | "date" | "number" | "duration" | "rating" | "formula" | "rollup" | "count" | "link" | "createdTime" | "lastModifiedTime" | "createdBy" | "lastModifiedBy" | "autoNumber" | "button";
-                      /**
-                       * @description The cell value type of the field.
-                       * @enum {string}
-                       */
-                      cellValueType: "string" | "number" | "boolean" | "dateTime";
-                      options?: unknown;
-                    };
-                    data?: unknown;
-                  };
-                  createdTime: string;
-                  createdBy: string;
-                })[];
-              userMap: {
-                [key: string]: {
-                  email: string;
-                  avatar?: string | null;
-                  id: string;
-                  name: string;
-                };
-              };
-              nextCursor?: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/table/{tableId}/record/history": {
-    /**
-     * Get table records history
-     * @description Retrieve the change history of all records in a table, including field modifications and user information.
-     */
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-        };
-      };
-      responses: {
-        /** @description Get the history list of all records in a table */
-        200: {
-          content: {
-            "application/json": {
-              historyList: ({
-                  id: string;
-                  tableId: string;
-                  recordId: string;
-                  fieldId: string;
-                  before: {
-                    meta: {
-                      /**
-                       * @description The name of the field. can not be duplicated in the table.
-                       * @example Tags
-                       */
-                      name: string;
-                      /**
-                       * @description The field types supported by teable.
-                       * @example singleSelect
-                       * @enum {string}
-                       */
-                      type: "singleLineText" | "longText" | "user" | "attachment" | "checkbox" | "multipleSelect" | "singleSelect" | "date" | "number" | "duration" | "rating" | "formula" | "rollup" | "count" | "link" | "createdTime" | "lastModifiedTime" | "createdBy" | "lastModifiedBy" | "autoNumber" | "button";
-                      /**
-                       * @description The cell value type of the field.
-                       * @enum {string}
-                       */
-                      cellValueType: "string" | "number" | "boolean" | "dateTime";
-                      options?: unknown;
-                    };
-                    data?: unknown;
-                  };
-                  after: {
-                    meta: {
-                      /**
-                       * @description The name of the field. can not be duplicated in the table.
-                       * @example Tags
-                       */
-                      name: string;
-                      /**
-                       * @description The field types supported by teable.
-                       * @example singleSelect
-                       * @enum {string}
-                       */
-                      type: "singleLineText" | "longText" | "user" | "attachment" | "checkbox" | "multipleSelect" | "singleSelect" | "date" | "number" | "duration" | "rating" | "formula" | "rollup" | "count" | "link" | "createdTime" | "lastModifiedTime" | "createdBy" | "lastModifiedBy" | "autoNumber" | "button";
-                      /**
-                       * @description The cell value type of the field.
-                       * @enum {string}
-                       */
-                      cellValueType: "string" | "number" | "boolean" | "dateTime";
-                      options?: unknown;
-                    };
-                    data?: unknown;
-                  };
-                  createdTime: string;
-                  createdBy: string;
-                })[];
-              userMap: {
-                [key: string]: {
-                  email: string;
-                  avatar?: string | null;
-                  id: string;
-                  name: string;
-                };
-              };
-              nextCursor?: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
   "/table/{tableId}/record/{recordId}/{fieldId}/uploadAttachment": {
     /**
      * Upload attachment
@@ -914,7 +747,6 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -1282,7 +1114,6 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -1350,7 +1181,6 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -1580,7 +1410,6 @@ export interface paths {
                   color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                 });
               }) | ({
-            
                 /**
                  * @description describe the relationship from this table to the foreign table
                  * @enum {string}
@@ -1956,7 +1785,6 @@ export interface paths {
                   color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                 });
               }) | ({
-            
                 /**
                  * @description describe the relationship from this table to the foreign table
                  * @enum {string}
@@ -2381,7 +2209,6 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -2449,7 +2276,6 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -2669,7 +2495,6 @@ export interface paths {
                   color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                 });
               }) | ({
-            
                 /**
                  * @description describe the relationship from this table to the foreign table
                  * @enum {string}
@@ -2944,7 +2769,7 @@ export interface paths {
                 id: string;
                 name: string;
                 /** @enum {string} */
-                type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
+                type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt";
                 description?: string;
                 order?: number;
                 options?: ({
@@ -2998,13 +2823,6 @@ export interface paths {
                   logoUrl?: string;
                   /** @description The submit button text of the form */
                   submitLabel?: string;
-                } | {
-                  /** @description The plugin id */
-                  pluginId: string;
-                  /** @description The plugin install id */
-                  pluginInstallId: string;
-                  /** @description The plugin logo */
-                  pluginLogo: string;
                 };
                 sort?: ({
                   sortObjs: ({
@@ -3084,7 +2902,7 @@ export interface paths {
           "application/json": {
             name?: string;
             /** @enum {string} */
-            type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
+            type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt";
             description?: string;
             order?: number;
             options?: ({
@@ -3138,13 +2956,6 @@ export interface paths {
               logoUrl?: string;
               /** @description The submit button text of the form */
               submitLabel?: string;
-            } | {
-              /** @description The plugin id */
-              pluginId: string;
-              /** @description The plugin install id */
-              pluginInstallId: string;
-              /** @description The plugin logo */
-              pluginLogo: string;
             };
             sort?: ({
               sortObjs: ({
@@ -3213,7 +3024,7 @@ export interface paths {
               id: string;
               name: string;
               /** @enum {string} */
-              type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
+              type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt";
               description?: string;
               order?: number;
               options?: ({
@@ -3267,13 +3078,6 @@ export interface paths {
                 logoUrl?: string;
                 /** @description The submit button text of the form */
                 submitLabel?: string;
-              } | {
-                /** @description The plugin id */
-                pluginId: string;
-                /** @description The plugin install id */
-                pluginInstallId: string;
-                /** @description The plugin logo */
-                pluginLogo: string;
               };
               sort?: ({
                 sortObjs: ({
@@ -3359,7 +3163,7 @@ export interface paths {
               id: string;
               name: string;
               /** @enum {string} */
-              type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
+              type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt";
               description?: string;
               order?: number;
               options?: ({
@@ -3413,13 +3217,6 @@ export interface paths {
                 logoUrl?: string;
                 /** @description The submit button text of the form */
                 submitLabel?: string;
-              } | {
-                /** @description The plugin id */
-                pluginId: string;
-                /** @description The plugin install id */
-                pluginInstallId: string;
-                /** @description The plugin logo */
-                pluginLogo: string;
               };
               sort?: ({
                 sortObjs: ({
@@ -3729,13 +3526,6 @@ export interface paths {
               logoUrl?: string;
               /** @description The submit button text of the form */
               submitLabel?: string;
-            } | {
-              /** @description The plugin id */
-              pluginId: string;
-              /** @description The plugin install id */
-              pluginInstallId: string;
-              /** @description The plugin logo */
-              pluginLogo: string;
             };
           };
         };
@@ -3882,13 +3672,9 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard": {
+  "/dashboard": {
     /** @description Get a list of dashboards in base */
     get: {
-      parameters: {
-        path: {
-        };
-      };
       responses: {
         /** @description Returns data about the dashboards. */
         200: {
@@ -3903,10 +3689,6 @@ export interface paths {
     };
     /** @description Create a new dashboard */
     post: {
-      parameters: {
-        path: { 
-        };
-      };
       requestBody?: {
         content: {
           "application/json": {
@@ -3927,7 +3709,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{id}": {
+  "/dashboard/{id}": {
     /** @description Get a dashboard by id */
     get: {
       parameters: {
@@ -3943,18 +3725,19 @@ export interface paths {
               id: string;
               name: string;
               layout?: {
-                  pluginInstallId: string;
+                  widgetId: string;
                   x: number;
                   y: number;
                   w: number;
                   h: number;
                 }[];
-              pluginMap?: {
+              widgetMap?: {
                 [key: string]: {
                   id: string;
-                  pluginInstallId: string;
                   name: string;
-                  url?: string;
+                  type: string;
+                  config: string | null;
+                  position: string | null;
                 };
               };
             };
@@ -3977,11 +3760,11 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{dashboardId}/rename": {
+  "/dashboard/{dashboardId}/rename": {
     /** @description Rename a dashboard by id */
     patch: {
       parameters: {
-        path: { 
+        path: {
           dashboardId: string;
         };
       };
@@ -4005,7 +3788,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{id}/layout": {
+  "/dashboard/{id}/layout": {
     /** @description Update a dashboard layout by id */
     patch: {
       parameters: {
@@ -4017,7 +3800,7 @@ export interface paths {
         content: {
           "application/json": {
             layout: {
-                pluginInstallId: string;
+                widgetId: string;
                 x: number;
                 y: number;
                 w: number;
@@ -4033,7 +3816,7 @@ export interface paths {
             "application/json": {
               id: string;
               layout: {
-                  pluginInstallId: string;
+                  widgetId: string;
                   x: number;
                   y: number;
                   w: number;
@@ -4045,7 +3828,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{id}/plugin": {
+  "/dashboard/{id}/plugin": {
     /** @description Install a plugin to a dashboard */
     post: {
       parameters: {
@@ -4076,7 +3859,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{dashboardId}/plugin/{pluginInstallId}": {
+  "/dashboard/{dashboardId}/plugin/{pluginInstallId}": {
     /** @description Remove a plugin from a dashboard */
     delete: {
       parameters: {
@@ -4093,12 +3876,12 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{dashboardId}/plugin/{pluginInstallId}/rename": {
+  "/dashboard/{dashboardId}/plugin/{pluginInstallId}/rename": {
     /** @description Rename a plugin in a dashboard */
     patch: {
       parameters: {
         path: {
-          id: string;
+          dashboardId: string;
           pluginInstallId: string;
         };
       };
@@ -4123,7 +3906,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{dashboardId}/plugin/{installPluginId}": {
+  "/dashboard/{dashboardId}/plugin/{installPluginId}": {
     /** @description Get a dashboard install plugin by id */
     get: {
       parameters: {
@@ -4149,7 +3932,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/dashboard/{dashboardId}/plugin/{pluginInstallId}/update-storage": {
+  "/dashboard/{dashboardId}/plugin/{pluginInstallId}/update-storage": {
     /** @description Update storage of a plugin in a dashboard */
     patch: {
       parameters: {
@@ -4177,6 +3960,99 @@ export interface paths {
               storage?: {
                 [key: string]: unknown;
               };
+            };
+          };
+        };
+      };
+    };
+  };
+  "/dashboard/{dashboardId}/widget": {
+    /** @description Create a new widget in a dashboard */
+    post: {
+      parameters: {
+        path: {
+          dashboardId: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            name: string;
+            type: string;
+            config?: string;
+            position?: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Returns data about the created widget. */
+        201: {
+          content: {
+            "application/json": {
+              id: string;
+              dashboardId: string;
+              name: string;
+              type: string;
+              config: string | null;
+              position: string | null;
+              createdTime: string;
+              createdBy: string;
+              lastModifiedTime: string | null;
+              lastModifiedBy: string | null;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/dashboard/{dashboardId}/widget/{widgetId}": {
+    /** @description Delete a widget from a dashboard */
+    delete: {
+      parameters: {
+        path: {
+          dashboardId: string;
+          widgetId: string;
+        };
+      };
+      responses: {
+        /** @description Widget deleted successfully. */
+        204: {
+          content: never;
+        };
+      };
+    };
+    /** @description Update a widget in a dashboard */
+    patch: {
+      parameters: {
+        path: {
+          dashboardId: string;
+          widgetId: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            name?: string;
+            config?: string;
+            position?: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Returns data about the updated widget. */
+        200: {
+          content: {
+            "application/json": {
+              id: string;
+              dashboardId: string;
+              name: string;
+              type: string;
+              config: string | null;
+              position: string | null;
+              createdTime: string;
+              createdBy: string;
+              lastModifiedTime: string | null;
+              lastModifiedBy: string | null;
             };
           };
         };
@@ -4508,10 +4384,6 @@ export interface paths {
      * @description Create a new table in the specified base with customizable fields, views, and initial records. Default configurations will be applied if not specified.
      */
     post: {
-      parameters: {
-        path: {
-        };
-      };
       requestBody?: {
         content: {
           "application/json": {
@@ -4678,7 +4550,6 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -4746,7 +4617,6 @@ export interface paths {
                   shouldNotify?: boolean;
                   defaultValue?: string | "me" | ((string | "me")[]);
                 }) | ({
-                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -4837,7 +4707,7 @@ export interface paths {
             views?: ({
                 name?: string;
                 /** @enum {string} */
-                type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
+                type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt";
                 description?: string;
                 order?: number;
                 options?: ({
@@ -4891,13 +4761,6 @@ export interface paths {
                   logoUrl?: string;
                   /** @description The submit button text of the form */
                   submitLabel?: string;
-                } | {
-                  /** @description The plugin id */
-                  pluginId: string;
-                  /** @description The plugin install id */
-                  pluginInstallId: string;
-                  /** @description The plugin logo */
-                  pluginLogo: string;
                 };
                 sort?: ({
                   sortObjs: ({
@@ -5337,7 +5200,7 @@ export interface paths {
                   id: string;
                   name: string;
                   /** @enum {string} */
-                  type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt" | "plugin";
+                  type: "grid" | "calendar" | "kanban" | "form" | "gallery" | "gantt";
                   description?: string;
                   order?: number;
                   options?: ({
@@ -5391,13 +5254,6 @@ export interface paths {
                     logoUrl?: string;
                     /** @description The submit button text of the form */
                     submitLabel?: string;
-                  } | {
-                    /** @description The plugin id */
-                    pluginId: string;
-                    /** @description The plugin install id */
-                    pluginInstallId: string;
-                    /** @description The plugin logo */
-                    pluginLogo: string;
                   };
                   sort?: ({
                     sortObjs: ({
@@ -5499,10 +5355,6 @@ export interface paths {
      * @description Retrieve a list of all tables in the specified base, including their basic information and configurations.
      */
     get: {
-      parameters: {
-        path: {
-        };
-      };
       responses: {
         /** @description Successfully retrieved the list of tables. */
         200: {
@@ -5616,7 +5468,7 @@ export interface paths {
      */
     put: {
       parameters: {
-        path: { 
+        path: {
           tableId: string;
         };
       };
@@ -5643,7 +5495,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-            tableId: string;
+          tableId: string;
         };
       };
       requestBody?: {
@@ -5893,6 +5745,115 @@ export interface paths {
         /** @description Duplicate successfully */
         200: {
           content: never;
+        };
+      };
+    };
+  };
+  "/base": {
+    /** @description Get a base */
+    get: {
+      responses: {
+        /** @description Returns information about a base. */
+        200: {
+          content: {
+            "application/json": {
+              id: string;
+              name: string;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/base/bse0": {
+    /** @description Update a base info */
+    patch: {
+      requestBody?: {
+        content: {
+          "application/json": {
+            name?: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Returns information about a successfully updated base. */
+        200: {
+          content: {
+            "application/json": {
+              name: string;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/base/bse0/order": {
+    /** @description Update base order */
+    put: {
+      requestBody?: {
+        content: {
+          "application/json": {
+            anchorId: string;
+            /** @enum {string} */
+            position: "before" | "after";
+          };
+        };
+      };
+      responses: {
+        /** @description Successfully update. */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
+  "/base/shared-base": {
+    get: {
+      responses: {
+        /** @description Returns information about a shared base. */
+        200: {
+          content: {
+            "application/json": {
+              id: string;
+              name: string;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/base/bse0/permission": {
+    /** @description Get a base permission */
+    get: {
+      responses: {
+        /** @description Returns data about a base permission. */
+        200: {
+          content: {
+            "application/json": {
+              [key: string]: boolean;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/base/bse0/query": {
+    /** @description Get base query result */
+    get: {
+      parameters: {
+        query: {
+          query: string;
+          cellFormat?: "json" | "text";
+        };
+      };
+      responses: {
+        /** @description The sql query result */
+        200: {
+          content: {
+            "application/json": {
+                [key: string]: unknown;
+              }[];
+          };
         };
       };
     };
@@ -6642,7 +6603,6 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -7077,7 +7037,6 @@ export interface paths {
                     color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
                   });
                 }) | ({
-                
                   /**
                    * @description describe the relationship from this table to the foreign table
                    * @enum {string}
@@ -7494,7 +7453,6 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -7562,7 +7520,6 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -7835,7 +7792,6 @@ export interface paths {
                 color: "blueLight2" | "blueLight1" | "blueBright" | "blue" | "blueDark1" | "cyanLight2" | "cyanLight1" | "cyanBright" | "cyan" | "cyanDark1" | "grayLight2" | "grayLight1" | "grayBright" | "gray" | "grayDark1" | "greenLight2" | "greenLight1" | "greenBright" | "green" | "greenDark1" | "orangeLight2" | "orangeLight1" | "orangeBright" | "orange" | "orangeDark1" | "pinkLight2" | "pinkLight1" | "pinkBright" | "pink" | "pinkDark1" | "purpleLight2" | "purpleLight1" | "purpleBright" | "purple" | "purpleDark1" | "redLight2" | "redLight1" | "redBright" | "red" | "redDark1" | "tealLight2" | "tealLight1" | "tealBright" | "teal" | "tealDark1" | "yellowLight2" | "yellowLight1" | "yellowBright" | "yellow" | "yellowDark1";
               });
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -7903,7 +7859,6 @@ export interface paths {
               shouldNotify?: boolean;
               defaultValue?: string | "me" | ((string | "me")[]);
             }) | ({
-              
               /**
                * @description describe the relationship from this table to the foreign table
                * @enum {string}
@@ -8264,11 +8219,6 @@ export interface paths {
               };
               hasPassword: boolean;
               isAdmin?: boolean | null;
-              organization?: {
-                id: string;
-                name: string;
-                isAdmin?: boolean;
-              };
             };
           };
         };
@@ -8305,11 +8255,6 @@ export interface paths {
               };
               hasPassword: boolean;
               isAdmin?: boolean | null;
-              organization?: {
-                id: string;
-                name: string;
-                isAdmin?: boolean;
-              };
             };
           };
         };
@@ -8366,11 +8311,6 @@ export interface paths {
               };
               hasPassword: boolean;
               isAdmin?: boolean | null;
-              organization?: {
-                id: string;
-                name: string;
-                isAdmin?: boolean;
-              };
             };
           };
         };
@@ -8646,6 +8586,157 @@ export interface paths {
       };
     };
   };
+  "/access-token": {
+    /** @description List access token */
+    get: {
+      responses: {
+        /** @description Returns access token. */
+        200: {
+          content: {
+            "application/json": {
+                id: string;
+                name: string;
+                description?: string;
+                scopes: string[];
+                expiredTime: string;
+                createdTime: string;
+                lastUsedTime?: string;
+              }[];
+          };
+        };
+      };
+    };
+    /** @description Create access token */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": {
+            name: string;
+            description?: string;
+            scopes: string[];
+            /** @example 2024-03-25 */
+            expiredTime: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Returns access token. */
+        201: {
+          content: {
+            "application/json": {
+              id: string;
+              name: string;
+              description?: string;
+              scopes: string[];
+              expiredTime: string;
+              token: string;
+              createdTime: string;
+              lastUsedTime: string;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/access-token/{id}/refresh": {
+    /** @description Refresh access token */
+    post: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            expiredTime: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Returns access token. */
+        201: {
+          content: {
+            "application/json": {
+              id: string;
+              expiredTime: string;
+              token: string;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/access-token/{id}": {
+    /** @description Get access token */
+    get: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /** @description Returns access token. */
+        200: {
+          content: {
+            "application/json": {
+              id: string;
+              name: string;
+              description?: string;
+              scopes: string[];
+              expiredTime: string;
+              createdTime: string;
+              lastUsedTime?: string;
+            };
+          };
+        };
+      };
+    };
+    /** @description Update access token */
+    put: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": {
+            name: string;
+            description?: string;
+            scopes: string[];
+          };
+        };
+      };
+      responses: {
+        /** @description Returns access token. */
+        200: {
+          content: {
+            "application/json": {
+              id: string;
+              name: string;
+              description?: string;
+              scopes: string[];
+            };
+          };
+        };
+      };
+    };
+    /** @description Delete access token */
+    delete: {
+      parameters: {
+        path: {
+          id: string;
+        };
+      };
+      responses: {
+        /** @description Access token deleted. */
+        200: {
+          content: never;
+        };
+      };
+    };
+  };
   "/import/analyze": {
     /** @description Get a column info from analyze sheet */
     get: {
@@ -8679,10 +8770,6 @@ export interface paths {
   "/import/bse0": {
     /** @description create table from file */
     post: {
-      parameters: {
-        path: {
-        };
-      };
       requestBody?: {
         content: {
           "application/json": {
@@ -8834,300 +8921,6 @@ export interface paths {
               disallowSignUp: boolean | null;
               enableEmailVerification: boolean | null;
             };
-          };
-        };
-      };
-    };
-  };
-  "/admin/plugin/{pluginId}/publish": {
-    /** @description Publish a plugin */
-    patch: {
-      parameters: {
-        path: {
-          pluginId: string;
-        };
-      };
-      responses: {
-        /** @description Plugin published successfully. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/admin/plugin/{pluginId}/unpublish": {
-    /** @description Admin unpublish a plugin */
-    patch: {
-      parameters: {
-        path: {
-          pluginId: string;
-        };
-      };
-      responses: {
-        /** @description Plugin unpublished successfully. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/oauth/client/{clientId}": {
-    /** @description Get the OAuth application */
-    get: {
-      parameters: {
-        path: {
-          clientId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the OAuth application */
-        200: {
-          content: {
-            "application/json": {
-              clientId: string;
-              name: string;
-              secrets?: {
-                  id: string;
-                  secret: string;
-                  lastUsedTime?: string;
-                }[];
-              scopes?: string[];
-              /** Format: uri */
-              logo?: string;
-              /** Format: uri */
-              homepage: string;
-              redirectUris: string[];
-            };
-          };
-        };
-      };
-    };
-    /** @description Update an OAuth application */
-    put: {
-      parameters: {
-        path: {
-          clientId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            clientId: string;
-            name: string;
-            secrets?: {
-                id: string;
-                secret: string;
-                lastUsedTime?: string;
-              }[];
-            scopes?: string[];
-            /** Format: uri */
-            logo?: string;
-            /** Format: uri */
-            homepage: string;
-            redirectUris: string[];
-          };
-        };
-      };
-      responses: {
-        /** @description Returns the updated OAuth application */
-        200: {
-          content: {
-            "application/json": {
-              clientId: string;
-              name: string;
-              secrets?: {
-                  id: string;
-                  secret: string;
-                  lastUsedTime?: string;
-                }[];
-              scopes?: string[];
-              /** Format: uri */
-              logo?: string;
-              /** Format: uri */
-              homepage: string;
-              redirectUris: string[];
-            };
-          };
-        };
-      };
-    };
-    /** @description Delete an OAuth application */
-    delete: {
-      parameters: {
-        path: {
-          clientId: string;
-        };
-      };
-      responses: {
-        /** @description OAuth application deleted */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/oauth/client": {
-    /** @description Get the list of OAuth applications */
-    get: {
-      responses: {
-        /** @description Returns the list of OAuth applications */
-        200: {
-          content: {
-            "application/json": {
-                clientId: string;
-                name: string;
-                description?: string;
-                /** Format: uri */
-                logo?: string;
-                /** Format: uri */
-                homepage: string;
-              }[];
-          };
-        };
-      };
-    };
-    /** @description Create a new OAuth application */
-    post: {
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-            description?: string;
-            /** Format: uri */
-            homepage: string;
-            logo?: string;
-            scopes?: (("table|create") | ("table|delete") | ("table|export") | ("table|import") | ("table|read") | ("table|update") | ("view|create") | ("view|delete") | ("view|read") | ("view|update") | ("field|create") | ("field|delete") | ("field|read") | ("field|update") | ("record|comment") | ("record|create") | ("record|delete") | ("record|read") | ("record|update") | ("user|email_read"))[];
-            redirectUris: string[];
-          };
-        };
-      };
-      responses: {
-        /** @description Returns the created OAuth application */
-        201: {
-          content: {
-            "application/json": {
-              clientId: string;
-              name: string;
-              secrets?: {
-                  id: string;
-                  secret: string;
-                  lastUsedTime?: string;
-                }[];
-              scopes?: string[];
-              /** Format: uri */
-              logo?: string;
-              /** Format: uri */
-              homepage: string;
-              redirectUris: string[];
-            };
-          };
-        };
-      };
-    };
-  };
-  "/oauth/client/{clientId}/secret/{secretId}": {
-    /** @description Delete the OAuth secret */
-    delete: {
-      parameters: {
-        path: {
-          secretId: string;
-        };
-      };
-      responses: {
-        /** @description OAuth secret deleted */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/oauth/client/{clientId}/secret": {
-    /** @description Generate a new OAuth secret */
-    post: {
-      parameters: {
-        path: {
-          clientId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the generated OAuth secret */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              secret: string;
-              maskedSecret: string;
-              lastUsedTime?: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/oauth/decision/{transactionId}": {
-    /** @description Get the OAuth application */
-    get: {
-      parameters: {
-        path: {
-          transactionId: string;
-        };
-      };
-      responses: {
-        /** @description Returns the OAuth application */
-        200: {
-          content: {
-            "application/json": {
-              name: string;
-              description?: string;
-              /** Format: uri */
-              homepage: string;
-              /** Format: uri */
-              logo?: string;
-              scopes?: string[];
-            };
-          };
-        };
-      };
-    };
-  };
-  "/oauth/client/{clientId}/revoke-access": {
-    post: {
-      parameters: {
-        path: {
-          clientId: string;
-        };
-      };
-      responses: {
-        /** @description Revoke access permission successfully */
-        201: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/oauth/client/authorized/list": {
-    /** @description Get the list of authorized applications */
-    get: {
-      responses: {
-        /** @description Returns the list of authorized applications */
-        200: {
-          content: {
-            "application/json": {
-                clientId: string;
-                name: string;
-                /** Format: uri */
-                homepage: string;
-                /** Format: uri */
-                logo?: string;
-                description?: string;
-                scopes?: string[];
-                lastUsedTime?: string;
-                createdUser: {
-                  name: string;
-                  /** Format: email */
-                  email: string;
-                };
-              }[];
           };
         };
       };
@@ -9624,8 +9417,7 @@ export interface paths {
       };
       requestBody?: {
         content: {
-          "application/json": {
-          };
+          "application/json": Record<string, never>;
         };
       };
       responses: {
@@ -9655,97 +9447,9 @@ export interface paths {
       };
     };
   };
-  "/organization/me": {
-    /** @description Get my organization */
-    get: {
-      responses: {
-        /** @description Get my organization successfully */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-              isAdmin: boolean;
-            } | null;
-          };
-        };
-      };
-    };
-  };
-  "/organization/department": {
-    get: {
-      parameters: {
-        query?: {
-          parentId?: string;
-          search?: string;
-          includeChildrenDepartment?: string;
-        };
-        path: {
-          organizationId: string;
-        };
-      };
-      responses: {
-        /** @description Get department list successfully */
-        200: {
-          content: {
-            "application/json": {
-                id: string;
-                name: string;
-                parentId?: string;
-                path?: string[];
-                pathName?: string[];
-                hasChildren: boolean;
-              }[];
-          };
-        };
-      };
-    };
-  };
-  "/organization/department-user": {
-    get: {
-      parameters: {
-        query?: {
-          departmentId?: string;
-          includeChildrenDepartment?: string;
-          skip?: string | number;
-          take?: string | number;
-          search?: string;
-        };
-        path: {
-          organizationId: string;
-        };
-      };
-      responses: {
-        /** @description Get department users successfully */
-        200: {
-          content: {
-            "application/json": {
-              users: {
-                  id: string;
-                  name: string;
-                  email: string;
-                  avatar?: string;
-                  departments?: {
-                      id: string;
-                      name: string;
-                      path?: string[];
-                      pathName?: string[];
-                    }[];
-                }[];
-              total: number;
-            };
-          };
-        };
-      };
-    };
-  };
   "/integrity/base/bse0/link-check": {
     /** @description Check integrity of link fields in a base */
     get: {
-      parameters: {
-        path: {
-        };
-      };
       responses: {
         /** @description Returns integrity check results for the base */
         200: {
@@ -9753,7 +9457,6 @@ export interface paths {
             "application/json": {
               hasIssues: boolean;
               linkFieldIssues: ({
-                  baseName?: string;
                   fieldId: string;
                   fieldName: string;
                   tableId: string;
@@ -9773,10 +9476,6 @@ export interface paths {
   "/integrity/base/bse0/link-fix": {
     /** @description Fix integrity of link fields in a base */
     post: {
-      parameters: {
-        path: {
-        };
-      };
       responses: {
         /** @description Success */
         201: {
@@ -9791,228 +9490,16 @@ export interface paths {
       };
     };
   };
-  "/table/{tableId}/plugin-context-menu/{pluginInstallId}": {
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-          pluginInstallId: string;
-        };
-      };
-      responses: {
-        /** @description Returns data about the plugin context menu. */
-        200: {
-          content: {
-            "application/json": {
-              name: string;
-              tableId: string;
-              pluginId: string;
-              pluginInstallId: string;
-              positionId: string;
-              url?: string;
-              config?: {
-                contextMenu?: {
-                  width?: number | string;
-                  height?: number | string;
-                  x?: number | string;
-                  y?: number | string;
-                  frozenResize?: boolean;
-                  frozenDrag?: boolean;
-                };
-                view?: unknown;
-                dashboard?: unknown;
-                panel?: unknown;
-              };
-            };
-          };
-        };
-      };
-    };
-    /** @description Remove a plugin context menu */
-    delete: {
-      parameters: {
-        path: {
-          tableId: string;
-          pluginInstallId: string;
-        };
-      };
-      responses: {
-        /** @description Plugin context menu removed successfully. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/table/{tableId}/plugin-context-menu/install": {
-    /** @description Install a plugin context menu */
-    post: {
-      parameters: {
-        path: {
-          tableId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name?: string;
-            pluginId: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Plugin context menu installed successfully. */
-        201: {
-          content: {
-            "application/json": {
-              pluginInstallId: string;
-              name: string;
-              order: number;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/table/{tableId}/plugin-context-menu/{pluginInstallId}/move": {
-    put: {
-      parameters: {
-        path: {
-          tableId: string;
-          pluginInstallId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            anchorId: string;
-            /** @enum {string} */
-            position: "before" | "after";
-          };
-        };
-      };
-      responses: {
-        /** @description Plugin context menu moved successfully. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/table/{tableId}/plugin-context-menu/{pluginInstallId}/rename": {
-    /** @description Rename a plugin context menu */
-    patch: {
-      parameters: {
-        path: {
-          tableId: string;
-          pluginInstallId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Plugin context menu renamed successfully. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/table/{tableId}/plugin-context-menu/{pluginInstallId}/update-storage": {
-    put: {
-      parameters: {
-        path: {
-          tableId: string;
-          pluginInstallId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            storage?: {
-              [key: string]: unknown;
-            };
-          };
-        };
-      };
-      responses: {
-        /** @description Plugin context menu updated successfully. */
-        200: {
-          content: {
-            "application/json": {
-              tableId: string;
-              pluginInstallId: string;
-              storage?: {
-                [key: string]: unknown;
-              };
-            };
-          };
-        };
-      };
-    };
-  };
-  "/table/{tableId}/plugin-context-menu": {
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-        };
-      };
-      responses: {
-        /** @description Returns a list of plugins */
-        200: {
-          content: {
-            "application/json": {
-                pluginInstallId: string;
-                name: string;
-                pluginId: string;
-                logo: string;
-                order: number;
-              }[];
-          };
-        };
-      };
-    };
-  };
-  "/table/{tableId}/plugin-context-menu/{pluginInstallId}/storage": {
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-          pluginInstallId: string;
-        };
-      };
-      responses: {
-        /** @description Plugin context menu storage retrieved successfully. */
-        200: {
-          content: {
-            "application/json": {
-              name: string;
-              tableId: string;
-              pluginId: string;
-              pluginInstallId: string;
-              storage: {
-                [key: string]: unknown;
-              };
-            };
-          };
-        };
-      };
-    };
-  };
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: Record<string, never>;
+  schemas: {
+  };
   responses: never;
-  parameters: Record<string, never>;
+  parameters: {
+  };
   requestBodies: never;
   headers: never;
   pathItems: never;
