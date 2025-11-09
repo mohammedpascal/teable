@@ -4,6 +4,8 @@
 import { Logger } from '@nestjs/common';
 import { Span } from '../tracing/decorators/span';
 
+const isTimingDisabled = true;
+
 export function Timing(customLoggerKey?: string): MethodDecorator {
   const logger = new Logger('Timing');
   return (
@@ -21,6 +23,7 @@ export function Timing(customLoggerKey?: string): MethodDecorator {
       const className = target.constructor.name;
 
       const printLog = () => {
+        if (isTimingDisabled) return;
         const end = process.hrtime.bigint();
         const gap = (end - start) / BigInt(1000000);
         if (gap > 100) {

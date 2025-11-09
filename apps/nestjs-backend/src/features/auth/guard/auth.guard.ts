@@ -5,11 +5,10 @@ import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
 import { AUTH_SESSION_COOKIE_NAME } from '../../../const';
 import { ENSURE_LOGIN } from '../decorators/ensure-login.decorator';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
-import { ACCESS_TOKEN_STRATEGY_NAME, JWT_TOKEN_STRATEGY_NAME } from '../strategies/constant';
+import { JWT_TOKEN_STRATEGY_NAME } from '../strategies/constant';
 @Injectable()
 export class AuthGuard extends PassportAuthGuard([
   'session',
-  ACCESS_TOKEN_STRATEGY_NAME,
   JWT_TOKEN_STRATEGY_NAME,
 ]) {
   private readonly logger = new Logger(AuthGuard.name);

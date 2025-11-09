@@ -98,7 +98,6 @@ export class TableService implements IReadonlyAdapterService {
     });
 
     for (const sql of createTableSchema.toSQL()) {
-      console.log('sql', sql.sql);
       await this.prismaService.txClient().$executeRawUnsafe(sql.sql);
     }
     return tableMeta;
