@@ -1,6 +1,6 @@
 import type { Action, IFieldVo } from '@teable/core';
-import type { Prisma } from '../prisma';
 import type { ClsStore } from 'nestjs-cls';
+import type { Prisma } from '../prisma';
 import type { IRawOpMap } from '../share-db/interface';
 
 export interface IClsStore extends ClsStore {
