@@ -183,23 +183,6 @@ CREATE TABLE "notification" (
 );
 
 -- CreateTable
-CREATE TABLE "access_token" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "description" TEXT,
-    "user_id" TEXT NOT NULL,
-    "scopes" TEXT NOT NULL,
-    "sign" TEXT NOT NULL,
-    "client_id" TEXT,
-    "expired_time" TIMESTAMP(3) NOT NULL,
-    "last_used_time" TIMESTAMP(3),
-    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_modified_time" TIMESTAMP(3),
-
-    CONSTRAINT "access_token_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "setting" (
     "instance_id" TEXT NOT NULL,
     "disallow_sign_up" BOOLEAN,

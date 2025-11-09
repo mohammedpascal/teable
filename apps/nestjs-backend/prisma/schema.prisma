@@ -204,22 +204,6 @@ model Notification {
   @@map("notification")
 }
 
-model AccessToken {
-  id               String    @id @default(cuid())
-  name             String
-  description      String?
-  userId           String    @map("user_id")
-  scopes           String
-  sign             String
-  clientId         String?   @map("client_id")
-  expiredTime      DateTime  @map("expired_time")
-  lastUsedTime     DateTime? @map("last_used_time")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
-
-  @@map("access_token")
-}
-
 model Setting {
   instanceId                String    @id @default(cuid()) @map("instance_id")
   disallowSignUp            Boolean?  @map("disallow_sign_up")
