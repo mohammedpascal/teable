@@ -27,7 +27,10 @@ export class UserService {
   ) {}
 
   async getUserById(id: string) {
-    const userRaw = await this.prismaService.txClient().user.findUnique({ where: { id } });
+    const userRaw = await this.prismaService.txClient().user.findUnique({
+      where: { id },
+      include: { role: true },
+    });
 
     return (
       userRaw && {
@@ -356,6 +359,15 @@ export class UserService {
           createdTime: true,
           lastSignTime: true,
           deactivatedTime: true,
+          roleId: true,
+          role: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              permissions: true,
+            },
+          },
         },
         skip,
         take,
@@ -387,6 +399,7 @@ export class UserService {
       name?: string;
       email?: string;
       isAdmin?: boolean;
+      roleId?: string | null;
     }
   ) {
     const updateData: Prisma.UserUpdateInput = {};
@@ -398,6 +411,9 @@ export class UserService {
     }
     if (data.isAdmin !== undefined) {
       updateData.isAdmin = data.isAdmin ? true : null;
+    }
+    if (data.roleId !== undefined) {
+      updateData.roleId = data.roleId;
     }
 
     const user = await this.prismaService.txClient().user.update({
@@ -412,6 +428,15 @@ export class UserService {
         createdTime: true,
         lastSignTime: true,
         deactivatedTime: true,
+        roleId: true,
+        role: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            permissions: true,
+          },
+        },
       },
     });
 
@@ -421,6 +446,31 @@ export class UserService {
         user.avatar &&
         getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), user.avatar),
     };
+  }
+
+  async assignRoleToUser(userId: string, roleId: string) {
+    // Verify role exists
+    const role = await this.prismaService.txClient().role.findUnique({
+      where: { id: roleId },
+    });
+
+    if (!role) {
+      throw new BadRequestException(`Role with id "${roleId}" not found`);
+    }
+
+    return await this.prismaService.txClient().user.update({
+      where: { id: userId },
+      data: { roleId },
+      include: { role: true },
+    });
+  }
+
+  async removeRoleFromUser(userId: string) {
+    return await this.prismaService.txClient().user.update({
+      where: { id: userId },
+      data: { roleId: null },
+      include: { role: true },
+    });
   }
 
   async deleteUser(id: string) {

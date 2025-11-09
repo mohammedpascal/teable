@@ -116,6 +116,7 @@ CREATE TABLE "users" (
     "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_modified_time" TIMESTAMP(3),
     "ref_meta" TEXT,
+    "role_id" TEXT,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -192,6 +193,20 @@ CREATE TABLE "setting" (
 );
 
 -- CreateTable
+CREATE TABLE "role" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "permissions" TEXT NOT NULL,
+    "created_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "last_modified_time" TIMESTAMP(3),
+    "created_by" TEXT NOT NULL,
+    "last_modified_by" TEXT,
+
+    CONSTRAINT "role_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "dashboard" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -254,6 +269,9 @@ CREATE UNIQUE INDEX "users_phone_key" ON "users"("phone");
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "role_name_key" ON "role"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "account_provider_provider_id_key" ON "account"("provider", "provider_id");
 
 -- CreateIndex
@@ -270,6 +288,9 @@ ALTER TABLE "view" ADD CONSTRAINT "view_table_id_fkey" FOREIGN KEY ("table_id") 
 
 -- AddForeignKey
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "users" ADD CONSTRAINT "users_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "role"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "dashboard_widget" ADD CONSTRAINT "dashboard_widget_dashboard_id_fkey" FOREIGN KEY ("dashboard_id") REFERENCES "dashboard"("id") ON DELETE CASCADE ON UPDATE CASCADE;

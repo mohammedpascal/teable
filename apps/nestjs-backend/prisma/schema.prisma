@@ -137,8 +137,10 @@ model User {
   createdTime      DateTime  @default(now()) @map("created_time")
   lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
   refMeta          String?   @map("ref_meta")
+  roleId           String?   @map("role_id")
 
   accounts         Account[]
+  role             Role?     @relation(fields: [roleId], references: [id], onDelete: SetNull)
   @@map("users")
 }
 
@@ -241,4 +243,19 @@ model DashboardWidget {
   dashboard        Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
 
   @@map("dashboard_widget")
+}
+
+model Role {
+  id               String    @id @default(cuid())
+  name             String    @unique
+  description      String?
+  permissions      String
+  createdTime      DateTime  @default(now()) @map("created_time")
+  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
+  createdBy        String    @map("created_by")
+  lastModifiedBy   String?   @map("last_modified_by")
+
+  users            User[]
+
+  @@map("role")
 }

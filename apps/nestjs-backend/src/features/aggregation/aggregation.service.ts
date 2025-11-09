@@ -2,6 +2,7 @@
 import {
   BadGatewayException,
   BadRequestException,
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -45,6 +46,7 @@ import { createFieldInstanceByRaw } from '../field/model/factory';
 import type { DateFieldDto } from '../field/model/field-dto/date-field.dto';
 import { RecordService } from '../record/record.service';
 import { TableIndexService } from '../table/table-index.service';
+import { hasPermission } from '../role/role-permission.util';
 
 export type IWithView = {
   viewId?: string;
@@ -87,6 +89,16 @@ export class AggregationService {
     const { tableId, withFieldIds, withView, search } = params;
     // Retrieve the current user's ID to build user-related query conditions
     const currentUserId = this.cls.get('user.id');
+
+    // Check View permission for aggregations
+    const user = await this.prisma.txClient().user.findUnique({
+      where: { id: currentUserId },
+      include: { role: true },
+    });
+
+    if (!hasPermission(user, 'View')) {
+      throw new ForbiddenException('You do not have permission to view aggregations');
+    }
 
     const { statisticsData, fieldInstanceMap } = await this.fetchStatisticsParams({
       tableId,

@@ -18,6 +18,7 @@ import { SettingModule } from './features/setting/setting.module';
 import { TableOpenApiModule } from './features/table/open-api/table-open-api.module';
 import { TableModule } from './features/table/table.module';
 import { UserModule } from './features/user/user.module';
+import { RoleModule } from './features/role/role.module';
 import { GlobalModule } from './global/global.module';
 import { InitBootstrapProvider } from './global/init-bootstrap.provider';
 import { LoggerModule } from './logger/logger.module';
@@ -39,6 +40,7 @@ export const appModules = {
     SelectionModule,
     AggregationOpenApiModule,
     UserModule,
+    RoleModule,
     AuthModule,
     NotificationModule,
     ImportOpenApiModule,

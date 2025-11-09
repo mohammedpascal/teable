@@ -98,9 +98,22 @@ export class UserController {
   @Admin()
   async updateUser(
     @Param('id') id: string,
-    @Body() updateUserRo: { name?: string; email?: string; isAdmin?: boolean }
+    @Body() updateUserRo: { name?: string; email?: string; isAdmin?: boolean; roleId?: string | null }
   ) {
     return this.userService.updateUserAdmin(id, updateUserRo);
+  }
+
+  @Patch(':id/role')
+  @UseGuards(AuthGuard, AdminGuard)
+  @Admin()
+  async assignRole(
+    @Param('id') id: string,
+    @Body() body: { roleId: string | null }
+  ) {
+    if (body.roleId === null) {
+      return this.userService.removeRoleFromUser(id);
+    }
+    return this.userService.assignRoleToUser(id, body.roleId);
   }
 
   @Delete(':id')

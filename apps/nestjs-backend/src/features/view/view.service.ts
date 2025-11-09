@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import type {
   ISnapshotBase,
   IViewRo,
@@ -47,6 +47,7 @@ import { getFullStorageUrl } from '../attachments/plugins/utils';
 import { BatchService } from '../calculation/batch.service';
 import { ROW_ORDER_FIELD_PREFIX } from './constant';
 import { createViewInstanceByRaw, createViewVoByRaw } from './model/factory';
+import { hasPermission } from '../role/role-permission.util';
 
 type IViewOpContext = IUpdateViewColumnMetaOpContext | ISetViewPropertyOpContext;
 
@@ -240,6 +241,17 @@ export class ViewService implements IReadonlyAdapterService {
   }
 
   async getViewById(viewId: string): Promise<IViewVo> {
+    // Check View permission
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    if (!hasPermission(user, 'View')) {
+      throw new ForbiddenException('You do not have permission to view views');
+    }
+
     const viewRaw = await this.prismaService.txClient().view.findUniqueOrThrow({
       where: { id: viewId },
     });
@@ -263,6 +275,17 @@ export class ViewService implements IReadonlyAdapterService {
   }
 
   async getViews(tableId: string): Promise<IViewVo[]> {
+    // Check View permission
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    if (!hasPermission(user, 'View')) {
+      throw new ForbiddenException('You do not have permission to view views');
+    }
+
     const viewRaws = await this.prismaService.txClient().view.findMany({
       where: { tableId },
       orderBy: { order: 'asc' },
@@ -272,6 +295,17 @@ export class ViewService implements IReadonlyAdapterService {
   }
 
   async createView(tableId: string, viewRo: IViewRo): Promise<IViewVo> {
+    // Check Create permission
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    if (!hasPermission(user, 'Create')) {
+      throw new ForbiddenException('You do not have permission to create views');
+    }
+
     const viewRaw = await this.createDbView(tableId, viewRo);
 
     await this.batchService.saveRawOps(tableId, RawOpType.Create, IdPrefix.View, [
@@ -282,6 +316,17 @@ export class ViewService implements IReadonlyAdapterService {
   }
 
   async deleteView(tableId: string, viewId: string) {
+    // Check Delete permission
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    if (!hasPermission(user, 'Delete')) {
+      throw new ForbiddenException('You do not have permission to delete views');
+    }
+
     const { version } = await this.prismaService
       .txClient()
       .view.findFirstOrThrow({
@@ -432,7 +477,16 @@ export class ViewService implements IReadonlyAdapterService {
   }
 
   async update(version: number, tableId: string, viewId: string, opContexts: IViewOpContext[]) {
+    // Check Update permission
     const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    if (!hasPermission(user, 'Update')) {
+      throw new ForbiddenException('You do not have permission to update views');
+    }
 
     for (const opContext of opContexts) {
       const updateData: Prisma.ViewUpdateInput = { version, lastModifiedBy: userId };
