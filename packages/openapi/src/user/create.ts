@@ -11,6 +11,7 @@ export const createUserRoSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8).optional(),
   isAdmin: z.boolean().optional(),
+  roleId: z.string().nullable().optional(),
 });
 
 export type ICreateUserRo = z.infer<typeof createUserRoSchema>;

@@ -11,6 +11,14 @@ export const userListVoSchema = z.object({
   email: z.string().email(),
   avatar: z.string().nullable().optional(),
   isAdmin: z.boolean().nullable().optional(),
+  roleId: z.string().nullable().optional(),
+  role: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+    })
+    .nullable()
+    .optional(),
   createdTime: z.string().datetime(),
   lastSignTime: z.string().datetime().nullable().optional(),
   deactivatedTime: z.string().datetime().nullable().optional(),
@@ -50,4 +58,3 @@ export const getUserListRoute: RouteConfig = registerRoute({
 export const getUserList = async (query?: { skip?: number; take?: number }) => {
   return axios.get<IUserListResponseVo>(GET_USER_LIST, { params: query });
 };
-

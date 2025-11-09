@@ -1,3 +1,4 @@
+import { Edit, Trash2 } from '@teable/icons';
 import type { IUserListVo } from '@teable/openapi';
 import {
   Table,
@@ -6,11 +7,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  Button,
 } from '@teable/ui-lib/shadcn';
-import { Button } from '@teable/ui-lib/shadcn';
-import { Edit, Trash2 } from '@teable/icons';
-import { UserAvatar } from '@/features/app/components/user/UserAvatar';
 import { useTranslation } from 'next-i18next';
+import { UserAvatar } from '@/features/app/components/user/UserAvatar';
 
 interface UsersGridViewProps {
   users: IUserListVo[];
@@ -53,7 +53,9 @@ export const UsersGridView = ({ users, isLoading, onEdit, onDelete }: UsersGridV
             <TableHead>{t('setting:users.role', { defaultValue: 'Role' })}</TableHead>
             <TableHead>{t('setting:users.created', { defaultValue: 'Created' })}</TableHead>
             <TableHead>{t('setting:users.lastSignIn', { defaultValue: 'Last Sign In' })}</TableHead>
-            <TableHead className="text-right">{t('common:actions', { defaultValue: 'Actions' })}</TableHead>
+            <TableHead className="text-right">
+              {t('common:actions', { defaultValue: 'Actions' })}
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -71,9 +73,13 @@ export const UsersGridView = ({ users, isLoading, onEdit, onDelete }: UsersGridV
                   <span className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">
                     {t('setting:users.admin', { defaultValue: 'Admin' })}
                   </span>
+                ) : user.role ? (
+                  <span className="rounded-full bg-secondary/10 px-2 py-1 text-xs text-secondary-foreground">
+                    {user.role.name}
+                  </span>
                 ) : (
-                  <span className="text-muted-foreground text-xs">
-                    {t('setting:users.user', { defaultValue: 'User' })}
+                  <span className="text-xs text-muted-foreground">
+                    {t('setting:users.noRole', { defaultValue: 'No role' })}
                   </span>
                 )}
               </TableCell>
@@ -101,7 +107,7 @@ export const UsersGridView = ({ users, isLoading, onEdit, onDelete }: UsersGridV
                     variant="ghost"
                     size="sm"
                     onClick={() => onEdit(user)}
-                    className="h-8 w-8 p-0"
+                    className="size-8 p-0"
                   >
                     <Edit className="size-4" />
                   </Button>
@@ -109,7 +115,7 @@ export const UsersGridView = ({ users, isLoading, onEdit, onDelete }: UsersGridV
                     variant="ghost"
                     size="sm"
                     onClick={() => onDelete(user.id)}
-                    className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                    className="size-8 p-0 text-destructive hover:text-destructive"
                   >
                     <Trash2 className="size-4" />
                   </Button>
@@ -122,4 +128,3 @@ export const UsersGridView = ({ users, isLoading, onEdit, onDelete }: UsersGridV
     </div>
   );
 };
-

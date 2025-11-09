@@ -27,7 +27,7 @@ export const useSettingRoute = () => {
       },
       {
         Icon: Code2,
-        label: t('developer:apiQueryBuilder'),
+        label: t('developer:apiQueryBuilder', { defaultValue: 'API Query Builder' }),
         route: '/settings/query-builder',
         pathTo: `/settings/query-builder`,
       },

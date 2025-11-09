@@ -10,6 +10,7 @@ export const updateUserRoSchema = z.object({
   name: z.string().min(1).optional(),
   email: z.string().email().optional(),
   isAdmin: z.boolean().optional(),
+  roleId: z.string().nullable().optional(),
 });
 
 export type IUpdateUserRo = z.infer<typeof updateUserRoSchema>;
