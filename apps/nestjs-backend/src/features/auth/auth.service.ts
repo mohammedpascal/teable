@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import type { IUserInfoVo, IUserMeVo } from '@teable/openapi';
-import { omit, pick } from 'lodash';
+import { pick } from 'lodash';
 import ms from 'ms';
 import { ClsService } from 'nestjs-cls';
 import type { IClsStore } from '../../types/cls';
@@ -15,8 +15,7 @@ export class AuthService {
   ) {}
 
   async getUserInfo(user: IUserMeVo): Promise<IUserInfoVo> {
-    const res = pick(user, ['id', 'email', 'avatar', 'name']);
-    return res;
+    return pick(user, ['id', 'email', 'avatar', 'name']);
   }
 
   async validateJwtToken(token: string) {
