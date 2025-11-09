@@ -76,11 +76,11 @@ export const TableOperation = (props: ITableOperationProps) => {
 
   const menuPermission = useMemo(() => {
     return {
-      deleteTable: table.permission?.['table|delete'] || true,
-      updateTable: table.permission?.['table|update'] || true,
-      duplicateTable: (table.permission?.['table|read'] && permission?.['table|create']) || true,
-      exportTable: table.permission?.['table|export'] || true,
-      importTable: table.permission?.['table|import'] || true,
+      deleteTable: table.permission?.['table|delete'] ?? false,
+      updateTable: table.permission?.['table|update'] ?? false,
+      duplicateTable: (table.permission?.['table|read'] && permission?.['table|create']) ?? false,
+      exportTable: table.permission?.['table|export'] ?? false,
+      importTable: table.permission?.['table|import'] ?? false,
     };
   }, [permission, table.permission]);
 

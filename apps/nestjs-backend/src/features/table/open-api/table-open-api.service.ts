@@ -37,11 +37,14 @@ import type {
 import { Knex } from 'knex';
 import { nanoid } from 'nanoid';
 import { InjectModel } from 'nest-knexjs';
+import { ClsService } from 'nestjs-cls';
 import { ThresholdConfig, IThresholdConfig } from '../../../configs/threshold.config';
 import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
 import { PrismaService } from '../../../prisma';
+import type { IClsStore } from '../../../types/cls';
 import { updateOrder } from '../../../utils/update-order';
+import { hasActionPermission } from '../../role/role-permission.util';
 import { LinkService } from '../../calculation/link.service';
 import { FieldCreatingService } from '../../field/field-calculate/field-creating.service';
 import { FieldSupplementService } from '../../field/field-calculate/field-supplement.service';
@@ -67,6 +70,7 @@ export class TableOpenApiService {
     private readonly fieldCreatingService: FieldCreatingService,
     private readonly fieldSupplementService: FieldSupplementService,
     private readonly tableDuplicateService: TableDuplicateService,
+    private readonly cls: ClsService<IClsStore>,
     @InjectDbProvider() private readonly dbProvider: IDbProvider,
     @ThresholdConfig() private readonly thresholdConfig: IThresholdConfig,
     @InjectModel('CUSTOM_KNEX') private readonly knex: Knex
@@ -212,6 +216,21 @@ export class TableOpenApiService {
   }
 
   async getTables(includeTableIds?: string[]): Promise<ITableVo[]> {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|read permission (admin users bypass)
+    const canReadTables = hasActionPermission(user, 'table|read');
+
+    // If user doesn't have table|read permission, return empty array
+    if (!canReadTables) {
+      return [];
+    }
+
     const tablesMeta = await this.prismaService.txClient().tableMeta.findMany({
       orderBy: { order: 'asc' },
       where: {
@@ -541,24 +560,31 @@ export class TableOpenApiService {
   }
 
   async getPermission(tableId: string): Promise<ITablePermissionVo> {
-    // Return all permissions as true for authenticated users
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check permissions based on user's role
     const tablePermission = actionPrefixMap[ActionPrefix.Table].reduce(
       (acc, action) => {
-        acc[action] = true;
+        acc[action] = hasActionPermission(user, action as any);
         return acc;
       },
       {} as Record<TableAction, boolean>
     );
     const viewPermission = actionPrefixMap[ActionPrefix.View].reduce(
       (acc, action) => {
-        acc[action] = true;
+        acc[action] = hasActionPermission(user, action as any);
         return acc;
       },
       {} as Record<ViewAction, boolean>
     );
     const recordPermission = actionPrefixMap[ActionPrefix.Record].reduce(
       (acc, action) => {
-        acc[action] = true;
+        acc[action] = hasActionPermission(user, action as any);
         return acc;
       },
       {} as Record<RecordAction, boolean>
@@ -577,7 +603,7 @@ export class TableOpenApiService {
       (acc, field) => {
         acc[field.id] = excludeFieldCreate.reduce(
           (acc, action) => {
-            acc[action] = true;
+            acc[action] = hasActionPermission(user, action as any);
             return acc;
           },
           {} as Record<FieldAction, boolean>
@@ -591,7 +617,7 @@ export class TableOpenApiService {
       table: tablePermission,
       field: {
         fields: fieldPermission,
-        create: true,
+        create: hasActionPermission(user, 'field|create'),
       },
       record: recordPermission,
       view: viewPermission,

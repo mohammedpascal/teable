@@ -5,13 +5,28 @@ import { z } from '../zod';
 
 export const GET_ROLE_LIST = '/role';
 
-const permissionEnum = z.enum(['View', 'Create', 'Update', 'Delete', 'Configure']);
+const actionPermissionEnum = z.enum([
+  'record|create',
+  'record|delete',
+  'record|read',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|read',
+  'view|update',
+  'table|create',
+  'table|delete',
+  'table|read',
+  'table|update',
+  'table|import',
+  'table|export',
+]);
 
 export const roleListVoSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().nullable().optional(),
-  permissions: z.record(z.string(), z.array(permissionEnum)), // Parsed JSON object
+  permissions: z.array(actionPermissionEnum).or(z.record(z.string(), z.array(z.string()))), // Array of action strings or legacy format
   createdTime: z.string().datetime(),
   lastModifiedTime: z.string().datetime().nullable().optional(),
   _count: z.object({

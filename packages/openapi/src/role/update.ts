@@ -6,12 +6,27 @@ import { roleListVoSchema } from './list';
 
 export const UPDATE_ROLE = '/role/{id}';
 
-const permissionEnum = z.enum(['View', 'Create', 'Update', 'Delete', 'Configure']);
+const actionPermissionEnum = z.enum([
+  'record|create',
+  'record|delete',
+  'record|read',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|read',
+  'view|update',
+  'table|create',
+  'table|delete',
+  'table|read',
+  'table|update',
+  'table|import',
+  'table|export',
+]);
 
 export const updateRoleRoSchema = z.object({
   name: z.string().min(1).optional(),
   description: z.string().optional(),
-  permissions: z.record(z.string(), z.array(permissionEnum)).optional(),
+  permissions: z.array(actionPermissionEnum).optional(),
 });
 
 export type IUpdateRoleRo = z.infer<typeof updateRoleRoSchema>;

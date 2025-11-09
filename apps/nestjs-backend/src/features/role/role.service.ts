@@ -1,21 +1,21 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { generateUserId } from '@teable/core';
+import { ClsService } from 'nestjs-cls';
 import type { Prisma } from '../../prisma';
 import { PrismaService } from '../../prisma';
-import { ClsService } from 'nestjs-cls';
 import type { IClsStore } from '../../types/cls';
 import { validatePermissions } from './role-permission.util';
 
 export interface ICreateRoleDto {
   name: string;
   description?: string;
-  permissions: string | Record<string, string[]>; // Accept JSON object or string
+  permissions: string | string[]; // Accept JSON array string or array of action strings
 }
 
 export interface IUpdateRoleDto {
   name?: string;
   description?: string;
-  permissions?: string | Record<string, string[]>; // Accept JSON object or string
+  permissions?: string | string[]; // Accept JSON array string or array of action strings
 }
 
 @Injectable()
@@ -28,18 +28,22 @@ export class RoleService {
   async createRole(data: ICreateRoleDto) {
     const userId = this.cls.get('user.id');
 
-    // Convert permissions to string if it's an object
+    // Convert permissions to JSON array string
     let permissionsString: string;
     if (typeof data.permissions === 'string') {
       permissionsString = data.permissions;
-    } else {
+    } else if (Array.isArray(data.permissions)) {
       permissionsString = JSON.stringify(data.permissions);
+    } else {
+      throw new BadRequestException(
+        'Invalid permissions format. Permissions must be an array of action strings or JSON array string.'
+      );
     }
 
     // Validate permissions format
     if (!validatePermissions(permissionsString)) {
       throw new BadRequestException(
-        'Invalid permissions format. Permissions must be either a JSON object mapping table IDs to permission arrays, or comma-separated values: View, Create, Update, Delete, Configure'
+        'Invalid permissions format. Permissions must be a JSON array of action strings: ["record|create", "table|read", ...]'
       );
     }
 
@@ -69,14 +73,25 @@ export class RoleService {
       },
     });
 
-    // Parse permissions JSON string to object for response
-    let permissions: Record<string, string[]>;
+    // Parse permissions JSON string to array for response
+    let permissions: string[];
     try {
-      permissions = JSON.parse(role.permissions);
+      const parsed = JSON.parse(role.permissions);
+      if (Array.isArray(parsed)) {
+        permissions = parsed;
+      } else {
+        // Legacy format: convert to array
+        permissions = role.permissions
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean);
+      }
     } catch {
-      // Legacy format: treat as applying to all tables
-      const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
-      permissions = { '*': perms };
+      // Legacy format: comma-separated
+      permissions = role.permissions
+        .split(',')
+        .map((p) => p.trim())
+        .filter(Boolean);
     }
 
     return {
@@ -101,14 +116,25 @@ export class RoleService {
       throw new NotFoundException(`Role with id "${id}" not found`);
     }
 
-    // Parse permissions JSON string to object
-    let permissions: Record<string, string[]>;
+    // Parse permissions JSON string to array
+    let permissions: string[];
     try {
-      permissions = JSON.parse(role.permissions);
+      const parsed = JSON.parse(role.permissions);
+      if (Array.isArray(parsed)) {
+        permissions = parsed;
+      } else {
+        // Legacy format: convert to array
+        permissions = role.permissions
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean);
+      }
     } catch {
-      // Legacy format: treat as applying to all tables
-      const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
-      permissions = { '*': perms };
+      // Legacy format: comma-separated
+      permissions = role.permissions
+        .split(',')
+        .map((p) => p.trim())
+        .filter(Boolean);
     }
 
     return {
@@ -131,15 +157,26 @@ export class RoleService {
       },
     });
 
-    // Parse permissions JSON string to object for each role
+    // Parse permissions JSON string to array for each role
     return roles.map((role) => {
-      let permissions: Record<string, string[]>;
+      let permissions: string[];
       try {
-        permissions = JSON.parse(role.permissions);
+        const parsed = JSON.parse(role.permissions);
+        if (Array.isArray(parsed)) {
+          permissions = parsed;
+        } else {
+          // Legacy format: convert to array
+          permissions = role.permissions
+            .split(',')
+            .map((p) => p.trim())
+            .filter(Boolean);
+        }
       } catch {
-        // Legacy format: treat as applying to all tables
-        const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
-        permissions = { '*': perms };
+        // Legacy format: comma-separated
+        permissions = role.permissions
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean);
       }
 
       return {
@@ -161,19 +198,23 @@ export class RoleService {
       throw new NotFoundException(`Role with id "${id}" not found`);
     }
 
-    // Convert permissions to string if it's an object
+    // Convert permissions to JSON array string
     let permissionsString: string | undefined;
     if (data.permissions !== undefined) {
       if (typeof data.permissions === 'string') {
         permissionsString = data.permissions;
-      } else {
+      } else if (Array.isArray(data.permissions)) {
         permissionsString = JSON.stringify(data.permissions);
+      } else {
+        throw new BadRequestException(
+          'Invalid permissions format. Permissions must be an array of action strings or JSON array string.'
+        );
       }
 
       // Validate permissions format if provided
       if (permissionsString && !validatePermissions(permissionsString)) {
         throw new BadRequestException(
-          'Invalid permissions format. Permissions must be either a JSON object mapping table IDs to permission arrays, or comma-separated values: View, Create, Update, Delete, Configure'
+          'Invalid permissions format. Permissions must be a JSON array of action strings: ["record|create", "table|read", ...]'
         );
       }
     }
@@ -216,14 +257,25 @@ export class RoleService {
       },
     });
 
-    // Parse permissions JSON string to object for response
-    let permissions: Record<string, string[]>;
+    // Parse permissions JSON string to array for response
+    let permissions: string[];
     try {
-      permissions = JSON.parse(role.permissions);
+      const parsed = JSON.parse(role.permissions);
+      if (Array.isArray(parsed)) {
+        permissions = parsed;
+      } else {
+        // Legacy format: convert to array
+        permissions = role.permissions
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean);
+      }
     } catch {
-      // Legacy format: treat as applying to all tables
-      const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
-      permissions = { '*': perms };
+      // Legacy format: comma-separated
+      permissions = role.permissions
+        .split(',')
+        .map((p) => p.trim())
+        .filter(Boolean);
     }
 
     return {
@@ -261,4 +313,3 @@ export class RoleService {
     });
   }
 }
-

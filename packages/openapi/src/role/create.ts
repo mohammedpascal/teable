@@ -6,12 +6,27 @@ import { roleListVoSchema } from './list';
 
 export const CREATE_ROLE = '/role';
 
-const permissionEnum = z.enum(['View', 'Create', 'Update', 'Delete', 'Configure']);
+const actionPermissionEnum = z.enum([
+  'record|create',
+  'record|delete',
+  'record|read',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|read',
+  'view|update',
+  'table|create',
+  'table|delete',
+  'table|read',
+  'table|update',
+  'table|import',
+  'table|export',
+]);
 
 export const createRoleRoSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
-  permissions: z.record(z.string(), z.array(permissionEnum)),
+  permissions: z.array(actionPermissionEnum),
 });
 
 export type ICreateRoleRo = z.infer<typeof createRoleRoSchema>;

@@ -1,6 +1,4 @@
-import type { IRoleListVo, ICreateRoleRo, IUpdateRoleRo, ITableVo } from '@teable/openapi';
-import { getTableList } from '@teable/openapi';
-import { useQuery } from '@tanstack/react-query';
+import type { IRoleListVo, ICreateRoleRo, IUpdateRoleRo } from '@teable/openapi';
 import {
   Dialog,
   DialogContent,
@@ -13,14 +11,6 @@ import { Button } from '@teable/ui-lib/shadcn';
 import { Input } from '@teable/ui-lib/shadcn';
 import { Label } from '@teable/ui-lib/shadcn';
 import { Checkbox } from '@teable/ui-lib/shadcn';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useState, useEffect, useMemo } from 'react';
 
@@ -32,65 +22,113 @@ interface RoleDialogProps {
   isLoading: boolean;
 }
 
-const PERMISSIONS = ['View', 'Create', 'Update', 'Delete', 'Configure'] as const;
+const PERMISSIONS = [
+  'record|create',
+  'record|delete',
+  'record|read',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|read',
+  'view|update',
+  'table|create',
+  'table|delete',
+  'table|read',
+  'table|update',
+  'table|import',
+  'table|export',
+] as const;
+
 type Permission = typeof PERMISSIONS[number];
+
+const PERMISSION_GROUPS = [
+  {
+    label: 'Records',
+    permissions: ['record|create', 'record|delete', 'record|read', 'record|update'] as const,
+  },
+  {
+    label: 'Views',
+    permissions: ['view|create', 'view|delete', 'view|read', 'view|update'] as const,
+  },
+  {
+    label: 'Tables',
+    permissions: [
+      'table|create',
+      'table|delete',
+      'table|read',
+      'table|update',
+      'table|import',
+      'table|export',
+    ] as const,
+  },
+] as const;
+
+const PERMISSION_LABELS: Record<Permission, string> = {
+  'record|create': 'Create record',
+  'record|delete': 'Delete record',
+  'record|read': 'Read record',
+  'record|update': 'Update record',
+  'view|create': 'Create view',
+  'view|delete': 'Delete view',
+  'view|read': 'Read view',
+  'view|update': 'Update view',
+  'table|create': 'Create table',
+  'table|delete': 'Delete table',
+  'table|read': 'Read table',
+  'table|update': 'Update table',
+  'table|import': 'Import data into table',
+  'table|export': 'Export table data',
+};
 
 export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: RoleDialogProps) => {
   const { t } = useTranslation(['common', 'setting']);
   const isEdit = !!role;
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  // State: tableId -> Set of permissions
-  const [tablePermissions, setTablePermissions] = useState<Record<string, Set<Permission>>>({});
-
-  // Fetch tables
-  const { data: tables = [], isLoading: tablesLoading } = useQuery({
-    queryKey: ['table-list'],
-    queryFn: () => getTableList().then((res) => res.data),
-    enabled: open,
-  });
+  // State: Set of selected action permissions
+  const [selectedPermissions, setSelectedPermissions] = useState<Set<Permission>>(new Set());
 
   useEffect(() => {
     if (role) {
       setName(role.name);
       setDescription(role.description || '');
-      
+
       // Initialize permissions from role
-      const perms: Record<string, Set<Permission>> = {};
-      if (typeof role.permissions === 'object' && role.permissions !== null) {
-        // New JSON format
-        for (const [tableId, permArray] of Object.entries(role.permissions)) {
+      const perms = new Set<Permission>();
+      if (Array.isArray(role.permissions)) {
+        // New format: array of action strings
+        role.permissions.forEach((perm) => {
+          if (PERMISSIONS.includes(perm as Permission)) {
+            perms.add(perm as Permission);
+          }
+        });
+      } else if (typeof role.permissions === 'object' && role.permissions !== null) {
+        // Legacy format: object with table IDs
+        for (const permArray of Object.values(role.permissions)) {
           if (Array.isArray(permArray)) {
-            perms[tableId] = new Set(permArray.filter((p): p is Permission => 
-              PERMISSIONS.includes(p as Permission)
-            ));
+            permArray.forEach((perm) => {
+              if (PERMISSIONS.includes(perm as Permission)) {
+                perms.add(perm as Permission);
+              }
+            });
           }
         }
       }
-      setTablePermissions(perms);
+      setSelectedPermissions(perms);
     } else {
       setName('');
       setDescription('');
-      setTablePermissions({});
+      setSelectedPermissions(new Set());
     }
   }, [role, open]);
 
-  const handlePermissionToggle = (tableId: string, permission: Permission) => {
-    setTablePermissions((prev) => {
-      const newPerms = { ...prev };
-      if (!newPerms[tableId]) {
-        newPerms[tableId] = new Set();
-      }
-      const tablePerms = new Set(newPerms[tableId]);
-      if (tablePerms.has(permission)) {
-        tablePerms.delete(permission);
+  const handlePermissionToggle = (permission: Permission) => {
+    setSelectedPermissions((prev) => {
+      const newPerms = new Set(prev);
+      if (newPerms.has(permission)) {
+        newPerms.delete(permission);
       } else {
-        tablePerms.add(permission);
-      }
-      if (tablePerms.size === 0) {
-        delete newPerms[tableId];
-      } else {
-        newPerms[tableId] = tablePerms;
+        newPerms.add(permission);
       }
       return newPerms;
     });
@@ -98,15 +136,10 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Convert Set to array for each table
-    const permissions: Record<string, Permission[]> = {};
-    for (const [tableId, permSet] of Object.entries(tablePermissions)) {
-      if (permSet.size > 0) {
-        permissions[tableId] = Array.from(permSet);
-      }
-    }
-    
+
+    // Convert Set to array of action strings
+    const permissions = Array.from(selectedPermissions);
+
     if (isEdit) {
       onSubmit({
         name,
@@ -123,8 +156,8 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
   };
 
   const hasAnyPermissions = useMemo(() => {
-    return Object.values(tablePermissions).some((perms) => perms.size > 0);
-  }, [tablePermissions]);
+    return selectedPermissions.size > 0;
+  }, [selectedPermissions]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -173,52 +206,31 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
               <Label>
                 {t('setting:roles.permissions', { defaultValue: 'Permissions' })}
               </Label>
-              {tablesLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <p className="text-sm text-muted-foreground">
-                    {t('common:loading', { defaultValue: 'Loading tables...' })}
-                  </p>
-                </div>
-              ) : tables.length === 0 ? (
-                <div className="flex items-center justify-center py-8">
-                  <p className="text-sm text-muted-foreground">
-                    {t('setting:roles.noTables', { defaultValue: 'No tables found' })}
-                  </p>
-                </div>
-              ) : (
-                <div className="rounded-md border overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="min-w-[200px]">
-                          {t('setting:roles.table', { defaultValue: 'Table' })}
-                        </TableHead>
-                        {PERMISSIONS.map((permission) => (
-                          <TableHead key={permission} className="text-center">
-                            {permission}
-                          </TableHead>
-                        ))}
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {tables.map((table) => (
-                        <TableRow key={table.id}>
-                          <TableCell className="font-medium">{table.name}</TableCell>
-                          {PERMISSIONS.map((permission) => (
-                            <TableCell key={permission} className="text-center">
-                              <Checkbox
-                                checked={tablePermissions[table.id]?.has(permission) || false}
-                                onCheckedChange={() => handlePermissionToggle(table.id, permission)}
-                                disabled={isLoading}
-                              />
-                            </TableCell>
-                          ))}
-                        </TableRow>
+              <div className="rounded-md border p-4 space-y-6">
+                {PERMISSION_GROUPS.map((group) => (
+                  <div key={group.label} className="space-y-3">
+                    <h4 className="font-semibold text-sm">{group.label}</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      {group.permissions.map((permission) => (
+                        <div key={permission} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={permission}
+                            checked={selectedPermissions.has(permission)}
+                            onCheckedChange={() => handlePermissionToggle(permission)}
+                            disabled={isLoading}
+                          />
+                          <Label
+                            htmlFor={permission}
+                            className="text-sm font-normal cursor-pointer"
+                          >
+                            {PERMISSION_LABELS[permission]}
+                          </Label>
+                        </div>
                       ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <DialogFooter>

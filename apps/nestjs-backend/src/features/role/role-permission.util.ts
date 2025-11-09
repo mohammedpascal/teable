@@ -1,10 +1,28 @@
 import type { User } from '../../prisma';
 
-export type ViewPermission = 'View' | 'Create' | 'Update' | 'Delete' | 'Configure';
+// Action-based permissions that apply globally
+export const VALID_PERMISSIONS = [
+  'record|create',
+  'record|delete',
+  'record|read',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|read',
+  'view|update',
+  'table|create',
+  'table|delete',
+  'table|read',
+  'table|update',
+  'table|import',
+  'table|export',
+  'field|create',
+  'field|delete',
+  'field|read',
+  'field|update',
+] as const;
 
-const VALID_PERMISSIONS: ViewPermission[] = ['View', 'Create', 'Update', 'Delete', 'Configure'];
-
-export type TablePermissions = Record<string, ViewPermission[]>;
+export type ActionPermission = typeof VALID_PERMISSIONS[number];
 
 /**
  * Check if a string is valid JSON
@@ -19,175 +37,119 @@ function isJsonString(str: string): boolean {
 }
 
 /**
- * Parse permissions string - handles both legacy comma-separated format and new JSON format
+ * Parse permissions string - expects JSON array of action strings
  */
 export function parsePermissionsString(
   permissionsString: string | null | undefined
-): TablePermissions | null {
+): ActionPermission[] {
   if (!permissionsString || !permissionsString.trim()) {
-    return null;
-  }
-
-  // Try to parse as JSON first
-  if (isJsonString(permissionsString)) {
-    try {
-      const parsed = JSON.parse(permissionsString);
-      // Validate structure
-      if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
-        // Validate that all values are arrays of valid permissions
-        const result: TablePermissions = {};
-        for (const [tableId, perms] of Object.entries(parsed)) {
-          if (Array.isArray(perms)) {
-            result[tableId] = perms.filter((p): p is ViewPermission =>
-              VALID_PERMISSIONS.includes(p as ViewPermission)
-            );
-          }
-        }
-        return result;
-      }
-    } catch {
-      // Invalid JSON, fall through to legacy format
-    }
-  }
-
-  // Legacy format: comma-separated permissions
-  // Convert to a format that applies to all tables (using '*' as key)
-  const permissions = permissionsString
-    .split(',')
-    .map((p) => p.trim())
-    .filter((p): p is ViewPermission => {
-      return VALID_PERMISSIONS.includes(p as ViewPermission);
-    });
-
-  if (permissions.length === 0) {
-    return null;
-  }
-
-  // Return legacy format with '*' key to indicate it applies to all tables
-  return { '*': permissions };
-}
-
-/**
- * Parse comma-separated permissions string into array (legacy function, kept for backward compatibility)
- */
-export function parsePermissions(permissionsString: string | null | undefined): ViewPermission[] {
-  if (!permissionsString) {
     return [];
   }
 
-  return permissionsString
+  // Try to parse as JSON array
+  if (isJsonString(permissionsString)) {
+    try {
+      const parsed = JSON.parse(permissionsString);
+      if (Array.isArray(parsed)) {
+        return parsed.filter((p): p is ActionPermission =>
+          VALID_PERMISSIONS.includes(p as ActionPermission)
+        );
+      }
+    } catch {
+      // Invalid JSON, return empty array
+    }
+  }
+
+  // Legacy format: comma-separated permissions (for backward compatibility)
+  const permissions = permissionsString
     .split(',')
     .map((p) => p.trim())
-    .filter((p): p is ViewPermission => {
-      return VALID_PERMISSIONS.includes(p as ViewPermission);
+    .filter((p): p is ActionPermission => {
+      return VALID_PERMISSIONS.includes(p as ActionPermission);
     });
+
+  return permissions;
 }
 
 /**
- * Check if user's role has a specific permission for a table
+ * Parse permissions string into array (alias for parsePermissionsString for backward compatibility)
+ */
+export function parsePermissions(permissionsString: string | null | undefined): ActionPermission[] {
+  return parsePermissionsString(permissionsString);
+}
+
+/**
+ * Check if user has a specific action permission
  * Admin users bypass all permission checks
+ */
+export function hasActionPermission(
+  user: User & { role?: { permissions: string } | null } | null,
+  action: ActionPermission
+): boolean {
+  if (!user) {
+    return false;
+  }
+
+  // Admin users bypass all permission checks
+  if (user.isAdmin) {
+    return true;
+  }
+
+  // Users without a role have no permissions
+  if (!user.role || !user.role.permissions) {
+    return false;
+  }
+
+  const permissions = parsePermissionsString(user.role.permissions);
+  return permissions.includes(action);
+}
+
+/**
+ * Check if user's role has a specific permission for a table (deprecated, use hasActionPermission)
+ * @deprecated Use hasActionPermission instead
  */
 export function hasTablePermission(
   user: User & { role?: { permissions: string } | null } | null,
   tableId: string,
-  permission: ViewPermission
+  permission: string
 ): boolean {
-  if (!user) {
-    return false;
+  // Map old ViewPermission to new action permissions for backward compatibility
+  const permissionMap: Record<string, ActionPermission> = {
+    View: 'table|read',
+    Create: 'table|create',
+    Update: 'table|update',
+    Delete: 'table|delete',
+    Configure: 'table|update',
+  };
+
+  const action = permissionMap[permission];
+  if (action) {
+    return hasActionPermission(user, action);
   }
 
-  // Admin users bypass all permission checks
-  if (user.isAdmin) {
-    return true;
-  }
-
-  // Users without a role have no permissions
-  if (!user.role || !user.role.permissions) {
-    return false;
-  }
-
-  const tablePermissions = parsePermissionsString(user.role.permissions);
-  if (!tablePermissions) {
-    return false;
-  }
-
-  // Check if permissions exist for this specific table
-  if (tablePermissions[tableId]) {
-    return tablePermissions[tableId].includes(permission);
-  }
-
-  // Check legacy format (applies to all tables)
-  if (tablePermissions['*']) {
-    return tablePermissions['*'].includes(permission);
-  }
-
-  return false;
+  return hasActionPermission(user, permission as ActionPermission);
 }
 
 /**
- * Get all permissions for a specific table
+ * Get all permissions for a specific table (deprecated, use getUserPermissions)
+ * @deprecated Use getUserPermissions instead
  */
 export function getTablePermissions(
   user: User & { role?: { permissions: string } | null } | null,
   tableId: string
-): ViewPermission[] {
-  if (!user) {
-    return [];
-  }
-
-  // Admin users have all permissions
-  if (user.isAdmin) {
-    return VALID_PERMISSIONS;
-  }
-
-  // Users without a role have no permissions
-  if (!user.role || !user.role.permissions) {
-    return [];
-  }
-
-  const tablePermissions = parsePermissionsString(user.role.permissions);
-  if (!tablePermissions) {
-    return [];
-  }
-
-  // Check if permissions exist for this specific table
-  if (tablePermissions[tableId]) {
-    return tablePermissions[tableId];
-  }
-
-  // Check legacy format (applies to all tables)
-  if (tablePermissions['*']) {
-    return tablePermissions['*'];
-  }
-
-  return [];
+): ActionPermission[] {
+  return getUserPermissions(user);
 }
 
 /**
- * Check if user's role has a specific permission (legacy function, kept for backward compatibility)
- * Admin users bypass all permission checks
- * Note: This function doesn't check table-specific permissions. Use hasTablePermission instead.
+ * Check if user's role has a specific permission (deprecated, use hasActionPermission)
+ * @deprecated Use hasActionPermission instead
  */
 export function hasPermission(
   user: User & { role?: { permissions: string } | null } | null,
-  permission: ViewPermission
+  permission: string
 ): boolean {
-  if (!user) {
-    return false;
-  }
-
-  // Admin users bypass all permission checks
-  if (user.isAdmin) {
-    return true;
-  }
-
-  // Users without a role have no permissions
-  if (!user.role || !user.role.permissions) {
-    return false;
-  }
-
-  const permissions = parsePermissions(user.role.permissions);
-  return permissions.includes(permission);
+  return hasActionPermission(user, permission as ActionPermission);
 }
 
 /**
@@ -195,14 +157,14 @@ export function hasPermission(
  */
 export function getUserPermissions(
   user: User & { role?: { permissions: string } | null } | null
-): ViewPermission[] {
+): ActionPermission[] {
   if (!user) {
     return [];
   }
 
   // Admin users have all permissions
   if (user.isAdmin) {
-    return VALID_PERMISSIONS;
+    return [...VALID_PERMISSIONS];
   }
 
   // Users without a role have no permissions
@@ -214,10 +176,10 @@ export function getUserPermissions(
 }
 
 /**
- * Validate permissions string format (supports both JSON and legacy comma-separated)
+ * Validate permissions string format (expects JSON array of action strings)
  */
 export function validatePermissions(permissionsString: string): boolean {
-  if (!permissionsString.trim()) {
+  if (!permissionsString || !permissionsString.trim()) {
     return false;
   }
 
@@ -225,19 +187,19 @@ export function validatePermissions(permissionsString: string): boolean {
   if (isJsonString(permissionsString)) {
     try {
       const parsed = JSON.parse(permissionsString);
-      if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+      if (!Array.isArray(parsed)) {
         return false;
       }
 
-      // Validate that all values are arrays of valid permissions
-      for (const [tableId, perms] of Object.entries(parsed)) {
-        if (!Array.isArray(perms)) {
+      // Empty array is valid (no permissions)
+      if (parsed.length === 0) {
+        return true;
+      }
+
+      // Validate that all values are valid action permissions
+      for (const perm of parsed) {
+        if (typeof perm !== 'string' || !VALID_PERMISSIONS.includes(perm as ActionPermission)) {
           return false;
-        }
-        for (const perm of perms) {
-          if (!VALID_PERMISSIONS.includes(perm as ViewPermission)) {
-            return false;
-          }
         }
       }
       return true;
@@ -246,7 +208,7 @@ export function validatePermissions(permissionsString: string): boolean {
     }
   }
 
-  // Legacy format: comma-separated
+  // Legacy format: comma-separated (for backward compatibility)
   const permissions = parsePermissions(permissionsString);
   const inputPermissions = permissionsString
     .split(',')
