@@ -3641,487 +3641,6 @@ export interface paths {
       };
     };
   };
-  "/table/{tableId}/view/plugin": {
-    /** @description Install a plugin to a view */
-    post: {
-      parameters: {
-        path: {
-          tableId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name?: string;
-            pluginId: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the installed plugin. */
-        201: {
-          content: {
-            "application/json": {
-              pluginId: string;
-              pluginInstallId: string;
-              name: string;
-              viewId: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard": {
-    /** @description Get a list of dashboards in base */
-    get: {
-      responses: {
-        /** @description Returns data about the dashboards. */
-        200: {
-          content: {
-            "application/json": {
-                  id: string;
-                  name: string;
-                }[][];
-          };
-        };
-      };
-    };
-    /** @description Create a new dashboard */
-    post: {
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the created dashboard. */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{id}": {
-    /** @description Get a dashboard by id */
-    get: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      responses: {
-        /** @description Returns data about the dashboard. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-              layout?: {
-                  widgetId: string;
-                  x: number;
-                  y: number;
-                  w: number;
-                  h: number;
-                }[];
-              widgetMap?: {
-                [key: string]: {
-                  id: string;
-                  name: string;
-                  type: string;
-                  config: string | null;
-                  position: string | null;
-                };
-              };
-            };
-          };
-        };
-      };
-    };
-    /** @description Delete a dashboard by id */
-    delete: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      responses: {
-        /** @description Dashboard deleted */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/dashboard/{dashboardId}/rename": {
-    /** @description Rename a dashboard by id */
-    patch: {
-      parameters: {
-        path: {
-          dashboardId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the renamed dashboard. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{id}/layout": {
-    /** @description Update a dashboard layout by id */
-    patch: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            layout: {
-                widgetId: string;
-                x: number;
-                y: number;
-                w: number;
-                h: number;
-              }[];
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the updated dashboard layout. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              layout: {
-                  widgetId: string;
-                  x: number;
-                  y: number;
-                  w: number;
-                  h: number;
-                }[];
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{id}/plugin": {
-    /** @description Install a plugin to a dashboard */
-    post: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-            pluginId: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the installed plugin. */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              pluginId: string;
-              pluginInstallId: string;
-              name: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{dashboardId}/plugin/{pluginInstallId}": {
-    /** @description Remove a plugin from a dashboard */
-    delete: {
-      parameters: {
-        path: {
-          dashboardId: string;
-          pluginInstallId: string;
-        };
-      };
-      responses: {
-        /** @description Plugin removed successfully. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/dashboard/{dashboardId}/plugin/{pluginInstallId}/rename": {
-    /** @description Rename a plugin in a dashboard */
-    patch: {
-      parameters: {
-        path: {
-          dashboardId: string;
-          pluginInstallId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the renamed plugin. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              pluginInstallId: string;
-              name: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{dashboardId}/plugin/{installPluginId}": {
-    /** @description Get a dashboard install plugin by id */
-    get: {
-      parameters: {
-        path: {
-          dashboardId: string;
-          installPluginId: string;
-        };
-      };
-      responses: {
-        /** @description Returns data about the dashboard install plugin. */
-        200: {
-          content: {
-            "application/json": {
-              pluginId: string;
-              pluginInstallId: string;
-              name: string;
-              storage?: {
-                [key: string]: unknown;
-              };
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{dashboardId}/plugin/{pluginInstallId}/update-storage": {
-    /** @description Update storage of a plugin in a dashboard */
-    patch: {
-      parameters: {
-        path: {
-          dashboardId: string;
-          pluginInstallId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            storage?: {
-              [key: string]: unknown;
-            };
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the updated plugin. */
-        200: {
-          content: {
-            "application/json": {
-              dashboardId: string;
-              pluginInstallId: string;
-              storage?: {
-                [key: string]: unknown;
-              };
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{dashboardId}/widget": {
-    /** @description Create a new widget in a dashboard */
-    post: {
-      parameters: {
-        path: {
-          dashboardId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-            type: string;
-            config?: string;
-            position?: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the created widget. */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              dashboardId: string;
-              name: string;
-              type: string;
-              config: string | null;
-              position: string | null;
-              createdTime: string;
-              createdBy: string;
-              lastModifiedTime: string | null;
-              lastModifiedBy: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/dashboard/{dashboardId}/widget/{widgetId}": {
-    /** @description Delete a widget from a dashboard */
-    delete: {
-      parameters: {
-        path: {
-          dashboardId: string;
-          widgetId: string;
-        };
-      };
-      responses: {
-        /** @description Widget deleted successfully. */
-        204: {
-          content: never;
-        };
-      };
-    };
-    /** @description Update a widget in a dashboard */
-    patch: {
-      parameters: {
-        path: {
-          dashboardId: string;
-          widgetId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name?: string;
-            config?: string;
-            position?: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the updated widget. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              dashboardId: string;
-              name: string;
-              type: string;
-              config: string | null;
-              position: string | null;
-              createdTime: string;
-              createdBy: string;
-              lastModifiedTime: string | null;
-              lastModifiedBy: string | null;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/table/{tableId}/view/{viewId}/plugin/{pluginInstallId}": {
-    /** @description Update storage of a plugin in a view */
-    patch: {
-      parameters: {
-        path: {
-          tableId: string;
-          viewId: string;
-          pluginInstallId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            storage?: {
-              [key: string]: unknown;
-            };
-          };
-        };
-      };
-      responses: {
-        /** @description Returns data about the updated plugin. */
-        200: {
-          content: {
-            "application/json": {
-              tableId: string;
-              viewId: string;
-              pluginInstallId: string;
-              storage?: {
-                [key: string]: unknown;
-              };
-            };
-          };
-        };
-      };
-    };
-  };
-  "/table/{tableId}/view/{viewId}/plugin": {
-    /** @description Get a view install plugin by id */
-    get: {
-      parameters: {
-        path: {
-          tableId: string;
-          viewId: string;
-        };
-      };
-      responses: {
-        /** @description Returns data about the view install plugin. */
-        200: {
-          content: {
-            "application/json": {
-              pluginId: string;
-              pluginInstallId: string;
-              name: string;
-              url?: string;
-              storage?: {
-                [key: string]: unknown;
-              };
-            };
-          };
-        };
-      };
-    };
-  };
   "/table/{tableId}/view/{viewId}/locked": {
     /** @description Update the locked status of the view */
     put: {
@@ -4378,7 +3897,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/": {
+  "/table/": {
     /**
      * Create table
      * @description Create a new table in the specified base with customizable fields, views, and initial records. Default configurations will be applied if not specified.
@@ -5349,7 +4868,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table": {
+  "/table": {
     /**
      * List tables
      * @description Retrieve a list of all tables in the specified base, including their basic information and configurations.
@@ -5381,7 +4900,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}": {
+  "/table/{tableId}": {
     /**
      * Get table details
      * @description Retrieve detailed information about a specific table, including its schema, name, and configuration.
@@ -5435,7 +4954,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/name": {
+  "/table/{tableId}/name": {
     /**
      * Update table name
      * @description Update the display name of a table. This will not affect the underlying database table name.
@@ -5461,7 +4980,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/icon": {
+  "/table/{tableId}/icon": {
     /**
      * Update table tcon
      * @description Update the emoji icon of a table. The icon must be a valid emoji character.
@@ -5487,7 +5006,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/order": {
+  "/table/{tableId}/order": {
     /**
      * Update table order
      * @description Update the display order of a table in the base. This affects the order in which tables are shown in the UI.
@@ -5515,7 +5034,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/description": {
+  "/table/{tableId}/description": {
     /**
      * Update table description
      * @description Update or remove the description of a table. Set to null to remove the description.
@@ -5541,7 +5060,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/db-table-name": {
+  "/table/{tableId}/db-table-name": {
     /**
      * Update db table name
      * @description Update the physical database table name. Must be 1-63 characters, start with letter or underscore, contain only letters, numbers and underscore, and be unique within the base.
@@ -5568,7 +5087,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/default-view-id": {
+  "/table/{tableId}/default-view-id": {
     /**
      * Get default view id
      * @description Get default view id
@@ -5591,7 +5110,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/permission": {
+  "/table/{tableId}/permission": {
     /**
      * Get table permissions
      * @description Retrieve the current user's permissions for a table, including access rights for table operations, views, records, and fields.
@@ -5630,7 +5149,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/index": {
+  "/table/{tableId}/index": {
     /**
      * Toggle table index
      * @description Toggle table index
@@ -5657,7 +5176,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/activated-index": {
+  "/table/{tableId}/activated-index": {
     /**
      * Get activated index
      * @description Get the activated index of a table
@@ -5678,7 +5197,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/abnormal-index": {
+  "/table/{tableId}/abnormal-index": {
     /**
      * Get abnormal indexes
      * @description Retrieve a list of abnormal database indexes for a specific table by index type. This helps identify potential performance or maintenance issues.
@@ -5702,7 +5221,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/index/repair": {
+  "/table/{tableId}/index/repair": {
     /**
      * Repair table index
      * @description Repair table index
@@ -5722,7 +5241,7 @@ export interface paths {
       };
     };
   };
-  "/base/bse0/table/{tableId}/duplicate": {
+  "/table/{tableId}/duplicate": {
     /**
      * Duplicate a table
      * @description Duplicate a table
@@ -5745,115 +5264,6 @@ export interface paths {
         /** @description Duplicate successfully */
         200: {
           content: never;
-        };
-      };
-    };
-  };
-  "/base": {
-    /** @description Get a base */
-    get: {
-      responses: {
-        /** @description Returns information about a base. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/base/bse0": {
-    /** @description Update a base info */
-    patch: {
-      requestBody?: {
-        content: {
-          "application/json": {
-            name?: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns information about a successfully updated base. */
-        200: {
-          content: {
-            "application/json": {
-              name: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/base/bse0/order": {
-    /** @description Update base order */
-    put: {
-      requestBody?: {
-        content: {
-          "application/json": {
-            anchorId: string;
-            /** @enum {string} */
-            position: "before" | "after";
-          };
-        };
-      };
-      responses: {
-        /** @description Successfully update. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-  "/base/shared-base": {
-    get: {
-      responses: {
-        /** @description Returns information about a shared base. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/base/bse0/permission": {
-    /** @description Get a base permission */
-    get: {
-      responses: {
-        /** @description Returns data about a base permission. */
-        200: {
-          content: {
-            "application/json": {
-              [key: string]: boolean;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/base/bse0/query": {
-    /** @description Get base query result */
-    get: {
-      parameters: {
-        query: {
-          query: string;
-          cellFormat?: "json" | "text";
-        };
-      };
-      responses: {
-        /** @description The sql query result */
-        200: {
-          content: {
-            "application/json": {
-                [key: string]: unknown;
-              }[];
-          };
         };
       };
     };
@@ -8586,157 +7996,6 @@ export interface paths {
       };
     };
   };
-  "/access-token": {
-    /** @description List access token */
-    get: {
-      responses: {
-        /** @description Returns access token. */
-        200: {
-          content: {
-            "application/json": {
-                id: string;
-                name: string;
-                description?: string;
-                scopes: string[];
-                expiredTime: string;
-                createdTime: string;
-                lastUsedTime?: string;
-              }[];
-          };
-        };
-      };
-    };
-    /** @description Create access token */
-    post: {
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-            description?: string;
-            scopes: string[];
-            /** @example 2024-03-25 */
-            expiredTime: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns access token. */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-              description?: string;
-              scopes: string[];
-              expiredTime: string;
-              token: string;
-              createdTime: string;
-              lastUsedTime: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/access-token/{id}/refresh": {
-    /** @description Refresh access token */
-    post: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            expiredTime: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Returns access token. */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              expiredTime: string;
-              token: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/access-token/{id}": {
-    /** @description Get access token */
-    get: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      responses: {
-        /** @description Returns access token. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-              description?: string;
-              scopes: string[];
-              expiredTime: string;
-              createdTime: string;
-              lastUsedTime?: string;
-            };
-          };
-        };
-      };
-    };
-    /** @description Update access token */
-    put: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-            description?: string;
-            scopes: string[];
-          };
-        };
-      };
-      responses: {
-        /** @description Returns access token. */
-        200: {
-          content: {
-            "application/json": {
-              id: string;
-              name: string;
-              description?: string;
-              scopes: string[];
-            };
-          };
-        };
-      };
-    };
-    /** @description Delete access token */
-    delete: {
-      parameters: {
-        path: {
-          id: string;
-        };
-      };
-      responses: {
-        /** @description Access token deleted. */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
   "/import/analyze": {
     /** @description Get a column info from analyze sheet */
     get: {
@@ -8767,7 +8026,7 @@ export interface paths {
       };
     };
   };
-  "/import/bse0": {
+  "/import": {
     /** @description create table from file */
     post: {
       requestBody?: {
@@ -8822,7 +8081,7 @@ export interface paths {
       };
     };
   };
-  "/import/bse0/{tableId}": {
+  "/import/{tableId}": {
     /** @description import table inplace */
     patch: {
       parameters: {
@@ -8926,257 +8185,80 @@ export interface paths {
       };
     };
   };
-  "/plugin": {
-    /** @description Get plugins */
+  "/dashboard": {
+    /** @description Get a list of dashboards in base */
     get: {
       responses: {
-        /** @description Returns data about the plugins. */
+        /** @description Returns data about the dashboards. */
         200: {
           content: {
-            "application/json": ({
-                id: string;
-                name: string;
-                description?: string;
-                detailDesc?: string;
-                logo: string;
-                url?: string;
-                helpUrl?: string;
-                positions: ("dashboard" | "view" | "contextMenu" | "panel")[];
-                /**
-                 * @example {
-                 *   "en": {
-                 *     "title": "Plugin title",
-                 *     "description": "Plugin description"
-                 *   },
-                 *   "zh": {
-                 *     "title": "插件标题",
-                 *     "description": "插件描述"
-                 *   }
-                 * }
-                 */
-                i18n: Record<string, never>;
-                /** @enum {string} */
-                status: "developing" | "reviewing" | "published";
-                pluginUser?: {
+            "application/json": {
                   id: string;
                   name: string;
-                  /** Format: email */
-                  email: string;
-                  avatar?: string;
-                };
-                createdTime: string;
-                lastModifiedTime: string;
-              })[];
+                }[][];
           };
         };
       };
     };
-    /** @description Create a plugin */
+    /** @description Create a new dashboard */
     post: {
       requestBody?: {
         content: {
           "application/json": {
             name: string;
-            description?: string;
-            detailDesc?: string;
-            logo: string;
-            /** Format: uri */
-            url?: string;
-            config?: {
-              contextMenu?: {
-                width?: number | string;
-                height?: number | string;
-                x?: number | string;
-                y?: number | string;
-                frozenResize?: boolean;
-                frozenDrag?: boolean;
-              };
-              view?: unknown;
-              dashboard?: unknown;
-              panel?: unknown;
-            };
-            /** Format: uri */
-            helpUrl?: string;
-            positions: ("dashboard" | "view" | "contextMenu" | "panel")[];
-            /**
-             * @example {
-             *   "en": {
-             *     "title": "Plugin title",
-             *     "description": "Plugin description"
-             *   },
-             *   "zh": {
-             *     "title": "插件标题",
-             *     "description": "插件描述"
-             *   }
-             * }
-             */
-            i18n?: Record<string, never>;
-            autoCreateMember?: boolean;
           };
         };
       };
       responses: {
-        /** @description Returns data about the plugin. */
+        /** @description Returns data about the created dashboard. */
         201: {
           content: {
             "application/json": {
               id: string;
               name: string;
-              description?: string;
-              detailDesc?: string;
-              logo: string;
-              url?: string;
-              config?: {
-                contextMenu?: {
-                  width?: number | string;
-                  height?: number | string;
-                  x?: number | string;
-                  y?: number | string;
-                  frozenResize?: boolean;
-                  frozenDrag?: boolean;
-                };
-                view?: unknown;
-                dashboard?: unknown;
-                panel?: unknown;
-              };
-              helpUrl?: string;
-              positions: ("dashboard" | "view" | "contextMenu" | "panel")[];
-              /**
-               * @example {
-               *   "en": {
-               *     "title": "Plugin title",
-               *     "description": "Plugin description"
-               *   },
-               *   "zh": {
-               *     "title": "插件标题",
-               *     "description": "插件描述"
-               *   }
-               * }
-               */
-              i18n?: Record<string, never>;
-              secret: string;
-              /** @enum {string} */
-              status: "developing" | "reviewing" | "published";
-              pluginUser?: {
-                id: string;
-                name: string;
-                /** Format: email */
-                email: string;
-                avatar?: string;
-              };
-              createdTime: string;
             };
           };
         };
       };
     };
   };
-  "/plugin/{id}": {
-    /** @description Update a plugin */
-    put: {
+  "/dashboard/{id}": {
+    /** @description Get a dashboard by id */
+    get: {
       parameters: {
         path: {
           id: string;
         };
       };
-      requestBody?: {
-        content: {
-          "application/json": {
-            name: string;
-            description?: string;
-            detailDesc?: string;
-            /** Format: uri */
-            url?: string;
-            config?: {
-              contextMenu?: {
-                width?: number | string;
-                height?: number | string;
-                x?: number | string;
-                y?: number | string;
-                frozenResize?: boolean;
-                frozenDrag?: boolean;
-              };
-              view?: unknown;
-              dashboard?: unknown;
-              panel?: unknown;
-            };
-            logo?: string;
-            /** Format: uri */
-            helpUrl?: string;
-            positions: ("dashboard" | "view" | "contextMenu" | "panel")[];
-            /**
-             * @example {
-             *   "en": {
-             *     "title": "Plugin title",
-             *     "description": "Plugin description"
-             *   },
-             *   "zh": {
-             *     "title": "插件标题",
-             *     "description": "插件描述"
-             *   }
-             * }
-             */
-            i18n?: Record<string, never>;
-          };
-        };
-      };
       responses: {
-        /** @description Returns data about the plugin. */
+        /** @description Returns data about the dashboard. */
         200: {
           content: {
             "application/json": {
               id: string;
               name: string;
-              description?: string;
-              detailDesc?: string;
-              logo: string;
-              config?: {
-                contextMenu?: {
-                  width?: number | string;
-                  height?: number | string;
-                  x?: number | string;
-                  y?: number | string;
-                  frozenResize?: boolean;
-                  frozenDrag?: boolean;
+              layout?: {
+                  widgetId: string;
+                  x: number;
+                  y: number;
+                  w: number;
+                  h: number;
+                }[];
+              widgetMap?: {
+                [key: string]: {
+                  id: string;
+                  name: string;
+                  type: string;
+                  config: string | null;
+                  position: string | null;
                 };
-                view?: unknown;
-                dashboard?: unknown;
-                panel?: unknown;
               };
-              url?: string;
-              helpUrl?: string;
-              positions: ("dashboard" | "view" | "contextMenu" | "panel")[];
-              /**
-               * @example {
-               *   "en": {
-               *     "title": "Plugin title",
-               *     "description": "Plugin description"
-               *   },
-               *   "zh": {
-               *     "title": "插件标题",
-               *     "description": "插件描述"
-               *   }
-               * }
-               */
-              i18n?: Record<string, never>;
-              secret: string;
-              /** @enum {string} */
-              status: "developing" | "reviewing" | "published";
-              pluginUser?: {
-                id: string;
-                name: string;
-                /** Format: email */
-                email: string;
-                avatar?: string;
-              };
-              createdTime: string;
-              lastModifiedTime: string;
             };
           };
         };
       };
     };
-    /** @description Delete a plugin */
+    /** @description Delete a dashboard by id */
     delete: {
       parameters: {
         path: {
@@ -9184,265 +8266,170 @@ export interface paths {
         };
       };
       responses: {
-        /** @description Returns no content. */
+        /** @description Dashboard deleted */
         200: {
           content: never;
         };
       };
     };
   };
-  "/plugin/{id}/regenerate-secret": {
-    /** @description Regenerate a plugin secret */
-    post: {
+  "/dashboard/{dashboardId}/rename": {
+    /** @description Rename a dashboard by id */
+    patch: {
       parameters: {
         path: {
-          id: string;
+          dashboardId: string;
         };
       };
-      responses: {
-        /** @description Returns data about the plugin. */
-        201: {
-          content: {
-            "application/json": {
-              id: string;
-              secret: string;
-            };
+      requestBody?: {
+        content: {
+          "application/json": {
+            name: string;
           };
         };
       };
-    };
-  };
-  "/plugin/{pluginId}": {
-    /** @description Get a plugin */
-    get: {
-      parameters: {
-        path: {
-          pluginId: string;
-        };
-      };
       responses: {
-        /** @description Returns data about the plugin. */
+        /** @description Returns data about the renamed dashboard. */
         200: {
           content: {
             "application/json": {
               id: string;
               name: string;
-              description?: string;
-              detailDesc?: string;
-              logo: string;
-              url?: string;
-              helpUrl?: string;
-              positions: ("dashboard" | "view" | "contextMenu" | "panel")[];
-              /**
-               * @example {
-               *   "en": {
-               *     "title": "Plugin title",
-               *     "description": "Plugin description"
-               *   },
-               *   "zh": {
-               *     "title": "插件标题",
-               *     "description": "插件描述"
-               *   }
-               * }
-               */
-              i18n?: Record<string, never>;
-              config?: {
-                contextMenu?: {
-                  width?: number | string;
-                  height?: number | string;
-                  x?: number | string;
-                  y?: number | string;
-                  frozenResize?: boolean;
-                  frozenDrag?: boolean;
-                };
-                view?: unknown;
-                dashboard?: unknown;
-                panel?: unknown;
-              };
-              secret: string;
-              /** @enum {string} */
-              status: "developing" | "reviewing" | "published";
-              pluginUser?: {
-                id: string;
-                name: string;
-                /** Format: email */
-                email: string;
-                avatar?: string;
-              };
-              createdTime: string;
-              lastModifiedTime: string;
             };
           };
         };
       };
     };
   };
-  "/plugin/center/list": {
-    /** @description Get a list of plugins center */
-    get: {
+  "/dashboard/{id}/layout": {
+    /** @description Update a dashboard layout by id */
+    patch: {
       parameters: {
-        query?: {
-          ids?: string[];
-          positions?: string;
+        path: {
+          id: string;
         };
       };
-      responses: {
-        /** @description Returns data about the plugin center list. */
-        200: {
-          content: {
-            "application/json": {
-                id: string;
-                name: string;
-                description?: string;
-                detailDesc?: string;
-                logo: string;
-                helpUrl?: string;
-                /**
-                 * @example {
-                 *   "en": {
-                 *     "title": "Plugin title",
-                 *     "description": "Plugin description"
-                 *   },
-                 *   "zh": {
-                 *     "title": "插件标题",
-                 *     "description": "插件描述"
-                 *   }
-                 * }
-                 */
-                i18n?: Record<string, never>;
-                url?: string;
-                createdTime: string;
-                lastModifiedTime?: string;
-                createdBy: {
-                  id: string;
-                  name: string;
-                  /** Format: email */
-                  email: string;
-                  avatar?: string;
-                };
+      requestBody?: {
+        content: {
+          "application/json": {
+            layout: {
+                widgetId: string;
+                x: number;
+                y: number;
+                w: number;
+                h: number;
               }[];
           };
         };
       };
-    };
-  };
-  "/plugin/{pluginId}/submit": {
-    /** @description Submit a plugin */
-    patch: {
-      parameters: {
-        path: {
-          pluginId: string;
-        };
-      };
       responses: {
-        /** @description Plugin submitted successfully. */
+        /** @description Returns data about the updated dashboard layout. */
         200: {
-          content: never;
+          content: {
+            "application/json": {
+              id: string;
+              layout: {
+                  widgetId: string;
+                  x: number;
+                  y: number;
+                  w: number;
+                  h: number;
+                }[];
+            };
+          };
         };
       };
     };
   };
-  "/plugin/{pluginId}/token": {
-    /** @description Get a token */
-    get: {
+  "/dashboard/{dashboardId}/widget": {
+    /** @description Create a new widget in a dashboard */
+    post: {
       parameters: {
         path: {
-          pluginId: string;
+          dashboardId: string;
         };
       };
       requestBody?: {
         content: {
           "application/json": {
-            secret: string;
-            scopes: string[];
-            authCode: string;
+            name: string;
+            type: string;
+            config?: string;
+            position?: string;
           };
         };
       };
       responses: {
-        /** @description Returns token. */
-        200: {
+        /** @description Returns data about the created widget. */
+        201: {
           content: {
             "application/json": {
-              accessToken: string;
-              refreshToken: string;
-              scopes: string[];
-              expiresIn: number;
-              refreshExpiresIn: number;
+              id: string;
+              dashboardId: string;
+              name: string;
+              type: string;
+              config: string | null;
+              position: string | null;
+              createdTime: string;
+              createdBy: string;
+              lastModifiedTime: string | null;
+              lastModifiedBy: string | null;
             };
           };
         };
       };
     };
   };
-  "/plugin/{pluginId}/refreshToken": {
-    /** @description Refresh a token */
-    post: {
+  "/dashboard/{dashboardId}/widget/{widgetId}": {
+    /** @description Delete a widget from a dashboard */
+    delete: {
       parameters: {
         path: {
-          pluginId: string;
+          dashboardId: string;
+          widgetId: string;
+        };
+      };
+      responses: {
+        /** @description Widget deleted successfully. */
+        204: {
+          content: never;
+        };
+      };
+    };
+    /** @description Update a widget in a dashboard */
+    patch: {
+      parameters: {
+        path: {
+          dashboardId: string;
+          widgetId: string;
         };
       };
       requestBody?: {
         content: {
           "application/json": {
-            refreshToken: string;
-            secret: string;
+            name?: string;
+            config?: string;
+            position?: string;
           };
         };
       };
       responses: {
-        /** @description Returns token. */
-        201: {
-          content: {
-            "application/json": {
-              accessToken: string;
-              refreshToken: string;
-              scopes: string[];
-              expiresIn: number;
-              refreshExpiresIn: number;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/plugin/{pluginId}/authCode": {
-    /** @description Get an auth code */
-    post: {
-      parameters: {
-        path: {
-          pluginId: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": Record<string, never>;
-        };
-      };
-      responses: {
-        /** @description Returns auth code. */
-        201: {
-          content: {
-            "application/json": {
-              code: string;
-            };
-          };
-        };
-      };
-    };
-  };
-  "/plugin/{pluginId}/unpublish": {
-    patch: {
-      parameters: {
-        path: {
-          pluginId: string;
-        };
-      };
-      responses: {
-        /** @description Plugin unpublished successfully. */
+        /** @description Returns data about the updated widget. */
         200: {
-          content: never;
+          content: {
+            "application/json": {
+              id: string;
+              dashboardId: string;
+              name: string;
+              type: string;
+              config: string | null;
+              position: string | null;
+              createdTime: string;
+              createdBy: string;
+              lastModifiedTime: string | null;
+              lastModifiedBy: string | null;
+            };
+          };
         };
       };
     };
