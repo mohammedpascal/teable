@@ -1,4 +1,4 @@
-import { Code2, Settings, Users } from '@teable/icons';
+import { Code2, Settings, Users, ShieldCheck } from '@teable/icons';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 
@@ -18,6 +18,12 @@ export const useSettingRoute = () => {
         label: t('setting:users.title', { defaultValue: 'Users' }),
         route: '/settings/users',
         pathTo: `/settings/users`,
+      },
+      {
+        Icon: ShieldCheck,
+        label: t('setting:roles.title', { defaultValue: 'Roles' }),
+        route: '/settings/roles',
+        pathTo: `/settings/roles`,
       },
       {
         Icon: Code2,

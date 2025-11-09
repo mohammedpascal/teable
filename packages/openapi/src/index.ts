@@ -11,6 +11,7 @@ export * from './attachment';
 export * from './auth';
 export * from './notification';
 export * from './user';
+export * from './role';
 export * from './import';
 export * from './export';
 export * from './types/collaborator';
