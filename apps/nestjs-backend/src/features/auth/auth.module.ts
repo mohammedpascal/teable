@@ -6,6 +6,7 @@ import { authConfig, type IAuthConfig } from '../../configs/auth.config';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/auth.guard';
 import { LocalAuthModule } from './local-auth/local-auth.module';
 import { SessionStoreService } from './session/session-store.service';
@@ -38,11 +39,12 @@ import { SessionStrategy } from './strategies/session.strategy';
     AuthService,
     SessionStrategy,
     AuthGuard,
+    AdminGuard,
     SessionSerializer,
     SessionStoreService,
     JwtStrategy,
   ],
-  exports: [AuthService, AuthGuard],
+  exports: [AuthService, AuthGuard, AdminGuard],
   controllers: [AuthController],
 })
 export class AuthModule {}

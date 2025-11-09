@@ -5,6 +5,7 @@ import { generateAccountId, generateUserId, minidenticon } from '@teable/core';
 import { UploadType } from '@teable/openapi';
 import type { IUserInfoVo, IUserNotifyMeta } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
+import * as bcrypt from 'bcrypt';
 import sharp from 'sharp';
 import { EventEmitterService } from '../../event-emitter/event-emitter.service';
 import { Events } from '../../event-emitter/events';
@@ -338,5 +339,168 @@ export class UserService {
         },
       });
     });
+  }
+
+  async getUserList(skip = 0, take = 100) {
+    const [users, total] = await Promise.all([
+      this.prismaService.user.findMany({
+        where: {
+          isSystem: null,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          avatar: true,
+          isAdmin: true,
+          createdTime: true,
+          lastSignTime: true,
+          deactivatedTime: true,
+        },
+        skip,
+        take,
+        orderBy: {
+          createdTime: 'desc',
+        },
+      }),
+      this.prismaService.user.count({
+        where: {
+          isSystem: null,
+        },
+      }),
+    ]);
+
+    return {
+      users: users.map((user) => ({
+        ...user,
+        avatar:
+          user.avatar &&
+          getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), user.avatar),
+      })),
+      total,
+    };
+  }
+
+  async updateUserAdmin(
+    id: string,
+    data: {
+      name?: string;
+      email?: string;
+      isAdmin?: boolean;
+    }
+  ) {
+    const updateData: Prisma.UserUpdateInput = {};
+    if (data.name !== undefined) {
+      updateData.name = data.name;
+    }
+    if (data.email !== undefined) {
+      updateData.email = data.email.toLowerCase();
+    }
+    if (data.isAdmin !== undefined) {
+      updateData.isAdmin = data.isAdmin ? true : null;
+    }
+
+    const user = await this.prismaService.txClient().user.update({
+      where: { id },
+      data: updateData,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatar: true,
+        isAdmin: true,
+        createdTime: true,
+        lastSignTime: true,
+        deactivatedTime: true,
+      },
+    });
+
+    return {
+      ...user,
+      avatar:
+        user.avatar &&
+        getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), user.avatar),
+    };
+  }
+
+  async deleteUser(id: string) {
+    const currentUserId = this.cls.get('user.id');
+    if (id === currentUserId) {
+      throw new BadRequestException('Cannot delete your own account');
+    }
+
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id },
+      select: { isSystem: true, isAdmin: true },
+    });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    if (user.isSystem) {
+      throw new BadRequestException('Cannot delete system user');
+    }
+
+    await this.prismaService.txClient().user.delete({
+      where: { id },
+    });
+  }
+
+  async createUserAdmin(
+    userData: {
+      name: string;
+      email: string;
+      password?: string;
+      isAdmin?: boolean;
+    }
+  ) {
+    const defaultNotifyMeta: IUserNotifyMeta = {
+      email: true,
+    };
+
+    let password: string | undefined;
+    let salt: string | undefined;
+
+    if (userData.password) {
+      salt = await bcrypt.genSalt(10);
+      password = await bcrypt.hash(userData.password, salt);
+    }
+
+    const userId = generateUserId();
+    let avatar: string | undefined;
+    if (!avatar) {
+      avatar = await this.generateDefaultAvatar(userId);
+    }
+
+    const newUser = await this.prismaService.txClient().user.create({
+      data: {
+        id: userId,
+        name: userData.name,
+        email: userData.email.toLowerCase(),
+        password,
+        salt,
+        avatar,
+        isAdmin: userData.isAdmin ? true : null,
+        notifyMeta: JSON.stringify(defaultNotifyMeta),
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        avatar: true,
+        isAdmin: true,
+        createdTime: true,
+        lastSignTime: true,
+        deactivatedTime: true,
+      },
+    });
+
+    return {
+      ...newUser,
+      avatar:
+        newUser.avatar &&
+        getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), newUser.avatar),
+    };
   }
 }

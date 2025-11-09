@@ -1,5 +1,5 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Code2 } from '@teable/icons';
+import { Code2, Settings } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
 import type { IUser } from '@teable/sdk';
 import { NotificationProvider, SessionProvider } from '@teable/sdk';
@@ -33,6 +33,12 @@ export const BaseLayout: React.FC<{
       label: 'Query Builder' as React.ReactNode,
       route: '/settings/query-builder',
       pathTo: `/settings/query-builder`,
+    },
+    {
+      Icon: Settings,
+      label: 'Users' as React.ReactNode,
+      route: '/settings/users',
+      pathTo: `/settings/users`,
     },
   ];
 

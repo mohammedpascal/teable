@@ -1,4 +1,4 @@
-import { Code2 } from '@teable/icons';
+import { Code2, Users } from '@teable/icons';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 
@@ -12,6 +12,12 @@ export const useSettingRoute = () => {
         label: t('developer:apiQueryBuilder'),
         route: '/settings/query-builder',
         pathTo: `/settings/query-builder`,
+      },
+      {
+        Icon: Users,
+        label: t('setting:users.title', { defaultValue: 'Users' }),
+        route: '/settings/users',
+        pathTo: `/settings/users`,
       },
     ];
   }, [t]);
