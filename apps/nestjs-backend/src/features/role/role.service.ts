@@ -9,13 +9,13 @@ import { validatePermissions } from './role-permission.util';
 export interface ICreateRoleDto {
   name: string;
   description?: string;
-  permissions: string;
+  permissions: string | Record<string, string[]>; // Accept JSON object or string
 }
 
 export interface IUpdateRoleDto {
   name?: string;
   description?: string;
-  permissions?: string;
+  permissions?: string | Record<string, string[]>; // Accept JSON object or string
 }
 
 @Injectable()
@@ -28,10 +28,18 @@ export class RoleService {
   async createRole(data: ICreateRoleDto) {
     const userId = this.cls.get('user.id');
 
+    // Convert permissions to string if it's an object
+    let permissionsString: string;
+    if (typeof data.permissions === 'string') {
+      permissionsString = data.permissions;
+    } else {
+      permissionsString = JSON.stringify(data.permissions);
+    }
+
     // Validate permissions format
-    if (!validatePermissions(data.permissions)) {
+    if (!validatePermissions(permissionsString)) {
       throw new BadRequestException(
-        'Invalid permissions format. Permissions must be comma-separated values: View, Create, Update, Delete, Configure'
+        'Invalid permissions format. Permissions must be either a JSON object mapping table IDs to permission arrays, or comma-separated values: View, Create, Update, Delete, Configure'
       );
     }
 
@@ -44,15 +52,37 @@ export class RoleService {
       throw new BadRequestException(`Role with name "${data.name}" already exists`);
     }
 
-    return await this.prismaService.txClient().role.create({
+    const role = await this.prismaService.txClient().role.create({
       data: {
         id: generateUserId(),
         name: data.name,
         description: data.description,
-        permissions: data.permissions,
+        permissions: permissionsString,
         createdBy: userId,
       },
+      include: {
+        _count: {
+          select: {
+            users: true,
+          },
+        },
+      },
     });
+
+    // Parse permissions JSON string to object for response
+    let permissions: Record<string, string[]>;
+    try {
+      permissions = JSON.parse(role.permissions);
+    } catch {
+      // Legacy format: treat as applying to all tables
+      const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
+      permissions = { '*': perms };
+    }
+
+    return {
+      ...role,
+      permissions,
+    };
   }
 
   async getRole(id: string) {
@@ -71,11 +101,24 @@ export class RoleService {
       throw new NotFoundException(`Role with id "${id}" not found`);
     }
 
-    return role;
+    // Parse permissions JSON string to object
+    let permissions: Record<string, string[]>;
+    try {
+      permissions = JSON.parse(role.permissions);
+    } catch {
+      // Legacy format: treat as applying to all tables
+      const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
+      permissions = { '*': perms };
+    }
+
+    return {
+      ...role,
+      permissions,
+    };
   }
 
   async getAllRoles() {
-    return await this.prismaService.txClient().role.findMany({
+    const roles = await this.prismaService.txClient().role.findMany({
       orderBy: {
         createdTime: 'desc',
       },
@@ -86,6 +129,23 @@ export class RoleService {
           },
         },
       },
+    });
+
+    // Parse permissions JSON string to object for each role
+    return roles.map((role) => {
+      let permissions: Record<string, string[]>;
+      try {
+        permissions = JSON.parse(role.permissions);
+      } catch {
+        // Legacy format: treat as applying to all tables
+        const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
+        permissions = { '*': perms };
+      }
+
+      return {
+        ...role,
+        permissions,
+      };
     });
   }
 
@@ -101,11 +161,21 @@ export class RoleService {
       throw new NotFoundException(`Role with id "${id}" not found`);
     }
 
-    // Validate permissions format if provided
-    if (data.permissions && !validatePermissions(data.permissions)) {
-      throw new BadRequestException(
-        'Invalid permissions format. Permissions must be comma-separated values: View, Create, Update, Delete, Configure'
-      );
+    // Convert permissions to string if it's an object
+    let permissionsString: string | undefined;
+    if (data.permissions !== undefined) {
+      if (typeof data.permissions === 'string') {
+        permissionsString = data.permissions;
+      } else {
+        permissionsString = JSON.stringify(data.permissions);
+      }
+
+      // Validate permissions format if provided
+      if (permissionsString && !validatePermissions(permissionsString)) {
+        throw new BadRequestException(
+          'Invalid permissions format. Permissions must be either a JSON object mapping table IDs to permission arrays, or comma-separated values: View, Create, Update, Delete, Configure'
+        );
+      }
     }
 
     // Check if new name conflicts with existing role
@@ -130,14 +200,36 @@ export class RoleService {
     if (data.description !== undefined) {
       updateData.description = data.description;
     }
-    if (data.permissions !== undefined) {
-      updateData.permissions = data.permissions;
+    if (permissionsString !== undefined) {
+      updateData.permissions = permissionsString;
     }
 
-    return await this.prismaService.txClient().role.update({
+    const role = await this.prismaService.txClient().role.update({
       where: { id },
       data: updateData,
+      include: {
+        _count: {
+          select: {
+            users: true,
+          },
+        },
+      },
     });
+
+    // Parse permissions JSON string to object for response
+    let permissions: Record<string, string[]>;
+    try {
+      permissions = JSON.parse(role.permissions);
+    } catch {
+      // Legacy format: treat as applying to all tables
+      const perms = role.permissions.split(',').map((p) => p.trim()).filter(Boolean);
+      permissions = { '*': perms };
+    }
+
+    return {
+      ...role,
+      permissions,
+    };
   }
 
   async deleteRole(id: string) {

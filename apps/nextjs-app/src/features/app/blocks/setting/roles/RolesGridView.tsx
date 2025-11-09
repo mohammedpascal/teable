@@ -41,11 +41,42 @@ export const RolesGridView = ({ roles, isLoading, onEdit, onDelete }: RolesGridV
     );
   }
 
-  const formatPermissions = (permissions: string) => {
-    return permissions
-      .split(',')
-      .map((p) => p.trim())
-      .filter(Boolean);
+  const formatPermissionsSummary = (permissions: Record<string, string[]> | string) => {
+    // Handle new JSON format
+    if (typeof permissions === 'object' && permissions !== null && !Array.isArray(permissions)) {
+      const tableIds = Object.keys(permissions).filter((k) => k !== '*');
+      const totalTables = tableIds.length;
+      if (totalTables === 0) {
+        // Legacy format stored as '*'
+        const legacyPerms = permissions['*'] || [];
+        return {
+          summary: `${legacyPerms.length} permission${legacyPerms.length !== 1 ? 's' : ''} (all tables)`,
+          isLegacy: true,
+        };
+      }
+      const totalPermissions = Object.values(permissions).reduce((sum, perms) => sum + perms.length, 0);
+      const avgPermissions = totalTables > 0 ? Math.round(totalPermissions / totalTables) : 0;
+      return {
+        summary: `${totalTables} table${totalTables !== 1 ? 's' : ''}, ~${avgPermissions} permission${avgPermissions !== 1 ? 's' : ''} avg`,
+        isLegacy: false,
+        tableCount: totalTables,
+        avgPermissions,
+      };
+    }
+    
+    // Handle legacy string format (shouldn't happen with new API, but just in case)
+    if (typeof permissions === 'string') {
+      const perms = permissions.split(',').map((p) => p.trim()).filter(Boolean);
+      return {
+        summary: `${perms.length} permission${perms.length !== 1 ? 's' : ''} (all tables)`,
+        isLegacy: true,
+      };
+    }
+    
+    return {
+      summary: 'No permissions',
+      isLegacy: false,
+    };
   };
 
   return (
@@ -71,15 +102,10 @@ export const RolesGridView = ({ roles, isLoading, onEdit, onDelete }: RolesGridV
                 {role.description || '-'}
               </TableCell>
               <TableCell>
-                <div className="flex flex-wrap gap-1">
-                  {formatPermissions(role.permissions).map((permission) => (
-                    <span
-                      key={permission}
-                      className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
-                    >
-                      {permission}
-                    </span>
-                  ))}
+                <div className="text-sm">
+                  <span className="text-muted-foreground">
+                    {formatPermissionsSummary(role.permissions).summary}
+                  </span>
                 </div>
               </TableCell>
               <TableCell className="text-sm text-muted-foreground">

@@ -46,7 +46,7 @@ import { createFieldInstanceByRaw } from '../field/model/factory';
 import type { DateFieldDto } from '../field/model/field-dto/date-field.dto';
 import { RecordService } from '../record/record.service';
 import { TableIndexService } from '../table/table-index.service';
-import { hasPermission } from '../role/role-permission.util';
+import { hasTablePermission } from '../role/role-permission.util';
 
 export type IWithView = {
   viewId?: string;
@@ -96,7 +96,7 @@ export class AggregationService {
       include: { role: true },
     });
 
-    if (!hasPermission(user, 'View')) {
+    if (!hasTablePermission(user, tableId, 'View')) {
       throw new ForbiddenException('You do not have permission to view aggregations');
     }
 

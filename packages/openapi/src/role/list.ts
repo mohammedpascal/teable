@@ -5,11 +5,13 @@ import { z } from '../zod';
 
 export const GET_ROLE_LIST = '/role';
 
+const permissionEnum = z.enum(['View', 'Create', 'Update', 'Delete', 'Configure']);
+
 export const roleListVoSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().nullable().optional(),
-  permissions: z.string(),
+  permissions: z.record(z.string(), z.array(permissionEnum)), // Parsed JSON object
   createdTime: z.string().datetime(),
   lastModifiedTime: z.string().datetime().nullable().optional(),
   _count: z.object({

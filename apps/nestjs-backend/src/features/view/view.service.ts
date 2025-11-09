@@ -47,7 +47,7 @@ import { getFullStorageUrl } from '../attachments/plugins/utils';
 import { BatchService } from '../calculation/batch.service';
 import { ROW_ORDER_FIELD_PREFIX } from './constant';
 import { createViewInstanceByRaw, createViewVoByRaw } from './model/factory';
-import { hasPermission } from '../role/role-permission.util';
+import { hasTablePermission } from '../role/role-permission.util';
 
 type IViewOpContext = IUpdateViewColumnMetaOpContext | ISetViewPropertyOpContext;
 
@@ -248,13 +248,13 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasPermission(user, 'View')) {
-      throw new ForbiddenException('You do not have permission to view views');
-    }
-
     const viewRaw = await this.prismaService.txClient().view.findUniqueOrThrow({
       where: { id: viewId },
     });
+
+    if (!hasTablePermission(user, viewRaw.tableId, 'View')) {
+      throw new ForbiddenException('You do not have permission to view views');
+    }
 
     return this.convertViewVoAttachmentUrl(createViewInstanceByRaw(viewRaw) as IViewVo);
   }
@@ -282,7 +282,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasPermission(user, 'View')) {
+    if (!hasTablePermission(user, tableId, 'View')) {
       throw new ForbiddenException('You do not have permission to view views');
     }
 
@@ -302,7 +302,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasPermission(user, 'Create')) {
+    if (!hasTablePermission(user, tableId, 'Create')) {
       throw new ForbiddenException('You do not have permission to create views');
     }
 
@@ -323,7 +323,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasPermission(user, 'Delete')) {
+    if (!hasTablePermission(user, tableId, 'Delete')) {
       throw new ForbiddenException('You do not have permission to delete views');
     }
 
@@ -484,7 +484,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasPermission(user, 'Update')) {
+    if (!hasTablePermission(user, tableId, 'Update')) {
       throw new ForbiddenException('You do not have permission to update views');
     }
 
