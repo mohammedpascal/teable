@@ -10,6 +10,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  Badge,
 } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -17,6 +18,49 @@ import { UserAvatar } from '@/features/app/components/user/UserAvatar';
 import { AddPassword } from './account/AddPassword';
 import { ChangeEmailDialog } from './account/ChangeEmailDialog';
 import { ChangePasswordDialog } from './account/ChangePasswordDialog';
+
+const PERMISSION_GROUPS = [
+  {
+    label: 'Records',
+    permissions: ['record|create', 'record|delete', 'record|read', 'record|update'] as const,
+  },
+  {
+    label: 'Views',
+    permissions: ['view|create', 'view|delete', 'view|read', 'view|update'] as const,
+  },
+  {
+    label: 'Tables',
+    permissions: [
+      'table|create',
+      'table|delete',
+      'table|read',
+      'table|update',
+      'table|import',
+      'table|export',
+    ] as const,
+  },
+] as const;
+
+const PERMISSION_LABELS: Record<string, string> = {
+  'record|create': 'Create record',
+  'record|delete': 'Delete record',
+  'record|read': 'Read record',
+  'record|update': 'Update record',
+  'view|create': 'Create view',
+  'view|delete': 'Delete view',
+  'view|read': 'Read view',
+  'view|update': 'Update view',
+  'table|create': 'Create table',
+  'table|delete': 'Delete table',
+  'table|read': 'Read table',
+  'table|update': 'Update table',
+  'table|import': 'Import data into table',
+  'table|export': 'Export table data',
+  'field|create': 'Create field',
+  'field|delete': 'Delete field',
+  'field|read': 'Read field',
+  'field|update': 'Update field',
+};
 
 export const Account: React.FC = () => {
   const { user: sessionUser, refresh, refreshAvatar } = useSession();
@@ -127,6 +171,79 @@ export const Account: React.FC = () => {
                   {t('settings.account.changePassword.title')}
                 </Button>
               </ChangePasswordDialog>
+            </div>
+          )}
+        </div>
+      </div>
+      <div>
+        <h3 className="text-base font-medium">
+          {t('settings.account.permissionsTitle', { defaultValue: 'Permissions' })}
+        </h3>
+        <Separator className="my-2" />
+        <div className="space-y-4">
+          <div>
+            <Label className="text-sm font-medium">
+              {t('settings.account.role', { defaultValue: 'Role' })}
+            </Label>
+            <div className="mt-1">
+              {sessionUser.isAdmin ? (
+                <Badge variant="default" className="bg-primary/10 text-primary">
+                  {t('setting:users.admin', { defaultValue: 'Admin' })}
+                </Badge>
+              ) : sessionUser.role ? (
+                <Badge variant="secondary">{sessionUser.role.name}</Badge>
+              ) : (
+                <span className="text-sm text-muted-foreground">
+                  {t('setting:users.noRole', { defaultValue: 'No role' })}
+                </span>
+              )}
+            </div>
+          </div>
+          {sessionUser.isAdmin ? (
+            <div>
+              <Label className="text-sm font-medium">
+                {t('settings.account.permissions', { defaultValue: 'Permissions' })}
+              </Label>
+              <div className="mt-2 text-sm text-muted-foreground">
+                {t('settings.account.allPermissions', { defaultValue: 'All permissions' })}
+              </div>
+            </div>
+          ) : sessionUser.role && sessionUser.role.permissions ? (
+            <div>
+              <Label className="text-sm font-medium">
+                {t('settings.account.permissions', { defaultValue: 'Permissions' })}
+              </Label>
+              <div className="mt-2 space-y-4">
+                {PERMISSION_GROUPS.map((group) => {
+                  const groupPermissions = sessionUser.role!.permissions.filter((perm) =>
+                    group.permissions.includes(perm as any)
+                  );
+                  if (groupPermissions.length === 0) return null;
+
+                  return (
+                    <div key={group.label} className="space-y-2">
+                      <h4 className="text-sm font-medium">{group.label}</h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {groupPermissions.map((permission) => (
+                          <div key={permission} className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground">✓</span>
+                            <span className="text-sm">{PERMISSION_LABELS[permission] || permission}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <Label className="text-sm font-medium">
+                {t('settings.account.permissions', { defaultValue: 'Permissions' })}
+              </Label>
+              <div className="mt-2 text-sm text-muted-foreground">
+                {t('settings.account.noPermissions', { defaultValue: 'No permissions' })}
+              </div>
             </div>
           )}
         </div>

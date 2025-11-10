@@ -6,6 +6,27 @@ import { z } from '../zod';
 
 export const USER_ME = '/auth/user/me';
 
+const actionPermissionEnum = z.enum([
+  'record|create',
+  'record|delete',
+  'record|read',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|read',
+  'view|update',
+  'table|create',
+  'table|delete',
+  'table|read',
+  'table|update',
+  'table|import',
+  'table|export',
+  'field|create',
+  'field|delete',
+  'field|read',
+  'field|update',
+]);
+
 export const userMeVoSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -16,6 +37,15 @@ export const userMeVoSchema = z.object({
   notifyMeta: userNotifyMetaSchema,
   hasPassword: z.boolean(),
   isAdmin: z.boolean().nullable().optional(),
+  roleId: z.string().nullable().optional(),
+  role: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+      permissions: z.array(actionPermissionEnum),
+    })
+    .nullable()
+    .optional(),
 });
 
 export type IUserMeVo = z.infer<typeof userMeVoSchema>;
