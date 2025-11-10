@@ -34,10 +34,10 @@ const RightList = ({ className }: { className?: string }) => {
 
       {table && (
         <TableOperation
-          table={table}
-          className="size-4 shrink-0 sm:opacity-0 sm:group-hover:opacity-100"
           open={open}
+          table={table}
           setOpen={setOpen}
+          className="size-4 shrink-0 sm:opacity-0 sm:group-hover:opacity-100"
         />
       )}
     </div>

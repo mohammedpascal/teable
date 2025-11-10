@@ -39,13 +39,12 @@ import { TableImport } from '../import-table';
 interface ITableOperationProps {
   className?: string;
   table: Table;
-  onRename?: () => void;
   open?: boolean;
   setOpen?: (open: boolean) => void;
 }
 
 export const TableOperation = (props: ITableOperationProps) => {
-  const { table, className, onRename, open, setOpen } = props;
+  const { table, className, open, setOpen } = props;
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [importVisible, setImportVisible] = useState(false);
@@ -63,7 +62,7 @@ export const TableOperation = (props: ITableOperationProps) => {
   const defaultTableName = useMemo(
     () =>
       getUniqName(
-        `${table?.name} space:baseModal.copy`,
+        `${table?.name} .copy`,
         tables.map((t) => t.name)
       ),
     [table?.name, tables]
@@ -76,11 +75,13 @@ export const TableOperation = (props: ITableOperationProps) => {
 
   const menuPermission = useMemo(() => {
     return {
-      deleteTable: table.permission?.['table|delete'] ?? false,
-      updateTable: table.permission?.['table|update'] ?? false,
-      duplicateTable: (table.permission?.['table|read'] && permission?.['table|create']) ?? false,
-      exportTable: table.permission?.['table|export'] ?? false,
-      importTable: table.permission?.['table|import'] ?? false,
+      deleteTable: table.permission?.['table|delete'] ?? permission?.['table|delete'] ?? false,
+      updateTable: table.permission?.['table|update'] ?? permission?.['table|update'] ?? false,
+      duplicateTable:
+        (table.permission?.['table|read'] ?? permission?.['table|read'] ?? false) &&
+        (permission?.['table|create'] ?? false),
+      exportTable: table.permission?.['table|export'] ?? permission?.['table|export'] ?? false,
+      importTable: table.permission?.['table|import'] ?? permission?.['table|import'] ?? false,
     };
   }, [permission, table.permission]);
 
