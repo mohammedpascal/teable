@@ -28,12 +28,16 @@ export const BaseLayout: React.FC<{
   const { i18n } = useTranslation();
 
   const navigationRoutes: any[] = [
-    {
-      Icon: Settings,
-      label: 'Settings' as React.ReactNode,
-      route: '/settings/general',
-      pathTo: `/settings/general`,
-    },
+    ...(user?.isAdmin
+      ? [
+          {
+            Icon: Settings,
+            label: 'Settings' as React.ReactNode,
+            route: '/settings/general',
+            pathTo: `/settings/general`,
+          },
+        ]
+      : []),
   ];
 
   return (
