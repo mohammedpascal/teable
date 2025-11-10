@@ -1,6 +1,6 @@
 import { File, FileCsv, FileExcel } from '@teable/icons';
 import { SUPPORTEDTYPE } from '@teable/openapi';
-import { useBasePermission, useConnection } from '@teable/sdk';
+import { usePermission, useConnection } from '@teable/sdk';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +22,7 @@ import { useAddTable } from './useAddTable';
 export const TableList: React.FC = () => {
   const { connected } = useConnection();
   const addTable = useAddTable();
-  const permission = useBasePermission();
+  const permission = usePermission();
   const { t } = useTranslation(['table']);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [fileType, setFileType] = useState<SUPPORTEDTYPE>(SUPPORTEDTYPE.CSV);

@@ -12,7 +12,7 @@ import {
 } from '@teable/icons';
 import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
-import { useBase, useBasePermission, useTables } from '@teable/sdk/hooks';
+import { useBase, usePermission, useTables } from '@teable/sdk/hooks';
 import type { Table } from '@teable/sdk/model';
 import { ConfirmDialog } from '@teable/ui-lib/base';
 import {
@@ -51,7 +51,7 @@ export const TableOperation = (props: ITableOperationProps) => {
   const [duplicateSetting, setDuplicateSetting] = useState(false);
   const [importType, setImportType] = useState(SUPPORTEDTYPE.CSV);
   const base = useBase();
-  const permission = useBasePermission();
+  const permission = usePermission();
   const tables = useTables();
   const router = useRouter();
   const queryClient = useQueryClient();

@@ -23,7 +23,7 @@ export * from './use-session';
 export * from './use-is-mobile';
 export * from './use-is-touch-device';
 export * from './use-table-permission';
-export * from './use-base-permission';
+export * from './use-permission';
 export * from './use-field-permission';
 export * from './use-notification';
 export * from './use-group-point';
