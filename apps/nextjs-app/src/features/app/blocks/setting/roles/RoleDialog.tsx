@@ -6,11 +6,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  Button,
+  Input,
+  Label,
+  Checkbox,
 } from '@teable/ui-lib/shadcn';
-import { Button } from '@teable/ui-lib/shadcn';
-import { Input } from '@teable/ui-lib/shadcn';
-import { Label } from '@teable/ui-lib/shadcn';
-import { Checkbox } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useState, useEffect, useMemo } from 'react';
 
@@ -37,9 +37,13 @@ const PERMISSIONS = [
   'table|update',
   'table|import',
   'table|export',
+  'field|create',
+  'field|delete',
+  'field|read',
+  'field|update',
 ] as const;
 
-type Permission = typeof PERMISSIONS[number];
+type Permission = (typeof PERMISSIONS)[number];
 
 const PERMISSION_GROUPS = [
   {
@@ -61,6 +65,10 @@ const PERMISSION_GROUPS = [
       'table|export',
     ] as const,
   },
+  {
+    label: 'Fields',
+    permissions: ['field|create', 'field|delete', 'field|read', 'field|update'] as const,
+  },
 ] as const;
 
 const PERMISSION_LABELS: Record<Permission, string> = {
@@ -78,6 +86,10 @@ const PERMISSION_LABELS: Record<Permission, string> = {
   'table|update': 'Update table',
   'table|import': 'Import data into table',
   'table|export': 'Export table data',
+  'field|create': 'Create field',
+  'field|delete': 'Delete field',
+  'field|read': 'Read field',
+  'field|update': 'Update field',
 };
 
 export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: RoleDialogProps) => {
@@ -161,7 +173,7 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>
             {isEdit
@@ -170,16 +182,18 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
           </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? t('setting:roles.editRoleDescription', { defaultValue: 'Update role information and permissions' })
-              : t('setting:roles.addRoleDescription', { defaultValue: 'Create a new role with specific permissions' })}
+              ? t('setting:roles.editRoleDescription', {
+                  defaultValue: 'Update role information and permissions',
+                })
+              : t('setting:roles.addRoleDescription', {
+                  defaultValue: 'Create a new role with specific permissions',
+                })}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="name">
-                {t('setting:roles.name', { defaultValue: 'Name' })}
-              </Label>
+              <Label htmlFor="name">{t('setting:roles.name', { defaultValue: 'Name' })}</Label>
               <Input
                 id="name"
                 value={name}
@@ -203,13 +217,11 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
               />
             </div>
             <div className="grid gap-2">
-              <Label>
-                {t('setting:roles.permissions', { defaultValue: 'Permissions' })}
-              </Label>
-              <div className="rounded-md border p-4 space-y-6">
+              <Label>{t('setting:roles.permissions', { defaultValue: 'Permissions' })}</Label>
+              <div className="space-y-6 rounded-md border p-4">
                 {PERMISSION_GROUPS.map((group) => (
                   <div key={group.label} className="space-y-3">
-                    <h4 className="font-semibold text-sm">{group.label}</h4>
+                    <h4 className="text-sm font-semibold">{group.label}</h4>
                     <div className="grid grid-cols-2 gap-3">
                       {group.permissions.map((permission) => (
                         <div key={permission} className="flex items-center space-x-2">
@@ -221,7 +233,7 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
                           />
                           <Label
                             htmlFor={permission}
-                            className="text-sm font-normal cursor-pointer"
+                            className="cursor-pointer text-sm font-normal"
                           >
                             {PERMISSION_LABELS[permission]}
                           </Label>
@@ -255,4 +267,3 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
     </Dialog>
   );
 };
-

@@ -21,6 +21,10 @@ const actionPermissionEnum = z.enum([
   'table|update',
   'table|import',
   'table|export',
+  'field|create',
+  'field|delete',
+  'field|read',
+  'field|update',
 ]);
 
 export const updateRoleRoSchema = z.object({
@@ -64,4 +68,3 @@ export const updateRoleRoute: RouteConfig = registerRoute({
 export const updateRole = async (id: string, updateRoleRo: IUpdateRoleRo) => {
   return axios.patch<IUpdateRoleVo>(urlBuilder(UPDATE_ROLE, { id }), updateRoleRo);
 };
-

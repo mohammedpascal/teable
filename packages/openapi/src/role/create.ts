@@ -21,6 +21,10 @@ const actionPermissionEnum = z.enum([
   'table|update',
   'table|import',
   'table|export',
+  'field|create',
+  'field|delete',
+  'field|read',
+  'field|update',
 ]);
 
 export const createRoleRoSchema = z.object({
@@ -61,4 +65,3 @@ export const createRoleRoute: RouteConfig = registerRoute({
 export const createRole = async (createRoleRo: ICreateRoleRo) => {
   return axios.post<ICreateRoleVo>(CREATE_ROLE, createRoleRo);
 };
-
