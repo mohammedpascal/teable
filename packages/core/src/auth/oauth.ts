@@ -1,6 +1,6 @@
-import type { FieldAction, RecordAction, TableAction, UserAction, ViewAction } from './actions';
+import type { RecordAction, TableAction, UserAction, ViewAction } from './actions';
 
-export const OAUTH_ACTIONS: (TableAction | ViewAction | FieldAction | RecordAction | UserAction)[] =
+export const OAUTH_ACTIONS: (TableAction | ViewAction | RecordAction | UserAction)[] =
   [
     'table|create',
     'table|delete',
@@ -12,10 +12,6 @@ export const OAUTH_ACTIONS: (TableAction | ViewAction | FieldAction | RecordActi
     'view|delete',
     'view|read',
     'view|update',
-    'field|create',
-    'field|delete',
-    'field|read',
-    'field|update',
     'record|comment',
     'record|create',
     'record|delete',

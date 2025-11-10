@@ -3,10 +3,10 @@ import { TablePermissionContext } from '../context/table-permission';
 
 export type IUseTablePermissionAction = keyof ReturnType<typeof useTablePermission>;
 
-// check table, view, record exclude field
+// check table, view, record
 export const useTablePermission = () => {
-  const { table, view, record, field } = useContext(TablePermissionContext);
+  const { table, view, record } = useContext(TablePermissionContext);
   return useMemo(() => {
-    return { ...table, ...view, ...record, ['field|create']: field?.create };
-  }, [table, view, record, field?.create]);
+    return { ...table, ...view, ...record };
+  }, [table, view, record]);
 };

@@ -29,7 +29,7 @@ export const AddDateFieldDialog = () => {
   const [open, setOpen] = useState(false);
 
   const hasDateField = startDateField || endDateField;
-  const fieldCreatable = Boolean(permission['field|create']);
+  const fieldCreatable = Boolean(permission['table|update'] || permission['table|create']);
   const viewUpdatable = Boolean(permission['view|update']);
 
   useEffect(() => {

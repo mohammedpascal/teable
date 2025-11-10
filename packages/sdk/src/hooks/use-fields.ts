@@ -8,9 +8,7 @@ import { useView } from './use-view';
 export function useFields(options: { withHidden?: boolean; withDenied?: boolean } = {}) {
   const { withHidden, withDenied } = options;
   const { fields: originFields } = useContext(FieldContext);
-  const {
-    field: { fields: fieldsPermission },
-  } = useContext(TablePermissionContext);
+  const { table } = useContext(TablePermissionContext);
 
   const view = useView();
   const { type: viewType, columnMeta } = view ?? {};
@@ -21,6 +19,8 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
     if ((withHidden && withDenied) || viewType == null) {
       return sortedFields;
     }
+
+    const hasTableRead = table?.['table|read'] ?? false;
 
     return sortedFields.filter(({ id }) => {
       const isHidden = () => {
@@ -38,7 +38,7 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
         return !(columnMeta?.[id] as any)?.hidden;
       };
       const hasPermission = () => {
-        if (withDenied || fieldsPermission[id]?.['field|read']) {
+        if (withDenied || hasTableRead) {
           return true;
         }
         return false;
@@ -46,5 +46,5 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
       return isHidden() && hasPermission();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originFields, withHidden, viewType, fieldsPermission, JSON.stringify(columnMeta)]);
+  }, [originFields, withHidden, viewType, table, JSON.stringify(columnMeta)]);
 }

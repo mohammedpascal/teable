@@ -35,7 +35,6 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
   const allFields = useFields({ withHidden: true, withDenied: true });
   const { stackFieldId, coverFieldId, isCoverFit, isFieldNameHidden, isEmptyStackHidden } =
     view?.options ?? {};
-  const fieldPermission = useFieldPermission(stackFieldId);
   const [expandRecordId, setExpandRecordId] = useState<string>();
   const groupPoints = useGroupPoint();
 
@@ -74,17 +73,18 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
   const userList: UserCollaboratorItem[] = [];
 
   const kanbanPermission = useMemo(() => {
+    const canUpdateField = Boolean(permission['table|update'] || permission['table|create']);
     return {
-      stackCreatable: Boolean(fieldPermission['field|update']),
-      stackEditable: Boolean(fieldPermission['field|update']),
-      stackDeletable: Boolean(fieldPermission['field|update']),
-      stackDraggable: Boolean(fieldPermission['field|update']),
+      stackCreatable: canUpdateField,
+      stackEditable: canUpdateField,
+      stackDeletable: canUpdateField,
+      stackDraggable: canUpdateField,
       cardCreatable: Boolean(permission['record|create']),
       cardEditable: Boolean(permission['record|update']),
       cardDeletable: Boolean(permission['record|delete']),
       cardDraggable: Boolean(permission['record|update'] && permission['view|update']),
     };
-  }, [permission, fieldPermission]);
+  }, [permission]);
 
   const stackCollection = useMemo(() => {
     if (groupPoints == null || stackField == null) return;

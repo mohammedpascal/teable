@@ -70,7 +70,7 @@ export const FieldMenu = () => {
   const { headerMenu, closeHeaderMenu } = useGridViewStore();
   const { openSetting } = useFieldSettingStore();
   const permission = useTablePermission();
-  const fieldsPermission = useContext(TablePermissionContext)?.field.fields;
+  const { table } = useContext(TablePermissionContext) ?? {};
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const allFields = useFields({ withHidden: true, withDenied: true });
   const fieldSettingRef = useRef<HTMLDivElement>(null);
@@ -79,20 +79,16 @@ export const FieldMenu = () => {
     useToolBarStore();
 
   const menuFieldPermission = useMemo(() => {
-    if (!fields?.length || !fieldsPermission) {
+    if (!table) {
       return {};
     }
-    let permissions: Partial<Record<IUseFieldPermissionAction, boolean>> =
-      fieldsPermission[fields[0].id];
-    fields.slice(1).forEach((f) => {
-      permissions = merge(
-        permissions,
-        fieldsPermission[f.id],
-        (value1: boolean, value2: boolean) => value1 && value2
-      );
-    });
-    return permissions;
-  }, [fields, fieldsPermission]);
+    // Derive field permissions from table permissions
+    return {
+      'field|read': table['table|read'] ?? false,
+      'field|update': (table['table|update'] ?? false) || (table['table|create'] ?? false),
+      'field|delete': (table['table|update'] ?? false) || (table['table|delete'] ?? false),
+    };
+  }, [table]);
 
   useClickAway(fieldSettingRef, () => {
     closeHeaderMenu();
@@ -161,14 +157,18 @@ export const FieldMenu = () => {
         type: MenuItemType.InsertLeft,
         name: t('table:menu.insertFieldLeft'),
         icon: <ArrowLeft className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !permission['field|create'],
+        hidden:
+          fieldIds.length !== 1 ||
+          !((permission['table|update'] ?? false) || (permission['table|create'] ?? false)),
         onClick: async () => await insertField(false),
       },
       {
         type: MenuItemType.InsertRight,
         name: t('table:menu.insertFieldRight'),
         icon: <ArrowRight className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !permission['field|create'],
+        hidden:
+          fieldIds.length !== 1 ||
+          !((permission['table|update'] ?? false) || (permission['table|create'] ?? false)),
         onClick: async () => await insertField(),
       },
     ],

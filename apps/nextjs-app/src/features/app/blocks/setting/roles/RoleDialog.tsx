@@ -37,10 +37,6 @@ const PERMISSIONS = [
   'table|update',
   'table|import',
   'table|export',
-  'field|create',
-  'field|delete',
-  'field|read',
-  'field|update',
 ] as const;
 
 type Permission = (typeof PERMISSIONS)[number];
@@ -65,10 +61,6 @@ const PERMISSION_GROUPS = [
       'table|export',
     ] as const,
   },
-  {
-    label: 'Fields',
-    permissions: ['field|create', 'field|delete', 'field|read', 'field|update'] as const,
-  },
 ] as const;
 
 const PERMISSION_LABELS: Record<Permission, string> = {
@@ -86,10 +78,6 @@ const PERMISSION_LABELS: Record<Permission, string> = {
   'table|update': 'Update table',
   'table|import': 'Import data into table',
   'table|export': 'Export table data',
-  'field|create': 'Create field',
-  'field|delete': 'Delete field',
-  'field|read': 'Read field',
-  'field|update': 'Update field',
 };
 
 export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: RoleDialogProps) => {

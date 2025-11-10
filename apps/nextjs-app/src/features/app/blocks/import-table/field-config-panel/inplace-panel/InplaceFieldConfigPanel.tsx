@@ -53,13 +53,9 @@ const InplaceFieldConfigPanel = (props: IInplaceFieldConfigPanel) => {
     enabled: !!tableId,
   });
 
-  const hasReadPermissionFields = Object.entries(tablePermission?.field?.fields || {})
-    .filter(([, value]) => {
-      return value['field|read'];
-    })
-    .map(([key]) => key);
-
-  const fieldWithPermission = fields?.filter(({ id }) => hasReadPermissionFields.includes(id));
+  // Check if user has table read permission - if so, they can read all fields
+  const hasTableRead = tablePermission?.table?.['table|read'] ?? false;
+  const fieldWithPermission = hasTableRead ? fields : [];
 
   const optionHandler = (value: IInplaceOption, propertyName: keyof IInplaceOption) => {
     const newInsertConfig = {

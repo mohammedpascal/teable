@@ -5,10 +5,6 @@ type ITablePermissionContext = ITablePermissionVo;
 
 export const TablePermissionContextDefaultValue: ITablePermissionContext = {
   table: {},
-  field: {
-    create: false,
-    fields: {},
-  },
   view: {},
   record: {},
 };

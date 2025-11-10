@@ -39,10 +39,6 @@ const PERMISSION_GROUPS = [
       'table|export',
     ] as const,
   },
-  {
-    label: 'Fields',
-    permissions: ['field|create', 'field|delete', 'field|read', 'field|update'] as const,
-  },
 ] as const;
 
 const PERMISSION_LABELS: Record<string, string> = {
@@ -60,10 +56,6 @@ const PERMISSION_LABELS: Record<string, string> = {
   'table|update': 'Update table',
   'table|import': 'Import data into table',
   'table|export': 'Export table data',
-  'field|create': 'Create field',
-  'field|delete': 'Delete field',
-  'field|read': 'Read field',
-  'field|update': 'Update field',
 };
 
 export const Account: React.FC = () => {

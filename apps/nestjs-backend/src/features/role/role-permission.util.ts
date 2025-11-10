@@ -10,19 +10,16 @@ export const VALID_PERMISSIONS = [
   'view|delete',
   'view|read',
   'view|update',
+  'table|manage',
   'table|create',
   'table|delete',
   'table|read',
   'table|update',
   'table|import',
   'table|export',
-  'field|create',
-  'field|delete',
-  'field|read',
-  'field|update',
 ] as const;
 
-export type ActionPermission = typeof VALID_PERMISSIONS[number];
+export type ActionPermission = (typeof VALID_PERMISSIONS)[number];
 
 /**
  * Check if a string is valid JSON
@@ -61,14 +58,12 @@ export function parsePermissionsString(
   }
 
   // Legacy format: comma-separated permissions (for backward compatibility)
-  const permissions = permissionsString
+  return permissionsString
     .split(',')
     .map((p) => p.trim())
     .filter((p): p is ActionPermission => {
       return VALID_PERMISSIONS.includes(p as ActionPermission);
     });
-
-  return permissions;
 }
 
 /**
@@ -83,7 +78,7 @@ export function parsePermissions(permissionsString: string | null | undefined): 
  * Admin users bypass all permission checks
  */
 export function hasActionPermission(
-  user: User & { role?: { permissions: string } | null } | null,
+  user: (User & { role?: { permissions: string } | null }) | null,
   action: ActionPermission
 ): boolean {
   if (!user) {
@@ -109,7 +104,7 @@ export function hasActionPermission(
  * @deprecated Use hasActionPermission instead
  */
 export function hasTablePermission(
-  user: User & { role?: { permissions: string } | null } | null,
+  user: (User & { role?: { permissions: string } | null }) | null,
   tableId: string,
   permission: string
 ): boolean {
@@ -135,7 +130,7 @@ export function hasTablePermission(
  * @deprecated Use getUserPermissions instead
  */
 export function getTablePermissions(
-  user: User & { role?: { permissions: string } | null } | null,
+  user: (User & { role?: { permissions: string } | null }) | null,
   tableId: string
 ): ActionPermission[] {
   return getUserPermissions(user);
@@ -146,7 +141,7 @@ export function getTablePermissions(
  * @deprecated Use hasActionPermission instead
  */
 export function hasPermission(
-  user: User & { role?: { permissions: string } | null } | null,
+  user: (User & { role?: { permissions: string } | null }) | null,
   permission: string
 ): boolean {
   return hasActionPermission(user, permission as ActionPermission);
@@ -156,7 +151,7 @@ export function hasPermission(
  * Get all permissions for a user
  */
 export function getUserPermissions(
-  user: User & { role?: { permissions: string } | null } | null
+  user: (User & { role?: { permissions: string } | null }) | null
 ): ActionPermission[] {
   if (!user) {
     return [];
@@ -218,4 +213,3 @@ export function validatePermissions(permissionsString: string): boolean {
   // All provided permissions must be valid
   return permissions.length === inputPermissions.length;
 }
-

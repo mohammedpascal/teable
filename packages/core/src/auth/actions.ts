@@ -28,6 +28,7 @@ export const baseActionSchema = z.enum(baseActions);
 export type BaseAction = z.infer<typeof baseActionSchema>;
 
 export const tableActions = [
+  'table|manage',
   'table|create',
   'table|delete',
   'table|read',
@@ -47,10 +48,6 @@ export const viewActions = [
 ] as const;
 export const viewActionSchema = z.enum(viewActions);
 export type ViewAction = z.infer<typeof viewActionSchema>;
-
-export const fieldActions = ['field|create', 'field|delete', 'field|read', 'field|update'] as const;
-export const fieldActionSchema = z.enum(fieldActions);
-export type FieldAction = z.infer<typeof fieldActionSchema>;
 
 export const recordActions = [
   'record|create',
@@ -78,7 +75,6 @@ export type Action =
   | BaseAction
   | TableAction
   | ViewAction
-  | FieldAction
   | RecordAction
   | UserAction
   | InstanceAction
@@ -88,7 +84,6 @@ export type ActionPrefixMap = {
   [ActionPrefix.Base]: BaseAction[];
   [ActionPrefix.Table]: TableAction[];
   [ActionPrefix.View]: ViewAction[];
-  [ActionPrefix.Field]: FieldAction[];
   [ActionPrefix.Record]: RecordAction[];
   [ActionPrefix.User]: UserAction[];
   [ActionPrefix.Instance]: InstanceAction[];
@@ -98,7 +93,6 @@ export const actionPrefixMap: ActionPrefixMap = {
   [ActionPrefix.Base]: [...baseActions],
   [ActionPrefix.Table]: [...tableActions],
   [ActionPrefix.View]: [...viewActions],
-  [ActionPrefix.Field]: [...fieldActions],
   [ActionPrefix.Record]: [...recordActions],
   [ActionPrefix.User]: [...userActions],
   [ActionPrefix.Instance]: [...instanceActions],

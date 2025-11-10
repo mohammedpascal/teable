@@ -1,7 +1,4 @@
-import { ActionPrefix, actionPrefixMap } from '@teable/core';
 import type {
-  ExcludeAction,
-  FieldAction,
   RecordAction,
   TableAction,
   ViewAction,
@@ -12,20 +9,10 @@ import { z } from '../zod';
 
 export const GET_TABLE_PERMISSION = '/table/{tableId}/permission';
 
-export type TablePermissionFieldAction = ExcludeAction<FieldAction, 'field|create'>;
-
-export const FieldActionExcludeCreate = actionPrefixMap[ActionPrefix.Field].filter(
-  (action) => action !== 'field|create'
-) as TablePermissionFieldAction[];
-
 export const tablePermissionVoSchema = z.object({
   table: z.record(z.custom<TableAction>(), z.boolean()),
   view: z.record(z.custom<ViewAction>(), z.boolean()),
   record: z.record(z.custom<RecordAction>(), z.boolean()),
-  field: z.object({
-    fields: z.record(z.string(), z.record(z.custom<TablePermissionFieldAction>(), z.boolean())),
-    create: z.boolean(),
-  }),
 });
 
 export type ITablePermissionVo = z.infer<typeof tablePermissionVoSchema>;
@@ -35,7 +22,7 @@ export const GetTablePermissionRoute = registerRoute({
   path: GET_TABLE_PERMISSION,
   summary: 'Get table permissions',
   description:
-    "Retrieve the current user's permissions for a table, including access rights for table operations, views, records, and fields.",
+    "Retrieve the current user's permissions for a table, including access rights for table operations, views, and records.",
   request: {
     params: z.object({
       tableId: z.string(),

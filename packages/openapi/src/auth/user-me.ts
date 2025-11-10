@@ -7,24 +7,19 @@ import { z } from '../zod';
 export const USER_ME = '/auth/user/me';
 
 const actionPermissionEnum = z.enum([
-  'record|create',
-  'record|delete',
-  'record|read',
-  'record|update',
-  'view|create',
-  'view|delete',
-  'view|read',
-  'view|update',
-  'table|create',
-  'table|delete',
-  'table|read',
-  'table|update',
+  'table|manage',
   'table|import',
   'table|export',
-  'field|create',
-  'field|delete',
-  'field|read',
-  'field|update',
+
+  'record|read',
+  'record|create',
+  'record|delete',
+  'record|update',
+
+  'view|read',
+  'view|create',
+  'view|delete',
+  'view|update',
 ]);
 
 export const userMeVoSchema = z.object({

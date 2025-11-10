@@ -472,7 +472,7 @@ export class SelectionService {
     const numRowsToExpand = Math.max(0, endRow - numRows);
     const numColsToExpand = Math.max(0, endCol - numCols);
 
-    const hasFieldCreatePermission = permissions.includes('field|create');
+    const hasFieldCreatePermission = permissions.includes('table|update') || permissions.includes('table|create');
     const hasRecordCreatePermission = permissions.includes('record|create');
     return [
       hasFieldCreatePermission ? numColsToExpand : 0,

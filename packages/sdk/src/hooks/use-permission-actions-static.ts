@@ -71,18 +71,6 @@ const actionsI18nMap: Record<
   'view|share': {
     description: 'permission.actionDescription.viewShare',
   },
-  'field|create': {
-    description: 'permission.actionDescription.fieldCreate',
-  },
-  'field|delete': {
-    description: 'permission.actionDescription.fieldDelete',
-  },
-  'field|read': {
-    description: 'permission.actionDescription.fieldRead',
-  },
-  'field|update': {
-    description: 'permission.actionDescription.fieldUpdate',
-  },
   'record|create': {
     description: 'permission.actionDescription.recordCreate',
   },

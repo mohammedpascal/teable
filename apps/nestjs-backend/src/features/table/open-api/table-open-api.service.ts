@@ -1,19 +1,17 @@
 import {
   BadRequestException,
-  NotFoundException,
   Injectable,
   Logger,
-  ForbiddenException,
+  NotFoundException
 } from '@nestjs/common';
 import type {
-  FieldAction,
   IFieldRo,
   IFieldVo,
   ILinkFieldOptions,
   ILookupOptionsVo,
+  IRole,
   IViewRo,
   RecordAction,
-  IRole,
   TableAction,
   ViewAction,
 } from '@teable/core';
@@ -38,13 +36,12 @@ import { Knex } from 'knex';
 import { nanoid } from 'nanoid';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
-import { ThresholdConfig, IThresholdConfig } from '../../../configs/threshold.config';
+import { IThresholdConfig, ThresholdConfig } from '../../../configs/threshold.config';
 import { InjectDbProvider } from '../../../db-provider/db.provider';
 import { IDbProvider } from '../../../db-provider/db.provider.interface';
 import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';
 import { updateOrder } from '../../../utils/update-order';
-import { hasActionPermission } from '../../role/role-permission.util';
 import { LinkService } from '../../calculation/link.service';
 import { FieldCreatingService } from '../../field/field-calculate/field-creating.service';
 import { FieldSupplementService } from '../../field/field-calculate/field-supplement.service';
@@ -52,6 +49,7 @@ import { createFieldInstanceByVo } from '../../field/model/factory';
 import { FieldOpenApiService } from '../../field/open-api/field-open-api.service';
 import { RecordOpenApiService } from '../../record/open-api/record-open-api.service';
 import { RecordService } from '../../record/record.service';
+import { hasActionPermission } from '../../role/role-permission.util';
 import { ViewOpenApiService } from '../../view/open-api/view-open-api.service';
 import { TableDuplicateService } from '../table-dupicate.service';
 import { TableService } from '../table.service';
@@ -590,35 +588,8 @@ export class TableOpenApiService {
       {} as Record<RecordAction, boolean>
     );
 
-    const fields = await this.prismaService.field.findMany({
-      where: {
-        tableId,
-      },
-    });
-
-    const excludeFieldCreate = actionPrefixMap[ActionPrefix.Field].filter(
-      (action) => action !== 'field|create'
-    );
-    const fieldPermission = fields.reduce(
-      (acc, field) => {
-        acc[field.id] = excludeFieldCreate.reduce(
-          (acc, action) => {
-            acc[action] = hasActionPermission(user, action as any);
-            return acc;
-          },
-          {} as Record<FieldAction, boolean>
-        );
-        return acc;
-      },
-      {} as Record<string, Record<FieldAction, boolean>>
-    );
-
     return {
       table: tablePermission,
-      field: {
-        fields: fieldPermission,
-        create: hasActionPermission(user, 'field|create'),
-      },
       record: recordPermission,
       view: viewPermission,
     };
@@ -649,35 +620,8 @@ export class TableOpenApiService {
       {} as Record<RecordAction, boolean>
     );
 
-    const fields = await this.prismaService.field.findMany({
-      where: {
-        tableId,
-      },
-    });
-
-    const excludeFieldCreate = actionPrefixMap[ActionPrefix.Field].filter(
-      (action) => action !== 'field|create'
-    );
-    const fieldPermission = fields.reduce(
-      (acc, field) => {
-        acc[field.id] = excludeFieldCreate.reduce(
-          (acc, action) => {
-            acc[action] = permissionMap[action];
-            return acc;
-          },
-          {} as Record<FieldAction, boolean>
-        );
-        return acc;
-      },
-      {} as Record<string, Record<FieldAction, boolean>>
-    );
-
     return {
       table: tablePermission,
-      field: {
-        fields: fieldPermission,
-        create: permissionMap['field|create'],
-      },
       record: recordPermission,
       view: viewPermission,
     };

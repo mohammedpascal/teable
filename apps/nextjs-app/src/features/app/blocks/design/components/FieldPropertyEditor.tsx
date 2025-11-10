@@ -14,8 +14,8 @@ export const FieldPropertyEditor = ({
   propKey: 'name' | 'dbFieldName';
 }) => {
   const field = useField(fieldId);
-  const permission = useFieldPermission(fieldId);
-  const canUpdate = permission['field|update'];
+  const permission = useTablePermission();
+  const canUpdate = Boolean(permission['table|update'] || permission['table|create']);
   const [newValue, setNewValue] = useState(field?.[propKey]);
   const [isEditing, setIsEditing] = useState(false);
   const { t } = useTranslation(tableConfig.i18nNamespaces);
