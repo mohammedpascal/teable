@@ -39,6 +39,10 @@ const PERMISSION_GROUPS = [
       'table|export',
     ] as const,
   },
+  {
+    label: 'Fields',
+    permissions: ['field|create', 'field|delete', 'field|read', 'field|update'] as const,
+  },
 ] as const;
 
 const PERMISSION_LABELS: Record<string, string> = {
@@ -112,7 +116,7 @@ export const Account: React.FC = () => {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-16">
       <h3 className="text-lg font-medium">{t('settings.account.title')}</h3>
       <Separator />
       <div className="flex">
@@ -223,11 +227,13 @@ export const Account: React.FC = () => {
                   return (
                     <div key={group.label} className="space-y-2">
                       <h4 className="text-sm font-medium">{group.label}</h4>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="flex flex-wrap gap-3">
                         {groupPermissions.map((permission) => (
                           <div key={permission} className="flex items-center gap-2">
                             <span className="text-xs text-muted-foreground">✓</span>
-                            <span className="text-sm">{PERMISSION_LABELS[permission] || permission}</span>
+                            <span className="text-sm">
+                              {PERMISSION_LABELS[permission] || permission}
+                            </span>
                           </div>
                         ))}
                       </div>
