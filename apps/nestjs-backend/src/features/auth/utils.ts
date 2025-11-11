@@ -41,7 +41,7 @@ export const pickUserMe = (
     result.role = {
       id: user.role.id,
       name: user.role.name,
-      permissions,
+      permissions: permissions as IUserMeVo['role']['permissions'],
     };
   }
 
