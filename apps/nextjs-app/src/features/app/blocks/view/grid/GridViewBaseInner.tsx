@@ -341,6 +341,8 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   const onContextMenu = (selection: CombinedSelection, position: IPosition) => {
     const { isCellSelection, isRowSelection, isColumnSelection, ranges } = selection;
 
+    if (isColumnSelection && !permission['table|manage']) return;
+
     function extract<T>(_start: number, _end: number, source: T[] | { [key: number]: T }): T[] {
       const start = Math.min(_start, _end);
       const end = Math.max(_start, _end);
@@ -891,7 +893,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
         onVisibleRegionChanged={onVisibleRegionChanged}
         onSelectionChanged={onSelectionChanged}
         onColumnHeaderDblClick={onColumnHeaderDblClick}
-        onColumnHeaderMenuClick={onColumnHeaderMenuClick}
+        onColumnHeaderMenuClick={permission['table|manage'] ? onColumnHeaderMenuClick : undefined}
         onCollapsedGroupChanged={onCollapsedGroupChanged}
         onScrollChanged={onGridScrollChanged}
         onCopy={onCopy}

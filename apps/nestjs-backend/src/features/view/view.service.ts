@@ -1,33 +1,33 @@
 import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import type {
+  ICalendarViewOptions,
+  IColumnMeta,
+  IFilter,
+  IFilterSet,
+  IFormViewOptions,
+  IGalleryViewOptions,
+  IGroup,
+  IKanbanViewOptions,
+  IOtOperation,
+  ISetViewPropertyOpContext,
   ISnapshotBase,
+  ISort,
+  IUpdateViewColumnMetaOpContext,
+  IViewOptions,
+  IViewPropertyKeys,
   IViewRo,
   IViewVo,
-  ISort,
-  IOtOperation,
-  IUpdateViewColumnMetaOpContext,
-  ISetViewPropertyOpContext,
-  IColumnMeta,
-  IViewPropertyKeys,
-  IFormViewOptions,
-  IGroup,
-  IViewOptions,
-  IFilter,
-  IKanbanViewOptions,
-  IFilterSet,
-  IGalleryViewOptions,
-  ICalendarViewOptions,
 } from '@teable/core';
 import {
+  CellValueType,
+  FieldType,
+  generateViewId,
   getUniqName,
   IdPrefix,
-  generateViewId,
   OpName,
   ViewOpBuilder,
-  viewVoSchema,
   ViewType,
-  FieldType,
-  CellValueType,
+  viewVoSchema,
 } from '@teable/core';
 import { UploadType } from '@teable/openapi';
 import { Knex } from 'knex';
@@ -37,15 +37,15 @@ import { ClsService } from 'nestjs-cls';
 import { fromZodError } from 'zod-validation-error';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
-import { PrismaService } from '../../prisma';
 import type { Prisma } from '../../prisma';
+import { PrismaService } from '../../prisma';
 import type { IReadonlyAdapterService } from '../../share-db/interface';
 import { RawOpType } from '../../share-db/interface';
 import type { IClsStore } from '../../types/cls';
 import StorageAdapter from '../attachments/plugins/adapter';
 import { getFullStorageUrl } from '../attachments/plugins/utils';
 import { BatchService } from '../calculation/batch.service';
-import { hasActionPermission, hasTablePermission } from '../role/role-permission.util';
+import { hasActionPermission } from '../role/role-permission.util';
 import { ROW_ORDER_FIELD_PREFIX } from './constant';
 import { createViewInstanceByRaw, createViewVoByRaw } from './model/factory';
 
@@ -301,7 +301,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasTablePermission(user, tableId, 'Create')) {
+    if (!hasActionPermission(user, 'view|create')) {
       throw new ForbiddenException('You do not have permission to create views');
     }
 
@@ -322,7 +322,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasTablePermission(user, tableId, 'Delete')) {
+    if (!hasActionPermission(user, 'view|delete')) {
       throw new ForbiddenException('You do not have permission to delete views');
     }
 
@@ -483,7 +483,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasTablePermission(user, tableId, 'Update')) {
+    if (!hasActionPermission(user, 'view|update')) {
       throw new ForbiddenException('You do not have permission to update views');
     }
 

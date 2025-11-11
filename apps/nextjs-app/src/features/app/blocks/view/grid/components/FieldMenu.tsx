@@ -13,16 +13,10 @@ import {
   Trash2,
 } from '@teable/icons';
 import type { GridView } from '@teable/sdk';
-import {
-  useFields,
-  useGridViewStore,
-  useIsTouchDevice,
-  useTableId,
-  useTablePermission,
-  useView,
-} from '@teable/sdk';
-import { insertSingle } from '@teable/sdk/utils';
+import { useFields, useGridViewStore, useIsTouchDevice, useTableId, useView } from '@teable/sdk';
 
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { insertSingle } from '@teable/sdk/utils';
 import {
   cn,
   Command,
@@ -45,7 +39,6 @@ import { tableConfig } from '@/features/i18n/table.config';
 import { useFieldSettingStore } from '../../field/useFieldSettingStore';
 import { useToolBarStore } from '../../tool-bar/components/useToolBarStore';
 import type { IMenuItemProps } from './RecordMenu';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 
 enum MenuItemType {
   Edit = 'Edit',

@@ -52,13 +52,7 @@ export function parsePermissionsString(
     }
   }
 
-  // Legacy format: comma-separated permissions (for backward compatibility)
-  return permissionsString
-    .split(',')
-    .map((p) => p.trim())
-    .filter((p): p is ActionPermission => {
-      return VALID_PERMISSIONS.includes(p as ActionPermission);
-    });
+  return [];
 }
 
 /**
@@ -92,54 +86,6 @@ export function hasActionPermission(
 
   const permissions = parsePermissionsString(user.role.permissions);
   return permissions.includes(action);
-}
-
-/**
- * Check if user's role has a specific permission for a table (deprecated, use hasActionPermission)
- * @deprecated Use hasActionPermission instead
- */
-export function hasTablePermission(
-  user: (User & { role?: { permissions: string } | null }) | null,
-  tableId: string,
-  permission: string
-): boolean {
-  // Map old ViewPermission to new action permissions for backward compatibility
-  const permissionMap: Record<string, ActionPermission> = {
-    View: 'table|read',
-    Create: 'table|manage',
-    Update: 'table|manage',
-    Delete: 'table|manage',
-    Configure: 'table|manage',
-  };
-
-  const action = permissionMap[permission];
-  if (action) {
-    return hasActionPermission(user, action);
-  }
-
-  return hasActionPermission(user, permission as ActionPermission);
-}
-
-/**
- * Get all permissions for a specific table (deprecated, use getUserPermissions)
- * @deprecated Use getUserPermissions instead
- */
-export function getTablePermissions(
-  user: (User & { role?: { permissions: string } | null }) | null,
-  tableId: string
-): ActionPermission[] {
-  return getUserPermissions(user);
-}
-
-/**
- * Check if user's role has a specific permission (deprecated, use hasActionPermission)
- * @deprecated Use hasActionPermission instead
- */
-export function hasPermission(
-  user: (User & { role?: { permissions: string } | null }) | null,
-  permission: string
-): boolean {
-  return hasActionPermission(user, permission as ActionPermission);
 }
 
 /**
@@ -198,13 +144,5 @@ export function validatePermissions(permissionsString: string): boolean {
     }
   }
 
-  // Legacy format: comma-separated (for backward compatibility)
-  const permissions = parsePermissions(permissionsString);
-  const inputPermissions = permissionsString
-    .split(',')
-    .map((p) => p.trim())
-    .filter((p) => p.length > 0);
-
-  // All provided permissions must be valid
-  return permissions.length === inputPermissions.length;
+  return false;
 }
