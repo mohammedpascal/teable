@@ -50,7 +50,7 @@ export const ExpandRecorder = (props: IExpandRecorderProps) => {
   const { t } = useTranslation();
   const permission = useTablePermission();
   const editable = Boolean(permission['record|update']);
-  const canRead = Boolean(permission['record|read']);
+  const canRead = Boolean(permission['table|read']);
   const canDelete = Boolean(permission['record|delete']);
 
   if (!recordId) {

@@ -28,6 +28,7 @@ export const baseActionSchema = z.enum(baseActions);
 export type BaseAction = z.infer<typeof baseActionSchema>;
 
 export const tableActions = [
+  'table|read',
   'table|manage',
   'table|import',
   'table|export',
@@ -38,7 +39,6 @@ export type TableAction = z.infer<typeof tableActionSchema>;
 export const viewActions = [
   'view|create',
   'view|delete',
-  'view|read',
   'view|update',
   'view|share',
 ] as const;
@@ -48,7 +48,6 @@ export type ViewAction = z.infer<typeof viewActionSchema>;
 export const recordActions = [
   'record|create',
   'record|delete',
-  'record|read',
   'record|update',
   'record|comment',
 ] as const;

@@ -6,12 +6,10 @@ export type ShareViewAction = ViewAction | RecordAction;
 export const shareViewPermissions: Record<ShareViewAction, boolean> = {
   'view|create': false,
   'view|delete': false,
-  'view|read': true,
   'view|update': false,
   'view|share': false,
   'record|create': false,
   'record|comment': false,
   'record|delete': false,
-  'record|read': true,
   'record|update': false,
 };

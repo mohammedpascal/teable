@@ -23,17 +23,16 @@ interface RoleDialogProps {
 }
 
 const PERMISSIONS = [
-  'record|create',
-  'record|delete',
-  'record|read',
-  'record|update',
-  'view|create',
-  'view|delete',
-  'view|read',
-  'view|update',
+  'table|read',
   'table|manage',
   'table|import',
   'table|export',
+  'record|create',
+  'record|delete',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|update',
 ] as const;
 
 type Permission = (typeof PERMISSIONS)[number];
@@ -41,15 +40,16 @@ type Permission = (typeof PERMISSIONS)[number];
 const PERMISSION_GROUPS = [
   {
     label: 'Records',
-    permissions: ['record|create', 'record|delete', 'record|read', 'record|update'] as const,
+    permissions: ['record|create', 'record|delete', 'record|update'] as const,
   },
   {
     label: 'Views',
-    permissions: ['view|create', 'view|delete', 'view|read', 'view|update'] as const,
+    permissions: ['view|create', 'view|delete', 'view|update'] as const,
   },
   {
     label: 'Tables',
     permissions: [
+      'table|read',
       'table|manage',
       'table|import',
       'table|export',
@@ -60,12 +60,11 @@ const PERMISSION_GROUPS = [
 const PERMISSION_LABELS: Record<Permission, string> = {
   'record|create': 'Create record',
   'record|delete': 'Delete record',
-  'record|read': 'Read record',
   'record|update': 'Update record',
   'view|create': 'Create view',
   'view|delete': 'Delete view',
-  'view|read': 'Read view',
   'view|update': 'Update view',
+  'table|read': 'Read table',
   'table|manage': 'Manage table',
   'table|import': 'Import data into table',
   'table|export': 'Export table data',

@@ -57,7 +57,7 @@ export const ExpandRecordHeader = (props: IExpandRecordHeader) => {
 
   const permission = useTablePermission();
   const editable = Boolean(permission['record|update']);
-  const canRead = Boolean(permission['record|read']);
+  const canRead = Boolean(permission['table|read']);
   const canDelete = Boolean(permission['record|delete']);
   const [ref, { width }] = useMeasure<HTMLDivElement>();
   const { t } = useTranslation();

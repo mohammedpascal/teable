@@ -8,16 +8,15 @@ export const UPDATE_ROLE = '/role/{id}';
 
 const actionPermissionEnum = z.enum([
   'user|manage',
+  'table|read',
   'table|manage',
   'table|import',
   'table|export',
 
-  'record|read',
   'record|create',
   'record|delete',
   'record|update',
 
-  'view|read',
   'view|create',
   'view|delete',
   'view|update',

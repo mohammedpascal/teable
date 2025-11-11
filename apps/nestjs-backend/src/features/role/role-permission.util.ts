@@ -4,12 +4,11 @@ import type { User } from '../../prisma';
 export const VALID_PERMISSIONS = [
   'record|create',
   'record|delete',
-  'record|read',
   'record|update',
   'view|create',
   'view|delete',
-  'view|read',
   'view|update',
+  'table|read',
   'table|manage',
   'table|import',
   'table|export',
@@ -106,7 +105,7 @@ export function hasTablePermission(
 ): boolean {
   // Map old ViewPermission to new action permissions for backward compatibility
   const permissionMap: Record<string, ActionPermission> = {
-    View: 'table|manage',
+    View: 'table|read',
     Create: 'table|manage',
     Update: 'table|manage',
     Delete: 'table|manage',

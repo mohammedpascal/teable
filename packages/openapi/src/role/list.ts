@@ -6,17 +6,16 @@ import { z } from '../zod';
 export const GET_ROLE_LIST = '/role';
 
 const actionPermissionEnum = z.enum([
-  'record|create',
-  'record|delete',
-  'record|read',
-  'record|update',
-  'view|create',
-  'view|delete',
-  'view|read',
-  'view|update',
+  'table|read',
   'table|manage',
   'table|import',
   'table|export',
+  'record|create',
+  'record|delete',
+  'record|update',
+  'view|create',
+  'view|delete',
+  'view|update',
 ]);
 
 export const roleListVoSchema = z.object({

@@ -7,16 +7,15 @@ import { roleListVoSchema } from './list';
 export const CREATE_ROLE = '/role';
 
 const actionPermissionEnum = z.enum([
+  'table|read',
   'table|manage',
   'table|import',
   'table|export',
 
-  'record|read',
   'record|create',
   'record|delete',
   'record|update',
 
-  'view|read',
   'view|create',
   'view|delete',
   'view|update',

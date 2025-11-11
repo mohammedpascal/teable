@@ -38,6 +38,9 @@ const actionsI18nMap: Record<
   'base|db_connection': {
     description: 'permission.actionDescription.baseDbConnect',
   },
+  'table|read': {
+    description: 'permission.actionDescription.tableRead',
+  },
   'table|manage': {
     description: 'permission.actionDescription.tableManage',
   },
@@ -53,9 +56,6 @@ const actionsI18nMap: Record<
   'view|delete': {
     description: 'permission.actionDescription.viewDelete',
   },
-  'view|read': {
-    description: 'permission.actionDescription.viewRead',
-  },
   'view|update': {
     description: 'permission.actionDescription.viewUpdate',
   },
@@ -67,9 +67,6 @@ const actionsI18nMap: Record<
   },
   'record|delete': {
     description: 'permission.actionDescription.recordDelete',
-  },
-  'record|read': {
-    description: 'permission.actionDescription.recordRead',
   },
   'record|update': {
     description: 'permission.actionDescription.recordUpdate',

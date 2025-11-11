@@ -7,16 +7,15 @@ import { z } from '../zod';
 export const USER_ME = '/auth/user/me';
 
 const actionPermissionEnum = z.enum([
+  'table|read',
   'table|manage',
   'table|import',
   'table|export',
 
-  'record|read',
   'record|create',
   'record|delete',
   'record|update',
 
-  'view|read',
   'view|create',
   'view|delete',
   'view|update',

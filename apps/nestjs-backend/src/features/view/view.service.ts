@@ -47,7 +47,7 @@ import { getFullStorageUrl } from '../attachments/plugins/utils';
 import { BatchService } from '../calculation/batch.service';
 import { ROW_ORDER_FIELD_PREFIX } from './constant';
 import { createViewInstanceByRaw, createViewVoByRaw } from './model/factory';
-import { hasTablePermission } from '../role/role-permission.util';
+import { hasActionPermission } from '../role/role-permission.util';
 
 type IViewOpContext = IUpdateViewColumnMetaOpContext | ISetViewPropertyOpContext;
 
@@ -252,7 +252,7 @@ export class ViewService implements IReadonlyAdapterService {
       where: { id: viewId },
     });
 
-    if (!hasTablePermission(user, viewRaw.tableId, 'View')) {
+    if (!hasActionPermission(user, 'table|read')) {
       throw new ForbiddenException('You do not have permission to view views');
     }
 
@@ -282,7 +282,7 @@ export class ViewService implements IReadonlyAdapterService {
       include: { role: true },
     });
 
-    if (!hasTablePermission(user, tableId, 'View')) {
+    if (!hasActionPermission(user, 'table|read')) {
       throw new ForbiddenException('You do not have permission to view views');
     }
 
