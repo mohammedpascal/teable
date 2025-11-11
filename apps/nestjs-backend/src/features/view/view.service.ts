@@ -29,8 +29,6 @@ import {
   FieldType,
   CellValueType,
 } from '@teable/core';
-import type { Prisma } from '../../prisma';
-import { PrismaService } from '../../prisma';
 import { UploadType } from '@teable/openapi';
 import { Knex } from 'knex';
 import { isEmpty, merge } from 'lodash';
@@ -39,15 +37,17 @@ import { ClsService } from 'nestjs-cls';
 import { fromZodError } from 'zod-validation-error';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
+import type { Prisma } from '../../prisma';
 import type { IReadonlyAdapterService } from '../../share-db/interface';
 import { RawOpType } from '../../share-db/interface';
 import type { IClsStore } from '../../types/cls';
 import StorageAdapter from '../attachments/plugins/adapter';
 import { getFullStorageUrl } from '../attachments/plugins/utils';
 import { BatchService } from '../calculation/batch.service';
+import { hasActionPermission, hasTablePermission } from '../role/role-permission.util';
 import { ROW_ORDER_FIELD_PREFIX } from './constant';
 import { createViewInstanceByRaw, createViewVoByRaw } from './model/factory';
-import { hasActionPermission, hasTablePermission } from '../role/role-permission.util';
 
 type IViewOpContext = IUpdateViewColumnMetaOpContext | ISetViewPropertyOpContext;
 
@@ -200,7 +200,6 @@ export class ViewService implements IReadonlyAdapterService {
     }
     return innerViewRo;
   }
-
 
   async createDbView(tableId: string, viewRo: IViewRo) {
     const userId = this.cls.get('user.id');

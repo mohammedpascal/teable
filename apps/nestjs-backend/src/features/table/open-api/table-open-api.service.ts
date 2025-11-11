@@ -216,10 +216,10 @@ export class TableOpenApiService {
       include: { role: true },
     });
 
-    // Check if user has table|manage permission (admin users bypass)
-    const canReadTables = hasActionPermission(user, 'table|manage');
+    // Check if user has table|read permission (admin users bypass)
+    const canReadTables = hasActionPermission(user, 'table|read');
 
-    // If user doesn't have table|manage permission, return empty array
+    // If user doesn't have table|read permission, return empty array
     if (!canReadTables) {
       return [];
     }
