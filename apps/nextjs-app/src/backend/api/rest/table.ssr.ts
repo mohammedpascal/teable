@@ -9,7 +9,6 @@ import type {
   ISettingVo,
   ITableFullVo,
   ITableListVo,
-  ITablePermissionVo,
   ITableVo,
   IUpdateNotifyStatusRo,
   IUserMeVo,
@@ -24,7 +23,6 @@ import {
   GET_SETTING,
   GET_TABLE,
   GET_TABLE_LIST,
-  GET_TABLE_PERMISSION,
   GET_VIEW_LIST,
   UPDATE_NOTIFICATION_STATUS,
   USER_ME,
@@ -108,12 +106,6 @@ export class SsrApi {
       id: 'bse0',
       name: 'Base',
     };
-  }
-
-  async getTablePermission(tableId: string) {
-    return await this.axios
-      .get<ITablePermissionVo>(urlBuilder(GET_TABLE_PERMISSION, { tableId }))
-      .then((res) => res.data);
   }
 
   async updateNotificationStatus(notificationId: string, data: IUpdateNotifyStatusRo) {

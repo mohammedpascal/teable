@@ -44,11 +44,6 @@ export const getServerSideProps = withEnv(
           queryKey: ReactQueryKeys.base(),
           queryFn: () => Promise.resolve({ id: 'bse0', name: 'Base' }),
         }),
-
-        queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getTablePermission(tableId as string),
-          queryFn: () => ssrApi.getTablePermission(tableId as string),
-        }),
       ]);
 
       let recordServerData;
