@@ -49,8 +49,6 @@ export const ReactQueryKeys = {
 
   getTablePermission: (tableId: string) => ['table-permission', tableId] as const,
 
-  getBasePermission: () => ['base-permission'] as const,
-
   getSharedBase: () => ['shared-base-list'] as const,
 
   getDashboardList: () => ['dashboard-list'] as const,

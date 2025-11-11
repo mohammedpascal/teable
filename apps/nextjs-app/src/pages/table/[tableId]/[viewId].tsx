@@ -46,11 +46,6 @@ export const getServerSideProps = withEnv(
         }),
 
         queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.getBasePermission(),
-          queryFn: () => ssrApi.getBasePermission(),
-        }),
-
-        queryClient.fetchQuery({
           queryKey: ReactQueryKeys.getTablePermission(tableId as string),
           queryFn: () => ssrApi.getTablePermission(tableId as string),
         }),

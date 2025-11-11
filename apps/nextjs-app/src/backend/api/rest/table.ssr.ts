@@ -31,7 +31,6 @@ import {
   urlBuilder,
 } from '@teable/openapi';
 import type { AxiosInstance } from 'axios';
-import { BASE_PERMISSION } from '../../../lib/constants';
 import { getAxios } from './axios';
 
 export class SsrApi {
@@ -87,9 +86,7 @@ export class SsrApi {
   }
 
   async getTables() {
-    return this.axios
-      .get<ITableListVo>(urlBuilder(GET_TABLE_LIST, { }))
-      .then(({ data }) => data);
+    return this.axios.get<ITableListVo>(urlBuilder(GET_TABLE_LIST, {})).then(({ data }) => data);
   }
 
   async getDefaultViewId(tableId: string) {
@@ -111,10 +108,6 @@ export class SsrApi {
       id: 'bse0',
       name: 'Base',
     };
-  }
-
-  async getBasePermission() {
-    return BASE_PERMISSION;
   }
 
   async getTablePermission(tableId: string) {
