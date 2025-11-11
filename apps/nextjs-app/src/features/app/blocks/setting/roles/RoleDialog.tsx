@@ -48,12 +48,7 @@ const PERMISSION_GROUPS = [
   },
   {
     label: 'Tables',
-    permissions: [
-      'table|read',
-      'table|manage',
-      'table|import',
-      'table|export',
-    ] as const,
+    permissions: ['table|read', 'table|manage', 'table|import', 'table|export'] as const,
   },
 ] as const;
 
@@ -200,7 +195,7 @@ export const RoleDialog = ({ open, onOpenChange, role, onSubmit, isLoading }: Ro
                 {PERMISSION_GROUPS.map((group) => (
                   <div key={group.label} className="space-y-3">
                     <h4 className="text-sm font-semibold">{group.label}</h4>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-4 gap-3">
                       {group.permissions.map((permission) => (
                         <div key={permission} className="flex items-center space-x-2">
                           <Checkbox
