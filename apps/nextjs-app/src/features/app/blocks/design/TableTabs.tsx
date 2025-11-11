@@ -1,12 +1,13 @@
 import { Table2 } from '@teable/icons';
 import { AnchorContext, FieldProvider, TablePermissionProvider } from '@teable/sdk/context';
-import { useBase, useTable, useTables } from '@teable/sdk/hooks';
+import { useTable, useTables } from '@teable/sdk/hooks';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { Table } from '@teable/sdk/model';
 import { ConfirmDialog, Selector } from '@teable/ui-lib/base';
 import { Button, Tabs, TabsContent } from '@teable/ui-lib/shadcn';
 import { Trash2 } from 'lucide-react';
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { FieldSetting } from '../view/field/FieldSetting';
 import { DataTable } from './data-table/DataTable';
@@ -49,7 +50,6 @@ export const TablePicker = ({
 
 const DangerZone = () => {
   const table = useTable();
-  const base = useBase();
   const tables = useTables();
   const router = useRouter();
   const { t } = useTranslation(['common', 'table']);
@@ -68,7 +68,7 @@ const DangerZone = () => {
 
     try {
       setIsDeleting(true);
-      await base.deleteTable(tableId);
+      await Table.deleteTable(tableId);
 
       const firstTableId = tables.find((t) => t.id !== tableId)?.id;
       if (routerTableId === tableId) {

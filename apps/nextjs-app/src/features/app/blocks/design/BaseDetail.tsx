@@ -1,11 +1,9 @@
 import { Database } from '@teable/icons';
-import { useBase } from '@teable/sdk/hooks';
 import { useTranslation } from 'next-i18next';
 import { useEnv } from '@/features/app/hooks/useEnv';
 
 export const BaseDetail = () => {
   const { t } = useTranslation(['table']);
-  const base = useBase();
   const { driver } = useEnv();
 
   return (
@@ -16,7 +14,7 @@ export const BaseDetail = () => {
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
         <div className="text-muted-foreground">{t('table:table.schemaName')}</div>
-        <div>{base.id}</div>
+        <div>{'bse0'}</div>
         <div className="text-muted-foreground">{t('table:table.typeOfDatabase')}</div>
         <div>{driver}</div>
       </div>

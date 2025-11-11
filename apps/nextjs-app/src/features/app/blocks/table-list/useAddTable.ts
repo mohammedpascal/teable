@@ -1,6 +1,7 @@
 import type { IFieldRo } from '@teable/core';
 import { Colors, FieldType, getUniqName, NumberFormattingType, ViewType } from '@teable/core';
-import { useBase, useTables } from '@teable/sdk/hooks';
+import { useTables } from '@teable/sdk/hooks';
+import { Table } from '@teable/sdk/model';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useCallback } from 'react';
@@ -43,7 +44,6 @@ const useDefaultFields = (): IFieldRo[] => {
 };
 
 export function useAddTable() {
-  const base = useBase();
   const tables = useTables();
   const router = useRouter();
   const { t } = useTranslation('table');
@@ -55,7 +55,7 @@ export function useAddTable() {
       tables.map((table) => table.name)
     );
     const tableData = (
-      await base.createTable({
+      await Table.createTable({
         name: uniqueName,
         views: [{ name: t('view.category.table'), type: ViewType.Grid }],
         fields: fieldRos,
@@ -73,5 +73,5 @@ export function useAddTable() {
         shallow: Boolean(router.query.viewId),
       }
     );
-  }, [t, tables, base, fieldRos, router]);
+  }, [t, tables, fieldRos, router]);
 }

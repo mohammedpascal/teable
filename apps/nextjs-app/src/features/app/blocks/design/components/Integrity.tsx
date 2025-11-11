@@ -1,16 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { checkBaseIntegrity, fixBaseIntegrity } from '@teable/openapi';
-import { useBase } from '@teable/sdk/hooks';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
-import { Loader2, Check } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 
 export const IntegrityButton = () => {
-  const base = useBase();
   const { t } = useTranslation(['table']);
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['baseIntegrity', base.id],
+    queryKey: ['baseIntegrity', 'bse0'],
     queryFn: () => checkBaseIntegrity().then(({ data }) => data),
     enabled: false,
   });

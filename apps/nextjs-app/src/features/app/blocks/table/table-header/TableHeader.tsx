@@ -1,5 +1,5 @@
 import { Code2, MoreHorizontal, Settings } from '@teable/icons';
-import { useBase, useTable, useTableId } from '@teable/sdk/hooks';
+import { useTable, useTableId } from '@teable/sdk/hooks';
 import {
   Button,
   cn,
@@ -45,7 +45,6 @@ const RightList = ({ className }: { className?: string }) => {
 };
 
 const RightMenu = ({ className }: { className?: string }) => {
-  const base = useBase();
   const tableId = useTableId();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
 

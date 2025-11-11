@@ -1,7 +1,0 @@
-import { createContext } from 'react';
-import type { Base } from '../../model';
-
-export const BaseContext = createContext<{
-  base?: Base;
-  permission?: Record<string, boolean>;
-}>({});

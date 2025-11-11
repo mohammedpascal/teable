@@ -12,8 +12,8 @@ import {
 } from '@teable/icons';
 import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
-import { useBase, usePermission, useTables } from '@teable/sdk/hooks';
-import type { Table } from '@teable/sdk/model';
+import { useHookPermission, useTables } from '@teable/sdk/hooks';
+import { Table } from '@teable/sdk/model';
 import { ConfirmDialog } from '@teable/ui-lib/base';
 import {
   DropdownMenu,
@@ -50,8 +50,7 @@ export const TableOperation = (props: ITableOperationProps) => {
   const [importVisible, setImportVisible] = useState(false);
   const [duplicateSetting, setDuplicateSetting] = useState(false);
   const [importType, setImportType] = useState(SUPPORTEDTYPE.CSV);
-  const base = useBase();
-  const permission = usePermission();
+  const permission = useHookPermission();
   const tables = useTables();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -90,7 +89,7 @@ export const TableOperation = (props: ITableOperationProps) => {
 
     try {
       setIsDeleting(true);
-      await base.deleteTable(tableId);
+      await Table.deleteTable(tableId);
 
       const firstTableId = tables.find((t) => t.id !== tableId)?.id;
       if (routerTableId === tableId) {

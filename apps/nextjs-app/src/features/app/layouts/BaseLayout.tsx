@@ -3,7 +3,7 @@ import { Settings } from '@teable/icons';
 import type { ITableVo } from '@teable/openapi';
 import type { IUser } from '@teable/sdk';
 import { NotificationProvider, SessionProvider } from '@teable/sdk';
-import { AnchorContext, AppProvider, BaseProvider, TableProvider } from '@teable/sdk/context';
+import { AnchorContext, AppProvider, TableProvider } from '@teable/sdk/context';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { Fragment } from 'react';
@@ -51,32 +51,30 @@ export const BaseLayout: React.FC<{
                 viewId: viewId as string,
               }}
             >
-              <BaseProvider>
-                <BasePermissionListener />
-                <TableProvider serverData={tableServerData}>
-                  <div
-                    id="portal"
-                    className="relative flex h-screen w-full items-start"
-                    onContextMenu={(e) => e.preventDefault()}
-                  >
-                    <div className="flex h-screen w-full">
-                      <Sidebar headerLeft={<BaseSidebarHeaderLeft />}>
-                        <Fragment>
-                          <div className="flex flex-col gap-2 divide-y divide-solid overflow-auto py-2">
-                            <BaseSideBar />
-                          </div>
-                          <div className="grow basis-0" />
-                          {navigationRoutes.length > 0 && (
-                            <SidebarContent routes={navigationRoutes} />
-                          )}
-                          <SideBarFooter />
-                        </Fragment>
-                      </Sidebar>
-                      <div className="min-w-80 flex-1">{children}</div>
-                    </div>
+              <BasePermissionListener />
+              <TableProvider serverData={tableServerData}>
+                <div
+                  id="portal"
+                  className="relative flex h-screen w-full items-start"
+                  onContextMenu={(e) => e.preventDefault()}
+                >
+                  <div className="flex h-screen w-full">
+                    <Sidebar headerLeft={<BaseSidebarHeaderLeft />}>
+                      <Fragment>
+                        <div className="flex flex-col gap-2 divide-y divide-solid overflow-auto py-2">
+                          <BaseSideBar />
+                        </div>
+                        <div className="grow basis-0" />
+                        {navigationRoutes.length > 0 && (
+                          <SidebarContent routes={navigationRoutes} />
+                        )}
+                        <SideBarFooter />
+                      </Fragment>
+                    </Sidebar>
+                    <div className="min-w-80 flex-1">{children}</div>
                   </div>
-                </TableProvider>
-              </BaseProvider>
+                </div>
+              </TableProvider>
             </AnchorContext.Provider>
           </NotificationProvider>
         </SessionProvider>
