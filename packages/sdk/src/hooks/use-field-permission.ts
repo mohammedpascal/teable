@@ -8,10 +8,11 @@ export const useFieldPermission = (fieldId: string | undefined) => {
   return useMemo(() => {
     if (!fieldId || !table) return {};
     // Derive field permissions from table permissions
+    const hasTableManage = table['table|manage'] ?? false;
     return {
-      'field|read': table['table|read'] ?? false,
-      'field|update': (table['table|update'] ?? false) || (table['table|create'] ?? false),
-      'field|delete': (table['table|update'] ?? false) || (table['table|delete'] ?? false),
+      'field|read': hasTableManage,
+      'field|update': hasTableManage,
+      'field|delete': hasTableManage,
     };
   }, [table, fieldId]);
 };

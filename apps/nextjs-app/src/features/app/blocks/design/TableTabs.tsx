@@ -53,7 +53,7 @@ const DangerZone = () => {
   const router = useRouter();
   const { t } = useTranslation(['common', 'table']);
   const permission = useTablePermission();
-  const canDelete = permission['table|delete'];
+  const canDelete = permission['table|manage'];
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { tableId: routerTableId } = router.query;

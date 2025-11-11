@@ -113,7 +113,7 @@ export const TableDetail = () => {
   const { t } = useTranslation(['common', 'table']);
   const dayjs = useLanDayjs();
   const permission = useTablePermission();
-  const canUpdate = permission['table|update'];
+  const canUpdate = permission['table|manage'];
   if (!table) return null;
 
   const handleUpdateTableName = async (newName: string | null) => {

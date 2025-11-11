@@ -31,10 +31,7 @@ const PERMISSIONS = [
   'view|delete',
   'view|read',
   'view|update',
-  'table|create',
-  'table|delete',
-  'table|read',
-  'table|update',
+  'table|manage',
   'table|import',
   'table|export',
 ] as const;
@@ -53,10 +50,7 @@ const PERMISSION_GROUPS = [
   {
     label: 'Tables',
     permissions: [
-      'table|create',
-      'table|delete',
-      'table|read',
-      'table|update',
+      'table|manage',
       'table|import',
       'table|export',
     ] as const,
@@ -72,10 +66,7 @@ const PERMISSION_LABELS: Record<Permission, string> = {
   'view|delete': 'Delete view',
   'view|read': 'Read view',
   'view|update': 'Update view',
-  'table|create': 'Create table',
-  'table|delete': 'Delete table',
-  'table|read': 'Read table',
-  'table|update': 'Update table',
+  'table|manage': 'Manage table',
   'table|import': 'Import data into table',
   'table|export': 'Export table data',
 };

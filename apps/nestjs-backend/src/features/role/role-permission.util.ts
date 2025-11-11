@@ -11,10 +11,6 @@ export const VALID_PERMISSIONS = [
   'view|read',
   'view|update',
   'table|manage',
-  'table|create',
-  'table|delete',
-  'table|read',
-  'table|update',
   'table|import',
   'table|export',
 ] as const;
@@ -110,11 +106,11 @@ export function hasTablePermission(
 ): boolean {
   // Map old ViewPermission to new action permissions for backward compatibility
   const permissionMap: Record<string, ActionPermission> = {
-    View: 'table|read',
-    Create: 'table|create',
-    Update: 'table|update',
-    Delete: 'table|delete',
-    Configure: 'table|update',
+    View: 'table|manage',
+    Create: 'table|manage',
+    Update: 'table|manage',
+    Delete: 'table|manage',
+    Configure: 'table|manage',
   };
 
   const action = permissionMap[permission];

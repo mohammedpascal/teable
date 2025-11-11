@@ -38,17 +38,8 @@ const actionsI18nMap: Record<
   'base|db_connection': {
     description: 'permission.actionDescription.baseDbConnect',
   },
-  'table|create': {
-    description: 'permission.actionDescription.tableCreate',
-  },
-  'table|read': {
-    description: 'permission.actionDescription.tableRead',
-  },
-  'table|delete': {
-    description: 'permission.actionDescription.tableDelete',
-  },
-  'table|update': {
-    description: 'permission.actionDescription.tableUpdate',
+  'table|manage': {
+    description: 'permission.actionDescription.tableManage',
   },
   'table|import': {
     description: 'permission.actionDescription.tableImport',

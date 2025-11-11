@@ -103,7 +103,7 @@ export const KanbanViewOperators: React.FC<{ disabled?: boolean }> = (props) => 
             </Label>
           </div>
         }
-        isCreatable={Boolean(permission['table|update'] || permission['table|create'])}
+        isCreatable={Boolean(permission['table|manage'])}
         selectedFieldId={stackFieldId}
         onConfirm={onFieldSelected}
         getCreateBtnText={(fieldName) => (

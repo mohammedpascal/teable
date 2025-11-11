@@ -83,10 +83,11 @@ export const FieldMenu = () => {
       return {};
     }
     // Derive field permissions from table permissions
+    const hasTableManage = table['table|manage'] ?? false;
     return {
-      'field|read': table['table|read'] ?? false,
-      'field|update': (table['table|update'] ?? false) || (table['table|create'] ?? false),
-      'field|delete': (table['table|update'] ?? false) || (table['table|delete'] ?? false),
+      'field|read': hasTableManage,
+      'field|update': hasTableManage,
+      'field|delete': hasTableManage,
     };
   }, [table]);
 
@@ -157,18 +158,14 @@ export const FieldMenu = () => {
         type: MenuItemType.InsertLeft,
         name: t('table:menu.insertFieldLeft'),
         icon: <ArrowLeft className={iconClassName} />,
-        hidden:
-          fieldIds.length !== 1 ||
-          !((permission['table|update'] ?? false) || (permission['table|create'] ?? false)),
+        hidden: fieldIds.length !== 1 || !(permission['table|manage'] ?? false),
         onClick: async () => await insertField(false),
       },
       {
         type: MenuItemType.InsertRight,
         name: t('table:menu.insertFieldRight'),
         icon: <ArrowRight className={iconClassName} />,
-        hidden:
-          fieldIds.length !== 1 ||
-          !((permission['table|update'] ?? false) || (permission['table|create'] ?? false)),
+        hidden: fieldIds.length !== 1 || !(permission['table|manage'] ?? false),
         onClick: async () => await insertField(),
       },
     ],

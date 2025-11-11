@@ -69,7 +69,7 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className }) 
             <EmojiPicker
               className="flex size-5 items-center justify-center hover:bg-muted-foreground/60"
               onChange={(icon: string) => table.updateIcon(icon)}
-              disabled={!table.permission?.['table|update']}
+              disabled={!table.permission?.['table|manage']}
             >
               {table.icon ? (
                 <Emoji emoji={table.icon} size={'1rem'} />
@@ -81,7 +81,7 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className }) 
           <p
             className="grow truncate"
             onDoubleClick={() => {
-              table.permission?.['table|update'] && setIsEditing(true);
+              table.permission?.['table|manage'] && setIsEditing(true);
             }}
           >
             {' ' + table.name}

@@ -14,10 +14,7 @@ const actionPermissionEnum = z.enum([
   'view|delete',
   'view|read',
   'view|update',
-  'table|create',
-  'table|delete',
-  'table|read',
-  'table|update',
+  'table|manage',
   'table|import',
   'table|export',
 ]);

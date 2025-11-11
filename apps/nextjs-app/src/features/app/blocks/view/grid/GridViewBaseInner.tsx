@@ -881,7 +881,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
           isTouchDevice ? undefined : getAuthorizedFunction(onRowAppend, 'record|create')
         }
         onCellEdited={getAuthorizedFunction(onCellEdited, 'record|update')}
-        onColumnAppend={(permission['table|update'] || permission['table|create']) ? onColumnAppend : undefined}
+        onColumnAppend={permission['table|manage'] ? onColumnAppend : undefined}
         onColumnFreeze={getAuthorizedFunction(onColumnFreeze, 'view|update')}
         onColumnResize={getAuthorizedFunction(onColumnResize, 'view|update')}
         onColumnOrdered={getAuthorizedFunction(onColumnOrdered, 'view|update')}
@@ -916,7 +916,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
             ref={prefillingGridRef}
             theme={theme}
             scrollBufferX={
-              (permission['table|update'] || permission['table|create']) ? scrollBuffer + columnAppendBtnWidth : scrollBuffer
+              permission['table|manage'] ? scrollBuffer + columnAppendBtnWidth : scrollBuffer
             }
             scrollBufferY={0}
             scrollBarVisible={false}
@@ -947,7 +947,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
             ref={presortGridRef}
             theme={theme}
             scrollBufferX={
-              (permission['table|update'] || permission['table|create']) ? scrollBuffer + columnAppendBtnWidth : scrollBuffer
+              permission['table|manage'] ? scrollBuffer + columnAppendBtnWidth : scrollBuffer
             }
             scrollBufferY={0}
             scrollBarVisible={false}

@@ -39,7 +39,7 @@ export const TableInfo: React.FC<{ className?: string }> = ({ className }) => {
         <EmojiPicker
           className="flex size-5 cursor-pointer items-center justify-center hover:bg-muted-foreground/60"
           onChange={(icon: string) => table?.updateIcon(icon)}
-          disabled={!permission['table|update']}
+          disabled={!permission['table|manage']}
         >
           {icon}
         </EmojiPicker>
@@ -50,7 +50,7 @@ export const TableInfo: React.FC<{ className?: string }> = ({ className }) => {
         <div
           className="text-sm leading-none"
           onDoubleClick={() => {
-            permission['table|update'] && setIsEditing(true);
+            permission['table|manage'] && setIsEditing(true);
           }}
         >
           {table?.name}

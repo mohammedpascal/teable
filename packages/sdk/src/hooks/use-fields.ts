@@ -20,7 +20,7 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
       return sortedFields;
     }
 
-    const hasTableRead = table?.['table|read'] ?? false;
+    const hasTableManage = table?.['table|manage'] ?? false;
 
     return sortedFields.filter(({ id }) => {
       const isHidden = () => {
@@ -38,7 +38,7 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
         return !(columnMeta?.[id] as any)?.hidden;
       };
       const hasPermission = () => {
-        if (withDenied || hasTableRead) {
+        if (withDenied || hasTableManage) {
           return true;
         }
         return false;

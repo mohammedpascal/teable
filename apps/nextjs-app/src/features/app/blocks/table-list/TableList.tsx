@@ -36,7 +36,7 @@ export const TableList: React.FC = () => {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <div className="px-3">
-            {permission?.['table|create'] && (
+            {permission?.['table|manage'] && (
               <Button variant={'outline'} size={'xs'} className={`${GUIDE_CREATE_TABLE} w-full`}>
                 <AddBoldIcon />
               </Button>
@@ -84,7 +84,7 @@ export const TableList: React.FC = () => {
       )}
 
       <div className="overflow-y-auto px-3">
-        {connected && permission?.['table|update'] ? <DraggableList /> : <NoDraggableList />}
+        {connected && permission?.['table|manage'] ? <DraggableList /> : <NoDraggableList />}
       </div>
     </div>
   );

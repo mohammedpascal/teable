@@ -2,12 +2,9 @@ import type { RecordAction, TableAction, UserAction, ViewAction } from './action
 
 export const OAUTH_ACTIONS: (TableAction | ViewAction | RecordAction | UserAction)[] =
   [
-    'table|create',
-    'table|delete',
+    'table|manage',
     'table|export',
     'table|import',
-    'table|read',
-    'table|update',
     'view|create',
     'view|delete',
     'view|read',

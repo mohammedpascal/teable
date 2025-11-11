@@ -75,11 +75,9 @@ export const TableOperation = (props: ITableOperationProps) => {
 
   const menuPermission = useMemo(() => {
     return {
-      deleteTable: table.permission?.['table|delete'] ?? permission?.['table|delete'] ?? false,
-      updateTable: table.permission?.['table|update'] ?? permission?.['table|update'] ?? false,
-      duplicateTable:
-        (table.permission?.['table|read'] ?? permission?.['table|read'] ?? false) &&
-        (permission?.['table|create'] ?? false),
+      deleteTable: table.permission?.['table|manage'] ?? permission?.['table|manage'] ?? false,
+      updateTable: table.permission?.['table|manage'] ?? permission?.['table|manage'] ?? false,
+      duplicateTable: table.permission?.['table|manage'] ?? permission?.['table|manage'] ?? false,
       exportTable: table.permission?.['table|export'] ?? permission?.['table|export'] ?? false,
       importTable: table.permission?.['table|import'] ?? permission?.['table|import'] ?? false,
     };

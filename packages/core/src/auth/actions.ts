@@ -29,10 +29,6 @@ export type BaseAction = z.infer<typeof baseActionSchema>;
 
 export const tableActions = [
   'table|manage',
-  'table|create',
-  'table|delete',
-  'table|read',
-  'table|update',
   'table|import',
   'table|export',
 ] as const;

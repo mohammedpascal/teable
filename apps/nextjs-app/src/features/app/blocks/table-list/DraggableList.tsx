@@ -47,7 +47,7 @@ export const DraggableList = () => {
     <DndKitContext onDragEnd={onDragEnd}>
       <Droppable items={innerTables.map(({ id }) => ({ id }))}>
         {innerTables.map((table) => (
-          <Draggable key={table.id} id={table.id} disabled={!table.permission?.['table|update']}>
+          <Draggable key={table.id} id={table.id} disabled={!table.permission?.['table|manage']}>
             {({ setNodeRef, attributes, listeners, style, isDragging }) => (
               <div
                 ref={setNodeRef}

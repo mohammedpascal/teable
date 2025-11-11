@@ -1,8 +1,5 @@
 export const BASE_PERMISSION = {
-  'table|create': true,
-  'table|delete': true,
-  'table|read': true,
-  'table|update': true,
+  'table|manage': true,
   'table|import': true,
   'table|export': true,
   'base|delete': true,

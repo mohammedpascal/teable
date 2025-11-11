@@ -73,7 +73,7 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
   const userList: UserCollaboratorItem[] = [];
 
   const kanbanPermission = useMemo(() => {
-    const canUpdateField = Boolean(permission['table|update'] || permission['table|create']);
+    const canUpdateField = Boolean(permission['table|manage']);
     return {
       stackCreatable: canUpdateField,
       stackEditable: canUpdateField,

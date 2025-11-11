@@ -43,7 +43,7 @@ export class RoleService {
     // Validate permissions format
     if (!validatePermissions(permissionsString)) {
       throw new BadRequestException(
-        'Invalid permissions format. Permissions must be a JSON array of action strings: ["record|create", "table|read", ...]'
+        'Invalid permissions format. Permissions must be a JSON array of action strings: ["record|create", "table|manage", ...]'
       );
     }
 
@@ -214,7 +214,7 @@ export class RoleService {
       // Validate permissions format if provided
       if (permissionsString && !validatePermissions(permissionsString)) {
         throw new BadRequestException(
-          'Invalid permissions format. Permissions must be a JSON array of action strings: ["record|create", "table|read", ...]'
+          'Invalid permissions format. Permissions must be a JSON array of action strings: ["record|create", "table|manage", ...]'
         );
       }
     }

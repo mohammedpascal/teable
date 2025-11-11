@@ -7,6 +7,7 @@ import { roleListVoSchema } from './list';
 export const UPDATE_ROLE = '/role/{id}';
 
 const actionPermissionEnum = z.enum([
+  'user|manage',
   'table|manage',
   'table|import',
   'table|export',
