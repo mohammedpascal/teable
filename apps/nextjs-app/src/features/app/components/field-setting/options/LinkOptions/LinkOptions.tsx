@@ -1,15 +1,12 @@
-import { tableConfig } from '@/features/i18n/table.config';
-import { useQuery } from '@tanstack/react-query';
 import type { ILinkFieldOptionsRo } from '@teable/core';
 import { Relationship } from '@teable/core';
 import { ArrowUpRight } from '@teable/icons';
-import { getTablePermission } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useTableId } from '@teable/sdk/hooks';
+import { useHookPermission, useTableId } from '@teable/sdk/hooks';
 import { Button, Label, Switch } from '@teable/ui-lib/shadcn';
-import { Trans, useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { Trans, useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
+import { tableConfig } from '@/features/i18n/table.config';
 import { MoreLinkOptions } from './MoreLinkOptions';
 import { SelectTable } from './SelectTable';
 
@@ -33,17 +30,9 @@ export const LinkOptions = (props: {
   const foreignTableId = options?.foreignTableId;
   const isOneWay = options?.isOneWay;
 
-  const { data: tablePermission } = useQuery({
-    refetchOnWindowFocus: false,
-    queryKey: ReactQueryKeys.getTablePermission(foreignTableId!),
-    enabled: !!foreignTableId,
-    queryFn: () =>
-      getTablePermission(foreignTableId!)
-        .then((res) => res.data)
-        .catch(() => ({ field: { create: false } })),
-  });
+  const permission = useHookPermission();
 
-  const canCreateField = tablePermission?.field.create;
+  const hasTableManage = permission['table|manage'] ?? false;
 
   const translation = {
     [Relationship.OneOne]: t('table:field.editor.oneToOne'),
@@ -133,7 +122,7 @@ export const LinkOptions = (props: {
               onCheckedChange={(checked) => {
                 onSelect('isOneWay', !checked);
               }}
-              disabled={!canCreateField}
+              disabled={!hasTableManage}
             />
             <Label htmlFor="field-options-one-way-link" className="font-normal leading-tight">
               {t('table:field.editor.createSymmetricLink')}

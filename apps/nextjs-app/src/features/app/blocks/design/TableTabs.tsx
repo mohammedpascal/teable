@@ -1,13 +1,13 @@
 import { Table2 } from '@teable/icons';
-import { AnchorContext, FieldProvider, TablePermissionProvider } from '@teable/sdk/context';
+import { AnchorContext, FieldProvider } from '@teable/sdk/context';
 import { useTable, useTables } from '@teable/sdk/hooks';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Table } from '@teable/sdk/model';
 import { ConfirmDialog, Selector } from '@teable/ui-lib/base';
 import { Button, Tabs, TabsContent } from '@teable/ui-lib/shadcn';
 import { Trash2 } from 'lucide-react';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FieldSetting } from '../view/field/FieldSetting';
 import { DataTable } from './data-table/DataTable';
@@ -143,7 +143,6 @@ export const TableTabs = () => {
     >
       {tables.map((table) => (
         <AnchorContext.Provider key={table.id} value={{ tableId: table.id }}>
-          <TablePermissionProvider>
             <TabsContent value={table.id} className="space-y-4">
               {/* Fields Table */}
               <div className="overflow-x-auto rounded-md border">
@@ -159,7 +158,6 @@ export const TableTabs = () => {
               {/* Danger Zone */}
               <DangerZone />
             </TabsContent>
-          </TablePermissionProvider>
         </AnchorContext.Provider>
       ))}
     </Tabs>

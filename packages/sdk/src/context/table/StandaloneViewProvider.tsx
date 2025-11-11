@@ -4,7 +4,6 @@ import { AnchorContext } from '../anchor/AnchorContext';
 import { FieldContext, FieldProvider } from '../field';
 import { SearchProvider } from '../query';
 import { RecordContext, RecordProvider } from '../record';
-import { TablePermissionProvider } from '../table-permission';
 import { ViewContext, ViewProvider } from '../view';
 
 export interface IStandaloneViewProvider {
@@ -27,17 +26,15 @@ export const StandaloneViewProvider: React.FC<IStandaloneViewProvider> = ({
   return (
     <AnchorContext.Provider value={value}>
       {tableId ? (
-        <TablePermissionProvider>
-          <SearchProvider>
-            <FieldProvider fallback={fallback}>
-              <ViewProvider>
-                <RecordProvider>
-                  <RowCountProvider>{children}</RowCountProvider>
-                </RecordProvider>
-              </ViewProvider>
-            </FieldProvider>
-          </SearchProvider>
-        </TablePermissionProvider>
+        <SearchProvider>
+          <FieldProvider fallback={fallback}>
+            <ViewProvider>
+              <RecordProvider>
+                <RowCountProvider>{children}</RowCountProvider>
+              </RecordProvider>
+            </ViewProvider>
+          </FieldProvider>
+        </SearchProvider>
       ) : (
         <FieldContext.Provider value={{ fields: [] }}>
           <ViewContext.Provider value={{ views: [] }}>

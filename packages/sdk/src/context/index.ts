@@ -7,4 +7,3 @@ export * from './view';
 export * from './aggregation';
 export * from './session';
 export * from './notification';
-export * from './table-permission';

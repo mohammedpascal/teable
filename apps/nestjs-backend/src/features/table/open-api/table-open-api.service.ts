@@ -23,7 +23,6 @@ import type {
   ICreateTableWithDefault,
   IDuplicateTableRo,
   ITableFullVo,
-  ITablePermissionVo,
   ITableVo,
   IUpdateOrderRo,
 } from '@teable/openapi';
@@ -550,44 +549,6 @@ export class TableOpenApiService {
       },
       shuffle: this.shuffle.bind(this),
     });
-  }
-
-  async getPermission(tableId: string): Promise<ITablePermissionVo> {
-    // Get current user from CLS
-    const userId = this.cls.get('user.id');
-    const user = await this.prismaService.txClient().user.findUnique({
-      where: { id: userId },
-      include: { role: true },
-    });
-
-    // Check permissions based on user's role
-    const tablePermission = actionPrefixMap[ActionPrefix.Table].reduce(
-      (acc, action) => {
-        acc[action] = hasActionPermission(user, action as any);
-        return acc;
-      },
-      {} as Record<TableAction, boolean>
-    );
-    const viewPermission = actionPrefixMap[ActionPrefix.View].reduce(
-      (acc, action) => {
-        acc[action] = hasActionPermission(user, action as any);
-        return acc;
-      },
-      {} as Record<ViewAction, boolean>
-    );
-    const recordPermission = actionPrefixMap[ActionPrefix.Record].reduce(
-      (acc, action) => {
-        acc[action] = hasActionPermission(user, action as any);
-        return acc;
-      },
-      {} as Record<RecordAction, boolean>
-    );
-
-    return {
-      table: tablePermission,
-      record: recordPermission,
-      view: viewPermission,
-    };
   }
 
   async getPermissionByRole(tableId: string, role: IRole) {

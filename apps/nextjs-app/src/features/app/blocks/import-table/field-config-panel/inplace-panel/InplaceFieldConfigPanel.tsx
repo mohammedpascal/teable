@@ -1,11 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import type { IImportOptionRo, IInplaceImportOptionRo } from '@teable/openapi';
-import {
-  getFields as apiGetFields,
-  getTableById as apiGetTableById,
-  getTablePermission,
-} from '@teable/openapi';
+import { getFields as apiGetFields, getTableById as apiGetTableById } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
+import { useHookPermission } from '@teable/sdk/hooks';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
@@ -29,6 +26,8 @@ const InplaceFieldConfigPanel = (props: IInplaceFieldConfigPanel) => {
   const { t } = useTranslation(['table']);
   const { tableId, workSheets, insertConfig, onChange, errorMessage } = props;
 
+  const permission = useHookPermission();
+
   const options: IInplaceOption = useMemo(
     () => ({
       excludeFirstRow: insertConfig.excludeFirstRow,
@@ -47,14 +46,8 @@ const InplaceFieldConfigPanel = (props: IInplaceFieldConfigPanel) => {
     queryFn: () => apiGetFields(tableId).then((data) => data.data),
   });
 
-  const { data: tablePermission } = useQuery({
-    queryKey: ReactQueryKeys.getTablePermission(tableId),
-    queryFn: () => getTablePermission(tableId).then((res) => res.data),
-    enabled: !!tableId,
-  });
-
   // Check if user has table manage permission - if so, they can read all fields
-  const hasTableManage = tablePermission?.table?.['table|manage'] ?? false;
+  const hasTableManage = permission['table|manage'] ?? false;
   const fieldWithPermission = hasTableManage ? fields : [];
 
   const optionHandler = (value: IInplaceOption, propertyName: keyof IInplaceOption) => {

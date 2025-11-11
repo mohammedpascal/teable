@@ -2,13 +2,14 @@ import { ViewType } from '@teable/core';
 import { sortBy } from 'lodash';
 import { useContext, useMemo } from 'react';
 import { FieldContext } from '../context';
-import { TablePermissionContext } from '../context/table-permission';
+import { useHookPermission } from './use-hook-permission';
 import { useView } from './use-view';
 
 export function useFields(options: { withHidden?: boolean; withDenied?: boolean } = {}) {
   const { withHidden, withDenied } = options;
   const { fields: originFields } = useContext(FieldContext);
-  const { table } = useContext(TablePermissionContext);
+
+  const permission = useHookPermission();
 
   const view = useView();
   const { type: viewType, columnMeta } = view ?? {};
@@ -20,7 +21,7 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
       return sortedFields;
     }
 
-    const hasTableRead = table?.['table|read'] ?? false;
+    const hasTableRead = permission['table|read'] ?? false;
 
     return sortedFields.filter(({ id }) => {
       const isHidden = () => {
@@ -46,5 +47,5 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
       return isHidden() && hasPermission();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originFields, withHidden, viewType, table, JSON.stringify(columnMeta)]);
+  }, [originFields, withHidden, viewType, permission, JSON.stringify(columnMeta)]);
 }

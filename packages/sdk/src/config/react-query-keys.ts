@@ -47,8 +47,6 @@ export const ReactQueryKeys = {
   getFieldFilterLinkRecords: (tableId: string, fieldId: string) =>
     ['get-field-filter-link-records', tableId, fieldId] as const,
 
-  getTablePermission: (tableId: string) => ['table-permission', tableId] as const,
-
   getSharedBase: () => ['shared-base-list'] as const,
 
   getDashboardList: () => ['dashboard-list'] as const,

@@ -8,7 +8,6 @@ export * from './update-order';
 export * from './update-description';
 export * from './update-db-table-name';
 export * from './default-view-id';
-export * from './get-permission';
 export * from './toggle-table-index';
 export * from './get-activated-index';
 export * from './get-abnormal-index';

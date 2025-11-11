@@ -131,11 +131,6 @@ export class TableController {
     return this.tableOpenApiService.deleteTables([tableId]);
   }
 
-  @Get(':tableId/permission')
-  async getPermission(@Param('tableId') tableId: string) {
-    return await this.tableOpenApiService.getPermission(tableId);
-  }
-
   @Get('/socket/snapshot-bulk')
   async getSnapshotBulk(@Query('ids') ids: string[]) {
     const snapshotBulk = await this.tableService.getSnapshotBulk('', ids);
