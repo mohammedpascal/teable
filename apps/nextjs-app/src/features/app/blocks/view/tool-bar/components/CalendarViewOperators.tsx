@@ -1,19 +1,20 @@
-import { Filter as FilterIcon, Share2, Plus, EyeOff, Settings } from '@teable/icons';
+import { GUIDE_VIEW_FILTERING } from '@/components/Guide';
+import { tableConfig } from '@/features/i18n/table.config';
+import { EyeOff, Filter as FilterIcon, Plus, Settings } from '@teable/icons';
 import type { CalendarView } from '@teable/sdk';
-import { ViewFilter, VisibleFields, useTablePermission, CreateRecordModal } from '@teable/sdk';
+import { CreateRecordModal, ViewFilter, VisibleFields } from '@teable/sdk';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { useView } from '@teable/sdk/hooks/use-view';
 import { Button, cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { CalendarConfig } from '../../calendar/components/CalendarConfig';
 import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { ToolBarButton } from '../ToolBarButton';
-import { GUIDE_VIEW_FILTERING } from '@/components/Guide';
-import { tableConfig } from '@/features/i18n/table.config';
 
 export const CalendarViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
   const view = useView() as CalendarView | undefined;
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { onFilterChange } = useToolbarChange();
 

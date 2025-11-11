@@ -1,17 +1,19 @@
+import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING } from '@/components/Guide';
+import { tableConfig } from '@/features/i18n/table.config';
 import type { IFieldVo } from '@teable/core';
-import { ArrowUpDown, Filter as FilterIcon, Share2, Layers, Settings, Plus } from '@teable/icons';
-import type { IFieldInstance, IFieldCreateOrSelectModalRef, KanbanView } from '@teable/sdk';
+import { ArrowUpDown, Filter as FilterIcon, Layers, Plus, Settings } from '@teable/icons';
+import type { IFieldCreateOrSelectModalRef, IFieldInstance, KanbanView } from '@teable/sdk';
 import {
+  CreateRecordModal,
+  FieldCreateOrSelectModal,
   Sort,
   ViewFilter,
-  useFields,
-  useTableId,
   VisibleFields,
   generateLocalId,
-  FieldCreateOrSelectModal,
-  useTablePermission,
-  CreateRecordModal,
+  useFields,
+  useTableId
 } from '@teable/sdk';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { useView } from '@teable/sdk/hooks/use-view';
 import { Button, Label, Switch, cn } from '@teable/ui-lib/shadcn';
 import { Trans, useTranslation } from 'next-i18next';
@@ -20,15 +22,13 @@ import { useToolbarChange } from '../../hooks/useToolbarChange';
 import { useKanbanStackCollapsedStore } from '../../kanban/store';
 import { ToolBarButton } from '../ToolBarButton';
 import { CoverFieldSelect } from './CoverFieldSelect';
-import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING } from '@/components/Guide';
-import { tableConfig } from '@/features/i18n/table.config';
 
 export const KanbanViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
   const tableId = useTableId();
   const view = useView() as KanbanView | undefined;
   const allFields = useFields({ withHidden: true, withDenied: true });
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { onFilterChange, onSortChange } = useToolbarChange();
   const { setCollapsedStackMap } = useKanbanStackCollapsedStore();

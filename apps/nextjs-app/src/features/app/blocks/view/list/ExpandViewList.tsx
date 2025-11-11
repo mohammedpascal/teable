@@ -1,21 +1,21 @@
+import { tableConfig } from '@/features/i18n/table.config';
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { ChevronDown, DraggableHandle } from '@teable/icons';
-import { useTablePermission } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import {
-  Popover,
-  PopoverTrigger,
   Button,
-  PopoverContent,
-  CommandInput,
-  CommandEmpty,
-  CommandList,
-  CommandItem,
   Command,
+  CommandEmpty,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from '@teable/ui-lib/shadcn';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { tableConfig } from '@/features/i18n/table.config';
 import { VIEW_ICON_MAP } from '../constant';
 import { DraggableWrapper } from './DraggableWrapper';
 
@@ -24,7 +24,7 @@ export const ExpandViewList = () => {
   const [open, setOpen] = useState(false);
   const [isDraggable, setIsDraggable] = useState(true);
   const router = useRouter();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

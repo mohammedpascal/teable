@@ -1,7 +1,7 @@
 import { ViewType, getUniqName } from '@teable/core';
 import { Plus } from '@teable/icons';
 import { useViews } from '@teable/sdk';
-import { useTablePermission } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ import { useAddView } from '../../view/list/useAddView';
 export const AddView: React.FC = () => {
   const addView = useAddView();
   const views = useViews();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation('table');
 

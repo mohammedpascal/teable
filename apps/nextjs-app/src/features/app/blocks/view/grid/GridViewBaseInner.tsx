@@ -65,10 +65,10 @@ import {
   useSSRRecord,
   useSSRRecords,
   useTableId,
-  useTablePermission,
   useView,
   useViewId,
 } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { useToast } from '@teable/ui-lib';
 import { groupBy, isEqual, keyBy, uniqueId } from 'lodash';
 import { useRouter } from 'next/router';
@@ -128,7 +128,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   const group = view?.group;
   const isAutoSort = sort && !sort?.manualSort;
   const frozenColumnCount = isTouchDevice ? 0 : view?.options?.frozenColumnCount ?? 1;
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { toast } = useToast();
   const realRowCount = rowCount ?? ssrRecords?.length ?? 0;
   const fieldEditable = useFieldCellEditable();

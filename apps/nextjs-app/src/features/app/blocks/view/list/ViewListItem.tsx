@@ -1,21 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Pencil, Trash2, Export, Copy, Lock } from '@teable/icons';
-import { useTableId, useTablePermission } from '@teable/sdk/hooks';
+import { Copy, Export, Lock, Pencil, Trash2 } from '@teable/icons';
+import { useTableId } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import type { IViewInstance } from '@teable/sdk/model';
 import {
   Button,
-  Separator,
+  cn,
   Popover,
+  PopoverAnchor,
   PopoverContent,
   PopoverTrigger,
-  cn,
-  PopoverAnchor,
+  Separator,
 } from '@teable/ui-lib/shadcn';
 import { Input } from '@teable/ui-lib/shadcn/ui/input';
 import { Unlock } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useState, useRef, Fragment } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { useDownload } from '../../../hooks/useDownLoad';
 import { VIEW_ICON_MAP } from '../constant';
 import { useGridSearchStore } from '../grid/useGridSearchStore';
@@ -35,7 +36,7 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
   const router = useRouter();
   const duplicateView = useDuplicateView(view);
   const deleteView = useDeleteView(view.id);
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { t } = useTranslation('table');
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { trigger } = useDownload({

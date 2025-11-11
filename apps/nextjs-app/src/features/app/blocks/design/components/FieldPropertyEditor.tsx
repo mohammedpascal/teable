@@ -1,5 +1,6 @@
 import { Edit } from '@teable/icons';
 import { useField } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Button, Input } from '@teable/ui-lib/shadcn';
 import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
 import { useTranslation } from 'next-i18next';
@@ -14,7 +15,7 @@ export const FieldPropertyEditor = ({
   propKey: 'name' | 'dbFieldName';
 }) => {
   const field = useField(fieldId);
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const canUpdate = Boolean(permission['table|manage']);
   const [newValue, setNewValue] = useState(field?.[propKey]);
   const [isEditing, setIsEditing] = useState(false);

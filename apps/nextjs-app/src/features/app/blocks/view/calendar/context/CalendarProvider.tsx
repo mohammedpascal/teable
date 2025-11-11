@@ -1,6 +1,7 @@
 import { ColorConfigType, FieldType } from '@teable/core';
 import { ExpandRecorder } from '@teable/sdk/components';
-import { useTableId, useView, useFields, useTablePermission } from '@teable/sdk/hooks';
+import { useFields, useTableId, useView } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import type { CalendarView } from '@teable/sdk/model';
 import { useMemo, useState, type ReactNode } from 'react';
 import { useCalendarFields } from '../hooks';
@@ -10,7 +11,7 @@ export const CalendarProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as CalendarView | undefined;
   const { sort, filter } = view ?? {};
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const allFields = useFields({ withHidden: true, withDenied: true });
   const [expandRecordId, setExpandRecordId] = useState<string>();
 

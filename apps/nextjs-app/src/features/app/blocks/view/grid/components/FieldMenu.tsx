@@ -45,6 +45,7 @@ import { tableConfig } from '@/features/i18n/table.config';
 import { useFieldSettingStore } from '../../field/useFieldSettingStore';
 import { useToolBarStore } from '../../tool-bar/components/useToolBarStore';
 import type { IMenuItemProps } from './RecordMenu';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 
 enum MenuItemType {
   Edit = 'Edit',
@@ -67,7 +68,7 @@ export const FieldMenu = () => {
   const tableId = useTableId();
   const { headerMenu, closeHeaderMenu } = useGridViewStore();
   const { openSetting } = useFieldSettingStore();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const allFields = useFields({ withHidden: true, withDenied: true });
   const fieldSettingRef = useRef<HTMLDivElement>(null);

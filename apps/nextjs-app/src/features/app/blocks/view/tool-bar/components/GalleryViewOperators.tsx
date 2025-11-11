@@ -1,12 +1,7 @@
-import { ArrowUpDown, Filter as FilterIcon, Share2, Settings, Plus } from '@teable/icons';
+import { ArrowUpDown, Filter as FilterIcon, Plus, Settings } from '@teable/icons';
 import type { GalleryView } from '@teable/sdk';
-import {
-  Sort,
-  ViewFilter,
-  VisibleFields,
-  useTablePermission,
-  CreateRecordModal,
-} from '@teable/sdk';
+import { CreateRecordModal, Sort, ViewFilter, VisibleFields } from '@teable/sdk';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { useView } from '@teable/sdk/hooks/use-view';
 import { Button, Label, Switch, cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
@@ -19,7 +14,7 @@ import { CoverFieldSelect } from './CoverFieldSelect';
 export const GalleryViewOperators: React.FC<{ disabled?: boolean }> = (props) => {
   const { disabled } = props;
   const view = useView() as GalleryView | undefined;
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { onFilterChange, onSortChange } = useToolbarChange();
 

@@ -1,5 +1,6 @@
 import { FieldKeyType } from '@teable/core';
-import { useIsMobile, useTableId, useTablePermission, useViewId } from '@teable/sdk/hooks';
+import { useIsMobile, useTableId, useViewId } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Record as RecordSdk } from '@teable/sdk/model';
 import { FormMode, useFormModeStore } from '../tool-bar/store';
 import { FormEditor, FormPreviewer } from './components';
@@ -10,7 +11,7 @@ export const FormViewBase = () => {
   const activeViewId = useViewId();
   const { modeMap } = useFormModeStore();
   const isMobile = useIsMobile();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
 
   const modeKey = generateUniqLocalKey(tableId, activeViewId);
   const mode = modeMap[modeKey] ?? FormMode.Edit;

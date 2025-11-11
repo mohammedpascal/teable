@@ -1,6 +1,7 @@
 import { FieldType } from '@teable/core';
 import { ExpandRecorder } from '@teable/sdk/components';
-import { useTableId, useView, useFields, useTablePermission } from '@teable/sdk/hooks';
+import { useFields, useTableId, useView } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import type { AttachmentField, GalleryView, IFieldInstance } from '@teable/sdk/model';
 import { useMemo, useState, type ReactNode } from 'react';
 import { GalleryContext } from './GalleryContext';
@@ -9,7 +10,7 @@ export const GalleryProvider = ({ children }: { children: ReactNode }) => {
   const tableId = useTableId();
   const view = useView() as GalleryView | undefined;
   const { sort, filter } = view ?? {};
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const fields = useFields();
   const allFields = useFields({ withHidden: true, withDenied: true });
   const { coverFieldId, isCoverFit, isFieldNameHidden } = view?.options ?? {};

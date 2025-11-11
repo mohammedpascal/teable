@@ -1,12 +1,4 @@
-import {
-  ChevronDown,
-  ChevronUp,
-  Copy,
-  Link,
-  MoreHorizontal,
-  Trash2,
-  X,
-} from '@teable/icons';
+import { ChevronDown, ChevronUp, Copy, Link, MoreHorizontal, Trash2, X } from '@teable/icons';
 import {
   Button,
   cn,
@@ -18,7 +10,7 @@ import {
 } from '@teable/ui-lib';
 import { useMeasure } from 'react-use';
 import { useTranslation } from '../../context/app/i18n';
-import { useTablePermission } from '../../hooks';
+import { useHookPermission } from '../../hooks/use-hook-permission';
 import { TooltipWrap } from './TooltipWrap';
 
 interface IExpandRecordHeader {
@@ -55,7 +47,7 @@ export const ExpandRecordHeader = (props: IExpandRecordHeader) => {
     onDuplicate,
   } = props;
 
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const editable = Boolean(permission['record|update']);
   const canRead = Boolean(permission['table|read']);
   const canDelete = Boolean(permission['record|delete']);

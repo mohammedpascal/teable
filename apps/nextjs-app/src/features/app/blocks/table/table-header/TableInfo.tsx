@@ -1,23 +1,23 @@
+import { Emoji } from '@/features/app/components/emoji/Emoji';
+import { EmojiPicker } from '@/features/app/components/emoji/EmojiPicker';
+import { tableConfig } from '@/features/i18n/table.config';
 import { Table2 } from '@teable/icons';
 import {
   useConnection,
-  useTable,
-  useTablePermission,
-  useLanDayjs,
   useIsHydrated,
+  useLanDayjs,
+  useTable
 } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Spin } from '@teable/ui-lib/base';
 import { cn, Input } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
-import { Emoji } from '@/features/app/components/emoji/Emoji';
-import { EmojiPicker } from '@/features/app/components/emoji/EmojiPicker';
-import { tableConfig } from '@/features/i18n/table.config';
 import { useImportStatus } from '../hooks/use-import-status';
 
 export const TableInfo: React.FC<{ className?: string }> = ({ className }) => {
   const { connected } = useConnection();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const [isEditing, setIsEditing] = useState(false);
   const table = useTable();
   const dayjs = useLanDayjs();

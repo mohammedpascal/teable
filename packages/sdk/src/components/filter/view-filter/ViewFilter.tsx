@@ -1,10 +1,11 @@
 import type { IFilter } from '@teable/core';
-import { Popover, PopoverTrigger, PopoverContent } from '@teable/ui-lib';
+import { Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import { isEqual } from 'lodash';
 import { useState } from 'react';
 import { useDebounce, useLatest, useUpdateEffect } from 'react-use';
 import { useTranslation } from '../../../context/app/i18n';
-import { useFields, useTableId, useViewId, useTablePermission } from '../../../hooks';
+import { useFields, useTableId, useViewId } from '../../../hooks';
+import { useHookPermission } from '../../../hooks/use-hook-permission';
 import type { IFilterBaseComponent } from '../types';
 import { BaseViewFilter } from './BaseViewFilter';
 import { useFilterNode, useViewFilterLinkContext } from './hooks';
@@ -37,7 +38,7 @@ export const ViewFilter = (props: IViewFilterProps) => {
 
   const viewId = useViewId();
   const tableId = useTableId();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const viewFilterLinkContext = useViewFilterLinkContext(tableId, viewId, {
     disabled: !permission['view|update'],
   });

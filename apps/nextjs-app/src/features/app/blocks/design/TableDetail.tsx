@@ -1,4 +1,5 @@
-import { useLanDayjs, useTable, useTablePermission } from '@teable/sdk/hooks';
+import { useLanDayjs, useTable } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import {
   Button,
   Input,
@@ -112,7 +113,7 @@ export const TableDetail = () => {
   const table = useTable();
   const { t } = useTranslation(['common', 'table']);
   const dayjs = useLanDayjs();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const canUpdate = permission['table|manage'];
   if (!table) return null;
 

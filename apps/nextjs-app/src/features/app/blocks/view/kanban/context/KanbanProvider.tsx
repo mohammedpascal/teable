@@ -8,9 +8,9 @@ import {
   useFields,
   useGroupPoint,
   useTableId,
-  useTablePermission,
-  useView,
+  useView
 } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import type { AttachmentField, IFieldInstance, KanbanView } from '@teable/sdk/model';
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
@@ -29,7 +29,7 @@ export const KanbanProvider = ({ children }: { children: ReactNode }) => {
   // const { shareId } = useContext(ShareViewContext) ?? {};
   const shareId = undefined; // Temporarily disabled
   const { sort, filter } = view ?? {};
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const fields = useFields();
   const allFields = useFields({ withHidden: true, withDenied: true });
   const { stackFieldId, coverFieldId, isCoverFit, isFieldNameHidden, isEmptyStackHidden } =

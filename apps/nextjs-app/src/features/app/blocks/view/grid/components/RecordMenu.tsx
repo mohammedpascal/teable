@@ -1,25 +1,26 @@
-import { Trash2, ArrowUp, ArrowDown, Copy } from '@teable/icons';
+import { ArrowDown, ArrowUp, Copy, Trash2 } from '@teable/icons';
 import { useGridViewStore } from '@teable/sdk/components';
-import { useTableId, useTablePermission, useView } from '@teable/sdk/hooks';
+import { useTableId, useView } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import {
+  Button,
   cn,
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
   CommandSeparator,
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-  Input,
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
 } from '@teable/ui-lib/shadcn';
 import { noop } from 'lodash';
-import { useTranslation, Trans } from 'next-i18next';
+import { Trans, useTranslation } from 'next-i18next';
 import { Fragment, useCallback, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { tableConfig } from '@/features/i18n/table.config';
@@ -111,7 +112,7 @@ export const RecordMenu = () => {
   const tableId = useTableId();
   const view = useView();
   const viewId = view?.id;
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const recordMenuRef = useRef<HTMLDivElement>(null);
 
   useClickAway(recordMenuRef, () => {

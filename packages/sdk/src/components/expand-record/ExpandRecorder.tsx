@@ -4,7 +4,8 @@ import { sonner } from '@teable/ui-lib';
 import { type FC, type PropsWithChildren } from 'react';
 import { StandaloneViewProvider, ViewProvider } from '../../context';
 import { useTranslation } from '../../context/app/i18n';
-import { useTableId, useTablePermission } from '../../hooks';
+import { useTableId } from '../../hooks';
+import { useHookPermission } from '../../hooks/use-hook-permission';
 import { Record } from '../../model';
 import { syncCopy } from '../../utils';
 import { ExpandRecord } from './ExpandRecord';
@@ -48,7 +49,7 @@ export const ExpandRecorder = (props: IExpandRecorderProps) => {
     viewId,
   } = props;
   const { t } = useTranslation();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const editable = Boolean(permission['record|update']);
   const canRead = Boolean(permission['table|read']);
   const canDelete = Boolean(permission['record|delete']);

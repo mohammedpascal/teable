@@ -1,5 +1,6 @@
 import { FieldType, TimeFormatting } from '@teable/core';
-import { useTableId, useTablePermission, useView } from '@teable/sdk/hooks';
+import { useTableId, useView } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Field } from '@teable/sdk/model';
 import {
   Button,
@@ -24,7 +25,7 @@ export const AddDateFieldDialog = () => {
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const view = useView();
   const tableId = useTableId();
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { startDateField, endDateField } = useCalendar();
   const [open, setOpen] = useState(false);
 

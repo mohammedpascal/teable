@@ -1,11 +1,12 @@
 import { Table2 } from '@teable/icons';
 import { AnchorContext, FieldProvider, TablePermissionProvider } from '@teable/sdk/context';
-import { useBase, useTable, useTablePermission, useTables } from '@teable/sdk/hooks';
+import { useBase, useTable, useTables } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { ConfirmDialog, Selector } from '@teable/ui-lib/base';
 import { Button, Tabs, TabsContent } from '@teable/ui-lib/shadcn';
 import { Trash2 } from 'lucide-react';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FieldSetting } from '../view/field/FieldSetting';
 import { DataTable } from './data-table/DataTable';
@@ -52,7 +53,7 @@ const DangerZone = () => {
   const tables = useTables();
   const router = useRouter();
   const { t } = useTranslation(['common', 'table']);
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const canDelete = permission['table|manage'];
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);

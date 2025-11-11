@@ -1,13 +1,13 @@
 import { map } from 'lodash';
 import { useCallback } from 'react';
 import type { IFieldInstance } from '../model';
-import { useTablePermission } from './use-table-permission';
+import { useHookPermission } from './use-hook-permission';
 import { useTables } from './use-tables';
 
 export const useFieldCellEditable = () => {
   const tables = useTables();
   const tableIds = map(tables, 'id');
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const defaultEditable = !!permission['record|update'];
 
   return useCallback(

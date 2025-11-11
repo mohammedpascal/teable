@@ -1,5 +1,6 @@
 import { Settings as Edit, Edit as Fill } from '@teable/icons';
-import { useTableId, useTablePermission, useViewId } from '@teable/sdk/hooks';
+import { useTableId, useViewId } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Button } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
@@ -13,7 +14,7 @@ export const FormToolBar: React.FC = () => {
   const { modeMap, setModeMap } = useFormModeStore();
   const modeKey = generateUniqLocalKey(tableId, currentViewId);
   const currentMode = modeMap[modeKey] ?? FormMode.Edit;
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const isEditable = permission['view|update'];
   const { t } = useTranslation(tableConfig.i18nNamespaces);
 

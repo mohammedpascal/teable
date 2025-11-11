@@ -1,12 +1,12 @@
 import { Plus } from '@teable/icons';
 import { CreateRecordModal } from '@teable/sdk/components';
-import { useTablePermission } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { GridViewOperators } from './components';
 import { useViewConfigurable } from './hook';
 
 export const GridToolBar: React.FC = () => {
-  const permission = useTablePermission();
+  const permission = useHookPermission();
   const { isViewConfigurable } = useViewConfigurable();
 
   return (
