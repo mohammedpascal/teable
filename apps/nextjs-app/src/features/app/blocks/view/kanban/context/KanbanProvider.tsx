@@ -5,12 +5,11 @@ import { GroupPointType } from '@teable/openapi';
 import { ExpandRecorder } from '@teable/sdk/components';
 // import { ShareViewContext } from '@teable/sdk/context';
 import {
-  useFieldPermission,
   useFields,
   useGroupPoint,
   useTableId,
   useTablePermission,
-  useView
+  useView,
 } from '@teable/sdk/hooks';
 import type { AttachmentField, IFieldInstance, KanbanView } from '@teable/sdk/model';
 import type { ReactNode } from 'react';

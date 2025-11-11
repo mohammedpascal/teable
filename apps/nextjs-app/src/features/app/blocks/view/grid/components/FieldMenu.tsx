@@ -2,17 +2,17 @@
 import type { IFilter, IGroup, ISort } from '@teable/core';
 import { getValidFilterOperators } from '@teable/core';
 import {
-  Trash2,
-  Edit,
-  EyeOff,
   ArrowLeft,
   ArrowRight,
-  FreezeColumn,
-  Filter,
-  LayoutList,
   ArrowUpDown,
+  Edit,
+  EyeOff,
+  Filter,
+  FreezeColumn,
+  LayoutList,
+  Trash2,
 } from '@teable/icons';
-import type { GridView, IUseFieldPermissionAction } from '@teable/sdk';
+import type { GridView } from '@teable/sdk';
 import {
   useFields,
   useGridViewStore,
@@ -21,7 +21,6 @@ import {
   useTablePermission,
   useView,
 } from '@teable/sdk';
-import { TablePermissionContext } from '@teable/sdk/context/table-permission';
 import { insertSingle } from '@teable/sdk/utils';
 
 import {
@@ -38,9 +37,8 @@ import {
   SheetContent,
   SheetHeader,
 } from '@teable/ui-lib/shadcn';
-import { merge } from 'lodash';
 import { useTranslation } from 'next-i18next';
-import { Fragment, useContext, useMemo, useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { useClickAway } from 'react-use';
 import { FieldOperator } from '@/features/app/components/field-setting/type';
 import { tableConfig } from '@/features/i18n/table.config';
@@ -70,7 +68,6 @@ export const FieldMenu = () => {
   const { headerMenu, closeHeaderMenu } = useGridViewStore();
   const { openSetting } = useFieldSettingStore();
   const permission = useTablePermission();
-  const { table } = useContext(TablePermissionContext) ?? {};
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const allFields = useFields({ withHidden: true, withDenied: true });
   const fieldSettingRef = useRef<HTMLDivElement>(null);
@@ -78,18 +75,7 @@ export const FieldMenu = () => {
   const { filterRef, sortRef, groupRef, deleteFieldRef, setPendingDeleteFields } =
     useToolBarStore();
 
-  const menuFieldPermission = useMemo(() => {
-    if (!table) {
-      return {};
-    }
-    // Derive field permissions from table permissions
-    const hasTableManage = table['table|manage'] ?? false;
-    return {
-      'field|read': hasTableManage,
-      'field|update': hasTableManage,
-      'field|delete': hasTableManage,
-    };
-  }, [table]);
+  const hasTableManage = permission['table|manage'] ?? false;
 
   useClickAway(fieldSettingRef, () => {
     closeHeaderMenu();
@@ -144,7 +130,7 @@ export const FieldMenu = () => {
         type: MenuItemType.Edit,
         name: t('table:menu.editField'),
         icon: <Edit className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !menuFieldPermission['field|update'],
+        hidden: fieldIds.length !== 1 || !hasTableManage,
         onClick: async () => {
           openSetting({
             fieldId: fieldIds[0],
@@ -158,14 +144,14 @@ export const FieldMenu = () => {
         type: MenuItemType.InsertLeft,
         name: t('table:menu.insertFieldLeft'),
         icon: <ArrowLeft className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !(permission['table|manage'] ?? false),
+        hidden: fieldIds.length !== 1 || !hasTableManage,
         onClick: async () => await insertField(false),
       },
       {
         type: MenuItemType.InsertRight,
         name: t('table:menu.insertFieldRight'),
         icon: <ArrowRight className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !(permission['table|manage'] ?? false),
+        hidden: fieldIds.length !== 1 || !hasTableManage,
         onClick: async () => await insertField(),
       },
     ],
@@ -174,7 +160,7 @@ export const FieldMenu = () => {
         type: MenuItemType.Filter,
         name: t('table:menu.filterField'),
         icon: <Filter className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !permission['view|update'],
+        hidden: fieldIds.length !== 1 || !hasTableManage,
         onClick: async () => {
           if (!headerMenu) {
             return;
@@ -208,7 +194,7 @@ export const FieldMenu = () => {
         type: MenuItemType.Sort,
         name: t('table:menu.sortField'),
         icon: <ArrowUpDown className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !permission['view|update'],
+        hidden: fieldIds.length !== 1 || !hasTableManage,
         onClick: async () => {
           if (!headerMenu) {
             return;
@@ -245,7 +231,7 @@ export const FieldMenu = () => {
         type: MenuItemType.Group,
         name: t('table:menu.groupField'),
         icon: <LayoutList className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !permission['view|update'],
+        hidden: fieldIds.length !== 1 || !hasTableManage,
         onClick: async () => {
           if (!headerMenu) {
             return;
@@ -279,7 +265,7 @@ export const FieldMenu = () => {
         type: MenuItemType.Freeze,
         name: t('table:menu.freezeUpField'),
         icon: <FreezeColumn className={iconClassName} />,
-        hidden: fieldIds.length !== 1 || !permission['view|update'],
+        hidden: fieldIds.length !== 1 || !hasTableManage,
         onClick: async () => await freezeField(),
       },
     ],
@@ -288,7 +274,7 @@ export const FieldMenu = () => {
         type: MenuItemType.Hidden,
         name: t('table:menu.hideField'),
         icon: <EyeOff className={iconClassName} />,
-        hidden: !permission['view|update'],
+        hidden: !hasTableManage,
         disabled: fields.some((f) => f.isPrimary),
         onClick: async () => {
           const fieldIdsSet = new Set(fieldIds);
@@ -306,7 +292,7 @@ export const FieldMenu = () => {
             ? t('table:menu.deleteAllSelectedFields')
             : t('table:menu.deleteField'),
         icon: <Trash2 className={iconClassName} />,
-        hidden: !menuFieldPermission['field|delete'],
+        hidden: !hasTableManage,
         disabled: fields.some((f) => f.isPrimary),
         className: 'text-red-500 aria-selected:text-red-500',
         onClick: async () => {
