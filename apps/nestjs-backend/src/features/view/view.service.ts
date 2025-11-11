@@ -47,7 +47,7 @@ import { getFullStorageUrl } from '../attachments/plugins/utils';
 import { BatchService } from '../calculation/batch.service';
 import { ROW_ORDER_FIELD_PREFIX } from './constant';
 import { createViewInstanceByRaw, createViewVoByRaw } from './model/factory';
-import { hasActionPermission } from '../role/role-permission.util';
+import { hasActionPermission, hasTablePermission } from '../role/role-permission.util';
 
 type IViewOpContext = IUpdateViewColumnMetaOpContext | ISetViewPropertyOpContext;
 
