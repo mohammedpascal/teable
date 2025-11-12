@@ -5,10 +5,6 @@ import {
   generateViewId,
   generateRecordId,
   generateAttachmentId,
-  generateWorkflowId,
-  generateWorkflowTriggerId,
-  generateWorkflowActionId,
-  generateWorkflowDecisionId,
   identify,
   IdPrefix,
 } from './id-generator';
@@ -47,30 +43,6 @@ describe('ID Generators', () => {
     const attachmentId = generateAttachmentId();
     expect(attachmentId.startsWith(IdPrefix.Attachment)).toBe(true);
     expect(attachmentId.length).toBe(IdPrefix.Attachment.length + 16);
-  });
-
-  it('generates a workflow ID with correct prefix and length', () => {
-    const workflowId = generateWorkflowId();
-    expect(workflowId.startsWith(IdPrefix.Workflow)).toBe(true);
-    expect(workflowId.length).toBe(IdPrefix.Workflow.length + 16);
-  });
-
-  it('generates a workflowTrigger ID with correct prefix and length', () => {
-    const workflowTriggerId = generateWorkflowTriggerId();
-    expect(workflowTriggerId.startsWith(IdPrefix.WorkflowTrigger)).toBe(true);
-    expect(workflowTriggerId.length).toBe(IdPrefix.WorkflowTrigger.length + 16);
-  });
-
-  it('generates a workflowAction ID with correct prefix and length', () => {
-    const workflowActionId = generateWorkflowActionId();
-    expect(workflowActionId.startsWith(IdPrefix.WorkflowAction)).toBe(true);
-    expect(workflowActionId.length).toBe(IdPrefix.WorkflowAction.length + 16);
-  });
-
-  it('generates a workflowDecision ID with correct prefix and length', () => {
-    const workflowDecisionId = generateWorkflowDecisionId();
-    expect(workflowDecisionId.startsWith(IdPrefix.WorkflowDecision)).toBe(true);
-    expect(workflowDecisionId.length).toBe(IdPrefix.WorkflowDecision.length + 16);
   });
 
   it('identifies an ID prefix', () => {
