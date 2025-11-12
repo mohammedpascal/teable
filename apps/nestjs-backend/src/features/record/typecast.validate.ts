@@ -303,7 +303,7 @@ export class TypeCastAndValidate {
   private async castToUser(cellValues: unknown[]): Promise<unknown[]> {
     let ctx: { id: string; name: string; email: string }[] = [];
     if (this.typecast) {
-      const userStrArray = cellValues.map((v) => {
+      cellValues.map((v) => {
         const stringCv = convertUser(v);
         if (!stringCv) {
           return [];

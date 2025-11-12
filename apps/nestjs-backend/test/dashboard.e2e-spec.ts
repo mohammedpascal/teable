@@ -6,7 +6,6 @@ import {
   getDashboard,
   getDashboardVoSchema,
   renameDashboard,
-  renameDashboardVoSchema,
   updateLayoutDashboard,
 } from '@teable/openapi';
 import { getError } from './utils/get-error';

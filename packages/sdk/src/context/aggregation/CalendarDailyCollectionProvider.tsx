@@ -49,7 +49,7 @@ export const CalendarDailyCollectionProvider: FC<ICalendarDailyCollectionProvide
       filter: filter,
       ignoreViewQuery,
     };
-  }, [query, searchQuery, viewFilter]);
+  }, [query, searchQuery]);
 
   const queryKey = useMemo(
     () => ReactQueryKeys.calendarDailyCollection(tableId as string, calenderDailyCollectionQuery),

@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import type { IAttachmentCellValue, IAttachmentItem, IMakeOptional } from '@teable/core';
+import type { IAttachmentItem, IMakeOptional } from '@teable/core';
 import { FieldKeyType, FieldType, generateOperationId } from '@teable/core';
-import { UploadType } from '@teable/openapi';
 import type {
   ICreateRecordsRo,
   ICreateRecordsVo,
@@ -10,7 +9,7 @@ import type {
   IUpdateRecordRo,
   IUpdateRecordsRo,
 } from '@teable/openapi';
-import { forEach, keyBy, map } from 'lodash';
+import { forEach, map } from 'lodash';
 import { ClsService } from 'nestjs-cls';
 import { bufferCount, concatMap, from, lastValueFrom, reduce } from 'rxjs';
 import { IThresholdConfig, ThresholdConfig } from '../../../configs/threshold.config';
@@ -20,8 +19,6 @@ import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';
 import { AttachmentsStorageService } from '../../attachments/attachments-storage.service';
 import { AttachmentsService } from '../../attachments/attachments.service';
-import StorageAdapter from '../../attachments/plugins/adapter';
-import { getFullStorageUrl } from '../../attachments/plugins/utils';
 import { SystemFieldService } from '../../calculation/system-field.service';
 import { FieldConvertingService } from '../../field/field-calculate/field-converting.service';
 import { createFieldInstanceByRaw } from '../../field/model/factory';

@@ -48,7 +48,6 @@ import { FieldService } from '../../field/field.service';
 import type { IFieldInstance } from '../../field/model/factory';
 import { createFieldInstanceByRaw, createFieldInstanceByVo } from '../../field/model/factory';
 import { RecordService } from '../../record/record.service';
-import { createViewInstanceByRaw } from '../model/factory';
 import { ViewService } from '../view.service';
 
 @Injectable()

@@ -14,7 +14,7 @@ export const VALID_PERMISSIONS = [
   'table|export',
 ] as const;
 
-export type ActionPermission = (typeof VALID_PERMISSIONS)[number];
+export type IActionPermission = (typeof VALID_PERMISSIONS)[number];
 
 /**
  * Check if a string is valid JSON
@@ -33,7 +33,7 @@ function isJsonString(str: string): boolean {
  */
 export function parsePermissionsString(
   permissionsString: string | null | undefined
-): ActionPermission[] {
+): IActionPermission[] {
   if (!permissionsString || !permissionsString.trim()) {
     return [];
   }
@@ -43,8 +43,8 @@ export function parsePermissionsString(
     try {
       const parsed = JSON.parse(permissionsString);
       if (Array.isArray(parsed)) {
-        return parsed.filter((p): p is ActionPermission =>
-          VALID_PERMISSIONS.includes(p as ActionPermission)
+        return parsed.filter((p): p is IActionPermission =>
+          VALID_PERMISSIONS.includes(p as IActionPermission)
         );
       }
     } catch {
@@ -58,7 +58,9 @@ export function parsePermissionsString(
 /**
  * Parse permissions string into array (alias for parsePermissionsString for backward compatibility)
  */
-export function parsePermissions(permissionsString: string | null | undefined): ActionPermission[] {
+export function parsePermissions(
+  permissionsString: string | null | undefined
+): IActionPermission[] {
   return parsePermissionsString(permissionsString);
 }
 
@@ -68,7 +70,7 @@ export function parsePermissions(permissionsString: string | null | undefined): 
  */
 export function hasActionPermission(
   user: (User & { role?: { permissions: string } | null }) | null,
-  action: ActionPermission
+  action: IActionPermission
 ): boolean {
   if (!user) {
     return false;
@@ -93,7 +95,7 @@ export function hasActionPermission(
  */
 export function getUserPermissions(
   user: (User & { role?: { permissions: string } | null }) | null
-): ActionPermission[] {
+): IActionPermission[] {
   if (!user) {
     return [];
   }
@@ -134,7 +136,7 @@ export function validatePermissions(permissionsString: string): boolean {
 
       // Validate that all values are valid action permissions
       for (const perm of parsed) {
-        if (typeof perm !== 'string' || !VALID_PERMISSIONS.includes(perm as ActionPermission)) {
+        if (typeof perm !== 'string' || !VALID_PERMISSIONS.includes(perm as IActionPermission)) {
           return false;
         }
       }

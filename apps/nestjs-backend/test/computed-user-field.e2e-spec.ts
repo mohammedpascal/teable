@@ -1,6 +1,6 @@
 import type { INestApplication } from '@nestjs/common';
 import type { IFieldRo, IFieldVo } from '@teable/core';
-import { FieldKeyType, FieldType, Role } from '@teable/core';
+import { FieldKeyType, FieldType } from '@teable/core';
 import {
   getRecord,
   getRecords,

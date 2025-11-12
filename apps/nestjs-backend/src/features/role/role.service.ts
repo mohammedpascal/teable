@@ -25,20 +25,53 @@ export class RoleService {
     private readonly cls: ClsService<IClsStore>
   ) {}
 
+  private convertPermissionsToString(permissions: string | string[]): string {
+    if (typeof permissions === 'string') {
+      return permissions;
+    }
+    if (Array.isArray(permissions)) {
+      return JSON.stringify(permissions);
+    }
+    throw new BadRequestException(
+      'Invalid permissions format. Permissions must be an array of action strings or JSON array string.'
+    );
+  }
+
+  private parsePermissionsFromString(permissionsString: string): string[] {
+    try {
+      const parsed = JSON.parse(permissionsString);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+      // Legacy format: convert to array
+      return permissionsString
+        .split(',')
+        .map((p) => p.trim())
+        .filter(Boolean);
+    } catch {
+      // Legacy format: comma-separated
+      return permissionsString
+        .split(',')
+        .map((p) => p.trim())
+        .filter(Boolean);
+    }
+  }
+
+  private async checkNameConflict(name: string, excludeId?: string): Promise<void> {
+    const nameConflict = await this.prismaService.txClient().role.findUnique({
+      where: { name },
+    });
+
+    if (nameConflict && nameConflict.id !== excludeId) {
+      throw new BadRequestException(`Role with name "${name}" already exists`);
+    }
+  }
+
   async createRole(data: ICreateRoleDto) {
     const userId = this.cls.get('user.id');
 
     // Convert permissions to JSON array string
-    let permissionsString: string;
-    if (typeof data.permissions === 'string') {
-      permissionsString = data.permissions;
-    } else if (Array.isArray(data.permissions)) {
-      permissionsString = JSON.stringify(data.permissions);
-    } else {
-      throw new BadRequestException(
-        'Invalid permissions format. Permissions must be an array of action strings or JSON array string.'
-      );
-    }
+    const permissionsString = this.convertPermissionsToString(data.permissions);
 
     // Validate permissions format
     if (!validatePermissions(permissionsString)) {
@@ -48,13 +81,7 @@ export class RoleService {
     }
 
     // Check if role name already exists
-    const existingRole = await this.prismaService.txClient().role.findUnique({
-      where: { name: data.name },
-    });
-
-    if (existingRole) {
-      throw new BadRequestException(`Role with name "${data.name}" already exists`);
-    }
+    await this.checkNameConflict(data.name);
 
     const role = await this.prismaService.txClient().role.create({
       data: {
@@ -73,26 +100,7 @@ export class RoleService {
       },
     });
 
-    // Parse permissions JSON string to array for response
-    let permissions: string[];
-    try {
-      const parsed = JSON.parse(role.permissions);
-      if (Array.isArray(parsed)) {
-        permissions = parsed;
-      } else {
-        // Legacy format: convert to array
-        permissions = role.permissions
-          .split(',')
-          .map((p) => p.trim())
-          .filter(Boolean);
-      }
-    } catch {
-      // Legacy format: comma-separated
-      permissions = role.permissions
-        .split(',')
-        .map((p) => p.trim())
-        .filter(Boolean);
-    }
+    const permissions = this.parsePermissionsFromString(role.permissions);
 
     return {
       ...role,
@@ -116,26 +124,7 @@ export class RoleService {
       throw new NotFoundException(`Role with id "${id}" not found`);
     }
 
-    // Parse permissions JSON string to array
-    let permissions: string[];
-    try {
-      const parsed = JSON.parse(role.permissions);
-      if (Array.isArray(parsed)) {
-        permissions = parsed;
-      } else {
-        // Legacy format: convert to array
-        permissions = role.permissions
-          .split(',')
-          .map((p) => p.trim())
-          .filter(Boolean);
-      }
-    } catch {
-      // Legacy format: comma-separated
-      permissions = role.permissions
-        .split(',')
-        .map((p) => p.trim())
-        .filter(Boolean);
-    }
+    const permissions = this.parsePermissionsFromString(role.permissions);
 
     return {
       ...role,
@@ -158,32 +147,10 @@ export class RoleService {
     });
 
     // Parse permissions JSON string to array for each role
-    return roles.map((role) => {
-      let permissions: string[];
-      try {
-        const parsed = JSON.parse(role.permissions);
-        if (Array.isArray(parsed)) {
-          permissions = parsed;
-        } else {
-          // Legacy format: convert to array
-          permissions = role.permissions
-            .split(',')
-            .map((p) => p.trim())
-            .filter(Boolean);
-        }
-      } catch {
-        // Legacy format: comma-separated
-        permissions = role.permissions
-          .split(',')
-          .map((p) => p.trim())
-          .filter(Boolean);
-      }
-
-      return {
-        ...role,
-        permissions,
-      };
-    });
+    return roles.map((role) => ({
+      ...role,
+      permissions: this.parsePermissionsFromString(role.permissions),
+    }));
   }
 
   async updateRole(id: string, data: IUpdateRoleDto) {
@@ -198,21 +165,11 @@ export class RoleService {
       throw new NotFoundException(`Role with id "${id}" not found`);
     }
 
-    // Convert permissions to JSON array string
+    // Convert and validate permissions if provided
     let permissionsString: string | undefined;
     if (data.permissions !== undefined) {
-      if (typeof data.permissions === 'string') {
-        permissionsString = data.permissions;
-      } else if (Array.isArray(data.permissions)) {
-        permissionsString = JSON.stringify(data.permissions);
-      } else {
-        throw new BadRequestException(
-          'Invalid permissions format. Permissions must be an array of action strings or JSON array string.'
-        );
-      }
-
-      // Validate permissions format if provided
-      if (permissionsString && !validatePermissions(permissionsString)) {
+      permissionsString = this.convertPermissionsToString(data.permissions);
+      if (!validatePermissions(permissionsString)) {
         throw new BadRequestException(
           'Invalid permissions format. Permissions must be a JSON array of action strings: ["record|create", "table|manage", ...]'
         );
@@ -221,13 +178,7 @@ export class RoleService {
 
     // Check if new name conflicts with existing role
     if (data.name && data.name !== existingRole.name) {
-      const nameConflict = await this.prismaService.txClient().role.findUnique({
-        where: { name: data.name },
-      });
-
-      if (nameConflict) {
-        throw new BadRequestException(`Role with name "${data.name}" already exists`);
-      }
+      await this.checkNameConflict(data.name, id);
     }
 
     const updateData: Prisma.RoleUpdateInput = {
@@ -257,26 +208,7 @@ export class RoleService {
       },
     });
 
-    // Parse permissions JSON string to array for response
-    let permissions: string[];
-    try {
-      const parsed = JSON.parse(role.permissions);
-      if (Array.isArray(parsed)) {
-        permissions = parsed;
-      } else {
-        // Legacy format: convert to array
-        permissions = role.permissions
-          .split(',')
-          .map((p) => p.trim())
-          .filter(Boolean);
-      }
-    } catch {
-      // Legacy format: comma-separated
-      permissions = role.permissions
-        .split(',')
-        .map((p) => p.trim())
-        .filter(Boolean);
-    }
+    const permissions = this.parsePermissionsFromString(role.permissions);
 
     return {
       ...role,

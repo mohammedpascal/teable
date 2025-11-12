@@ -18,7 +18,7 @@ import { difference, toString } from 'lodash';
 import { ClsService } from 'nestjs-cls';
 import type { CreateOp } from 'sharedb';
 import type { LocalPresence } from 'sharedb/lib/client';
-import { Prisma, PrismaService } from '../../../prisma';
+import { PrismaService } from '../../../prisma';
 
 import { ShareDbService } from '../../../share-db/share-db.service';
 import type { IClsStore } from '../../../types/cls';

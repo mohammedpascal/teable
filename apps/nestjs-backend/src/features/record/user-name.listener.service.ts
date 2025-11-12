@@ -22,7 +22,7 @@ export class UserNameListener {
     @InjectModel('CUSTOM_KNEX') private readonly knex: Knex
   ) {}
 
-  private async getFieldsForUser(userId: string) {
+  private async getFieldsForUser(_userId: string) {
     // Query all user fields from all bases since user references can appear in any base
     // and we need to update the user's name wherever they are referenced
     const query = this.knex

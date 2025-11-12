@@ -379,7 +379,6 @@ describe('TypeCastAndValidate', () => {
       email: 'tom@example.com',
       avatarUrl: expect.stringContaining('api/attachments/read/public/avatar/2'),
     };
-    beforeEach(() => {});
 
     it('string cell value', async () => {
       const field = mockDeep<UserFieldDto>({
