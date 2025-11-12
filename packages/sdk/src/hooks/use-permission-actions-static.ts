@@ -41,9 +41,6 @@ const actionsI18nMap: Record<
   'record|update': {
     description: 'permission.actionDescription.recordUpdate',
   },
-  'record|comment': {
-    description: 'permission.actionDescription.recordUpdate',
-  },
   'user|email_read': {
     description: 'permission.actionDescription.userEmailRead',
   },

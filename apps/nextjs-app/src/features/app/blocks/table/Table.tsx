@@ -1,13 +1,6 @@
 import type { IFieldVo, IRecord, IViewVo } from '@teable/core';
 import { type IGroupPointsVo } from '@teable/openapi';
-import {
-  AnchorContext,
-  FieldProvider,
-  PersonalViewProvider,
-  PersonalViewProxy,
-  useTable,
-  ViewProvider,
-} from '@teable/sdk';
+import { AnchorContext, FieldProvider, useTable, ViewProvider } from '@teable/sdk';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -49,30 +42,26 @@ export const Table: React.FC<ITableProps> = ({
         <style data-fullcalendar></style>
       </Head>
       <ViewProvider serverData={viewServerData}>
-        <PersonalViewProxy serverData={viewServerData}>
-          <div className="flex h-full grow basis-[500px]">
-            <div className="flex flex-1 flex-col overflow-hidden">
-              <TableHeader />
-              <FieldProvider serverSideData={fieldServerData}>
-                <ErrorBoundary
-                  fallback={
-                    <div className="flex size-full items-center justify-center">
-                      <FailAlert />
-                    </div>
-                  }
-                >
-                  <PersonalViewProvider>
-                    <View
-                      recordServerData={recordServerData}
-                      recordsServerData={recordsServerData}
-                      groupPointsServerDataMap={groupPointsServerDataMap}
-                    />
-                  </PersonalViewProvider>
-                </ErrorBoundary>
-              </FieldProvider>
-            </div>
+        <div className="flex h-full grow basis-[500px]">
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <TableHeader />
+            <FieldProvider serverSideData={fieldServerData}>
+              <ErrorBoundary
+                fallback={
+                  <div className="flex size-full items-center justify-center">
+                    <FailAlert />
+                  </div>
+                }
+              >
+                <View
+                  recordServerData={recordServerData}
+                  recordsServerData={recordsServerData}
+                  groupPointsServerDataMap={groupPointsServerDataMap}
+                />
+              </ErrorBoundary>
+            </FieldProvider>
           </div>
-        </PersonalViewProxy>
+        </div>
       </ViewProvider>
     </AnchorContext.Provider>
   );
