@@ -360,7 +360,7 @@ export class SelectionService {
       };
     }
     const { isComputed, isLookup } = field;
-    const baseField = pick(field, 'name', 'type', 'options', 'description');
+    const baseField = pick(field, 'name', 'type', 'options');
 
     if (isComputed && !isLookup) {
       if ([FieldType.CreatedBy, FieldType.LastModifiedBy].includes(field.type)) {

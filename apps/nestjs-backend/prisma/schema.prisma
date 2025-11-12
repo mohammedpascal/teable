@@ -30,7 +30,6 @@ model TableMeta {
 model Field {
   id                  String    @id
   name                String
-  description         String?
   options             String?
   type                String
   cellValueType       String    @map("cell_value_type")

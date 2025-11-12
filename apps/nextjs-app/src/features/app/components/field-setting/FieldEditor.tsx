@@ -5,10 +5,9 @@ import {
   checkFieldUniqueValidationEnabled,
 } from '@teable/core';
 import { useFieldStaticGetter } from '@teable/sdk';
-import { Textarea } from '@teable/ui-lib/shadcn';
 import { Input } from '@teable/ui-lib/shadcn/ui/input';
 import { useTranslation } from 'next-i18next';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { FieldValidation } from './field-validation/FieldValidation';
 import { FieldOptions } from './FieldOptions';
@@ -28,7 +27,6 @@ export const FieldEditor = (props: {
   onChange?: (field: IFieldEditorRo) => void;
 }) => {
   const { isPrimary, field, operator, onChange } = props;
-  const [showDescription, setShowDescription] = useState<boolean>(Boolean(field.description));
   const setFieldFn = useCallback(
     (field: IFieldEditorRo) => {
       onChange?.(field);
@@ -136,39 +134,7 @@ export const FieldEditor = (props: {
         />
         {/* should place after the name input to make sure tab index correct */}
         <SystemInfo field={field as IFieldVo} updateFieldProps={updateFieldProps} />
-        {!showDescription && (
-          <p className="text-left text-xs font-medium text-slate-500">
-            <span
-              onClick={() => {
-                setShowDescription(true);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  setShowDescription(true);
-                }
-              }}
-              tabIndex={0}
-              role={'button'}
-              className="cursor-pointer border-b border-solid border-slate-500 "
-            >
-              {t('table:field.editor.addDescription')}
-            </span>
-          </p>
-        )}
       </div>
-      {showDescription && (
-        <div className="flex w-full flex-col gap-2">
-          <div>
-            <span className="label-text mb-2">{t('common:description')}</span>
-          </div>
-          <Textarea
-            className="h-12 resize-none"
-            value={field['description'] || undefined}
-            placeholder={t('table:field.editor.descriptionPlaceholder')}
-            onChange={(e) => updateFieldProps({ description: e.target.value || undefined })}
-          />
-        </div>
-      )}
       <div className="flex w-full flex-col gap-2">
         <div>
           <span className="label-text mb-2">{t('table:field.editor.type')}</span>

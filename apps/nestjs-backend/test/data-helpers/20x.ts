@@ -11,7 +11,6 @@ import {
 
 const textField = {
   name: 'text field',
-  description: 'the text field',
   type: FieldType.SingleLineText,
 };
 

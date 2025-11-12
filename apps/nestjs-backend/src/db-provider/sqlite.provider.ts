@@ -440,7 +440,6 @@ export class SqliteProvider implements IDbProvider {
         tableId: 'table_id',
         id: 'id',
         name: 'name',
-        description: 'description',
         notNull: 'not_null',
         unique: 'unique',
         isPrimary: 'is_primary',

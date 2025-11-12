@@ -385,24 +385,6 @@ export class FieldOpenApiService {
       ops.push(op);
     }
 
-    if (updateFieldRo.description !== undefined) {
-      const { description } = await this.prismaService.field
-        .findFirstOrThrow({
-          where: { id: fieldId },
-          select: { description: true },
-        })
-        .catch(() => {
-          throw new NotFoundException(`Field ${fieldId} not found`);
-        });
-
-      ops.push(
-        FieldOpBuilder.editor.setFieldProperty.build({
-          key: 'description',
-          oldValue: description,
-          newValue: updateFieldRo.description,
-        })
-      );
-    }
 
     await this.prismaService.$tx(async () => {
       await this.fieldService.batchUpdateFields(tableId, [{ fieldId, ops }]);

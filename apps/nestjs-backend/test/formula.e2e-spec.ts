@@ -39,7 +39,6 @@ describe('OpenAPI formula (e2e)', () => {
     numberFieldRo = {
       id: generateFieldId(),
       name: 'Number field',
-      description: 'the number field',
       type: FieldType.Number,
       options: {
         formatting: { type: NumberFormattingType.Decimal, precision: 1 },
@@ -49,14 +48,12 @@ describe('OpenAPI formula (e2e)', () => {
     textFieldRo = {
       id: generateFieldId(),
       name: 'text field',
-      description: 'the text field',
       type: FieldType.SingleLineText,
     };
 
     formulaFieldRo = {
       id: generateFieldId(),
       name: 'New field',
-      description: 'the new field',
       type: FieldType.Formula,
       options: {
         expression: `{${numberFieldRo.id}} & {${textFieldRo.id}}`,

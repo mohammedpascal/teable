@@ -5,7 +5,6 @@ export const FIELD_MOCK_DATA: IFieldRo[] = [
   {
     name: 'description',
     type: FieldType.SingleLineText,
-    description: 'first field',
   },
   {
     name: 'wight',

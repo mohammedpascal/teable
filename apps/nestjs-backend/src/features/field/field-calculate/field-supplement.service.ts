@@ -1092,8 +1092,6 @@ export class FieldSupplementService {
         ...fieldRo,
         name: fieldRo.name ?? oldFieldVo.name,
         dbFieldName: fieldRo.dbFieldName ?? oldFieldVo.dbFieldName,
-        description:
-          fieldRo.description === undefined ? oldFieldVo.description : fieldRo.description,
       }, // for convenience, we fallback name adn dbFieldName when it be undefined
       oldFieldVo
     )) as IFieldVo;

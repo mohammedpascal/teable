@@ -6,7 +6,6 @@ import type { ITableFullVo } from '@teable/openapi';
 
 const textField = {
   name: 'text field',
-  description: 'the text field',
   type: FieldType.SingleLineText,
 };
 

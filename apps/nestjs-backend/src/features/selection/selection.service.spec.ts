@@ -714,7 +714,6 @@ describe('selectionService', () => {
         type: FieldType.CreatedBy,
         id: '',
         name: '',
-        description: '',
         isComputed: true,
         options: undefined as any,
         cellValueType: CellValueType.String,
@@ -728,7 +727,6 @@ describe('selectionService', () => {
         options: undefined as any,
         name: '',
         isComputed: true,
-        description: '',
         cellValueType: CellValueType.String,
         dbFieldType: DbFieldType.Text,
         dbFieldName: '',
@@ -741,14 +739,12 @@ describe('selectionService', () => {
         type: FieldType.User,
         options: defaultUserFieldOptions,
         name: '',
-        description: '',
       });
 
       expect(lastModifiedByResult).toEqual({
         type: FieldType.User,
         options: defaultUserFieldOptions,
         name: '',
-        description: '',
       });
     });
 
@@ -756,7 +752,6 @@ describe('selectionService', () => {
       const computedField: IFieldVo = {
         id: '',
         name: '',
-        description: '',
         type: FieldType.Formula,
         isComputed: true,
         cellValueType: CellValueType.Number,
@@ -785,7 +780,6 @@ describe('selectionService', () => {
 
       expect(result).toEqual({
         name: '',
-        description: '',
         type: FieldType.Number,
         options: {
           formatting: {
@@ -813,7 +807,6 @@ describe('selectionService', () => {
       const computedField: IFieldVo = {
         id: '',
         name: '',
-        description: '',
         type: FieldType.Number,
         isComputed: false,
         cellValueType: CellValueType.Number,
@@ -842,7 +835,6 @@ describe('selectionService', () => {
 
       expect(result).toEqual({
         name: '',
-        description: '',
         type: FieldType.Number,
         options: {
           formatting: {

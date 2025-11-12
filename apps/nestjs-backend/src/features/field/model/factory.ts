@@ -27,7 +27,6 @@ export function rawField2FieldObj(fieldRaw: Field): IFieldVo {
     dbFieldName: fieldRaw.dbFieldName,
     name: fieldRaw.name,
     type: fieldRaw.type as FieldType,
-    description: fieldRaw.description || undefined,
     options: fieldRaw.options && JSON.parse(fieldRaw.options as string),
     notNull: fieldRaw.notNull || undefined,
     unique: fieldRaw.unique || undefined,

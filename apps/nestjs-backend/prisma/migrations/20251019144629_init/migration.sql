@@ -19,7 +19,6 @@ CREATE TABLE "table_meta" (
 CREATE TABLE "field" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
     "options" TEXT,
     "type" TEXT NOT NULL,
     "cell_value_type" TEXT NOT NULL,

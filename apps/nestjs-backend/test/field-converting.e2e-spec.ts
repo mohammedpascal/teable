@@ -138,7 +138,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     it('should modify field name and prevent name duplicate', async () => {
       const sourceFieldRo: IFieldRo = {
         name: 'TextField',
-        description: 'hello',
         type: FieldType.SingleLineText,
       };
       const newFieldRo: IFieldRo = {
@@ -148,7 +147,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
 
       const { newField } = await expectUpdate(table1, sourceFieldRo, newFieldRo);
       expect(newField.name).toEqual('New Name');
-      expect(newField.description).toEqual('hello');
 
       await expect(
         convertField(table1.id, table1.fields[0].id, {
@@ -161,7 +159,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     it('should modify options showAs', async () => {
       const sourceFieldRo: IFieldRo = {
         name: 'TextField',
-        description: 'hello',
         type: FieldType.SingleLineText,
         options: {
           showAs: {
@@ -182,7 +179,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     it('should modify options showAs in formula', async () => {
       const sourceFieldRo: IFieldRo = {
         name: 'TextField',
-        description: 'hello',
         type: FieldType.Formula,
         options: {
           expression: '"text"',
@@ -264,7 +260,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     it('should modify attachment field name', async () => {
       const sourceFieldRo: IFieldRo = {
         name: 'TextField',
-        description: 'hello',
         type: FieldType.Attachment,
       };
       const newFieldRo: IFieldRo = {
@@ -280,7 +275,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
       const dbFieldName = generateFieldId();
       const sourceFieldRo1: IFieldRo = {
         name: 'TextField',
-        description: 'hello',
         dbFieldName: dbFieldName,
         type: FieldType.SingleLineText,
       };
@@ -292,7 +286,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
 
       const sourceFieldRo2: IFieldRo = {
         name: 'TextField 2',
-        description: 'hello',
         dbFieldName: dbFieldName + '2',
         type: FieldType.SingleLineText,
       };
@@ -305,7 +298,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
       const { newField } = await expectUpdate(table1, sourceFieldRo2, newFieldRo);
       expect(newField.dbFieldName).toEqual(newFieldRo.dbFieldName);
       expect(newField.name).toEqual('TextField 2');
-      expect(newField.description).toEqual('hello');
     });
 
     it('should modify formula field name', async () => {
@@ -525,21 +517,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
       expect(newField.name).toEqual('new lookupField');
     });
 
-    it('should modify field description', async () => {
-      const sourceFieldRo: IFieldRo = {
-        name: 'my name',
-        description: 'hello',
-        type: FieldType.SingleLineText,
-      };
-      const newFieldRo: IFieldRo = {
-        description: 'world',
-        type: FieldType.SingleLineText,
-      };
-
-      const { newField } = await expectUpdate(table1, sourceFieldRo, newFieldRo);
-      expect(newField.name).toEqual('my name');
-      expect(newField.description).toEqual('world');
-    });
 
     // A -> B -> C
     // D -> E -> C
@@ -3868,7 +3845,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
     it('should convert user field', async () => {
       const oldFieldRo: IFieldRo = {
         name: 'TextField',
-        description: 'hello',
         type: FieldType.SingleLineText,
       };
       const newFieldRo: IFieldRo = {

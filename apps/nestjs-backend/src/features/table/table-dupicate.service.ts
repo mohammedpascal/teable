@@ -229,14 +229,13 @@ export class TableDuplicateService {
     );
 
     for (let i = 0; i < commonFields.length; i++) {
-      const { type, dbFieldName, name, options, isPrimary, id, unique, notNull, description } =
+      const { type, dbFieldName, name, options, isPrimary, id, unique, notNull } =
         commonFields[i];
       const newField = await this.fieldOpenService.createField(targetTableId, {
         type,
         dbFieldName: dbFieldName,
         name,
         options,
-        description,
       });
 
       await this.replenishmentConstraint(newField.id, targetTableId, {
@@ -348,7 +347,7 @@ export class TableDuplicateService {
     // self link field
     for (let i = 0; i < mergedTwoWaySelfLinkFields.length; i++) {
       const f = mergedTwoWaySelfLinkFields[i][0];
-      const { notNull, unique, description } = f;
+      const { notNull, unique } = f;
       const groupField = mergedTwoWaySelfLinkFields[i][1] as LinkFieldDto;
       const { name, type, dbFieldName, id } = f;
       const options = f.options as ILinkFieldOptions;
@@ -356,7 +355,6 @@ export class TableDuplicateService {
         type: type as FieldType,
         dbFieldName,
         name,
-        description,
         options: {
           ...pick(options, [
             'relationship',
@@ -426,10 +424,9 @@ export class TableDuplicateService {
     // other common link field
     for (let i = 0; i < otherLinkFields.length; i++) {
       const f = otherLinkFields[i];
-      const { type, description, name, notNull, unique, options, dbFieldName } = f;
+      const { type, name, notNull, unique, options, dbFieldName } = f;
       const newField = await this.fieldOpenService.createField(targetTableId, {
         type: type as FieldType,
-        description,
         dbFieldName,
         name,
         options: {
@@ -560,7 +557,6 @@ export class TableDuplicateService {
       options,
       notNull,
       unique,
-      description,
       isPrimary,
     } = fieldInstance;
     const { foreignTableId, linkFieldId, lookupFieldId } = lookupOptions as ILookupOptionsRo;
@@ -586,7 +582,6 @@ export class TableDuplicateService {
     const newField = await this.fieldOpenService.createField(targetTableId, {
       type: (hasError ? mockType : lookupFieldType) as FieldType,
       dbFieldName,
-      description,
       isLookup: true,
       lookupOptions: {
         foreignTableId: isSelfLink ? targetTableId : foreignTableId,
@@ -641,7 +636,6 @@ export class TableDuplicateService {
       options,
       notNull,
       unique,
-      description,
       isPrimary,
     } = fieldInstance;
     const { foreignTableId, linkFieldId, lookupFieldId } = lookupOptions as ILookupOptionsRo;
@@ -659,7 +653,6 @@ export class TableDuplicateService {
     const newField = await this.fieldOpenService.createField(targetTableId, {
       type: FieldType.Rollup,
       dbFieldName,
-      description,
       lookupOptions: {
         foreignTableId: isSelfLink ? targetTableId : foreignTableId,
         linkFieldId: isSelfLink ? sourceToTargetFieldMap[linkFieldId] : linkFieldId,
@@ -705,7 +698,7 @@ export class TableDuplicateService {
     sourceToTargetFieldMap: Record<string, string>,
     hasError: boolean = false
   ) {
-    const { type, dbFieldName, name, options, id, notNull, unique, description, isPrimary } =
+    const { type, dbFieldName, name, options, id, notNull, unique, isPrimary } =
       fieldInstance;
     const { expression } = options as IFormulaFieldOptions;
     let newExpression = expression;
@@ -716,7 +709,6 @@ export class TableDuplicateService {
     const newField = await this.fieldOpenService.createField(targetTableId, {
       type,
       dbFieldName: dbFieldName,
-      description,
       options: {
         ...options,
         expression: hasError ? `{${mockFieldId}}` : newExpression,

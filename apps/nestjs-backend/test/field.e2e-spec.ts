@@ -89,7 +89,6 @@ describe('OpenAPI FieldController (e2e)', () => {
 
       const fieldRo: IFieldRo = {
         name: 'New field',
-        description: 'the new field',
         type: FieldType.SingleLineText,
         options: SingleLineTextFieldCore.defaultOptions(),
       };
@@ -460,7 +459,6 @@ describe('OpenAPI FieldController (e2e)', () => {
     it('should delete a simple field', async () => {
       const fieldRo: IFieldRo = {
         name: 'New field',
-        description: 'the new field',
         type: FieldType.SingleLineText,
         options: SingleLineTextFieldCore.defaultOptions(),
       };

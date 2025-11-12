@@ -27,7 +27,6 @@ describe('OpenAPI link field reference (e2e)', () => {
   it('/api/table/{tableId}/field (POST) create ManyOne', async () => {
     const fieldRo: IFieldRo = {
       name: 'New field',
-      description: 'the new field',
       type: FieldType.Link,
       options: {
         relationship: Relationship.ManyOne,
@@ -50,7 +49,6 @@ describe('OpenAPI link field reference (e2e)', () => {
   it('/api/table/{tableId}/field (POST) create OneMany', async () => {
     const fieldRo: IFieldRo = {
       name: 'New field',
-      description: 'the new field',
       type: FieldType.Link,
       options: {
         relationship: Relationship.OneMany,
