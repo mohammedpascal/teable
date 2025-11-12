@@ -9,7 +9,6 @@ import {
   getGroupPoints,
   getRowCount,
   updateDbTableName,
-  updateTableDescription,
   updateTableIcon,
   updateTableName,
   updateTableOrder,
@@ -50,10 +49,6 @@ export class Table extends TableCore {
 
   async updateDbTableName(dbTableName: string) {
     return requestWrap(updateDbTableName)(this.id, { dbTableName });
-  }
-
-  async updateDescription(description: string | null) {
-    return requestWrap(updateTableDescription)(this.id, { description });
   }
 
   async updateIcon(icon: string) {
