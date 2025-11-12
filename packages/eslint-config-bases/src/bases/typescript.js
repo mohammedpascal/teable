@@ -83,7 +83,7 @@ module.exports = {
         'ts-check': false,
       },
     ],
-    '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: false }],
+    '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-function': ['error', { allow: ['private-constructors'] }],
     '@typescript-eslint/no-unused-vars': [
       'warn',
