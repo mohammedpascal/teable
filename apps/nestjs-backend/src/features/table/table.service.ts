@@ -71,7 +71,6 @@ export class TableService implements IReadonlyAdapterService {
     const data: Prisma.TableMetaCreateInput = {
       id: tableId,
       name: uniqName,
-      description: tableRo.description,
       icon: tableRo.icon,
       dbTableName,
       order,
@@ -179,7 +178,6 @@ export class TableService implements IReadonlyAdapterService {
 
     return {
       ...tableMeta,
-      description: tableMeta.description ?? undefined,
       icon: tableMeta.icon ?? undefined,
       lastModifiedTime: tableTime[0] || tableMeta.createdTime.toISOString(),
       defaultViewId: tableDefaultViewIds[0],
@@ -330,7 +328,6 @@ export class TableService implements IReadonlyAdapterService {
           type: 'json0',
           data: {
             ...table,
-            description: table.description ?? undefined,
             icon: table.icon ?? undefined,
             lastModifiedTime: tableTime[i] || table.createdTime.toISOString(),
             defaultViewId: tableDefaultViewIds[i],

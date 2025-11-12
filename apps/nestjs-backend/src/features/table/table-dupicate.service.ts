@@ -40,7 +40,6 @@ export class TableDuplicateService {
     const {
       id: sourceTableId,
       icon,
-      description,
       dbTableName,
     } = await this.prismaService.tableMeta.findUniqueOrThrow({
       where: { id: tableId },
@@ -50,7 +49,6 @@ export class TableDuplicateService {
         const newTableVo = await this.tableService.createTable({
           name,
           icon,
-          description,
         });
         const sourceToTargetFieldMap = await this.duplicateFields(sourceTableId, newTableVo.id);
         const sourceToTargetViewMap = await this.duplicateViews(

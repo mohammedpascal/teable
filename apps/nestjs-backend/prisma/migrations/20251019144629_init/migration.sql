@@ -2,7 +2,6 @@
 CREATE TABLE "table_meta" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
     "icon" TEXT,
     "db_table_name" TEXT NOT NULL,
     "version" INTEGER NOT NULL,

@@ -12,11 +12,9 @@ import {
   ICreateTableWithDefault,
   dbTableNameRoSchema,
   IDbTableNameRo,
-  ITableDescriptionRo,
   ITableIconRo,
   ITableNameRo,
   IUpdateOrderRo,
-  tableDescriptionRoSchema,
   tableIconRoSchema,
   tableNameRoSchema,
   updateOrderRoSchema,
@@ -76,17 +74,6 @@ export class TableController {
     @Body(new ZodValidationPipe(tableIconRoSchema)) tableIconRo: ITableIconRo
   ) {
     return await this.tableOpenApiService.updateIcon(tableId, tableIconRo.icon);
-  }
-
-  @Put(':tableId/description')
-  async updateDescription(
-    @Param('tableId') tableId: string,
-    @Body(new ZodValidationPipe(tableDescriptionRoSchema)) tableDescriptionRo: ITableDescriptionRo
-  ) {
-    return await this.tableOpenApiService.updateDescription(
-      tableId,
-      tableDescriptionRo.description
-    );
   }
 
   @Put(':tableId/db-table-name')

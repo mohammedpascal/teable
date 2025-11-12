@@ -240,7 +240,6 @@ export class TableOpenApiService {
       }
       return {
         ...tableMeta,
-        description: tableMeta.description ?? undefined,
         icon: tableMeta.icon ?? undefined,
         lastModifiedTime: time || tableMeta.lastModifiedTime?.toISOString(),
         defaultViewId,
@@ -406,12 +405,6 @@ export class TableOpenApiService {
   async updateIcon(tableId: string, icon: string) {
     await this.prismaService.$tx(async () => {
       await this.tableService.updateTable(tableId, { icon });
-    });
-  }
-
-  async updateDescription(tableId: string, description: string | null) {
-    await this.prismaService.$tx(async () => {
-      await this.tableService.updateTable(tableId, { description });
     });
   }
 

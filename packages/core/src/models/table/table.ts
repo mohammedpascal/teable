@@ -7,8 +7,6 @@ export class TableCore {
 
   icon?: string;
 
-  description?: string;
-
   lastModifiedTime!: string;
 
   defaultViewId!: string;

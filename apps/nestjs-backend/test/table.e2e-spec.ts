@@ -5,7 +5,6 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FieldKeyType, FieldType, Relationship, RowHeightLevel, ViewType } from '@teable/core';
 import type { ICreateTableRo } from '@teable/openapi';
 import {
-  updateTableDescription,
   updateTableIcon,
   updateTableName,
   deleteTable as apiDeleteTable,
@@ -33,7 +32,6 @@ import {
 
 const assertData: ICreateTableRo = {
   name: 'Project Management',
-  description: 'A table for managing projects',
   fields: [
     {
       name: 'Project Name',
@@ -227,13 +225,11 @@ describe('OpenAPI TableController (e2e)', () => {
     tableId = result.id;
 
     await updateTableName(tableId, { name: 'newTableName' });
-    await updateTableDescription(tableId, { description: 'newDescription' });
     await updateTableIcon(tableId, { icon: '😀' });
 
     const table = await getTable(tableId);
 
     expect(table.name).toEqual('newTableName');
-    expect(table.description).toEqual('newDescription');
     expect(table.icon).toEqual('😀');
   });
 

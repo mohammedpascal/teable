@@ -29,9 +29,6 @@ export const tableFullVoSchema = z
         description:
           'Table name in backend database. Limitation: 1-63 characters, start with letter, can only contain letters, numbers and underscore, case insensitive, cannot be duplicated with existing db table name in the base.',
       }),
-    description: z.string().optional().openapi({
-      description: 'The description of the table.',
-    }),
     icon: z.string().emoji().optional().openapi({
       description: 'The emoji icon string of the table.',
     }),
@@ -79,7 +76,6 @@ export const tableRoSchema = tableFullVoSchema
   .merge(
     z.object({
       name: tableFullVoSchema.shape.name.min(1).optional(),
-      description: tableFullVoSchema.shape.description.nullable(),
       icon: tableFullVoSchema.shape.icon.nullable(),
       fieldKeyType: fieldKeyTypeRoSchema,
       fields: createFieldRoSchema.array().optional().openapi({
@@ -112,7 +108,6 @@ export type ICreateTableWithDefault = z.infer<typeof tableRoWithDefaultSchema>;
 export const tablePropertyKeySchema = tableRoSchema.pick({
   name: true,
   dbTableName: true,
-  description: true,
   icon: true,
   order: true,
 });
@@ -120,7 +115,6 @@ export const tablePropertyKeySchema = tableRoSchema.pick({
 export const tableOpSchema = tableVoSchema.pick({
   id: true,
   name: true,
-  description: true,
   order: true,
   icon: true,
   lastModifiedTime: true,
