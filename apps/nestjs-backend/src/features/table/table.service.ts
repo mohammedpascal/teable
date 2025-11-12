@@ -1,12 +1,6 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import type { IOtOperation, ISnapshotBase } from '@teable/core';
-import {
-  generateTableId,
-  getRandomString,
-  getUniqName,
-  IdPrefix,
-  nullsToUndefined,
-} from '@teable/core';
+import { generateTableId, getUniqName, IdPrefix, nullsToUndefined } from '@teable/core';
 import type { ICreateTableRo, ITableVo } from '@teable/openapi';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
@@ -38,6 +32,50 @@ export class TableService implements IReadonlyAdapterService {
     return convertNameToValidCharacter(name, 40);
   }
 
+  /**
+   * Generate a unique dbTableName by appending numbers if the name already exists.
+   * Similar to getUniqName but works with dbTableNames that have the bse0_ prefix.
+   */
+  private async generateUniqueDbTableName(baseDbTableName: string): Promise<string> {
+    const existingTables = await this.prismaService.txClient().tableMeta.findMany({
+      select: { dbTableName: true },
+    });
+    const existingDbTableNames = existingTables.map((table) => table.dbTableName);
+
+    // If the name doesn't exist, return it as-is
+    const prefixedName = this.dbProvider.generateDbTableName(baseDbTableName);
+    if (!existingDbTableNames.includes(prefixedName)) {
+      return prefixedName;
+    }
+
+    // Extract base name and number if present
+    let baseName = baseDbTableName;
+    let num = 2;
+
+    // Check if the name ends with a number - find the longest trailing digit sequence
+    const trailingDigitsMatch = baseDbTableName.match(/(\d+)$/);
+    if (trailingDigitsMatch) {
+      const trailingDigits = trailingDigitsMatch[1];
+      const digitsStartIndex = baseDbTableName.length - trailingDigits.length;
+      if (digitsStartIndex > 0) {
+        baseName = baseDbTableName.substring(0, digitsStartIndex);
+        num = parseInt(trailingDigits, 10) + 1;
+      }
+    }
+
+    // Generate unique name by appending numbers
+    let candidateName = `${baseName}${num}`;
+    let candidatePrefixed = this.dbProvider.generateDbTableName(candidateName);
+
+    while (existingDbTableNames.includes(candidatePrefixed)) {
+      num++;
+      candidateName = `${baseName}${num}`;
+      candidatePrefixed = this.dbProvider.generateDbTableName(candidateName);
+    }
+
+    return candidatePrefixed;
+  }
+
   private async createDBTable(tableRo: ICreateTableRo, createTable = true) {
     const userId = this.cls.get('user.id');
     const tableRaws = await this.prismaService.txClient().tableMeta.findMany({
@@ -52,21 +90,8 @@ export class TableService implements IReadonlyAdapterService {
       }, 0) + 1;
 
     const validTableName = this.generateValidName(uniqName);
-    let dbTableName = this.dbProvider.generateDbTableName(tableRo.dbTableName || validTableName);
-
-    const existTable = await this.prismaService.txClient().tableMeta.findFirst({
-      where: { dbTableName: tableRo.dbTableName },
-      select: { id: true },
-    });
-
-    if (existTable) {
-      if (tableRo.dbTableName) {
-        throw new BadRequestException(`dbTableName ${tableRo.dbTableName} is already used`);
-      } else {
-        // add uniqId ensure no conflict
-        dbTableName += getRandomString(10);
-      }
-    }
+    const baseDbTableName = tableRo.dbTableName || validTableName;
+    const dbTableName = await this.generateUniqueDbTableName(baseDbTableName);
 
     const data: Prisma.TableMetaCreateInput = {
       id: tableId,

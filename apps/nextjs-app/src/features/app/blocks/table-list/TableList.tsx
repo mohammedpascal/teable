@@ -1,6 +1,7 @@
 import { File, FileCsv, FileExcel } from '@teable/icons';
 import { SUPPORTEDTYPE } from '@teable/openapi';
 import { useConnection, useHookPermission } from '@teable/sdk';
+import { ConfirmDialog } from '@teable/ui-lib/base';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +12,11 @@ import {
 } from '@teable/ui-lib';
 import AddBoldIcon from '@teable/ui-lib/icons/app/add-bold.svg';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
+import { Input, Label } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GUIDE_CREATE_TABLE } from '@/components/Guide';
+import { tableConfig } from '@/features/i18n/table.config';
 import { TableImport } from '../import-table';
 import { DraggableList } from './DraggableList';
 import { NoDraggableList } from './NoDraggableList';
@@ -21,14 +24,35 @@ import { useAddTable } from './useAddTable';
 
 export const TableList: React.FC = () => {
   const { connected } = useConnection();
-  const addTable = useAddTable();
+  const {
+    dialogOpen,
+    setDialogOpen,
+    tableName,
+    setTableName,
+    defaultTableName,
+    createTable,
+    isCreating,
+    error,
+    openDialog,
+  } = useAddTable();
   const permission = useHookPermission();
-  const { t } = useTranslation(['table']);
+  const { t } = useTranslation(['table', ...tableConfig.i18nNamespaces]);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [fileType, setFileType] = useState<SUPPORTEDTYPE>(SUPPORTEDTYPE.CSV);
   const importFile = (type: SUPPORTEDTYPE) => {
     setDialogVisible(true);
     setFileType(type);
+  };
+
+  // Reset table name when dialog opens
+  useEffect(() => {
+    if (dialogOpen) {
+      setTableName(defaultTableName);
+    }
+  }, [dialogOpen, defaultTableName, setTableName]);
+
+  const handleCreateTable = async () => {
+    await createTable(tableName);
   };
 
   return (
@@ -44,7 +68,7 @@ export const TableList: React.FC = () => {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64">
-          <DropdownMenuItem onClick={addTable} className="cursor-pointer">
+          <DropdownMenuItem onClick={openDialog} className="cursor-pointer">
             <Button variant="ghost" size="xs" className="h-4">
               <File className="size-4" />
               {t('table.operator.createBlank')}
@@ -82,6 +106,52 @@ export const TableList: React.FC = () => {
           onOpenChange={(open) => setDialogVisible(open)}
         />
       )}
+
+      <ConfirmDialog
+        open={dialogOpen}
+        onOpenChange={(open) => {
+          if (!isCreating) {
+            setDialogOpen(open);
+          }
+        }}
+        title={t('table:operator.createBlank')}
+        cancelText={t('common:actions.cancel')}
+        confirmText={t('common:actions.create')}
+        confirmLoading={isCreating}
+        content={
+          <div className="flex flex-col space-y-2 text-sm">
+            <div className="flex flex-col gap-2">
+              <Label>
+                {t('common:noun.table')} {t('common:name')}
+              </Label>
+              <Input
+                value={tableName}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setTableName(value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !isCreating && tableName.trim()) {
+                    handleCreateTable();
+                  }
+                }}
+                autoFocus
+              />
+            </div>
+            {error && (
+              <div className="rounded-md bg-destructive/10 p-2 text-sm text-destructive">
+                {error}
+              </div>
+            )}
+          </div>
+        }
+        onCancel={() => {
+          if (!isCreating) {
+            setDialogOpen(false);
+          }
+        }}
+        onConfirm={handleCreateTable}
+      />
 
       <div className="overflow-y-auto px-3">
         {connected && permission?.['table|manage'] ? <DraggableList /> : <NoDraggableList />}

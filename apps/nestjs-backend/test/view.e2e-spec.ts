@@ -340,6 +340,8 @@ describe('OpenAPI ViewController (e2e)', () => {
 
   describe('/api/table/{tableId}/view/:viewId/column-meta (PUT)', () => {
     let tableId: string;
+    let gridViewId: string;
+    let formViewId: string;
     beforeAll(async () => {
       const table = await createTable({ name: 'table' });
       tableId = table.id;
