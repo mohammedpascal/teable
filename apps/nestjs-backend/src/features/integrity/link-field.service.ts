@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { FieldType, type ILinkFieldOptions } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import { IntegrityIssueType, type IIntegrityIssue } from '@teable/openapi';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
 import { createFieldInstanceByRaw } from '../field/model/factory';
 import type { LinkFieldDto } from '../field/model/field-dto/link-field.dto';
 

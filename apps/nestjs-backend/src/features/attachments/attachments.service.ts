@@ -8,7 +8,6 @@ import { Readable } from 'stream';
 import { BadRequestException, HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import type { IAttachmentItem } from '@teable/core';
 import { generateAttachmentId } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import {
   axios,
   UploadType,
@@ -24,6 +23,7 @@ import { ClsService } from 'nestjs-cls';
 import { CacheService } from '../../cache/cache.service';
 import { StorageConfig, IStorageConfig } from '../../configs/storage';
 import { ThresholdConfig, IThresholdConfig } from '../../configs/threshold.config';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { FileUtils } from '../../utils';
 import { second } from '../../utils/second';

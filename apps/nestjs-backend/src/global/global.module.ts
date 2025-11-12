@@ -2,7 +2,6 @@ import type { DynamicModule, MiddlewareConsumer, ModuleMetadata, NestModule } fr
 import { Global, Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { context, trace } from '@opentelemetry/api';
-import { PrismaModule } from '../prisma/prisma.module';
 import type { Request } from 'express';
 import { nanoid } from 'nanoid';
 import { ClsMiddleware, ClsModule } from 'nestjs-cls';
@@ -13,6 +12,7 @@ import { DbProvider } from '../db-provider/db.provider';
 import { EventEmitterModule } from '../event-emitter/event-emitter.module';
 import { AuthGuard } from '../features/auth/guard/auth.guard';
 import { MailSenderModule } from '../features/mail-sender/mail-sender.module';
+import { PrismaModule } from '../prisma/prisma.module';
 import { KnexModule } from './knex';
 
 const globalModules = {

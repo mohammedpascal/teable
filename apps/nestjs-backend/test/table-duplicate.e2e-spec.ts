@@ -13,7 +13,6 @@ import {
   updateViewSort,
   updateViewGroup,
   updateViewOptions,
-  getField,
 } from '@teable/openapi';
 import { omit } from 'lodash';
 import { x_20 } from './data-helpers/20x';

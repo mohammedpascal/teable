@@ -25,7 +25,6 @@ import {
   singleNumberShowAsSchema,
   stringifyClipboardText,
 } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import type {
   IUpdateRecordsRo,
   IRangesToIdQuery,
@@ -42,6 +41,7 @@ import { ClsService } from 'nestjs-cls';
 import { ThresholdConfig, IThresholdConfig } from '../../configs/threshold.config';
 import { EventEmitterService } from '../../event-emitter/event-emitter.service';
 import { Events } from '../../event-emitter/events';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { AggregationService } from '../aggregation/aggregation.service';
 import { FieldCreatingService } from '../field/field-calculate/field-creating.service';

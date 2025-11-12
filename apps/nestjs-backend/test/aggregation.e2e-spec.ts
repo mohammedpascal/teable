@@ -9,7 +9,7 @@ import {
   getGroupPoints,
   getRowCount,
   getSearchIndex,
-  GroupPointType
+  GroupPointType,
 } from '@teable/openapi';
 import { x_20 } from './data-helpers/20x';
 import {

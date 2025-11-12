@@ -1,9 +1,5 @@
 import type { INestApplication } from '@nestjs/common';
-import type {
-  IFieldVo,
-  ISelectFieldChoice,
-  ISelectFieldOptions
-} from '@teable/core';
+import type { IFieldVo, ISelectFieldChoice, ISelectFieldOptions } from '@teable/core';
 import { Colors, FieldType, SortFunc, ViewType } from '@teable/core';
 import {
   convertField,

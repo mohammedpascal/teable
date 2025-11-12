@@ -4,8 +4,8 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import { generateAccountId, generateUserId, minidenticon } from '@teable/core';
 import { UploadType } from '@teable/openapi';
 import type { IUserInfoVo, IUserNotifyMeta } from '@teable/openapi';
-import { ClsService } from 'nestjs-cls';
 import * as bcrypt from 'bcrypt';
+import { ClsService } from 'nestjs-cls';
 import sharp from 'sharp';
 import { EventEmitterService } from '../../event-emitter/event-emitter.service';
 import { Events } from '../../event-emitter/events';
@@ -447,8 +447,7 @@ export class UserService {
     return {
       ...user,
       avatar:
-        user.avatar &&
-        getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), user.avatar),
+        user.avatar && getFullStorageUrl(StorageAdapter.getBucket(UploadType.Avatar), user.avatar),
     };
   }
 
@@ -501,14 +500,12 @@ export class UserService {
     });
   }
 
-  async createUserAdmin(
-    userData: {
-      name: string;
-      email: string;
-      password?: string;
-      isAdmin?: boolean;
-    }
-  ) {
+  async createUserAdmin(userData: {
+    name: string;
+    email: string;
+    password?: string;
+    isAdmin?: boolean;
+  }) {
     const defaultNotifyMeta: IUserNotifyMeta = {
       email: true,
     };

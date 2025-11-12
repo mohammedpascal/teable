@@ -1,9 +1,9 @@
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
-import { PrismaService } from '../../prisma';
 import { ClsService } from 'nestjs-cls';
 import { vi } from 'vitest';
 import { GlobalModule } from '../../global/global.module';
+import { PrismaService } from '../../prisma';
 import { AttachmentsModule } from './attachments.module';
 import { AttachmentsService } from './attachments.service';
 

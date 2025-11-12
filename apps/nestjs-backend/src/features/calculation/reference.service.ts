@@ -13,7 +13,6 @@ import {
   RecordOpBuilder,
   Relationship,
 } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import type { IUserInfoVo } from '@teable/openapi';
 import { instanceToPlain } from 'class-transformer';
 import { Knex } from 'knex';
@@ -21,6 +20,7 @@ import { difference, groupBy, isEmpty, isEqual, keyBy, uniq } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
 import { preservedDbFieldNames } from '../field/constant';
 import type { IFieldInstance, IFieldMap } from '../field/model/factory';
 import { createFieldInstanceByRaw, createFieldInstanceByVo } from '../field/model/factory';

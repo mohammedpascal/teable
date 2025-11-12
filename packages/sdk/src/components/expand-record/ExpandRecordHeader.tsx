@@ -34,8 +34,6 @@ const MIN_OPERATOR_WIDTH = 200;
 
 export const ExpandRecordHeader = (props: IExpandRecordHeader) => {
   const {
-    tableId,
-    recordId,
     title,
     disabledPrev,
     disabledNext,
@@ -48,8 +46,6 @@ export const ExpandRecordHeader = (props: IExpandRecordHeader) => {
   } = props;
 
   const permission = useHookPermission();
-  const editable = Boolean(permission['record|update']);
-  const canRead = Boolean(permission['table|read']);
   const canDelete = Boolean(permission['record|delete']);
   const [ref, { width }] = useMeasure<HTMLDivElement>();
   const { t } = useTranslation();

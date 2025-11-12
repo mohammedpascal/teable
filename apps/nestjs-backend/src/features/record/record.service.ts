@@ -74,7 +74,7 @@ import type { IFieldInstance } from '../field/model/factory';
 import { createFieldInstanceByRaw } from '../field/model/factory';
 import { TableIndexService } from '../table/table-index.service';
 import { ROW_ORDER_FIELD_PREFIX } from '../view/constant';
-import type { IFieldRaws } from './type';
+import { IFieldRaws } from './type';
 
 type IUserFields = { id: string; dbFieldName: string }[];
 

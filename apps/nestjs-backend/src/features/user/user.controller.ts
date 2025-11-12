@@ -20,9 +20,9 @@ import {
   userNotifyMetaSchema,
 } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
-import { AuthGuard } from '../../features/auth/guard/auth.guard';
-import { AdminGuard } from '../../features/auth/guard/admin.guard';
 import { Admin } from '../../features/auth/decorators/admin.decorator';
+import { AdminGuard } from '../../features/auth/guard/admin.guard';
+import { AuthGuard } from '../../features/auth/guard/auth.guard';
 import type { IClsStore } from '../../types/cls';
 import { ZodValidationPipe } from '../../zod.validation.pipe';
 import { UserService } from './user.service';
@@ -74,10 +74,7 @@ export class UserController {
   @Get('list')
   @UseGuards(AuthGuard, AdminGuard)
   @Admin()
-  async getUserList(
-    @Query('skip') skip?: string,
-    @Query('take') take?: string
-  ) {
+  async getUserList(@Query('skip') skip?: string, @Query('take') take?: string) {
     const skipNum = skip ? parseInt(skip, 10) : 0;
     const takeNum = take ? parseInt(take, 10) : 100;
     return this.userService.getUserList(skipNum, takeNum);
@@ -86,7 +83,9 @@ export class UserController {
   @Post()
   @UseGuards(AuthGuard, AdminGuard)
   @Admin()
-  async createUser(@Body() createUserRo: { name: string; email: string; password?: string; isAdmin?: boolean }) {
+  async createUser(
+    @Body() createUserRo: { name: string; email: string; password?: string; isAdmin?: boolean }
+  ) {
     if (!createUserRo.name || !createUserRo.email) {
       throw new BadRequestException('Name and email are required');
     }
@@ -98,7 +97,8 @@ export class UserController {
   @Admin()
   async updateUser(
     @Param('id') id: string,
-    @Body() updateUserRo: { name?: string; email?: string; isAdmin?: boolean; roleId?: string | null }
+    @Body()
+    updateUserRo: { name?: string; email?: string; isAdmin?: boolean; roleId?: string | null }
   ) {
     return this.userService.updateUserAdmin(id, updateUserRo);
   }
@@ -106,10 +106,7 @@ export class UserController {
   @Patch(':id/role')
   @UseGuards(AuthGuard, AdminGuard)
   @Admin()
-  async assignRole(
-    @Param('id') id: string,
-    @Body() body: { roleId: string | null }
-  ) {
+  async assignRole(@Param('id') id: string, @Body() body: { roleId: string | null }) {
     if (body.roleId === null) {
       return this.userService.removeRoleFromUser(id);
     }

@@ -7,10 +7,7 @@ import { ENSURE_LOGIN } from '../decorators/ensure-login.decorator';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 import { JWT_TOKEN_STRATEGY_NAME } from '../strategies/constant';
 @Injectable()
-export class AuthGuard extends PassportAuthGuard([
-  'session',
-  JWT_TOKEN_STRATEGY_NAME,
-]) {
+export class AuthGuard extends PassportAuthGuard(['session', JWT_TOKEN_STRATEGY_NAME]) {
   private readonly logger = new Logger(AuthGuard.name);
 
   constructor(private readonly reflector: Reflector) {

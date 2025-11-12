@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import type { Provider } from '@nestjs/common';
-import { PrismaService } from '../prisma';
 import type { Knex } from 'knex';
+import { PrismaService } from '../prisma';
 import { InitBootstrapService } from './init-bootstrap.service';
 
 export const InitBootstrapProvider: Provider = {

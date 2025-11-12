@@ -40,9 +40,7 @@ import {
   viewLockedRoSchema,
   IViewLockedRo,
 } from '@teable/openapi';
-import type {
-  IGetViewFilterLinkRecordsVo,
-} from '@teable/openapi';
+import type { IGetViewFilterLinkRecordsVo } from '@teable/openapi';
 import { ZodValidationPipe } from '../../..//zod.validation.pipe';
 import { EmitControllerEvent } from '../../../event-emitter/decorators/emit-controller-event.decorator';
 import { Events } from '../../../event-emitter/events';
@@ -265,5 +263,4 @@ export class ViewOpenApiController {
   async getDocIds(@Param('tableId') tableId: string) {
     return this.viewService.getDocIdsByQuery(tableId, undefined);
   }
-
 }

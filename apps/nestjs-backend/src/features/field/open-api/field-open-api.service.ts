@@ -385,7 +385,6 @@ export class FieldOpenApiService {
       ops.push(op);
     }
 
-
     await this.prismaService.$tx(async () => {
       await this.fieldService.batchUpdateFields(tableId, [{ fieldId, ops }]);
     });

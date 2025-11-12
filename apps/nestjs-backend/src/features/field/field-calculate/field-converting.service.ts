@@ -22,10 +22,10 @@ import {
   PRIMARY_SUPPORTED_TYPES,
   RecordOpBuilder,
 } from '@teable/core';
-import { PrismaService, wrapWithValidationErrorHandler } from '../../../prisma';
 import { Knex } from 'knex';
 import { difference, intersection, isEmpty, isEqual, keyBy, set } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
+import { PrismaService, wrapWithValidationErrorHandler } from '../../../prisma';
 import {
   majorFieldKeysChanged,
   majorOptionsKeyChanged,

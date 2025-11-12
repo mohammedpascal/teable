@@ -21,7 +21,6 @@ export abstract class ViewCore implements IViewVo {
 
   group?: IGroup;
 
-
   abstract options: IViewOptions;
 
   createdBy!: string;

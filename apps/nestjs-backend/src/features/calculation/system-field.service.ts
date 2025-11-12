@@ -2,10 +2,10 @@
 import { Injectable } from '@nestjs/common';
 import type { FieldKeyType } from '@teable/core';
 import { FieldType } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { createFieldInstanceByRaw } from '../field/model/factory';
 

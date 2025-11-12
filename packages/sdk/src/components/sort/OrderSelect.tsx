@@ -115,7 +115,7 @@ function OrderSelect(props: IOrderProps) {
     }
 
     return option || DEFAULTOPTIONS;
-  }, [field]);
+  }, [t, field]);
 
   return (
     <Select value={value} onValueChange={onSelect}>

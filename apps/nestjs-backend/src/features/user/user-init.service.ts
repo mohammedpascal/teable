@@ -1,9 +1,9 @@
 import { join, resolve } from 'path';
 import { Injectable, Logger, type OnModuleInit } from '@nestjs/common';
-import { PrismaService } from '../../prisma';
 import type { UploadType } from '@teable/openapi';
 import { createReadStream } from 'fs-extra';
 import sharp from 'sharp';
+import { PrismaService } from '../../prisma';
 import StorageAdapter from '../attachments/plugins/adapter';
 import { InjectStorageAdapter } from '../attachments/plugins/storage';
 

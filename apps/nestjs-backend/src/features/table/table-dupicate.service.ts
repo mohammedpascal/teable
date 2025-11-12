@@ -227,8 +227,7 @@ export class TableDuplicateService {
     );
 
     for (let i = 0; i < commonFields.length; i++) {
-      const { type, dbFieldName, name, options, isPrimary, id, unique, notNull } =
-        commonFields[i];
+      const { type, dbFieldName, name, options, isPrimary, id, unique, notNull } = commonFields[i];
       const newField = await this.fieldOpenService.createField(targetTableId, {
         type,
         dbFieldName: dbFieldName,
@@ -546,17 +545,8 @@ export class TableDuplicateService {
     fieldInstance: IFieldInstance,
     sourceToTargetFieldMap: Record<string, string>
   ) {
-    const {
-      dbFieldName,
-      name,
-      lookupOptions,
-      id,
-      hasError,
-      options,
-      notNull,
-      unique,
-      isPrimary,
-    } = fieldInstance;
+    const { dbFieldName, name, lookupOptions, id, hasError, options, notNull, unique, isPrimary } =
+      fieldInstance;
     const { foreignTableId, linkFieldId, lookupFieldId } = lookupOptions as ILookupOptionsRo;
     const isSelfLink = foreignTableId === sourceTableId;
 
@@ -625,17 +615,8 @@ export class TableDuplicateService {
     fieldInstance: IFieldInstance,
     sourceToTargetFieldMap: Record<string, string>
   ) {
-    const {
-      dbFieldName,
-      name,
-      lookupOptions,
-      id,
-      hasError,
-      options,
-      notNull,
-      unique,
-      isPrimary,
-    } = fieldInstance;
+    const { dbFieldName, name, lookupOptions, id, hasError, options, notNull, unique, isPrimary } =
+      fieldInstance;
     const { foreignTableId, linkFieldId, lookupFieldId } = lookupOptions as ILookupOptionsRo;
     const isSelfLink = foreignTableId === sourceTableId;
 
@@ -696,8 +677,7 @@ export class TableDuplicateService {
     sourceToTargetFieldMap: Record<string, string>,
     hasError: boolean = false
   ) {
-    const { type, dbFieldName, name, options, id, notNull, unique, isPrimary } =
-      fieldInstance;
+    const { type, dbFieldName, name, options, id, notNull, unique, isPrimary } = fieldInstance;
     const { expression } = options as IFormulaFieldOptions;
     let newExpression = expression;
     Object.entries(sourceToTargetFieldMap).forEach(([key, value]) => {

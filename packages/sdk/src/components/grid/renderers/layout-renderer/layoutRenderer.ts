@@ -173,9 +173,6 @@ export const calcCells = (props: ILayoutDrawerProps, renderRegion: RenderRegion)
       const rowHeight = coordInstance.getRowHeight(rowIndex);
       const y = coordInstance.getRowOffset(rowIndex) - scrollTop;
 
-      const cell = getCellContent([columnIndex, linearRow.realIndex]);
-      const recordId = cell.id?.split('-')[0];
-
       if (linearRowType === LinearRowType.Group) {
         const { depth, value, isCollapsed, realIndex } = linearRow;
         if (isFirstColumn) {

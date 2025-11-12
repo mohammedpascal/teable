@@ -1,5 +1,4 @@
 import { LRUCache } from 'lru-cache';
-import { parseToRGB } from '../../utils';
 import type {
   ILineProps,
   IMultiLineTextProps,

@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import type { IFieldRo, ILinkFieldOptions, IConvertFieldRo } from '@teable/core';
 import { FieldType, Relationship } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import type {
   IGraphEdge,
   IGraphNode,
@@ -13,6 +12,7 @@ import { Knex } from 'knex';
 import { groupBy, keyBy, uniq } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
+import { PrismaService } from '../../prisma';
 import { majorFieldKeysChanged } from '../../utils/major-field-keys-changed';
 import { Timing } from '../../utils/timing';
 import { FieldCalculationService } from '../calculation/field-calculation.service';

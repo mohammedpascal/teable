@@ -32,7 +32,6 @@ const testDesc = `should filter [$operator], query value: $queryValue, expect re
 
 describe('OpenAPI Record-Filter-Query (e2e)', () => {
   let app: INestApplication;
-  
 
   beforeAll(async () => {
     const appCtx = await initApp();

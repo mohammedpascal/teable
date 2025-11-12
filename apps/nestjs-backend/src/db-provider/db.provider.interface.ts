@@ -1,10 +1,10 @@
 import type { DriverClient, FieldType, IFilter, ILookupOptionsVo, ISortItem } from '@teable/core';
-import type { Prisma } from '../prisma';
 import type { IAggregationField, ISearchIndexByQueryRo, TableIndex } from '@teable/openapi';
 import type { Knex } from 'knex';
 import type { IFieldInstance } from '../features/field/model/factory';
 import type { DateFieldDto } from '../features/field/model/field-dto/date-field.dto';
 import type { SchemaType } from '../features/field/util';
+import type { Prisma } from '../prisma';
 import type { IAggregationQueryInterface } from './aggregation-query/aggregation-query.interface';
 import type { BaseQueryAbstract } from './base-query/abstract';
 import type { DuplicateTableQueryAbstract } from './duplicate-table/abstract';

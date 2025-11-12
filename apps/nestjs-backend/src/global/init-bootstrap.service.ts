@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { DriverClient } from '@teable/core';
-import { PrismaService } from '../prisma';
 import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
+import { PrismaService } from '../prisma';
 import { getDriverName } from '../utils/db-helpers';
 
 @Injectable()

@@ -8,9 +8,7 @@ import type { Knex } from 'knex';
 import { DB_PROVIDER_SYMBOL } from '../src/db-provider/db.provider';
 import type { IDbProvider } from '../src/db-provider/db.provider.interface';
 import { PrismaService } from '../src/prisma';
-import {
-  initApp
-} from './utils/init-app';
+import { initApp } from './utils/init-app';
 
 describe('OpenAPI integrity (e2e)', () => {
   let app: INestApplication;

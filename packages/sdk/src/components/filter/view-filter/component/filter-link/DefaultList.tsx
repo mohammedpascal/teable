@@ -1,5 +1,4 @@
 import { RowCountProvider } from '../../../../../context';
-import { useTranslation } from '../../../../../context/app/i18n';
 import { LinkFilterProvider } from '../../../../../context/query/LinkFilterProvider';
 import { SocketRecordList } from '../../../../record-list';
 import { StorageLinkSelected } from './storage';
@@ -7,7 +6,6 @@ import type { IFilterLinkSelectListProps } from './types';
 
 export const DefaultList = (props: IFilterLinkSelectListProps) => {
   const { field, value, onClick } = props;
-  const { t } = useTranslation();
 
   const isSingle = typeof value === 'string';
   const values = isSingle ? [value] : value;

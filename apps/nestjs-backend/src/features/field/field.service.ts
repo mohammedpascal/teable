@@ -600,18 +600,18 @@ export class FieldService implements IReadonlyAdapterService {
 
   private async deleteMany(tableId: string, fieldData: { docId: string; version: number }[]) {
     const fieldIds = fieldData.map((data) => data.docId);
-    
+
     // Get field info before deletion for database cleanup
     const fieldsRaw = await this.prismaService.txClient().field.findMany({
       where: { id: { in: fieldIds } },
       select: { dbFieldName: true },
     });
-    
+
     // Delete from database
     await this.prismaService.txClient().field.deleteMany({
       where: { id: { in: fieldIds } },
     });
-    
+
     const dbTableName = await this.getDbTableName(tableId);
     await this.alterTableDeleteField(
       dbTableName,

@@ -8,4 +8,3 @@ import { RoleService } from './role.service';
   exports: [RoleService],
 })
 export class RoleModule {}
-

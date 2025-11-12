@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { CellValueType } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import { TableIndex } from '@teable/openapi';
 import type { IGetAbnormalVo, ITableIndexType, IToggleIndexRo } from '@teable/openapi';
 import { Knex } from 'knex';
@@ -9,6 +8,7 @@ import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import type { IFieldInstance } from '../field/model/factory';
 import { createFieldInstanceByRaw } from '../field/model/factory';

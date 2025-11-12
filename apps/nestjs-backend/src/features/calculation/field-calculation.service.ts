@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { type IRecord } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import { Knex } from 'knex';
 import { uniq } from 'lodash';
 import { InjectModel } from 'nest-knexjs';
 import { concatMap, lastValueFrom, map, range, toArray } from 'rxjs';
 import { ThresholdConfig, IThresholdConfig } from '../../configs/threshold.config';
+import { PrismaService } from '../../prisma';
 import { Timing } from '../../utils/timing';
 import { systemDbFieldNames } from '../field/constant';
 import type { IFieldInstance, IFieldMap } from '../field/model/factory';

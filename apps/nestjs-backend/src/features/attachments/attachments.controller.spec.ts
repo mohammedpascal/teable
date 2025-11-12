@@ -1,7 +1,7 @@
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
-import { PrismaService } from '../../prisma';
 import { vi } from 'vitest';
+import { PrismaService } from '../../prisma';
 import { AttachmentsController } from './attachments.controller';
 import { AttachmentsModule } from './attachments.module';
 

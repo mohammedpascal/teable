@@ -34,7 +34,6 @@ export const useKeyboardSelection = (props: ISelectionKeyboardProps) => {
   } = props;
   const { pureRowCount, columnCount } = coordInstance;
 
-
   useHotkeys(
     [
       'up',

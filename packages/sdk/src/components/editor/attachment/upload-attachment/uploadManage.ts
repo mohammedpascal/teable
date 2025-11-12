@@ -47,7 +47,7 @@ export class AttachmentManager {
       successCallback?: ISuccessCallback;
       errorCallback?: IErrorCallback;
       progressCallback?: IProgressCallback;
-    },
+    }
   ) {
     const { successCallback = noop, errorCallback = noop, progressCallback = noop } = callbackFn;
     for (let i = 0; i < files.length; i++) {

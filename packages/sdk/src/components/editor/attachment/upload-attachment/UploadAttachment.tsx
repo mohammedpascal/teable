@@ -108,22 +108,18 @@ export const UploadAttachment = (props: IUploadAttachment) => {
         acc[file.id] = { progress: 0, file: file.instance };
         return acc;
       }, {});
-      attachmentManager.upload(
-        uploadList,
-        UploadType.Table,
-        {
-          successCallback: handleSuccess,
-          errorCallback: (file, error, code) => {
-            const curUploadingFiles = { ...uploadingFiles };
-            delete curUploadingFiles[file.id];
-            setUploadingFiles(curUploadingFiles);
-            toast.error(error ?? t('common.uploadFailed'));
-          },
-          progressCallback: (file, progress) => {
-            setUploadingFiles((pre) => ({ ...pre, [file.id]: { progress, file: file.instance } }));
-          },
-        }
-      );
+      attachmentManager.upload(uploadList, UploadType.Table, {
+        successCallback: handleSuccess,
+        errorCallback: (file, error, _) => {
+          const curUploadingFiles = { ...uploadingFiles };
+          delete curUploadingFiles[file.id];
+          setUploadingFiles(curUploadingFiles);
+          toast.error(error ?? t('common.uploadFailed'));
+        },
+        progressCallback: (file, progress) => {
+          setUploadingFiles((pre) => ({ ...pre, [file.id]: { progress, file: file.instance } }));
+        },
+      });
       setUploadingFiles((pre) => ({ ...pre, ...newUploadMap }));
       setTimeout(() => {
         scrollBottom();

@@ -225,8 +225,6 @@ describe('OpenAPI ImportController (e2e)', () => {
     it.each(testFileFormats.filter((format) => format !== TestFileFormat.TXT))(
       'should create a new Table from %s file',
       async (format) => {
-        
-
         const fileType = testSupportTypeMap[format].fileType;
         const attachmentUrl = testFiles[format].url;
         const defaultSheetKey = testSupportTypeMap[format].defaultSheetKey;
@@ -281,8 +279,6 @@ describe('OpenAPI ImportController (e2e)', () => {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     it('should import data into Table from file', async () => {
-      
-
       const format = SUPPORTEDTYPE.CSV;
       const attachmentUrl = testFiles[format].url;
       const fileType = testSupportTypeMap[format].fileType;

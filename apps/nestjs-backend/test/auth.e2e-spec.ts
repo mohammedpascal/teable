@@ -2,7 +2,6 @@
 import type { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { HttpErrorCode } from '@teable/core';
-import { PrismaService } from '../src/prisma';
 import type { IGetTempTokenVo, IUserMeVo } from '@teable/openapi';
 import {
   CHANGE_EMAIL,
@@ -17,6 +16,7 @@ import {
 import type { AxiosInstance } from 'axios';
 import axios from 'axios';
 import { AUTH_SESSION_COOKIE_NAME } from '../src/const';
+import { PrismaService } from '../src/prisma';
 import { createNewUserAxios } from './utils/axios-instance/new-user';
 import { getError } from './utils/get-error';
 import { initApp } from './utils/init-app';

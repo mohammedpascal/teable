@@ -17,7 +17,6 @@ export class RecordCore {
 
   name?: string;
 
-
   createdTime!: Date;
 
   id!: string;

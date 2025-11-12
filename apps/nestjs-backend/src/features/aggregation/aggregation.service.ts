@@ -45,8 +45,8 @@ import type { IFieldInstance } from '../field/model/factory';
 import { createFieldInstanceByRaw } from '../field/model/factory';
 import type { DateFieldDto } from '../field/model/field-dto/date-field.dto';
 import { RecordService } from '../record/record.service';
-import { TableIndexService } from '../table/table-index.service';
 import { hasActionPermission } from '../role/role-permission.util';
+import { TableIndexService } from '../table/table-index.service';
 
 export type IWithView = {
   viewId?: string;

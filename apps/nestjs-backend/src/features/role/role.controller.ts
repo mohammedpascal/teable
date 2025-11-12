@@ -1,16 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import { AuthGuard } from '../auth/guard/auth.guard';
-import { AdminGuard } from '../auth/guard/admin.guard';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { Admin } from '../auth/decorators/admin.decorator';
+import { AdminGuard } from '../auth/guard/admin.guard';
+import { AuthGuard } from '../auth/guard/auth.guard';
 import { RoleService, type ICreateRoleDto, type IUpdateRoleDto } from './role.service';
 
 @Controller('api/role')
@@ -48,4 +39,3 @@ export class RoleController {
     return this.roleService.deleteRole(id);
   }
 }
-

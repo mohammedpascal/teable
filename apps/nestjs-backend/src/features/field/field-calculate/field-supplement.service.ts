@@ -134,11 +134,7 @@ export class FieldSupplementService {
     };
 
     if (relationship === Relationship.ManyMany) {
-      const fkHostTableName = await this.getJunctionTableName(
-        tableId,
-        fieldId,
-        symmetricFieldId
-      );
+      const fkHostTableName = await this.getJunctionTableName(tableId, fieldId, symmetricFieldId);
       return {
         ...common,
         fkHostTableName,
@@ -164,10 +160,9 @@ export class FieldSupplementService {
          * so we should not modify the foreign table when `isOneWay` enable.
          * Instead, we will create a junction table to store the foreign key.
          */
-        fkHostTableName:
-          isOneWay
-            ? await this.getJunctionTableName(tableId, fieldId, symmetricFieldId)
-            : foreignTableName,
+        fkHostTableName: isOneWay
+          ? await this.getJunctionTableName(tableId, fieldId, symmetricFieldId)
+          : foreignTableName,
         selfKeyName: this.getForeignKeyFieldName(symmetricFieldId),
         foreignKeyName: isOneWay ? this.getForeignKeyFieldName(fieldId) : '__id',
       };
@@ -247,7 +242,6 @@ export class FieldSupplementService {
               select: { id: true },
             })
           ).id;
-
 
     return this.generateLinkOptionsVo({
       tableId,

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from '../../../user/user.module';
-import { OauthStoreService } from '../oauth-store.service';
 import { GoogleStrategy } from '../../strategies/google.strategy';
+import { OauthStoreService } from '../oauth-store.service';
 import { GoogleController } from './google.controller';
 
 @Module({

@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 import { MemberSelected } from './MemberSelected';
 import { SearchInput } from './SearchInput';
-import type { SelectedMemberWithData, TreeNode } from './types';
+import type { SelectedMemberWithData } from './types';
 
 interface IMemberContentProps {
   className?: string;
@@ -51,19 +51,6 @@ export const MemberContent = forwardRef<IMemberContentRef, IMemberContentProps>(
         setSelectedMembers(selectedMembers ?? []);
       },
     }));
-
-    const handleSelect = (member: TreeNode) => {
-      setSelectedMembers((prev) => {
-        const exists = prev.some((m) => m.id === member.id);
-        if (exists) {
-          return prev.filter((m) => m.id !== member.id);
-        }
-        return [
-          ...prev,
-          { id: member.id, type: member.type, data: member } as SelectedMemberWithData,
-        ];
-      });
-    };
 
     const handleRemove = (id: string) => {
       setSelectedMembers((prev) => prev.filter((member) => member.id !== id));

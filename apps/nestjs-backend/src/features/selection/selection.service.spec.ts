@@ -21,13 +21,13 @@ import {
   DateFormattingPreset,
   TimeFormatting,
 } from '@teable/core';
-import { PrismaService } from '../../prisma';
 import { RangeType } from '@teable/openapi';
 import { ClsService } from 'nestjs-cls';
 import { vi } from 'vitest';
 import type { DeepMockProxy } from 'vitest-mock-extended';
 import { mockDeep, mockReset } from 'vitest-mock-extended';
 import { GlobalModule } from '../../global/global.module';
+import { PrismaService } from '../../prisma';
 import type { IClsStore } from '../../types/cls';
 import { AggregationService } from '../aggregation/aggregation.service';
 import { FieldCreatingService } from '../field/field-calculate/field-creating.service';

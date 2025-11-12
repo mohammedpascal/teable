@@ -11,7 +11,7 @@ import { CharStreams } from 'antlr4ts';
 import Fuse from 'fuse.js';
 import { cloneDeep, keyBy } from 'lodash';
 import type { FC } from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useFieldStaticGetter, useFields } from '../../../hooks';
 import { FormulaField } from '../../../model';

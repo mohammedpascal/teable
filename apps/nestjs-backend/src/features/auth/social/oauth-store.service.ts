@@ -20,15 +20,19 @@ export class OauthStoreService {
     callback();
   }
 
-  verify(req: any, state: string, callback: (err: Error | null, ok?: boolean, meta?: any) => void): void {
+  verify(
+    req: any,
+    state: string,
+    callback: (err: Error | null, ok?: boolean, meta?: any) => void
+  ): void {
     const key = req._oauthStateKey || req.sessionID || req.id;
-    
+
     if (!key) {
       return callback(new Error('No state key found in request'));
     }
 
     const stored = this.stateMap.get(key);
-    
+
     if (!stored) {
       return callback(new Error('State not found'));
     }
@@ -59,4 +63,3 @@ export class OauthStoreService {
     }
   }
 }
-

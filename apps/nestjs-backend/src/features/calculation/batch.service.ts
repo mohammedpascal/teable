@@ -2,7 +2,6 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import type { IOtOperation } from '@teable/core';
 import { IdPrefix, RecordOpBuilder } from '@teable/core';
-import { PrismaService, wrapWithValidationErrorHandler } from '../../prisma';
 import { Knex } from 'knex';
 import { groupBy, isEmpty, keyBy } from 'lodash';
 import { customAlphabet } from 'nanoid';
@@ -12,6 +11,7 @@ import { bufferCount, concatMap, from, lastValueFrom } from 'rxjs';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';
+import { PrismaService, wrapWithValidationErrorHandler } from '../../prisma';
 import type { IRawOp, IRawOpMap } from '../../share-db/interface';
 import { RawOpType } from '../../share-db/interface';
 import type { IClsStore } from '../../types/cls';

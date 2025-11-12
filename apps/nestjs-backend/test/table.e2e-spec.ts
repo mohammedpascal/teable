@@ -4,11 +4,7 @@ import type { INestApplication } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FieldKeyType, FieldType, Relationship, RowHeightLevel, ViewType } from '@teable/core';
 import type { ICreateTableRo } from '@teable/openapi';
-import {
-  updateTableIcon,
-  updateTableName,
-  deleteTable as apiDeleteTable,
-} from '@teable/openapi';
+import { updateTableIcon, updateTableName, deleteTable as apiDeleteTable } from '@teable/openapi';
 import { DB_PROVIDER_SYMBOL } from '../src/db-provider/db.provider';
 import type { IDbProvider } from '../src/db-provider/db.provider.interface';
 import { Events } from '../src/event-emitter/events';

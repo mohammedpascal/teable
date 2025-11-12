@@ -9,13 +9,6 @@ import { UserTag } from '../../../cell-value';
 import { UserOption } from '../../../editor';
 import { BaseMultipleSelect, BaseSingleSelect } from './base';
 
-type CollaboratorWithRequiredFields = { 
-  userId: string; 
-  userName: string; 
-  email: string; 
-  avatar?: string | null;
-};
-
 interface IFilterUserProps {
   field: UserField | CreatedByField | LastModifiedByField;
   operator: string;
@@ -146,18 +139,9 @@ const FilterUserSelectBase = (props: IFilterUserBaseProps) => {
   );
 };
 
-const defaultData = {
-  collaborators: [],
-};
-
 const FilterUserSelect = (props: IFilterUserProps) => {
   // Collaboration removed - return empty user list
-  return (
-    <FilterUserSelectBase
-      {...props}
-      data={[]}
-    />
-  );
+  return <FilterUserSelectBase {...props} data={[]} />;
 };
 
 export { FilterUserSelect, FilterUserSelectBase };

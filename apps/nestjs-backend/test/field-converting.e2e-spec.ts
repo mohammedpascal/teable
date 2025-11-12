@@ -517,7 +517,6 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
       expect(newField.name).toEqual('new lookupField');
     });
 
-
     // A -> B -> C
     // D -> E -> C
     // should not update E when A update

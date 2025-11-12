@@ -1,3 +1,4 @@
+import type { IColumnMeta } from '@teable/core';
 import { ViewType } from '@teable/core';
 import { sortBy } from 'lodash';
 import { useContext, useMemo } from 'react';
@@ -36,7 +37,7 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
         ) {
           return columnMeta?.[id]?.visible;
         }
-        return !(columnMeta?.[id] as any)?.hidden;
+        return !(columnMeta?.[id] as IColumnMeta)?.hidden;
       };
       const hasPermission = () => {
         if (withDenied || hasTableRead) {

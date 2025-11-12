@@ -26,7 +26,6 @@ import { createField, getRecord, initApp, createTable, deleteTable } from './uti
 describe('OpenAPI SelectionController (e2e)', () => {
   let app: INestApplication;
   let table: ITableFullVo;
-  
 
   beforeAll(async () => {
     const appCtx = await initApp();

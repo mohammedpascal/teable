@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IUserCellValue } from '@teable/core';
 import { Colors, FieldType, UserFieldCore } from '@teable/core';
-import type { PrismaService } from '../../prisma';
 import { plainToInstance } from 'class-transformer';
 import { vi } from 'vitest';
 import { mockDeep, mockReset } from 'vitest-mock-extended';
+import type { PrismaService } from '../../prisma';
 import type { AttachmentsStorageService } from '../attachments/attachments-storage.service';
 import type { FieldConvertingService } from '../field/field-calculate/field-converting.service';
 import type { IFieldInstance } from '../field/model/factory';
@@ -379,8 +379,7 @@ describe('TypeCastAndValidate', () => {
       email: 'tom@example.com',
       avatarUrl: expect.stringContaining('api/attachments/read/public/avatar/2'),
     };
-    beforeEach(() => {
-    });
+    beforeEach(() => {});
 
     it('string cell value', async () => {
       const field = mockDeep<UserFieldDto>({
