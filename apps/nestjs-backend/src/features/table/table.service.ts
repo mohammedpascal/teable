@@ -239,13 +239,17 @@ export class TableService implements IReadonlyAdapterService {
   async deleteTable(tableId: string) {
     const result = await this.prismaService.txClient().tableMeta.findFirst({
       where: { id: tableId },
+      select: { version: true, dbTableName: true },
     });
 
     if (!result) {
       throw new NotFoundException('Table not found');
     }
 
-    const { version } = result;
+    const { version, dbTableName } = result;
+
+    // Drop the physical database table
+    await this.prismaService.txClient().$executeRawUnsafe(this.dbProvider.dropTable(dbTableName));
 
     // Delete related fields first to avoid foreign key constraint violations
     await this.prismaService.txClient().field.deleteMany({
