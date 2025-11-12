@@ -248,6 +248,7 @@
       "tableUpdate": "Mettre à jour une table",
       "tableImport": "Importer des données dans la table",
       "tableExport": "Exporter les données de la table",
+      "tableManage": "Gérer la table",
       "viewCreate": "Créer une vue",
       "viewDelete": "Supprimer une vue",
       "viewRead": "Lire une vue",
@@ -263,6 +264,7 @@
       "recordUpdate": "Mettre à jour un enregistrement",
       "userProfileRead": "Lire le profil de l'utilisateur",
       "userEmailRead": "Lire l'email de l'utilisateur",
+      "userManage": "Gérer l'utilisateur",
       "baseQuery": "Interroger la base",
       "instanceRead": "Lire l'instance",
       "instanceUpdate": "Mettre à jour l'instance"

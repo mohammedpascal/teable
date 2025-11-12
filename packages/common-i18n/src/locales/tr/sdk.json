@@ -165,6 +165,12 @@
     "hideAll": "Tümünü Gizle"
     "primaryKey": "Birincil alan: Kayıtları tanımlar\ngizlenemez veya silinemez, bağlantılı kayıtlarda görünür."
   }
+  "permission": {
+    "actionDescription": {
+      "tableManage": "Tabloyu yönet",
+      "userManage": "Kullanıcıyı yönet"
+    }
+  }
   "expandRecord": {
     "copy": "Panoya kopyala"
     "duplicateRecord": "Kaydı çoğalt"

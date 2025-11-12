@@ -177,6 +177,12 @@
     "hideAll": "Alle verstecken"
     "primaryKey": "Primäres Feld: Identifiziert Datensätze\nKann nicht ausgeblendet oder gelöscht werden, sichtbar in verknüpften Datensätzen."
   }
+  "permission": {
+    "actionDescription": {
+      "tableManage": "Tabelle verwalten",
+      "userManage": "Benutzer verwalten"
+    }
+  }
   "expandRecord": {
     "copy": "In die Zwischenablage kopieren"
     "duplicateRecord": "Datensatz duplizieren"

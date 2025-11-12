@@ -235,6 +235,7 @@
       "tableUpdate": "テーブルの更新",
       "tableImport": "テーブルにデータをインポート",
       "tableExport": "テーブルのデータをエクスポート",
+      "tableManage": "テーブルを管理",
       "viewCreate": "ビューを作成",
       "viewDelete": "ビューを削除",
       "viewRead": "ビューを読み取り",
@@ -250,6 +251,7 @@
       "recordUpdate": "レコードの更新",
       "userProfileRead": "ユーザーのプロフィールの読み取り",
       "userEmailRead": "ユーザーメールの読み取り",
+      "userManage": "ユーザーを管理",
       "baseQuery": "クエリベース",
       "instanceRead": "インスタンスの読み取り",
       "instanceUpdate": "インスタンスの更新"

@@ -177,6 +177,12 @@
     "hideAll": "Nascondi tutto"
     "primaryKey": "Campo principale: Identifica i record\nnon può essere nascosto o eliminato, visibile nei record collegati."
   }
+  "permission": {
+    "actionDescription": {
+      "tableManage": "Gestisci tabella",
+      "userManage": "Gestisci utente"
+    }
+  }
   "expandRecord": {
     "copy": "Copia negli appunti"
     "duplicateRecord": "Duplica record"

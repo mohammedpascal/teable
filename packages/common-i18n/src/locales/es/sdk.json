@@ -532,6 +532,12 @@
     "hideAll": "Esconderse"
     "primaryKey": "Campo primario: identifica registros\n"
   }
+  "permission": {
+    "actionDescription": {
+      "tableManage": "Gestionar tabla",
+      "userManage": "Gestionar usuario"
+    }
+  }
   "expandRecord": {
     "copy": "Copiar al portapapeles"
     "duplicateRecord": "Récord duplicado"
