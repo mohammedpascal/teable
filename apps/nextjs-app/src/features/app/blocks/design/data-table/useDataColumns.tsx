@@ -58,24 +58,6 @@ export function useDataColumns() {
       header: 'type',
     },
     {
-      accessorKey: 'description',
-      header: 'description',
-      cell: ({ row }) => (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="max-w-[150px] overflow-hidden text-ellipsis text-nowrap">
-                {row.getValue('description')}
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <pre>{row.getValue('description')}</pre>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      ),
-    },
-    {
       header: 'graph',
       cell: ({ row }) => <FieldGraph fieldId={row.getValue('id')} />,
     },

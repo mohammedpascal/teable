@@ -6,8 +6,8 @@ import { Table } from '@teable/sdk/model';
 import { ConfirmDialog, Selector } from '@teable/ui-lib/base';
 import { Button, Tabs, TabsContent } from '@teable/ui-lib/shadcn';
 import { Trash2 } from 'lucide-react';
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { FieldSetting } from '../view/field/FieldSetting';
 import { DataTable } from './data-table/DataTable';
@@ -143,21 +143,21 @@ export const TableTabs = () => {
     >
       {tables.map((table) => (
         <AnchorContext.Provider key={table.id} value={{ tableId: table.id }}>
-            <TabsContent value={table.id} className="space-y-4">
-              {/* Fields Table */}
-              <div className="overflow-x-auto rounded-md border">
-                <FieldProvider>
-                  <DataTable />
-                  <FieldSetting />
-                </FieldProvider>
-              </div>
+          <TabsContent value={table.id} className="space-y-4">
+            {/* Fields Table */}
+            <div className="overflow-x-auto rounded-md border">
+              <FieldProvider>
+                <DataTable />
+                <FieldSetting />
+              </FieldProvider>
+            </div>
 
-              {/* Table Details */}
-              <TableDetail />
+            {/* Table Details */}
+            <TableDetail />
 
-              {/* Danger Zone */}
-              <DangerZone />
-            </TabsContent>
+            {/* Danger Zone */}
+            <DangerZone />
+          </TabsContent>
         </AnchorContext.Provider>
       ))}
     </Tabs>
