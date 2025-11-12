@@ -14,18 +14,6 @@ export function getActionTriggerChannel(tableIdOrViewId: string) {
   return `__action_trigger_${tableIdOrViewId}`;
 }
 
-export function getBasePermissionUpdateChannel() {
-  return `__base_permission_update`;
-}
-
 export function getTableImportChannel(tableId: string) {
   return `__table_import_${tableId}`;
-}
-
-export function getCommentChannel(tableId: string, recordId: string) {
-  return `__record_comment_${tableId}_${recordId}`;
-}
-
-export function getTableCommentChannel(tableId: string) {
-  return `__table_comment_${tableId}`;
 }

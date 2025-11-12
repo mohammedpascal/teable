@@ -10,8 +10,6 @@ describe('usePermissionActionsStatic', () => {
     });
     expect(Object.keys(result.current.actionPrefixStaticMap)).toEqual(
       expect.arrayContaining([
-        ActionPrefix.Space,
-        ActionPrefix.Base,
         ActionPrefix.Table,
         ActionPrefix.View,
         ActionPrefix.Record,
@@ -24,6 +22,6 @@ describe('usePermissionActionsStatic', () => {
     const { result } = renderHook(() => usePermissionActionsStatic(), {
       wrapper: createAppContext(),
     });
-    expect(result.current.actionStaticMap['space|create'].description).toEqual('Create space');
+    expect(result.current.actionStaticMap['table|manage'].description).toEqual('Update table');
   });
 });

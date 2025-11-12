@@ -10,7 +10,6 @@ import React, { Fragment } from 'react';
 import { AppLayout } from '@/features/app/layouts';
 import { BaseSideBar } from '../blocks/base/base-side-bar/BaseSideBar';
 import { BaseSidebarHeaderLeft } from '../blocks/base/base-side-bar/BaseSidebarHeaderLeft';
-import { BasePermissionListener } from '../blocks/base/BasePermissionListener';
 import { Sidebar } from '../components/sidebar/Sidebar';
 import { SidebarContent } from '../components/sidebar/SidebarContent';
 import { SideBarFooter } from '../components/SideBarFooter';
@@ -51,7 +50,6 @@ export const BaseLayout: React.FC<{
                 viewId: viewId as string,
               }}
             >
-              <BasePermissionListener />
               <TableProvider serverData={tableServerData}>
                 <div
                   id="portal"

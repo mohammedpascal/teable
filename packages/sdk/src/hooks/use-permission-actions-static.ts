@@ -11,33 +11,6 @@ const actionsI18nMap: Record<
     description: TKey;
   }
 > = {
-  'base|delete': {
-    description: 'permission.actionDescription.baseDelete',
-  },
-  'base|read': {
-    description: 'permission.actionDescription.baseRead',
-  },
-  'base|read_all': {
-    description: 'permission.actionDescription.baseReadAll',
-  },
-  'base|update': {
-    description: 'permission.actionDescription.baseUpdate',
-  },
-  'base|invite_email': {
-    description: 'permission.actionDescription.baseInviteEmail',
-  },
-  'base|invite_link': {
-    description: 'permission.actionDescription.baseInviteLink',
-  },
-  'base|table_import': {
-    description: 'permission.actionDescription.tableImport',
-  },
-  'base|table_export': {
-    description: 'permission.actionDescription.tableExport',
-  },
-  'base|db_connection': {
-    description: 'permission.actionDescription.baseDbConnect',
-  },
   'table|read': {
     description: 'permission.actionDescription.tableRead',
   },
@@ -59,9 +32,6 @@ const actionsI18nMap: Record<
   'view|update': {
     description: 'permission.actionDescription.viewUpdate',
   },
-  'view|share': {
-    description: 'permission.actionDescription.viewShare',
-  },
   'record|create': {
     description: 'permission.actionDescription.recordCreate',
   },
@@ -77,27 +47,12 @@ const actionsI18nMap: Record<
   'user|email_read': {
     description: 'permission.actionDescription.userEmailRead',
   },
-  'base|query_data': {
-    description: 'permission.actionDescription.baseQuery',
-  },
-  'instance|read': {
-    description: 'permission.actionDescription.instanceRead',
-  },
-  'instance|update': {
-    description: 'permission.actionDescription.instanceUpdate',
-  },
-  'enterprise|read': {
-    description: 'permission.actionDescription.enterpriseRead',
-  },
-  'enterprise|update': {
-    description: 'permission.actionDescription.enterpriseUpdate',
+  'user|manage': {
+    description: 'permission.actionDescription.userManage',
   },
 };
 
 const actionPrefixI18nMap: Record<ActionPrefix, { title: TKey }> = {
-  [ActionPrefix.Base]: {
-    title: 'noun.base',
-  },
   [ActionPrefix.Table]: {
     title: 'noun.table',
   },
@@ -112,12 +67,6 @@ const actionPrefixI18nMap: Record<ActionPrefix, { title: TKey }> = {
   },
   [ActionPrefix.User]: {
     title: 'noun.user',
-  },
-  [ActionPrefix.Instance]: {
-    title: 'noun.instance',
-  },
-  [ActionPrefix.Enterprise]: {
-    title: 'noun.enterprise',
   },
 };
 
