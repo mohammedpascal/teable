@@ -1,12 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export enum Events {
-  BASE_CREATE = 'base.create',
-  BASE_DELETE = 'base.delete',
-  BASE_UPDATE = 'base.update',
-  BASE_PERMISSION_UPDATE = 'base.permission.update',
-  // BASE_CLONE = 'base.clone',
-  // BASE_MOVE = 'base.move',
-
   TABLE_CREATE = 'table.create',
   TABLE_DELETE = 'table.delete',
   TABLE_UPDATE = 'table.update',
@@ -37,10 +30,6 @@ export enum Events {
   OPERATION_PUSH = 'operation.push',
 
   TABLE_USER_RENAME_COMPLETE = 'table.user.rename.complete',
-
-  SHARED_VIEW_CREATE = 'shared.view.create',
-  SHARED_VIEW_DELETE = 'shared.view.delete',
-  SHARED_VIEW_UPDATE = 'shared.view.update',
 
   USER_SIGNIN = 'user.signin',
   USER_SIGNUP = 'user.signup',

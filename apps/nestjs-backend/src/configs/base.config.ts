@@ -4,7 +4,6 @@ import type { ConfigType } from '@nestjs/config';
 import { registerAs } from '@nestjs/config';
 
 export const baseConfig = registerAs('base', () => ({
-  isCloud: process.env.NEXT_BUILD_ENV_EDITION?.toUpperCase() === 'CLOUD',
   brandName: process.env.BRAND_NAME,
   publicOrigin: process.env.PUBLIC_ORIGIN,
   storagePrefix: process.env.STORAGE_PREFIX ?? process.env.PUBLIC_ORIGIN,
