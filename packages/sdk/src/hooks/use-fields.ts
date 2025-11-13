@@ -37,7 +37,7 @@ export function useFields(options: { withHidden?: boolean; withDenied?: boolean 
         ) {
           return columnMeta?.[id]?.visible;
         }
-        return !(columnMeta?.[id] as IColumnMeta)?.hidden;
+        return !(columnMeta?.[id] as unknown as IColumnMeta)?.hidden;
       };
       const hasPermission = () => {
         if (withDenied || hasTableRead) {
