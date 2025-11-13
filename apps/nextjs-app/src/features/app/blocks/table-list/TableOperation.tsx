@@ -74,9 +74,7 @@ export const TableOperation = (props: ITableOperationProps) => {
 
   const menuPermission = useMemo(() => {
     return {
-      deleteTable: permission?.['table|manage'] ?? false,
-      updateTable: permission?.['table|manage'] ?? false,
-      duplicateTable: permission?.['table|manage'] ?? false,
+      manageTable: permission?.['table|manage'] ?? false,
       exportTable: permission?.['table|export'] ?? false,
       importTable: permission?.['table|import'] ?? false,
     };
@@ -147,19 +145,21 @@ export const TableOperation = (props: ITableOperationProps) => {
           className="min-w-[160px]"
           onClick={(e) => e.stopPropagation()}
         >
-          <DropdownMenuItem asChild>
-            <Link
-              href={{
-                pathname: '/design',
-                query: { tableId: table.id },
-              }}
-              title={t('table:table.design')}
-            >
-              <Settings className="mr-2" />
-              {t('table:table.design')}
-            </Link>
-          </DropdownMenuItem>
-          {menuPermission.duplicateTable && (
+          {menuPermission.manageTable && (
+            <DropdownMenuItem asChild>
+              <Link
+                href={{
+                  pathname: '/design',
+                  query: { tableId: table.id },
+                }}
+                title={t('table:table.design')}
+              >
+                <Settings className="mr-2" />
+                {t('table:table.design')}
+              </Link>
+            </DropdownMenuItem>
+          )}
+          {menuPermission.manageTable && (
             <DropdownMenuItem onClick={() => setDuplicateSetting(true)}>
               <Copy className="mr-2" />
               {t('table:import.menu.duplicate')}
@@ -205,7 +205,7 @@ export const TableOperation = (props: ITableOperationProps) => {
               </DropdownMenuPortal>
             </DropdownMenuSub>
           )}
-          {menuPermission.deleteTable && (
+          {menuPermission.manageTable && (
             <DropdownMenuItem className="text-destructive" onClick={() => setDeleteConfirm(true)}>
               <Trash2 className="mr-2" />
               {t('common:actions.delete')}
