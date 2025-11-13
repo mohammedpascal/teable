@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { Emoji } from '../../components/emoji/Emoji';
 import { EmojiPicker } from '../../components/emoji/EmojiPicker';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 
 interface IProps {
   table: Table;
@@ -20,6 +21,7 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className }) 
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const viewId = router.query.viewId;
+  const permission = useHookPermission();
 
   const navigateHandler = () => {
     router.push(
@@ -69,7 +71,7 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className }) 
             <EmojiPicker
               className="flex size-5 items-center justify-center hover:bg-muted-foreground/60"
               onChange={(icon: string) => table.updateIcon(icon)}
-              disabled={!table.permission?.['table|manage']}
+              disabled={!permission['table|manage']}
             >
               {table.icon ? (
                 <Emoji emoji={table.icon} size={'1rem'} />
@@ -81,7 +83,7 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className }) 
           <p
             className="grow truncate"
             onDoubleClick={() => {
-              table.permission?.['table|manage'] && setIsEditing(true);
+              permission['table|manage'] && setIsEditing(true);
             }}
           >
             {' ' + table.name}

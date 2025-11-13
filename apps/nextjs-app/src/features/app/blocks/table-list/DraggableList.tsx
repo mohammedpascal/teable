@@ -1,4 +1,5 @@
 import { useTableId, useTables, useIsHydrated } from '@teable/sdk';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import {
   DndKitContext,
   Droppable,
@@ -15,6 +16,8 @@ export const DraggableList = () => {
   const tableId = useTableId();
 
   const isHydrated = useIsHydrated();
+
+  const permission = useHookPermission();
 
   const [innerTables, setInnerTables] = useState([...tables]);
 
@@ -47,7 +50,7 @@ export const DraggableList = () => {
     <DndKitContext onDragEnd={onDragEnd}>
       <Droppable items={innerTables.map(({ id }) => ({ id }))}>
         {innerTables.map((table) => (
-          <Draggable key={table.id} id={table.id} disabled={!table.permission?.['table|manage']}>
+          <Draggable key={table.id} id={table.id} disabled={!permission['table|manage']}>
             {({ setNodeRef, attributes, listeners, style, isDragging }) => (
               <div
                 ref={setNodeRef}
