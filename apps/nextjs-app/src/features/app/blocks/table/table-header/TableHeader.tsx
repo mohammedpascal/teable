@@ -18,6 +18,7 @@ import { ExpandViewList } from '../../view/list/ExpandViewList';
 import { ViewList } from '../../view/list/ViewList';
 
 import { AddView } from './AddView';
+import { OnlineUsers } from './OnlineUsers';
 import { TableInfo } from './TableInfo';
 
 const RightList = ({ className }: { className?: string }) => {
@@ -26,7 +27,8 @@ const RightList = ({ className }: { className?: string }) => {
 
   return (
     <div className={cn('flex', className)}>
-      <div className="flex">
+      <div className="flex items-center gap-2">
+        <OnlineUsers />
         <Button onClick={() => setOpen(true)} variant="ghost" size="xs" className={cn('flex')}>
           <MoreHorizontal className="size-4" />
         </Button>
