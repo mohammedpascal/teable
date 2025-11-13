@@ -10,6 +10,7 @@ export class SettingService {
     let setting = await this.prismaService.setting.findFirst({
       select: {
         instanceId: true,
+        instanceName: true,
         disallowSignUp: true,
         enableEmailVerification: true,
       },
@@ -23,6 +24,7 @@ export class SettingService {
         },
         select: {
           instanceId: true,
+          instanceName: true,
           disallowSignUp: true,
           enableEmailVerification: true,
         },

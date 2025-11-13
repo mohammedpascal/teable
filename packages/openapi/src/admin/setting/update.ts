@@ -4,6 +4,7 @@ import { axios } from '../../axios';
 import { registerRoute } from '../../utils';
 
 export const updateSettingRoSchema = z.object({
+  instanceName: z.string().optional(),
   disallowSignUp: z.boolean().optional(),
   enableEmailVerification: z.boolean().optional(),
 });

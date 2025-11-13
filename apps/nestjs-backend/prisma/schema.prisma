@@ -206,6 +206,7 @@ model Notification {
 
 model Setting {
   instanceId                String    @id @default(cuid()) @map("instance_id")
+  instanceName              String?   @map("instance_name")
   disallowSignUp            Boolean?  @map("disallow_sign_up")
   enableEmailVerification   Boolean?  @map("enable_email_verification")
 

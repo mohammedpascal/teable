@@ -5,6 +5,7 @@ import { registerRoute } from '../../utils';
 
 export const settingVoSchema = z.object({
   instanceId: z.string(),
+  instanceName: z.string().nullable(),
   disallowSignUp: z.boolean().nullable(),
   enableEmailVerification: z.boolean().nullable(),
 });

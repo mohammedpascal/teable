@@ -6,6 +6,7 @@ import { settingVoSchema } from './get';
 
 export const publicSettingVoSchema = settingVoSchema.pick({
   instanceId: true,
+  instanceName: true,
   disallowSignUp: true,
   enableEmailVerification: true,
 });

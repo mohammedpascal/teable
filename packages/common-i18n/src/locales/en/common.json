@@ -232,6 +232,8 @@
   "admin": {
     "setting": {
       "description": "Change the settings for your current instance",
+      "instanceName": "Instance Name",
+      "instanceNameDescription": "Set a custom name for this instance that will be displayed throughout the application.",
       "allowSignUp": "Allow creating new accounts",
       "allowSignUpDescription": "Disabling this option will prohibit new user registrations, and the register button will no longer appear on the login page.",
       "enableEmailVerification": "Enable email verification",
