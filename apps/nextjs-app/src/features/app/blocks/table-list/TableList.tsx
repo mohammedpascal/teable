@@ -1,7 +1,6 @@
 import { File, FileCsv, FileExcel } from '@teable/icons';
 import { SUPPORTEDTYPE } from '@teable/openapi';
 import { useConnection, useHookPermission } from '@teable/sdk';
-import { ConfirmDialog } from '@teable/ui-lib/base';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,11 +9,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@teable/ui-lib';
+import { ConfirmDialog } from '@teable/ui-lib/base';
 import AddBoldIcon from '@teable/ui-lib/icons/app/add-bold.svg';
-import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { Input, Label } from '@teable/ui-lib/shadcn';
+import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { useTranslation } from 'next-i18next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { GUIDE_CREATE_TABLE } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
 import { TableImport } from '../import-table';
@@ -39,6 +39,7 @@ export const TableList: React.FC = () => {
   const { t } = useTranslation(['table', ...tableConfig.i18nNamespaces]);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [fileType, setFileType] = useState<SUPPORTEDTYPE>(SUPPORTEDTYPE.CSV);
+  const inputRef = useRef<HTMLInputElement>(null);
   const importFile = (type: SUPPORTEDTYPE) => {
     setDialogVisible(true);
     setFileType(type);
@@ -50,6 +51,16 @@ export const TableList: React.FC = () => {
       setTableName(defaultTableName);
     }
   }, [dialogOpen, defaultTableName, setTableName]);
+
+  // Focus and select input text when dialog opens
+  useEffect(() => {
+    if (dialogOpen) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      });
+    }
+  }, [dialogOpen]);
 
   const handleCreateTable = async () => {
     await createTable(tableName);
@@ -114,7 +125,7 @@ export const TableList: React.FC = () => {
             setDialogOpen(open);
           }
         }}
-        title={t('table:operator.createBlank')}
+        title={t('table.newTableLabel')}
         cancelText={t('common:actions.cancel')}
         confirmText={t('common:actions.create')}
         confirmLoading={isCreating}
@@ -125,6 +136,7 @@ export const TableList: React.FC = () => {
                 {t('common:noun.table')} {t('common:name')}
               </Label>
               <Input
+                ref={inputRef}
                 value={tableName}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -135,7 +147,6 @@ export const TableList: React.FC = () => {
                     handleCreateTable();
                   }
                 }}
-                autoFocus
               />
             </div>
             {error && (
