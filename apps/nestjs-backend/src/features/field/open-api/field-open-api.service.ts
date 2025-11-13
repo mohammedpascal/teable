@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import {
   CellValueType,
   FieldKeyType,
@@ -29,6 +35,7 @@ import { FieldCalculationService } from '../../calculation/field-calculation.ser
 import type { IOpsMap } from '../../calculation/utils/compose-maps';
 import { GraphService } from '../../graph/graph.service';
 import { RecordService } from '../../record/record.service';
+import { hasActionPermission } from '../../role/role-permission.util';
 import { TableIndexService } from '../../table/table-index.service';
 import { ViewOpenApiService } from '../../view/open-api/view-open-api.service';
 import { ViewService } from '../../view/view.service';
@@ -48,6 +55,9 @@ import {
 @Injectable()
 export class FieldOpenApiService {
   private logger = new Logger(FieldOpenApiService.name);
+  private static readonly permissionDeniedMessage = 'Permission denied: table|manage required';
+  private static readonly tableManagePermission = 'table|manage' as const;
+
   constructor(
     private readonly graphService: GraphService,
     private readonly prismaService: PrismaService,
@@ -225,6 +235,18 @@ export class FieldOpenApiService {
 
   @Timing()
   async createField(tableId: string, fieldRo: IFieldRo, windowId?: string) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, FieldOpenApiService.tableManagePermission)) {
+      throw new ForbiddenException(FieldOpenApiService.permissionDeniedMessage);
+    }
+
     const fieldVo = await this.fieldSupplementService.prepareCreateField(tableId, fieldRo);
     const fieldInstance = createFieldInstanceByVo(fieldVo);
     const columnMeta = fieldRo.order && {
@@ -270,6 +292,18 @@ export class FieldOpenApiService {
 
   @Timing()
   async deleteFields(tableId: string, fieldIds: string[], windowId?: string) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, FieldOpenApiService.tableManagePermission)) {
+      throw new ForbiddenException(FieldOpenApiService.permissionDeniedMessage);
+    }
+
     const fieldRaws = await this.prismaService.field.findMany({
       where: { tableId, id: { in: fieldIds } },
     });
@@ -355,6 +389,18 @@ export class FieldOpenApiService {
   }
 
   async updateField(tableId: string, fieldId: string, updateFieldRo: IUpdateFieldRo) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, FieldOpenApiService.tableManagePermission)) {
+      throw new ForbiddenException(FieldOpenApiService.permissionDeniedMessage);
+    }
+
     const ops: IOtOperation[] = [];
     if (updateFieldRo.name) {
       const op = await this.updateUniqProperty(tableId, fieldId, 'name', updateFieldRo.name);
@@ -453,6 +499,18 @@ export class FieldOpenApiService {
     updateFieldRo: IConvertFieldRo,
     windowId?: string
   ): Promise<IFieldVo> {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, FieldOpenApiService.tableManagePermission)) {
+      throw new ForbiddenException(FieldOpenApiService.permissionDeniedMessage);
+    }
+
     // stage analysis and collect field changes
     const { newField, oldField, modifiedOps, supplementChange, references } =
       await this.fieldConvertingService.stageAnalysis(tableId, fieldId, updateFieldRo);

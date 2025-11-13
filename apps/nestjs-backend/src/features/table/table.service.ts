@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import type { IOtOperation, ISnapshotBase } from '@teable/core';
 import { generateTableId, getUniqName, IdPrefix, nullsToUndefined } from '@teable/core';
 import type { ICreateTableRo, ITableVo } from '@teable/openapi';
@@ -15,6 +15,7 @@ import type { IClsStore } from '../../types/cls';
 import { convertNameToValidCharacter } from '../../utils/name-conversion';
 import { Timing } from '../../utils/timing';
 import { BatchService } from '../calculation/batch.service';
+import { hasActionPermission } from '../role/role-permission.util';
 
 @Injectable()
 export class TableService implements IReadonlyAdapterService {
@@ -222,6 +223,18 @@ export class TableService implements IReadonlyAdapterService {
   }
 
   async createTable(snapshot: ICreateTableRo, createTable: boolean = true): Promise<ITableVo> {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, 'table|manage')) {
+      throw new ForbiddenException('Permission denied: table|manage required');
+    }
+
     const tableVo = await this.createDBTable(snapshot, createTable);
     await this.batchService.saveRawOps('bse0', RawOpType.Create, IdPrefix.Table, [
       {
@@ -237,6 +250,18 @@ export class TableService implements IReadonlyAdapterService {
   }
 
   async deleteTable(tableId: string) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, 'table|manage')) {
+      throw new ForbiddenException('Permission denied: table|manage required');
+    }
+
     const result = await this.prismaService.txClient().tableMeta.findFirst({
       where: { id: tableId },
       select: { version: true, dbTableName: true },

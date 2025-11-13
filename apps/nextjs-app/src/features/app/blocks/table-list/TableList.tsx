@@ -125,7 +125,6 @@ export const TableList: React.FC = () => {
             setDialogOpen(open);
           }
         }}
-        title={t('table.newTableLabel')}
         cancelText={t('common:actions.cancel')}
         confirmText={t('common:actions.create')}
         confirmLoading={isCreating}

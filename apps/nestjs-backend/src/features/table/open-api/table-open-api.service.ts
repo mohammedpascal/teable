@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import type {
   IFieldRo,
   IFieldVo,
@@ -157,6 +163,18 @@ export class TableOpenApiService {
   }
 
   async createTable(tableRo: ICreateTableWithDefault): Promise<ITableFullVo> {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, 'table|manage')) {
+      throw new ForbiddenException('Permission denied: table|manage required');
+    }
+
     const schema = await this.prismaService.$tx(async () => {
       const tableVo = await this.createTableMeta(tableRo);
       const tableId = tableVo.id;
@@ -196,6 +214,18 @@ export class TableOpenApiService {
   }
 
   async duplicateTable(tableId: string, tableRo: IDuplicateTableRo) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, 'table|manage')) {
+      throw new ForbiddenException('Permission denied: table|manage required');
+    }
+
     return await this.tableDuplicateService.duplicateTable(tableId, tableRo);
   }
 
@@ -359,6 +389,18 @@ export class TableOpenApiService {
   }
 
   async deleteTable(tableId: string) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, 'table|manage')) {
+      throw new ForbiddenException('Permission denied: table|manage required');
+    }
+
     try {
       await this.detachLink(tableId);
     } catch (e) {
@@ -397,6 +439,18 @@ export class TableOpenApiService {
   }
 
   async updateName(tableId: string, name: string) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, 'table|manage')) {
+      throw new ForbiddenException('Permission denied: table|manage required');
+    }
+
     await this.prismaService.$tx(async () => {
       await this.tableService.updateTable(tableId, { name });
     });
@@ -409,6 +463,18 @@ export class TableOpenApiService {
   }
 
   async updateDbTableName(tableId: string, dbTableNameRo: string) {
+    // Get current user from CLS
+    const userId = this.cls.get('user.id');
+    const user = await this.prismaService.txClient().user.findUnique({
+      where: { id: userId },
+      include: { role: true },
+    });
+
+    // Check if user has table|manage permission
+    if (!hasActionPermission(user, 'table|manage')) {
+      throw new ForbiddenException('Permission denied: table|manage required');
+    }
+
     const dbTableName = this.dbProvider.joinDbTableName('bse0', dbTableNameRo);
     const existDbTableName = await this.prismaService.tableMeta
       .findFirst({
