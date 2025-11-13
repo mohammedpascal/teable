@@ -20,18 +20,14 @@ export class NextController {
     '404/*',
     '403/?*',
     '402/?*',
-    'space/?*',
     'auth/?*',
-    'base/?*',
     'table/?*',
     'invite/?*',
-    'share/?*',
     'setting/?*',
     'admin/?*',
     'oauth/?*',
     'developer/?*',
     'public/?*',
-    'enterprise/?*',
   ])
   public async home(@Req() req: express.Request, @Res() res: express.Response) {
     await this.nextService.server.getRequestHandler()(req, res);
