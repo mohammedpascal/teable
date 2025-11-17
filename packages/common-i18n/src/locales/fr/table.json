@@ -507,3 +507,12 @@
   },
   "lastModifiedTime": "Dernière modification",
   "lastModify": "Dernière modification : ",
+  "addPlugin": "Ajouter un plugin",
+  "pluginContextMenu": {
+    "mangeButton": "Gérer les plugins",
+    "manage": "Gérer vos plugins de menu contextuel",
+    "noPlugin": "Aucun plugin de menu contextuel",
+    "delete": "Supprimer",
+    "deleteDescription": "Êtes-vous sûr de vouloir supprimer ce plugin ?"
+  }
+}

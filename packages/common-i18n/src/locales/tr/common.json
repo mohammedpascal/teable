@@ -242,14 +242,6 @@
       "viewer": "Düzenleyemez veya yorum yapamaz"
     }
   },
-    "type": "Tür",
-    "resetTrash": "Çöp kutusunu boşalt",
-    "deletedBy": "Silen",
-    "deletedTime": "Silinme zamanı",
-    "fromSpace": "\"{{name}}\" alanından",
-    "permanentDeleteTips": "\"{{name}}\" {{resource}} öğesini kalıcı olarak silmek istediğinizden emin misiniz?",
-    "resetTrashConfirm": "Çöp kutusunu boşaltmak istediğinizden emin misiniz?"
-  },
   "pluginCenter": {
     "pluginUrlEmpty": "Eklenti URL'si Ayarlanmamış",
     "install": "Yükle",
@@ -259,5 +251,14 @@
     "pluginEmpty": {
       "title": "Henüz Eklenti Yok"
     }
+  },
+  "trash": {
+    "type": "Tür",
+    "resetTrash": "Çöp kutusunu boşalt",
+    "deletedBy": "Silen",
+    "deletedTime": "Silinme zamanı",
+    "fromSpace": "\"{{name}}\" alanından",
+    "permanentDeleteTips": "\"{{name}}\" {{resource}} öğesini kalıcı olarak silmek istediğinizden emin misiniz?",
+    "resetTrashConfirm": "Çöp kutusunu boşaltmak istediğinizden emin misiniz?"
   }
 }

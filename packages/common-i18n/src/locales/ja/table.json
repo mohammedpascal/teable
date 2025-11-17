@@ -504,5 +504,18 @@
       "tip": "このビューはロックされています。個人モードを有効にしてビューオプションを編集し、変更は自分にのみ適用されます。"
     }
   },
+  "plugin": {
+    "recent": "最近",
+    "more": "もっと見る..."
+  },
   "lastModifiedTime": "最終更新日時",
   "lastModify": "最終更新: ",
+  "addPlugin": "プラグインを追加",
+  "pluginContextMenu": {
+    "mangeButton": "プラグインを管理",
+    "manage": "コンテキストメニュープラグインを管理",
+    "noPlugin": "コンテキストメニュープラグインがありません",
+    "delete": "削除",
+    "deleteDescription": "このプラグインを削除してもよろしいですか？"
+  }
+}

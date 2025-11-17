@@ -8,5 +8,5 @@
   "forbidden": {
     "title": "403 - Forbidden",
     "description": "このページにアクセスする権限がありません。"
-  },
+  }
 }

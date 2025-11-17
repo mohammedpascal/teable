@@ -530,4 +530,5 @@
   "pasteNewRecords": {
     "title": "Möchten Sie mehrere Datensätze hinzufügen?",
     "description": "Die {{count}} Datensätze werden der Tabelle hinzugefügt."
-  },
+  }
+}

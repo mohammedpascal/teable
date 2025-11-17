@@ -129,7 +129,7 @@
     "dashboard": "Tableau de bord",
     "adminPanel": "Panneau d'administration",
     "instanceId": "ID d'instance",
-    "beta": "Bêta",
+    "beta": "Bêta"
   },
   "level": {
     "free": "Gratuit",
@@ -255,6 +255,33 @@
     "new": "nouveau {{count}}",
     "showMore": "Voir plus"
   },
+  "role": {
+    "title": {
+      "owner": "Propriétaire",
+      "creator": "Créateur",
+      "editor": "Éditeur",
+      "commenter": "Commentateur",
+      "viewer": "Observateur"
+    },
+    "description": {
+      "owner": "Peut configurer et modifier complètement les bases et gérer les paramètres et la facturation des bases",
+      "creator": "Peut configurer et modifier complètement les bases",
+      "editor": "Peut modifier les enregistrements et les vues, mais ne peut pas configurer les tableaux ou les champs",
+      "commenter": "Peut commenter les enregistrements",
+      "viewer": "Ne peut pas modifier ou commenter"
+    }
+  },
+  "pluginCenter": {
+    "pluginUrlEmpty": "Plugin URL non configuré",
+    "install": "Installer",
+    "publisher": "Éditeur",
+    "lastUpdated": "Dernière mise à jour",
+    "pluginNotFound": "Plugin introuvable",
+    "pluginEmpty": {
+      "title": "Aucun plugin pour le moment"
+    }
+  },
+  "trash": {
     "type": "Type",
     "resetTrash": "Vider",
     "deletedBy": "Supprimé par",

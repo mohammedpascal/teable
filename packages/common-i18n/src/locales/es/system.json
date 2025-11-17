@@ -8,5 +8,5 @@
   "forbidden": {
     "title": "403 - Acceso Denegado",
     "description": "No tienes permiso para acceder a esta página."
-  },
+  }
 }

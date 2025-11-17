@@ -1,177 +1,179 @@
 {
   "common": {
-    "comingSoon": "Скоро будет"
-    "empty": "Пусто"
-    "noRecords": "Нет доступных записей"
-    "unnamedRecord": "Безымянная запись"
-    "untitled": "Без названия"
-    "cancel": "Отмена"
-    "confirm": "Подтвердить"
-    "back": "Назад"
-    "done": "Готово"
-    "create": "Создать"
+    "comingSoon": "Скоро будет",
+    "empty": "Пусто",
+    "noRecords": "Нет доступных записей",
+    "unnamedRecord": "Безымянная запись",
+    "untitled": "Без названия",
+    "cancel": "Отмена",
+    "confirm": "Подтвердить",
+    "back": "Назад",
+    "done": "Готово",
+    "create": "Создать",
     "search": {
-      "placeholder": "Поиск..."
+      "placeholder": "Поиск...",
       "empty": "Результаты не найдены"
-    }
-    "selectPlaceHolder": "Выберите..."
-    "loading": "Загрузка..."
-    "loadMore": "Загрузить больше"
-    "uploadFailed": "Загрузка не удалась"
-    "rowCount": "{{count}} записей"
-    "summary": "Итог"
-    "summaryTip": "Наведите, чтобы выбрать сводку"
+    },
+    "selectPlaceHolder": "Выберите...",
+    "loading": "Загрузка...",
+    "loadMore": "Загрузить больше",
+    "uploadFailed": "Загрузка не удалась",
+    "rowCount": "{{count}} записей",
+    "summary": "Итог",
+    "summaryTip": "Наведите, чтобы выбрать сводку",
     "actions": "Действия"
-  }
+  },
   "preview": {
-    "previewFileLimit": "Лимит размера файла для предварительного просмотра: {{size}} МБ, пожалуйста, скачайте файл для просмотра."
+    "previewFileLimit": "Лимит размера файла для предварительного просмотра: {{size}} МБ, пожалуйста, скачайте файл для просмотра.",
     "loadFileError": "Не удалось загрузить файл"
-  }
+  },
   "editor": {
     "attachment": {
-      "uploadDragOver": "Отпустите, чтобы загрузить файл"
+      "uploadDragOver": "Отпустите, чтобы загрузить файл",
       "uploadDragDefault": "Вставьте или перетащите файл для загрузки сюда"
-    }
+    },
     "date": {
-      "placeholder": "Выберите дату"
+      "placeholder": "Выберите дату",
       "today": "Сегодня"
-    }
+    },
     "formula": {
-      "title": "Редактор формул"
-      "guideSyntax": "Синтаксис"
-      "guideExample": "Пример"
-      "helperExample": "Пример: "
-      "fieldValue": "Возвращает значение для поля {{fieldName}}."
-      "placeholder": "Введите формулу"
+      "title": "Редактор формул",
+      "guideSyntax": "Синтаксис",
+      "guideExample": "Пример",
+      "helperExample": "Пример: ",
+      "fieldValue": "Возвращает значение для поля {{fieldName}}.",
+      "placeholder": "Введите формулу",
       "placeholderForAI": "Введите формулу или введите // для генерации с помощью AI"
-    }
+    },
     "link": {
-      "placeholder": "Выберите записи для ссылки"
-      "searchPlaceholder": "Поиск записей"
-      "create": "Добавить запись"
-      "selectRecord": "Выбрать запись"
-      "unselected": "Не выбрано"
-      "selected": "Выбрано"
-      "expandRecordError": "Нет доступа для просмотра этой записи."
+      "placeholder": "Выберите записи для ссылки",
+      "searchPlaceholder": "Поиск записей",
+      "create": "Добавить запись",
+      "selectRecord": "Выбрать запись",
+      "unselected": "Не выбрано",
+      "selected": "Выбрано",
+      "expandRecordError": "Нет доступа для просмотра этой записи.",
       "goToForeignTable": "Перейти к связанной таблице"
-    }
+    },
     "user": {
-      "searchPlaceholder": "Найдите пользователей по имени"
+      "searchPlaceholder": "Найдите пользователей по имени",
       "notify": "Уведомить пользователей, когда они будут выбраны"
-    }
+    },
     "select": {
       "addOption": "Добавить вариант '{{option}}'"
     }
-  }
+  },
   "filter": {
-    "label": "Фильтр"
-    "displayLabel": "Фильтр по "
-    "displayLabel_other": "Фильтр по {{fieldName}} и {{count}} другим полям"
-    "addCondition": "Добавить условие"
-    "addConditionGroup": "Добавить группу условий"
-    "nestedLimitTip": "Условия фильтра могут быть вложены не более чем на {{depth}} уровней"
-    "linkInputPlaceholder": "Введите значение"
-    "groupDescription": "Любое из следующих условий верно…"
-    "currentUser": "Я (текущий пользователь)"
+    "label": "Фильтр",
+    "displayLabel": "Фильтр по ",
+    "displayLabel_other": "Фильтр по {{fieldName}} и {{count}} другим полям",
+    "addCondition": "Добавить условие",
+    "addConditionGroup": "Добавить группу условий",
+    "nestedLimitTip": "Условия фильтра могут быть вложены не более чем на {{depth}} уровней",
+    "linkInputPlaceholder": "Введите значение",
+    "groupDescription": "Любое из следующих условий верно…",
+    "currentUser": "Я (текущий пользователь)",
     "tips": {
       "scope": "В этом виде показывать записи"
-    }
-    "invalidateSelected": "Неверное значение"
-    "invalidateSelectedTips": "Выбранное значение было удалено, выберите другое"
+    },
+    "invalidateSelected": "Неверное значение",
+    "invalidateSelectedTips": "Выбранное значение было удалено, выберите другое",
     "default": {
-      "empty": "Фильтры не применены"
+      "empty": "Фильтры не применены",
       "placeholder": "Введите значение"
-    }
+    },
     "conjunction": {
-      "and": "и"
-      "or": "или"
+      "and": "и",
+      "or": "или",
       "where": "где"
-    }
+    },
     "operator": {
-      "is": "является"
-      "isNot": "не является"
-      "contains": "содержит"
-      "doesNotContain": "не содержит"
-      "isEmpty": "пусто"
-      "isNotEmpty": "не пусто"
-      "isGreater": "больше чем"
-      "isGreaterEqual": "больше или равно"
-      "isLess": "меньше чем"
-      "isLessEqual": "меньше или равно"
-      "isAnyOf": "является любым из"
-      "isNoneOf": "не является ни одним из"
-      "hasAnyOf": "имеет любой из"
-      "hasAllOf": "имеет все из"
-      "hasNoneOf": "не имеет ни одного из"
-      "isExactly": "точно"
-      "isWithIn": "в пределах"
-      "isBefore": "до"
-      "isAfter": "после"
-      "isOnOrBefore": "на или до"
-      "isOnOrAfter": "на или после"
+      "is": "является",
+      "isNot": "не является",
+      "contains": "содержит",
+      "doesNotContain": "не содержит",
+      "isEmpty": "пусто",
+      "isNotEmpty": "не пусто",
+      "isGreater": "больше чем",
+      "isGreaterEqual": "больше или равно",
+      "isLess": "меньше чем",
+      "isLessEqual": "меньше или равно",
+      "isAnyOf": "является любым из",
+      "isNoneOf": "не является ни одним из",
+      "hasAnyOf": "имеет любой из",
+      "hasAllOf": "имеет все из",
+      "hasNoneOf": "не имеет ни одного из",
+      "isExactly": "точно",
+      "isWithIn": "в пределах",
+      "isBefore": "до",
+      "isAfter": "после",
+      "isOnOrBefore": "на или до",
+      "isOnOrAfter": "на или после",
       "number": {
-        "is": "="
-        "isNot": "≠"
-        "isGreater": ">"
-        "isGreaterEqual": "≥"
-        "isLess": "<"
+        "is": "=",
+        "isNot": "≠",
+        "isGreater": ">",
+        "isGreaterEqual": "≥",
+        "isLess": "<",
         "isLessEqual": "≤"
       }
-    }
+    },
     "component": {
       "date": {
-        "today": "сегодня"
-        "tomorrow": "завтра"
-        "yesterday": "вчера"
-        "oneWeekAgo": "неделю назад"
-        "oneWeekFromNow": "через неделю"
-        "oneMonthAgo": "месяц назад"
-        "oneMonthFromNow": "через месяц"
-        "daysAgo": "дней назад"
-        "daysFromNow": "дней вперед"
-        "exactDate": "точная дата"
-        "pastWeek": "прошлая неделя"
-        "pastMonth": "прошлый месяц"
-        "pastYear": "прошлый год"
-        "nextWeek": "следующая неделя"
-        "nextMonth": "следующий месяц"
-        "nextYear": "следующий год"
-        "pastNumberOfDays": "прошлое количество дней"
+        "today": "сегодня",
+        "tomorrow": "завтра",
+        "yesterday": "вчера",
+        "oneWeekAgo": "неделю назад",
+        "oneWeekFromNow": "через неделю",
+        "oneMonthAgo": "месяц назад",
+        "oneMonthFromNow": "через месяц",
+        "daysAgo": "дней назад",
+        "daysFromNow": "дней вперед",
+        "exactDate": "точная дата",
+        "pastWeek": "прошлая неделя",
+        "pastMonth": "прошлый месяц",
+        "pastYear": "прошлый год",
+        "nextWeek": "следующая неделя",
+        "nextMonth": "следующий месяц",
+        "nextYear": "следующий год",
+        "pastNumberOfDays": "прошлое количество дней",
         "nextNumberOfDays": "следующее количество дней"
       }
     }
-  }
+  },
   "color": {
     "label": "Цвет"
-  }
+  },
   "rowHeight": {
-    "short": "низкий"
-    "medium": "средний"
-    "tall": "высокий"
+    "short": "низкий",
+    "medium": "средний",
+    "tall": "высокий",
     "extraTall": "очень высокий"
-  }
+  },
   "share": {
     "title": "Поделиться"
-  }
+  },
   "extensions": {
     "title": "Расширения"
-  }
+  },
   "hidden": {
-    "label": "Скрытые поля"
-    "configLabel_one": "{{count}} скрытое поле"
-    "configLabel_other": "{{count}} скрытых поля"
-    "configLabel_other_visible": "{{count}} видимых поля"
-    "showAll": "Показать все"
-    "hideAll": "Скрыть все"
+    "label": "Скрытые поля",
+    "configLabel_one": "{{count}} скрытое поле",
+    "configLabel_other": "{{count}} скрытых поля",
+    "configLabel_other_visible": "{{count}} видимых поля",
+    "showAll": "Показать все",
+    "hideAll": "Скрыть все",
     "primaryKey": "Основное поле: Идентифицирует записи\nнельзя скрыть или удалить, видно в связанных записях."
-  }
+  },
   "permission": {
     "actionDescription": {
       "tableManage": "Управлять таблицей",
       "userManage": "Управлять пользователем"
     }
-  }
+  },
   "expandRecord": {
-    "copy": "Копировать в буфер обмена"
-    "copyRecordUrl": "Копировать URL записи"
+    "copy": "Копировать в буфер обмена",
+    "copyRecordUrl": "Копировать URL записи",
     "deleteRecord": "Удалить запись"
+  }
+}

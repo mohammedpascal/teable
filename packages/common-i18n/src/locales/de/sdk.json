@@ -1,190 +1,192 @@
 {
   "common": {
-    "comingSoon": "Demnächst verfügbar"
-    "empty": "Leer"
-    "noRecords": "Keine Datensätze verfügbar"
-    "unnamedRecord": "Unbenannter Datensatz"
-    "untitled": "Unbenannt"
-    "cancel": "Abbrechen"
-    "confirm": "Bstätigen"
-    "back": "Zurück"
-    "done": "Erledigt"
-    "create": "Erstellen"
+    "comingSoon": "Demnächst verfügbar",
+    "empty": "Leer",
+    "noRecords": "Keine Datensätze verfügbar",
+    "unnamedRecord": "Unbenannter Datensatz",
+    "untitled": "Unbenannt",
+    "cancel": "Abbrechen",
+    "confirm": "Bstätigen",
+    "back": "Zurück",
+    "done": "Erledigt",
+    "create": "Erstellen",
     "search": {
-      "placeholder": "Suchen..."
+      "placeholder": "Suchen...",
       "empty": "Keine Resultate gefunden"
-    }
-    "selectPlaceHolder": "Auswählen..."
-    "loading": "Lade..."
-    "loadMore": "Mehr laden"
-    "uploadFailed": "Hochladen fehlgeschlagen"
-    "rowCount": "{{count}} Datensätze"
-    "summary": "Zusammnfassung"
-    "summaryTip": "Hovern, um Zusammenfassung auszuwählen"
-    "actions": "Aktionen"
+    },
+    "selectPlaceHolder": "Auswählen...",
+    "loading": "Lade...",
+    "loadMore": "Mehr laden",
+    "uploadFailed": "Hochladen fehlgeschlagen",
+    "rowCount": "{{count}} Datensätze",
+    "summary": "Zusammnfassung",
+    "summaryTip": "Hovern, um Zusammenfassung auszuwählen",
+    "actions": "Aktionen",
     "remove": "Entfernen"
-  }
+  },
   "preview": {
-    "previewFileLimit": "Größenbeschränkung der Vorschaudatei: {{size}}MB, bitte laden Sie die Datei herunter, um sie anzusehen."
+    "previewFileLimit": "Größenbeschränkung der Vorschaudatei: {{size}}MB, bitte laden Sie die Datei herunter, um sie anzusehen.",
     "loadFileError": "Datei konnte nicht geladen werden"
-  }
+  },
   "editor": {
     "attachment": {
-      "uploadDragOver": "Freigabe zum Hochladen der Datei"
-      "uploadDragDefault": "Einfügen oder Ziehen und Ablegen zum Hochladen"
+      "uploadDragOver": "Freigabe zum Hochladen der Datei",
+      "uploadDragDefault": "Einfügen oder Ziehen und Ablegen zum Hochladen",
       "upload": "Hochladen"
-    }
+    },
     "date": {
-      "placeholder": "Datum auswählen"
+      "placeholder": "Datum auswählen",
       "today": "Heute"
-    }
+    },
     "formula": {
-      "title": "Formeleditor"
-      "guideSyntax": "Syntax"
-      "guideExample": "Beispiel"
-      "helperExample": "Beispiel: "
-      "fieldValue": "Gibt den Wert in den Zellen des Feldes {{fieldName}} zurück."
-      "placeholder": "Einen Ausdruck eingeben"
+      "title": "Formeleditor",
+      "guideSyntax": "Syntax",
+      "guideExample": "Beispiel",
+      "helperExample": "Beispiel: ",
+      "fieldValue": "Gibt den Wert in den Zellen des Feldes {{fieldName}} zurück.",
+      "placeholder": "Einen Ausdruck eingeben",
       "placeholderForAI": "Geben Sie einen Ausdruck ein oder drücken Sie //, um mit AI zu generieren"
-    }
+    },
     "link": {
-      "placeholder": "Zu verknüpfende Datensätze auswählen"
-      "searchPlaceholder": "Datensätze durchsuchen"
-      "create": "Datensatz hinzufügen"
-      "selectRecord": "Datensatz auswählen"
-      "unselected": "Unausgewählt"
-      "selected": "Ausgewählt"
-      "expandRecordError": "Keine Erlaubnis, diesen Datensatz einzusehen."
-      "alreadyOpen": "Dieser Datensatz ist bereits geöffnet."
+      "placeholder": "Zu verknüpfende Datensätze auswählen",
+      "searchPlaceholder": "Datensätze durchsuchen",
+      "create": "Datensatz hinzufügen",
+      "selectRecord": "Datensatz auswählen",
+      "unselected": "Unausgewählt",
+      "selected": "Ausgewählt",
+      "expandRecordError": "Keine Erlaubnis, diesen Datensatz einzusehen.",
+      "alreadyOpen": "Dieser Datensatz ist bereits geöffnet.",
       "goToForeignTable": "Gehe zu fremder Tabelle"
-    }
+    },
     "user": {
-      "searchPlaceholder": "Benutzer nach Namen suchen"
+      "searchPlaceholder": "Benutzer nach Namen suchen",
       "notify": "Benutzer benachrichtigen, sobald sie ausgewählt wurden"
-    }
+    },
     "select": {
       "addOption": "Option '{{option}}' hinzufügen"
     }
-  }
+  },
   "filter": {
-    "label": "Filter"
-    "displayLabel": "Filtern nach "
-    "displayLabel_other": "Filtern nach {{fieldName}} und {{count}} anderen Feldern"
-    "addCondition": "Bedingung hinzufügen"
-    "addConditionGroup": "Bedingungsgruppe hinzufügen"
-    "nestedLimitTip": "Filterbedingungen können nur {{depth}} Ebenen tief verschachtelt werden"
-    "linkInputPlaceholder": "Wert eingeben"
-    "groupDescription": "Jede der folgenden Aussagen ist wahr..."
-    "currentUser": "Ich (aktueller Benutzer)"
+    "label": "Filter",
+    "displayLabel": "Filtern nach ",
+    "displayLabel_other": "Filtern nach {{fieldName}} und {{count}} anderen Feldern",
+    "addCondition": "Bedingung hinzufügen",
+    "addConditionGroup": "Bedingungsgruppe hinzufügen",
+    "nestedLimitTip": "Filterbedingungen können nur {{depth}} Ebenen tief verschachtelt werden",
+    "linkInputPlaceholder": "Wert eingeben",
+    "groupDescription": "Jede der folgenden Aussagen ist wahr...",
+    "currentUser": "Ich (aktueller Benutzer)",
     "tips": {
       "scope": "In dieser Ansicht, Datensätze anzeigen"
-    }
-    "invalidateSelected": "Unzulässiger Wert"
-    "invalidateSelectedTips": "Der ausgewählte Wert wurde gelöscht, bitte wählen Sie erneut"
+    },
+    "invalidateSelected": "Unzulässiger Wert",
+    "invalidateSelectedTips": "Der ausgewählte Wert wurde gelöscht, bitte wählen Sie erneut",
     "default": {
-      "empty": "Es werden keine Filterbedingungen angewendet"
+      "empty": "Es werden keine Filterbedingungen angewendet",
       "placeholder": "Einen Wert eingeben"
-    }
+    },
     "conjunction": {
-      "and": "und"
-      "or": "oder"
+      "and": "und",
+      "or": "oder",
       "where": "wo"
-    }
+    },
     "operator": {
-      "is": "ist"
-      "isNot": "ist nicht"
-      "contains": "enthält"
-      "doesNotContain": "enthält nicht"
-      "isEmpty": "ist leer"
-      "isNotEmpty": "ist nicht leer"
-      "isGreater": "ist größer als"
-      "isGreaterEqual": "ist größergleich"
-      "isLess": "ist kleiner als"
-      "isLessEqual": "ist kleinergleich"
-      "isAnyOf": "ist eine von"
-      "isNoneOf": "ist nicht eine von"
-      "hasAnyOf": "hat eine von"
-      "hasAllOf": "hat all von"
-      "hasNoneOf": "hat keine von"
-      "isExactly": "ist genau"
-      "isWithIn": "ist enthalten in"
-      "isBefore": "ist vor"
-      "isAfter": "ist nach"
-      "isOnOrBefore": "ist am oder vor"
-      "isOnOrAfter": "ist am oder nach"
+      "is": "ist",
+      "isNot": "ist nicht",
+      "contains": "enthält",
+      "doesNotContain": "enthält nicht",
+      "isEmpty": "ist leer",
+      "isNotEmpty": "ist nicht leer",
+      "isGreater": "ist größer als",
+      "isGreaterEqual": "ist größergleich",
+      "isLess": "ist kleiner als",
+      "isLessEqual": "ist kleinergleich",
+      "isAnyOf": "ist eine von",
+      "isNoneOf": "ist nicht eine von",
+      "hasAnyOf": "hat eine von",
+      "hasAllOf": "hat all von",
+      "hasNoneOf": "hat keine von",
+      "isExactly": "ist genau",
+      "isWithIn": "ist enthalten in",
+      "isBefore": "ist vor",
+      "isAfter": "ist nach",
+      "isOnOrBefore": "ist am oder vor",
+      "isOnOrAfter": "ist am oder nach",
       "number": {
-        "is": "="
-        "isNot": "≠"
-        "isGreater": ">"
-        "isGreaterEqual": "≥"
-        "isLess": "<"
+        "is": "=",
+        "isNot": "≠",
+        "isGreater": ">",
+        "isGreaterEqual": "≥",
+        "isLess": "<",
         "isLessEqual": "≤"
       }
-    }
+    },
     "component": {
       "date": {
-        "today": "heute"
-        "tomorrow": "morgen"
-        "yesterday": "gestern"
-        "oneWeekAgo": "vor einer Woche"
-        "oneWeekFromNow": "in einer Woche ab jetzt"
-        "oneMonthAgo": "vor einem Monat"
-        "oneMonthFromNow": "in einem Monat ab jetzt"
-        "daysAgo": "Tage her"
-        "daysFromNow": "Tage ab jetzt"
-        "exactDate": "exaktes Datum"
-        "currentWeek": "Aktuelle Woche"
-        "currentMonth": "Aktueller Monat"
-        "currentYear": "Aktuelles Jahr"
-        "lastWeek": "Letzte Woche"
-        "lastMonth": "Letzter Monat"
-        "lastYear": "Letztes Jahr"
-        "nextWeekPeriod": "Nächste Woche"
-        "nextMonthPeriod": "Nächster Monat"
-        "nextYearPeriod": "Nächstes Jahr"
-        "pastWeek": "letze Woche"
-        "pastMonth": "letzer Monat"
-        "pastYear": "letzes Jahr"
-        "nextWeek": "nächste Woche"
-        "nextMonth": "nächster Monat"
-        "nextYear": "nächstes Jahr"
-        "pastNumberOfDays": "letzte Anzahl an Tagen"
+        "today": "heute",
+        "tomorrow": "morgen",
+        "yesterday": "gestern",
+        "oneWeekAgo": "vor einer Woche",
+        "oneWeekFromNow": "in einer Woche ab jetzt",
+        "oneMonthAgo": "vor einem Monat",
+        "oneMonthFromNow": "in einem Monat ab jetzt",
+        "daysAgo": "Tage her",
+        "daysFromNow": "Tage ab jetzt",
+        "exactDate": "exaktes Datum",
+        "currentWeek": "Aktuelle Woche",
+        "currentMonth": "Aktueller Monat",
+        "currentYear": "Aktuelles Jahr",
+        "lastWeek": "Letzte Woche",
+        "lastMonth": "Letzter Monat",
+        "lastYear": "Letztes Jahr",
+        "nextWeekPeriod": "Nächste Woche",
+        "nextMonthPeriod": "Nächster Monat",
+        "nextYearPeriod": "Nächstes Jahr",
+        "pastWeek": "letze Woche",
+        "pastMonth": "letzer Monat",
+        "pastYear": "letzes Jahr",
+        "nextWeek": "nächste Woche",
+        "nextMonth": "nächster Monat",
+        "nextYear": "nächstes Jahr",
+        "pastNumberOfDays": "letzte Anzahl an Tagen",
         "nextNumberOfDays": "nächste Anzahl an Tagen"
       }
     }
-  }
+  },
   "color": {
     "label": "Farbe"
-  }
+  },
   "rowHeight": {
-    "short": "kurz"
-    "medium": "mittel"
-    "tall": "groß"
+    "short": "kurz",
+    "medium": "mittel",
+    "tall": "groß",
     "extraTall": "extra groß"
-  }
+  },
   "share": {
     "title": "teilen"
-  }
+  },
   "extensions": {
     "title": "Erweiterungen"
-  }
+  },
   "hidden": {
-    "label": "Versteckte Felder"
-    "configLabel_one": "{{count}} verstecktes Felde"
-    "configLabel_other": "{{count}} versteckte Felder"
-    "configLabel_other_visible": "{{count}} sichtbare Felder"
-    "showAll": "Alle zeigen"
-    "hideAll": "Alle verstecken"
+    "label": "Versteckte Felder",
+    "configLabel_one": "{{count}} verstecktes Felde",
+    "configLabel_other": "{{count}} versteckte Felder",
+    "configLabel_other_visible": "{{count}} sichtbare Felder",
+    "showAll": "Alle zeigen",
+    "hideAll": "Alle verstecken",
     "primaryKey": "Primäres Feld: Identifiziert Datensätze\nKann nicht ausgeblendet oder gelöscht werden, sichtbar in verknüpften Datensätzen."
-  }
+  },
   "permission": {
     "actionDescription": {
       "tableManage": "Tabelle verwalten",
       "userManage": "Benutzer verwalten"
     }
-  }
+  },
   "expandRecord": {
-    "copy": "In die Zwischenablage kopieren"
-    "duplicateRecord": "Datensatz duplizieren"
-    "copyRecordUrl": "Datensatz URL kopieren"
+    "copy": "In die Zwischenablage kopieren",
+    "duplicateRecord": "Datensatz duplizieren",
+    "copyRecordUrl": "Datensatz URL kopieren",
     "deleteRecord": "Datensatz löschen"
+  }
+}

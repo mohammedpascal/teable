@@ -1,190 +1,192 @@
 {
   "common": {
-    "comingSoon": "Prossimamente"
-    "empty": "Vuoto"
-    "noRecords": "Nessun record disponibile"
-    "unnamedRecord": "Record senza nome"
-    "untitled": "Senza titolo"
-    "cancel": "Annulla"
-    "confirm": "Conferma"
-    "back": "Indietro"
-    "done": "Fatto"
-    "create": "Crea"
+    "comingSoon": "Prossimamente",
+    "empty": "Vuoto",
+    "noRecords": "Nessun record disponibile",
+    "unnamedRecord": "Record senza nome",
+    "untitled": "Senza titolo",
+    "cancel": "Annulla",
+    "confirm": "Conferma",
+    "back": "Indietro",
+    "done": "Fatto",
+    "create": "Crea",
     "search": {
-      "placeholder": "Cerca..."
+      "placeholder": "Cerca...",
       "empty": "Nessun risultato trovato"
-    }
-    "selectPlaceHolder": "Seleziona..."
-    "loading": "Caricamento..."
-    "loadMore": "Carica altro"
-    "uploadFailed": "Caricamento fallito"
-    "rowCount": "{{count}} record"
-    "summary": "Riepilogo"
-    "summaryTip": "Passa il mouse per selezionare il riepilogo"
-    "actions": "Azioni"
+    },
+    "selectPlaceHolder": "Seleziona...",
+    "loading": "Caricamento...",
+    "loadMore": "Carica altro",
+    "uploadFailed": "Caricamento fallito",
+    "rowCount": "{{count}} record",
+    "summary": "Riepilogo",
+    "summaryTip": "Passa il mouse per selezionare il riepilogo",
+    "actions": "Azioni",
     "remove": "Rimuovi"
-  }
+  },
   "preview": {
-    "previewFileLimit": "Limite dimensione file di anteprima: {{size}}MB, per favore scarica per visualizzare."
+    "previewFileLimit": "Limite dimensione file di anteprima: {{size}}MB, per favore scarica per visualizzare.",
     "loadFileError": "Caricamento file fallito"
-  }
+  },
   "editor": {
     "attachment": {
-      "uploadDragOver": "Rilascia per caricare il file"
-      "uploadDragDefault": "Incolla o trascina e rilascia per caricare qui"
+      "uploadDragOver": "Rilascia per caricare il file",
+      "uploadDragDefault": "Incolla o trascina e rilascia per caricare qui",
       "upload": "carica"
-    }
+    },
     "date": {
-      "placeholder": "Seleziona una data"
+      "placeholder": "Seleziona una data",
       "today": "Oggi"
-    }
+    },
     "formula": {
-      "title": "Editor di formule"
-      "guideSyntax": "Sintassi"
-      "guideExample": "Esempio"
-      "helperExample": "Esempio: "
-      "fieldValue": "Restituisce il valore alle celle del campo {{fieldName}}."
-      "placeholder": "Inserisci un'espressione"
+      "title": "Editor di formule",
+      "guideSyntax": "Sintassi",
+      "guideExample": "Esempio",
+      "helperExample": "Esempio: ",
+      "fieldValue": "Restituisce il valore alle celle del campo {{fieldName}}.",
+      "placeholder": "Inserisci un'espressione",
       "placeholderForAI": "Inserisci un'espressione o premi // per generare con AI"
-    }
+    },
     "link": {
-      "placeholder": "Seleziona record da collegare"
-      "searchPlaceholder": "Cerca record"
-      "create": "Aggiungi Record"
-      "selectRecord": "Seleziona Record"
-      "unselected": "Non selezionato"
-      "selected": "Selezionato"
-      "expandRecordError": "Nessun permesso per visualizzare questo record."
-      "alreadyOpen": "Questo record è già aperto."
+      "placeholder": "Seleziona record da collegare",
+      "searchPlaceholder": "Cerca record",
+      "create": "Aggiungi Record",
+      "selectRecord": "Seleziona Record",
+      "unselected": "Non selezionato",
+      "selected": "Selezionato",
+      "expandRecordError": "Nessun permesso per visualizzare questo record.",
+      "alreadyOpen": "Questo record è già aperto.",
       "goToForeignTable": "Vai alla tabella esterna"
-    }
+    },
     "user": {
-      "searchPlaceholder": "Trova utenti per nome"
+      "searchPlaceholder": "Trova utenti per nome",
       "notify": "Notifica agli utenti una volta selezionati"
-    }
+    },
     "select": {
       "addOption": "Aggiungi un'opzione '{{option}}'"
     }
-  }
+  },
   "filter": {
-    "label": "Filtro"
-    "displayLabel": "Filtra per "
-    "displayLabel_other": "Filtra per {{fieldName}} e altri {{count}} campi"
-    "addCondition": "Aggiungi condizione"
-    "addConditionGroup": "Aggiungi gruppo di condizioni"
-    "nestedLimitTip": "Le condizioni del filtro possono essere annidate solo fino a {{depth}} livelli di profondità"
-    "linkInputPlaceholder": "Inserisci un valore"
-    "groupDescription": "Qualsiasi delle seguenti è vera…"
-    "currentUser": "Io (utente corrente)"
+    "label": "Filtro",
+    "displayLabel": "Filtra per ",
+    "displayLabel_other": "Filtra per {{fieldName}} e altri {{count}} campi",
+    "addCondition": "Aggiungi condizione",
+    "addConditionGroup": "Aggiungi gruppo di condizioni",
+    "nestedLimitTip": "Le condizioni del filtro possono essere annidate solo fino a {{depth}} livelli di profondità",
+    "linkInputPlaceholder": "Inserisci un valore",
+    "groupDescription": "Qualsiasi delle seguenti è vera…",
+    "currentUser": "Io (utente corrente)",
     "tips": {
       "scope": "In questa vista, mostra i record"
-    }
-    "invalidateSelected": "Valore non valido"
-    "invalidateSelectedTips": "Il valore selezionato è stato eliminato, per favore seleziona di nuovo"
+    },
+    "invalidateSelected": "Valore non valido",
+    "invalidateSelectedTips": "Il valore selezionato è stato eliminato, per favore seleziona di nuovo",
     "default": {
-      "empty": "Nessuna condizione di filtro applicata"
+      "empty": "Nessuna condizione di filtro applicata",
       "placeholder": "Inserisci un valore"
-    }
+    },
     "conjunction": {
-      "and": "e"
-      "or": "o"
+      "and": "e",
+      "or": "o",
       "where": "dove"
-    }
+    },
     "operator": {
-      "is": "è"
-      "isNot": "non è"
-      "contains": "contiene"
-      "doesNotContain": "non contiene"
-      "isEmpty": "è vuoto"
-      "isNotEmpty": "non è vuoto"
-      "isGreater": "è maggiore di"
-      "isGreaterEqual": "è maggiore o uguale a"
-      "isLess": "è minore di"
-      "isLessEqual": "è minore o uguale a"
-      "isAnyOf": "è uno di"
-      "isNoneOf": "non è nessuno di"
-      "hasAnyOf": "ha uno di"
-      "hasAllOf": "ha tutti di"
-      "hasNoneOf": "non ha nessuno di"
-      "isExactly": "è esattamente"
-      "isWithIn": "è entro"
-      "isBefore": "è prima di"
-      "isAfter": "è dopo"
-      "isOnOrBefore": "è il o prima di"
-      "isOnOrAfter": "è il o dopo"
+      "is": "è",
+      "isNot": "non è",
+      "contains": "contiene",
+      "doesNotContain": "non contiene",
+      "isEmpty": "è vuoto",
+      "isNotEmpty": "non è vuoto",
+      "isGreater": "è maggiore di",
+      "isGreaterEqual": "è maggiore o uguale a",
+      "isLess": "è minore di",
+      "isLessEqual": "è minore o uguale a",
+      "isAnyOf": "è uno di",
+      "isNoneOf": "non è nessuno di",
+      "hasAnyOf": "ha uno di",
+      "hasAllOf": "ha tutti di",
+      "hasNoneOf": "non ha nessuno di",
+      "isExactly": "è esattamente",
+      "isWithIn": "è entro",
+      "isBefore": "è prima di",
+      "isAfter": "è dopo",
+      "isOnOrBefore": "è il o prima di",
+      "isOnOrAfter": "è il o dopo",
       "number": {
-        "is": "="
-        "isNot": "≠"
-        "isGreater": ">"
-        "isGreaterEqual": "≥"
-        "isLess": "<"
+        "is": "=",
+        "isNot": "≠",
+        "isGreater": ">",
+        "isGreaterEqual": "≥",
+        "isLess": "<",
         "isLessEqual": "≤"
       }
-    }
+    },
     "component": {
       "date": {
-        "today": "oggi"
-        "tomorrow": "domani"
-        "yesterday": "ieri"
-        "oneWeekAgo": "una settimana fa"
-        "oneWeekFromNow": "una settimana da oggi"
-        "oneMonthAgo": "un mese fa"
-        "oneMonthFromNow": "un mese da oggi"
-        "daysAgo": "giorni fa"
-        "daysFromNow": "giorni da oggi"
-        "exactDate": "data esatta"
-        "currentWeek": "settimana corrente"
-        "currentMonth": "mese corrente"
-        "currentYear": "anno corrente"
-        "lastWeek": "settimana scorsa"
-        "lastMonth": "mese scorso"
-        "lastYear": "anno scorso"
-        "nextWeekPeriod": "prossima settimana"
-        "nextMonthPeriod": "prossimo mese"
-        "nextYearPeriod": "prossimo anno"
-        "pastWeek": "settimana passata"
-        "pastMonth": "mese passato"
-        "pastYear": "anno passato"
-        "nextWeek": "prossima settimana"
-        "nextMonth": "prossimo mese"
-        "nextYear": "prossimo anno"
-        "pastNumberOfDays": "numero di giorni passati"
+        "today": "oggi",
+        "tomorrow": "domani",
+        "yesterday": "ieri",
+        "oneWeekAgo": "una settimana fa",
+        "oneWeekFromNow": "una settimana da oggi",
+        "oneMonthAgo": "un mese fa",
+        "oneMonthFromNow": "un mese da oggi",
+        "daysAgo": "giorni fa",
+        "daysFromNow": "giorni da oggi",
+        "exactDate": "data esatta",
+        "currentWeek": "settimana corrente",
+        "currentMonth": "mese corrente",
+        "currentYear": "anno corrente",
+        "lastWeek": "settimana scorsa",
+        "lastMonth": "mese scorso",
+        "lastYear": "anno scorso",
+        "nextWeekPeriod": "prossima settimana",
+        "nextMonthPeriod": "prossimo mese",
+        "nextYearPeriod": "prossimo anno",
+        "pastWeek": "settimana passata",
+        "pastMonth": "mese passato",
+        "pastYear": "anno passato",
+        "nextWeek": "prossima settimana",
+        "nextMonth": "prossimo mese",
+        "nextYear": "prossimo anno",
+        "pastNumberOfDays": "numero di giorni passati",
         "nextNumberOfDays": "numero di giorni futuri"
       }
     }
-  }
+  },
   "color": {
     "label": "colore"
-  }
+  },
   "rowHeight": {
-    "short": "corto"
-    "medium": "medio"
-    "tall": "alto"
+    "short": "corto",
+    "medium": "medio",
+    "tall": "alto",
     "extraTall": "extra alto"
-  }
+  },
   "share": {
     "title": "condividi"
-  }
+  },
   "extensions": {
     "title": "estensioni"
-  }
+  },
   "hidden": {
-    "label": "Campi nascosti"
-    "configLabel_one": "{{count}} campo nascosto"
-    "configLabel_other": "{{count}} campi nascosti"
-    "configLabel_other_visible": "{{count}} campi visibili"
-    "showAll": "Mostra tutto"
-    "hideAll": "Nascondi tutto"
+    "label": "Campi nascosti",
+    "configLabel_one": "{{count}} campo nascosto",
+    "configLabel_other": "{{count}} campi nascosti",
+    "configLabel_other_visible": "{{count}} campi visibili",
+    "showAll": "Mostra tutto",
+    "hideAll": "Nascondi tutto",
     "primaryKey": "Campo principale: Identifica i record\nnon può essere nascosto o eliminato, visibile nei record collegati."
-  }
+  },
   "permission": {
     "actionDescription": {
       "tableManage": "Gestisci tabella",
       "userManage": "Gestisci utente"
     }
-  }
+  },
   "expandRecord": {
-    "copy": "Copia negli appunti"
-    "duplicateRecord": "Duplica record"
-    "copyRecordUrl": "Copia URL del record"
+    "copy": "Copia negli appunti",
+    "duplicateRecord": "Duplica record",
+    "copyRecordUrl": "Copia URL del record",
     "deleteRecord": "Elimina record"
+  }
+}

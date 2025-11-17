@@ -1,190 +1,192 @@
 {
   "common": {
-    "comingSoon": "Незабаром"
-    "empty": "Порожній"
-    "noRecords": "Немає записів"
-    "unnamedRecord": "Запис без назви"
-    "untitled": "Без назви"
-    "cancel": "Скасувати"
-    "confirm": "Підтвердити"
-    "back": "Назад"
-    "done": "Готово"
-    "create": "Створити"
+    "comingSoon": "Незабаром",
+    "empty": "Порожній",
+    "noRecords": "Немає записів",
+    "unnamedRecord": "Запис без назви",
+    "untitled": "Без назви",
+    "cancel": "Скасувати",
+    "confirm": "Підтвердити",
+    "back": "Назад",
+    "done": "Готово",
+    "create": "Створити",
     "search": {
-      "placeholder": "Шукати..."
+      "placeholder": "Шукати...",
       "empty": "Не знайдено результатів"
-    }
-    "selectPlaceHolder": "Виберіть..."
-    "loading": "Завантаження..."
-    "loadMore": "Завантажити більше"
-    "uploadFailed": "Помилка завантаження"
-    "rowCount": "{{count}} записів"
-    "summary": "Підсумок"
-    "summaryTip": "Наведіть курсор, щоб вибрати підсумок"
-    "actions": "Дії"
+    },
+    "selectPlaceHolder": "Виберіть...",
+    "loading": "Завантаження...",
+    "loadMore": "Завантажити більше",
+    "uploadFailed": "Помилка завантаження",
+    "rowCount": "{{count}} записів",
+    "summary": "Підсумок",
+    "summaryTip": "Наведіть курсор, щоб вибрати підсумок",
+    "actions": "Дії",
     "remove": "Видалити"
-  }
+  },
   "preview": {
-    "previewFileLimit": "Обмеження розміру файлу попереднього перегляду: {{size}} МБ, будь ласка, завантажте для перегляду."
+    "previewFileLimit": "Обмеження розміру файлу попереднього перегляду: {{size}} МБ, будь ласка, завантажте для перегляду.",
     "loadFileError": "Не вдалося завантажити файл"
-  }
+  },
   "editor": {
     "attachment": {
-      "uploadDragOver": "Відпустіть, щоб завантажити файл"
-      "uploadDragDefault": "Вставте або перетягніть, щоб завантажити сюди"
+      "uploadDragOver": "Відпустіть, щоб завантажити файл",
+      "uploadDragDefault": "Вставте або перетягніть, щоб завантажити сюди",
       "upload": "завантажити"
-    }
+    },
     "date": {
-      "placeholder": "Вибрати дату"
+      "placeholder": "Вибрати дату",
       "today": "Сьогодні"
-    }
+    },
     "formula": {
-      "title": "Редактор формул"
-      "guideSyntax": "Синтаксис"
-      "guideExample": "Приклад"
-      "helperExample": "Приклад: "
-      "fieldValue": "Повертає значення до клітинок поля {{fieldName}}."
-      "placeholder": "Введіть вираз"
+      "title": "Редактор формул",
+      "guideSyntax": "Синтаксис",
+      "guideExample": "Приклад",
+      "helperExample": "Приклад: ",
+      "fieldValue": "Повертає значення до клітинок поля {{fieldName}}.",
+      "placeholder": "Введіть вираз",
       "placeholderForAI": "Введіть вираз або натисніть // для створення за допомогою ШІ"
-    }
+    },
     "link": {
-      "placeholder": "Виберіть записи для зв'язування"
-      "searchPlaceholder": "Пошук записів"
-      "create": "Додати запис"
-      "selectRecord": "Виберіть запис"
-      "unselected": "Не вибрано"
-      "selected": "Вибрано"
-      "expandRecordError": "Немає дозволу на перегляд цього запису."
-      "alreadyOpen": "Цей запис уже відкрито."
+      "placeholder": "Виберіть записи для зв'язування",
+      "searchPlaceholder": "Пошук записів",
+      "create": "Додати запис",
+      "selectRecord": "Виберіть запис",
+      "unselected": "Не вибрано",
+      "selected": "Вибрано",
+      "expandRecordError": "Немає дозволу на перегляд цього запису.",
+      "alreadyOpen": "Цей запис уже відкрито.",
       "goToForeignTable": "Перейти до іноземної таблиці"
-    }
+    },
     "user": {
-      "searchPlaceholder": "Знайти користувачів за іменами"
+      "searchPlaceholder": "Знайти користувачів за іменами",
       "notify": "Повідомити користувачів, коли їх буде вибрано"
-    }
+    },
     "select": {
       "addOption": "Додайте опцію '{{option}}'"
     }
-  }
+  },
   "filter": {
-    "label": "Фільтр"
-    "displayLabel": "Фільтрувати за "
-    "displayLabel_other": "Фільтрувати за {{fieldName}} та {{count}} іншими полями"
-    "addCondition": "Додати умову"
-    "addConditionGroup": "Додати групу умов"
-    "nestedLimitTip": "Умови фільтрації можуть бути вкладені лише на {{depth}} рівнів"
-    "linkInputPlaceholder": "Введіть значення"
-    "groupDescription": "Будь-що з наведеного нижче вірно..."
-    "currentUser": "Я (поточний користувач)"
+    "label": "Фільтр",
+    "displayLabel": "Фільтрувати за ",
+    "displayLabel_other": "Фільтрувати за {{fieldName}} та {{count}} іншими полями",
+    "addCondition": "Додати умову",
+    "addConditionGroup": "Додати групу умов",
+    "nestedLimitTip": "Умови фільтрації можуть бути вкладені лише на {{depth}} рівнів",
+    "linkInputPlaceholder": "Введіть значення",
+    "groupDescription": "Будь-що з наведеного нижче вірно...",
+    "currentUser": "Я (поточний користувач)",
     "tips": {
       "scope": "У цьому поданні відобразити записи"
-    }
-    "invalidateSelected": "Недійсне значення"
-    "invalidateSelectedTips": "Вибране значення видалено, виберіть ще раз"
+    },
+    "invalidateSelected": "Недійсне значення",
+    "invalidateSelectedTips": "Вибране значення видалено, виберіть ще раз",
     "default": {
-      "empty": "Умови фільтрування не застосовуються"
+      "empty": "Умови фільтрування не застосовуються",
       "placeholder": "Введіть значення"
-    }
+    },
     "conjunction": {
-      "and": "і"
-      "or": "або"
+      "and": "і",
+      "or": "або",
       "where": "де"
-    }
+    },
     "operator": {
-      "is": "є"
-      "isNot": "не є"
-      "contains": "містить"
-      "doesNotContain": "не містить"
-      "isEmpty": "порожньо"
-      "isNotEmpty": "не порожньо"
-      "isGreater": "більше ніж"
-      "isGreaterEqual": "більше або одно"
-      "isLess": "менше ніж"
-      "isLessEqual": "менше або одно"
-      "isAnyOf": "є будь-яким з"
-      "isNoneOf": "не є жодним з"
-      "hasAnyOf": "має будь-який з"
-      "hasAllOf": "має все з"
-      "hasNoneOf": "не має жодного з"
-      "isExactly": "точно"
-      "isWithIn": "в межах"
-      "isBefore": "до"
-      "isAfter": "після"
-      "isOnOrBefore": "на або до"
-      "isOnOrAfter": "на або після"
+      "is": "є",
+      "isNot": "не є",
+      "contains": "містить",
+      "doesNotContain": "не містить",
+      "isEmpty": "порожньо",
+      "isNotEmpty": "не порожньо",
+      "isGreater": "більше ніж",
+      "isGreaterEqual": "більше або одно",
+      "isLess": "менше ніж",
+      "isLessEqual": "менше або одно",
+      "isAnyOf": "є будь-яким з",
+      "isNoneOf": "не є жодним з",
+      "hasAnyOf": "має будь-який з",
+      "hasAllOf": "має все з",
+      "hasNoneOf": "не має жодного з",
+      "isExactly": "точно",
+      "isWithIn": "в межах",
+      "isBefore": "до",
+      "isAfter": "після",
+      "isOnOrBefore": "на або до",
+      "isOnOrAfter": "на або після",
       "number": {
-        "is": "="
-        "isNot": "≠"
-        "isGreater": ">"
-        "isGreaterEqual": "≥"
-        "isLess": "<"
+        "is": "=",
+        "isNot": "≠",
+        "isGreater": ">",
+        "isGreaterEqual": "≥",
+        "isLess": "<",
         "isLessEqual": "≤"
       }
-    }
+    },
     "component": {
       "date": {
-        "today": "сьогодні"
-        "tomorrow": "завтра"
-        "yesterday": "вчора"
-        "oneWeekAgo": "тиждень тому"
-        "oneWeekFromNow": "через тиждень"
-        "oneMonthAgo": "місяць тому"
-        "oneMonthFromNow": "через місяць"
-        "daysAgo": "днів тому"
-        "daysFromNow": "днів відтепер"
-        "exactDate": "точна дата"
-        "currentWeek": "поточний тиждень"
-        "currentMonth": "поточний місяць"
-        "currentYear": "поточний рік"
-        "lastWeek": "минулого тижня"
-        "lastMonth": "минулий місяць"
-        "lastYear": "минулого року"
-        "nextWeekPeriod": "наступного тижня"
-        "nextMonthPeriod": "наступного місяця"
-        "nextYearPeriod": "наступного року"
-        "pastWeek": "минулий тиждень"
-        "pastMonth": "минулий місяць"
-        "pastYear": "минулий рік"
-        "nextWeek": "наступного тижня"
-        "nextMonth": "наступного місяця"
-        "nextYear": "наступного року"
-        "pastNumberOfDays": "остання кількість днів"
+        "today": "сьогодні",
+        "tomorrow": "завтра",
+        "yesterday": "вчора",
+        "oneWeekAgo": "тиждень тому",
+        "oneWeekFromNow": "через тиждень",
+        "oneMonthAgo": "місяць тому",
+        "oneMonthFromNow": "через місяць",
+        "daysAgo": "днів тому",
+        "daysFromNow": "днів відтепер",
+        "exactDate": "точна дата",
+        "currentWeek": "поточний тиждень",
+        "currentMonth": "поточний місяць",
+        "currentYear": "поточний рік",
+        "lastWeek": "минулого тижня",
+        "lastMonth": "минулий місяць",
+        "lastYear": "минулого року",
+        "nextWeekPeriod": "наступного тижня",
+        "nextMonthPeriod": "наступного місяця",
+        "nextYearPeriod": "наступного року",
+        "pastWeek": "минулий тиждень",
+        "pastMonth": "минулий місяць",
+        "pastYear": "минулий рік",
+        "nextWeek": "наступного тижня",
+        "nextMonth": "наступного місяця",
+        "nextYear": "наступного року",
+        "pastNumberOfDays": "остання кількість днів",
         "nextNumberOfDays": "наступна кількість днів"
       }
     }
-  }
+  },
   "color": {
     "label": "колір"
-  }
+  },
   "rowHeight": {
-    "short": "низький"
-    "medium": "середній"
-    "tall": "високий"
+    "short": "низький",
+    "medium": "середній",
+    "tall": "високий",
     "extraTall": "дуже високий"
-  }
+  },
   "share": {
     "title": "поділитися"
-  }
+  },
   "extensions": {
     "title": "Розширення"
-  }
+  },
   "hidden": {
-    "label": "Приховані поля"
- "configLabel_one": "{{count}} приховане поле"
- "configLabel_other": "{{count}} прихованих поля"
- "configLabel_other_visible": "{{count}} видимих ​​полів"
- "showAll": "Показати все"
- "hideAll": "Приховати все"
- "primaryKey": "Основне поле: Ідентифікує записи\nне можна приховати або видалити, видно у зв'язаних записах."
-  }
+    "label": "Приховані поля",
+    "configLabel_one": "{{count}} приховане поле",
+    "configLabel_other": "{{count}} прихованих поля",
+    "configLabel_other_visible": "{{count}} видимих ​​полів",
+    "showAll": "Показати все",
+    "hideAll": "Приховати все",
+    "primaryKey": "Основне поле: Ідентифікує записи\nне можна приховати або видалити, видно у зв'язаних записах."
+  },
   "permission": {
     "actionDescription": {
       "tableManage": "Керувати таблицею",
       "userManage": "Керувати користувачем"
     }
-  }
+  },
   "expandRecord": {
-    "Копіювати": "Копіювати в буфер обміну"
-    "duplicateRecord": "Дублювати запис"
-    "copyRecordUrl": "Копіювати URL записи"
+    "copy": "Копіювати в буфер обміну",
+    "duplicateRecord": "Дублювати запис",
+    "copyRecordUrl": "Копіювати URL записи",
     "deleteRecord": "Видалити запис"
+  }
+}

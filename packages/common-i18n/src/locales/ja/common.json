@@ -277,6 +277,17 @@
       "viewer": "編集もコメントもできません"
     }
   },
+  "pluginCenter": {
+    "pluginUrlEmpty": "プラグインURLが設定されていません",
+    "install": "インストール",
+    "publisher": "発行者",
+    "lastUpdated": "最終更新",
+    "pluginNotFound": "プラグインが見つかりません",
+    "pluginEmpty": {
+      "title": "まだプラグインがありません"
+    }
+  },
+  "trash": {
     "type": "タイプ",
     "resetTrash": "ゴミ箱を空にする",
     "deletedBy": "削除者",

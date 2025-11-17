@@ -1,178 +1,180 @@
 {
   "common": {
-    "comingSoon": "Çok Yakında"
-    "empty": "Boş"
-    "noRecords": "Kayıt bulunamadı"
-    "unnamedRecord": "İsimsiz kayıt"
-    "untitled": "Başlıksız"
-    "cancel": "İptal"
-    "confirm": "Onayla"
-    "back": "Geri"
-    "done": "Tamam"
-    "create": "Oluştur"
+    "comingSoon": "Çok Yakında",
+    "empty": "Boş",
+    "noRecords": "Kayıt bulunamadı",
+    "unnamedRecord": "İsimsiz kayıt",
+    "untitled": "Başlıksız",
+    "cancel": "İptal",
+    "confirm": "Onayla",
+    "back": "Geri",
+    "done": "Tamam",
+    "create": "Oluştur",
     "search": {
-      "placeholder": "Ara..."
+      "placeholder": "Ara...",
       "empty": "Sonuç bulunamadı"
-    }
-    "selectPlaceHolder": "Seç..."
-    "loading": "Yükleniyor..."
-    "loadMore": "Daha Fazla Yükle"
-    "uploadFailed": "Yükleme başarısız"
-    "rowCount": "{{count}} kayıt"
-    "summary": "Özet"
-    "summaryTip": "Özet seçmek için fareyle üzerine gelin"
+    },
+    "selectPlaceHolder": "Seç...",
+    "loading": "Yükleniyor...",
+    "loadMore": "Daha Fazla Yükle",
+    "uploadFailed": "Yükleme başarısız",
+    "rowCount": "{{count}} kayıt",
+    "summary": "Özet",
+    "summaryTip": "Özet seçmek için fareyle üzerine gelin",
     "actions": "İşlemler"
-  }
+  },
   "preview": {
-    "previewFileLimit": "Önizleme dosya boyutu sınırı: {{size}}MB, lütfen görüntülemek için indirin."
+    "previewFileLimit": "Önizleme dosya boyutu sınırı: {{size}}MB, lütfen görüntülemek için indirin.",
     "loadFileError": "Dosya yüklenemedi"
-  }
+  },
   "editor": {
     "attachment": {
-      "uploadDragOver": "Yüklemek için bırakın"
-      "uploadDragDefault": "Yapıştırın veya buraya sürükleyip bırakın"
+      "uploadDragOver": "Yüklemek için bırakın",
+      "uploadDragDefault": "Yapıştırın veya buraya sürükleyip bırakın",
       "upload": "yükle"
-    }
+    },
     "date": {
-      "placeholder": "Bir tarih seçin"
+      "placeholder": "Bir tarih seçin",
       "today": "Bugün"
-    }
+    },
     "formula": {
-      "title": "Formül Düzenleyici"
-      "guideSyntax": "Sözdizimi"
-      "guideExample": "Örnek"
-      "helperExample": "Örnek: "
+      "title": "Formül Düzenleyici",
+      "guideSyntax": "Sözdizimi",
+      "guideExample": "Örnek",
+      "helperExample": "Örnek: ",
       "fieldValue": "{{fieldName}} alanındaki hücrelerin değerini döndürür."
-    }
+    },
     "link": {
-      "placeholder": "Bağlanacak kayıtları seçin"
-      "searchPlaceholder": "Kayıtlarda ara"
-      "create": "Kayıt Ekle"
-      "selectRecord": "Kayıt Seç"
-      "unselected": "Seçilmemiş"
-      "selected": "Seçilmiş"
-      "expandRecordError": "Bu kaydı görüntüleme izniniz yok."
-      "alreadyOpen": "Bu kayıt zaten açık."
+      "placeholder": "Bağlanacak kayıtları seçin",
+      "searchPlaceholder": "Kayıtlarda ara",
+      "create": "Kayıt Ekle",
+      "selectRecord": "Kayıt Seç",
+      "unselected": "Seçilmemiş",
+      "selected": "Seçilmiş",
+      "expandRecordError": "Bu kaydı görüntüleme izniniz yok.",
+      "alreadyOpen": "Bu kayıt zaten açık.",
       "goToForeignTable": "Yabancı tabloya git"
-    }
+    },
     "user": {
-      "searchPlaceholder": "İsme göre kullanıcı ara"
+      "searchPlaceholder": "İsme göre kullanıcı ara",
       "notify": "Seçildiklerinde kullanıcıları bilgilendir"
-    }
+    },
     "select": {
       "addOption": "'{{option}}' seçeneğini ekle"
     }
-  }
+  },
   "filter": {
-    "label": "Filtre"
-    "displayLabel": "Filtrele: "
-    "displayLabel_other": "{{fieldName}} ve {{count}} diğer alan ile filtrele"
-    "addCondition": "Koşul ekle"
-    "addConditionGroup": "Koşul grubu ekle"
-    "nestedLimitTip": "Filtre koşulları yalnızca {{depth}} seviye derinliğinde iç içe geçebilir"
-    "linkInputPlaceholder": "Bir değer girin"
-    "groupDescription": "Aşağıdakilerden herhangi biri doğru..."
-    "currentUser": "Ben (mevcut kullanıcı)"
+    "label": "Filtre",
+    "displayLabel": "Filtrele: ",
+    "displayLabel_other": "{{fieldName}} ve {{count}} diğer alan ile filtrele",
+    "addCondition": "Koşul ekle",
+    "addConditionGroup": "Koşul grubu ekle",
+    "nestedLimitTip": "Filtre koşulları yalnızca {{depth}} seviye derinliğinde iç içe geçebilir",
+    "linkInputPlaceholder": "Bir değer girin",
+    "groupDescription": "Aşağıdakilerden herhangi biri doğru...",
+    "currentUser": "Ben (mevcut kullanıcı)",
     "tips": {
       "scope": "Bu görünümde, kayıtları göster"
-    }
-    "invalidateSelected": "Geçersiz değer"
-    "invalidateSelectedTips": "Seçilen değer silindi, lütfen tekrar seçin"
+    },
+    "invalidateSelected": "Geçersiz değer",
+    "invalidateSelectedTips": "Seçilen değer silindi, lütfen tekrar seçin",
     "default": {
-      "empty": "Filtre koşulu uygulanmadı"
+      "empty": "Filtre koşulu uygulanmadı",
       "placeholder": "Bir değer girin"
-    }
+    },
     "conjunction": {
-      "and": "ve"
-      "or": "veya"
+      "and": "ve",
+      "or": "veya",
       "where": "şu durumda"
-    }
+    },
     "operator": {
-      "is": "şudur"
-      "isNot": "şu değildir"
-      "contains": "içerir"
-      "doesNotContain": "içermez"
-      "isEmpty": "boştur"
-      "isNotEmpty": "boş değildir"
-      "isGreater": "büyüktür"
-      "isGreaterEqual": "büyük eşittir"
-      "isLess": "küçüktür"
-      "isLessEqual": "küçük eşittir"
-      "isAnyOf": "şunlardan biridir"
-      "isNoneOf": "şunlardan hiçbiri değildir"
-      "hasAnyOf": "şunlardan herhangi birine sahiptir"
-      "hasAllOf": "şunların tümüne sahiptir"
-      "hasNoneOf": "şunların hiçbirine sahip değildir"
-      "isExactly": "tam olarak şudur"
-      "isWithIn": "şunun içindedir"
-      "isBefore": "şundan öncedir"
-      "isAfter": "şundan sonradır"
-      "isOnOrBefore": "şu tarihte veya öncesindedir"
-      "isOnOrAfter": "şu tarihte veya sonrasındadır"
+      "is": "şudur",
+      "isNot": "şu değildir",
+      "contains": "içerir",
+      "doesNotContain": "içermez",
+      "isEmpty": "boştur",
+      "isNotEmpty": "boş değildir",
+      "isGreater": "büyüktür",
+      "isGreaterEqual": "büyük eşittir",
+      "isLess": "küçüktür",
+      "isLessEqual": "küçük eşittir",
+      "isAnyOf": "şunlardan biridir",
+      "isNoneOf": "şunlardan hiçbiri değildir",
+      "hasAnyOf": "şunlardan herhangi birine sahiptir",
+      "hasAllOf": "şunların tümüne sahiptir",
+      "hasNoneOf": "şunların hiçbirine sahip değildir",
+      "isExactly": "tam olarak şudur",
+      "isWithIn": "şunun içindedir",
+      "isBefore": "şundan öncedir",
+      "isAfter": "şundan sonradır",
+      "isOnOrBefore": "şu tarihte veya öncesindedir",
+      "isOnOrAfter": "şu tarihte veya sonrasındadır",
       "number": {
-        "is": "="
-        "isNot": "≠"
-        "isGreater": ">"
-        "isGreaterEqual": "≥"
-        "isLess": "<"
+        "is": "=",
+        "isNot": "≠",
+        "isGreater": ">",
+        "isGreaterEqual": "≥",
+        "isLess": "<",
         "isLessEqual": "≤"
       }
-    }
+    },
     "component": {
       "date": {
-        "today": "bugün"
-        "tomorrow": "yarın"
-        "yesterday": "dün"
-        "oneWeekAgo": "bir hafta önce"
-        "oneWeekFromNow": "bir hafta sonra"
-        "oneMonthAgo": "bir ay önce"
-        "oneMonthFromNow": "bir ay sonra"
-        "daysAgo": "gün önce"
-        "daysFromNow": "gün sonra"
-        "exactDate": "tam tarih"
-        "pastWeek": "geçen hafta"
-        "pastMonth": "geçen ay"
-        "pastYear": "geçen yıl"
-        "nextWeek": "gelecek hafta"
-        "nextMonth": "gelecek ay"
-        "nextYear": "gelecek yıl"
-        "pastNumberOfDays": "geçmiş gün sayısı"
+        "today": "bugün",
+        "tomorrow": "yarın",
+        "yesterday": "dün",
+        "oneWeekAgo": "bir hafta önce",
+        "oneWeekFromNow": "bir hafta sonra",
+        "oneMonthAgo": "bir ay önce",
+        "oneMonthFromNow": "bir ay sonra",
+        "daysAgo": "gün önce",
+        "daysFromNow": "gün sonra",
+        "exactDate": "tam tarih",
+        "pastWeek": "geçen hafta",
+        "pastMonth": "geçen ay",
+        "pastYear": "geçen yıl",
+        "nextWeek": "gelecek hafta",
+        "nextMonth": "gelecek ay",
+        "nextYear": "gelecek yıl",
+        "pastNumberOfDays": "geçmiş gün sayısı",
         "nextNumberOfDays": "gelecek gün sayısı"
       }
     }
-  }
+  },
   "color": {
     "label": "renk"
-  }
+  },
   "rowHeight": {
-    "short": "kısa"
-    "medium": "orta"
-    "tall": "uzun"
+    "short": "kısa",
+    "medium": "orta",
+    "tall": "uzun",
     "extraTall": "çok uzun"
-  }
+  },
   "share": {
     "title": "paylaş"
-  }
+  },
   "extensions": {
     "title": "uzantılar"
-  }
+  },
   "hidden": {
-    "label": "Gizli Alanlar"
-    "configLabel_one": "{{count}} gizli alan"
-    "configLabel_other": "{{count}} gizli alan"
-    "configLabel_other_visible": "{{count}} görünür alan"
-    "showAll": "Tümünü Göster"
-    "hideAll": "Tümünü Gizle"
+    "label": "Gizli Alanlar",
+    "configLabel_one": "{{count}} gizli alan",
+    "configLabel_other": "{{count}} gizli alan",
+    "configLabel_other_visible": "{{count}} görünür alan",
+    "showAll": "Tümünü Göster",
+    "hideAll": "Tümünü Gizle",
     "primaryKey": "Birincil alan: Kayıtları tanımlar\ngizlenemez veya silinemez, bağlantılı kayıtlarda görünür."
-  }
+  },
   "permission": {
     "actionDescription": {
       "tableManage": "Tabloyu yönet",
       "userManage": "Kullanıcıyı yönet"
     }
-  }
+  },
   "expandRecord": {
-    "copy": "Panoya kopyala"
-    "duplicateRecord": "Kaydı çoğalt"
-    "copyRecordUrl": "Kayıt URL'sini kopyala"
+    "copy": "Panoya kopyala",
+    "duplicateRecord": "Kaydı çoğalt",
+    "copyRecordUrl": "Kayıt URL'sini kopyala",
     "deleteRecord": "Kaydı sil"
+  }
+}

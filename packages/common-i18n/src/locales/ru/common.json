@@ -129,7 +129,7 @@
     "dashboard": "Панель",
     "adminPanel": "Административная панель",
     "instanceId": "ID экземпляра",
-    "beta": "Бета",
+    "beta": "Бета"
   },
   "level": {
     "free": "Бесплатно",
@@ -278,6 +278,17 @@
       "viewer": "Не может редактировать или комментировать"
     }
   },
+  "pluginCenter": {
+    "pluginUrlEmpty": "URL плагина не установлен",
+    "install": "Установить",
+    "publisher": "Издатель",
+    "lastUpdated": "Последнее обновление",
+    "pluginNotFound": "Плагин не найден",
+    "pluginEmpty": {
+      "title": "Плагинов пока нет"
+    }
+  },
+  "trash": {
     "type": "Тип",
     "resetTrash": "Очистить корзину",
     "deletedBy": "Удалено",
