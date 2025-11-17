@@ -1,8 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
 import type { IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
+import { getUserList } from '@teable/openapi';
 import type { ForwardRefRenderFunction } from 'react';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
+import { useSession } from '../../../hooks/use-session';
 import type { ICellEditor, ICellEditorContext } from '../type';
 
 type CollaboratorWithRequiredFields = {
@@ -25,22 +28,41 @@ export interface IUserEditorMainProps extends ICellEditor<IUserCellValue | IUser
 
 const DefaultDataWrapper = forwardRef<IUserEditorRef, IUserEditorMainProps>((props, ref) => {
   const { t } = useTranslation();
-  // Collaboration feature removed - returns minimal user list (only "me" if includeMe is true)
-  const collaborators = props.includeMe
-    ? [{ userId: 'me', userName: t('filter.currentUser'), email: '' }]
-    : [];
+  const { user: currentUser } = useSession();
+  const { data, isLoading } = useQuery({
+    queryKey: ['user-list'],
+    queryFn: () => getUserList().then((res) => res.data),
+  });
+
+  const collaborators = useMemo(() => {
+    const users = data?.users || [];
+    let transformedUsers = users.map((user) => ({
+      userId: user.id,
+      userName: user.name,
+      email: user.email,
+      avatar: user.avatar ?? null,
+    }));
+
+    // Add "me" option if includeMe is true and currentUser exists
+    if (props.includeMe && currentUser) {
+      // Remove current user from the list if they're already there
+      transformedUsers = transformedUsers.filter((user) => user.userId !== currentUser.id);
+      // Add "me" option at the beginning
+      transformedUsers.unshift({
+        userId: currentUser.id,
+        userName: t('filter.currentUser'),
+        email: currentUser.email || '',
+        avatar: currentUser.avatar ?? null,
+      });
+    }
+
+    return transformedUsers.filter(
+      (c) => c.userId && c.userName && c.email
+    ) as CollaboratorWithRequiredFields[];
+  }, [data, props.includeMe, currentUser, t]);
 
   return (
-    <UserEditorBase
-      {...props}
-      collaborators={
-        (collaborators || []).filter(
-          (c) => c.userId && c.userName && c.email
-        ) as CollaboratorWithRequiredFields[]
-      }
-      isLoading={false}
-      ref={ref}
-    />
+    <UserEditorBase {...props} collaborators={collaborators} isLoading={isLoading} ref={ref} />
   );
 });
 

@@ -1,5 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
 import { isMeTag, Me } from '@teable/core';
 import { User as UserIcon } from '@teable/icons';
+import { getUserList } from '@teable/openapi';
 import { cn } from '@teable/ui-lib';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
@@ -140,8 +142,23 @@ const FilterUserSelectBase = (props: IFilterUserBaseProps) => {
 };
 
 const FilterUserSelect = (props: IFilterUserProps) => {
-  // Collaboration removed - return empty user list
-  return <FilterUserSelectBase {...props} data={[]} />;
+  const { data, isLoading } = useQuery({
+    queryKey: ['user-list'],
+    queryFn: () => getUserList().then((res) => res.data),
+  });
+
+  console.log({ data });
+
+  const transformedData = useMemo(() => {
+    if (!data?.users) return [];
+    return data.users.map((user) => ({
+      userId: user.id,
+      userName: user.name,
+      avatar: user.avatar ?? null,
+    }));
+  }, [data]);
+
+  return <FilterUserSelectBase {...props} data={isLoading ? undefined : transformedData} />;
 };
 
 export { FilterUserSelect, FilterUserSelectBase };
