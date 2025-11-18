@@ -57,10 +57,15 @@ export class RecordCalculateService {
     );
 
     const fieldRaws = await this.prismaService.txClient().field.findMany({
-      where: { tableId, [fieldKeyType]: { in: fieldKeys } },
-      select: { id: true, name: true },
+      where: {
+        tableId,
+        [this.recordService.getFieldKeyForPrismaQuery(fieldKeyType)]: { in: fieldKeys },
+      },
+      select: { id: true, name: true, dbFieldName: true },
     });
-    const fieldIdMap = keyBy(fieldRaws, fieldKeyType);
+    const fieldIdMap = keyBy(fieldRaws, (field) =>
+      this.recordService.getFieldKey(field, fieldKeyType)
+    );
 
     const cellContexts: ICellContext[] = [];
 
@@ -177,7 +182,7 @@ export class RecordCalculateService {
         const optionsObj = JSON.parse(options) || {};
         const { defaultValue } = optionsObj;
         if (defaultValue == null) continue;
-        const fieldIdOrName = fieldRaw[fieldKeyType];
+        const fieldIdOrName = this.recordService.getFieldKey(fieldRaw, fieldKeyType);
         if (fields[fieldIdOrName] != null) continue;
         fields[fieldIdOrName] = this.getDefaultValue(type as FieldType, optionsObj, defaultValue);
       }

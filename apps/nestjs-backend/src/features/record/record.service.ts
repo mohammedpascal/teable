@@ -109,6 +109,46 @@ export class RecordService {
     @ThresholdConfig() private readonly thresholdConfig: IThresholdConfig
   ) {}
 
+  /**
+   * Get the field key based on fieldKeyType
+   * @param field - Field instance or raw field data with id, name, and dbFieldName properties
+   * @param fieldKeyType - The type of key to return (id, name, or dbFieldName)
+   * @returns The field key string
+   */
+  getFieldKey(
+    field: { id: string; name: string; dbFieldName: string },
+    fieldKeyType: FieldKeyType
+  ): string {
+    switch (fieldKeyType) {
+      case FieldKeyType.Id:
+        return field.id;
+      case FieldKeyType.Name:
+        return field.name;
+      case FieldKeyType.DbFieldName:
+        return field.dbFieldName;
+      default:
+        return field.id;
+    }
+  }
+
+  /**
+   * Get the Prisma field property name for querying based on fieldKeyType
+   * @param fieldKeyType - The type of key to use
+   * @returns The Prisma field property name ('id', 'name', or 'dbFieldName')
+   */
+  getFieldKeyForPrismaQuery(fieldKeyType: FieldKeyType): 'id' | 'name' | 'dbFieldName' {
+    switch (fieldKeyType) {
+      case FieldKeyType.Id:
+        return 'id';
+      case FieldKeyType.Name:
+        return 'name';
+      case FieldKeyType.DbFieldName:
+        return 'dbFieldName';
+      default:
+        return 'id';
+    }
+  }
+
   private dbRecord2RecordFields(
     record: IRecord['fields'],
     fields: IFieldInstance[],
@@ -116,12 +156,15 @@ export class RecordService {
     cellFormat: CellFormat = CellFormat.Json
   ) {
     return fields.reduce<IRecord['fields']>((acc, field) => {
-      const fieldNameOrId = fieldKeyType === FieldKeyType.Name ? field.name : field.id;
+      const fieldNameOrId = fieldKeyType ? this.getFieldKey(field, fieldKeyType) : field.id;
+
       const dbCellValue = record[field.dbFieldName];
       const cellValue = field.convertDBValue2CellValue(dbCellValue);
       if (cellValue != null) {
         acc[fieldNameOrId] =
           cellFormat === CellFormat.Text ? field.cellValue2String(cellValue) : cellValue;
+      } else {
+        acc[fieldNameOrId] = null;
       }
       return acc;
     }, {});
@@ -630,7 +673,7 @@ export class RecordService {
 
     const fieldIdOrNames = await this.prismaService.txClient().field.findMany({
       where: { tableId },
-      select: { id: true, name: true },
+      select: { id: true, name: true, dbFieldName: true },
     });
 
     const fieldMap = keyBy(fieldIdOrNames, 'id');
@@ -640,7 +683,7 @@ export class RecordService {
         const field = fieldMap[fieldId];
         if (!field) return acc;
 
-        const fieldKey = fieldKeyType === FieldKeyType.Id ? field.id : field.name;
+        const fieldKey = this.getFieldKey(field, fieldKeyType);
 
         if (useVisible) {
           if ('visible' in column && column.visible) {
@@ -985,7 +1028,7 @@ export class RecordService {
         const dbFieldValueMap = validationFields.reduce(
           (map, field) => {
             const dbFieldName = field.dbFieldName;
-            const fieldKey = field[fieldKeyType];
+            const fieldKey = this.getFieldKey(field, fieldKeyType);
             const cellValue = fields[fieldKey];
 
             map[dbFieldName] = cellValue;
@@ -1046,7 +1089,7 @@ export class RecordService {
         .filter(([, v]) => v)
         .map(([k]) => k);
       if (projectionFieldKeys.length) {
-        const key = fieldKeyType === FieldKeyType.Id ? 'id' : 'name';
+        const key = this.getFieldKeyForPrismaQuery(fieldKeyType);
         whereParams[key] = { in: projectionFieldKeys };
       }
     }
@@ -1066,7 +1109,7 @@ export class RecordService {
     const previewToken: string[] = [];
     for (const field of fields) {
       if (field.type === FieldType.Attachment) {
-        const fieldKey = fieldKeyType === FieldKeyType.Id ? field.id : field.name;
+        const fieldKey = this.getFieldKey(field, fieldKeyType);
         for (const record of records) {
           const cellValue = record.data.fields[fieldKey];
           if (cellValue == null) continue;
@@ -1105,7 +1148,7 @@ export class RecordService {
     const thumbnailTokens: string[] = [];
     for (const field of fields) {
       if (field.type === FieldType.Attachment) {
-        const fieldKey = fieldKeyType === FieldKeyType.Id ? field.id : field.name;
+        const fieldKey = this.getFieldKey(field, fieldKeyType);
         for (const record of records) {
           const cellValue = record.data.fields[fieldKey];
           if (cellValue == null) continue;
@@ -1150,7 +1193,7 @@ export class RecordService {
     );
     for (const field of fields) {
       if (field.type === FieldType.Attachment) {
-        const fieldKey = fieldKeyType === FieldKeyType.Id ? field.id : field.name;
+        const fieldKey = this.getFieldKey(field, fieldKeyType);
         for (const record of records) {
           const cellValue = record.data.fields[fieldKey];
           const presignedCellValue = await this.getAttachmentPresignedCellValue(

@@ -184,12 +184,14 @@ export class RecordOpenApiService {
     const usedFields = await this.prismaService.txClient().field.findMany({
       where: {
         tableId,
-        [fieldKeyType]: { in: usedFieldIdsOrNames },
+        [this.recordService.getFieldKeyForPrismaQuery(fieldKeyType)]: { in: usedFieldIdsOrNames },
       },
     });
 
     if (!ignoreMissingFields && usedFields.length !== usedFieldIdsOrNames.length) {
-      const usedSet = new Set(map(usedFields, fieldKeyType));
+      const usedSet = new Set(
+        map(usedFields, (field) => this.recordService.getFieldKey(field, fieldKeyType))
+      );
       const missedFields = usedFieldIdsOrNames.filter(
         (fieldIdOrName) => !usedSet.has(fieldIdOrName)
       );
@@ -234,8 +236,8 @@ export class RecordOpenApiService {
         tableId,
         typecast,
       });
-      const fieldIdOrName = field[fieldKeyType];
 
+      const fieldIdOrName = this.recordService.getFieldKey(field, fieldKeyType);
       const cellValues = recordsFields.map((recordFields) => recordFields[fieldIdOrName]);
 
       const newCellValues = await typeCastAndValidate.typecastCellValuesWithField(cellValues);

@@ -10,14 +10,16 @@ export type { IRecord } from '@teable/core';
 
 export const fieldKeyTypeRoSchema = z
   .nativeEnum(FieldKeyType, {
-    errorMap: () => ({ message: 'Error fieldKeyType, You should set it to "name" or "id"' }),
+    errorMap: () => ({
+      message: 'Error fieldKeyType, You should set it to "id", "name", or "dbFieldName"',
+    }),
   })
   .default(FieldKeyType.Name) // is not work with optional()...
   .transform((v) => v ?? FieldKeyType.Name)
   .optional()
   .openapi({
     description:
-      'Define the key type of record.fields[key], You can click "systemInfo" in the field edit box to get fieldId or enter the table design screen with all the field details',
+      'Define the key type of record.fields[key]. Options: "id" (field ID), "name" (field name), or "dbFieldName" (database column name). You can click "systemInfo" in the field edit box to get fieldId or enter the table design screen with all the field details',
   });
 
 export const typecastSchema = z.boolean().optional().openapi({
@@ -28,7 +30,7 @@ export const typecastSchema = z.boolean().optional().openapi({
 export const getRecordQuerySchema = z.object({
   projection: z.string().array().optional().openapi({
     description:
-      'If you want to get only some fields, pass in this parameter, otherwise all visible fields will be obtained, The parameter value depends on the specified fieldKeyType to determine whether it is name or id',
+      'If you want to get only some fields, pass in this parameter, otherwise all visible fields will be obtained. The parameter value depends on the specified fieldKeyType to determine whether it is id, name, or dbFieldName',
   }),
   cellFormat: z
     .nativeEnum(CellFormat, {
