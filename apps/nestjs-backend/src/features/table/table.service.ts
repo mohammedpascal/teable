@@ -35,7 +35,7 @@ export class TableService implements IReadonlyAdapterService {
 
   /**
    * Generate a unique dbTableName by appending numbers if the name already exists.
-   * Similar to getUniqName but works with dbTableNames that have the bse0_ prefix.
+   * Similar to getUniqName but works with dbTableNames that have the tbl_ prefix.
    */
   private async generateUniqueDbTableName(baseDbTableName: string): Promise<string> {
     const existingTables = await this.prismaService.txClient().tableMeta.findMany({

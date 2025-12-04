@@ -1,3 +1,4 @@
+import { Edit, Trash2 } from '@teable/icons';
 import type { IRoleListVo } from '@teable/openapi';
 import {
   Table,
@@ -6,9 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  Button,
 } from '@teable/ui-lib/shadcn';
-import { Button } from '@teable/ui-lib/shadcn';
-import { Edit, Trash2 } from '@teable/icons';
 import { useTranslation } from 'next-i18next';
 
 interface RolesGridViewProps {
@@ -40,39 +40,19 @@ export const RolesGridView = ({ roles, isLoading, onEdit, onDelete }: RolesGridV
       </div>
     );
   }
-
-  const formatPermissionsSummary = (permissions: Record<string, string[]> | string) => {
+  // permission value is saved as text
+  // sample value: ["view|create","view|delete","view|update","record|delete","record|update","table|read","table|import","table|export"]
+  const formatPermissionsSummary = (permissions: string[]) => {
     // Handle new JSON format
-    if (typeof permissions === 'object' && permissions !== null && !Array.isArray(permissions)) {
-      const tableIds = Object.keys(permissions).filter((k) => k !== '*');
-      const totalTables = tableIds.length;
-      if (totalTables === 0) {
-        // Legacy format stored as '*'
-        const legacyPerms = permissions['*'] || [];
-        return {
-          summary: `${legacyPerms.length} permission${legacyPerms.length !== 1 ? 's' : ''} (all tables)`,
-          isLegacy: true,
-        };
-      }
-      const totalPermissions = Object.values(permissions).reduce((sum, perms) => sum + perms.length, 0);
-      const avgPermissions = totalTables > 0 ? Math.round(totalPermissions / totalTables) : 0;
+    const totalPermissions = permissions.length;
+
+    if (totalPermissions > 0) {
       return {
-        summary: `${totalTables} table${totalTables !== 1 ? 's' : ''}, ~${avgPermissions} permission${avgPermissions !== 1 ? 's' : ''} avg`,
-        isLegacy: false,
-        tableCount: totalTables,
-        avgPermissions,
-      };
-    }
-    
-    // Handle legacy string format (shouldn't happen with new API, but just in case)
-    if (typeof permissions === 'string') {
-      const perms = permissions.split(',').map((p) => p.trim()).filter(Boolean);
-      return {
-        summary: `${perms.length} permission${perms.length !== 1 ? 's' : ''} (all tables)`,
+        summary: `${totalPermissions} permission${totalPermissions !== 1 ? 's' : ''}`,
         isLegacy: true,
       };
     }
-    
+
     return {
       summary: 'No permissions',
       isLegacy: false,
@@ -89,7 +69,9 @@ export const RolesGridView = ({ roles, isLoading, onEdit, onDelete }: RolesGridV
             <TableHead>{t('setting:roles.permissions', { defaultValue: 'Permissions' })}</TableHead>
             <TableHead>{t('setting:roles.usersCount', { defaultValue: 'Users' })}</TableHead>
             <TableHead>{t('setting:roles.created', { defaultValue: 'Created' })}</TableHead>
-            <TableHead className="text-right">{t('common:actions', { defaultValue: 'Actions' })}</TableHead>
+            <TableHead className="text-right">
+              {t('common:actions', { defaultValue: 'Actions' })}
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -126,7 +108,7 @@ export const RolesGridView = ({ roles, isLoading, onEdit, onDelete }: RolesGridV
                     variant="ghost"
                     size="sm"
                     onClick={() => onEdit(role)}
-                    className="h-8 w-8 p-0"
+                    className="size-8 p-0"
                   >
                     <Edit className="size-4" />
                   </Button>
@@ -134,7 +116,7 @@ export const RolesGridView = ({ roles, isLoading, onEdit, onDelete }: RolesGridV
                     variant="ghost"
                     size="sm"
                     onClick={() => onDelete(role.id)}
-                    className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                    className="size-8 p-0 text-destructive hover:text-destructive"
                   >
                     <Trash2 className="size-4" />
                   </Button>
@@ -147,4 +129,3 @@ export const RolesGridView = ({ roles, isLoading, onEdit, onDelete }: RolesGridV
     </div>
   );
 };
-

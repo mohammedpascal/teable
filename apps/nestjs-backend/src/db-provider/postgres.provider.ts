@@ -52,7 +52,7 @@ export class PostgresProvider implements IDbProvider {
   }
 
   generateDbTableName(name: string) {
-    return `bse0_${name}`;
+    return `tbl_${name}`;
   }
 
   renameTableName(oldTableName: string, newTableName: string) {

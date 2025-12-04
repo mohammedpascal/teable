@@ -22,7 +22,7 @@ export const roleListVoSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().nullable().optional(),
-  permissions: z.array(actionPermissionEnum).or(z.record(z.string(), z.array(z.string()))), // Array of action strings or legacy format
+  permissions: z.array(actionPermissionEnum),
   createdTime: z.string().datetime(),
   lastModifiedTime: z.string().datetime().nullable().optional(),
   _count: z.object({
@@ -56,4 +56,3 @@ export const getRoleListRoute: RouteConfig = registerRoute({
 export const getRoleList = async () => {
   return axios.get<IRoleListResponseVo>(GET_ROLE_LIST);
 };
-
