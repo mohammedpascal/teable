@@ -5,6 +5,7 @@ import { DraggableHandle, Plus } from '@teable/icons';
 import { useView } from '@teable/sdk';
 import type { IFieldStatic } from '@teable/sdk/hooks';
 import { useFieldStaticGetter, useFields, useIsHydrated } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import type { FormView, IFieldInstance } from '@teable/sdk/model';
 import {
   Button,
@@ -81,6 +82,8 @@ export const FormSidebar: FC<IFormSidebarProps> = (props) => {
   const allFields = useFields({ withHidden: true, withDenied: true });
   const getFieldStatic = useFieldStaticGetter();
   const { openSetting } = useFieldSettingStore();
+  const permission = useHookPermission();
+  const hasTableManage = permission['table|manage'] ?? false;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { setNodeRef } = useDroppable({ id: FORM_SIDEBAR_DROPPABLE_ID });
 
@@ -203,6 +206,7 @@ export const FormSidebar: FC<IFormSidebarProps> = (props) => {
         <Button
           variant={'outline'}
           className="w-full"
+          disabled={!hasTableManage}
           onClick={() => openSetting({ operator: FieldOperator.Add })}
         >
           <Plus fontSize={16} />

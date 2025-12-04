@@ -7,6 +7,7 @@ import { UploadType } from '@teable/openapi';
 import type { IFile } from '@teable/sdk/components';
 import { AttachmentManager } from '@teable/sdk/components';
 import { useIsHydrated, useView } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import type { FormView, IFieldInstance } from '@teable/sdk/model';
 import {
   Button,
@@ -35,6 +36,8 @@ export const FormEditorMain = (props: { fields: IFieldInstance[] }) => {
   const view = useView() as FormView | undefined;
   const isHydrated = useIsHydrated();
   const { openSetting } = useFieldSettingStore();
+  const permission = useHookPermission();
+  const hasTableManage = permission['table|manage'] ?? false;
 
   const coverInput = useRef<HTMLInputElement>(null);
   const logoInput = useRef<HTMLInputElement>(null);
@@ -258,7 +261,11 @@ export const FormEditorMain = (props: { fields: IFieldInstance[] }) => {
                         field={field}
                         className="w-full overflow-hidden rounded-md hover:bg-slate-100/80 dark:hover:bg-slate-800/80"
                         draggingClassName="bg-slate-100 dark:bg-slate-800 border border-black border-dashed opacity-50"
-                        onClick={() => openSetting({ operator: FieldOperator.Edit, fieldId: id })}
+                        onClick={() => {
+                          if (hasTableManage) {
+                            openSetting({ operator: FieldOperator.Edit, fieldId: id });
+                          }
+                        }}
                       >
                         <FormFieldEditor field={field} />
                       </SortableItem>

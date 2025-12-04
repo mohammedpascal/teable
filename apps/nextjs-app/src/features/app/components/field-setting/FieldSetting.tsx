@@ -5,6 +5,7 @@ import { Share2 } from '@teable/icons';
 import { planFieldCreate, type IPlanFieldConvertVo, planFieldConvert } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { useTable, useView } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { ConfirmDialog, Spin } from '@teable/ui-lib/base';
 import {
   Dialog,
@@ -33,6 +34,7 @@ export const FieldSetting = (props: IFieldSetting) => {
   const table = useTable();
   const view = useView();
   const getDefaultFieldName = useDefaultFieldName();
+  const permission = useHookPermission();
 
   const [graphVisible, setGraphVisible] = useState<boolean>(false);
   const [processVisible, setProcessVisible] = useState<boolean>(false);
@@ -51,6 +53,12 @@ export const FieldSetting = (props: IFieldSetting) => {
   };
 
   const performAction = async (field: IFieldRo) => {
+    const hasTableManage = permission['table|manage'] ?? false;
+    if (!hasTableManage) {
+      toast.error(t('common:errors.permissionDenied', { defaultValue: 'Permission denied' }));
+      return;
+    }
+
     setGraphVisible(false);
     if (plan && (plan.estimateTime || 0) > 1000) {
       setProcessVisible(true);

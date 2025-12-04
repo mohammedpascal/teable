@@ -1,5 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useTable } from '@teable/sdk/hooks';
+import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -14,6 +15,8 @@ import { useFieldSettingStore } from '../../view/field/useFieldSettingStore';
 export const Actions = ({ fieldId }: { fieldId: string }) => {
   const { openSetting } = useFieldSettingStore();
   const table = useTable();
+  const permission = useHookPermission();
+  const hasTableManage = permission['table|manage'] ?? false;
   const { t } = useTranslation(['common']);
   return (
     <DropdownMenu>
@@ -23,9 +26,11 @@ export const Actions = ({ fieldId }: { fieldId: string }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => openSetting({ fieldId, operator: FieldOperator.Edit })}>
-          {t('actions.edit')}
-        </DropdownMenuItem>
+        {hasTableManage && (
+          <DropdownMenuItem onClick={() => openSetting({ fieldId, operator: FieldOperator.Edit })}>
+            {t('actions.edit')}
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem
           className="text-destructive"
           onClick={() => {

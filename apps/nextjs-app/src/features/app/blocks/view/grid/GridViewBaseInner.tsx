@@ -431,6 +431,8 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   const onColumnHeaderDblClick = useCallback(
     (colIndex: number) => {
       if (!columns[colIndex]) return;
+      const hasTableManage = permission['table|manage'] ?? false;
+      if (!hasTableManage) return;
       const fieldId = columns[colIndex].id;
       const selectedFields = fields.find((field) => field.id === fieldId);
       if (!selectedFields || !fieldEditable(selectedFields)) {
@@ -439,7 +441,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
       gridRef.current?.setSelection(emptySelection);
       openSetting({ fieldId, operator: FieldOperator.Edit });
     },
-    [columns, fields, fieldEditable, openSetting]
+    [columns, fields, fieldEditable, openSetting, permission]
   );
 
   const onColumnHeaderClick = useCallback(
@@ -534,6 +536,8 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
   };
 
   const onColumnAppend = () => {
+    const hasTableManage = permission['table|manage'] ?? false;
+    if (!hasTableManage) return;
     openSetting({
       operator: FieldOperator.Add,
     });
@@ -677,6 +681,8 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
     const { id: fieldId } = columns[columnIndex] ?? {};
 
     if (type === RegionType.ColumnDescription) {
+      const hasTableManage = permission['table|manage'] ?? false;
+      if (!hasTableManage) return;
       openSetting({ fieldId, operator: FieldOperator.Edit });
     }
   };
