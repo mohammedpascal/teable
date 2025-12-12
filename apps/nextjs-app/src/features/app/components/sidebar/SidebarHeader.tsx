@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { cn } from '@teable/ui-lib/shadcn';
+import { useSidebar } from '../../contexts/SidebarContext';
 
 export interface ISidebarHeaderProps {
   headerLeft: ReactNode;
@@ -7,6 +9,12 @@ export interface ISidebarHeaderProps {
 
 export const SidebarHeader = (prop: ISidebarHeaderProps) => {
   const { headerLeft } = prop;
+  const { leftVisible } = useSidebar();
+  const isCollapsed = leftVisible === 'collapsed';
 
-  return <div className="flex h-10 w-full items-center gap-1 p-2">{headerLeft}</div>;
+  return (
+    <div className={cn('flex h-10 w-full items-center gap-1 p-2', isCollapsed && 'justify-center')}>
+      {headerLeft}
+    </div>
+  );
 };

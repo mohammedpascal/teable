@@ -11,12 +11,13 @@ import {
 } from '@teable/ui-lib';
 import { ConfirmDialog } from '@teable/ui-lib/base';
 import AddBoldIcon from '@teable/ui-lib/icons/app/add-bold.svg';
-import { Input, Label } from '@teable/ui-lib/shadcn';
+import { Input, Label, cn } from '@teable/ui-lib/shadcn';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { useTranslation } from 'next-i18next';
 import { useState, useEffect, useRef } from 'react';
 import { GUIDE_CREATE_TABLE } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
+import { useSidebar } from '@/features/app/contexts/SidebarContext';
 import { TableImport } from '../import-table';
 import { DraggableList } from './DraggableList';
 import { NoDraggableList } from './NoDraggableList';
@@ -40,6 +41,8 @@ export const TableList: React.FC = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [fileType, setFileType] = useState<SUPPORTEDTYPE>(SUPPORTEDTYPE.CSV);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { leftVisible } = useSidebar();
+  const isCollapsed = leftVisible === 'collapsed';
   const importFile = (type: SUPPORTEDTYPE) => {
     setDialogVisible(true);
     setFileType(type);
@@ -70,9 +73,13 @@ export const TableList: React.FC = () => {
     <div className="flex w-full flex-col gap-2 overflow-auto pt-4">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <div className="px-3">
+          <div className={cn('px-3', isCollapsed && 'flex justify-center')}>
             {permission?.['table|manage'] && (
-              <Button variant={'outline'} size={'xs'} className={`${GUIDE_CREATE_TABLE} w-full`}>
+              <Button
+                variant={'outline'}
+                size={'xs'}
+                className={cn(`${GUIDE_CREATE_TABLE}`, isCollapsed ? 'w-auto' : 'w-full')}
+              >
                 <AddBoldIcon />
               </Button>
             )}
@@ -163,7 +170,7 @@ export const TableList: React.FC = () => {
         onConfirm={handleCreateTable}
       />
 
-      <div className="overflow-y-auto px-3">
+      <div className={cn('overflow-y-auto', isCollapsed ? 'px-2' : 'px-3')}>
         {connected && permission?.['table|manage'] ? <DraggableList /> : <NoDraggableList />}
       </div>
     </div>
