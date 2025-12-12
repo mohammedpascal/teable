@@ -1,11 +1,8 @@
-import { ChevronsLeft } from '@teable/icons';
 import { useIsMobile } from '@teable/sdk';
-import { Button, cn } from '@teable/ui-lib';
+import { cn } from '@teable/ui-lib';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useSidebar } from '../../contexts/SidebarContext';
-import { SIDE_BAR_WIDTH } from '../toggle-side-bar/constant';
-import { HoverWrapper } from '../toggle-side-bar/HoverWrapper';
 import { SheetWrapper } from '../toggle-side-bar/SheetWrapper';
 import { SidebarHeader } from './SidebarHeader';
 
@@ -33,41 +30,17 @@ export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
         </SheetWrapper>
       ) : (
         <div
-          className={cn('flex w-0 border-r flex-shrink-0 h-full', {
-            'overflow-hidden': !leftVisible,
-            'w-72': leftVisible,
+          className={cn('flex border-r flex-shrink-0 h-full transition-all duration-200', {
+            'w-16': leftVisible === 'collapsed',
+            'w-72': leftVisible === 'expanded',
           })}
           onContextMenu={(e) => e.preventDefault()}
         >
           <div className="group/sidebar flex size-full flex-col overflow-hidden bg-popover">
             <SidebarHeader headerLeft={headerLeft} onExpand={toggleSidebar} />
-            {leftVisible && children}
+            {children}
           </div>
         </div>
-      )}
-
-      {!isMobile && !leftVisible && (
-        <HoverWrapper size={SIDE_BAR_WIDTH}>
-          <HoverWrapper.Trigger>
-            <Button
-              className={cn('absolute top-7 p-1 rounded-none -left-0 rounded-r-full z-40')}
-              variant={'outline'}
-              size="xs"
-              onClick={toggleSidebar}
-            >
-              <ChevronsLeft className="size-5 rotate-180" />
-            </Button>
-          </HoverWrapper.Trigger>
-          <HoverWrapper.content>
-            <div
-              className="group/sidebar flex size-full flex-col overflow-hidden bg-popover"
-              onContextMenu={(e) => e.preventDefault()}
-            >
-              <SidebarHeader headerLeft={headerLeft} />
-              {children}
-            </div>
-          </HoverWrapper.content>
-        </HoverWrapper>
       )}
     </>
   );

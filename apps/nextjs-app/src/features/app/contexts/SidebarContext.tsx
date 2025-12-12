@@ -1,18 +1,20 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 
+type SidebarState = 'expanded' | 'collapsed';
+
 interface ISidebarContext {
-  leftVisible: boolean;
-  setLeftVisible: (visible: boolean) => void;
+  leftVisible: SidebarState;
+  setLeftVisible: (visible: SidebarState) => void;
   toggleSidebar: () => void;
 }
 
 const SidebarContext = createContext<ISidebarContext | undefined>(undefined);
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
-  const [leftVisible, setLeftVisible] = useState(true);
+  const [leftVisible, setLeftVisible] = useState<SidebarState>('expanded');
 
   const toggleSidebar = () => {
-    setLeftVisible((prev) => !prev);
+    setLeftVisible((prev) => (prev === 'expanded' ? 'collapsed' : 'expanded'));
   };
 
   return (

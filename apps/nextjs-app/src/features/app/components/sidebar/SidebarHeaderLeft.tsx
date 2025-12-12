@@ -1,4 +1,5 @@
 import { ArrowLeft, TeableNew } from '@teable/icons';
+import { useSidebar } from '../../contexts/SidebarContext';
 
 interface ISidebarBackButtonProps {
   title?: string;
@@ -8,6 +9,8 @@ interface ISidebarBackButtonProps {
 
 export const SidebarHeaderLeft = (props: ISidebarBackButtonProps) => {
   const { title, icon, onBack } = props;
+  const { leftVisible } = useSidebar();
+  const isCollapsed = leftVisible === 'collapsed';
   const displayIcon = icon ?? <TeableNew className="size-5 shrink-0 text-black" />;
 
   return (
@@ -30,7 +33,7 @@ export const SidebarHeaderLeft = (props: ISidebarBackButtonProps) => {
         displayIcon
       )}
 
-      <p className="ml-[2px] truncate text-sm">{title ?? 'Teable'}</p>
+      {!isCollapsed && <p className="ml-[2px] truncate text-sm">{title ?? 'Teable'}</p>}
     </>
   );
 };
