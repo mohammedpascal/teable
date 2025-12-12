@@ -3,11 +3,14 @@ import { Button } from '@teable/ui-lib/shadcn';
 import React from 'react';
 import { NotificationsManage } from '@/features/app/components/notifications/NotificationsManage';
 import { UserAvatar } from '@/features/app/components/user/UserAvatar';
+import { useSidebar } from '@/features/app/contexts/SidebarContext';
 import { SettingDialog } from './setting/SettingDialog';
 import { UserNav } from './user/UserNav';
 
 export const SideBarFooter: React.FC = () => {
   const { user } = useSession();
+  const { leftVisible } = useSidebar();
+  const isCollapsed = leftVisible === 'collapsed';
 
   return (
     <div className="m-2 flex flex-col items-center gap-1">
@@ -15,7 +18,7 @@ export const SideBarFooter: React.FC = () => {
         <UserNav>
           <Button variant="ghost" size={'xs'} className="w-full justify-start text-sm font-normal">
             <UserAvatar user={user} />
-            {user.name}
+            {!isCollapsed && user.name}
           </Button>
         </UserNav>
         <SettingDialog />
