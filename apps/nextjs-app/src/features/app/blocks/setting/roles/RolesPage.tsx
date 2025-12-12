@@ -75,18 +75,21 @@ export const RolesPage = () => {
   };
 
   return (
-    <SettingRight title={<SettingRightTitle title={t('setting:roles.title', { defaultValue: 'Roles' })} />}>
+    <SettingRight
+      title={
+        <SettingRightTitle
+          title={t('setting:roles.title', { defaultValue: 'Roles' })}
+          description={t('setting:roles.description', { defaultValue: 'Manage roles and permissions' })}
+        />
+      }
+      headerActions={
+        <Button onClick={handleCreate} size="sm">
+          <Plus className="mr-2 size-4" />
+          {t('setting:roles.addRole', { defaultValue: 'Add Role' })}
+        </Button>
+      }
+    >
       <div className="flex w-full flex-col gap-4 pb-8 pt-4">
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
-            {t('setting:roles.description', { defaultValue: 'Manage roles and permissions' })}
-          </p>
-          <Button onClick={handleCreate} size="sm">
-            <Plus className="mr-2 size-4" />
-            {t('setting:roles.addRole', { defaultValue: 'Add Role' })}
-          </Button>
-        </div>
-
         {error && (
           <div className="rounded-md border border-destructive bg-destructive/10 p-4 text-sm text-destructive">
             {t('common:error', { defaultValue: 'An error occurred' })}

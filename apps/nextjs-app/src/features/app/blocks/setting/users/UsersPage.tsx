@@ -70,18 +70,21 @@ export const UsersPage = () => {
   };
 
   return (
-    <SettingRight title={<SettingRightTitle title={t('setting:users.title', { defaultValue: 'Users' })} />}>
+    <SettingRight
+      title={
+        <SettingRightTitle
+          title={t('setting:users.title', { defaultValue: 'Users' })}
+          description={t('setting:users.description', { defaultValue: 'Manage users and their permissions' })}
+        />
+      }
+      headerActions={
+        <Button onClick={handleCreate} size="sm">
+          <Plus className="mr-2 size-4" />
+          {t('setting:users.addUser', { defaultValue: 'Add User' })}
+        </Button>
+      }
+    >
       <div className="flex w-full flex-col gap-4 pb-8 pt-4">
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
-            {t('setting:users.description', { defaultValue: 'Manage users and their permissions' })}
-          </p>
-          <Button onClick={handleCreate} size="sm">
-            <Plus className="mr-2 size-4" />
-            {t('setting:users.addUser', { defaultValue: 'Add User' })}
-          </Button>
-        </div>
-
         <UsersGridView
           users={data?.users || []}
           total={data?.total || 0}
