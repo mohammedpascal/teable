@@ -1,6 +1,3 @@
-import { Sidebar } from '@teable/icons';
-import { Button, TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@teable/ui-lib';
-import { useTranslation } from 'next-i18next';
 import type { ReactNode } from 'react';
 
 export interface ISidebarHeaderProps {
@@ -9,8 +6,7 @@ export interface ISidebarHeaderProps {
 }
 
 export const SidebarHeader = (prop: ISidebarHeaderProps) => {
-  const { headerLeft, onExpand } = prop;
-  const { t } = useTranslation('common');
+  const { headerLeft } = prop;
 
   return <div className="flex h-10 w-full items-center gap-1 p-2">{headerLeft}</div>;
 };

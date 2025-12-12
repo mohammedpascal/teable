@@ -1,4 +1,4 @@
-import { ChevronsLeft, TeableNew } from '@teable/icons';
+import { ArrowLeft, TeableNew } from '@teable/icons';
 
 interface ISidebarBackButtonProps {
   title?: string;
@@ -14,7 +14,7 @@ export const SidebarHeaderLeft = (props: ISidebarBackButtonProps) => {
     <>
       {onBack ? (
         <div
-          className="group relative size-5 shrink-0 cursor-pointer"
+          className="size-5 shrink-0 cursor-pointer"
           onClick={() => onBack?.()}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -24,8 +24,7 @@ export const SidebarHeaderLeft = (props: ISidebarBackButtonProps) => {
           role="button"
           tabIndex={0}
         >
-          <div className="absolute top-0 size-5 group-hover:opacity-0">{displayIcon}</div>
-          <ChevronsLeft className="absolute top-0 size-5 opacity-0 group-hover:opacity-100" />
+          <ArrowLeft className="size-5 text-black" />
         </div>
       ) : (
         displayIcon

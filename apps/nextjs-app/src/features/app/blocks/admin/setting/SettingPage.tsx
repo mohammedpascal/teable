@@ -1,3 +1,4 @@
+import { Sidebar } from '@teable/icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { IUpdateSettingRo, ISettingVo } from '@teable/openapi';
 import { getSetting, updateSetting } from '@teable/openapi';
@@ -9,10 +10,16 @@ import {
   PopoverContent,
   PopoverTrigger,
   Switch,
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  Separator,
 } from '@teable/ui-lib/shadcn';
 import { Pencil } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
+import { useSidebar } from '../../../contexts/SidebarContext';
 import { CopyInstance } from './components';
 
 interface InstanceNameFieldProps {
@@ -113,6 +120,7 @@ export const SettingPage = (props: ISettingPageProps) => {
   const { settingServerData } = props;
   const queryClient = useQueryClient();
   const { t } = useTranslation('common');
+  const { toggleSidebar } = useSidebar();
 
   const { data: setting = settingServerData } = useQuery({
     queryKey: ['setting'],
@@ -139,11 +147,33 @@ export const SettingPage = (props: ISettingPageProps) => {
   const { instanceId, instanceName, disallowSignUp, enableEmailVerification } = setting;
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden px-8 py-6">
-      <div className="border-b pb-4">
-        <h1 className="text-2xl font-semibold">{t('settings.title')}</h1>
-        <div className="mt-3 text-sm text-slate-500">{t('admin.setting.description')}</div>
+    <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
+      <div className="flex h-16 items-center gap-x-4 px-8">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="xs"
+                className="h-8 w-8 shrink-0 p-0"
+                onClick={toggleSidebar}
+              >
+                <Sidebar className="size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent hideWhenDetached={true}>
+              <p>{t('actions.collapseSidebar')} ⌘+B</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <h2 className="flex-1 text-base">{t('settings.title')}</h2>
       </div>
+      <Separator />
+      <div className="flex-1 overflow-y-auto px-8 py-6">
+        <div className="border-b pb-4">
+          <h1 className="text-2xl font-semibold">{t('settings.title')}</h1>
+          <div className="mt-3 text-sm text-slate-500">{t('admin.setting.description')}</div>
+        </div>
 
       {/* General Settings Section */}
       <div className="border-b py-4">
@@ -188,10 +218,11 @@ export const SettingPage = (props: ISettingPageProps) => {
         </div>
       </div>
 
-      <p className="p-4 text-right text-xs">
-        {t('settings.setting.version')}: {process.env.NEXT_PUBLIC_BUILD_VERSION}
-      </p>
-      <CopyInstance instanceId={instanceId} />
+        <p className="p-4 text-right text-xs">
+          {t('settings.setting.version')}: {process.env.NEXT_PUBLIC_BUILD_VERSION}
+        </p>
+        <CopyInstance instanceId={instanceId} />
+      </div>
     </div>
   );
 };
