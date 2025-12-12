@@ -10,6 +10,7 @@ import React, { Fragment } from 'react';
 import { AppLayout } from '@/features/app/layouts';
 import { BaseSideBar } from '../blocks/base/base-side-bar/BaseSideBar';
 import { BaseSidebarHeaderLeft } from '../blocks/base/base-side-bar/BaseSidebarHeaderLeft';
+import { SidebarProvider } from '../contexts/SidebarContext';
 import { Sidebar } from '../components/sidebar/Sidebar';
 import { SidebarContent } from '../components/sidebar/SidebarContent';
 import { SideBarFooter } from '../components/SideBarFooter';
@@ -40,27 +41,29 @@ export const BaseLayout: React.FC<{
               }}
             >
               <TableProvider serverData={tableServerData}>
-                <div
-                  id="portal"
-                  className="relative flex h-screen w-full items-start"
-                  onContextMenu={(e) => e.preventDefault()}
-                >
-                  <div className="flex h-screen w-full">
-                    <Sidebar headerLeft={<BaseSidebarHeaderLeft />}>
-                      <Fragment>
-                        <div className="flex flex-col gap-2 divide-y divide-solid overflow-auto py-2">
-                          <BaseSideBar />
-                        </div>
-                        <div className="grow basis-0" />
-                        {navigationRoutes.length > 0 && (
-                          <SidebarContent routes={navigationRoutes} />
-                        )}
-                        <SideBarFooter />
-                      </Fragment>
-                    </Sidebar>
-                    <div className="min-w-80 flex-1">{children}</div>
+                <SidebarProvider>
+                  <div
+                    id="portal"
+                    className="relative flex h-screen w-full items-start"
+                    onContextMenu={(e) => e.preventDefault()}
+                  >
+                    <div className="flex h-screen w-full">
+                      <Sidebar headerLeft={<BaseSidebarHeaderLeft />}>
+                        <Fragment>
+                          <div className="flex flex-col gap-2 divide-y divide-solid overflow-auto py-2">
+                            <BaseSideBar />
+                          </div>
+                          <div className="grow basis-0" />
+                          {navigationRoutes.length > 0 && (
+                            <SidebarContent routes={navigationRoutes} />
+                          )}
+                          <SideBarFooter />
+                        </Fragment>
+                      </Sidebar>
+                      <div className="min-w-80 flex-1">{children}</div>
+                    </div>
                   </div>
-                </div>
+                </SidebarProvider>
               </TableProvider>
             </AnchorContext.Provider>
           </NotificationProvider>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { AppLayout } from '@/features/app/layouts';
+import { SidebarProvider } from '../contexts/SidebarContext';
 import { Sidebar } from '../components/sidebar/Sidebar';
 import { SidebarContent } from '../components/sidebar/SidebarContent';
 import { SidebarHeaderLeft } from '../components/sidebar/SidebarHeaderLeft';
@@ -32,14 +33,16 @@ export const SettingLayout: React.FC<{
     <AppLayout>
       <AppProvider lang={i18n.language} locale={sdkLocale} dehydratedState={dehydratedState}>
         <SessionProvider user={user}>
-          <div id="portal" className="relative flex h-screen w-full items-start">
-            <Sidebar
-              headerLeft={<SidebarHeaderLeft title={t('common:settings.title')} onBack={onBack} />}
-            >
-              <SidebarContent routes={routes} />
-            </Sidebar>
-            {children}
-          </div>
+          <SidebarProvider>
+            <div id="portal" className="relative flex h-screen w-full items-start">
+              <Sidebar
+                headerLeft={<SidebarHeaderLeft title={t('common:settings.title')} onBack={onBack} />}
+              >
+                <SidebarContent routes={routes} />
+              </Sidebar>
+              {children}
+            </div>
+          </SidebarProvider>
         </SessionProvider>
       </AppProvider>
     </AppLayout>

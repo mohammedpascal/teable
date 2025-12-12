@@ -2,8 +2,8 @@ import { ChevronsLeft } from '@teable/icons';
 import { useIsMobile } from '@teable/sdk';
 import { Button, cn } from '@teable/ui-lib';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
-import { useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { useSidebar } from '../../contexts/SidebarContext';
 import { SIDE_BAR_WIDTH } from '../toggle-side-bar/constant';
 import { HoverWrapper } from '../toggle-side-bar/HoverWrapper';
 import { SheetWrapper } from '../toggle-side-bar/SheetWrapper';
@@ -16,10 +16,10 @@ interface ISidebarProps {
 export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
   const { headerLeft, children } = props;
   const isMobile = useIsMobile();
-  const [leftVisible, setLeftVisible] = useState(true);
+  const { leftVisible, toggleSidebar } = useSidebar();
 
   useHotkeys(`meta+b`, () => {
-    setLeftVisible(!leftVisible);
+    toggleSidebar();
   });
 
   return (
@@ -40,7 +40,7 @@ export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
           onContextMenu={(e) => e.preventDefault()}
         >
           <div className="group/sidebar flex size-full flex-col overflow-hidden bg-popover">
-            <SidebarHeader headerLeft={headerLeft} onExpand={() => setLeftVisible(!leftVisible)} />
+            <SidebarHeader headerLeft={headerLeft} onExpand={toggleSidebar} />
             {leftVisible && children}
           </div>
         </div>
@@ -53,9 +53,7 @@ export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
               className={cn('absolute top-7 p-1 rounded-none -left-0 rounded-r-full z-40')}
               variant={'outline'}
               size="xs"
-              onClick={() => {
-                setLeftVisible(!leftVisible);
-              }}
+              onClick={toggleSidebar}
             >
               <ChevronsLeft className="size-5 rotate-180" />
             </Button>
