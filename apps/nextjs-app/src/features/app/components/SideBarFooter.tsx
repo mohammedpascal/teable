@@ -11,7 +11,7 @@ export const SideBarFooter: React.FC = () => {
 
   return (
     <div className="m-2 flex flex-col items-center gap-1">
-      <div className="flex w-full justify-between">
+      <div className="mb-1 flex w-full justify-between">
         <UserNav>
           <Button variant="ghost" size={'xs'} className="w-full justify-start text-sm font-normal">
             <UserAvatar user={user} />

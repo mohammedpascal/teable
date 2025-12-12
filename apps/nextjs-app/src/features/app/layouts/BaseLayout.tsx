@@ -26,18 +26,7 @@ export const BaseLayout: React.FC<{
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
 
-  const navigationRoutes: any[] = [
-    ...(user?.isAdmin
-      ? [
-          {
-            Icon: Settings,
-            label: 'Settings' as React.ReactNode,
-            route: '/settings/general',
-            pathTo: `/settings/general`,
-          },
-        ]
-      : []),
-  ];
+  const navigationRoutes: any[] = [];
 
   return (
     <AppLayout>
