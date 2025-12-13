@@ -14,16 +14,36 @@ export const SideBarFooter: React.FC = () => {
 
   return (
     <div className="m-2 flex flex-col items-center gap-1">
-      <div className="mb-1 flex w-full justify-between">
-        <UserNav>
-          <Button variant="ghost" size={'xs'} className="w-full justify-start text-sm font-normal">
-            <UserAvatar user={user} />
-            {!isCollapsed && user.name}
-          </Button>
-        </UserNav>
-        <SettingDialog />
-        <NotificationsManage />
-      </div>
+      {isCollapsed ? (
+        <div className="mb-1 flex w-full flex-col items-center gap-1">
+          <NotificationsManage />
+          <UserNav>
+            <Button
+              variant="ghost"
+              size={'xs'}
+              className="w-auto justify-center p-2 text-sm font-normal"
+            >
+              <UserAvatar user={user} />
+            </Button>
+          </UserNav>
+          <SettingDialog />
+        </div>
+      ) : (
+        <div className="mb-1 flex w-full justify-between">
+          <UserNav>
+            <Button
+              variant="ghost"
+              size={'xs'}
+              className="w-full justify-start text-sm font-normal"
+            >
+              <UserAvatar user={user} />
+              {user.name}
+            </Button>
+          </UserNav>
+          <SettingDialog />
+          <NotificationsManage />
+        </div>
+      )}
     </div>
   );
 };
