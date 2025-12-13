@@ -16,7 +16,9 @@ export const SideBarFooter: React.FC = () => {
     <div className="m-2 flex flex-col items-center gap-1">
       {isCollapsed ? (
         <div className="mb-1 flex w-full flex-col items-center gap-1">
-          <NotificationsManage />
+          <div className="mb-1">
+            <NotificationsManage />
+          </div>
           <UserNav>
             <Button
               variant="ghost"
