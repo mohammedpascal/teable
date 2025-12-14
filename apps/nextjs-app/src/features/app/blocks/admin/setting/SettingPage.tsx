@@ -20,6 +20,7 @@ import { Pencil } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { useSidebar } from '../../../contexts/SidebarContext';
+import { SettingsHeader } from '../../setting/SettingsHeader';
 import { CopyInstance } from './components';
 
 interface InstanceNameFieldProps {
@@ -148,26 +149,7 @@ export const SettingPage = (props: ISettingPageProps) => {
 
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
-      <div className="flex h-14 items-center gap-x-4 px-8">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="xs"
-                className="size-8 shrink-0 p-0"
-                onClick={toggleSidebar}
-              >
-                <Sidebar className="size-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent hideWhenDetached={true}>
-              <p>{t('actions.collapseSidebar')} ⌘+B</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <h2 className="flex-1 text-base">{t('settings.title')}</h2>
-      </div>
+      <SettingsHeader title={t('settings.title')} />
       <Separator />
       <div className="flex-1 overflow-y-auto px-8 py-6">
         <div className="border-b pb-4">
