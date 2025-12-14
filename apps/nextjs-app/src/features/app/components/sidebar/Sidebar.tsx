@@ -13,7 +13,7 @@ interface ISidebarProps {
 export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
   const { headerLeft, children } = props;
   const isMobile = useIsMobile();
-  const { leftVisible, toggleSidebar } = useSidebar();
+  const { leftVisible, toggleSidebar, setLeftVisible } = useSidebar();
 
   useHotkeys(`meta+b`, () => {
     toggleSidebar();
@@ -22,7 +22,10 @@ export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
   return (
     <>
       {isMobile ? (
-        <SheetWrapper>
+        <SheetWrapper
+          open={leftVisible === 'expanded'}
+          onOpenChange={(open) => setLeftVisible(open ? 'expanded' : 'collapsed')}
+        >
           <div className="group/sidebar flex size-full flex-col overflow-hidden bg-popover p-5">
             <SidebarHeader headerLeft={headerLeft} />
             {children}
