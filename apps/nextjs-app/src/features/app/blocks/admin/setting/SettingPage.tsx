@@ -1,5 +1,5 @@
-import { Sidebar } from '@teable/icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Sidebar } from '@teable/icons';
 import type { IUpdateSettingRo, ISettingVo } from '@teable/openapi';
 import { getSetting, updateSetting } from '@teable/openapi';
 import {
@@ -148,14 +148,14 @@ export const SettingPage = (props: ISettingPageProps) => {
 
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
-      <div className="flex h-16 items-center gap-x-4 px-8">
+      <div className="flex h-14 items-center gap-x-4 px-8">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="xs"
-                className="h-8 w-8 shrink-0 p-0"
+                className="size-8 shrink-0 p-0"
                 onClick={toggleSidebar}
               >
                 <Sidebar className="size-4" />
@@ -175,48 +175,48 @@ export const SettingPage = (props: ISettingPageProps) => {
           <div className="mt-3 text-sm text-slate-500">{t('admin.setting.description')}</div>
         </div>
 
-      {/* General Settings Section */}
-      <div className="border-b py-4">
-        <h2 className="mb-4 text-lg font-medium">{t('admin.setting.generalSettings')}</h2>
-        <div className="flex w-full flex-col space-y-4">
-          <div className="flex flex-col space-y-2 rounded-lg border p-4 shadow-sm">
-            <InstanceNameField
-              label={t('admin.setting.instanceName')}
-              description={t('admin.setting.instanceNameDescription')}
-              value={instanceName}
-              onSave={handleUpdateInstanceName}
-            />
-          </div>
-          <div className="flex items-center justify-between space-x-2 rounded-lg border p-4 shadow-sm">
-            <div className="space-y-1">
-              <Label htmlFor="allow-sign-up">{t('admin.setting.allowSignUp')}</Label>
-              <div className="text-[13px] text-gray-500">
-                {t('admin.setting.allowSignUpDescription')}
-              </div>
+        {/* General Settings Section */}
+        <div className="border-b py-4">
+          <h2 className="mb-4 text-lg font-medium">{t('admin.setting.generalSettings')}</h2>
+          <div className="flex w-full flex-col space-y-4">
+            <div className="flex flex-col space-y-2 rounded-lg border p-4 shadow-sm">
+              <InstanceNameField
+                label={t('admin.setting.instanceName')}
+                description={t('admin.setting.instanceNameDescription')}
+                value={instanceName}
+                onSave={handleUpdateInstanceName}
+              />
             </div>
-            <Switch
-              id="allow-sign-up"
-              checked={!disallowSignUp}
-              onCheckedChange={(checked) => onValueChange('disallowSignUp', !checked)}
-            />
-          </div>
-          <div className="flex items-center justify-between space-x-2 rounded-lg border p-4 shadow-sm">
-            <div className="space-y-1">
-              <Label htmlFor="enable-email-verification">
-                {t('admin.setting.enableEmailVerification')}
-              </Label>
-              <div className="text-[13px] text-gray-500">
-                {t('admin.setting.enableEmailVerificationDescription')}
+            <div className="flex items-center justify-between space-x-2 rounded-lg border p-4 shadow-sm">
+              <div className="space-y-1">
+                <Label htmlFor="allow-sign-up">{t('admin.setting.allowSignUp')}</Label>
+                <div className="text-[13px] text-gray-500">
+                  {t('admin.setting.allowSignUpDescription')}
+                </div>
               </div>
+              <Switch
+                id="allow-sign-up"
+                checked={!disallowSignUp}
+                onCheckedChange={(checked) => onValueChange('disallowSignUp', !checked)}
+              />
             </div>
-            <Switch
-              id="enable-email-verification"
-              checked={!enableEmailVerification}
-              onCheckedChange={(checked) => onValueChange('enableEmailVerification', !checked)}
-            />
+            <div className="flex items-center justify-between space-x-2 rounded-lg border p-4 shadow-sm">
+              <div className="space-y-1">
+                <Label htmlFor="enable-email-verification">
+                  {t('admin.setting.enableEmailVerification')}
+                </Label>
+                <div className="text-[13px] text-gray-500">
+                  {t('admin.setting.enableEmailVerificationDescription')}
+                </div>
+              </div>
+              <Switch
+                id="enable-email-verification"
+                checked={!enableEmailVerification}
+                onCheckedChange={(checked) => onValueChange('enableEmailVerification', !checked)}
+              />
+            </div>
           </div>
         </div>
-      </div>
 
         <p className="p-4 text-right text-xs">
           {t('settings.setting.version')}: {process.env.NEXT_PUBLIC_BUILD_VERSION}
