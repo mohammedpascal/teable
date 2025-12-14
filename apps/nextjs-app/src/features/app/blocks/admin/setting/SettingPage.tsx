@@ -18,12 +18,11 @@ import { SettingsHeader } from '../../setting/SettingsHeader';
 
 interface InstanceNameFieldProps {
   label: string;
-  description: string;
   value: string | null | undefined;
   onSave: (value: string | null) => Promise<void>;
 }
 
-const InstanceNameField = ({ label, description, value, onSave }: InstanceNameFieldProps) => {
+const InstanceNameField = ({ label, value, onSave }: InstanceNameFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,52 +55,51 @@ const InstanceNameField = ({ label, description, value, onSave }: InstanceNameFi
     <div className="space-y-1">
       <div className="flex items-center gap-2">
         <Label>{label}</Label>
-        <Popover open={isEditing} onOpenChange={handleOpenChange}>
-          <PopoverTrigger asChild>
-            <Pencil className="size-4 cursor-pointer text-muted-foreground hover:text-foreground" />
-          </PopoverTrigger>
-          <PopoverContent className="w-80">
-            <form
-              className="space-y-4"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                await handleSave();
-              }}
-            >
-              <div className="space-y-2">
-                <Label>{label}</Label>
-                <Input
-                  value={editValue || ''}
-                  onChange={(e) => setEditValue(e.target.value)}
-                  data-1p-ignore="true"
-                  autoComplete="off"
-                  placeholder={label}
-                  autoFocus
-                />
-              </div>
-              <div className="flex justify-end gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setIsEditing(false);
-                    setEditValue(value);
-                  }}
-                  disabled={isLoading}
-                >
-                  {t('actions.cancel')}
-                </Button>
-                <Button type="submit" size="sm" disabled={isLoading}>
-                  {t('actions.submit')}
-                </Button>
-              </div>
-            </form>
-          </PopoverContent>
-        </Popover>
       </div>
-      <div className="text-[13px] text-gray-500">{description}</div>
-      <p className="text-sm">{value || <span className="opacity-20">-</span>}</p>
+      <div className="pt-2 text-[13px] text-gray-500">{value}</div>{' '}
+      <Popover open={isEditing} onOpenChange={handleOpenChange}>
+        <PopoverTrigger asChild>
+          <Pencil className="size-4 cursor-pointer text-muted-foreground hover:text-foreground" />
+        </PopoverTrigger>
+        <PopoverContent className="w-80">
+          <form
+            className="space-y-4"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              await handleSave();
+            }}
+          >
+            <div className="space-y-2">
+              <Label>{label}</Label>
+              <Input
+                value={editValue || ''}
+                onChange={(e) => setEditValue(e.target.value)}
+                data-1p-ignore="true"
+                autoComplete="off"
+                placeholder={label}
+                autoFocus
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setIsEditing(false);
+                  setEditValue(value);
+                }}
+                disabled={isLoading}
+              >
+                {t('actions.cancel')}
+              </Button>
+              <Button type="submit" size="sm" disabled={isLoading}>
+                {t('actions.submit')}
+              </Button>
+            </div>
+          </form>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 };
@@ -149,8 +147,7 @@ export const SettingPage = (props: ISettingPageProps) => {
           <div className="flex w-full flex-col space-y-4">
             <div className="flex flex-col space-y-2 rounded-lg border p-4 shadow-sm">
               <InstanceNameField
-                label={t('admin.setting.instanceName')}
-                description={t('admin.setting.instanceNameDescription')}
+                label={t('admin.setting.name', { defaultValue: 'Name' })}
                 value={instanceName}
                 onSave={handleUpdateInstanceName}
               />
