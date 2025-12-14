@@ -75,10 +75,13 @@ export const UsersPage = () => {
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
       <SettingsHeader title={t('setting:users.title', { defaultValue: 'Users' })}>
-        <Button onClick={handleCreate} size="sm">
-          <Plus className="mr-2 size-4" />
-          {t('setting:users.addUser', { defaultValue: 'Add User' })}
-        </Button>
+        <>
+          <span className="grow" />
+          <Button onClick={handleCreate} size="sm">
+            <Plus className="mr-2 size-4" />
+            {t('setting:users.addUser', { defaultValue: 'Add User' })}
+          </Button>
+        </>
       </SettingsHeader>
       <Separator />
       <div className="flex-1 overflow-y-auto px-8 py-6">

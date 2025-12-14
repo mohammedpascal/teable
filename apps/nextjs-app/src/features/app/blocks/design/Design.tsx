@@ -1,15 +1,8 @@
-import { Sidebar } from '@teable/icons';
 import { AnchorContext } from '@teable/sdk/context';
-import {
-  Button,
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from '@teable/ui-lib/shadcn';
+import { Separator } from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useSidebar } from '../../contexts/SidebarContext';
+import { SettingsHeader } from '../setting/SettingsHeader';
 import { IntegrityButton } from './components/Integrity';
 import { TablePicker, TableTabs } from './TableTabs';
 
@@ -17,32 +10,14 @@ export const Design = () => {
   const router = useRouter();
   const tableId = router.query.tableId as string;
   const { t } = useTranslation(['table', 'common']);
-  const { toggleSidebar } = useSidebar();
 
   return (
     <AnchorContext.Provider value={{ tableId }}>
       <div className="h-screen w-full overflow-y-auto bg-background">
         {/* Header */}
-        <div className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="flex h-14 items-center gap-2 px-4 py-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="xs"
-                    className="size-8 shrink-0 p-0"
-                    onClick={toggleSidebar}
-                  >
-                    <Sidebar className="size-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent hideWhenDetached={true}>
-                  <p>{t('common:actions.collapseSidebar')} ⌘+B</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <h1 className="text-lg font-semibold">{t('table:table.design')}</h1>
+
+        <SettingsHeader title={t('table:table.design', { defaultValue: 'Design' })}>
+          <>
             <TablePicker
               tableId={tableId}
               readonly={false}
@@ -50,13 +25,15 @@ export const Design = () => {
                 router.push({ pathname: '/settings/design', query: { tableId } })
               }
             />
+            <span className="grow" />
             <div className="ml-auto">
               <IntegrityButton />
             </div>
-          </div>
-        </div>
+          </>
+        </SettingsHeader>
 
-        <div className="space-y-4 p-4 pb-8">
+        <Separator />
+        <div className="flex-1 overflow-y-auto px-6 py-4">
           <TableTabs />
         </div>
       </div>

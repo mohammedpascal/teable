@@ -39,7 +39,7 @@ export const SettingsHeader = (props: ISettingsHeader) => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <h2 className="flex-1 text-base">{title}</h2>
+      <h2 className="break-words text-base">{title}</h2>
       {children}
     </div>
   );
