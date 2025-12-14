@@ -31,12 +31,14 @@ export const SidebarContent = (props: ISidebarContentProps) => {
   const isCollapsed = leftVisible === 'collapsed';
 
   return (
-    <div className={cn('flex flex-col gap-2 border-t py-2', isCollapsed ? 'px-2' : 'px-4', className)}>
+    <div
+      className={cn('flex flex-col gap-2 border-t py-2', isCollapsed ? 'px-2' : 'px-4', className)}
+    >
       {title && !isCollapsed && <span className="text-sm text-slate-500">{title}</span>}
       <ul>
         {routes.map(({ Icon, label, route, pathTo, disabledTip }) => {
           const isActive = route === router.pathname;
-          
+
           if (disabledTip) {
             return (
               <li key={route}>
@@ -78,7 +80,7 @@ export const SidebarContent = (props: ISidebarContentProps) => {
               <Icon className="size-4 shrink-0" />
               {!isCollapsed && (
                 <>
-                  <p className="truncate">{label}</p>
+                  <p className="ml-2 truncate">{label}</p>
                   <div className="grow basis-0"></div>
                 </>
               )}
