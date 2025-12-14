@@ -24,7 +24,7 @@ export const BaseSidebarHeaderLeft = () => {
     >
       <div
         className={cn(
-          isCollapsed ? 'flex items-center justify-center' : 'relative mr-2 size-8 shrink-0'
+          isCollapsed ? 'flex items-center justify-center' : 'relative mx-2 size-8 shrink-0'
         )}
       >
         <div
