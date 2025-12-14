@@ -1,6 +1,12 @@
 import { Sidebar } from '@teable/icons';
 import { AnchorContext } from '@teable/sdk/context';
-import { Button, TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@teable/ui-lib/shadcn';
+import {
+  Button,
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@teable/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useSidebar } from '../../contexts/SidebarContext';
@@ -15,7 +21,7 @@ export const Design = () => {
 
   return (
     <AnchorContext.Provider value={{ tableId }}>
-      <div className="h-screen overflow-y-auto bg-background">
+      <div className="h-screen w-full overflow-y-auto bg-background">
         {/* Header */}
         <div className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-2 px-4 py-2">
@@ -25,7 +31,7 @@ export const Design = () => {
                   <Button
                     variant="ghost"
                     size="xs"
-                    className="h-8 w-8 shrink-0 p-0"
+                    className="size-8 shrink-0 p-0"
                     onClick={toggleSidebar}
                   >
                     <Sidebar className="size-4" />
@@ -40,7 +46,9 @@ export const Design = () => {
             <TablePicker
               tableId={tableId}
               readonly={false}
-              onChange={(tableId) => router.push({ pathname: '/settings/design', query: { tableId } })}
+              onChange={(tableId) =>
+                router.push({ pathname: '/settings/design', query: { tableId } })
+              }
             />
             <div className="ml-auto">
               <IntegrityButton />
