@@ -143,7 +143,7 @@ export const SettingPage = (props: ISettingPageProps) => {
     <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
       <SettingsHeader title={t('settings.general', { defaultValue: 'General' })} />
       <Separator />
-      <div className="flex-1 overflow-y-auto px-8 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-4">
         {/* General Settings Section */}
         <div className="border-b py-4">
           <div className="flex w-full flex-col space-y-4">

@@ -21,7 +21,7 @@ export const SettingsHeader = (props: ISettingsHeader) => {
   const { t } = useTranslation('common');
 
   return (
-    <div className="flex h-14 items-center gap-x-4 px-8">
+    <div className="flex h-14 items-center gap-x-4 px-4">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>

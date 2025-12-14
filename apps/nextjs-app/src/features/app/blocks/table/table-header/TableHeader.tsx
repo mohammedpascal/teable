@@ -1,6 +1,15 @@
 import { Sidebar, MoreHorizontal } from '@teable/icons';
 import { useTable } from '@teable/sdk/hooks';
-import { Button, cn, ScrollArea, ScrollBar, TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@teable/ui-lib/shadcn';
+import {
+  Button,
+  cn,
+  ScrollArea,
+  ScrollBar,
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
 import { useSidebar } from '../../../contexts/SidebarContext';
@@ -44,9 +53,7 @@ export const TableHeader: React.FC = () => {
   return (
     <Fragment>
       <div
-        className={cn(
-          'flex h-[42px] shrink-0 flex-row items-center gap-2 px-4 @container/view-header'
-        )}
+        className={cn('flex h-14 shrink-0 flex-row items-center gap-2 px-4 @container/view-header')}
       >
         <TooltipProvider>
           <Tooltip>
@@ -54,7 +61,7 @@ export const TableHeader: React.FC = () => {
               <Button
                 variant="ghost"
                 size="xs"
-                className="h-8 w-8 shrink-0 p-0"
+                className="size-8 shrink-0 p-0"
                 onClick={toggleSidebar}
               >
                 <Sidebar className="size-4" />
