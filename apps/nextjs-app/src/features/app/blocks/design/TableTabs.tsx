@@ -75,7 +75,7 @@ const DangerZone = () => {
         router.push(
           firstTableId
             ? {
-                pathname: '/design',
+                pathname: '/settings/design',
                 query: { tableId: firstTableId },
               }
             : {
@@ -138,7 +138,7 @@ export const TableTabs = () => {
   return (
     <Tabs
       value={tableId}
-      onValueChange={(tableId) => router.push({ pathname: '/design', query: { tableId } })}
+      onValueChange={(tableId) => router.push({ pathname: '/settings/design', query: { tableId } })}
       className="space-y-4"
     >
       {tables.map((table) => (

@@ -1,23 +1,45 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { ReactQueryKeys } from '@teable/sdk/config';
+import { TableProvider } from '@teable/sdk/context';
+import type { ITableVo } from '@teable/openapi';
 import type { ReactElement } from 'react';
 import { Design } from '@/features/app/blocks/design/Design';
-import { BaseLayout } from '@/features/app/layouts/BaseLayout';
+import { SettingLayout } from '@/features/app/layouts/SettingLayout';
 import { tableConfig } from '@/features/i18n/table.config';
 import ensureLogin from '@/lib/ensureLogin';
 import { getTranslationsProps } from '@/lib/i18n';
 import type { NextPageWithLayout } from '@/lib/type';
-import type { IViewPageProps } from '@/lib/view-pages-data';
 import withAuthSSR from '@/lib/withAuthSSR';
 import withEnv from '@/lib/withEnv';
+import type { GetServerSideProps } from 'next';
 
-const Node: NextPageWithLayout = () => {
-  return <Design />;
+interface IDesignPageProps {
+  tableServerData: ITableVo[];
+  dehydratedState?: unknown;
+}
+
+const DesignPage: NextPageWithLayout<IDesignPageProps> = ({ tableServerData, dehydratedState }) => {
+  return (
+    <TableProvider serverData={tableServerData}>
+      <Design />
+    </TableProvider>
+  );
 };
 
-export const getServerSideProps = withEnv(
+export const getServerSideProps: GetServerSideProps = withEnv(
   ensureLogin(
     withAuthSSR(async (context, ssrApi) => {
+      const userMe = await ssrApi.getUserMe();
+
+      if (!userMe?.isAdmin) {
+        return {
+          redirect: {
+            destination: '/403',
+            permanent: false,
+          },
+        };
+      }
+
       const queryClient = new QueryClient();
       const [tables] = await Promise.all([
         ssrApi.getTables(),
@@ -46,9 +68,9 @@ export const getServerSideProps = withEnv(
   )
 );
 
-Node.getLayout = function getLayout(page: ReactElement, pageProps: IViewPageProps) {
-  return <BaseLayout {...pageProps}>{page}</BaseLayout>;
+DesignPage.getLayout = function getLayout(page: ReactElement, pageProps) {
+  return <SettingLayout {...pageProps}>{page}</SettingLayout>;
 };
 
-export default Node;
+export default DesignPage;
 

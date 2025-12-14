@@ -57,7 +57,7 @@ const OthersList = ({
           >
             <Link
               href={{
-                pathname: '/design',
+                pathname: '/settings/design',
                 query: { tableId },
               }}
             >

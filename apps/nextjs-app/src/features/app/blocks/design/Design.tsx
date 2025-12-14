@@ -40,7 +40,7 @@ export const Design = () => {
             <TablePicker
               tableId={tableId}
               readonly={false}
-              onChange={(tableId) => router.push({ pathname: '/design', query: { tableId } })}
+              onChange={(tableId) => router.push({ pathname: '/settings/design', query: { tableId } })}
             />
             <div className="ml-auto">
               <IntegrityButton />
