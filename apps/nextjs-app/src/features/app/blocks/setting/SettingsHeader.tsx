@@ -26,10 +26,10 @@ export const SettingsHeader = (props: ISettingsHeader) => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant="ghost"
               size="xs"
-              className="size-8 shrink-0 p-0"
+              variant="ghost"
               onClick={toggleSidebar}
+              className="size-8 shrink-0 p-0"
             >
               <Sidebar className="size-4" />
             </Button>
@@ -40,7 +40,6 @@ export const SettingsHeader = (props: ISettingsHeader) => {
         </Tooltip>
       </TooltipProvider>
       <h2 className="flex-1 text-base">{title}</h2>
-
       {children}
     </div>
   );
