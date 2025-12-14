@@ -61,7 +61,7 @@ export const TableHeader: React.FC = () => {
               <Button
                 variant="ghost"
                 size="xs"
-                className="size-8 shrink-0 p-0"
+                className="mr-4 size-8 shrink-0 p-0"
                 onClick={toggleSidebar}
               >
                 <Sidebar className="size-4" />

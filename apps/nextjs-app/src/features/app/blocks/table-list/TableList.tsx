@@ -16,8 +16,8 @@ import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { useTranslation } from 'next-i18next';
 import { useState, useEffect, useRef } from 'react';
 import { GUIDE_CREATE_TABLE } from '@/components/Guide';
-import { tableConfig } from '@/features/i18n/table.config';
 import { useSidebar } from '@/features/app/contexts/SidebarContext';
+import { tableConfig } from '@/features/i18n/table.config';
 import { TableImport } from '../import-table';
 import { DraggableList } from './DraggableList';
 import { NoDraggableList } from './NoDraggableList';
@@ -70,7 +70,7 @@ export const TableList: React.FC = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-2 overflow-auto pt-4">
+    <div className="flex w-full flex-col gap-2 overflow-auto pt-0">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <div className={cn('px-3', isCollapsed && 'flex justify-center')}>
