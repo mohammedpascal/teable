@@ -1,10 +1,11 @@
-import { TeableNew } from '@teable/icons';
 import { ScrollArea, Tabs, TabsList, TabsTrigger } from '@teable/ui-lib/shadcn';
+import { SquareDot } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { NextSeo } from 'next-seo';
 import { useCallback } from 'react';
+import Tea from '@/components/Tea';
 import { useEnv } from '@/features/app/hooks/useEnv';
 import { useInitializationZodI18n } from '@/features/app/hooks/useInitializationZodI18n';
 import { authConfig } from '@/features/i18n/auth.config';
@@ -37,7 +38,7 @@ export const LoginPage = (props: { children?: React.ReactNode | React.ReactNode[
       <div className="flex min-h-screen">
         <NextSeo title={signType === 'signin' ? t('auth:page.signin') : t('auth:page.signup')} />
         <div className="fixed left-5 top-5 flex flex-none items-center gap-2">
-          <TeableNew className="size-8 text-black" />
+          <Tea />
           {t('common:brand')}
         </div>
         <DescContent />

@@ -1,7 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import type { IFieldRo } from '@teable/core';
 import { convertFieldRoSchema, FieldType, getOptionsSchema } from '@teable/core';
-import { Share2 } from '@teable/icons';
 import { planFieldCreate, type IPlanFieldConvertVo, planFieldConvert } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { useTable, useView } from '@teable/sdk/hooks';
@@ -17,6 +16,7 @@ import {
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { Sheet, SheetContent } from '@teable/ui-lib/shadcn/ui/sheet';
 import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
+import { Share2 } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';
 import { fromZodError } from 'zod-validation-error';

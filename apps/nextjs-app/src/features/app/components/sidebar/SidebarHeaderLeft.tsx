@@ -1,4 +1,4 @@
-import { ArrowLeft, TeableNew } from '@teable/icons';
+import { ArrowLeft, Table2 } from 'lucide-react';
 import { useSidebar } from '../../contexts/SidebarContext';
 
 interface ISidebarBackButtonProps {
@@ -11,7 +11,7 @@ export const SidebarHeaderLeft = (props: ISidebarBackButtonProps) => {
   const { title, icon, onBack } = props;
   const { leftVisible } = useSidebar();
   const isCollapsed = leftVisible === 'collapsed';
-  const displayIcon = icon ?? <TeableNew className="size-5 shrink-0 text-black" />;
+  const displayIcon = icon ?? <Table2 className="size-5 shrink-0 text-black" />;
 
   return (
     <>

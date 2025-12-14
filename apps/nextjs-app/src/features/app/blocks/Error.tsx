@@ -1,4 +1,4 @@
-import { TeableNew } from '@teable/icons';
+import { SquareDot } from 'lucide-react';
 import type { FC } from 'react';
 
 export const Error: FC<{ message: string }> = (props) => {
@@ -7,7 +7,7 @@ export const Error: FC<{ message: string }> = (props) => {
     <div className="mer flex h-screen flex-col items-center justify-center">
       <div>
         <div className="flex w-full">
-          <TeableNew className="text-4xl" />
+          <SquareDot className="text-4xl" />
           <p className="ml-1 truncate text-4xl font-semibold">Teable</p>
         </div>
         <h1 className="scroll-m-20 text-3xl tracking-tight">{message}</h1>

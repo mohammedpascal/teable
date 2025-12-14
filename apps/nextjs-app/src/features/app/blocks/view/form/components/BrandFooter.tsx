@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { TeableNew } from '@teable/icons';
 import { Trans, useTranslation } from 'next-i18next';
+import Tea from '@/components/Tea';
 import { tableConfig } from '@/features/i18n/table.config';
 
 export const BrandFooter = () => {
@@ -19,8 +19,7 @@ export const BrandFooter = () => {
               href="/"
               className="flex items-center text-sm text-black dark:text-white"
             >
-              <TeableNew className="text-xl text-black" />
-              <span className="ml-1 font-semibold">{t('brand')}</span>
+              <Tea />
             </a>,
           ]}
         />

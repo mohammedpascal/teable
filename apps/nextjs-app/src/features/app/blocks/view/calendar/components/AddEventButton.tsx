@@ -1,8 +1,8 @@
 import { FieldKeyType } from '@teable/core';
-import { Plus } from '@teable/icons';
 import type { DateField } from '@teable/sdk/model';
 import { Record } from '@teable/sdk/model';
 import { Button, cn } from '@teable/ui-lib/shadcn';
+import { Plus } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 interface IAddEventButtonProps {

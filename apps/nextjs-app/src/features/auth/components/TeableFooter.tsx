@@ -1,6 +1,6 @@
-import { TeableNew } from '@teable/icons';
 import { cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
+import Tea from '@/components/Tea';
 import { authConfig } from '@/features/i18n/auth.config';
 
 interface ITeableHeaderProps {
@@ -20,7 +20,7 @@ export const TeableFooter = (props: ITeableHeaderProps) => {
         className
       )}
     >
-      <TeableNew className="size-8 text-black" />
+      <Tea />
       {t('common:brand')}
     </div>
   );
