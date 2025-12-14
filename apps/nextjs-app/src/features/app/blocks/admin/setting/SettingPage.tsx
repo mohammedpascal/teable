@@ -56,50 +56,52 @@ const InstanceNameField = ({ label, value, onSave }: InstanceNameFieldProps) => 
       <div className="flex items-center gap-2">
         <Label>{label}</Label>
       </div>
-      <div className="pt-2 text-[13px] text-gray-500">{value}</div>{' '}
-      <Popover open={isEditing} onOpenChange={handleOpenChange}>
-        <PopoverTrigger asChild>
-          <Pencil className="size-4 cursor-pointer text-muted-foreground hover:text-foreground" />
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          <form
-            className="space-y-4"
-            onSubmit={async (e) => {
-              e.preventDefault();
-              await handleSave();
-            }}
-          >
-            <div className="space-y-2">
-              <Label>{label}</Label>
-              <Input
-                value={editValue || ''}
-                onChange={(e) => setEditValue(e.target.value)}
-                data-1p-ignore="true"
-                autoComplete="off"
-                placeholder={label}
-                autoFocus
-              />
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setIsEditing(false);
-                  setEditValue(value);
-                }}
-                disabled={isLoading}
-              >
-                {t('actions.cancel')}
-              </Button>
-              <Button type="submit" size="sm" disabled={isLoading}>
-                {t('actions.submit')}
-              </Button>
-            </div>
-          </form>
-        </PopoverContent>
-      </Popover>
+      <div className="flex items-center gap-2 pt-2">
+        <div className="text-[13px] text-gray-500">{value}</div>
+        <Popover open={isEditing} onOpenChange={handleOpenChange}>
+          <PopoverTrigger asChild>
+            <Pencil className="size-4 cursor-pointer text-muted-foreground hover:text-foreground" />
+          </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <form
+              className="space-y-4"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await handleSave();
+              }}
+            >
+              <div className="space-y-2">
+                <Label>{label}</Label>
+                <Input
+                  value={editValue || ''}
+                  onChange={(e) => setEditValue(e.target.value)}
+                  data-1p-ignore="true"
+                  autoComplete="off"
+                  placeholder={label}
+                  autoFocus
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setIsEditing(false);
+                    setEditValue(value);
+                  }}
+                  disabled={isLoading}
+                >
+                  {t('actions.cancel')}
+                </Button>
+                <Button type="submit" size="sm" disabled={isLoading}>
+                  {t('actions.submit')}
+                </Button>
+              </div>
+            </form>
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
   );
 };
