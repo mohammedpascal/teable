@@ -17,7 +17,7 @@ export const SidebarHeaderLeft = (props: ISidebarBackButtonProps) => {
     <>
       {onBack ? (
         <div
-          className="size-5 shrink-0 cursor-pointer"
+          className="mx-2 size-5 shrink-0 cursor-pointer"
           onClick={() => onBack?.()}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
