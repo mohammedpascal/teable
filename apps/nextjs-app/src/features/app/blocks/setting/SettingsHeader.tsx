@@ -1,10 +1,10 @@
 import { Sidebar } from '@teable/icons';
 import {
   Button,
-  TooltipProvider,
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -39,12 +39,9 @@ export const SettingsHeader = (props: ISettingsHeader) => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      {typeof title === 'string' ? (
-        <h2 className="flex-1 text-base">{title}</h2>
-      ) : (
-        <div className="flex-1">{title}</div>
-      )}
-      {children && <div className="flex items-center gap-2">{children}</div>}
+      <h2 className="flex-1 text-base">{title}</h2>
+
+      {children}
     </div>
   );
 };

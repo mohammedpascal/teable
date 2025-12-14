@@ -1,14 +1,13 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRoleList, createRole, updateRole, deleteRole } from '@teable/openapi';
-import { Button } from '@teable/ui-lib/shadcn';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Plus } from '@teable/icons';
+import type { ICreateRoleRo, IRoleListVo, IUpdateRoleRo } from '@teable/openapi';
+import { createRole, deleteRole, getRoleList, updateRole } from '@teable/openapi';
+import { Button, Separator } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
-import { SettingRight } from '../SettingRight';
-import { SettingRightTitle } from '../SettingRightTitle';
-import { RolesGridView } from './RolesGridView';
+import { SettingsHeader } from '../SettingsHeader';
 import { RoleDialog } from './RoleDialog';
-import type { IRoleListVo, ICreateRoleRo, IUpdateRoleRo } from '@teable/openapi';
+import { RolesGridView } from './RolesGridView';
 
 export const RolesPage = () => {
   const { t } = useTranslation(['common', 'setting']);
@@ -56,7 +55,11 @@ export const RolesPage = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm(t('common:confirmDelete', { defaultValue: 'Are you sure you want to delete this role?' }))) {
+    if (
+      confirm(
+        t('common:confirmDelete', { defaultValue: 'Are you sure you want to delete this role?' })
+      )
+    ) {
       try {
         await deleteMutation.mutateAsync(id);
       } catch (error) {
@@ -74,23 +77,19 @@ export const RolesPage = () => {
     }
   };
 
+  const hasError = error != null;
+
   return (
-    <SettingRight
-      title={
-        <SettingRightTitle
-          title={t('setting:roles.title', { defaultValue: 'Roles' })}
-          description={t('setting:roles.description', { defaultValue: 'Manage roles and permissions' })}
-        />
-      }
-      headerActions={
+    <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
+      <SettingsHeader title={t('setting:roles.title', { defaultValue: 'Roles' })}>
         <Button onClick={handleCreate} size="sm">
           <Plus className="mr-2 size-4" />
           {t('setting:roles.addRole', { defaultValue: 'Add Role' })}
         </Button>
-      }
-    >
-      <div className="flex w-full flex-col gap-4 pb-8 pt-4">
-        {error && (
+      </SettingsHeader>
+      <Separator />
+      <div className="flex-1 overflow-y-auto px-8 py-6">
+        {hasError && (
           <div className="rounded-md border border-destructive bg-destructive/10 p-4 text-sm text-destructive">
             {t('common:error', { defaultValue: 'An error occurred' })}
           </div>
@@ -108,10 +107,9 @@ export const RolesPage = () => {
           onOpenChange={setIsDialogOpen}
           role={editingRole}
           onSubmit={handleSubmit}
-          isLoading={createMutation.isPending || updateMutation.isPending}
+          isLoading={createMutation.status === 'loading' || updateMutation.status === 'loading'}
         />
       </div>
-    </SettingRight>
+    </div>
   );
 };
-
