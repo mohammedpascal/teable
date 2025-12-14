@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Sidebar } from '@teable/icons';
-import type { IUpdateSettingRo, ISettingVo } from '@teable/openapi';
+import type { ISettingVo, IUpdateSettingRo } from '@teable/openapi';
 import { getSetting, updateSetting } from '@teable/openapi';
 import {
   Button,
@@ -9,19 +8,13 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Switch,
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
   Separator,
+  Switch,
 } from '@teable/ui-lib/shadcn';
 import { Pencil } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
-import { useSidebar } from '../../../contexts/SidebarContext';
 import { SettingsHeader } from '../../setting/SettingsHeader';
-import { CopyInstance } from './components';
 
 interface InstanceNameFieldProps {
   label: string;
@@ -121,7 +114,6 @@ export const SettingPage = (props: ISettingPageProps) => {
   const { settingServerData } = props;
   const queryClient = useQueryClient();
   const { t } = useTranslation('common');
-  const { toggleSidebar } = useSidebar();
 
   const { data: setting = settingServerData } = useQuery({
     queryKey: ['setting'],
@@ -145,21 +137,15 @@ export const SettingPage = (props: ISettingPageProps) => {
 
   if (!setting) return null;
 
-  const { instanceId, instanceName, disallowSignUp, enableEmailVerification } = setting;
+  const { instanceName, disallowSignUp, enableEmailVerification } = setting;
 
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
-      <SettingsHeader title={t('settings.title')} />
+      <SettingsHeader title={t('settings.general', { defaultValue: 'General' })} />
       <Separator />
       <div className="flex-1 overflow-y-auto px-8 py-6">
-        <div className="border-b pb-4">
-          <h1 className="text-2xl font-semibold">{t('settings.title')}</h1>
-          <div className="mt-3 text-sm text-slate-500">{t('admin.setting.description')}</div>
-        </div>
-
         {/* General Settings Section */}
         <div className="border-b py-4">
-          <h2 className="mb-4 text-lg font-medium">{t('admin.setting.generalSettings')}</h2>
           <div className="flex w-full flex-col space-y-4">
             <div className="flex flex-col space-y-2 rounded-lg border p-4 shadow-sm">
               <InstanceNameField
@@ -203,7 +189,6 @@ export const SettingPage = (props: ISettingPageProps) => {
         <p className="p-4 text-right text-xs">
           {t('settings.setting.version')}: {process.env.NEXT_PUBLIC_BUILD_VERSION}
         </p>
-        <CopyInstance instanceId={instanceId} />
       </div>
     </div>
   );
