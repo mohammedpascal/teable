@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getPublicSetting } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { cn } from '@teable/ui-lib/shadcn';
-import { SquareDot } from 'lucide-react';
+import Tea from '@/components/Tea';
 import { useSidebar } from '../../../contexts/SidebarContext';
 
 export const BaseSidebarHeaderLeft = () => {
@@ -19,30 +19,16 @@ export const BaseSidebarHeaderLeft = () => {
     <div
       className={cn(
         'flex items-center',
-        isCollapsed ? 'justify-center' : 'max-w-[calc(100%-28px)] shrink grow'
+        isCollapsed ? 'justify-center' : 'max-w-[calc(100%-28px)] shrink grow gap-2'
       )}
     >
-      <div
-        className={cn(
-          isCollapsed ? 'flex items-center justify-center' : 'relative mx-2 size-8 shrink-0'
-        )}
-      >
-        <div
-          className={cn(
-            isCollapsed
-              ? 'flex items-center justify-center'
-              : 'absolute top-0 size-8 transition-all'
-          )}
-        >
-          <SquareDot className="size-8 text-black" />
-        </div>
+      <div className={cn(isCollapsed ? 'flex items-center justify-center' : 'shrink-0')}>
+        <Tea />
       </div>
       {!isCollapsed && (
-        <div className="flex shrink grow items-center gap-1 overflow-hidden p-1">
-          <p className="shrink truncate text-sm" title={instanceName}>
-            {instanceName}
-          </p>
-        </div>
+        <p className="truncate text-sm" title={instanceName}>
+          {instanceName}
+        </p>
       )}
     </div>
   );
