@@ -9,6 +9,7 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
+  TooltipPortal,
 } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
@@ -67,9 +68,11 @@ export const TableHeader: React.FC = () => {
                 <Sidebar className="size-4" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent hideWhenDetached={true}>
-              <p>{t('actions.collapseSidebar')} ⌘+B</p>
-            </TooltipContent>
+            <TooltipPortal>
+              <TooltipContent hideWhenDetached={true}>
+                <p>{t('actions.collapseSidebar')} ⌘+B</p>
+              </TooltipContent>
+            </TooltipPortal>
           </Tooltip>
         </TooltipProvider>
         <TableInfo className="shrink-0 grow-0" />
