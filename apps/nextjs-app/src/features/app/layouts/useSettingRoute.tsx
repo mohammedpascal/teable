@@ -1,4 +1,4 @@
-import { Code2, Database, Settings, Users, ShieldCheck } from '@teable/icons';
+import { Code2, Settings, ShieldCheck, Table2, Users } from '@teable/icons';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 
@@ -14,6 +14,12 @@ export const useSettingRoute = () => {
         pathTo: `/settings/general`,
       },
       {
+        Icon: Table2,
+        label: t('table:table.tables', { defaultValue: 'Tables' }),
+        route: '/settings/design',
+        pathTo: `/settings/design`,
+      },
+      {
         Icon: Users,
         label: t('setting:users.title', { defaultValue: 'Users' }),
         route: '/settings/users',
@@ -24,12 +30,6 @@ export const useSettingRoute = () => {
         label: t('setting:roles.title', { defaultValue: 'Roles' }),
         route: '/settings/roles',
         pathTo: `/settings/roles`,
-      },
-      {
-        Icon: Database,
-        label: t('table:table.design', { defaultValue: 'Design' }),
-        route: '/settings/design',
-        pathTo: `/settings/design`,
       },
       {
         Icon: Code2,
