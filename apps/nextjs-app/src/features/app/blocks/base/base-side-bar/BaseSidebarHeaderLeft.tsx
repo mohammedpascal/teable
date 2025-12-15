@@ -22,7 +22,7 @@ export const BaseSidebarHeaderLeft = () => {
         isCollapsed ? 'justify-center' : 'max-w-[calc(100%-28px)] shrink grow gap-2'
       )}
     >
-      <div className={cn(isCollapsed ? 'flex items-center justify-center' : 'shrink-0')}>
+      <div className={cn(isCollapsed ? 'flex items-center justify-center' : 'shrink-0 mx-2')}>
         <Tea />
       </div>
       {!isCollapsed && (
