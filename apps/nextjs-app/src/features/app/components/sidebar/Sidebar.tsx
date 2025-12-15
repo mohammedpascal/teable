@@ -40,7 +40,7 @@ export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
           onContextMenu={(e) => e.preventDefault()}
         >
           <div className="group/sidebar flex size-full flex-col overflow-hidden bg-popover">
-            <SidebarHeader headerLeft={headerLeft} onExpand={toggleSidebar} />
+            <SidebarHeader headerLeft={headerLeft} />
             {children}
           </div>
         </div>

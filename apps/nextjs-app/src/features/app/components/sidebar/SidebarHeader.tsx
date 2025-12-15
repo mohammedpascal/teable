@@ -4,7 +4,6 @@ import { useSidebar } from '../../contexts/SidebarContext';
 
 export interface ISidebarHeaderProps {
   headerLeft: ReactNode;
-  onExpand?: () => void;
 }
 
 export const SidebarHeader = (prop: ISidebarHeaderProps) => {
