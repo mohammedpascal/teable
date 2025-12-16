@@ -1,4 +1,4 @@
-import { Frown } from '@teable/icons';
+import { Frown } from '@/components/icons';
 import { Alert, AlertDescription, AlertTitle } from '@teable/ui-lib/shadcn/ui/alert';
 import { useTranslation } from 'next-i18next';
 

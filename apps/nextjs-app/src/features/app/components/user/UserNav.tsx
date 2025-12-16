@@ -1,6 +1,6 @@
 import { ExitIcon } from '@radix-ui/react-icons';
 import { useMutation } from '@tanstack/react-query';
-import { Settings, User } from '@teable/icons';
+import { Settings, User } from '@/components/icons';
 import { signout } from '@teable/openapi';
 import { useSession } from '@teable/sdk/hooks';
 import {

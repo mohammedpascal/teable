@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { NotificationStatesEnum } from '@teable/core';
-import { Inbox } from '@teable/icons';
+import { Inbox } from '@/components/icons';
 import type { INotificationVo } from '@teable/openapi';
 import { updateNotificationStatus } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config/react-query-keys';

@@ -2,7 +2,7 @@ import type { DropResult } from '@hello-pangea/dnd';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import type { ISelectFieldChoice, ISelectFieldOptions } from '@teable/core';
 import { ColorUtils } from '@teable/core';
-import { DraggableHandle, Plus, Trash2 } from '@teable/icons';
+import { DraggableHandle, Plus, Trash2 } from '@/components/icons';
 import { cn, Label, Switch } from '@teable/ui-lib/shadcn';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { useTranslation } from 'next-i18next';

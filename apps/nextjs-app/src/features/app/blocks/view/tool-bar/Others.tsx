@@ -1,5 +1,5 @@
 import { GUIDE_API_BUTTON } from '@/components/Guide';
-import { Code2, Database, MoreHorizontal } from '@teable/icons';
+import { Code2, Database, MoreHorizontal } from '@/components/icons';
 import { useTableId } from '@teable/sdk/hooks';
 import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';

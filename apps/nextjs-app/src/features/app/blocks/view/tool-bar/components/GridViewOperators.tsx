@@ -1,5 +1,5 @@
 import { type IGridViewOptions } from '@teable/core';
-import { ArrowUpDown, Filter as FilterIcon, EyeOff, LayoutList, Share2 } from '@teable/icons';
+import { ArrowUpDown, Filter as FilterIcon, EyeOff, LayoutList, Share2 } from '@/components/icons';
 import { HideFields, RowHeight, Sort, Group, ViewFilter } from '@teable/sdk';
 import { useView } from '@teable/sdk/hooks/use-view';
 import { cn } from '@teable/ui-lib/shadcn';

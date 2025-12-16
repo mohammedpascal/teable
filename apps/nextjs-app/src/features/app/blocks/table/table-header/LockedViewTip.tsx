@@ -1,4 +1,4 @@
-import { X } from '@teable/icons';
+import { X } from '@/components/icons';
 import { Button } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';

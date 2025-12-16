@@ -1,4 +1,4 @@
-import { Sidebar } from '@teable/icons';
+import { Sidebar } from '@/components/icons';
 import {
   Button,
   Tooltip,

@@ -5,7 +5,7 @@ import {
   LayoutGrid as Gallery,
   Kanban,
   Calendar,
-} from '@teable/icons';
+} from '@/components/icons';
 
 export const VIEW_ICON_MAP = {
   [ViewType.Grid]: Sheet,

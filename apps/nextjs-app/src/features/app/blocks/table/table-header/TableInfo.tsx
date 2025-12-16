@@ -1,7 +1,7 @@
 import { Emoji } from '@/features/app/components/emoji/Emoji';
 import { EmojiPicker } from '@/features/app/components/emoji/EmojiPicker';
 import { tableConfig } from '@/features/i18n/table.config';
-import { Table2 } from '@teable/icons';
+import { Table2 } from '@/components/icons';
 import {
   useConnection,
   useIsHydrated,

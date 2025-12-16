@@ -1,4 +1,4 @@
-import { Check } from '@teable/icons';
+import { Check } from '@/components/icons';
 import { Spin } from '@teable/ui-lib/base';
 import { Button } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';

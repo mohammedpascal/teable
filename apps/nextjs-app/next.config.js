@@ -9,7 +9,6 @@ const nextConfig = {
   transpilePackages: [
     '@teable/common-i18n',
     '@teable/core',
-    '@teable/icons',
     '@teable/openapi',
     '@teable/sdk',
     '@teable/ui-lib',

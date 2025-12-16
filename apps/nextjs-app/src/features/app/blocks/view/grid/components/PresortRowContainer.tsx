@@ -1,4 +1,4 @@
-import { ArrowUpDown } from '@teable/icons';
+import { ArrowUpDown } from '@/components/icons';
 import { useTranslation } from 'next-i18next';
 import { useRef } from 'react';
 import { useClickAway } from 'react-use';

@@ -1,4 +1,4 @@
-import { Loader2 } from '@teable/icons';
+import { Loader2 } from '@/components/icons';
 import { LocalStorageKeys } from '@teable/sdk/config';
 import { useFields, useTableId, useView } from '@teable/sdk/hooks';
 import { type FormView } from '@teable/sdk/model';

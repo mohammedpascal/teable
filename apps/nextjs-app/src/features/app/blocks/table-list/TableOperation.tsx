@@ -9,7 +9,7 @@ import {
   MoreHorizontal,
   Settings,
   Trash2,
-} from '@teable/icons';
+} from '@/components/icons';
 import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';
 import { useHookPermission, useTables } from '@teable/sdk/hooks';

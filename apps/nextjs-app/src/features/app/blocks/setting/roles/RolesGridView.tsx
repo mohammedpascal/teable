@@ -1,4 +1,4 @@
-import { Edit, Trash2 } from '@teable/icons';
+import { Edit, Trash2 } from '@/components/icons';
 import type { IRoleListVo } from '@teable/openapi';
 import {
   Table,

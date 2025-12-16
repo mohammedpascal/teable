@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Plus } from '@teable/icons';
+import { Plus } from '@/components/icons';
 import type { ICreateRoleRo, IRoleListVo, IUpdateRoleRo } from '@teable/openapi';
 import { createRole, deleteRole, getRoleList, updateRole } from '@teable/openapi';
 import { Button, Separator } from '@teable/ui-lib/shadcn';

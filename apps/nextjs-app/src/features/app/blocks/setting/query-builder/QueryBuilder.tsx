@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { CellFormat, FieldKeyType, type IFilterSet, type ISortItem } from '@teable/core';
-import { ArrowUpRight } from '@teable/icons';
+import { ArrowUpRight } from '@/components/icons';
 import type { IQueryBaseRo } from '@teable/openapi';
 import { getTableList } from '@teable/openapi';
 import { ReactQueryKeys } from '@teable/sdk/config';

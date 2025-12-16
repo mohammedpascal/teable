@@ -10,7 +10,7 @@ import type { EventResizeDoneArg } from '@fullcalendar/interaction';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import { FieldKeyType } from '@teable/core';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Loader2 } from '@teable/icons';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Loader2 } from '@/components/icons';
 import { updateRecord } from '@teable/openapi';
 import { AppContext, CalendarDailyCollectionContext } from '@teable/sdk/context';
 import { useTableId } from '@teable/sdk/hooks';

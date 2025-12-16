@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ViewType } from '@teable/core';
-import { HelpCircle } from '@teable/icons';
+import { HelpCircle } from '@/components/icons';
 import {
   toggleTableIndex,
   getTableActivatedIndex,

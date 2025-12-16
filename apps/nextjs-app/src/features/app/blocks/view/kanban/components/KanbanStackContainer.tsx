@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import { Draggable } from '@hello-pangea/dnd';
-import { Plus } from '@teable/icons';
+import { Plus } from '@/components/icons';
 import { CreateRecordModal, generateLocalId } from '@teable/sdk/components';
 import { useTableId, useViewId } from '@teable/sdk/hooks';
 import type { Record } from '@teable/sdk/model';

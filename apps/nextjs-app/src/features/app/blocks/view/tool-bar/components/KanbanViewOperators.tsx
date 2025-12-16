@@ -1,7 +1,7 @@
 import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
 import type { IFieldVo } from '@teable/core';
-import { ArrowUpDown, Filter as FilterIcon, Layers, Plus, Settings } from '@teable/icons';
+import { ArrowUpDown, Filter as FilterIcon, Layers, Plus, Settings } from '@/components/icons';
 import type { IFieldCreateOrSelectModalRef, IFieldInstance, KanbanView } from '@teable/sdk';
 import {
   CreateRecordModal,

@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { NotificationStatesEnum } from '@teable/core';
-import { Bell, CheckCircle2 as Read, RefreshCcw } from '@teable/icons';
+import { Bell, CheckCircle2 as Read, RefreshCcw } from '@/components/icons';
 import {
   getNotificationList,
   getNotificationUnreadCount,

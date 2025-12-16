@@ -1,4 +1,4 @@
-import { File, FileCsv, FileExcel } from '@teable/icons';
+import { File, FileCsv, FileExcel } from '@/components/icons';
 import { SUPPORTEDTYPE } from '@teable/openapi';
 import { useConnection, useHookPermission } from '@teable/sdk';
 import {

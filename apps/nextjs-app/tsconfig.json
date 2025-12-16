@@ -74,9 +74,6 @@
       ],
       "@teable/openapi": [
         "../../../packages/openapi/src/index"
-      ],
-      "@teable/icons": [
-        "../../../packages/icons/src/index"
       ]
     },
     "plugins": [

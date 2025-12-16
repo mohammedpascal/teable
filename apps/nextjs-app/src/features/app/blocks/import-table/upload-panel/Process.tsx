@@ -1,4 +1,4 @@
-import { X } from '@teable/icons';
+import { X } from '@/components/icons';
 import { getFieldIconString } from '@teable/sdk';
 import { Progress } from '@teable/ui-lib';
 import { filesize } from 'filesize';

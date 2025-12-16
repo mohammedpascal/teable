@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { ViewType } from '@teable/core';
-import { Search, X } from '@teable/icons';
+import { Search, X } from '@/components/icons';
 import { getTableActivatedIndex, RecommendedIndexRow, TableIndex } from '@teable/openapi';
 import { LocalStorageKeys, useView } from '@teable/sdk';
 import { useFields, useRowCount, useSearch, useTableId } from '@teable/sdk/hooks';

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import type { IFilter, ILinkFieldOptionsRo } from '@teable/core';
-import { EyeOff, Maximize2 } from '@teable/icons';
+import { EyeOff, Maximize2 } from '@/components/icons';
 import { getFields } from '@teable/openapi';
 import {
   FilterWithTable,

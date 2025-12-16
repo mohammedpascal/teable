@@ -1,4 +1,4 @@
-import { Table2 } from '@teable/icons';
+import { Table2 } from '@/components/icons';
 import { AnchorContext, FieldProvider } from '@teable/sdk/context';
 import { useTable, useTables } from '@teable/sdk/hooks';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';

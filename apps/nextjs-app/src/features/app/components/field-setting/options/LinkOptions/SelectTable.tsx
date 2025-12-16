@@ -1,4 +1,4 @@
-import { ArrowUpRight, Table2 } from '@teable/icons';
+import { ArrowUpRight, Table2 } from '@/components/icons';
 import { AnchorContext, TableProvider } from '@teable/sdk/context';
 import { useTableId, useTables } from '@teable/sdk/hooks';
 import Link from 'next/link';

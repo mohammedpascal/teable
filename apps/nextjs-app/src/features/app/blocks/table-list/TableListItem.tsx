@@ -1,4 +1,4 @@
-import { Table2 } from '@teable/icons';
+import { Table2 } from '@/components/icons';
 import type { Table } from '@teable/sdk/model';
 import { Button, cn } from '@teable/ui-lib/shadcn';
 import { Input } from '@teable/ui-lib/shadcn/ui/input';

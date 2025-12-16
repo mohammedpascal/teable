@@ -1,4 +1,4 @@
-import { Bell, Settings, UserEdit } from '@teable/icons';
+import { Bell, Settings, UserEdit } from '@/components/icons';
 import { useIsTouchDevice } from '@teable/sdk/hooks';
 import {
   Dialog,

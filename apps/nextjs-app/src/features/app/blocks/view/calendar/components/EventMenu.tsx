@@ -1,4 +1,4 @@
-import { Trash, Copy } from '@teable/icons';
+import { Trash, Copy } from '@/components/icons';
 import { deleteRecord, duplicateRecord } from '@teable/openapi';
 import { useTableId, useView } from '@teable/sdk/hooks';
 import {

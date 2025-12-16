@@ -1,4 +1,4 @@
-import { Edit } from '@teable/icons';
+import { Edit } from '@/components/icons';
 import { useField } from '@teable/sdk/hooks';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Button, Input } from '@teable/ui-lib/shadcn';

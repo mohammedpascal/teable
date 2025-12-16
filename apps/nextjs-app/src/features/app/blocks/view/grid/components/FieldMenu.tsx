@@ -11,7 +11,7 @@ import {
   FreezeColumn,
   LayoutList,
   Trash2,
-} from '@teable/icons';
+} from '@/components/icons';
 import type { GridView } from '@teable/sdk';
 import { useFields, useGridViewStore, useIsTouchDevice, useTableId, useView } from '@teable/sdk';
 

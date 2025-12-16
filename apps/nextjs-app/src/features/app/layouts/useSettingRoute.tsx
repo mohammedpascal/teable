@@ -1,4 +1,4 @@
-import { Code2, Settings, ShieldCheck, Table2, Users } from '@teable/icons';
+import { Code2, Settings, ShieldCheck, Table2, Users } from '@/components/icons';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 

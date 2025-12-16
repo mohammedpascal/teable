@@ -1,4 +1,4 @@
-import { Plus } from '@teable/icons';
+import { Plus } from '@/components/icons';
 import { CreateRecordModal } from '@teable/sdk/components';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';

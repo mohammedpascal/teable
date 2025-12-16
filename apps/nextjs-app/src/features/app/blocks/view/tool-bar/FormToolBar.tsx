@@ -1,4 +1,4 @@
-import { Settings as Edit, Edit as Fill } from '@teable/icons';
+import { Settings as Edit, Edit as Fill } from '@/components/icons';
 import { useTableId, useViewId } from '@teable/sdk/hooks';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import { Button } from '@teable/ui-lib/shadcn';

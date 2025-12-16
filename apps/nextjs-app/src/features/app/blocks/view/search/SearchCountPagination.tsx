@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { ChevronRight, ChevronLeft } from '@teable/icons';
+import { ChevronRight, ChevronLeft } from '@/components/icons';
 import type { ISearchIndexByQueryRo, ISearchIndexVo } from '@teable/openapi';
 import { getSearchIndex } from '@teable/openapi';
 import { type GridView } from '@teable/sdk';

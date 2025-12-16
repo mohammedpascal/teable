@@ -1,7 +1,7 @@
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { generateAttachmentId } from '@teable/core';
-import { Pencil, Plus } from '@teable/icons';
+import { Pencil, Plus } from '@/components/icons';
 import type { INotifyVo } from '@teable/openapi';
 import { UploadType } from '@teable/openapi';
 import type { IFile } from '@teable/sdk/components';

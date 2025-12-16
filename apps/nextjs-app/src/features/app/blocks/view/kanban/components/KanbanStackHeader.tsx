@@ -1,6 +1,6 @@
 import { FieldType } from '@teable/core';
 import type { ISelectFieldOptions, ISelectFieldChoice } from '@teable/core';
-import { ChevronDown, Minimize2, Pencil, Trash2 } from '@teable/icons';
+import { ChevronDown, Minimize2, Pencil, Trash2 } from '@/components/icons';
 import { generateLocalId } from '@teable/sdk/components';
 import { useTableId, useViewId } from '@teable/sdk/hooks';
 import {

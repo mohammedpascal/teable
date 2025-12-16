@@ -1,6 +1,6 @@
 import { tableConfig } from '@/features/i18n/table.config';
 import { verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { ChevronDown, DraggableHandle } from '@teable/icons';
+import { ChevronDown, DraggableHandle } from '@/components/icons';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
 import {
   Button,

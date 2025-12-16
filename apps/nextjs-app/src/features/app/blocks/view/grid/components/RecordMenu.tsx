@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp, Copy, Trash2 } from '@teable/icons';
+import { ArrowDown, ArrowUp, Copy, Trash2 } from '@/components/icons';
 import { useGridViewStore } from '@teable/sdk/components';
 import { useTableId, useView } from '@teable/sdk/hooks';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';

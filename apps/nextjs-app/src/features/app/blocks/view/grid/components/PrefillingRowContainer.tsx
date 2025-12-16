@@ -1,4 +1,4 @@
-import { HelpCircle, Plus } from '@teable/icons';
+import { HelpCircle, Plus } from '@/components/icons';
 import { Spin } from '@teable/ui-lib/base';
 import {
   Button,

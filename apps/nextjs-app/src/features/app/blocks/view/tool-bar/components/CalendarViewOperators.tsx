@@ -1,6 +1,6 @@
 import { GUIDE_VIEW_FILTERING } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
-import { EyeOff, Filter as FilterIcon, Plus, Settings } from '@teable/icons';
+import { EyeOff, Filter as FilterIcon, Plus, Settings } from '@/components/icons';
 import type { CalendarView } from '@teable/sdk';
 import { CreateRecordModal, ViewFilter, VisibleFields } from '@teable/sdk';
 import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';

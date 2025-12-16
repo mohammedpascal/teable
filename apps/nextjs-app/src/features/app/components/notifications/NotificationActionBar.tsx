@@ -1,5 +1,5 @@
 import { NotificationStatesEnum } from '@teable/core';
-import { CheckSquare, MarkUnread, MoreHorizontal } from '@teable/icons';
+import { CheckSquare, MarkUnread, MoreHorizontal } from '@/components/icons';
 import {
   Button,
   HoverCard,

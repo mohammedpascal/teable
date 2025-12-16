@@ -1,5 +1,5 @@
 import { nullsToUndefinedShallow } from '@teable/core';
-import { ChevronLeft, ChevronRight } from '@teable/icons';
+import { ChevronLeft, ChevronRight } from '@/components/icons';
 import { getRecords, type IGetRecordsRo } from '@teable/openapi';
 import type { ICell, ICellItem } from '@teable/sdk/components';
 import {

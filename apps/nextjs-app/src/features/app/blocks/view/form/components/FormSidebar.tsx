@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import { useDroppable } from '@dnd-kit/core';
 import type { FieldType } from '@teable/core';
-import { DraggableHandle, Plus } from '@teable/icons';
+import { DraggableHandle, Plus } from '@/components/icons';
 import { useView } from '@teable/sdk';
 import type { IFieldStatic } from '@teable/sdk/hooks';
 import { useFieldStaticGetter, useFields, useIsHydrated } from '@teable/sdk/hooks';

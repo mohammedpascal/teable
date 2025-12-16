@@ -1,4 +1,4 @@
-import { Database } from '@teable/icons';
+import { Database } from '@/components/icons';
 import { useTranslation } from 'next-i18next';
 import { useEnv } from '@/features/app/hooks/useEnv';
 
