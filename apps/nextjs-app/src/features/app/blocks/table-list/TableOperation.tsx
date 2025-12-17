@@ -1,5 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getUniqName } from '@teable/core';
+import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { useMemo, useState } from 'react';
 import {
   Copy,
   Export,
@@ -10,7 +15,7 @@ import {
   Settings,
   Trash2,
 } from '@/components/icons';
-import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
+import { tableConfig } from '@/features/i18n/table.config';
 import { ReactQueryKeys } from '@/sdk/config';
 import { useHookPermission, useTables } from '@/sdk/hooks';
 import { Table } from '@/sdk/model';
@@ -28,11 +33,6 @@ import {
   Label,
   Switch,
 } from '@/ui-lib/shadcn';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { useMemo, useState } from 'react';
-import { tableConfig } from '@/features/i18n/table.config';
 import { useDownload } from '../../hooks/useDownLoad';
 import { TableImport } from '../import-table';
 
