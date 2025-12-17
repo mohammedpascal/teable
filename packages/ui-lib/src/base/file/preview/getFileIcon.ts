@@ -9,7 +9,7 @@ import {
   FileText,
   FileUnknown,
   FileVideo,
-} from '@teable/icons';
+} from '../../../icons';
 import {
   isAudio,
   isExcel,
