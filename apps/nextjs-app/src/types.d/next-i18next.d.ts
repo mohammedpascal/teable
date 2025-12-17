@@ -5,7 +5,7 @@
  * @link https://react.i18next.com/latest/typescript
  */
 import 'next-i18next';
-import type { I18nNamespaces } from '@teable/common-i18n';
+import type { I18nNamespaces } from '@/lib/i18n/I18nNamespaces';
 
 declare module 'next-i18next' {
   interface CustomTypeOptions {

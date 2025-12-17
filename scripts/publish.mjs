@@ -3,7 +3,6 @@ import { exec, execSync } from 'child_process';
 const packages = [
   '@teable/openapi',
   '@teable/core',
-  '@teable/common-i18n',
 ];
 const npmToken = process.env.NPM_TOKEN;
 

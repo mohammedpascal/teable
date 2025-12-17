@@ -48,12 +48,6 @@
       "@/api/*": [
         "./api/*"
       ],
-      "@teable/common-i18n": [
-        "../../../packages/common-i18n/src/index"
-      ],
-      "@teable/common-i18n/locales/*": [
-        "../../../packages/common-i18n/src/locales/*"
-      ],
       "@/ui-lib/*": [
         "./ui-lib/*"
       ],

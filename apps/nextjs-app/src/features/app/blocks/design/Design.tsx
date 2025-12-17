@@ -1,7 +1,7 @@
-import { AnchorContext } from '@/sdk/context';
-import { Separator } from '@/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { AnchorContext } from '@/sdk/context';
+import { Separator } from '@/ui-lib/shadcn';
 import { SettingsHeader } from '../setting/SettingsHeader';
 import { IntegrityButton } from './components/Integrity';
 import { TablePicker, TableTabs } from './TableTabs';
@@ -13,7 +13,7 @@ export const Design = () => {
 
   return (
     <AnchorContext.Provider value={{ tableId }}>
-      <div className="h-screen w-full overflow-y-auto bg-background">
+      <div className="bg-background h-screen w-full overflow-y-auto">
         {/* Header */}
 
         <SettingsHeader title={t('table:table.design', { defaultValue: 'Design' })}>

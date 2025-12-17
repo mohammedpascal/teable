@@ -7,7 +7,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   transpilePackages: [
-    '@teable/common-i18n',
     '@teable/core',
     '@teable/openapi',
   ],

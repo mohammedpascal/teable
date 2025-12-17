@@ -3,13 +3,7 @@ const debugI18n = ['true', 1].includes(process?.env?.NEXTJS_DEBUG_I18N ?? 'false
 const path = require('path');
 const localePublicFolder = undefined;
 
-const localPaths = [
-  path.resolve('../../packages/common-i18n/src/locales'),
-  path.join(process.cwd(), 'packages/common-i18n/src/locales'),
-  path.join(__dirname, '../../../node_modules/@teable/common-i18n/src/locales'),
-  path.join(__dirname, '../../../../node_modules/@teable/common-i18n/src/locales'),
-  process.env.I18N_LOCALES_PATH,
-];
+const localPaths = [path.join(__dirname, 'src/lib/i18n/locales'), process.env.I18N_LOCALES_PATH];
 
 function getLocalPath() {
   if (typeof window === 'undefined') {
