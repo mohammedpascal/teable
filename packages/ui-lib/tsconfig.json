@@ -11,11 +11,8 @@
     // "jsxImportSource": "@emotion/react",
     "noEmit": false,
     "incremental": true,
-    "composite": true,
-    "paths": {
-      "@teable/icons": ["../icons/src"]
-    }
+    "composite": true
   },
   "exclude": ["**/node_modules", "**/.*/", "dist", "build"],
-  "include": ["./src", "../icons/src"]
+  "include": ["./src"]
 }

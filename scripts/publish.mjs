@@ -6,7 +6,6 @@ const packages = [
   '@teable/openapi',
   '@teable/core',
   '@teable/common-i18n',
-  '@teable/icons',
 ];
 const npmToken = process.env.NPM_TOKEN;
 
