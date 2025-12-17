@@ -1,9 +1,9 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { IAttachmentItem } from '@teable/core';
-import { Download, X } from '@teable/icons';
 import { Button, cn, FilePreviewItem } from '@teable/ui-lib';
 import React from 'react';
+import { Download, X } from '../../../icons';
 import { isSystemFileIcon } from '../utils';
 
 interface IUploadAttachment {

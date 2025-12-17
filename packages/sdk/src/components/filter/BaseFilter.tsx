@@ -1,4 +1,4 @@
-import { Plus } from '@teable/icons';
+import { Plus } from '../icons';
 import { Button, cn } from '@teable/ui-lib';
 import { produce } from 'immer';
 import { set, get } from 'lodash';

@@ -1,4 +1,4 @@
-import { Search, X } from '@teable/icons';
+import { Search, X } from '../icons';
 import { cn } from '@teable/ui-lib';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebounce, useUnmount } from 'react-use';

@@ -1,4 +1,4 @@
-import { Plus, Trash2 } from '@teable/icons';
+import { Plus, Trash2 } from '../../../icons';
 import {
   Button,
   DropdownMenu,

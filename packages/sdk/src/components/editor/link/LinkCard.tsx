@@ -1,4 +1,4 @@
-import { X } from '@teable/icons';
+import { X } from '../../icons';
 import { Button, cn } from '@teable/ui-lib';
 import { noop } from 'lodash';
 import { useTranslation } from '../../../context/app/i18n';

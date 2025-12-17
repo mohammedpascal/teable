@@ -1,5 +1,4 @@
 import { SortFunc } from '@teable/core';
-import { X } from '@teable/icons';
 import type { BaseQueryColumnType, IBaseQueryOrderBy } from '@teable/openapi';
 import {
   Button,
@@ -14,6 +13,7 @@ import {
 } from '@teable/ui-lib';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
+import { X } from '../../icons';
 import { ContextColumnSelector } from '../common/ContextColumnSelector';
 import { NewPopover } from '../common/NewPopover';
 import { useAllColumns } from '../common/useAllColumns';

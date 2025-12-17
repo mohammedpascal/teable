@@ -1,9 +1,9 @@
-import { X } from '@teable/icons';
 import type { IBaseQuery } from '@teable/openapi';
 import { Badge, Error } from '@teable/ui-lib';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useTables } from '../../../hooks';
+import { X } from '../../icons';
 import { QueryFormContext } from '../context/QueryFormContext';
 
 export const QueryFromTableValue = ({

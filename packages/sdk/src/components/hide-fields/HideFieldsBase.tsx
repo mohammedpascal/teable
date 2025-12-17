@@ -1,4 +1,4 @@
-import { DraggableHandle } from '@teable/icons';
+import { DraggableHandle } from '../icons';
 import type { DragEndEvent } from '@teable/ui-lib';
 import {
   Switch,

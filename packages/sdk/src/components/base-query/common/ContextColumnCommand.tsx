@@ -1,4 +1,3 @@
-import { Check } from '@teable/icons';
 import type { IBaseQueryColumn } from '@teable/openapi';
 import {
   cn,
@@ -13,6 +12,7 @@ import { groupBy } from 'lodash';
 import { useMemo } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useTables } from '../../../hooks';
+import { Check } from '../../icons';
 import { useAllColumns } from './useAllColumns';
 
 export const ContextColumnsCommand = (props: {

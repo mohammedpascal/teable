@@ -1,4 +1,4 @@
-import { Search } from '@teable/icons';
+import { Search } from '../icons';
 import type { InputProps } from '@teable/ui-lib';
 import { Input } from '@teable/ui-lib';
 import { useEffect, useState } from 'react';

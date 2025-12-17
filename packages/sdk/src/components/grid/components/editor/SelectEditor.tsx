@@ -1,4 +1,3 @@
-import { Check } from '@teable/icons';
 import {
   Command,
   CommandEmpty,
@@ -10,6 +9,7 @@ import {
 import { noop } from 'lodash';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import type { ForwardRefRenderFunction } from 'react';
+import { Check } from '../../../icons';
 import type { ISelectCell } from '../../renderers';
 import type { IEditorProps, IEditorRef } from './EditorContainer';
 

@@ -1,6 +1,5 @@
 import type { StatisticsFunc } from '@teable/core';
 import { CellValueType, FieldType, getValidStatisticFunc } from '@teable/core';
-import { X } from '@teable/icons';
 import { BaseQueryColumnType } from '@teable/openapi';
 import type { IQueryAggregation } from '@teable/openapi';
 import {
@@ -17,6 +16,7 @@ import {
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useStatisticFunc2NameMap } from '../../grid-enhancements';
+import { X } from '../../icons';
 import { ContextColumnSelector } from '../common/ContextColumnSelector';
 import { NewPopover } from '../common/NewPopover';
 import { useAllColumns } from '../common/useAllColumns';

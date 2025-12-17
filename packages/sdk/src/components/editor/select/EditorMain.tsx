@@ -1,4 +1,4 @@
-import { Plus } from '@teable/icons';
+import { Plus } from '../../icons';
 import { Command, CommandInput, CommandItem } from '@teable/ui-lib';
 import type { ForwardRefRenderFunction } from 'react';
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';

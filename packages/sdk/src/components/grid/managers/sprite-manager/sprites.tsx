@@ -1,3 +1,4 @@
+import { renderToString } from 'react-dom/server';
 import {
   AlertCircle,
   DraggableHandle,
@@ -7,8 +8,7 @@ import {
   ChevronDown,
   ChevronRight,
   Lock,
-} from '@teable/icons';
-import { renderToString } from 'react-dom/server';
+} from '../../../icons';
 
 export interface ISpriteProps {
   fgColor: string;

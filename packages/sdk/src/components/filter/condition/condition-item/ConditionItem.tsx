@@ -1,4 +1,4 @@
-import { Trash2 } from '@teable/icons';
+import { Trash2 } from '../../../icons';
 import { Button } from '@teable/ui-lib';
 import { useCrud } from '../../hooks';
 import type {

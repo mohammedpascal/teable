@@ -1,7 +1,7 @@
-import { Plus } from '@teable/icons';
 import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import { useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
+import { Plus } from '../../icons';
 
 export const NewPopover = (props: {
   className?: string;

@@ -1,4 +1,4 @@
-import { X } from '@teable/icons';
+import { X } from '../../icons';
 import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib';
 import { keyBy } from 'lodash';
 import type { ForwardRefRenderFunction } from 'react';

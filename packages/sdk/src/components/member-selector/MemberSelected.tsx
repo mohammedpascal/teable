@@ -1,4 +1,4 @@
-import { X } from '@teable/icons';
+import { X } from '../icons';
 import { Button, ScrollArea } from '@teable/ui-lib';
 import { useTranslation } from '../../context/app/i18n';
 import { UserItem } from './components/UserItem';

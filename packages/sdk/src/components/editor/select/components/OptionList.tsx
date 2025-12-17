@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Check } from '@teable/icons';
+import { Check } from '../../../icons';
 import { CommandList, CommandItem } from '@teable/ui-lib';
 import { useRef } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';

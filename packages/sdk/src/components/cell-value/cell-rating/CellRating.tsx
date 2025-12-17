@@ -1,6 +1,6 @@
 import type { IRatingFieldOptions } from '@teable/core';
 import { ColorUtils, RatingIcon } from '@teable/core';
-import { Star, Moon, Sun, Zap, Flame, Heart, Apple, ThumbsUp } from '@teable/icons';
+import { Star, Moon, Sun, Zap, Flame, Heart, Apple, ThumbsUp } from '../../icons';
 import { cn } from '@teable/ui-lib';
 import type { ICellValue } from '../type';
 

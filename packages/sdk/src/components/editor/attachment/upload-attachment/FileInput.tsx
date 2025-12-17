@@ -1,4 +1,4 @@
-import { Plus } from '@teable/icons';
+import { Plus } from '../../../icons';
 import { Button } from '@teable/ui-lib';
 import { useRef } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';

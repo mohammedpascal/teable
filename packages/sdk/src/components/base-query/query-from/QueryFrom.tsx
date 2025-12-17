@@ -1,4 +1,3 @@
-import { Plus } from '@teable/icons';
 import {
   Button,
   DropdownMenu,
@@ -12,6 +11,7 @@ import {
 } from '@teable/ui-lib';
 import { useTranslation } from '../../../context/app/i18n';
 import { useTables } from '../../../hooks';
+import { Plus } from '../../icons';
 import { FormItem } from '../FormItem';
 
 export const QueryFrom = (props: {

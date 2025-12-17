@@ -21,7 +21,7 @@ import {
   User as UserIcon,
   UserPlus as CreatedByIcon,
   UserEdit as LastModifiedByIcon,
-} from '@teable/icons';
+} from '../components/icons';
 
 import { useCallback } from 'react';
 import { useTranslation } from '../context/app/i18n';

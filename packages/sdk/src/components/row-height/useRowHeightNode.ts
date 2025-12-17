@@ -1,5 +1,5 @@
 import { RowHeightLevel } from '@teable/core';
-import { Menu } from '@teable/icons';
+import { Menu } from '../icons';
 import { useMemo } from 'react';
 import { useRowHeightNodes } from './useRowHeightNodes';
 

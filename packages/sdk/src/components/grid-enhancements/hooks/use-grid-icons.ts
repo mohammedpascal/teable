@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import type { RatingIcon } from '@teable/core';
-import { Check, DraggableHandle, Maximize2 } from '@teable/icons';
 import { useMemo } from 'react';
 import { useFieldStaticGetter } from '../../../hooks/use-field-static-getter';
 import { FIELD_TYPE_ORDER, getSpriteMap } from '../../../utils';
 import { RATING_ICON_MAP } from '../../cell-value';
 import { RowControlType } from '../../grid/interface';
+import { Check, DraggableHandle, Maximize2 } from '../../icons';
 
 export const useGridIcons = () => {
   const getFieldStatic = useFieldStaticGetter();

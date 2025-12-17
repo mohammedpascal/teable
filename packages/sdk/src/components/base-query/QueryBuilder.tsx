@@ -1,4 +1,4 @@
-import { X } from '@teable/icons';
+import { X } from '../icons';
 import { BaseQueryColumnType, getFields } from '@teable/openapi';
 import type {
   IBaseQueryColumn,

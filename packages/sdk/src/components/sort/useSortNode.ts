@@ -1,5 +1,5 @@
 import type { ISort } from '@teable/core';
-import { ArrowUpDown } from '@teable/icons';
+import { ArrowUpDown } from '../icons';
 import { useMemo } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 

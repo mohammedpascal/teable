@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { X } from '@teable/icons';
 import type { IBaseQueryJoin } from '@teable/openapi';
 import { BaseQueryJoinType, getFields } from '@teable/openapi';
 import {
@@ -19,6 +18,7 @@ import {
 import { useContext, useMemo, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useTables } from '../../../hooks';
+import { X } from '../../icons';
 import { NewPopover } from '../common/NewPopover';
 import { QueryEditorContext } from '../context/QueryEditorContext';
 import type { IQueryEditorProps } from './types';

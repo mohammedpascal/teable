@@ -1,7 +1,7 @@
 import { RowHeightLevel } from '@teable/core';
-import { DivideSquare, Menu, Square, StretchHorizontal } from '@teable/icons';
 import { useMemo } from 'react';
 import { useTranslation } from '../../context/app/i18n';
+import { DivideSquare, Menu, Square, StretchHorizontal } from '../icons';
 
 export const useRowHeightNodes = () => {
   const { t } = useTranslation();

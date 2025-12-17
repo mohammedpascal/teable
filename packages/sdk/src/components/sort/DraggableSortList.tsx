@@ -1,5 +1,5 @@
 import type { ISort, ISortItem } from '@teable/core';
-import { DraggableHandle, Trash2 } from '@teable/icons';
+import { DraggableHandle, Trash2 } from '../icons';
 import { Button, cn, DndKitContext, Droppable, Draggable } from '@teable/ui-lib';
 import type {
   DraggableAttributes,

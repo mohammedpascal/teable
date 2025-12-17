@@ -1,6 +1,6 @@
 import { FieldType } from '@teable/core';
 import type { SortFunc } from '@teable/core';
-import { Checked, Square } from '@teable/icons';
+import { Checked, Square } from '../icons';
 import {
   Select,
   SelectTrigger,

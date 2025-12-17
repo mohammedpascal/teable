@@ -1,6 +1,6 @@
 import { createFieldRoSchema, FieldType } from '@teable/core';
 import type { IFieldVo, IFieldRo } from '@teable/core';
-import { ArrowLeft } from '@teable/icons';
+import { ArrowLeft } from '../icons';
 import {
   Button,
   Dialog,

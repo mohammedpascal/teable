@@ -1,5 +1,5 @@
 import { TimeFormatting } from '@teable/core';
-import { Calendar } from '@teable/icons';
+import { Calendar } from '../../icons';
 import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib';
 import dayjs, { extend } from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';

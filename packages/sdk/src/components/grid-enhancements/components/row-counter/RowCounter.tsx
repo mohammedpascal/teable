@@ -1,7 +1,7 @@
-import { ChevronLeft, ChevronRight } from '@teable/icons';
 import { Button, cn } from '@teable/ui-lib';
 import { useState } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
+import { ChevronLeft, ChevronRight } from '../../../icons';
 
 interface IRowCounterProps {
   rowCount: number;

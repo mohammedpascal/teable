@@ -1,8 +1,8 @@
-import { ChevronDown, X } from '@teable/icons';
 import type { IBaseQueryColumn, IBaseQuerySelect } from '@teable/openapi';
 import { Badge, Button, Popover, PopoverContent, PopoverTrigger, Error } from '@teable/ui-lib';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
+import { ChevronDown, X } from '../../icons';
 import { ContextColumnsCommand } from '../common/ContextColumnCommand';
 import { QueryEditorContext } from '../context/QueryEditorContext';
 import { QueryFormContext } from '../context/QueryFormContext';

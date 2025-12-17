@@ -1,6 +1,6 @@
 import type { ILinkCellValue, ILinkFieldOptions } from '@teable/core';
 import { isMultiValueLink } from '@teable/core';
-import { Plus } from '@teable/icons';
+import { Plus } from '../../icons';
 import type { IGetRecordsRo } from '@teable/openapi';
 import { Button, Dialog, DialogContent, DialogTrigger, useToast } from '@teable/ui-lib';
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react';

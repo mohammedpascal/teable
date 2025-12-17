@@ -1,8 +1,8 @@
-import { X } from '@teable/icons';
 import type { BaseQueryColumnType, IBaseQueryGroupBy } from '@teable/openapi';
 import { Button, Error } from '@teable/ui-lib';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
+import { X } from '../../icons';
 import { ContextColumnSelector } from '../common/ContextColumnSelector';
 import { NewPopover } from '../common/NewPopover';
 import { useAllColumns } from '../common/useAllColumns';

@@ -1,5 +1,5 @@
 import type { IGroup } from '@teable/core';
-import { LayoutList } from '@teable/icons';
+import { LayoutList } from '../icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from '../../context/app/i18n';

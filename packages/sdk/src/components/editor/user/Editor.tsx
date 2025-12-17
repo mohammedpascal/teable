@@ -1,5 +1,5 @@
 import type { IUserFieldOptions, IUserCellValue } from '@teable/core';
-import { X } from '@teable/icons';
+import { X } from '../../icons';
 import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib';
 import { useRef, useState } from 'react';
 import { UserTag } from '../../cell-value';

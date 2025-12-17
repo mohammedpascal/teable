@@ -1,5 +1,5 @@
 import type { IUserCellValue } from '@teable/core';
-import { Check } from '@teable/icons';
+import { Check } from '../../icons';
 import {
   Command,
   CommandEmpty,

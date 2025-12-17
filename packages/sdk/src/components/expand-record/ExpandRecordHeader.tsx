@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp, Copy, Link, MoreHorizontal, Trash2, X } from '@teable/icons';
+import { ChevronDown, ChevronUp, Copy, Link, MoreHorizontal, Trash2, X } from '../icons';
 import {
   Button,
   cn,

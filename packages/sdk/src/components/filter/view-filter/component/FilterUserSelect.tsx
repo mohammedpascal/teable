@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { isMeTag, Me } from '@teable/core';
-import { User as UserIcon } from '@teable/icons';
 import { getUserList } from '@teable/openapi';
 import { cn } from '@teable/ui-lib';
 import { useCallback, useMemo } from 'react';
@@ -9,6 +8,7 @@ import { useSession } from '../../../../hooks/use-session';
 import type { UserField, CreatedByField, LastModifiedByField } from '../../../../model';
 import { UserTag } from '../../../cell-value';
 import { UserOption } from '../../../editor';
+import { User as UserIcon } from '../../../icons';
 import { BaseMultipleSelect, BaseSingleSelect } from './base';
 
 interface IFilterUserProps {

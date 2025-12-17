@@ -1,5 +1,5 @@
 import type { IFilter } from '@teable/core';
-import { Filter as FilterIcon } from '@teable/icons';
+import { Filter as FilterIcon } from '../../../icons';
 import { keyBy } from 'lodash';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';

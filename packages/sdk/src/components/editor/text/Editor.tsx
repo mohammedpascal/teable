@@ -1,6 +1,6 @@
 import { SingleLineTextDisplayType } from '@teable/core';
 import type { ISingleLineTextFieldOptions } from '@teable/core';
-import { Link, Mail, Phone } from '@teable/icons';
+import { Link, Mail, Phone } from '../../icons';
 import { Button, Input, cn } from '@teable/ui-lib';
 import type { ForwardRefRenderFunction } from 'react';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';

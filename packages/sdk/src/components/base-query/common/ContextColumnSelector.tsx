@@ -1,8 +1,8 @@
-import { ChevronDown } from '@teable/icons';
 import type { BaseQueryColumnType } from '@teable/openapi';
 import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import { useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
+import { ChevronDown } from '../../icons';
 import { ContextColumnsCommand } from './ContextColumnCommand';
 import { useAllColumns } from './useAllColumns';
 
