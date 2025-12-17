@@ -4,7 +4,7 @@ import { HttpErrorCode } from '@teable/core';
 import { Check } from '@/components/icons';
 import type { ISendChangeEmailCodeRo } from '@teable/openapi';
 import { changeEmail, sendChangeEmailCode } from '@teable/openapi';
-import { useSession } from '@teable/sdk/hooks';
+import { useSession } from '@/sdk/hooks';
 import { Error as ErrorComponent, Spin } from '@teable/ui-lib/base';
 import {
   Button,

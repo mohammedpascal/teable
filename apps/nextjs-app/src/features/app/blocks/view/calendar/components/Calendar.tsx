@@ -12,9 +12,9 @@ import FullCalendar from '@fullcalendar/react';
 import { FieldKeyType } from '@teable/core';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Loader2 } from '@/components/icons';
 import { updateRecord } from '@teable/openapi';
-import { AppContext, CalendarDailyCollectionContext } from '@teable/sdk/context';
-import { useTableId } from '@teable/sdk/hooks';
-import { Record } from '@teable/sdk/model';
+import { AppContext, CalendarDailyCollectionContext } from '@/sdk/context';
+import { useTableId } from '@/sdk/hooks';
+import { Record } from '@/sdk/model';
 import {
   Button,
   Dialog,

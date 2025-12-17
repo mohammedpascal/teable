@@ -1,5 +1,5 @@
 import { Sidebar, MoreHorizontal } from '@/components/icons';
-import { useTable } from '@teable/sdk/hooks';
+import { useTable } from '@/sdk/hooks';
 import {
   Button,
   cn,

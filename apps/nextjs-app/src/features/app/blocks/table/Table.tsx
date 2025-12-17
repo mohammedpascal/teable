@@ -1,6 +1,6 @@
 import type { IFieldVo, IRecord, IViewVo } from '@teable/core';
 import { type IGroupPointsVo } from '@teable/openapi';
-import { AnchorContext, FieldProvider, useTable, ViewProvider } from '@teable/sdk';
+import { AnchorContext, FieldProvider, useTable, ViewProvider } from '@/sdk';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ErrorBoundary } from 'react-error-boundary';

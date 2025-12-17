@@ -1,5 +1,5 @@
 import { Table2 } from '@/components/icons';
-import type { Table } from '@teable/sdk/model';
+import type { Table } from '@/sdk/model';
 import { Button, cn } from '@teable/ui-lib/shadcn';
 import { Input } from '@teable/ui-lib/shadcn/ui/input';
 import { useRouter } from 'next/router';
@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { Emoji } from '../../components/emoji/Emoji';
 import { EmojiPicker } from '../../components/emoji/EmojiPicker';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { useSidebar } from '@/features/app/contexts/SidebarContext';
 
 interface IProps {

@@ -1,6 +1,6 @@
-import { RecordProvider, RowCountProvider } from '@teable/sdk/context';
-import { SearchProvider } from '@teable/sdk/context/query';
-import { useIsHydrated } from '@teable/sdk/hooks';
+import { RecordProvider, RowCountProvider } from '@/sdk/context';
+import { SearchProvider } from '@/sdk/context/query';
+import { useIsHydrated } from '@/sdk/hooks';
 import { GalleryToolBar } from '../tool-bar/GalleryToolBar';
 import { GalleryProvider } from './context';
 import { GalleryViewBase } from './GalleryViewBase';

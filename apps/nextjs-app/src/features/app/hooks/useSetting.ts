@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPublicSetting } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useSession } from '@teable/sdk/hooks';
+import { ReactQueryKeys } from '@/sdk/config';
+import { useSession } from '@/sdk/hooks';
 
 interface ISetting {
   disallowSignUp?: boolean;

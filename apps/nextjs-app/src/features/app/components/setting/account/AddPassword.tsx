@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { addPassword } from '@teable/openapi';
 import { passwordSchema } from '@teable/openapi/src/auth/types';
-import { useSession } from '@teable/sdk/hooks';
+import { useSession } from '@/sdk/hooks';
 import { Error, Spin } from '@teable/ui-lib/base';
 import {
   Button,

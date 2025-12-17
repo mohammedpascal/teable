@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { createQueryClient } from '@teable/sdk/context';
+import { createQueryClient } from '@/sdk/context';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useState } from 'react';
 import { LoginPage } from '@/features/auth/pages/LoginPage';

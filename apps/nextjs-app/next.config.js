@@ -10,7 +10,6 @@ const nextConfig = {
     '@teable/common-i18n',
     '@teable/core',
     '@teable/openapi',
-    '@teable/sdk',
     '@teable/ui-lib',
   ],
   images: {

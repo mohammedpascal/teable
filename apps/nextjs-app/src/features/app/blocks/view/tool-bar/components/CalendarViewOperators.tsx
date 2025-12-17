@@ -1,10 +1,10 @@
 import { GUIDE_VIEW_FILTERING } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
 import { EyeOff, Filter as FilterIcon, Plus, Settings } from '@/components/icons';
-import type { CalendarView } from '@teable/sdk';
-import { CreateRecordModal, ViewFilter, VisibleFields } from '@teable/sdk';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import { useView } from '@teable/sdk/hooks/use-view';
+import type { CalendarView } from '@/sdk';
+import { CreateRecordModal, ViewFilter, VisibleFields } from '@/sdk';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import { useView } from '@/sdk/hooks/use-view';
 import { Button, cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { CalendarConfig } from '../../calendar/components/CalendarConfig';

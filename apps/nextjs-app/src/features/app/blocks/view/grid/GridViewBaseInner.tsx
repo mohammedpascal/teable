@@ -20,7 +20,7 @@ import type {
   IPosition,
   IRectangle,
   IUseTablePermissionAction,
-} from '@teable/sdk';
+} from '@/sdk';
 import {
   CellType,
   CombinedSelection,
@@ -53,9 +53,9 @@ import {
   useGridTheme,
   useGridTooltipStore,
   useGridViewStore,
-} from '@teable/sdk';
-import { GRID_DEFAULT } from '@teable/sdk/components/grid/configs';
-import { useScrollFrameRate } from '@teable/sdk/components/grid/hooks';
+} from '@/sdk';
+import { GRID_DEFAULT } from '@/sdk/components/grid/configs';
+import { useScrollFrameRate } from '@/sdk/components/grid/hooks';
 import {
   useFieldCellEditable,
   useFields,
@@ -67,8 +67,8 @@ import {
   useTableId,
   useView,
   useViewId,
-} from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+} from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { useToast } from '@teable/ui-lib';
 import { groupBy, isEqual, keyBy, uniqueId } from 'lodash';
 import { useRouter } from 'next/router';

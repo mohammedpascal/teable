@@ -1,4 +1,4 @@
-import { useSession } from '@teable/sdk';
+import { useSession } from '@/sdk';
 import { Button } from '@teable/ui-lib/shadcn';
 import React from 'react';
 import { NotificationsManage } from '@/features/app/components/notifications/NotificationsManage';

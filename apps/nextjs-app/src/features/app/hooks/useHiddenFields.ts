@@ -1,4 +1,4 @@
-import { useFields } from '@teable/sdk/hooks';
+import { useFields } from '@/sdk/hooks';
 import { useMemo } from 'react';
 
 export const useHiddenFields = () => {

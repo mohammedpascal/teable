@@ -1,6 +1,6 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import type { ITableVo } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
+import { ReactQueryKeys } from '@/sdk/config';
 import type { GetServerSideProps } from 'next';
 import { Trans, useTranslation } from 'next-i18next';
 import type { ReactElement } from 'react';

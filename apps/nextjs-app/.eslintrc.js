@@ -15,6 +15,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: 'tsconfig.eslint.json',
   },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: 'tsconfig.json',
+      },
+    },
+  },
   ignorePatterns: [
     ...getDefaultIgnorePatterns(),
     '.next',

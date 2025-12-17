@@ -1,5 +1,5 @@
 import type { IFieldVo } from '@teable/core';
-import { LocalStorageKeys } from '@teable/sdk/config/local-storage-keys';
+import { LocalStorageKeys } from '@/sdk/config/local-storage-keys';
 import { Input } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useLocalStorage } from 'react-use';

@@ -1,8 +1,8 @@
 import { Table2 } from '@/components/icons';
-import { AnchorContext, FieldProvider } from '@teable/sdk/context';
-import { useTable, useTables } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import { Table } from '@teable/sdk/model';
+import { AnchorContext, FieldProvider } from '@/sdk/context';
+import { useTable, useTables } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import { Table } from '@/sdk/model';
 import { ConfirmDialog, Selector } from '@teable/ui-lib/base';
 import { Button, Tabs, TabsContent } from '@teable/ui-lib/shadcn';
 import { Trash2 } from 'lucide-react';

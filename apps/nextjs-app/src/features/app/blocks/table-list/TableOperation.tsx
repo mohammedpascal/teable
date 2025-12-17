@@ -11,9 +11,9 @@ import {
   Trash2,
 } from '@/components/icons';
 import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useHookPermission, useTables } from '@teable/sdk/hooks';
-import { Table } from '@teable/sdk/model';
+import { ReactQueryKeys } from '@/sdk/config';
+import { useHookPermission, useTables } from '@/sdk/hooks';
+import { Table } from '@/sdk/model';
 import { ConfirmDialog } from '@teable/ui-lib/base';
 import {
   DropdownMenu,

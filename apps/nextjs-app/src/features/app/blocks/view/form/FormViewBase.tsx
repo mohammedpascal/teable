@@ -1,7 +1,7 @@
 import { FieldKeyType } from '@teable/core';
-import { useIsMobile, useTableId, useViewId } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import { Record as RecordSdk } from '@teable/sdk/model';
+import { useIsMobile, useTableId, useViewId } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import { Record as RecordSdk } from '@/sdk/model';
 import { FormMode, useFormModeStore } from '../tool-bar/store';
 import { FormEditor, FormPreviewer } from './components';
 import { generateUniqLocalKey } from './util';

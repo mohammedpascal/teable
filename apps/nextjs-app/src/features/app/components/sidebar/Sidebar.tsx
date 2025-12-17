@@ -1,4 +1,4 @@
-import { useIsMobile } from '@teable/sdk';
+import { useIsMobile } from '@/sdk';
 import { cn } from '@teable/ui-lib';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';

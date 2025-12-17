@@ -1,9 +1,9 @@
 import { ColorUtils, getCellCollaboratorsChannel } from '@teable/core';
-import type { ICellItem, ICell } from '@teable/sdk';
-import { useSession } from '@teable/sdk';
-import { SelectionRegionType } from '@teable/sdk/components/grid';
-import type { ICollaborator, CombinedSelection } from '@teable/sdk/components/grid';
-import { useConnection, useTableId, useViewId } from '@teable/sdk/hooks';
+import type { ICellItem, ICell } from '@/sdk';
+import { useSession } from '@/sdk';
+import { SelectionRegionType } from '@/sdk/components/grid';
+import type { ICollaborator, CombinedSelection } from '@/sdk/components/grid';
+import { useConnection, useTableId, useViewId } from '@/sdk/hooks';
 import { useEffect, useState, useMemo } from 'react';
 import type { Presence } from 'sharedb/lib/sharedb';
 

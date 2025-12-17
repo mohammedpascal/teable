@@ -1,7 +1,7 @@
 import type { ILinkCellValue, ILinkFieldOptions } from '@teable/core';
 import { FieldType } from '@teable/core';
-import { CellEditor, LinkDisplayType, LinkEditor } from '@teable/sdk/components';
-import type { Field } from '@teable/sdk/model';
+import { CellEditor, LinkDisplayType, LinkEditor } from '@/sdk/components';
+import type { Field } from '@/sdk/model';
 
 interface IFormCellEditor {
   className?: string;

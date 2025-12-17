@@ -1,5 +1,5 @@
 import { fieldVoSchema } from '@teable/core';
-import { useField } from '@teable/sdk';
+import { useField } from '@/sdk';
 import {
   FieldSetting as FieldSettingInner,
   FieldOperator,

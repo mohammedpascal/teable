@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import { Draggable } from '@hello-pangea/dnd';
 import { Plus } from '@/components/icons';
-import { CreateRecordModal, generateLocalId } from '@teable/sdk/components';
-import { useTableId, useViewId } from '@teable/sdk/hooks';
-import type { Record } from '@teable/sdk/model';
+import { CreateRecordModal, generateLocalId } from '@/sdk/components';
+import { useTableId, useViewId } from '@/sdk/hooks';
+import type { Record } from '@/sdk/model';
 import { Button, cn } from '@teable/ui-lib';
 import { useRef, useState } from 'react';
 import type { VirtuosoHandle } from 'react-virtuoso';

@@ -1,7 +1,7 @@
 import { Loader2 } from '@/components/icons';
-import { LocalStorageKeys } from '@teable/sdk/config';
-import { useFields, useTableId, useView } from '@teable/sdk/hooks';
-import { type FormView } from '@teable/sdk/model';
+import { LocalStorageKeys } from '@/sdk/config';
+import { useFields, useTableId, useView } from '@/sdk/hooks';
+import { type FormView } from '@/sdk/model';
 import { Button, cn, useToast } from '@teable/ui-lib/shadcn';
 import { omit } from 'lodash';
 import Image from 'next/image';

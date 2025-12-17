@@ -1,7 +1,7 @@
-import type { IAppContext } from '@teable/sdk/context';
-import { AppContext, FieldContext, ViewContext } from '@teable/sdk/context';
-import { defaultLocale } from '@teable/sdk/context/app/i18n';
-import type { IFieldInstance, IViewInstance } from '@teable/sdk/model';
+import type { IAppContext } from '@/sdk/context';
+import { AppContext, FieldContext, ViewContext } from '@/sdk/context';
+import { defaultLocale } from '@/sdk/context/app/i18n';
+import type { IFieldInstance, IViewInstance } from '@/sdk/model';
 import type { FC, PropsWithChildren } from 'react';
 import { I18nextTestStubProvider } from './I18nextTestStubProvider';
 

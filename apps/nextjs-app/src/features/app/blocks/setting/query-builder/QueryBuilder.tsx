@@ -3,8 +3,8 @@ import { CellFormat, FieldKeyType, type IFilterSet, type ISortItem } from '@teab
 import { ArrowUpRight } from '@/components/icons';
 import type { IQueryBaseRo } from '@teable/openapi';
 import { getTableList } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { StandaloneViewProvider } from '@teable/sdk/context';
+import { ReactQueryKeys } from '@/sdk/config';
+import { StandaloneViewProvider } from '@/sdk/context';
 import { Button, Separator, ToggleGroup, ToggleGroupItem } from '@teable/ui-lib/shadcn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

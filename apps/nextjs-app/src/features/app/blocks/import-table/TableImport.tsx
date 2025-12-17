@@ -16,7 +16,7 @@ import {
   importTableFromFile,
   inplaceImportTableFromFile,
 } from '@teable/openapi';
-import { LocalStorageKeys } from '@teable/sdk';
+import { LocalStorageKeys } from '@/sdk';
 import {
   Dialog,
   DialogContent,

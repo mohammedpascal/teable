@@ -1,7 +1,7 @@
 import type { IFieldRo, IHttpError } from '@teable/core';
 import { Colors, FieldType, getUniqName, NumberFormattingType, ViewType } from '@teable/core';
-import { useTables } from '@teable/sdk/hooks';
-import { Table } from '@teable/sdk/model';
+import { useTables } from '@/sdk/hooks';
+import { Table } from '@/sdk/model';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';

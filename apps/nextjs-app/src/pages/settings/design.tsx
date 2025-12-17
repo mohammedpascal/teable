@@ -1,6 +1,6 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { TableProvider } from '@teable/sdk/context';
+import { ReactQueryKeys } from '@/sdk/config';
+import { TableProvider } from '@/sdk/context';
 import type { ITableVo } from '@teable/openapi';
 import type { ReactElement } from 'react';
 import { Design } from '@/features/app/blocks/design/Design';

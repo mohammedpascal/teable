@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 import { deleteFields } from '@teable/openapi';
-import { useTableId } from '@teable/sdk';
+import { useTableId } from '@/sdk';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';

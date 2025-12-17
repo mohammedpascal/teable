@@ -1,5 +1,5 @@
 import { FieldType } from '@teable/core';
-import type { IFieldInstance } from '@teable/sdk/model';
+import type { IFieldInstance } from '@/sdk/model';
 
 export const CARD_STYLE = {
   titleHeight: 32,

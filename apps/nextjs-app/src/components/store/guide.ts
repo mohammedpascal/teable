@@ -1,6 +1,6 @@
-import { LocalStorageKeys } from '@teable/sdk/config';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { LocalStorageKeys } from '@/sdk/config';
 
 interface ICompletedGuideMapState {
   completedGuideMap: Record<string, string[]>;

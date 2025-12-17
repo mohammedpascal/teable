@@ -1,7 +1,7 @@
 import { generateAttachmentId } from '@teable/core';
 import { UploadType, type INotifyVo } from '@teable/openapi';
-import type { IFile } from '@teable/sdk';
-import { AttachmentManager } from '@teable/sdk';
+import type { IFile } from '@/sdk';
+import { AttachmentManager } from '@/sdk';
 
 export const uploadFiles = async (
   files: FileList | File[],

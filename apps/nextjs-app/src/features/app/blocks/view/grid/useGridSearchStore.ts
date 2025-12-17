@@ -1,4 +1,4 @@
-import type { IGridRef, IRecordIndexMap } from '@teable/sdk';
+import type { IGridRef, IRecordIndexMap } from '@/sdk';
 import { noop } from 'lodash';
 import { create } from 'zustand';
 

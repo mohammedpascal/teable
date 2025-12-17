@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { createQueryClient } from '@teable/sdk/context';
+import { createQueryClient } from '@/sdk/context';
 import type { GetServerSideProps } from 'next';
 import { ForgetPasswordPage } from '@/features/auth/pages/ForgetPasswordPage';
 import { authConfig } from '@/features/i18n/auth.config';

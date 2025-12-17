@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import type { IUserListVo, ICreateUserRo, IUpdateUserRo } from '@teable/openapi';
 import { getRoleList } from '@teable/openapi';
-import { useSession } from '@teable/sdk/hooks';
+import { useSession } from '@/sdk/hooks';
 import {
   Dialog,
   DialogContent,

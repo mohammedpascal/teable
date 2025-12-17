@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { HttpError, HttpErrorCode } from '@teable/core';
 import { getTableById } from '@teable/openapi';
-import { useConnection } from '@teable/sdk/hooks';
+import { useConnection } from '@/sdk/hooks';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { ConnectionReceiveRequest } from 'sharedb/lib/sharedb';

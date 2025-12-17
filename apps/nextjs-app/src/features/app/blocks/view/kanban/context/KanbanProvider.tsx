@@ -2,16 +2,16 @@ import type { IUserCellValue } from '@teable/core';
 import { FieldType } from '@teable/core';
 import type { UserCollaboratorItem } from '@teable/openapi';
 import { GroupPointType } from '@teable/openapi';
-import { ExpandRecorder } from '@teable/sdk/components';
-// import { ShareViewContext } from '@teable/sdk/context';
+import { ExpandRecorder } from '@/sdk/components';
+// import { ShareViewContext } from '@/sdk/context';
 import {
   useFields,
   useGroupPoint,
   useTableId,
   useView
-} from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import type { AttachmentField, IFieldInstance, KanbanView } from '@teable/sdk/model';
+} from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import type { AttachmentField, IFieldInstance, KanbanView } from '@/sdk/model';
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 import { UNCATEGORIZED_STACK_ID } from '../constant';

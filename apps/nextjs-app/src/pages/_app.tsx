@@ -1,6 +1,6 @@
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import * as Sentry from '@sentry/nextjs';
-import type { IUser } from '@teable/sdk';
+import type { IUser } from '@/sdk';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';

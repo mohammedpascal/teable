@@ -1,6 +1,6 @@
 import { FieldKeyType } from '@teable/core';
-import type { DateField } from '@teable/sdk/model';
-import { Record } from '@teable/sdk/model';
+import type { DateField } from '@/sdk/model';
+import { Record } from '@/sdk/model';
 import { Button, cn } from '@teable/ui-lib/shadcn';
 import { Plus } from 'lucide-react';
 import { createPortal } from 'react-dom';

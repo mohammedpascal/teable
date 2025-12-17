@@ -1,6 +1,6 @@
 import { Plus } from '@/components/icons';
-import { CreateRecordModal } from '@teable/sdk/components';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { CreateRecordModal } from '@/sdk/components';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { Button } from '@teable/ui-lib/shadcn/ui/button';
 import { GridViewOperators } from './components';
 import { useViewConfigurable } from './hook';

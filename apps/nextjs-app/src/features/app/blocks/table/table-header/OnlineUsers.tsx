@@ -1,5 +1,5 @@
-import { useSession } from '@teable/sdk';
-import { UserAvatar } from '@teable/sdk/components/cell-value/cell-user/UserAvatar';
+import { useSession } from '@/sdk';
+import { UserAvatar } from '@/sdk/components/cell-value/cell-user/UserAvatar';
 import {
   HoverCard,
   HoverCardContent,

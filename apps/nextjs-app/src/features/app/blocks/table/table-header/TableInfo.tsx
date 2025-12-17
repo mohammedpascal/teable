@@ -7,8 +7,8 @@ import {
   useIsHydrated,
   useLanDayjs,
   useTable
-} from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+} from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { Spin } from '@teable/ui-lib/base';
 import { cn, Input } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';

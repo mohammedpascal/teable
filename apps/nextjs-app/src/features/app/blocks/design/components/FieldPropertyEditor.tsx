@@ -1,6 +1,6 @@
 import { Edit } from '@/components/icons';
-import { useField } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { useField } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { Button, Input } from '@teable/ui-lib/shadcn';
 import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
 import { useTranslation } from 'next-i18next';

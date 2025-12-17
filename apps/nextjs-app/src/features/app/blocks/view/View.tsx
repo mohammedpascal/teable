@@ -1,5 +1,5 @@
 import { ViewType } from '@teable/core';
-import { useView } from '@teable/sdk';
+import { useView } from '@/sdk';
 import { CalendarView } from './calendar/CalendarView';
 import { FormView } from './form/FormView';
 import { GalleryView } from './gallery/GalleryView';

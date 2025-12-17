@@ -1,7 +1,7 @@
 import type { IFilterSet } from '@teable/core';
-import { BaseViewFilter, useViewFilterLinkContext } from '@teable/sdk';
-import { useFields, useTableId, useViewId } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { BaseViewFilter, useViewFilterLinkContext } from '@/sdk';
+import { useFields, useTableId, useViewId } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 
 export const FilterBuilder = ({
   filter,

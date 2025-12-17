@@ -1,7 +1,7 @@
 import type { IGroupPointsVo } from '@teable/openapi';
-import type { GridView } from '@teable/sdk';
-import { useGridColumns } from '@teable/sdk';
-import { useIsHydrated, useView, useViewId } from '@teable/sdk/hooks';
+import type { GridView } from '@/sdk';
+import { useGridColumns } from '@/sdk';
+import { useIsHydrated, useView, useViewId } from '@/sdk/hooks';
 import { Skeleton } from '@teable/ui-lib';
 import React from 'react';
 import { GridViewBaseInner } from './GridViewBaseInner';

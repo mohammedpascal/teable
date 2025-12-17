@@ -7,10 +7,10 @@ import {
   HideFieldsBase,
   useFieldFilterLinkContext,
   ViewSelect,
-} from '@teable/sdk/components';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useTableId } from '@teable/sdk/hooks';
-import type { IFieldInstance } from '@teable/sdk/model';
+} from '@/sdk/components';
+import { ReactQueryKeys } from '@/sdk/config';
+import { useTableId } from '@/sdk/hooks';
+import type { IFieldInstance } from '@/sdk/model';
 import { Button, cn, Dialog, DialogContent, DialogTrigger } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';

@@ -1,5 +1,5 @@
 import { QueryClient, dehydrate } from '@tanstack/react-query';
-import { ReactQueryKeys } from '@teable/sdk';
+import { ReactQueryKeys } from '@/sdk';
 import type { ReactElement } from 'react';
 import type { ITableProps } from '@/features/app/blocks/table/Table';
 import { Table } from '@/features/app/blocks/table/Table';

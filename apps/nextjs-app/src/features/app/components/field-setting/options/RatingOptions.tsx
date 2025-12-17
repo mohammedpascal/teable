@@ -1,7 +1,7 @@
 import type { IRatingColors, IRatingFieldOptions } from '@teable/core';
 import { ColorUtils, RATING_ICON_COLORS, RatingIcon } from '@teable/core';
-import { RATING_ICON_MAP } from '@teable/sdk/components';
-import { RatingField } from '@teable/sdk/model';
+import { RATING_ICON_MAP } from '@/sdk/components';
+import { RatingField } from '@/sdk/model';
 import {
   Label,
   Select,

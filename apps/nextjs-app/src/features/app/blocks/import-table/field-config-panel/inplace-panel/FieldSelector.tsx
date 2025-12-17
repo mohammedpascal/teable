@@ -1,5 +1,5 @@
 import { DivideCircle } from '@/components/icons';
-import type { IFieldStatic } from '@teable/sdk';
+import type { IFieldStatic } from '@/sdk';
 import {
   Command,
   CommandEmpty,

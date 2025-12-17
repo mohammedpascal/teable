@@ -1,6 +1,6 @@
 import type { ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { useFields } from '@teable/sdk/hooks';
+import { useFields } from '@/sdk/hooks';
 
 import {
   Table,

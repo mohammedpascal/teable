@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 import { DraggableHandle, EyeOff } from '@/components/icons';
-import { CellEditor } from '@teable/sdk/components';
-import { useFieldStaticGetter, useTableId, useView } from '@teable/sdk/hooks';
-import type { FormView, IFieldInstance } from '@teable/sdk/model';
+import { CellEditor } from '@/sdk/components';
+import { useFieldStaticGetter, useTableId, useView } from '@/sdk/hooks';
+import type { FormView, IFieldInstance } from '@/sdk/model';
 import {
   Label,
   Switch,

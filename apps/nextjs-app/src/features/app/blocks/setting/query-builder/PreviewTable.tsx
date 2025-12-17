@@ -1,7 +1,7 @@
 import { nullsToUndefinedShallow } from '@teable/core';
 import { ChevronLeft, ChevronRight } from '@/components/icons';
 import { getRecords, type IGetRecordsRo } from '@teable/openapi';
-import type { ICell, ICellItem } from '@teable/sdk/components';
+import type { ICell, ICellItem } from '@/sdk/components';
 import {
   CellType,
   DraggableType,
@@ -11,9 +11,9 @@ import {
   useGridColumns,
   useGridIcons,
   useGridTheme,
-} from '@teable/sdk/components';
-import { useIsHydrated, useTableId } from '@teable/sdk/hooks';
-import { Table } from '@teable/sdk/model/table';
+} from '@/sdk/components';
+import { useIsHydrated, useTableId } from '@/sdk/hooks';
+import { Table } from '@/sdk/model/table';
 import { ToggleGroup, ToggleGroupItem, Button } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useState } from 'react';

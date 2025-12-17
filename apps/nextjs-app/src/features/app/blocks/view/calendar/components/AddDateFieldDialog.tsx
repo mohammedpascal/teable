@@ -1,7 +1,7 @@
 import { FieldType, TimeFormatting } from '@teable/core';
-import { useTableId, useView } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import { Field } from '@teable/sdk/model';
+import { useTableId, useView } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import { Field } from '@/sdk/model';
 import {
   Button,
   Dialog,

@@ -1,5 +1,5 @@
 import type { IGetRecordsRo } from '@teable/openapi';
-import type { AttachmentField, IFieldInstance } from '@teable/sdk/model';
+import type { AttachmentField, IFieldInstance } from '@/sdk/model';
 import type { Dispatch, SetStateAction } from 'react';
 import { createContext } from 'react';
 import type { IKanbanPermission, IStackData } from '../type';

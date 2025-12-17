@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import { getValidStatisticFunc, NoneFunc } from '@teable/core';
 import type { StatisticsFunc } from '@teable/core';
-import { useGridViewStore, useStatisticFunc2NameMap } from '@teable/sdk/components';
-import { useField, useIsTouchDevice, useView } from '@teable/sdk/hooks';
+import { useGridViewStore, useStatisticFunc2NameMap } from '@/sdk/components';
+import { useField, useIsTouchDevice, useView } from '@/sdk/hooks';
 import {
   Command,
   CommandGroup,

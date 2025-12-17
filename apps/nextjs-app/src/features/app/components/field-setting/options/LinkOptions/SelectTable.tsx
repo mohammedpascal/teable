@@ -1,6 +1,6 @@
 import { ArrowUpRight, Table2 } from '@/components/icons';
-import { AnchorContext, TableProvider } from '@teable/sdk/context';
-import { useTableId, useTables } from '@teable/sdk/hooks';
+import { AnchorContext, TableProvider } from '@/sdk/context';
+import { useTableId, useTables } from '@/sdk/hooks';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Selector } from '@/components/Selector';

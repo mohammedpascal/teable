@@ -1,7 +1,7 @@
 import { type IFieldVo } from '@teable/core';
 import { ArrowLeft } from '@/components/icons';
 import type { IInplaceImportOptionRo, IImportOptionRo } from '@teable/openapi';
-import { useFieldStaticGetter } from '@teable/sdk';
+import { useFieldStaticGetter } from '@/sdk';
 import {
   Table,
   TableBody,

@@ -1,6 +1,6 @@
 import { ChevronRight } from '@/components/icons';
 import type { IImportOptionRo } from '@teable/openapi';
-import { BaseSingleSelect } from '@teable/sdk/components/filter/view-filter/component/base/BaseSingleSelect';
+import { BaseSingleSelect } from '@/sdk/components/filter/view-filter/component/base/BaseSingleSelect';
 import {
   Button,
   cn,

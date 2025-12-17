@@ -9,8 +9,8 @@ import {
   repairTableIndex,
   RecommendedIndexRow,
 } from '@teable/openapi';
-import { LocalStorageKeys } from '@teable/sdk/config';
-import { useFields, useFieldStaticGetter, useTableId, useView } from '@teable/sdk/hooks';
+import { LocalStorageKeys } from '@/sdk/config';
+import { useFields, useFieldStaticGetter, useTableId, useView } from '@/sdk/hooks';
 import {
   Command,
   CommandInput,

@@ -1,7 +1,7 @@
 import type { IColorConfig } from '@teable/core';
 import { ColorConfigType, TimeFormatting } from '@teable/core';
-import { getColorPairs } from '@teable/sdk/components';
-import type { DateField, Record, SingleSelectField } from '@teable/sdk/model';
+import { getColorPairs } from '@/sdk/components';
+import type { DateField, Record, SingleSelectField } from '@/sdk/model';
 import { set } from 'date-fns';
 import { formatInTimeZone, toZonedTime, fromZonedTime } from 'date-fns-tz';
 import { DEFAULT_COLOR } from './components/CalendarConfig';

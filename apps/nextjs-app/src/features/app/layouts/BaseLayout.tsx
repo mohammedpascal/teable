@@ -1,9 +1,9 @@
 import type { DehydratedState } from '@tanstack/react-query';
 import { Settings } from '@/components/icons';
 import type { ITableVo } from '@teable/openapi';
-import type { IUser } from '@teable/sdk';
-import { NotificationProvider, SessionProvider } from '@teable/sdk';
-import { AnchorContext, AppProvider, TableProvider } from '@teable/sdk/context';
+import type { IUser } from '@/sdk';
+import { NotificationProvider, SessionProvider } from '@/sdk';
+import { AnchorContext, AppProvider, TableProvider } from '@/sdk/context';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { Fragment } from 'react';

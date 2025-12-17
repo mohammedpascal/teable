@@ -5,7 +5,7 @@ import {
   type CombinedSelection,
   type Field,
   SelectionRegionType,
-} from '@teable/sdk';
+} from '@/sdk';
 
 export const getSyncCopyData = ({
   recordMap,

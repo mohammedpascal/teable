@@ -1,7 +1,7 @@
 const { join } = require('path');
 const uiConfig = require('@teable/ui-lib/ui.config.js');
 const filePath = join(__dirname, './src/**/*.{js,ts,jsx,tsx}');
-const sdkPath = join(__dirname, '../../packages/sdk/src/**/*.{js,ts,jsx,tsx}');
+const sdkPath = join(__dirname, './src/sdk/**/*.{js,ts,jsx,tsx}');
 const uiLibPath = join(__dirname, '../../packages/ui-lib/src/**/*.{js,ts,jsx,tsx}');
 const scrollbarPlugin = require('tailwind-scrollbar');
 

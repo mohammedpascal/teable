@@ -1,6 +1,6 @@
 import { File, FileCsv, FileExcel } from '@/components/icons';
 import { SUPPORTEDTYPE } from '@teable/openapi';
-import { useConnection, useHookPermission } from '@teable/sdk';
+import { useConnection, useHookPermission } from '@/sdk';
 import {
   DropdownMenu,
   DropdownMenuContent,

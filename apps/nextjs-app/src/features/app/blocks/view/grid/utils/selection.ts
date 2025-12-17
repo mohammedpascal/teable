@@ -1,7 +1,7 @@
 import { FieldType } from '@teable/core';
-import type { CombinedSelection } from '@teable/sdk/components';
-import { SelectionRegionType } from '@teable/sdk/components';
-import type { Field } from '@teable/sdk/model';
+import type { CombinedSelection } from '@/sdk/components';
+import { SelectionRegionType } from '@/sdk/components';
+import type { Field } from '@/sdk/model';
 import { isEqual } from 'lodash';
 
 export const selectionCoverAttachments = (selection: CombinedSelection, fields: Field[]) => {

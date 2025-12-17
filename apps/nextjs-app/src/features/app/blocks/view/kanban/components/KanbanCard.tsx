@@ -4,9 +4,9 @@ import { FieldKeyType, type IAttachmentCellValue } from '@teable/core';
 import { ArrowDown, ArrowUp, Copy, Maximize2, Trash2 } from '@/components/icons';
 import type { IRecordInsertOrderRo } from '@teable/openapi';
 import { createRecords, deleteRecord, duplicateRecord } from '@teable/openapi';
-import { CellValue } from '@teable/sdk/components';
-import { useFieldStaticGetter, useTableId, useViewId } from '@teable/sdk/hooks';
-import type { Record } from '@teable/sdk/model';
+import { CellValue } from '@/sdk/components';
+import { useFieldStaticGetter, useTableId, useViewId } from '@/sdk/hooks';
+import type { Record } from '@/sdk/model';
 import {
   ContextMenu,
   ContextMenuContent,

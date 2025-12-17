@@ -2,9 +2,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import type { IFieldRo } from '@teable/core';
 import { convertFieldRoSchema, FieldType, getOptionsSchema } from '@teable/core';
 import { planFieldCreate, type IPlanFieldConvertVo, planFieldConvert } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useTable, useView } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { ReactQueryKeys } from '@/sdk/config';
+import { useTable, useView } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { ConfirmDialog, Spin } from '@teable/ui-lib/base';
 import {
   Dialog,

@@ -1,5 +1,5 @@
 import type { CellValueType, IUserCellValue, IUserFieldOptions } from '@teable/core';
-import { UserEditor } from '@teable/sdk/components';
+import { UserEditor } from '@/sdk/components';
 import { Label, Switch } from '@teable/ui-lib';
 import { keyBy } from 'lodash';
 import { useTranslation } from 'next-i18next';

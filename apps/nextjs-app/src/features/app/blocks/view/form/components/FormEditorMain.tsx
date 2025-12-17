@@ -4,11 +4,11 @@ import { generateAttachmentId } from '@teable/core';
 import { Pencil, Plus } from '@/components/icons';
 import type { INotifyVo } from '@teable/openapi';
 import { UploadType } from '@teable/openapi';
-import type { IFile } from '@teable/sdk/components';
-import { AttachmentManager } from '@teable/sdk/components';
-import { useIsHydrated, useView } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import type { FormView, IFieldInstance } from '@teable/sdk/model';
+import type { IFile } from '@/sdk/components';
+import { AttachmentManager } from '@/sdk/components';
+import { useIsHydrated, useView } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import type { FormView, IFieldInstance } from '@/sdk/model';
 import {
   Button,
   Input,

@@ -1,4 +1,4 @@
-import { useTable } from '@teable/sdk/hooks';
+import { useTable } from '@/sdk/hooks';
 import {
   Dialog,
   DialogTrigger,

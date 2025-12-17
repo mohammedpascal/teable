@@ -1,6 +1,6 @@
 import type { IColorConfig } from '@teable/core';
 import type { IGetRecordsRo } from '@teable/openapi';
-import type { DateField, IFieldInstance, SingleSelectField } from '@teable/sdk/model';
+import type { DateField, IFieldInstance, SingleSelectField } from '@/sdk/model';
 import type { Dispatch, SetStateAction } from 'react';
 import { createContext } from 'react';
 import type { ICalendarPermission } from '../type';

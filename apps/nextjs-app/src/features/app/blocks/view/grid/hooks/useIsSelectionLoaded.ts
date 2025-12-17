@@ -1,4 +1,4 @@
-import { SelectionRegionType, type CombinedSelection, type IRecordIndexMap } from '@teable/sdk';
+import { SelectionRegionType, type CombinedSelection, type IRecordIndexMap } from '@/sdk';
 import { useCallback } from 'react';
 
 export const useIsSelectionLoaded = () => {

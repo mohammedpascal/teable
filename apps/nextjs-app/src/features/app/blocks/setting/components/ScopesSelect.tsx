@@ -1,6 +1,6 @@
 import { actionPrefixMap } from '@teable/core';
 import type { ActionPrefix, Action } from '@teable/core';
-import { usePermissionActionsStatic } from '@teable/sdk/hooks';
+import { usePermissionActionsStatic } from '@/sdk/hooks';
 import { Checkbox, Label, Button } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useMemo, useState } from 'react';

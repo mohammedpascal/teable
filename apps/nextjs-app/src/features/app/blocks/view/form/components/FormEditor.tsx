@@ -20,8 +20,8 @@ import {
   useIsHydrated,
   swapReorder,
   reorder,
-} from '@teable/sdk';
-import type { IFieldInstance } from '@teable/sdk/model';
+} from '@/sdk';
+import type { IFieldInstance } from '@/sdk/model';
 import { useEffect, useMemo, useState } from 'react';
 import { FieldSetting } from '../../grid/components';
 import { FORM_SIDEBAR_DROPPABLE_ID } from '../constant';

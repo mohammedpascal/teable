@@ -2,7 +2,7 @@ import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
 import type { IFieldVo } from '@teable/core';
 import { ArrowUpDown, Filter as FilterIcon, Layers, Plus, Settings } from '@/components/icons';
-import type { IFieldCreateOrSelectModalRef, IFieldInstance, KanbanView } from '@teable/sdk';
+import type { IFieldCreateOrSelectModalRef, IFieldInstance, KanbanView } from '@/sdk';
 import {
   CreateRecordModal,
   FieldCreateOrSelectModal,
@@ -12,9 +12,9 @@ import {
   generateLocalId,
   useFields,
   useTableId
-} from '@teable/sdk';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import { useView } from '@teable/sdk/hooks/use-view';
+} from '@/sdk';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import { useView } from '@/sdk/hooks/use-view';
 import { Button, Label, Switch, cn } from '@teable/ui-lib/shadcn';
 import { Trans, useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useRef } from 'react';

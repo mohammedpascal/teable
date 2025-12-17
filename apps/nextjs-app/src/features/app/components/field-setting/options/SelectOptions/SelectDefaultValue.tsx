@@ -1,5 +1,5 @@
 import type { ISelectFieldOptions } from '@teable/core';
-import { SelectEditor, transformSelectOptions } from '@teable/sdk/components';
+import { SelectEditor, transformSelectOptions } from '@/sdk/components';
 import { DefaultValue } from '../../DefaultValue';
 
 interface ISelectDefaultValue {

@@ -1,6 +1,6 @@
 import type { IGroup, IFilter, ISort, RowHeightLevel } from '@teable/core';
-import { generateLocalId, useGridCollapsedGroupStore } from '@teable/sdk/components';
-import { useTableId, useView } from '@teable/sdk/hooks';
+import { generateLocalId, useGridCollapsedGroupStore } from '@/sdk/components';
+import { useTableId, useView } from '@/sdk/hooks';
 import { useMemo } from 'react';
 
 export const useToolbarChange = () => {

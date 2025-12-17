@@ -1,5 +1,5 @@
 import { updateUserNotifyMeta } from '@teable/openapi';
-import { useSession } from '@teable/sdk';
+import { useSession } from '@/sdk';
 import { Label, Separator, Switch } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 

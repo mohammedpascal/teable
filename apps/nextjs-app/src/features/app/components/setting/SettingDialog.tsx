@@ -1,5 +1,5 @@
 import { Bell, Settings, UserEdit } from '@/components/icons';
-import { useIsTouchDevice } from '@teable/sdk/hooks';
+import { useIsTouchDevice } from '@/sdk/hooks';
 import {
   Dialog,
   DialogContent,

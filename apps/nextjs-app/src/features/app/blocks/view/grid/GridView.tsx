@@ -1,5 +1,5 @@
-import { AggregationProvider, RecordProvider, RowCountProvider } from '@teable/sdk/context';
-import { SearchProvider } from '@teable/sdk/context/query';
+import { AggregationProvider, RecordProvider, RowCountProvider } from '@/sdk/context';
+import { SearchProvider } from '@/sdk/context/query';
 import { GridToolBar } from '../tool-bar/GridToolBar';
 import type { IViewBaseProps } from '../types';
 import { GridViewBase } from './GridViewBase';

@@ -12,11 +12,11 @@ import {
   LayoutList,
   Trash2,
 } from '@/components/icons';
-import type { GridView } from '@teable/sdk';
-import { useFields, useGridViewStore, useIsTouchDevice, useTableId, useView } from '@teable/sdk';
+import type { GridView } from '@/sdk';
+import { useFields, useGridViewStore, useIsTouchDevice, useTableId, useView } from '@/sdk';
 
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import { insertSingle } from '@teable/sdk/utils';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import { insertSingle } from '@/sdk/utils';
 import {
   cn,
   Command,

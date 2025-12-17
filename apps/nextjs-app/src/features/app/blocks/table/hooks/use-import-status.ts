@@ -1,5 +1,5 @@
 import { getTableImportChannel } from '@teable/core';
-import { useConnection } from '@teable/sdk/hooks';
+import { useConnection } from '@/sdk/hooks';
 import { isEmpty, get } from 'lodash';
 import { useEffect, useState } from 'react';
 

@@ -1,6 +1,6 @@
 import type { IAttachmentCellValue } from '@teable/core';
-import { isSystemFileIcon, getFileCover } from '@teable/sdk/components';
-import { useAttachmentPreviewI18Map } from '@teable/sdk/components/hooks';
+import { isSystemFileIcon, getFileCover } from '@/sdk/components';
+import { useAttachmentPreviewI18Map } from '@/sdk/components/hooks';
 import { FilePreviewProvider, FilePreviewItem } from '@teable/ui-lib/base';
 import {
   Carousel,

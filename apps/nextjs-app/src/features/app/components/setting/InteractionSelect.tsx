@@ -1,4 +1,4 @@
-import { InteractionMode, useInteractionModeStore } from '@teable/sdk/store';
+import { InteractionMode, useInteractionModeStore } from '@/sdk/store';
 import {
   Select,
   SelectTrigger,

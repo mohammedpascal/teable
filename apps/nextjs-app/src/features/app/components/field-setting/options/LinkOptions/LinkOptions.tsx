@@ -1,7 +1,7 @@
 import type { ILinkFieldOptionsRo } from '@teable/core';
 import { Relationship } from '@teable/core';
 import { ArrowUpRight } from '@/components/icons';
-import { useHookPermission, useTableId } from '@teable/sdk/hooks';
+import { useHookPermission, useTableId } from '@/sdk/hooks';
 import { Button, Label, Switch } from '@teable/ui-lib/shadcn';
 import Link from 'next/link';
 import { Trans, useTranslation } from 'next-i18next';

@@ -1,5 +1,5 @@
-import type { IViewInstance } from '@teable/sdk';
-import { useTable } from '@teable/sdk/hooks';
+import type { IViewInstance } from '@/sdk';
+import { useTable } from '@/sdk/hooks';
 import { pick } from 'lodash';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';

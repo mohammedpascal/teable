@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import type { IImportOptionRo, IInplaceImportOptionRo } from '@teable/openapi';
 import { getFields as apiGetFields, getTableById as apiGetTableById } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useHookPermission } from '@teable/sdk/hooks';
+import { ReactQueryKeys } from '@/sdk/config';
+import { useHookPermission } from '@/sdk/hooks';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';

@@ -1,4 +1,4 @@
-import { CalendarDailyCollectionProvider } from '@teable/sdk/context';
+import { CalendarDailyCollectionProvider } from '@/sdk/context';
 import { Fragment, useMemo, useState } from 'react';
 import { AddDateFieldDialog } from './components/AddDateFieldDialog';
 import { Calendar } from './components/Calendar';

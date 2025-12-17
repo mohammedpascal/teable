@@ -6,8 +6,8 @@ import {
   getNotificationUnreadCount,
   notificationReadAll,
 } from '@teable/openapi';
-import { useNotification } from '@teable/sdk';
-import { ReactQueryKeys } from '@teable/sdk/config/react-query-keys';
+import { useNotification } from '@/sdk';
+import { ReactQueryKeys } from '@/sdk/config/react-query-keys';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
 import { cn } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';

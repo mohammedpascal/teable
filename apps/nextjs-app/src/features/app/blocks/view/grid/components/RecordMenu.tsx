@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowUp, Copy, Trash2 } from '@/components/icons';
-import { useGridViewStore } from '@teable/sdk/components';
-import { useTableId, useView } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { useGridViewStore } from '@/sdk/components';
+import { useTableId, useView } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import {
   Button,
   cn,

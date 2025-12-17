@@ -1,7 +1,7 @@
 import { getCollaboratorsChannel } from '@teable/core';
-import type { IUser } from '@teable/sdk';
-import { useSession } from '@teable/sdk';
-import { useConnection, useTableId } from '@teable/sdk/hooks';
+import type { IUser } from '@/sdk';
+import { useSession } from '@/sdk';
+import { useConnection, useTableId } from '@/sdk/hooks';
 import { useEffect, useState, useMemo } from 'react';
 import type { Presence } from 'sharedb/lib/sharedb';
 

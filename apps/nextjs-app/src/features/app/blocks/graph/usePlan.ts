@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import type { IFieldRo } from '@teable/core';
 import { planField, planFieldCreate, planFieldConvert } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
+import { ReactQueryKeys } from '@/sdk/config';
 
 export function usePlan({
   tableId,

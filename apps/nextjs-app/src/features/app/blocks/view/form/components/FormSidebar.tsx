@@ -2,11 +2,11 @@
 import { useDroppable } from '@dnd-kit/core';
 import type { FieldType } from '@teable/core';
 import { DraggableHandle, Plus } from '@/components/icons';
-import { useView } from '@teable/sdk';
-import type { IFieldStatic } from '@teable/sdk/hooks';
-import { useFieldStaticGetter, useFields, useIsHydrated } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import type { FormView, IFieldInstance } from '@teable/sdk/model';
+import { useView } from '@/sdk';
+import type { IFieldStatic } from '@/sdk/hooks';
+import { useFieldStaticGetter, useFields, useIsHydrated } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import type { FormView, IFieldInstance } from '@/sdk/model';
 import {
   Button,
   Tooltip,

@@ -2,8 +2,8 @@
 import { Draggable, Droppable } from '@hello-pangea/dnd';
 import type { IFilter } from '@teable/core';
 import { and, mergeFilter } from '@teable/core';
-import { useRecords } from '@teable/sdk/hooks';
-import type { Record } from '@teable/sdk/model';
+import { useRecords } from '@/sdk/hooks';
+import type { Record } from '@/sdk/model';
 import { useTranslation } from 'next-i18next';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
 import { useMeasure } from 'react-use';

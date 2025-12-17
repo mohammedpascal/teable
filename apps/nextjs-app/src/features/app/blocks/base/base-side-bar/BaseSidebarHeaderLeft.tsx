@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPublicSetting } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
+import { ReactQueryKeys } from '@/sdk/config';
 import { cn } from '@teable/ui-lib/shadcn';
 import Tea from '@/components/Tea';
 import { useSidebar } from '../../../contexts/SidebarContext';

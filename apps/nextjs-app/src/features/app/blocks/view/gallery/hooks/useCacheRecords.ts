@@ -1,7 +1,7 @@
 import { arrayMove } from '@dnd-kit/sortable';
 import type { IGetRecordsRo } from '@teable/openapi';
-import { useRecords } from '@teable/sdk/hooks';
-import type { Record as RecordModel } from '@teable/sdk/model';
+import { useRecords } from '@/sdk/hooks';
+import type { Record as RecordModel } from '@/sdk/model';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 interface UseVirtualRecordsReturn {

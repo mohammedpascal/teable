@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { IViewActionKey } from '@teable/core';
 import { getViewFilterLinkRecords } from '@teable/openapi';
-import { ReactQueryKeys } from '@teable/sdk/config';
-import { useViewListener } from '@teable/sdk/hooks';
+import { ReactQueryKeys } from '@/sdk/config';
+import { useViewListener } from '@/sdk/hooks';
 import { useCallback, useMemo } from 'react';
 
 export const useViewFilterLinkContext = (

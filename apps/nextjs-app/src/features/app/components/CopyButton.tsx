@@ -1,5 +1,5 @@
 import { Check, Copy } from '@/components/icons';
-import { syncCopy } from '@teable/sdk/utils';
+import { syncCopy } from '@/sdk/utils';
 import type { ButtonProps } from '@teable/ui-lib/shadcn';
 import { Button, cn } from '@teable/ui-lib/shadcn';
 import { useState } from 'react';

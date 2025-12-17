@@ -1,5 +1,5 @@
-import { useTableId, useTables, useIsHydrated } from '@teable/sdk';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { useTableId, useTables, useIsHydrated } from '@/sdk';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import {
   DndKitContext,
   Droppable,

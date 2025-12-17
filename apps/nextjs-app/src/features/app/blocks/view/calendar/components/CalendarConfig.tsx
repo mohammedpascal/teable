@@ -1,7 +1,7 @@
 import type { IColorConfig } from '@teable/core';
 import { CellValueType, ColorConfigType, Colors, FieldType } from '@teable/core';
-import { useFields, useFieldStaticGetter, useView } from '@teable/sdk/hooks';
-import type { CalendarView } from '@teable/sdk/model';
+import { useFields, useFieldStaticGetter, useView } from '@/sdk/hooks';
+import type { CalendarView } from '@/sdk/model';
 import {
   Popover,
   PopoverTrigger,

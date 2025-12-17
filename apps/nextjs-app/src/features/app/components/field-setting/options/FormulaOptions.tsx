@@ -5,10 +5,10 @@ import {
   getFormattingSchema,
   getDefaultFormatting,
 } from '@teable/core';
-import { FormulaEditor } from '@teable/sdk/components';
-import { useFields } from '@teable/sdk/hooks';
-import type { IFieldInstance } from '@teable/sdk/model';
-import { FormulaField } from '@teable/sdk/model';
+import { FormulaEditor } from '@/sdk/components';
+import { useFields } from '@/sdk/hooks';
+import type { IFieldInstance } from '@/sdk/model';
+import { FormulaField } from '@/sdk/model';
 import { Dialog, DialogContent, DialogTrigger } from '@teable/ui-lib/shadcn';
 import { isEmpty, isEqual, keyBy } from 'lodash';
 import { useTranslation } from 'next-i18next';

@@ -1,5 +1,5 @@
 import { FieldType } from '@teable/core';
-import type { IFieldInstance, Record as IRecord } from '@teable/sdk/model';
+import type { IFieldInstance, Record as IRecord } from '@/sdk/model';
 import { UNCATEGORIZED_STACK_ID } from '../constant';
 import type { IStackData } from '../type';
 

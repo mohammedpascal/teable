@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Copy, Export, Lock, Pencil, Trash2 } from '@/components/icons';
-import { useTableId } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
-import type { IViewInstance } from '@teable/sdk/model';
+import { useTableId } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
+import type { IViewInstance } from '@/sdk/model';
 import {
   Button,
   cn,

@@ -1,5 +1,5 @@
-import { useLanDayjs, useTable } from '@teable/sdk/hooks';
-import { useHookPermission } from '@teable/sdk/hooks/use-hook-permission';
+import { useLanDayjs, useTable } from '@/sdk/hooks';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import {
   Button,
   Input,

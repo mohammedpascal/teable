@@ -1,7 +1,7 @@
 import type { IQueryBaseRo } from '@teable/openapi';
-import { RecordItem, RecordList } from '@teable/sdk/components';
-import { useRowCount } from '@teable/sdk/hooks';
-import { useInfiniteRecords } from '@teable/sdk/hooks/use-infinite-records';
+import { RecordItem, RecordList } from '@/sdk/components';
+import { useRowCount } from '@/sdk/hooks';
+import { useInfiniteRecords } from '@/sdk/hooks/use-infinite-records';
 import { Skeleton } from '@teable/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';

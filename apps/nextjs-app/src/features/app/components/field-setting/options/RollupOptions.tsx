@@ -7,9 +7,9 @@ import {
   getFormattingSchema,
   getShowAsSchema,
 } from '@teable/core';
-import { BaseSingleSelect } from '@teable/sdk/components/filter/view-filter/component/base/BaseSingleSelect';
+import { BaseSingleSelect } from '@/sdk/components/filter/view-filter/component/base/BaseSingleSelect';
 
-import { RollupField } from '@teable/sdk/model';
+import { RollupField } from '@/sdk/model';
 import { isEmpty, isEqual } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo } from 'react';

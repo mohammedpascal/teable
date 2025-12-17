@@ -17,10 +17,6 @@
       "path": "packages/common-i18n",
     },
     {
-      "name": "sdk",
-      "path": "packages/sdk",
-    },
-    {
       "name": "core",
       "path": "packages/core",
     },
@@ -69,7 +65,6 @@
       "./apps/nextjs-app",
       "./apps/nestjs-backend",
       "./packages/common-i18n",
-      "./packages/sdk",
       "./packages/core",
       "./packages/icons",
       "./packages/db-main-prisma",

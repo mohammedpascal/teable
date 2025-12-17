@@ -1,6 +1,6 @@
-import { RecordProvider } from '@teable/sdk/context';
-import { SearchProvider } from '@teable/sdk/context/query';
-import { useIsHydrated } from '@teable/sdk/hooks';
+import { RecordProvider } from '@/sdk/context';
+import { SearchProvider } from '@/sdk/context/query';
+import { useIsHydrated } from '@/sdk/hooks';
 import { CalendarToolBar } from '../tool-bar/CalendarToolBar';
 import { CalendarViewBase } from './CalendarViewBase';
 import { CalendarProvider } from './context';

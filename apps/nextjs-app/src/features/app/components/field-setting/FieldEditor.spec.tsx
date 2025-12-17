@@ -1,5 +1,5 @@
 import { CellValueType, FieldType } from '@teable/core';
-import type { IFieldInstance } from '@teable/sdk/model';
+import type { IFieldInstance } from '@/sdk/model';
 import { render, TestAnchorProvider } from '@/test-utils';
 import { FieldEditor } from './FieldEditor';
 import { FieldOperator } from './type';

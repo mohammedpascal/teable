@@ -2,8 +2,8 @@ import { IMPORT_SUPPORTED_TYPES } from '@teable/core';
 import type { FieldType } from '@teable/core';
 import { Trash2, Lock } from '@/components/icons';
 import type { IImportColumn } from '@teable/openapi';
-import { useFieldStaticGetter } from '@teable/sdk';
-import { BaseSingleSelect } from '@teable/sdk/components/filter/view-filter/component/base/BaseSingleSelect';
+import { useFieldStaticGetter } from '@/sdk';
+import { BaseSingleSelect } from '@/sdk/components/filter/view-filter/component/base/BaseSingleSelect';
 import {
   Table,
   TableBody,

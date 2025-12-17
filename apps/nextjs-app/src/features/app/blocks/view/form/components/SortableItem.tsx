@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { IFieldInstance } from '@teable/sdk/model';
+import type { IFieldInstance } from '@/sdk/model';
 import { cn } from '@teable/ui-lib/shadcn';
 import React from 'react';
 

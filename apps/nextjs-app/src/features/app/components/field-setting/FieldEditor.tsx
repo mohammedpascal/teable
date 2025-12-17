@@ -4,7 +4,7 @@ import {
   checkFieldNotNullValidationEnabled,
   checkFieldUniqueValidationEnabled,
 } from '@teable/core';
-import { useFieldStaticGetter } from '@teable/sdk';
+import { useFieldStaticGetter } from '@/sdk';
 import { Input } from '@teable/ui-lib/shadcn/ui/input';
 import { useTranslation } from 'next-i18next';
 import { useCallback } from 'react';
