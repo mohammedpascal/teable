@@ -1,5 +1,5 @@
 import type { IConjunction } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useTranslation } from '../../../context/app/i18n';
 import { useCrud } from '../hooks';
 import type { IBaseIndexProps, IFilterPath } from '../types';

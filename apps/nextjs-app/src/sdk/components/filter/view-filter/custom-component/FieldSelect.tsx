@@ -1,5 +1,5 @@
 import { getValidFilterOperators } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useCallback, useMemo } from 'react';
 import { useFieldStaticGetter } from '../../../../hooks';
 import { useCrud } from '../../hooks';

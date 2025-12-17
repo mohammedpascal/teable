@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import type { Dispatch, SetStateAction } from 'react';

@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
   TooltipContent,
   TooltipPortal,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
 import { useSidebar } from '../../../contexts/SidebarContext';

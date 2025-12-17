@@ -5,7 +5,7 @@ import {
   checkFieldUniqueValidationEnabled,
 } from '@teable/core';
 import { useFieldStaticGetter } from '@/sdk';
-import { Input } from '@teable/ui-lib/shadcn/ui/input';
+import { Input } from '@/ui-lib/shadcn/ui/input';
 import { useTranslation } from 'next-i18next';
 import { useCallback } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';

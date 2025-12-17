@@ -4,8 +4,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
   cn,
-} from '@teable/ui-lib/shadcn';
-import { Button } from '@teable/ui-lib/shadcn/ui/button';
+} from '@/ui-lib/shadcn';
+import { Button } from '@/ui-lib/shadcn/ui/button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSidebar } from '../../contexts/SidebarContext';

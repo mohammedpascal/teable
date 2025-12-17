@@ -15,7 +15,7 @@ import {
 } from '@/sdk';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { useView } from '@/sdk/hooks/use-view';
-import { Button, Label, Switch, cn } from '@teable/ui-lib/shadcn';
+import { Button, Label, Switch, cn } from '@/ui-lib/shadcn';
 import { Trans, useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useRef } from 'react';
 import { useToolbarChange } from '../../hooks/useToolbarChange';

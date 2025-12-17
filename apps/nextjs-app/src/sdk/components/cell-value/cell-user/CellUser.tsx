@@ -1,5 +1,5 @@
 import type { IUserCellValue } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useMemo } from 'react';
 import type { ICellValue } from '../type';
 import { UserTag } from './UserTag';

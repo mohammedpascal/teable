@@ -35,7 +35,7 @@ import {
   AlertDialogFooter,
   AlertDialogCancel,
   AlertDialogAction,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useTranslation } from 'next-i18next';
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from 'react';
 import { useLocalStorage } from 'react-use';

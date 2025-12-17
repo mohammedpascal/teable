@@ -1,5 +1,5 @@
 import { useSession } from '@/sdk';
-import { Button } from '@teable/ui-lib/shadcn';
+import { Button } from '@/ui-lib/shadcn';
 import React from 'react';
 import { NotificationsManage } from '@/features/app/components/notifications/NotificationsManage';
 import { UserAvatar } from '@/features/app/components/user/UserAvatar';

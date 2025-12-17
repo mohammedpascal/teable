@@ -1,5 +1,5 @@
 import type { IBaseQuery } from '@teable/openapi';
-import { Input } from '@teable/ui-lib';
+import { Input } from '@/ui-lib';
 import type { QueryEditorKey } from './context/QueryEditorContext';
 import { QueryAggregation } from './editors/QueryAggregation';
 import { QueryFilter } from './editors/QueryFilter/QueryFilter';

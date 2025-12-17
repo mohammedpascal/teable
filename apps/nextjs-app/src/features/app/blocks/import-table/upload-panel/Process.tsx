@@ -1,6 +1,6 @@
 import { X } from '@/components/icons';
 import { getFieldIconString } from '@/sdk';
-import { Progress } from '@teable/ui-lib';
+import { Progress } from '@/ui-lib';
 import { filesize } from 'filesize';
 
 interface IFileItemProps {

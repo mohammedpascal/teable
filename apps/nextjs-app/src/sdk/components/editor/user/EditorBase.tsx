@@ -9,7 +9,7 @@ import {
   CommandList,
   Skeleton,
   cn,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { debounce } from 'lodash';
 import type { ForwardRefRenderFunction } from 'react';
 import {

@@ -1,7 +1,7 @@
 import type { IViewInstance } from '@/sdk';
 import { useViews } from '@/sdk';
-import { DndKitContext, Draggable, Droppable } from '@teable/ui-lib/base/dnd-kit';
-import type { SortingStrategy, DragEndEvent, useSortable } from '@teable/ui-lib/base/dnd-kit';
+import { DndKitContext, Draggable, Droppable } from '@/ui-lib/base/dnd-kit';
+import type { SortingStrategy, DragEndEvent, useSortable } from '@/ui-lib/base/dnd-kit';
 import type { ReactElement } from 'react';
 import { useEffect, useState } from 'react';
 

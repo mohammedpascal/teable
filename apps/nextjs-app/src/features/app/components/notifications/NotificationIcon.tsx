@@ -4,7 +4,7 @@ import type {
   INotificationUserIcon,
 } from '@teable/core';
 import { NotificationTypeEnum } from '@teable/core';
-import { Avatar, AvatarFallback, AvatarImage } from '@teable/ui-lib';
+import { Avatar, AvatarFallback, AvatarImage } from '@/ui-lib';
 import { getImageProps } from 'next/image';
 import React, { useCallback } from 'react';
 import { UserAvatar } from '@/features/app/components/user/UserAvatar';

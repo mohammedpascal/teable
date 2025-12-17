@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
   Badge,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { UserAvatar } from '@/features/app/components/user/UserAvatar';

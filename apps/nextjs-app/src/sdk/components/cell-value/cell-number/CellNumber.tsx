@@ -1,6 +1,6 @@
 import { formatNumberToString } from '@teable/core';
 import type { INumberFormatting } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useMemo } from 'react';
 import { OverflowTooltip } from '../components';
 import type { ICellValue } from '../type';

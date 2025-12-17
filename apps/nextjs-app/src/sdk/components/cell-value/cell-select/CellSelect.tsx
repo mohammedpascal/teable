@@ -1,6 +1,6 @@
 import type { Colors, ISelectFieldOptions } from '@teable/core';
 import { ColorUtils } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { keyBy } from 'lodash';
 import { useMemo } from 'react';
 import colors from 'tailwindcss/colors';

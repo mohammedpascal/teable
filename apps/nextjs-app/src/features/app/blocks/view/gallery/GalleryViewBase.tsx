@@ -12,7 +12,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { FieldKeyType } from '@teable/core';
 import { useRowCount, useTableId, useViewId } from '@/sdk/hooks';
 import { Record as RecordModel } from '@/sdk/model';
-import { cn } from '@teable/ui-lib/shadcn';
+import { cn } from '@/ui-lib/shadcn';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Card } from './components/Card';
 import { SortableItem } from './components/SortableItem';

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { isMeTag, Me } from '@teable/core';
 import { getUserList } from '@teable/openapi';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
 import { useSession } from '../../../../hooks/use-session';

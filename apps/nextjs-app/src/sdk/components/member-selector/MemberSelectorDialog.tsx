@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTrigger } from '@teable/ui-lib';
+import { Dialog, DialogContent, DialogTrigger } from '@/ui-lib';
 import * as React from 'react';
 import type { IMemberContentRef } from './MemberContent';
 import { MemberContent } from './MemberContent';

@@ -1,5 +1,5 @@
 import { Trash2 } from '../../../icons';
-import { Button } from '@teable/ui-lib';
+import { Button } from '@/ui-lib';
 import { useCrud } from '../../hooks';
 import type {
   IConditionItemProperty,

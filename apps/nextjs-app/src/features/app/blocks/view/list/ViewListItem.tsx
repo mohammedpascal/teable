@@ -11,8 +11,8 @@ import {
   PopoverContent,
   PopoverTrigger,
   Separator,
-} from '@teable/ui-lib/shadcn';
-import { Input } from '@teable/ui-lib/shadcn/ui/input';
+} from '@/ui-lib/shadcn';
+import { Input } from '@/ui-lib/shadcn/ui/input';
 import { Unlock } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';

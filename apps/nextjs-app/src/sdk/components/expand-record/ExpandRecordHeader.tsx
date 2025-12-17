@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   Separator,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useMeasure } from 'react-use';
 import { useTranslation } from '../../context/app/i18n';
 import { useHookPermission } from '../../hooks/use-hook-permission';

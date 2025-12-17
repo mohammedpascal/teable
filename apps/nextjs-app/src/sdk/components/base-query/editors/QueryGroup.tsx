@@ -1,5 +1,5 @@
 import type { BaseQueryColumnType, IBaseQueryGroupBy } from '@teable/openapi';
-import { Button, Error } from '@teable/ui-lib';
+import { Button, Error } from '@/ui-lib';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { X } from '../../icons';

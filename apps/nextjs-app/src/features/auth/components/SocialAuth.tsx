@@ -1,5 +1,5 @@
 import { GithubLogo, GoogleLogo } from '@/components/icons';
-import { Button } from '@teable/ui-lib/shadcn';
+import { Button } from '@/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';

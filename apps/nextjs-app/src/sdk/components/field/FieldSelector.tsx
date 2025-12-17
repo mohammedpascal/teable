@@ -1,6 +1,6 @@
 import { FieldType } from '@teable/core';
 import { ChevronsUpDown } from '../icons';
-import { Button, Popover, PopoverTrigger, PopoverContent, cn } from '@teable/ui-lib';
+import { Button, Popover, PopoverTrigger, PopoverContent, cn } from '@/ui-lib';
 import { useState, useMemo } from 'react';
 import { useFields, useFieldStaticGetter } from '../../hooks';
 import { FieldCommand } from './FieldCommand';

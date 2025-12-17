@@ -9,7 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useTranslation } from '../../../../context/app/i18n';
 import { useCrud, useDepth } from '../../hooks';
 import type {

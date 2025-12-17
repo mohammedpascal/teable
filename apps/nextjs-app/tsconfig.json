@@ -54,11 +54,11 @@
       "@teable/common-i18n/locales/*": [
         "../../../packages/common-i18n/src/locales/*"
       ],
-      "@teable/ui-lib/*": [
-        "../../../packages/ui-lib/src/*"
+      "@/ui-lib/*": [
+        "./ui-lib/*"
       ],
-      "@teable/ui-lib": [
-        "../../../packages/ui-lib/src/index"
+      "@/ui-lib": [
+        "./ui-lib/index"
       ],
       "@/sdk/*": [
         "./sdk/*"

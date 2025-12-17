@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Command, CommandItem, CommandList, Separator, cn } from '@teable/ui-lib';
+import { Command, CommandItem, CommandList, Separator, cn } from '@/ui-lib';
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 interface IRecordListProps {

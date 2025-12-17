@@ -9,7 +9,7 @@ import {
   PopoverTrigger,
   CommandList,
   cn,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { debounce } from 'lodash';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useState, useMemo, useCallback, useEffect } from 'react';

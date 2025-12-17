@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogClose,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { DynamicFieldGraph } from '../../graph/DynamicFieldGraph';
 export const FieldGraph = ({ fieldId }: { fieldId: string }) => {

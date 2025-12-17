@@ -12,7 +12,7 @@ import {
   SelectValue,
   Separator,
   Error,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useStatisticFunc2NameMap } from '../../grid-enhancements';

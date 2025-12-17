@@ -1,4 +1,4 @@
-import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib';
+import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@/ui-lib';
 import { useState } from 'react';
 import { SINGLE_SELECT_OPERATORS } from './constant';
 import { DefaultList } from './DefaultList';

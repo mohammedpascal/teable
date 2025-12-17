@@ -4,7 +4,7 @@ import { Plus } from '@/components/icons';
 import { CreateRecordModal, generateLocalId } from '@/sdk/components';
 import { useTableId, useViewId } from '@/sdk/hooks';
 import type { Record } from '@/sdk/model';
-import { Button, cn } from '@teable/ui-lib';
+import { Button, cn } from '@/ui-lib';
 import { useRef, useState } from 'react';
 import type { VirtuosoHandle } from 'react-virtuoso';
 import { UNCATEGORIZED_STACK_ID } from '../constant';

@@ -1,7 +1,7 @@
 import { Table2 } from '@/components/icons';
 import type { Table } from '@/sdk/model';
-import { Button, cn } from '@teable/ui-lib/shadcn';
-import { Input } from '@teable/ui-lib/shadcn/ui/input';
+import { Button, cn } from '@/ui-lib/shadcn';
+import { Input } from '@/ui-lib/shadcn/ui/input';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';

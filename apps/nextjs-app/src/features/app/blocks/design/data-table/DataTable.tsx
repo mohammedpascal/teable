@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import * as React from 'react';
 import { baseConfig } from '@/features/i18n/base.config';

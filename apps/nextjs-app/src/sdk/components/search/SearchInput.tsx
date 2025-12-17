@@ -1,5 +1,5 @@
 import { Search, X } from '../icons';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebounce, useUnmount } from 'react-use';
 import { useTranslation } from '../../context/app/i18n';

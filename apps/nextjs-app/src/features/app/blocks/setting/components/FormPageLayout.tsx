@@ -1,5 +1,5 @@
-import { Spin } from '@teable/ui-lib/base';
-import { Button, Separator } from '@teable/ui-lib/shadcn';
+import { Spin } from '@/ui-lib/base';
+import { Button, Separator } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 
 interface IFormPageLayoutProps {

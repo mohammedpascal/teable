@@ -1,14 +1,14 @@
 import type { ISort, ISortItem } from '@teable/core';
+import { useIsHydrated } from '../../hooks';
 import { DraggableHandle, Trash2 } from '../icons';
-import { Button, cn, DndKitContext, Droppable, Draggable } from '@teable/ui-lib';
+import { SortItem } from './SortItem';
+import type { ISortItemProps } from './SortItem';
+import { Button, cn, DndKitContext, Droppable, Draggable } from '@/ui-lib';
 import type {
   DraggableAttributes,
   SyntheticListenerMap,
   DragEndEvent,
-} from '@teable/ui-lib/src/base/dnd-kit';
-import { useIsHydrated } from '../../hooks';
-import { SortItem } from './SortItem';
-import type { ISortItemProps } from './SortItem';
+} from '@/ui-lib/base/dnd-kit';
 
 interface IDraggbleProps {
   deleteHandler: (index: number) => void;

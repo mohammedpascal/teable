@@ -5,8 +5,8 @@ import {
   Droppable,
   Draggable,
   type DragEndEvent,
-} from '@teable/ui-lib/base/dnd-kit';
-import { cn } from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/base/dnd-kit';
+import { cn } from '@/ui-lib/shadcn';
 import { useState, useEffect } from 'react';
 import { TableListItem } from './TableListItem';
 

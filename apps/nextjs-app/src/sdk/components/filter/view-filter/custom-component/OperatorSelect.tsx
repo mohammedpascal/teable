@@ -1,5 +1,5 @@
 import type { IFilterOperator, IFilterItem } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useCallback, useMemo } from 'react';
 import { useCrud } from '../../hooks';
 import type { IBaseFilterCustomComponentProps, IConditionItemProperty } from '../../types';

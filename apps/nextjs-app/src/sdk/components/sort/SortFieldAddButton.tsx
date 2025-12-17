@@ -1,5 +1,5 @@
 import { Plus } from '../icons';
-import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib';
+import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@/ui-lib';
 import { useState } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 import { FieldCommand } from '../field/FieldCommand';

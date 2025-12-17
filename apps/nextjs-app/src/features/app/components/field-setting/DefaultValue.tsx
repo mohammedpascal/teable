@@ -1,4 +1,4 @@
-import { Label } from '@teable/ui-lib/shadcn';
+import { Label } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { tableConfig } from '@/features/i18n/table.config';

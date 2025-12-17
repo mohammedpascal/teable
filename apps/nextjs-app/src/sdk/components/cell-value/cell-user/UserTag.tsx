@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import type { ReactNode } from 'react';
 import { UserAvatar } from './UserAvatar';
 

@@ -6,7 +6,7 @@ import { FilterWithTable, useFieldFilterLinkContext } from '@/sdk/components';
 import { ReactQueryKeys } from '@/sdk/config';
 import { useTableId } from '@/sdk/hooks';
 import type { IFieldInstance } from '@/sdk/model';
-import { Button, Dialog, DialogContent, DialogTrigger } from '@teable/ui-lib/shadcn';
+import { Button, Dialog, DialogContent, DialogTrigger } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 

@@ -14,7 +14,7 @@ import {
   Sheet,
   SheetContent,
   SheetHeader,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useRef } from 'react';
 import { useClickAway } from 'react-use';

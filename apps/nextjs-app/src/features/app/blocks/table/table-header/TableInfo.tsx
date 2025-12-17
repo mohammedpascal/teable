@@ -9,8 +9,8 @@ import {
   useTable
 } from '@/sdk/hooks';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
-import { Spin } from '@teable/ui-lib/base';
-import { cn, Input } from '@teable/ui-lib/shadcn';
+import { Spin } from '@/ui-lib/base';
+import { cn, Input } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { useImportStatus } from '../hooks/use-import-status';

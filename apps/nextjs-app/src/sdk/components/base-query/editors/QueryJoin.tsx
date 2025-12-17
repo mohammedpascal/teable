@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
   Separator,
   Selector,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useContext, useMemo, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useTables } from '../../../hooks';

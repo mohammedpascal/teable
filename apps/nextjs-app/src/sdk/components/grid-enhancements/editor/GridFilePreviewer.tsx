@@ -1,6 +1,6 @@
 import type { IAttachmentCellValue } from '@teable/core';
-import type { IFilePreviewDialogRef } from '@teable/ui-lib';
-import { FilePreviewDialog, FilePreviewProvider } from '@teable/ui-lib';
+import type { IFilePreviewDialogRef } from '@/ui-lib';
+import { FilePreviewDialog, FilePreviewProvider } from '@/ui-lib';
 import { noop } from 'lodash';
 import { useEffect, useMemo, useRef } from 'react';
 import { createRoot } from 'react-dom/client';

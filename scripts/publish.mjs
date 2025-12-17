@@ -1,7 +1,6 @@
 import { exec, execSync } from 'child_process';
 
 const packages = [
-  '@teable/ui-lib',
   '@teable/openapi',
   '@teable/core',
   '@teable/common-i18n',

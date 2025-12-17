@@ -1,5 +1,5 @@
 import { Frown } from '@/components/icons';
-import { Alert, AlertDescription, AlertTitle } from '@teable/ui-lib/shadcn/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/ui-lib/shadcn/ui/alert';
 import { useTranslation } from 'next-i18next';
 
 export const FailAlert: React.FC = () => {

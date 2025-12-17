@@ -1,4 +1,4 @@
-import { Button, cn, DialogFooter, DialogHeader, DialogTitle, Separator } from '@teable/ui-lib';
+import { Button, cn, DialogFooter, DialogHeader, DialogTitle, Separator } from '@/ui-lib';
 import type { ReactNode } from 'react';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { useTranslation } from '../../context/app/i18n';

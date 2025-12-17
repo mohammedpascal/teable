@@ -1,4 +1,4 @@
-import { Button, cn } from '@teable/ui-lib';
+import { Button, cn } from '@/ui-lib';
 import { useState } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
 import { ChevronLeft, ChevronRight } from '../../../icons';

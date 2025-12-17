@@ -5,17 +5,17 @@ import { planFieldCreate, type IPlanFieldConvertVo, planFieldConvert } from '@te
 import { ReactQueryKeys } from '@/sdk/config';
 import { useTable, useView } from '@/sdk/hooks';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
-import { ConfirmDialog, Spin } from '@teable/ui-lib/base';
+import { ConfirmDialog, Spin } from '@/ui-lib/base';
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogTrigger,
-} from '@teable/ui-lib/shadcn';
-import { Button } from '@teable/ui-lib/shadcn/ui/button';
-import { Sheet, SheetContent } from '@teable/ui-lib/shadcn/ui/sheet';
-import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
+} from '@/ui-lib/shadcn';
+import { Button } from '@/ui-lib/shadcn/ui/button';
+import { Sheet, SheetContent } from '@/ui-lib/shadcn/ui/sheet';
+import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import { Share2 } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';

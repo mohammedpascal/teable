@@ -19,7 +19,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { isEqual } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';

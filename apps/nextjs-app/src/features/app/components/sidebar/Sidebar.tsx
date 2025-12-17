@@ -1,7 +1,7 @@
-import { useIsMobile } from '@/sdk';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib/shadcn';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { useIsMobile } from '@/sdk';
 import { useSidebar } from '../../contexts/SidebarContext';
 import { SheetWrapper } from '../toggle-side-bar/SheetWrapper';
 import { SidebarHeader } from './SidebarHeader';
@@ -26,7 +26,7 @@ export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
           open={leftVisible === 'expanded'}
           onOpenChange={(open) => setLeftVisible(open ? 'expanded' : 'collapsed')}
         >
-          <div className="group/sidebar flex size-full flex-col overflow-hidden bg-popover p-5">
+          <div className="group/sidebar bg-popover flex size-full flex-col overflow-hidden p-5">
             <SidebarHeader headerLeft={headerLeft} />
             {children}
           </div>
@@ -39,7 +39,7 @@ export const Sidebar: FC<PropsWithChildren<ISidebarProps>> = (props) => {
           })}
           onContextMenu={(e) => e.preventDefault()}
         >
-          <div className="group/sidebar flex size-full flex-col overflow-hidden bg-popover">
+          <div className="group/sidebar bg-popover flex size-full flex-col overflow-hidden">
             <SidebarHeader headerLeft={headerLeft} />
             {children}
           </div>

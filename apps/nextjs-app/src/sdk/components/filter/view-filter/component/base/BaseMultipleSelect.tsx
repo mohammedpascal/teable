@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   cn,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 
 import { debounce } from 'lodash';
 import { Check, ChevronsUpDown } from 'lucide-react';

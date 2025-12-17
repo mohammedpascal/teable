@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib/shadcn';
+import { cn } from '@/ui-lib/shadcn';
 import type { ReactNode } from 'react';
 import { useSidebar } from '../../contexts/SidebarContext';
 

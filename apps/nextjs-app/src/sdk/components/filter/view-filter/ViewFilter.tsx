@@ -1,5 +1,5 @@
 import type { IFilter } from '@teable/core';
-import { Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
+import { Popover, PopoverContent, PopoverTrigger } from '@/ui-lib';
 import { isEqual } from 'lodash';
 import { useState } from 'react';
 import { useDebounce, useLatest, useUpdateEffect } from 'react-use';

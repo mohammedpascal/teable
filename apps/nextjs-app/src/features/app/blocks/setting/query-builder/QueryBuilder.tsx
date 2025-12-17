@@ -5,7 +5,7 @@ import type { IQueryBaseRo } from '@teable/openapi';
 import { getTableList } from '@teable/openapi';
 import { ReactQueryKeys } from '@/sdk/config';
 import { StandaloneViewProvider } from '@/sdk/context';
-import { Button, Separator, ToggleGroup, ToggleGroupItem } from '@teable/ui-lib/shadcn';
+import { Button, Separator, ToggleGroup, ToggleGroupItem } from '@/ui-lib/shadcn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';

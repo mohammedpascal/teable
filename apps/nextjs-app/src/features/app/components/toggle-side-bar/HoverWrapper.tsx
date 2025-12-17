@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib/shadcn';
+import { cn } from '@/ui-lib/shadcn';
 import React, { useState } from 'react';
 
 interface IHoverWrapperProps {

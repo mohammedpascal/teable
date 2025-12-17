@@ -14,7 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
   cn,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import type { FC } from 'react';
 import { useMemo } from 'react';

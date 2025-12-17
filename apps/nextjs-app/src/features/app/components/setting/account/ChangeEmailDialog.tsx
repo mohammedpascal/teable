@@ -5,7 +5,7 @@ import { Check } from '@/components/icons';
 import type { ISendChangeEmailCodeRo } from '@teable/openapi';
 import { changeEmail, sendChangeEmailCode } from '@teable/openapi';
 import { useSession } from '@/sdk/hooks';
-import { Error as ErrorComponent, Spin } from '@teable/ui-lib/base';
+import { Error as ErrorComponent, Spin } from '@/ui-lib/base';
 import {
   Button,
   Dialog,
@@ -16,8 +16,8 @@ import {
   DialogTrigger,
   Input,
   Label,
-} from '@teable/ui-lib/shadcn';
-import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
+} from '@/ui-lib/shadcn';
+import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';

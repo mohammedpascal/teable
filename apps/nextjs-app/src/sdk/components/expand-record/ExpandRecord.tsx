@@ -1,5 +1,5 @@
 import type { IRecord } from '@teable/core';
-import { Skeleton } from '@teable/ui-lib';
+import { Skeleton } from '@/ui-lib';
 import { isEqual } from 'lodash';
 import { useCallback, useMemo } from 'react';
 import {

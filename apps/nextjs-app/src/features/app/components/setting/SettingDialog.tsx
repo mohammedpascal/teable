@@ -9,7 +9,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { System } from '@/features/app/components/setting/System';

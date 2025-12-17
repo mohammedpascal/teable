@@ -69,7 +69,7 @@ import {
   useViewId,
 } from '@/sdk/hooks';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
-import { useToast } from '@teable/ui-lib';
+import { useToast } from '@/ui-lib';
 import { groupBy, isEqual, keyBy, uniqueId } from 'lodash';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';

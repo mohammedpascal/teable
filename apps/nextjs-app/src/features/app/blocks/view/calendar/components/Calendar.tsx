@@ -26,7 +26,7 @@ import {
   PopoverTrigger,
   Calendar as DatePicker,
   cn,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { addDays, subDays, format, set } from 'date-fns';
 import { enUS, zhCN, ja, ru, fr } from 'date-fns/locale';
 import { toZonedTime, fromZonedTime } from 'date-fns-tz';

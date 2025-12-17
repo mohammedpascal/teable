@@ -13,7 +13,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 import { FieldSelector } from './FieldSelector';

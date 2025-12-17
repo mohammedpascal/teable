@@ -5,7 +5,7 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 

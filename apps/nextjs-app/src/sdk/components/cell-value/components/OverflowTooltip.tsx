@@ -5,7 +5,7 @@ import {
   TooltipContent,
   TooltipProvider,
   cn,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 interface IOverflowTooltipProps {

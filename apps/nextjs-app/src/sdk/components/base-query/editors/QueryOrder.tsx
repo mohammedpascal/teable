@@ -10,7 +10,7 @@ import {
   SelectValue,
   Separator,
   Error,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { X } from '../../icons';

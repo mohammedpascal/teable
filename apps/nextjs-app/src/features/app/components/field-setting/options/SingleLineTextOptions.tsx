@@ -1,5 +1,5 @@
 import type { ISingleLineTextFieldOptions, ISingleLineTextShowAs } from '@teable/core';
-import { Input } from '@teable/ui-lib/shadcn';
+import { Input } from '@/ui-lib/shadcn';
 import { DefaultValue } from '../DefaultValue';
 import { SingleTextLineShowAs } from '../show-as/SingleLineTextShowAs';
 

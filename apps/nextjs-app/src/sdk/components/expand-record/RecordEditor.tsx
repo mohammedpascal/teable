@@ -1,4 +1,4 @@
-import { Button } from '@teable/ui-lib';
+import { Button } from '@/ui-lib';
 import { useRef } from 'react';
 import { useLocalStorage, useMeasure } from 'react-use';
 import { LocalStorageKeys } from '../../config';

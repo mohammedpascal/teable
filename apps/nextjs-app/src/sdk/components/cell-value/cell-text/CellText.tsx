@@ -1,5 +1,5 @@
 import type { SingleLineTextDisplayType } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { onMixedTextClick } from '../../editor/text/utils';
 import { OverflowTooltip } from '../components';
 import type { ICellValue } from '../type';

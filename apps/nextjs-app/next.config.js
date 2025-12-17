@@ -10,7 +10,6 @@ const nextConfig = {
     '@teable/common-i18n',
     '@teable/core',
     '@teable/openapi',
-    '@teable/ui-lib',
   ],
   images: {
     remotePatterns: [

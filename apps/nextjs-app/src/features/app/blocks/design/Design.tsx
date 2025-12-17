@@ -1,5 +1,5 @@
 import { AnchorContext } from '@/sdk/context';
-import { Separator } from '@teable/ui-lib/shadcn';
+import { Separator } from '@/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { SettingsHeader } from '../setting/SettingsHeader';

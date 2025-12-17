@@ -1,7 +1,7 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, cn } from '@teable/ui-lib';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell, cn } from '@/ui-lib';
 import { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 

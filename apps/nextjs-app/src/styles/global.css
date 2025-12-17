@@ -1,4 +1,4 @@
-@import url('@teable/ui-lib/shadcn/global.shadcn.css');
+@import url('@/ui-lib/shadcn/global.shadcn.css');
 @import url('nprogress/nprogress.css');
 @import url('@/styles/github-markdown.css');
 

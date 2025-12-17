@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage, cn } from '@teable/ui-lib';
+import { Avatar, AvatarFallback, AvatarImage, cn } from '@/ui-lib';
 import { isValidElement, type ReactNode } from 'react';
 import { convertNextImageUrl } from '../../grid-enhancements/utils';
 

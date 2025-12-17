@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
   cn,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 
 export const RATING_ICON_LIST = RATING_ICON_COLORS.map((colorKey) => {

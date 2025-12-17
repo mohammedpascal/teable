@@ -14,7 +14,7 @@ import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
 import { ReactQueryKeys } from '@/sdk/config';
 import { useHookPermission, useTables } from '@/sdk/hooks';
 import { Table } from '@/sdk/model';
-import { ConfirmDialog } from '@teable/ui-lib/base';
+import { ConfirmDialog } from '@/ui-lib/base';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +27,7 @@ import {
   Input,
   Label,
   Switch,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';

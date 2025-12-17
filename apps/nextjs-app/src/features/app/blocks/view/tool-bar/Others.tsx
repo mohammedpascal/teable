@@ -1,7 +1,7 @@
 import { GUIDE_API_BUTTON } from '@/components/Guide';
 import { Code2, Database, MoreHorizontal } from '@/components/icons';
 import { useTableId } from '@/sdk/hooks';
-import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
+import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { SearchButton } from '../search/SearchButton';

@@ -1,4 +1,4 @@
-import { Button, Label, Spin, Switch } from '@teable/ui-lib';
+import { Button, Label, Spin, Switch } from '@/ui-lib';
 import { useTranslation } from '../../context/app/i18n';
 
 interface ISortConfigProps {

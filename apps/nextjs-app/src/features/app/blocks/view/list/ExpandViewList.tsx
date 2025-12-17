@@ -12,7 +12,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

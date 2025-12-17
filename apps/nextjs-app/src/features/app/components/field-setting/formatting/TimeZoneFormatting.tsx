@@ -1,6 +1,6 @@
 import { TIME_ZONE_LIST } from '@teable/core';
-import { Selector } from '@teable/ui-lib/base';
-import { Label } from '@teable/ui-lib/shadcn';
+import { Selector } from '@/ui-lib/base';
+import { Label } from '@/ui-lib/shadcn';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';

@@ -1,4 +1,4 @@
-import { Checkbox, cn } from '@teable/ui-lib';
+import { Checkbox, cn } from '@/ui-lib';
 
 interface IFilterCheckboxProps {
   value: boolean;

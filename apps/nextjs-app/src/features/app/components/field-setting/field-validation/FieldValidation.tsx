@@ -3,7 +3,7 @@ import {
   checkFieldUniqueValidationEnabled,
   checkFieldNotNullValidationEnabled,
 } from '@teable/core';
-import { Label, Switch } from '@teable/ui-lib/shadcn';
+import { Label, Switch } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 import type { IFieldEditorRo } from '../type';

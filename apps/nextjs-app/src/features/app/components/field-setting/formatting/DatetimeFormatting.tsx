@@ -1,7 +1,7 @@
 import type { IDatetimeFormatting } from '@teable/core';
 import { DateFormattingPreset, TimeFormatting } from '@teable/core';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@teable/ui-lib';
-import { Label } from '@teable/ui-lib/shadcn/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui-lib';
+import { Label } from '@/ui-lib/shadcn/ui/label';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';

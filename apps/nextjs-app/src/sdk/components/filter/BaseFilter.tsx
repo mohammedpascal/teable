@@ -1,5 +1,5 @@
 import { Plus } from '../icons';
-import { Button, cn } from '@teable/ui-lib';
+import { Button, cn } from '@/ui-lib';
 import { produce } from 'immer';
 import { set, get } from 'lodash';
 import { useCallback, useMemo } from 'react';

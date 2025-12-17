@@ -11,7 +11,7 @@ import {
   Button,
   CommandList,
   cn,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useState, useMemo } from 'react';

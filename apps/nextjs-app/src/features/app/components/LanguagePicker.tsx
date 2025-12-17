@@ -1,12 +1,12 @@
-import { Button } from '@teable/ui-lib/shadcn/ui/button';
+import { Button } from '@/ui-lib/shadcn/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '@teable/ui-lib/shadcn/ui/dropdown-menu';
-import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
+} from '@/ui-lib/shadcn/ui/dropdown-menu';
+import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import { useTranslation } from 'next-i18next';
 
 const languages = [

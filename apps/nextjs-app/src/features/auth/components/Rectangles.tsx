@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib/shadcn';
+import { cn } from '@/ui-lib/shadcn';
 import type { HTMLAttributes } from 'react';
 
 export const Rectangles = ({

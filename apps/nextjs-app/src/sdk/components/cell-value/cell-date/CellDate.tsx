@@ -1,6 +1,6 @@
 import { DateFormattingPreset, formatDateToString } from '@teable/core';
 import type { IDatetimeFormatting } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { OverflowTooltip } from '../components';

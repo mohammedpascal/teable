@@ -1,6 +1,6 @@
 import type { IAttachmentCellValue } from '@teable/core';
-import type { IFilePreviewDialogRef } from '@teable/ui-lib';
-import { cn, Dialog, DialogContent, FilePreviewDialog, FilePreviewProvider } from '@teable/ui-lib';
+import type { IFilePreviewDialogRef } from '@/ui-lib';
+import { cn, Dialog, DialogContent, FilePreviewDialog, FilePreviewProvider } from '@/ui-lib';
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { AttachmentEditorMain } from '../../editor';
 import type { IEditorProps } from '../../grid/components';

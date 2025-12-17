@@ -8,11 +8,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@teable/ui-lib';
-import { ConfirmDialog } from '@teable/ui-lib/base';
-import AddBoldIcon from '@teable/ui-lib/icons/app/add-bold.svg';
-import { Input, Label, cn } from '@teable/ui-lib/shadcn';
-import { Button } from '@teable/ui-lib/shadcn/ui/button';
+} from '@/ui-lib';
+import { ConfirmDialog } from '@/ui-lib/base';
+import AddBoldIcon from '@/ui-lib/icons/app/add-bold.svg';
+import { Input, Label, cn } from '@/ui-lib/shadcn';
+import { Button } from '@/ui-lib/shadcn/ui/button';
 import { useTranslation } from 'next-i18next';
 import { useState, useEffect, useRef } from 'react';
 import { GUIDE_CREATE_TABLE } from '@/components/Guide';

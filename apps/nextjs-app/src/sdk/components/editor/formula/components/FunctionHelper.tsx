@@ -1,5 +1,5 @@
 import type { FunctionName } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import type { FC } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
 import { useFormulaFunctionsMap } from '../constants';

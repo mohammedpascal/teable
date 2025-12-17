@@ -1,7 +1,7 @@
 import { SingleLineTextDisplayType } from '@teable/core';
 import type { ISingleLineTextShowAs } from '@teable/core';
-import { Button, cn } from '@teable/ui-lib/shadcn';
-import { Label } from '@teable/ui-lib/shadcn/ui/label';
+import { Button, cn } from '@/ui-lib/shadcn';
+import { Label } from '@/ui-lib/shadcn/ui/label';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 

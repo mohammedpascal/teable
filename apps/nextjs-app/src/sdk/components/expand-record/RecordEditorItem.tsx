@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { useFieldStaticGetter } from '../../hooks';
 import type { Field, Record } from '../../model';
 import { CellEditorWrap } from './CellEditorWrap';

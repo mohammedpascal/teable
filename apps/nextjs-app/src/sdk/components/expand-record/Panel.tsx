@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import {
   type FC,
   type PropsWithChildren,

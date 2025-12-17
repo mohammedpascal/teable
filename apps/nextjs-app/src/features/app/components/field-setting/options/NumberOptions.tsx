@@ -1,5 +1,5 @@
 import type { INumberShowAs, INumberFormatting, INumberFieldOptions } from '@teable/core';
-import { Input } from '@teable/ui-lib/shadcn';
+import { Input } from '@/ui-lib/shadcn';
 import { DefaultValue } from '../DefaultValue';
 import { NumberFormatting } from '../formatting/NumberFormatting';
 import { MultiNumberShowAs } from '../show-as/MultiNumberShowAs';

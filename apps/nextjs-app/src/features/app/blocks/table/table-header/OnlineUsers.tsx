@@ -6,7 +6,7 @@ import {
   HoverCardPortal,
   HoverCardTrigger,
   cn,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTableOnlineUsers } from './hooks/useTableOnlineUsers';
 
 export const OnlineUsers = ({ className }: { className?: string }) => {

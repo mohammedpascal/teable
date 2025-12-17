@@ -1,5 +1,5 @@
 import { Trash2 } from '@/components/icons';
-import { Button, DropdownMenuItem, cn } from '@teable/ui-lib/shadcn';
+import { Button, DropdownMenuItem, cn } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 

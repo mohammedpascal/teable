@@ -1,5 +1,5 @@
 import { parseStringToNumber } from '@teable/core';
-import { Input, cn } from '@teable/ui-lib';
+import { Input, cn } from '@/ui-lib';
 import type { ForwardRefRenderFunction } from 'react';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import type { ICellEditor, IEditorRef } from '../type';

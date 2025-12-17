@@ -1,7 +1,7 @@
 import type { QueryFunction, QueryKey } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { ILinkCellValue } from '@teable/core';
-import { Button } from '@teable/ui-lib';
+import { Button } from '@/ui-lib';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from '../../context/app/i18n';

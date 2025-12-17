@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDrop, useDropArea } from 'react-use';

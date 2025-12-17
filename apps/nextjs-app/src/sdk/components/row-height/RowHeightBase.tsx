@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import React from 'react';
 import { useRowHeightNodes } from './useRowHeightNodes';
 

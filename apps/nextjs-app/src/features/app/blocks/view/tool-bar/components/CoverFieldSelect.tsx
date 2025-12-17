@@ -9,7 +9,7 @@ import {
   SelectValue,
   Switch,
   cn,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';

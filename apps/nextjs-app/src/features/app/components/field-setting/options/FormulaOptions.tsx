@@ -9,7 +9,7 @@ import { FormulaEditor } from '@/sdk/components';
 import { useFields } from '@/sdk/hooks';
 import type { IFieldInstance } from '@/sdk/model';
 import { FormulaField } from '@/sdk/model';
-import { Dialog, DialogContent, DialogTrigger } from '@teable/ui-lib/shadcn';
+import { Dialog, DialogContent, DialogTrigger } from '@/ui-lib/shadcn';
 import { isEmpty, isEqual, keyBy } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';

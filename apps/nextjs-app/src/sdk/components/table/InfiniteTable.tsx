@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table, cn } from '@teable/ui-lib';
+import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table, cn } from '@/ui-lib';
 import { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 

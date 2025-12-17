@@ -1,4 +1,4 @@
-import { Input } from '@teable/ui-lib';
+import { Input } from '@/ui-lib';
 import type { ChangeEvent, ForwardRefRenderFunction, KeyboardEvent, RefObject } from 'react';
 import { useState, useRef, useImperativeHandle, forwardRef, useMemo } from 'react';
 import AutoSizeTextarea from 'react-textarea-autosize';

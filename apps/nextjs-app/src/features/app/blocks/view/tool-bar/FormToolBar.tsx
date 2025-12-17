@@ -1,7 +1,7 @@
 import { Settings as Edit, Edit as Fill } from '@/components/icons';
 import { useTableId, useViewId } from '@/sdk/hooks';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
-import { Button } from '@teable/ui-lib/shadcn';
+import { Button } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';

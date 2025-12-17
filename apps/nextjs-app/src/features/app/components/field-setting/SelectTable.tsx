@@ -1,16 +1,16 @@
 import type { Table } from '@/sdk/model';
-import ArrowDownIcon from '@teable/ui-lib/icons/app/arrow-down.svg';
-import SelectIcon from '@teable/ui-lib/icons/app/select.svg';
-import { cn } from '@teable/ui-lib/shadcn';
-import { Button } from '@teable/ui-lib/shadcn/ui/button';
+import ArrowDownIcon from '@/ui-lib/icons/app/arrow-down.svg';
+import SelectIcon from '@/ui-lib/icons/app/select.svg';
+import { cn } from '@/ui-lib/shadcn';
+import { Button } from '@/ui-lib/shadcn/ui/button';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from '@teable/ui-lib/shadcn/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn/ui/popover';
+} from '@/ui-lib/shadcn/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/ui-lib/shadcn/ui/popover';
 import { useTranslation } from 'next-i18next';
 import { useRef, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';

@@ -2,7 +2,7 @@ import { ViewType, getUniqName } from '@teable/core';
 import { Plus } from '@/components/icons';
 import { useViews } from '@/sdk';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
-import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib/shadcn';
+import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { GUIDE_CREATE_VIEW } from '@/components/Guide';

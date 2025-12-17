@@ -5,7 +5,7 @@ import type { CalendarView } from '@/sdk';
 import { CreateRecordModal, ViewFilter, VisibleFields } from '@/sdk';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { useView } from '@/sdk/hooks/use-view';
-import { Button, cn } from '@teable/ui-lib/shadcn';
+import { Button, cn } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { CalendarConfig } from '../../calendar/components/CalendarConfig';
 import { useToolbarChange } from '../../hooks/useToolbarChange';

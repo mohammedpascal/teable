@@ -7,7 +7,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { groupBy } from 'lodash';
 import { useMemo } from 'react';
 import { useTranslation } from '../../../context/app/i18n';

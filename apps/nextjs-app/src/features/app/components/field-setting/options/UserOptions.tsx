@@ -1,6 +1,6 @@
 import type { CellValueType, IUserCellValue, IUserFieldOptions } from '@teable/core';
 import { UserEditor } from '@/sdk/components';
-import { Label, Switch } from '@teable/ui-lib';
+import { Label, Switch } from '@/ui-lib';
 import { keyBy } from 'lodash';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';

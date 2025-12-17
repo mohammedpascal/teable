@@ -2,7 +2,7 @@ import type { ILinkCellValue, ILinkFieldOptions } from '@teable/core';
 import { isMultiValueLink } from '@teable/core';
 import { ArrowUpRight, Plus } from '../../icons';
 import type { IGetRecordsRo } from '@teable/openapi';
-import { Button, Tabs, TabsList, TabsTrigger } from '@teable/ui-lib';
+import { Button, Tabs, TabsList, TabsTrigger } from '@/ui-lib';
 import type { ForwardRefRenderFunction } from 'react';
 import {
   forwardRef,

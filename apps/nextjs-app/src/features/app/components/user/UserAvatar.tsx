@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage, cn } from '@teable/ui-lib/shadcn';
+import { Avatar, AvatarFallback, AvatarImage, cn } from '@/ui-lib/shadcn';
 import { getImageProps } from 'next/image';
 import React from 'react';
 

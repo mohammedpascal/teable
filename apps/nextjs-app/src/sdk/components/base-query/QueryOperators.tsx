@@ -1,4 +1,4 @@
-import { Button } from '@teable/ui-lib';
+import { Button } from '@/ui-lib';
 import { useContext, useMemo } from 'react';
 import type { QueryEditorKey } from './context/QueryEditorContext';
 import { QueryEditorContext } from './context/QueryEditorContext';

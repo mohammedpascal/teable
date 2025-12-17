@@ -12,7 +12,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';

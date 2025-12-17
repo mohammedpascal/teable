@@ -1,5 +1,5 @@
-import type { InputProps } from '@teable/ui-lib';
-import { Input, cn } from '@teable/ui-lib';
+import type { InputProps } from '@/ui-lib';
+import { Input, cn } from '@/ui-lib';
 import { forwardRef } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 

@@ -1,5 +1,5 @@
 import type { IFilterItem } from '@teable/core';
-import { Input, cn } from '@teable/ui-lib';
+import { Input, cn } from '@/ui-lib';
 import { toString } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';

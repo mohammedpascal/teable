@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
   Textarea,
   cn,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useRef, useState } from 'react';

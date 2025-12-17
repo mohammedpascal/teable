@@ -1,5 +1,5 @@
 import type { ILinkCellValue } from '@teable/core';
-import { Dialog, DialogContent } from '@teable/ui-lib';
+import { Dialog, DialogContent } from '@/ui-lib';
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { type LinkField } from '../../../model';

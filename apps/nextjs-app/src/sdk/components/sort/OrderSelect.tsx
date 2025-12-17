@@ -8,7 +8,7 @@ import {
   SelectGroup,
   SelectContent,
   SelectItem,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useMemo } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 import { useFields } from '../../hooks';

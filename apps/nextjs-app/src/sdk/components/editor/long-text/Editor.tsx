@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import type { ForwardRefRenderFunction } from 'react';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import AutoSizeTextarea from 'react-textarea-autosize';

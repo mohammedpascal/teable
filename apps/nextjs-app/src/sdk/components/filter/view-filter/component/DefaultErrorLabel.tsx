@@ -1,4 +1,4 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@teable/ui-lib';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/ui-lib';
 import { useTranslation } from '../../../../context/app/i18n';
 
 export const DefaultErrorLabel = () => {

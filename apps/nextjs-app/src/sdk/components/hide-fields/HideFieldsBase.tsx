@@ -1,5 +1,5 @@
 import { DraggableHandle } from '../icons';
-import type { DragEndEvent } from '@teable/ui-lib';
+import type { DragEndEvent } from '@/ui-lib';
 import {
   Switch,
   Label,
@@ -19,7 +19,7 @@ import {
   DndKitContext,
   Draggable,
   Droppable,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { map } from 'lodash';
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { useTranslation } from '../../context/app/i18n';

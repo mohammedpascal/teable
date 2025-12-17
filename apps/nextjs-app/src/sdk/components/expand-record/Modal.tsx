@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, cn } from '@teable/ui-lib';
+import { Dialog, DialogContent, cn } from '@/ui-lib';
 import { type FC, type PropsWithChildren } from 'react';
 import { useRef } from 'react';
 import { ModalContext } from './ModalContext';

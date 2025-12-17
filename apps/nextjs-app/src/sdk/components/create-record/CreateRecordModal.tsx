@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { FieldKeyType } from '@teable/core';
 import { createRecords } from '@teable/openapi';
-import { Button, Dialog, DialogContent, DialogTrigger, Spin } from '@teable/ui-lib';
+import { Button, Dialog, DialogContent, DialogTrigger, Spin } from '@/ui-lib';
 import { isEqual, keyBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useCounter } from 'react-use';

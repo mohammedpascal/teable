@@ -16,7 +16,7 @@ import {
 import type { IAttachmentCellValue, IAttachmentItem } from '@teable/core';
 import { generateAttachmentId } from '@teable/core';
 import { UploadType, type INotifyVo } from '@teable/openapi';
-import { cn, FilePreviewProvider, Progress, sonner } from '@teable/ui-lib';
+import { cn, FilePreviewProvider, Progress, sonner } from '@/ui-lib';
 import { map, omit } from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';

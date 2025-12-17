@@ -1,4 +1,4 @@
-import { cn, Checkbox } from '@teable/ui-lib';
+import { cn, Checkbox } from '@/ui-lib';
 import { useMemo } from 'react';
 import type { ICellValue } from '../type';
 

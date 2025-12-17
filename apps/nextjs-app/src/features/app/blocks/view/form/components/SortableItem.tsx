@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { IFieldInstance } from '@/sdk/model';
-import { cn } from '@teable/ui-lib/shadcn';
+import { cn } from '@/ui-lib/shadcn';
 import React from 'react';
 
 export const SortableItem = (props: {

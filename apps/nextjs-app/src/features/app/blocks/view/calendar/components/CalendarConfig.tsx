@@ -11,7 +11,7 @@ import {
   SelectContent,
   SelectTrigger,
   SelectValue,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import type { FC, PropsWithChildren } from 'react';
 import { Fragment, useMemo } from 'react';

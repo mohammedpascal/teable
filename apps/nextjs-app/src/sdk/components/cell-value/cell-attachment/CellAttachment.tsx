@@ -1,5 +1,5 @@
 import type { IAttachmentCellValue } from '@teable/core';
-import { FilePreviewItem, FilePreviewProvider, cn } from '@teable/ui-lib';
+import { FilePreviewItem, FilePreviewProvider, cn } from '@/ui-lib';
 import { getFileCover, isSystemFileIcon } from '../../editor/attachment';
 import { useAttachmentPreviewI18Map } from '../../hooks';
 import type { ICellValue } from '../type';

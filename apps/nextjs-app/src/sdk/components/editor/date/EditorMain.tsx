@@ -1,5 +1,5 @@
 import { type IDateFieldOptions, TimeFormatting } from '@teable/core';
-import { Button, Calendar, cn, Input, NavView } from '@teable/ui-lib';
+import { Button, Calendar, cn, Input, NavView } from '@/ui-lib';
 import { enUS, zhCN, ja, ru, fr } from 'date-fns/locale';
 import { formatInTimeZone, toDate, toZonedTime, fromZonedTime } from 'date-fns-tz';
 import type { ForwardRefRenderFunction } from 'react';

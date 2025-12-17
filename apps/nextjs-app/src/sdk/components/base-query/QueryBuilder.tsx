@@ -6,7 +6,7 @@ import type {
   IBaseQueryJoin,
   IQueryAggregation,
 } from '@teable/openapi';
-import { Button, cn } from '@teable/ui-lib';
+import { Button, cn } from '@/ui-lib';
 import {
   forwardRef,
   useCallback,

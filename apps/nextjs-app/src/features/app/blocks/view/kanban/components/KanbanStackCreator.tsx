@@ -1,7 +1,7 @@
 import { ColorUtils, type ISelectFieldChoice } from '@teable/core';
 import { Plus } from '@/components/icons';
 import type { SingleSelectField } from '@/sdk/model';
-import { Button, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib/shadcn';
+import { Button, Popover, PopoverContent, PopoverTrigger } from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useRef, useState } from 'react';
 import { ChoiceItem } from '@/features/app/components/field-setting/options/SelectOptions';

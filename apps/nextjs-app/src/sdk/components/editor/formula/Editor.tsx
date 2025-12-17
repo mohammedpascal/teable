@@ -6,7 +6,7 @@ import { keymap } from '@codemirror/view';
 import type { FunctionName } from '@teable/core';
 import { FormulaLexer } from '@teable/core';
 import { useTheme } from '@teable/next-themes';
-import { Button, cn } from '@teable/ui-lib';
+import { Button, cn } from '@/ui-lib';
 import { CharStreams } from 'antlr4ts';
 import Fuse from 'fuse.js';
 import { cloneDeep, keyBy } from 'lodash';

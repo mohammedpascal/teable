@@ -8,8 +8,8 @@ import {
   PopoverTrigger,
   Switch,
   cn,
-} from '@teable/ui-lib/shadcn';
-import { Label } from '@teable/ui-lib/shadcn/ui/label';
+} from '@/ui-lib/shadcn';
+import { Label } from '@/ui-lib/shadcn/ui/label';
 import { useTranslation } from 'next-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 import { ColorPicker } from '../options/SelectOptions';

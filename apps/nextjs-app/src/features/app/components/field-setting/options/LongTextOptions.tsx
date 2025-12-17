@@ -1,5 +1,5 @@
 import type { ILongTextFieldOptions } from '@teable/core';
-import { Textarea } from '@teable/ui-lib/shadcn';
+import { Textarea } from '@/ui-lib/shadcn';
 import { DefaultValue } from '../DefaultValue';
 
 export const LongTextOptions = (props: {

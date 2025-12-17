@@ -5,7 +5,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { noop } from 'lodash';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import type { ForwardRefRenderFunction } from 'react';

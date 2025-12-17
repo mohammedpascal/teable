@@ -1,7 +1,7 @@
 import { useIsHydrated, useViewId, useViews } from '@/sdk';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
-import { horizontalListSortingStrategy } from '@teable/ui-lib/base/dnd-kit';
-import { Skeleton, cn } from '@teable/ui-lib/shadcn';
+import { horizontalListSortingStrategy } from '@/ui-lib/base/dnd-kit';
+import { Skeleton, cn } from '@/ui-lib/shadcn';
 import { DraggableWrapper } from './DraggableWrapper';
 import { ViewListItem } from './ViewListItem';
 

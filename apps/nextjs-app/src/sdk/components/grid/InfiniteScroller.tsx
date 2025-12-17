@@ -1,4 +1,4 @@
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import type { ForwardRefRenderFunction, MutableRefObject, ReactNode, UIEvent } from 'react';
 import { useMemo, useRef, useCallback, forwardRef, useImperativeHandle, useEffect } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -2,7 +2,7 @@ import type { ILinkCellValue, ILinkFieldOptions } from '@teable/core';
 import { isMultiValueLink } from '@teable/core';
 import { Plus } from '../../icons';
 import type { IGetRecordsRo } from '@teable/openapi';
-import { Button, Dialog, DialogContent, DialogTrigger, useToast } from '@teable/ui-lib';
+import { Button, Dialog, DialogContent, DialogTrigger, useToast } from '@/ui-lib';
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react';
 import { RowCountProvider } from '../../../context';
 import { useTranslation } from '../../../context/app/i18n';

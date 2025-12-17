@@ -1,4 +1,4 @@
-import { Checkbox, cn } from '@teable/ui-lib';
+import { Checkbox, cn } from '@/ui-lib';
 import type { ICellEditor } from '../type';
 
 type ICheckboxEditor = ICellEditor<boolean | null>;

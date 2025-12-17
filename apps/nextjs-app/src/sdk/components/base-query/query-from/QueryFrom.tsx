@@ -8,7 +8,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useTranslation } from '../../../context/app/i18n';
 import { useTables } from '../../../hooks';
 import { Plus } from '../../icons';

@@ -1,5 +1,5 @@
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { Button, Calendar, Popover, PopoverContent, PopoverTrigger, cn } from '@teable/ui-lib';
+import { Button, Calendar, Popover, PopoverContent, PopoverTrigger, cn } from '@/ui-lib';
 
 import * as React from 'react';
 import type { SelectSingleEventHandler } from 'react-day-picker';

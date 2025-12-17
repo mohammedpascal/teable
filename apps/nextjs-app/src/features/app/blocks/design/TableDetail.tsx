@@ -7,8 +7,8 @@ import {
   PopoverContent,
   PopoverTrigger,
   Textarea,
-} from '@teable/ui-lib/shadcn';
-import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
+} from '@/ui-lib/shadcn';
+import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import { Pencil } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';

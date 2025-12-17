@@ -5,7 +5,7 @@ import type { INotificationVo } from '@teable/openapi';
 import { updateNotificationStatus } from '@teable/openapi';
 import { ReactQueryKeys } from '@/sdk/config/react-query-keys';
 import { useLanDayjs } from '@/sdk/hooks';
-import { Button } from '@teable/ui-lib';
+import { Button } from '@/ui-lib';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';

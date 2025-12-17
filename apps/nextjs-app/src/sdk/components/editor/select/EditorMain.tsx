@@ -1,5 +1,5 @@
 import { Plus } from '../../icons';
-import { Command, CommandInput, CommandItem } from '@teable/ui-lib';
+import { Command, CommandInput, CommandItem } from '@/ui-lib';
 import type { ForwardRefRenderFunction } from 'react';
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';

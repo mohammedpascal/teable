@@ -1,12 +1,12 @@
 import { HelpCircle, Plus } from '@/components/icons';
-import { Spin } from '@teable/ui-lib/base';
+import { Spin } from '@/ui-lib/base';
 import {
   Button,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { useTranslation } from 'next-i18next';
 import { useRef } from 'react';
 import { useClickAway } from 'react-use';

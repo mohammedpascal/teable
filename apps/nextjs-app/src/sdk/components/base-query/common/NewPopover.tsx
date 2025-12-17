@@ -1,4 +1,4 @@
-import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@teable/ui-lib';
+import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@/ui-lib';
 import { useState } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { Plus } from '../../icons';

@@ -1,14 +1,14 @@
 import type { IAttachmentCellValue } from '@teable/core';
 import { isSystemFileIcon, getFileCover } from '@/sdk/components';
 import { useAttachmentPreviewI18Map } from '@/sdk/components/hooks';
-import { FilePreviewProvider, FilePreviewItem } from '@teable/ui-lib/base';
+import { FilePreviewProvider, FilePreviewItem } from '@/ui-lib/base';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { Fragment } from 'react';
 import { CARD_COVER_HEIGHT } from '../utils';
 

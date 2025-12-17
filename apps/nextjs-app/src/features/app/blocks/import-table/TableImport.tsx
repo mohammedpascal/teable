@@ -38,8 +38,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Checkbox,
-} from '@teable/ui-lib';
-import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
+} from '@/ui-lib';
+import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useState, useRef, useCallback } from 'react';

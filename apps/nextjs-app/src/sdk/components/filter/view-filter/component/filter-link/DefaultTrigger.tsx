@@ -1,4 +1,4 @@
-import { Spin } from '@teable/ui-lib';
+import { Spin } from '@/ui-lib';
 import { useContext } from 'react';
 import { useTranslation } from '../../../../../context/app/i18n';
 import { SelectTag } from '../../../../cell-value';

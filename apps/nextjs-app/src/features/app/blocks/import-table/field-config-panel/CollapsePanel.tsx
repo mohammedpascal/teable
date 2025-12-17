@@ -8,7 +8,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
   Switch,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import type { ITableImportOptions } from '../TableImport';

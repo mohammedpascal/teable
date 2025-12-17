@@ -18,7 +18,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { noop } from 'lodash';
 import { Trans, useTranslation } from 'next-i18next';
 import { Fragment, useCallback, useRef, useState } from 'react';

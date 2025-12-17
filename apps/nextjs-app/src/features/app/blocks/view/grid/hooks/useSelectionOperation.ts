@@ -15,7 +15,7 @@ import type {
 import { clear, copy, deleteSelection, paste, temporaryPaste } from '@teable/openapi';
 import type { CombinedSelection, IRecordIndexMap } from '@/sdk';
 import { useFields, useSearch, useTableId, useView, useViewId } from '@/sdk';
-import { toast } from '@teable/ui-lib/shadcn/ui/sonner';
+import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'next-i18next';
 import { useCallback } from 'react';

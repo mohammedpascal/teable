@@ -1,4 +1,4 @@
-import { Sheet, SheetContent } from '@teable/ui-lib';
+import { Sheet, SheetContent } from '@/ui-lib';
 
 interface SheetWrapperProps {
   children: React.ReactNode;

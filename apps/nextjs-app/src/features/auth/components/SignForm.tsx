@@ -9,8 +9,8 @@ import {
   sendSignupVerificationCode,
   sendSignupVerificationCodeRoSchema,
 } from '@teable/openapi';
-import { Spin, Error as ErrorCom } from '@teable/ui-lib/base';
-import { Button, Input, Label, cn } from '@teable/ui-lib/shadcn';
+import { Spin, Error as ErrorCom } from '@/ui-lib/base';
+import { Button, Input, Label, cn } from '@/ui-lib/shadcn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';

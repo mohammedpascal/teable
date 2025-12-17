@@ -1,5 +1,5 @@
 import { X } from '../icons';
-import { Button, ScrollArea } from '@teable/ui-lib';
+import { Button, ScrollArea } from '@/ui-lib';
 import { useTranslation } from '../../context/app/i18n';
 import { UserItem } from './components/UserItem';
 import { type SelectedMemberWithData } from './types';

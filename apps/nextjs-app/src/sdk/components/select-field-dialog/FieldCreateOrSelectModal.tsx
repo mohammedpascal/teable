@@ -16,7 +16,7 @@ import {
   RadioGroupItem,
   ScrollArea,
   cn,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import type { ReactNode } from 'react';
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { useTranslation } from '../../context/app/i18n';

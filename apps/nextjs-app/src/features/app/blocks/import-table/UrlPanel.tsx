@@ -2,7 +2,7 @@ import type { UseMutateAsyncFunction } from '@tanstack/react-query';
 import type { FieldType } from '@teable/core';
 import type { SUPPORTEDTYPE } from '@teable/openapi';
 import { importTypeMap } from '@teable/openapi';
-import { Input, Button, Spin } from '@teable/ui-lib';
+import { Input, Button, Spin } from '@/ui-lib';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';

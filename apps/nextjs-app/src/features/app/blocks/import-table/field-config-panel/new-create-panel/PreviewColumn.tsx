@@ -13,7 +13,7 @@ import {
   TableRow,
   Button,
   Input,
-} from '@teable/ui-lib';
+} from '@/ui-lib';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 

@@ -1,4 +1,4 @@
-import { Sheet, SheetContent } from '@teable/ui-lib';
+import { Sheet, SheetContent } from '@/ui-lib';
 import { type FC, type PropsWithChildren } from 'react';
 import { Modal } from './Modal';
 import { ExpandRecordModel } from './type';

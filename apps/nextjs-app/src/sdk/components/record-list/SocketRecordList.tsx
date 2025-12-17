@@ -1,5 +1,5 @@
 import type { ILinkCellValue } from '@teable/core';
-import { Skeleton } from '@teable/ui-lib';
+import { Skeleton } from '@/ui-lib';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { useRowCount, useSearch } from '../../hooks';

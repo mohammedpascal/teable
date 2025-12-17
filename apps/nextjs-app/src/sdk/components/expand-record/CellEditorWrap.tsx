@@ -1,6 +1,6 @@
 import type { ILinkCellValue, ILinkFieldOptions } from '@teable/core';
 import { FieldType } from '@teable/core';
-import { cn } from '@teable/ui-lib';
+import { cn } from '@/ui-lib';
 import { CellEditor } from '../cell-value-editor';
 import type { ICellValueEditor } from '../cell-value-editor/type';
 import { LinkDisplayType, LinkEditor } from '../editor';

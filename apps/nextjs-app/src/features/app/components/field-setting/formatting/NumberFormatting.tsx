@@ -1,14 +1,14 @@
 import type { ICurrencyFormatting, INumberFormatting } from '@teable/core';
 import { NumberFormattingType, defaultNumberFormatting } from '@teable/core';
-import { Input } from '@teable/ui-lib/shadcn';
-import { Label } from '@teable/ui-lib/shadcn/ui/label';
+import { Input } from '@/ui-lib/shadcn';
+import { Label } from '@/ui-lib/shadcn/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@teable/ui-lib/shadcn/ui/select';
+} from '@/ui-lib/shadcn/ui/select';
 import { useTranslation } from 'next-i18next';
 
 interface IProps {

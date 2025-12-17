@@ -1,6 +1,6 @@
 import type { IDateTimeFieldOperator, IDateFilter, ITimeZoneString } from '@teable/core';
 import { exactDate, FieldType, getValidFilterSubOperators, isWithIn } from '@teable/core';
-import { Input } from '@teable/ui-lib';
+import { Input } from '@/ui-lib';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from '../../../../../context/app/i18n';
 import type { DateField } from '../../../../../model';

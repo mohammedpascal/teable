@@ -1,4 +1,4 @@
-import { Card } from '@teable/ui-lib/shadcn';
+import { Card } from '@/ui-lib/shadcn';
 import { TeableFooter } from './TeableFooter';
 
 interface ILayoutMainProps {

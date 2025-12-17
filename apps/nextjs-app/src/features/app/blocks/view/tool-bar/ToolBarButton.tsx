@@ -1,4 +1,4 @@
-import { Button, cn } from '@teable/ui-lib';
+import { Button, cn } from '@/ui-lib';
 import React, { forwardRef } from 'react';
 
 interface IToolBarButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {

@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
   Separator,
   Switch,
-} from '@teable/ui-lib/shadcn';
+} from '@/ui-lib/shadcn';
 import { Pencil } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';

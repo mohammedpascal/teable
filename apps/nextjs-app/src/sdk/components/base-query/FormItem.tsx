@@ -1,4 +1,4 @@
-import { Label } from '@teable/ui-lib';
+import { Label } from '@/ui-lib';
 
 export const FormItem = (props: { label: string; children: React.ReactNode }) => {
   const { label, children } = props;
