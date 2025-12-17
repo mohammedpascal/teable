@@ -141,9 +141,6 @@ importers:
       '@prisma/instrumentation':
         specifier: 6.2.1
         version: 6.2.1(@opentelemetry/api@1.9.0)
-      '@teable/common-i18n':
-        specifier: workspace:^
-        version: link:../../packages/common-i18n
       '@teable/core':
         specifier: workspace:^
         version: link:../../packages/core
@@ -601,9 +598,6 @@ importers:
       '@teable/core':
         specifier: workspace:^
         version: link:../../packages/core
-      '@teable/icons':
-        specifier: workspace:^
-        version: link:../../packages/icons
       '@teable/next-themes':
         specifier: 0.3.5
         version: 0.3.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
