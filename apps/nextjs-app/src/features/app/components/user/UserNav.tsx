@@ -40,11 +40,11 @@ export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
         <DropdownMenuItem className="flex cursor-pointer gap-2 font-normal">
           <Avatar className="size-7 shrink-0">
             <AvatarImage src={user.avatar ?? ''} />
-            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+            <AvatarFallback>{user.name?.charAt(0) ?? ''}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+            <p className="text-sm font-medium leading-none">{user.name ?? ''}</p>
+            <p className="text-xs leading-none text-muted-foreground">{user.email ?? ''}</p>
           </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

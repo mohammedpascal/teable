@@ -1,15 +1,8 @@
-import { dehydrate, QueryClient } from '@tanstack/react-query';
 import type { ITableVo } from '@teable/openapi';
-import { ReactQueryKeys } from '@/sdk/config';
-import type { GetServerSideProps } from 'next';
 import { Trans, useTranslation } from 'next-i18next';
 import type { ReactElement } from 'react';
 import { BaseLayout } from '@/features/app/layouts/BaseLayout';
-import ensureLogin from '@/lib/ensureLogin';
-import { getTranslationsProps } from '@/lib/i18n';
 import type { NextPageWithLayout } from '@/lib/type';
-import withAuthSSR from '@/lib/withAuthSSR';
-import withEnv from '@/lib/withEnv';
 
 const Node: NextPageWithLayout = () => {
   const { t } = useTranslation(['table', 'common']);
@@ -47,44 +40,9 @@ const Node: NextPageWithLayout = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = withEnv(
-  ensureLogin(
-    withAuthSSR(async (context, ssrApi) => {
-      const tables = await ssrApi.getTables();
-      const defaultTable = tables[0];
-      if (defaultTable) {
-        const defaultView = await ssrApi.getDefaultViewId(defaultTable.id);
-        return {
-          redirect: {
-            destination: `/table/${defaultTable.id}/${defaultView.id}`,
-            permanent: false,
-          },
-        };
-      }
-
-      const queryClient = new QueryClient();
-
-      await Promise.all([
-        queryClient.fetchQuery({
-          queryKey: ReactQueryKeys.base(),
-          queryFn: () => Promise.resolve({ id: 'bse0', name: 'Base' }),
-        }),
-      ]);
-
-      return {
-        props: {
-          tableServerData: tables,
-          dehydratedState: dehydrate(queryClient),
-          ...(await getTranslationsProps(context, ['common', 'sdk', 'table'])),
-        },
-      };
-    })
-  )
-);
-
 Node.getLayout = function getLayout(
   page: ReactElement,
-  pageProps: { tableServerData: ITableVo[] }
+  pageProps: { tableServerData?: ITableVo[] }
 ) {
   return <BaseLayout {...pageProps}>{page}</BaseLayout>;
 };

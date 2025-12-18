@@ -64,7 +64,7 @@ export const SessionProvider: React.FC<React.PropsWithChildren<ISessionProviderP
     [currentUser, userQuery, refresh, refreshAvatar]
   );
 
-  if (!value.user) {
+  if (!value.user?.id) {
     return <>{fallback}</>;
   }
 
