@@ -16,3 +16,4 @@ const Kanban = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 export default Kanban;
+

@@ -1,9 +1,10 @@
-import { generateWindowId, HttpError } from '@teable/core';
+import { HttpError } from '@teable/core';
 import axiosInstance from 'axios';
 
 export const createAxios = () => {
   const axios = axiosInstance.create({
-    baseURL: '/api',
+    baseURL: 'http://localhost:3000/api',
+    withCredentials: true,
   });
 
   axios.interceptors.response.use(

@@ -23,3 +23,4 @@ const DraggableHandle = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 export default DraggableHandle;
+

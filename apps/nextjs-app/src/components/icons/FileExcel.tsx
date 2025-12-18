@@ -37,3 +37,4 @@ const FileExcel = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 export default FileExcel;
+

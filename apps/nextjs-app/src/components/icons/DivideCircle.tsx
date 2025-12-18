@@ -26,3 +26,4 @@ const DivideCircle = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 export default DivideCircle;
+
