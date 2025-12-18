@@ -2,13 +2,12 @@
 import type { ConfigType } from '@nestjs/config';
 import { registerAs } from '@nestjs/config';
 
-export const nextJsConfig = registerAs('nextJs', () => ({
-  dir: process.env.NEXTJS_DIR ?? '../nextjs-app',
-}));
-
 export const securityWebConfig = registerAs('security.web', () => ({
   cors: {
     enabled: true,
+    allowedOrigins: process.env.CORS_ALLOWED_ORIGINS
+      ? process.env.CORS_ALLOWED_ORIGINS.split(',').map((origin) => origin.trim())
+      : undefined,
   },
 }));
 
@@ -21,7 +20,6 @@ export const apiDocConfig = registerAs('apiDoc', () => ({
   enabledSnippet: process.env.API_DOC_ENABLED_SNIPPET === 'true',
 }));
 
-export type INextJsConfig = ConfigType<typeof nextJsConfig>;
 export type ISecurityWebConfig = ConfigType<typeof securityWebConfig>;
 export type IApiDocConfig = ConfigType<typeof apiDocConfig>;
-export const bootstrapConfigs = [nextJsConfig, securityWebConfig, apiDocConfig];
+export const bootstrapConfigs = [securityWebConfig, apiDocConfig];

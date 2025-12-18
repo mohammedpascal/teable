@@ -65,7 +65,52 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
   }
 
   if (securityWebConfig?.cors.enabled) {
-    app.enableCors();
+    // Build allowed origins list: config > PUBLIC_ORIGIN > default
+    const configOrigins = securityWebConfig.cors.allowedOrigins;
+    const allowedOrigins = configOrigins?.length
+      ? configOrigins
+      : baseConfig?.publicOrigin
+        ? [baseConfig.publicOrigin]
+        : [];
+
+    app.enableCors({
+      origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) {
+          return callback(null, true);
+        }
+        // Check if origin is in allowed list
+        if (allowedOrigins.length > 0 && allowedOrigins.includes(origin)) {
+          return callback(null, true);
+        }
+        // For development, allow any localhost origin
+        if (
+          process.env.NODE_ENV === 'development' &&
+          (origin.startsWith('http://localhost:') ||
+            origin.startsWith('http://127.0.0.1:') ||
+            origin.startsWith('http://0.0.0.0:'))
+        ) {
+          return callback(null, true);
+        }
+        // If no origins configured and not development, allow all (but this won't work with credentials)
+        if (allowedOrigins.length === 0 && process.env.NODE_ENV !== 'development') {
+          return callback(null, true);
+        }
+        callback(new Error('Not allowed by CORS'));
+      },
+      credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'Accept',
+        'Origin',
+        'X-Requested-With',
+        'Cookie',
+        'Set-Cookie',
+      ],
+      exposedHeaders: ['Set-Cookie'],
+    });
   }
 }
 

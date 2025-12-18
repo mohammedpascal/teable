@@ -56,7 +56,6 @@ import { AppModule } from '../../src/app.module';
 import type { IBaseConfig } from '../../src/configs/base.config';
 import { baseConfig } from '../../src/configs/base.config';
 import { SessionHandleService } from '../../src/features/auth/session/session-handle.service';
-import { NextService } from '../../src/features/next/next.service';
 import { TableIndexService } from '../../src/features/table/table-index.service';
 import { GlobalExceptionFilter } from '../../src/filter/global-exception.filter';
 import { WsGateway } from '../../src/ws/ws.gateway';
@@ -70,12 +69,6 @@ export async function initApp() {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [AppModule],
   })
-    .overrideProvider(NextService)
-    .useValue({
-      onModuleInit: () => {
-        return;
-      },
-    })
     .overrideProvider(DevWsGateway)
     .useClass(WsGateway)
     .compile();

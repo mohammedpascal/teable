@@ -28,7 +28,7 @@
     ]
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3002",
     "build1": "next build",
     "build": "cross-env NEXT_BUILD_ENV_SENTRY_ENABLED=0 NEXT_BUILD_ENV_SOURCEMAPS=0 NEXT_BUILD_ENV_TYPECHECK=0 NEXT_BUILD_ENV_LINT=0 NEXT_BUILD_SKIP_STATIC_GENERATION=1 next build",
     "build-fast": "cross-env NEXT_BUILD_ENV_SENTRY_ENABLED=0 NEXT_BUILD_ENV_SOURCEMAPS=0 NEXT_BUILD_ENV_TYPECHECK=0 NEXT_BUILD_ENV_LINT=0 NEXT_BUILD_SKIP_STATIC_GENERATION=1 next build",

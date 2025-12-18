@@ -7,7 +7,9 @@ import type { ConnectionReceiveRequest, Socket } from 'sharedb/lib/sharedb';
 
 export function getWsPath() {
   const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  return `${wsProtocol}//${window.location.host}/socket`.replace(':3000', ':3001');
+  const backendWsPort = process.env.BACKEND_WS_PORT || '3001';
+  const hostname = window.location.hostname;
+  return `${wsProtocol}//${hostname}:${backendWsPort}/socket`;
 }
 
 const ignoreErrorCodes = [HttpErrorCode.VIEW_NOT_FOUND];

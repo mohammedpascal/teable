@@ -10,7 +10,6 @@ import { FieldOpenApiModule } from './features/field/open-api/field-open-api.mod
 import { HealthModule } from './features/health/health.module';
 import { ImportOpenApiModule } from './features/import/open-api/import-open-api.module';
 import { IntegrityModule } from './features/integrity/integrity.module';
-import { NextModule } from './features/next/next.module';
 import { NotificationModule } from './features/notification/notification.module';
 import { RecordModule } from './features/record/record.module';
 import { RoleModule } from './features/role/role.module';
@@ -28,7 +27,6 @@ export const appModules = {
   imports: [
     LoggerModule.register(),
     HealthModule,
-    NextModule,
     FieldOpenApiModule,
     FieldModule,
     TableModule,
