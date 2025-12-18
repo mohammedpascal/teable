@@ -10,9 +10,9 @@ import { useViewErrorHandler } from './hooks/use-view-error-handler';
 import { TableHeader } from './table-header/TableHeader';
 
 export interface ITableProps {
-  fieldServerData: IFieldVo[];
-  viewServerData: IViewVo[];
-  recordsServerData: { records: IRecord[] };
+  fieldServerData?: IFieldVo[];
+  viewServerData?: IViewVo[];
+  recordsServerData?: { records: IRecord[] };
   recordServerData?: IRecord;
   groupPointsServerDataMap?: { [viewId: string]: IGroupPointsVo | undefined };
 }
