@@ -9,6 +9,11 @@ export const errorRequestHandler = (error: unknown) => {
     window.location.href = `/auth/login?redirect=${encodeURIComponent(window.location.href)}`;
     return;
   }
+  // forbidden (admin access required)
+  if (status === 403) {
+    window.location.href = '/403';
+    return;
+  }
   toast({
     variant: 'destructive',
     title: code || 'Unknown Error',
