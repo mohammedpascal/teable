@@ -1,19 +1,19 @@
 import type { DehydratedState } from '@tanstack/react-query';
-import { Settings } from '@/components/icons';
 import type { ITableVo } from '@teable/openapi';
-import type { IUser } from '@/sdk';
-import { NotificationProvider, SessionProvider } from '@/sdk';
-import { AnchorContext, AppProvider, TableProvider } from '@/sdk/context';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React, { Fragment } from 'react';
+import { Settings } from '@/components/icons';
 import { AppLayout } from '@/features/app/layouts';
+import { NotificationProvider, SessionProvider } from '@/sdk';
+import type { IUser } from '@/sdk';
+import { AnchorContext, AppProvider, TableProvider } from '@/sdk/context';
 import { BaseSideBar } from '../blocks/base/base-side-bar/BaseSideBar';
 import { BaseSidebarHeaderLeft } from '../blocks/base/base-side-bar/BaseSidebarHeaderLeft';
-import { SidebarProvider } from '../contexts/SidebarContext';
 import { Sidebar } from '../components/sidebar/Sidebar';
 import { SidebarContent } from '../components/sidebar/SidebarContent';
 import { SideBarFooter } from '../components/SideBarFooter';
+import { SidebarProvider } from '../contexts/SidebarContext';
 import { useSdkLocale } from '../hooks/useSdkLocale';
 
 export const BaseLayout: React.FC<{
