@@ -37,33 +37,12 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
   app.useGlobalPipes(
     new ValidationPipe({ transform: true, stopAtFirstError: true, forbidUnknownValues: false })
   );
-  app.use(helmet());
-  app.use(json({ limit: '50mb' }));
-  app.use(urlencoded({ limit: '50mb', extended: true }));
 
   const apiDocConfig = configService.get<IApiDocConfig>('apiDoc');
   const securityWebConfig = configService.get<ISecurityWebConfig>('security.web');
   const baseConfig = configService.get<IBaseConfig>('base');
-  if (!apiDocConfig?.disabled) {
-    const openApiDocumentation = await getOpenApiDocumentation({
-      origin: baseConfig?.publicOrigin,
-      snippet: apiDocConfig?.enabledSnippet,
-    });
 
-    const jsonString = JSON.stringify(openApiDocumentation);
-    fs.writeFileSync(path.join(__dirname, '/openapi.json'), jsonString);
-    SwaggerModule.setup('/docs', app, openApiDocumentation as OpenAPIObject);
-
-    // Instead of using SwaggerModule.setup() you call this module
-    const redocOptions: RedocOptions = {
-      logo: {
-        backgroundColor: '#F0F0F0',
-        altText: 'Teable logo',
-      },
-    };
-    await RedocModule.setup('/redocs', app, openApiDocumentation as OpenAPIObject, redocOptions);
-  }
-
+  // Enable CORS BEFORE helmet to prevent conflicts
   if (securityWebConfig?.cors.enabled) {
     // Build allowed origins list: config > PUBLIC_ORIGIN > default
     const configOrigins = securityWebConfig.cors.allowedOrigins;
@@ -111,6 +90,35 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
       ],
       exposedHeaders: ['Set-Cookie'],
     });
+  }
+
+  // Configure helmet to not interfere with CORS
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    })
+  );
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ limit: '50mb', extended: true }));
+
+  if (!apiDocConfig?.disabled) {
+    const openApiDocumentation = await getOpenApiDocumentation({
+      origin: baseConfig?.publicOrigin,
+      snippet: apiDocConfig?.enabledSnippet,
+    });
+
+    const jsonString = JSON.stringify(openApiDocumentation);
+    fs.writeFileSync(path.join(__dirname, '/openapi.json'), jsonString);
+    SwaggerModule.setup('/docs', app, openApiDocumentation as OpenAPIObject);
+
+    // Instead of using SwaggerModule.setup() you call this module
+    const redocOptions: RedocOptions = {
+      logo: {
+        backgroundColor: '#F0F0F0',
+        altText: 'Teable logo',
+      },
+    };
+    await RedocModule.setup('/redocs', app, openApiDocumentation as OpenAPIObject, redocOptions);
   }
 }
 
