@@ -3,8 +3,7 @@ import { useEffect } from 'react';
 
 /**
  * Hook to load all translation namespaces on app start (client-side only).
- * This ensures all translations are available to all pages without requiring
- * getServerSideProps on individual pages.
+ * This ensures all translations are available to all pages 
  */
 export const useLoadAllTranslations = () => {
   const { i18n } = useTranslation();
