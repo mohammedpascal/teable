@@ -10,7 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/ui-lib';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 
 interface ActionBarProps {

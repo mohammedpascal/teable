@@ -12,7 +12,7 @@ import { ReactQueryKeys } from '@/sdk/config';
 import { useTableId } from '@/sdk/hooks';
 import type { IFieldInstance } from '@/sdk/model';
 import { Button, cn, Dialog, DialogContent, DialogTrigger } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 

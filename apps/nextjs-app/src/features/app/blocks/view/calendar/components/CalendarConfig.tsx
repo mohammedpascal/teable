@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import type { FC, PropsWithChildren } from 'react';
 import { Fragment, useMemo } from 'react';
 import { ColorPicker } from '@/features/app/components/field-setting/options/SelectOptions';

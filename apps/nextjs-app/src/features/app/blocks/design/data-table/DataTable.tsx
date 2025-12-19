@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 import { baseConfig } from '@/features/i18n/base.config';
 import { useDataColumns } from './useDataColumns';

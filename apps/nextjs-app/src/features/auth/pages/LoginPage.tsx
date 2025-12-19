@@ -1,7 +1,5 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { NextSeo } from 'next-seo';
+import { Link, useNavigate, useRouterState, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import Tea from '@/components/Tea';
 import { useEnv } from '@/features/app/hooks/useEnv';
@@ -16,26 +14,24 @@ export const LoginPage = (props: { children?: React.ReactNode | React.ReactNode[
   const { children } = props;
   useInitializationZodI18n();
   const { t } = useTranslation(authConfig.i18nNamespaces);
-  const router = useRouter();
-  const redirect = decodeURIComponent((router.query.redirect as string) || '');
-  const signType = router.pathname.endsWith('/signup') ? 'signup' : 'signin';
+  const routerState = useRouterState();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
+  const redirect = decodeURIComponent((search.redirect as string) || '');
+  const signType = routerState.location.pathname.endsWith('/signup') ? 'signup' : 'signin';
   const { passwordLoginDisabled } = useEnv();
 
   const onSuccess = useCallback(() => {
     if (redirect && redirect.startsWith('/')) {
-      router.push(redirect);
+      navigate({ to: redirect });
     } else {
-      router.push({
-        pathname: '/',
-        query: router.query,
-      });
+      navigate({ to: '/' });
     }
-  }, [redirect, router]);
+  }, [redirect, navigate]);
 
   return (
     <ScrollArea className="h-screen">
       <div className="flex min-h-screen">
-        <NextSeo title={signType === 'signin' ? t('auth:page.signin') : t('auth:page.signup')} />
         <div className="fixed left-5 top-5 flex flex-none items-center gap-2">
           <Tea />
           {t('common:brand')}
@@ -45,10 +41,10 @@ export const LoginPage = (props: { children?: React.ReactNode | React.ReactNode[
           <div className="absolute right-0 top-0 flex h-[4em] items-center justify-end bg-background px-5 lg:h-20">
             <Tabs value={signType}>
               <TabsList>
-                <Link href={{ pathname: '/auth/login', query: { ...router.query } }} shallow>
+                <Link to="/auth/login" search={search}>
                   <TabsTrigger value="signin">{t('auth:button.signin')}</TabsTrigger>
                 </Link>
-                <Link href={{ pathname: '/auth/signup', query: { ...router.query } }} shallow>
+                <Link to="/auth/signup" search={search}>
                   <TabsTrigger value="signup">{t('auth:button.signup')}</TabsTrigger>
                 </Link>
               </TabsList>

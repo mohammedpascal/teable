@@ -8,7 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { FieldOperator } from '@/features/app/components/field-setting';
 import { useFieldSettingStore } from '../../view/field/useFieldSettingStore';
 

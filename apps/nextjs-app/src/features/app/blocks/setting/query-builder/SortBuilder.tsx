@@ -2,7 +2,7 @@ import type { ISort } from '@teable/core';
 import { SortFunc } from '@teable/core';
 import { DraggableSortList } from '@/sdk/components/sort/DraggableSortList';
 import { SortFieldAddButton } from '@/sdk/components/sort/SortFieldAddButton';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { developerConfig } from '@/features/i18n/developer.config';
 

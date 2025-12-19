@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/ui-lib';
 import { isEqual } from 'lodash';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import type { Dispatch, SetStateAction } from 'react';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';

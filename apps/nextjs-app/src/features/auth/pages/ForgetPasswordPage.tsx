@@ -3,7 +3,7 @@ import type { HttpError } from '@teable/core';
 import { sendResetPasswordEmail } from '@teable/openapi';
 import { Spin, Error } from '@/ui-lib/base';
 import { Button, Input, Label, Separator, useToast } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { z } from 'zod';
 import { authConfig } from '@/features/i18n/auth.config';

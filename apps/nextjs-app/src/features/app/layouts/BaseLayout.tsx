@@ -1,7 +1,7 @@
 import type { DehydratedState } from '@tanstack/react-query';
 import type { ITableVo } from '@teable/openapi';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useParams } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import React, { Fragment } from 'react';
 import { Settings } from '@/components/icons';
 import { AppLayout } from '@/features/app/layouts';
@@ -22,8 +22,8 @@ export const BaseLayout: React.FC<{
   dehydratedState?: DehydratedState;
   user?: IUser;
 }> = ({ children, tableServerData, user, dehydratedState }) => {
-  const router = useRouter();
-  const { tableId, viewId } = router.query;
+  const params = useParams({ strict: false });
+  const { tableId, viewId } = params as { tableId?: string; viewId?: string };
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
 

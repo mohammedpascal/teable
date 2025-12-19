@@ -1,5 +1,5 @@
 import { useViews } from '@/sdk/hooks';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { Selector } from '@/components/Selector';
 import { developerConfig } from '@/features/i18n/developer.config';
 

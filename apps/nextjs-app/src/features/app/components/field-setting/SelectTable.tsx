@@ -1,6 +1,6 @@
 import type { Table } from '@/sdk/model';
-import ArrowDownIcon from '@/ui-lib/icons/app/arrow-down.svg';
-import SelectIcon from '@/ui-lib/icons/app/select.svg';
+import ArrowDownIcon from '@/ui-lib/icons/app/arrow-down.svg?react';
+import SelectIcon from '@/ui-lib/icons/app/select.svg?react';
 import { cn } from '@/ui-lib/shadcn';
 import { Button } from '@/ui-lib/shadcn/ui/button';
 import {
@@ -11,7 +11,7 @@ import {
   CommandItem,
 } from '@/ui-lib/shadcn/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui-lib/shadcn/ui/popover';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useRef, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 

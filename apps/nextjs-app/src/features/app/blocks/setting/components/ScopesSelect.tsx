@@ -2,7 +2,7 @@ import { actionPrefixMap } from '@teable/core';
 import type { ActionPrefix, Action } from '@teable/core';
 import { usePermissionActionsStatic } from '@/sdk/hooks';
 import { Checkbox, Label, Button } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo, useState } from 'react';
 
 interface IScopesSelectProps {

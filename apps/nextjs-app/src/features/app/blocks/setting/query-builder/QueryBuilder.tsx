@@ -6,9 +6,8 @@ import { getTableList } from '@teable/openapi';
 import { ReactQueryKeys } from '@/sdk/config';
 import { StandaloneViewProvider } from '@/sdk/context';
 import { Button, Separator, ToggleGroup, ToggleGroupItem } from '@/ui-lib/shadcn';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { Link, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Selector } from '@/components/Selector';
 import { developerConfig } from '@/features/i18n/developer.config';
@@ -22,8 +21,8 @@ import { ViewBuilder } from './ViewBuilder';
 
 export const QueryBuilder = () => {
   const { t } = useTranslation(developerConfig.i18nNamespaces);
-  const router = useRouter();
-  const [tableId, setTableId] = useState<string>(router.query.tableId as string);
+  const routeSearch = useSearch({ strict: false });
+  const [tableId, setTableId] = useState<string>((routeSearch.tableId as string) || '');
   const [viewId, setViewId] = useState<string>();
   const [filter, setFilter] = useState<IFilterSet | null>(null);
   const [fieldKeyType, setFieldKeyType] = useState<FieldKeyType>();
@@ -48,7 +47,7 @@ export const QueryBuilder = () => {
             <div className="text-sm">
               {t('developer:subTitle')}{' '}
               <Button variant="link" size="xs" asChild>
-                <Link href="/redocs" target="_blank">
+                <Link to="/redocs" target="_blank">
                   <ArrowUpRight className="size-4" />
                   {t('developer:apiList')}
                 </Link>

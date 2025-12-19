@@ -1,6 +1,6 @@
 import type { ISelectorProps as IUISelectorProps } from '@/ui-lib/base';
 import { Selector as UISelector } from '@/ui-lib/base';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 
 export type ISelectorProps = IUISelectorProps;
 

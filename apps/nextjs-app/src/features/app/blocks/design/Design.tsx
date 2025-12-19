@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { AnchorContext } from '@/sdk/context';
 import { Separator } from '@/ui-lib/shadcn';
 import { SettingsHeader } from '../setting/SettingsHeader';
@@ -7,8 +7,9 @@ import { IntegrityButton } from './components/Integrity';
 import { TablePicker, TableTabs } from './TableTabs';
 
 export const Design = () => {
-  const router = useRouter();
-  const tableId = router.query.tableId as string;
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
+  const tableId = (search.tableId as string) || '';
   const { t } = useTranslation(['table', 'common']);
 
   return (
@@ -22,7 +23,7 @@ export const Design = () => {
               tableId={tableId}
               readonly={false}
               onChange={(tableId) =>
-                router.push({ pathname: '/settings/design', query: { tableId } })
+                navigate({ to: '/settings/design', search: { tableId } })
               }
             />
             <span className="grow" />

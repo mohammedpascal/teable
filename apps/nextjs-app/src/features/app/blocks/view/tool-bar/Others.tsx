@@ -2,8 +2,8 @@ import { GUIDE_API_BUTTON } from '@/components/Guide';
 import { Code2, Database, MoreHorizontal } from '@/components/icons';
 import { useTableId } from '@/sdk/hooks';
 import { Button, cn, Popover, PopoverContent, PopoverTrigger } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import { Link } from '@tanstack/react-router';
 import { SearchButton } from '../search/SearchButton';
 import { ToolBarButton } from './ToolBarButton';
 
@@ -39,10 +39,8 @@ const OthersList = ({
             asChild
           >
             <Link
-              href={{
-                pathname: '/settings/query-builder',
-                query: { tableId },
-              }}
+              to="/settings/query-builder"
+              search={{ tableId }}
               target="_blank"
             >
               <Code2 className="size-4" />
@@ -56,10 +54,8 @@ const OthersList = ({
             asChild
           >
             <Link
-              href={{
-                pathname: '/settings/design',
-                query: { tableId },
-              }}
+              to="/settings/design"
+              search={{ tableId }}
             >
               <Database className="pr-1 text-lg" />
               {t('toolbar.others.api.databaseConnection')}

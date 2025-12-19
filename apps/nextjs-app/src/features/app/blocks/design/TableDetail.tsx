@@ -10,7 +10,7 @@ import {
 } from '@/ui-lib/shadcn';
 import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import { Pencil } from 'lucide-react';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
 interface EditableFieldProps {

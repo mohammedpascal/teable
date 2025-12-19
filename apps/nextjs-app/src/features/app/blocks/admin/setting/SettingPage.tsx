@@ -12,7 +12,7 @@ import {
   Switch,
 } from '@/ui-lib/shadcn';
 import { Pencil } from 'lucide-react';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { SettingsHeader } from '../../setting/SettingsHeader';
 
@@ -186,7 +186,7 @@ export const SettingPage = (props: ISettingPageProps) => {
         </div>
 
         <p className="p-4 text-right text-xs">
-          {t('settings.setting.version')}: {process.env.NEXT_PUBLIC_BUILD_VERSION}
+          {t('settings.setting.version')}: {import.meta.env.VITE_BUILD_VERSION ?? process.env.NEXT_PUBLIC_BUILD_VERSION}
         </p>
       </div>
     </div>

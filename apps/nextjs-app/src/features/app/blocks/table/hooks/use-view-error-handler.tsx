@@ -2,29 +2,27 @@ import { useMutation } from '@tanstack/react-query';
 import { HttpError, HttpErrorCode } from '@teable/core';
 import { getTableById } from '@teable/openapi';
 import { useConnection } from '@/sdk/hooks';
-import { useRouter } from 'next/router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import type { ConnectionReceiveRequest } from 'sharedb/lib/sharedb';
 
 export const useViewErrorHandler = (tableId: string, viewId: string) => {
-  const router = useRouter();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
   const { connection } = useConnection();
 
   const { mutate: redirectDefaultView } = useMutation({
     mutationFn: (tableId: string) => getTableById(tableId),
     onSuccess: (data) => {
       const defaultViewId = data.data.defaultViewId;
-      router.push(
-        {
-          pathname: '/table/[tableId]/[viewId]',
-          query: {
-            tableId,
-            viewId: defaultViewId,
-          },
+      navigate({
+        to: '/table/$tableId/$viewId',
+        params: {
+          tableId,
+          viewId: defaultViewId,
         },
-        undefined,
-        { shallow: Boolean(defaultViewId) }
-      );
+        replace: Boolean(defaultViewId),
+      });
     },
   });
 

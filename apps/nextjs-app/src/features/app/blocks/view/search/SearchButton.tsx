@@ -21,7 +21,7 @@ import {
   PopoverTrigger,
 } from '@/ui-lib/shadcn';
 import { isEqual } from 'lodash';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useDebounce, useLocalStorage } from 'react-use';

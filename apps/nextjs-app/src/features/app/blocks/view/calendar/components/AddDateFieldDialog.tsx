@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import {
   getFormatStringForLanguage,

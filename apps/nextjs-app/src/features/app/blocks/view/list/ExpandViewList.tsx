@@ -13,8 +13,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import { useState } from 'react';
 import { VIEW_ICON_MAP } from '../constant';
 import { DraggableWrapper } from './DraggableWrapper';
@@ -23,7 +23,9 @@ export const ExpandViewList = () => {
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const [open, setOpen] = useState(false);
   const [isDraggable, setIsDraggable] = useState(true);
-  const router = useRouter();
+  const navigate = useNavigate();
+  const params = useParams({ strict: false });
+  const tableId = (params as { tableId?: string }).tableId || '';
   const permission = useHookPermission();
 
   return (
@@ -63,17 +65,11 @@ export const ExpandViewList = () => {
                       opacity: isDragging ? '0.6' : '1',
                     }}
                     onSelect={() => {
-                      router.push(
-                        {
-                          pathname: '/table/[tableId]/[viewId]',
-                          query: {
-                            tableId: router.query.tableId,
-                            viewId: id,
-                          },
-                        },
-                        undefined,
-                        { shallow: true }
-                      );
+                      navigate({
+                        to: '/table/$tableId/$viewId',
+                        params: { tableId, viewId: id },
+                        replace: true,
+                      });
                       setOpen(false);
                     }}
                   >

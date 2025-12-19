@@ -1,4 +1,4 @@
-import UnknownFileIcon from '@/ui-lib/icons/app/unknown-file.svg';
+import UnknownFileIcon from '@/ui-lib/icons/app/unknown-file.svg?react';
 import { renderToString } from 'react-dom/server';
 
 export const getFileCover = (mimetype: string, url: string) => {

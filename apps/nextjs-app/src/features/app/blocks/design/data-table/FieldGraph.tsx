@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { DynamicFieldGraph } from '../../graph/DynamicFieldGraph';
 export const FieldGraph = ({ fieldId }: { fieldId: string }) => {
   const table = useTable();

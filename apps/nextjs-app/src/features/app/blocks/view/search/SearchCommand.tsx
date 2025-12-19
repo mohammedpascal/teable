@@ -36,7 +36,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from '@/ui-lib';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 

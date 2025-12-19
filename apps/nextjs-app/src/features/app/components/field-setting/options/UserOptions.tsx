@@ -2,7 +2,7 @@ import type { CellValueType, IUserCellValue, IUserFieldOptions } from '@teable/c
 import { UserEditor } from '@/sdk/components';
 import { Label, Switch } from '@/ui-lib';
 import { keyBy } from 'lodash';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 import { DefaultValue } from '../DefaultValue';
 

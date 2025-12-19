@@ -5,7 +5,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import type { AppProps as NextAppProps } from 'next/app';
 import Head from 'next/head';
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { z } from 'zod';
 import { Guide } from '@/components/Guide';
@@ -72,7 +72,7 @@ const MyApp = (appProps: AppPropsWithLayout) => {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.version="${process.env.NEXT_PUBLIC_BUILD_VERSION ?? 'develop'}";
+              window.version="${import.meta.env.VITE_BUILD_VERSION ?? process.env.NEXT_PUBLIC_BUILD_VERSION ?? 'develop'}";
               window.__TE__=${JSON.stringify(env)};
             `,
           }}

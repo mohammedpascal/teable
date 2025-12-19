@@ -3,7 +3,7 @@ import { OpenAPIRegistry, OpenApiGeneratorV3 } from '@asteasolutions/zod-to-open
 import type { OpenAPIObject } from 'openapi3-ts/oas30';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import OpenAPISnippet from './openapi-snippet';
+import * as OpenAPISnippet from './openapi-snippet';
 import { getRoutes } from './utils';
 
 function registerAllRoute() {

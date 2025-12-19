@@ -1,5 +1,10 @@
+/**
+ * @deprecated This function is for Next.js compatibility only.
+ * TanStack Start uses client-side translation loading via `useLoadAllTranslations`.
+ * This function may be removed after full migration is complete.
+ */
 import type { GetServerSidePropsContext } from 'next';
-import type { UserConfig } from 'next-i18next';
+import type { UserConfig } from 'react-i18next';
 import { getServerSideTranslations } from './getServerSideTranslations';
 import type { I18nNamespace } from './I18nNamespace.types';
 

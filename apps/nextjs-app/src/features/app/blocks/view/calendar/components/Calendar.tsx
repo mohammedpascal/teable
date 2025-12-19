@@ -30,7 +30,7 @@ import {
 import { addDays, subDays, format, set } from 'date-fns';
 import { enUS, zhCN, ja, ru, fr } from 'date-fns/locale';
 import { toZonedTime, fromZonedTime } from 'date-fns-tz';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { EventListContainer } from '../components/EventListContainer';

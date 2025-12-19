@@ -1,15 +1,16 @@
 import type { IUserMeVo } from '@teable/openapi';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { useTranslation, Trans } from 'next-i18next';
+import { useRouterState } from '@tanstack/react-router';
+import { useTranslation, Trans } from 'react-i18next';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import JoyRide from 'react-joyride';
 import { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import type { CallBackProps, Step, StoreHelpers } from 'react-joyride';
 import colors from 'tailwindcss/colors';
 import { tableConfig } from '@/features/i18n/table.config';
 import { useCompletedGuideMapStore } from './store';
 
-const JoyRideNoSSR = dynamic(() => import('react-joyride'), { ssr: false });
+// Use JoyRide directly (client-side only rendering handled by component)
+const JoyRideNoSSR = JoyRide;
 
 export const GUIDE_PREFIX = 't-guide-';
 
@@ -53,7 +54,7 @@ const findStepsForPath = (
 };
 
 export const Guide = ({ user }: { user?: IUserMeVo }) => {
-  const router = useRouter();
+  const routerState = useRouterState();
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { completedGuideMap, setCompletedGuideMap } = useCompletedGuideMapStore();
 
@@ -63,7 +64,8 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
   const [stepIndex, setStepIndex] = useState(0);
 
   const userId = user?.id;
-  const { pathname, isReady } = router;
+  const pathname = routerState.location.pathname;
+  const isReady = routerState.isLoading === false;
 
   const guideStepMap: Record<StepKey, Step> = useMemo(
     () => ({
@@ -162,7 +164,7 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
 
   const orderedGuideMap: Record<string, EnhanceStep[]> = useMemo(
     () => ({
-      '/table/[tableId]/[viewId]': [
+      '/table/$tableId/$viewId': [
         { key: StepKey.CreateTable, step: guideStepMap[StepKey.CreateTable] },
         { key: StepKey.CreateView, step: guideStepMap[StepKey.CreateView] },
         { key: StepKey.ViewFiltering, step: guideStepMap[StepKey.ViewFiltering] },
@@ -203,17 +205,16 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
   };
 
   useEffect(() => {
+    // Reset guide on route change
     const resetGuide = () => {
       setStepIndex(0);
       helpers.current?.reset(false);
     };
 
-    router.events.on('routeChangeStart', resetGuide);
-
-    return () => {
-      router.events.off('routeChangeStart', resetGuide);
-    };
-  }, [router.events, setStepIndex]);
+    // TanStack Router doesn't have events like Next.js
+    // We'll reset when pathname changes
+    resetGuide();
+  }, [pathname]);
 
   useEffect(() => {
     if (!isReady) return;
@@ -267,6 +268,10 @@ export const Guide = ({ user }: { user?: IUserMeVo }) => {
       timer = undefined;
     };
   }, [completedGuideMap, isReady, orderedGuideMap, pathname, stepIndex, userId]);
+
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
   return (
     <JoyRideNoSSR

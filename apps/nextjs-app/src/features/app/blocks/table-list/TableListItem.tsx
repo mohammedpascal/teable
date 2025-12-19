@@ -2,7 +2,7 @@ import { Table2 } from '@/components/icons';
 import type { Table } from '@/sdk/model';
 import { Button, cn } from '@/ui-lib/shadcn';
 import { Input } from '@/ui-lib/shadcn/ui/input';
-import { useRouter } from 'next/router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { Emoji } from '../../components/emoji/Emoji';
@@ -21,24 +21,22 @@ interface IProps {
 export const TableListItem: React.FC<IProps> = ({ table, isActive, className, isDragging }) => {
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
-  const viewId = router.query.viewId;
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
+  const viewId = search.viewId;
   const permission = useHookPermission();
   const { leftVisible } = useSidebar();
   const isCollapsed = leftVisible === 'collapsed';
 
   const navigateHandler = () => {
-    router.push(
-      {
-        pathname: '/table/[tableId]/[viewId]',
-        query: {
-          tableId: table.id,
-          viewId: table.defaultViewId,
-        },
+    navigate({
+      to: '/table/$tableId/$viewId',
+      params: {
+        tableId: table.id,
+        viewId: table.defaultViewId,
       },
-      undefined,
-      { shallow: Boolean(table.defaultViewId) && Boolean(viewId) }
-    );
+      replace: Boolean(table.defaultViewId) && Boolean(viewId),
+    });
   };
 
   useEffect(() => {

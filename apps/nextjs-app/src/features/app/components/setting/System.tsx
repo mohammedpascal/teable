@@ -1,6 +1,6 @@
 import { useTheme } from '@teable/next-themes';
 import { Label, RadioGroup, RadioGroupItem, Separator } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { LanguagePicker } from '../LanguagePicker';
 import { InteractionSelect } from './InteractionSelect';
@@ -135,7 +135,7 @@ export const System: React.FC = () => {
       )}
       <div>
         <Label>{t('settings.setting.version')}</Label>
-        <div className="pt-2 text-base">{process.env.NEXT_PUBLIC_BUILD_VERSION}</div>
+        <div className="pt-2 text-base">{import.meta.env.VITE_BUILD_VERSION ?? process.env.NEXT_PUBLIC_BUILD_VERSION}</div>
       </div>
     </div>
   );

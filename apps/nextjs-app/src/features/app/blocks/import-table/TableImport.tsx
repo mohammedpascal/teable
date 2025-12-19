@@ -40,8 +40,8 @@ import {
   Checkbox,
 } from '@/ui-lib';
 import { toast } from '@/ui-lib/shadcn/ui/sonner';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useState, useRef, useCallback } from 'react';
 import { useLocalStorage } from 'react-use';
 import { FieldConfigPanel, InplaceFieldConfigPanel } from './field-config-panel';
@@ -66,7 +66,8 @@ enum Step {
 }
 
 export const TableImport = (props: ITableImportProps) => {
-  const router = useRouter();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
   const { t } = useTranslation(['table']);
   const [step, setStep] = useState(Step.UPLOAD);
   const { children, open, onOpenChange, fileType, tableId } = props;
@@ -90,16 +91,11 @@ export const TableImport = (props: ITableImportProps) => {
     onSuccess: (data) => {
       const { defaultViewId: viewId, id: tableId } = data[0];
       onOpenChange?.(false);
-      router.push(
-        {
-          pathname: '/table/[tableId]/[viewId]',
-          query: { tableId, viewId },
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
+      navigate({
+        to: '/table/$tableId/$viewId',
+        params: { tableId, viewId },
+        replace: true,
+      });
     },
   });
 
@@ -109,18 +105,14 @@ export const TableImport = (props: ITableImportProps) => {
     },
     onSuccess: () => {
       onOpenChange?.(false);
-      const { tableId: routerTableId } = router.query;
-      routerTableId !== tableId &&
-        router.push(
-          {
-            pathname: '/table/[tableId]',
-            query: { tableId },
-          },
-          undefined,
-          {
-            shallow: true,
-          }
-        );
+      const routerTableId = (search.tableId as string) || '';
+      if (routerTableId !== tableId) {
+        navigate({
+          to: '/table/$tableId',
+          params: { tableId: tableId || '' },
+          replace: true,
+        });
+      }
     },
   });
 

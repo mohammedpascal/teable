@@ -11,7 +11,7 @@ import { BaseSingleSelect } from '@/sdk/components/filter/view-filter/component/
 
 import { RollupField } from '@/sdk/model';
 import { isEmpty, isEqual } from 'lodash';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useMemo } from 'react';
 import { TimeZoneFormatting } from '../formatting/TimeZoneFormatting';
 import { UnionFormatting } from '../formatting/UnionFormatting';

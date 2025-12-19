@@ -4,7 +4,7 @@ import { getFields as apiGetFields, getTableById as apiGetTableById } from '@tea
 import { ReactQueryKeys } from '@/sdk/config';
 import { useHookPermission } from '@/sdk/hooks';
 import { isEqual } from 'lodash';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { InplaceImportOptionPanel } from '../CollapsePanel';
 import { InplacePreviewColumn } from './InplacePreviewColumn';

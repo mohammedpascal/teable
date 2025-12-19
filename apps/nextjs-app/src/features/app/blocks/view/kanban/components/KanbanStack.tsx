@@ -4,7 +4,7 @@ import type { IFilter } from '@teable/core';
 import { and, mergeFilter } from '@teable/core';
 import { useRecords } from '@/sdk/hooks';
 import type { Record } from '@/sdk/model';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
 import { useMeasure } from 'react-use';
 import type { ListRange, VirtuosoHandle } from 'react-virtuoso';

@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { Fragment, useRef } from 'react';
 import { useClickAway } from 'react-use';
 import { tableConfig } from '@/features/i18n/table.config';

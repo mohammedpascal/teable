@@ -1,12 +1,13 @@
 import type { IViewInstance } from '@/sdk';
 import { useTable } from '@/sdk/hooks';
 import { pick } from 'lodash';
-import { useRouter } from 'next/router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useCallback } from 'react';
 
 export function useDuplicateView(view: IViewInstance) {
   const table = useTable();
-  const router = useRouter();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
 
   const newView = pick(view, [
     'type',
@@ -24,13 +25,10 @@ export function useDuplicateView(view: IViewInstance) {
 
     const viewDoc = (await table.createView(newView)).data;
     const viewId = viewDoc.id;
-    router.push(
-      {
-        pathname: '/table/[tableId]/[viewId]',
-        query: { tableId: table.id, viewId },
-      },
-      undefined,
-      { shallow: Boolean(router.query.viewId) }
-    );
-  }, [router, table, newView]);
+    navigate({
+      to: '/table/$tableId/$viewId',
+      params: { tableId: table.id, viewId },
+      replace: Boolean(search.viewId),
+    });
+  }, [navigate, table, newView, search.viewId]);
 }

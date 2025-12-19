@@ -3,7 +3,7 @@ import { useField } from '@/sdk/hooks';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { Button, Input } from '@/ui-lib/shadcn';
 import { toast } from '@/ui-lib/shadcn/ui/sonner';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 

@@ -11,7 +11,7 @@ import {
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { Spin } from '@/ui-lib/base';
 import { cn, Input } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useImportStatus } from '../hooks/use-import-status';
 

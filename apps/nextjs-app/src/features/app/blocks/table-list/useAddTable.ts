@@ -2,8 +2,8 @@ import type { IFieldRo, IHttpError } from '@teable/core';
 import { Colors, FieldType, getUniqName, NumberFormattingType, ViewType } from '@teable/core';
 import { useTables } from '@/sdk/hooks';
 import { Table } from '@/sdk/model';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useMemo, useState } from 'react';
 import { convertTableNameToDbTableName } from './utils';
 
@@ -46,7 +46,8 @@ const useDefaultFields = (): IFieldRo[] => {
 
 export function useAddTable() {
   const tables = useTables();
-  const router = useRouter();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
   const { t } = useTranslation('table');
   const fieldRos = useDefaultFields();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -87,16 +88,11 @@ export function useAddTable() {
         const viewId = tableData.defaultViewId;
         setDialogOpen(false);
         setTableName('');
-        router.push(
-          {
-            pathname: '/table/[tableId]/[viewId]',
-            query: { tableId, viewId },
-          },
-          undefined,
-          {
-            shallow: Boolean(router.query.viewId),
-          }
-        );
+        navigate({
+          to: '/table/$tableId/$viewId',
+          params: { tableId, viewId },
+          replace: Boolean(search.viewId),
+        });
       } catch (err: unknown) {
         const error = err as IHttpError;
         setError(error.message || 'Failed to create table. Please try again.');
@@ -104,7 +100,7 @@ export function useAddTable() {
         setIsCreating(false);
       }
     },
-    [t, fieldRos, router]
+    [t, fieldRos, navigate, search.viewId]
   );
 
   const openDialog = useCallback(() => {

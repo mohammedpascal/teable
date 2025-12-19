@@ -15,7 +15,7 @@ import {
 import { useIsHydrated, useTableId } from '@/sdk/hooks';
 import { Table } from '@/sdk/model/table';
 import { ToggleGroup, ToggleGroupItem, Button } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
 import { developerConfig } from '@/features/i18n/developer.config';
 import { CodeBlock } from './PreviewScript';

@@ -17,8 +17,7 @@ import {
   Label,
   useToast,
 } from '@/ui-lib/shadcn';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
 interface IChangePasswordDialogProps {
@@ -27,7 +26,6 @@ interface IChangePasswordDialogProps {
 export const ChangePasswordDialog = (props: IChangePasswordDialogProps) => {
   const { children } = props;
   const { t } = useTranslation('common');
-  const router = useRouter();
   const { user } = useSession();
   const { toast } = useToast();
   const [newPassword, setNewPassword] = useState('');
@@ -46,7 +44,7 @@ export const ChangePasswordDialog = (props: IChangePasswordDialogProps) => {
         description: t('settings.account.changePasswordSuccess.desc'),
       });
       setTimeout(() => {
-        router.reload();
+        window.location.reload();
       }, 2000);
     },
     onError: (err: HttpError) => {

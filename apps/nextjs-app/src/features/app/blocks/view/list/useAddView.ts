@@ -1,12 +1,13 @@
 import { ViewType } from '@teable/core';
 import { useTable, useViews } from '@/sdk/hooks';
-import { useRouter } from 'next/router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useCallback } from 'react';
 
 export function useAddView() {
   const table = useTable();
   const views = useViews();
-  const router = useRouter();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
   const viewName = views?.[views.length - 1]?.name + ' ' + views?.length;
 
   return useCallback(
@@ -22,15 +23,12 @@ export function useAddView() {
         })
       ).data;
       const viewId = viewDoc.id;
-      router.push(
-        {
-          pathname: '/table/[tableId]/[viewId]',
-          query: { tableId: table.id, viewId },
-        },
-        undefined,
-        { shallow: Boolean(router.query.viewId) }
-      );
+      navigate({
+        to: '/table/$tableId/$viewId',
+        params: { tableId: table.id, viewId },
+        replace: Boolean(search.viewId),
+      });
     },
-    [router, table, viewName]
+    [navigate, table, viewName, search.viewId]
   );
 }

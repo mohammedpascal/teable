@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { checkBaseIntegrity, fixBaseIntegrity } from '@teable/openapi';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@/ui-lib/shadcn';
 import { Check, Loader2 } from 'lucide-react';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 
 export const IntegrityButton = () => {
   const { t } = useTranslation(['table']);

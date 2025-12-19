@@ -4,8 +4,7 @@ import { useFields, useTableId, useView } from '@/sdk/hooks';
 import { type FormView } from '@/sdk/model';
 import { Button, cn, useToast } from '@/ui-lib/shadcn';
 import { omit } from 'lodash';
-import Image from 'next/image';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo, useState } from 'react';
 import { useLocalStorage, useMap, useSet } from 'react-use';
 import { tableConfig } from '@/features/i18n/table.config';
@@ -134,26 +133,20 @@ export const FormBody = (props: IFormBodyProps) => {
         )}
       >
         {coverUrl && (
-          <Image
+          <img
             src={coverUrl}
             alt="card cover"
-            fill
-            sizes="100%"
-            style={{
-              objectFit: 'cover',
-            }}
+            className="absolute inset-0 h-full w-full object-cover"
           />
         )}
       </div>
 
       {logoUrl && (
         <div className="group absolute left-1/2 top-[104px] ml-[-40px] size-20">
-          <Image
-            className="rounded-lg object-cover shadow-sm"
+          <img
+            className="h-full w-full rounded-lg object-cover shadow-sm"
             src={logoUrl}
             alt="card cover"
-            fill
-            sizes="100%"
           />
         </div>
       )}

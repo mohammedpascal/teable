@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getUniqName } from '@teable/core';
 import { duplicateTable, SUPPORTEDTYPE } from '@teable/openapi';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { Link, useNavigate, useParams } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useMemo, useState } from 'react';
 import {
   Copy,
@@ -52,9 +51,10 @@ export const TableOperation = (props: ITableOperationProps) => {
   const [importType, setImportType] = useState(SUPPORTEDTYPE.CSV);
   const permission = useHookPermission();
   const tables = useTables();
-  const router = useRouter();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { tableId: routerTableId } = router.query;
+  const params = useParams({ strict: false });
+  const routerTableId = (params as { tableId?: string }).tableId;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
   const { trigger } = useDownload({ downloadUrl: `/api/export/${table.id}`, key: 'table' });
 
@@ -91,17 +91,11 @@ export const TableOperation = (props: ITableOperationProps) => {
 
       const firstTableId = tables.find((t) => t.id !== tableId)?.id;
       if (routerTableId === tableId) {
-        router.push(
-          firstTableId
-            ? {
-                pathname: '/table/[tableId]',
-                query: { tableId: firstTableId },
-              }
-            : {
-                pathname: '/',
-                query: {},
-              }
-        );
+        if (firstTableId) {
+          navigate({ to: '/table/$tableId', params: { tableId: firstTableId } });
+        } else {
+          navigate({ to: '/' });
+        }
       }
       setDeleteConfirm(false);
     } catch (error) {
@@ -120,10 +114,7 @@ export const TableOperation = (props: ITableOperationProps) => {
         queryKey: ReactQueryKeys.tableList(),
       });
       setDuplicateSetting(false);
-      router.push({
-        pathname: '/table/[tableId]',
-        query: { tableId: id },
-      });
+      navigate({ to: '/table/$tableId', params: { tableId: id } });
     },
   });
 
@@ -148,10 +139,8 @@ export const TableOperation = (props: ITableOperationProps) => {
           {menuPermission.manageTable && (
             <DropdownMenuItem asChild>
               <Link
-                href={{
-                  pathname: '/settings/design',
-                  query: { tableId: table.id },
-                }}
+                to="/settings/design"
+                search={{ tableId: table.id }}
                 title={t('table:table.design')}
               >
                 <Settings className="mr-2" />

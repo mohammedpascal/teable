@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { Trans, useTranslation } from 'next-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import Tea from '@/components/Tea';
 import { tableConfig } from '@/features/i18n/table.config';
 

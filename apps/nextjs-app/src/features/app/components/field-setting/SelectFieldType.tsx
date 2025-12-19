@@ -1,7 +1,7 @@
 import { FieldType, PRIMARY_SUPPORTED_TYPES } from '@teable/core';
 import { FIELD_TYPE_ORDER, useFieldStaticGetter } from '@/sdk';
-import SearchIcon from '@/ui-lib/icons/app/search.svg';
-import { useTranslation } from 'next-i18next';
+import SearchIcon from '@/ui-lib/icons/app/search.svg?react';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Selector } from '@/components/Selector';
 import { tableConfig } from '@/features/i18n/table.config';

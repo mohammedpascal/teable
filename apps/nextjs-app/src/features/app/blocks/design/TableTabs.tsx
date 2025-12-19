@@ -6,8 +6,8 @@ import { Table } from '@/sdk/model';
 import { ConfirmDialog, Selector } from '@/ui-lib/base';
 import { Button, Tabs, TabsContent } from '@/ui-lib/shadcn';
 import { Trash2 } from 'lucide-react';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { FieldSetting } from '../view/field/FieldSetting';
 import { DataTable } from './data-table/DataTable';
@@ -51,13 +51,14 @@ export const TablePicker = ({
 const DangerZone = () => {
   const table = useTable();
   const tables = useTables();
-  const router = useRouter();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
   const { t } = useTranslation(['common', 'table']);
   const permission = useHookPermission();
   const canDelete = permission['table|manage'];
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { tableId: routerTableId } = router.query;
+  const routerTableId = (search.tableId as string) || '';
 
   if (!table || !canDelete) return null;
 
@@ -72,17 +73,11 @@ const DangerZone = () => {
 
       const firstTableId = tables.find((t) => t.id !== tableId)?.id;
       if (routerTableId === tableId) {
-        router.push(
-          firstTableId
-            ? {
-                pathname: '/settings/design',
-                query: { tableId: firstTableId },
-              }
-            : {
-                pathname: '/',
-                query: {},
-              }
-        );
+        if (firstTableId) {
+          navigate({ to: '/settings/design', search: { tableId: firstTableId } });
+        } else {
+          navigate({ to: '/' });
+        }
       }
     } catch (error) {
       console.error('Failed to delete table:', error);
@@ -132,13 +127,14 @@ const DangerZone = () => {
 
 export const TableTabs = () => {
   const tables = useTables();
-  const router = useRouter();
-  const tableId = router.query.tableId as string;
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
+  const tableId = (search.tableId as string) || '';
 
   return (
     <Tabs
       value={tableId}
-      onValueChange={(tableId) => router.push({ pathname: '/settings/design', query: { tableId } })}
+      onValueChange={(tableId) => navigate({ to: '/settings/design', search: { tableId } })}
       className="space-y-4"
     >
       {tables.map((table) => (

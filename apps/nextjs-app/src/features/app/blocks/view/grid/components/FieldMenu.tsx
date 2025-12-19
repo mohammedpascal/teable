@@ -31,7 +31,7 @@ import {
   SheetContent,
   SheetHeader,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { Fragment, useRef } from 'react';
 import { useClickAway } from 'react-use';
 import { FieldOperator } from '@/features/app/components/field-setting/type';

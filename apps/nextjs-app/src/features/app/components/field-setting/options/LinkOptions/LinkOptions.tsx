@@ -3,8 +3,8 @@ import { Relationship } from '@teable/core';
 import { ArrowUpRight } from '@/components/icons';
 import { useHookPermission, useTableId } from '@/sdk/hooks';
 import { Button, Label, Switch } from '@/ui-lib/shadcn';
-import Link from 'next/link';
-import { Trans, useTranslation } from 'next-i18next';
+import { Link } from '@tanstack/react-router';
+import { Trans, useTranslation } from 'react-i18next';
 import { Fragment, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { MoreLinkOptions } from './MoreLinkOptions';
@@ -171,14 +171,15 @@ export const LinkOptions = (props: {
         </>
       )}
       <div>
-        <Link
+        <a
           className="mt-4 flex items-center text-xs underline"
           href={t('table:field.editor.linkFieldKnowMoreLink')}
           target="_blank"
+          rel="noreferrer"
         >
           <ArrowUpRight className="size-4" />
           {t('table:field.editor.knowMore')}
-        </Link>
+        </a>
       </div>
     </div>
   );

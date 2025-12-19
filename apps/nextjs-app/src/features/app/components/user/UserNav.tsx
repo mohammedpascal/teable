@@ -13,14 +13,14 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@/ui-lib/shadcn';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { useSettingStore } from '../setting/useSettingStore';
 
 export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
   const { children } = props;
-  const router = useRouter();
+  const navigate = useNavigate();
   const { t } = useTranslation(['common']);
   const { user } = useSession();
   const setting = useSettingStore();
@@ -30,7 +30,7 @@ export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
 
   const loginOutClick = async () => {
     await loginOut();
-    router.push('/auth/login');
+    navigate({ to: '/auth/login' });
   };
 
   return (
@@ -49,7 +49,7 @@ export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="flex gap-2" onClick={() => router.push('/settings/general')}>
+        <DropdownMenuItem className="flex gap-2" onClick={() => navigate({ to: '/settings/general' })}>
           <Settings className="size-4 shrink-0" />
           Admin Settings
         </DropdownMenuItem>

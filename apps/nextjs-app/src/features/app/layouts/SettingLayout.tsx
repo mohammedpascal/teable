@@ -1,8 +1,8 @@
 import type { DriverClient } from '@teable/core';
 import type { IUser } from '@/sdk';
 import { AppProvider, SessionProvider } from '@/sdk';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { AppLayout } from '@/features/app/layouts';
 import { SidebarProvider } from '../contexts/SidebarContext';
@@ -18,7 +18,7 @@ export const SettingLayout: React.FC<{
   driver?: DriverClient;
   dehydratedState?: unknown;
 }> = ({ children, user, dehydratedState }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
   const { t } = useTranslation(['setting', 'common']);
@@ -26,7 +26,7 @@ export const SettingLayout: React.FC<{
   const routes = useSettingRoute();
 
   const onBack = () => {
-    router.push(`/`);
+    navigate({ to: '/' });
   };
 
   return (

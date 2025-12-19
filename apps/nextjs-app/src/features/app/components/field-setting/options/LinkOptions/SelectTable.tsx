@@ -1,8 +1,8 @@
 import { ArrowUpRight, Table2 } from '@/components/icons';
 import { AnchorContext, TableProvider } from '@/sdk/context';
 import { useTableId, useTables } from '@/sdk/hooks';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { Link } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { Selector } from '@/components/Selector';
 import { tableConfig } from '@/features/i18n/table.config';
 
@@ -22,7 +22,7 @@ export const SelectTable = ({ tableId, onChange }: ISelectTableProps) => {
           <span className="flex items-center gap-1">
             {t('table:field.editor.linkTable')}
             {tableId && (
-              <Link href={`/table/${tableId}`} target="_blank">
+              <Link to={`/table/${tableId}`} target="_blank">
                 <ArrowUpRight className="size-4 shrink-0" />
               </Link>
             )}

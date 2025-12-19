@@ -1,7 +1,7 @@
 import { Check } from '@/components/icons';
 import { Spin } from '@/ui-lib/base';
 import { Button } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import { authConfig } from '@/features/i18n/auth.config';
 

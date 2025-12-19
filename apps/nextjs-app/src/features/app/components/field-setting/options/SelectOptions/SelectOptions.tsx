@@ -5,7 +5,7 @@ import { ColorUtils } from '@teable/core';
 import { DraggableHandle, Plus, Trash2 } from '@/components/icons';
 import { cn, Label, Switch } from '@/ui-lib/shadcn';
 import { Button } from '@/ui-lib/shadcn/ui/button';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo, useRef } from 'react';
 import type { VirtuosoHandle } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';

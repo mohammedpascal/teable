@@ -14,8 +14,8 @@ import {
 } from '@/ui-lib/shadcn';
 import { Input } from '@/ui-lib/shadcn/ui/input';
 import { Unlock } from 'lucide-react';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { Fragment, useRef, useState } from 'react';
 import { useDownload } from '../../../hooks/useDownLoad';
 import { VIEW_ICON_MAP } from '../constant';
@@ -33,7 +33,7 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
   const [isEditing, setIsEditing] = useState(false);
   const [open, setOpen] = useState(false);
   const tableId = useTableId();
-  const router = useRouter();
+  const navigate = useNavigate();
   const duplicateView = useDuplicateView(view);
   const deleteView = useDeleteView(view.id);
   const permission = useHookPermission();
@@ -47,14 +47,11 @@ export const ViewListItem: React.FC<IProps> = ({ view, removable, isActive }) =>
 
   const navigateHandler = () => {
     resetSearchHandler?.();
-    router.push(
-      {
-        pathname: '/table/[tableId]/[viewId]',
-        query: { tableId: tableId, viewId: view.id },
-      },
-      undefined,
-      { shallow: Boolean(view.id) }
-    );
+    navigate({
+      to: '/table/$tableId/$viewId',
+      params: { tableId: tableId || '', viewId: view.id },
+      replace: Boolean(view.id),
+    });
   };
   const ViewIcon = VIEW_ICON_MAP[view.type];
 

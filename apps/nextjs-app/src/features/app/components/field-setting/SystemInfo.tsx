@@ -1,7 +1,7 @@
 import type { IFieldVo } from '@teable/core';
 import { LocalStorageKeys } from '@/sdk/config/local-storage-keys';
 import { Input } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useLocalStorage } from 'react-use';
 
 export const DbFieldName: React.FC<{

@@ -1,6 +1,6 @@
 import type { IGetRecordsRo } from '@teable/openapi';
 import { cn, Input, ToggleGroup, ToggleGroupItem } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import React, { useState, useMemo, useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';

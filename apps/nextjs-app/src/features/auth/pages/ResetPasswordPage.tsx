@@ -4,8 +4,8 @@ import { resetPassword } from '@teable/openapi';
 import { passwordSchema } from '@teable/openapi/src/auth/types';
 import { Spin, Error } from '@/ui-lib/base';
 import { Button, Input, Label, Separator, useToast } from '@/ui-lib/shadcn';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { authConfig } from '@/features/i18n/auth.config';
 import { LayoutMain } from '../components/LayoutMain';
@@ -13,8 +13,9 @@ import { LayoutMain } from '../components/LayoutMain';
 export const ResetPasswordPage = () => {
   const [error, setError] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const router = useRouter();
-  const code = router.query.code as string;
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
+  const code = (search.code as string) || '';
   const { t } = useTranslation(authConfig.i18nNamespaces);
   const { toast } = useToast();
 
@@ -30,7 +31,7 @@ export const ResetPasswordPage = () => {
         description: t('auth:resetPassword.success.description'),
       });
       setTimeout(() => {
-        router.push('/auth/login');
+        navigate({ to: '/auth/login' });
       }, 2000);
     },
     onError: (err) => {

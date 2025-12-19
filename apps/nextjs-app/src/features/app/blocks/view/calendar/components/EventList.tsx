@@ -3,7 +3,7 @@ import { RecordItem, RecordList } from '@/sdk/components';
 import { useRowCount } from '@/sdk/hooks';
 import { useInfiniteRecords } from '@/sdk/hooks/use-infinite-records';
 import { Skeleton } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 import { useCalendar } from '../hooks';
 import { getEventTitle } from '../util';

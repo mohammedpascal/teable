@@ -4,7 +4,7 @@ import { CreateRecordModal, Sort, ViewFilter, VisibleFields } from '@/sdk';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { useView } from '@/sdk/hooks/use-view';
 import { Button, Label, Switch, cn } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { GUIDE_VIEW_FILTERING, GUIDE_VIEW_SORTING } from '@/components/Guide';
 import { tableConfig } from '@/features/i18n/table.config';
 import { useToolbarChange } from '../../hooks/useToolbarChange';

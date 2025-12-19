@@ -3,7 +3,7 @@ import { Plus } from '@/components/icons';
 import { useViews } from '@/sdk';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { GUIDE_CREATE_VIEW } from '@/components/Guide';
 import { VIEW_ICON_MAP } from '../../view/constant';

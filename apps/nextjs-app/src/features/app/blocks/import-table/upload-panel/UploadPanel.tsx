@@ -3,7 +3,7 @@ import type { SUPPORTEDTYPE, INotifyVo } from '@teable/openapi';
 import { UploadType } from '@teable/openapi';
 import { AttachmentManager } from '@/sdk/components';
 import { Spin, Button, cn } from '@/ui-lib';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Process } from './Process';
 import { Trigger } from './Trigger';

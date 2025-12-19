@@ -14,7 +14,7 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { Fragment, useMemo } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { useGallery } from '../hooks';

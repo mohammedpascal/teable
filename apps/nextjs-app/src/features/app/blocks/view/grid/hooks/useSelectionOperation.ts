@@ -17,7 +17,7 @@ import type { CombinedSelection, IRecordIndexMap } from '@/sdk';
 import { useFields, useSearch, useTableId, useView, useViewId } from '@/sdk';
 import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import type { AxiosResponse } from 'axios';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 import { selectionCoverAttachments } from '../utils';
 import {

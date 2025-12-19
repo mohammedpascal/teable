@@ -4,7 +4,7 @@ import {
   checkFieldNotNullValidationEnabled,
 } from '@teable/core';
 import { Label, Switch } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 import type { IFieldEditorRo } from '../type';
 import { FieldOperator } from '../type';

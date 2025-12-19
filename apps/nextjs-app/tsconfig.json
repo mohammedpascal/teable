@@ -70,13 +70,9 @@
         "../../../packages/openapi/src/index"
       ]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "vite/client"
     ],
     "strictNullChecks": true
   },
@@ -85,7 +81,6 @@
     "**/.*/"
   ],
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.mts",
@@ -94,6 +89,8 @@
     "**/*.mjs",
     "**/*.jsx",
     "**/*.json",
-    ".next/types/**/*.ts"
+    "src/**/*",
+    "vite.config.ts",
+    "start.config.ts"
   ]
 }

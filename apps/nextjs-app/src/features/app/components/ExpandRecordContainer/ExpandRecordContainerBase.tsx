@@ -1,6 +1,6 @@
 import type { IRecord } from '@teable/core';
 import { ExpandRecorder, ExpandRecordModel } from '@/sdk';
-import { useRouter } from 'next/router';
+import { useSearch } from '@tanstack/react-router';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import type { IExpandRecordContainerRef } from './types';
 
@@ -15,8 +15,8 @@ export const ExpandRecordContainerBase = forwardRef<
   }
 >((props, forwardRef) => {
   const { tableId, viewId, recordServerData, onClose, onUpdateRecordIdCallback } = props;
-  const router = useRouter();
-  const recordId = router.query.recordId as string;
+  const search = useSearch({ strict: false });
+  const recordId = (search.recordId as string) || '';
   const [recordIds, setRecordIds] = useState<string[]>();
 
   useImperativeHandle(forwardRef, () => ({

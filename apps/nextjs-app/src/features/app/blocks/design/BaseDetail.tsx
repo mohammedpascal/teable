@@ -1,5 +1,5 @@
 import { Database } from '@/components/icons';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEnv } from '@/features/app/hooks/useEnv';
 
 export const BaseDetail = () => {

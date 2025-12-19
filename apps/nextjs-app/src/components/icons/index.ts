@@ -4,7 +4,6 @@ export { default as AlertCircle } from './AlertCircle';
 export { default as AlertTriangle } from './AlertTriangle';
 export { default as Anthropic } from './Anthropic';
 export { default as Apple } from './Apple';
-export { default as Array } from './Array';
 export { default as ArrowDown } from './ArrowDown';
 export { default as ArrowLeft } from './ArrowLeft';
 export { default as ArrowRight } from './ArrowRight';

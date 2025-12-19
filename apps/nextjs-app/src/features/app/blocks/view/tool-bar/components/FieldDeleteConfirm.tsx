@@ -2,7 +2,7 @@ import type { RefObject } from 'react';
 import { deleteFields } from '@teable/openapi';
 import { useTableId } from '@/sdk';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 import { useToolBarStore } from './useToolBarStore';

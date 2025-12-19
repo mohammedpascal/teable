@@ -11,7 +11,7 @@ import type { IFieldInstance } from '@/sdk/model';
 import { FormulaField } from '@/sdk/model';
 import { Dialog, DialogContent, DialogTrigger } from '@/ui-lib/shadcn';
 import { isEmpty, isEqual, keyBy } from 'lodash';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useMemo, useState } from 'react';
 import { TimeZoneFormatting } from '../formatting/TimeZoneFormatting';
 import { UnionFormatting } from '../formatting/UnionFormatting';

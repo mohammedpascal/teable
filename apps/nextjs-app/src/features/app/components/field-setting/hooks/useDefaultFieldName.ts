@@ -2,7 +2,7 @@ import type { IFieldRo, ILinkFieldOptionsRo, ILookupOptionsRo } from '@teable/co
 import { FieldType } from '@teable/core';
 import { getField } from '@teable/openapi';
 import { useFields, useTables } from '@/sdk/hooks';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useCallback } from 'react';
 
 export const useDefaultFieldName = () => {

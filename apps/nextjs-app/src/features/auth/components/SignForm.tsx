@@ -11,9 +11,8 @@ import {
 } from '@teable/openapi';
 import { Spin, Error as ErrorCom } from '@/ui-lib/base';
 import { Button, Input, Label, cn } from '@/ui-lib/shadcn';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { Link, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ZodIssue } from 'zod';
@@ -31,7 +30,7 @@ export const SignForm: FC<ISignForm> = (props) => {
   const { t } = useTranslation(authConfig.i18nNamespaces);
   const [signupVerificationToken, setSignupVerificationToken] = useState<string>();
   const [signupVerificationCode, setSignupVerificationCode] = useState<string>();
-  const router = useRouter();
+  const search = useSearch({ strict: false });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
@@ -225,7 +224,7 @@ export const SignForm: FC<ISignForm> = (props) => {
             {type === 'signin' && (
               <Link
                 className="absolute right-0 text-xs text-muted-foreground underline-offset-4 hover:underline"
-                href="/auth/forget-password"
+                to="/auth/forget-password"
               >
                 {t('auth:forgetPassword.trigger')}
               </Link>
@@ -279,11 +278,8 @@ export const SignForm: FC<ISignForm> = (props) => {
             </Button>
             <div className="flex justify-end py-2">
               <Link
-                href={{
-                  pathname: type === 'signin' ? '/auth/signup' : '/auth/login',
-                  query: { ...router.query },
-                }}
-                shallow
+                to={type === 'signin' ? '/auth/signup' : '/auth/login'}
+                search={search}
                 className="text-xs text-muted-foreground underline-offset-4 hover:underline"
               >
                 {type === 'signin' ? t('auth:button.signup') : t('auth:button.signin')}

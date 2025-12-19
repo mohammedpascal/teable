@@ -6,8 +6,8 @@ import { updateNotificationStatus } from '@teable/openapi';
 import { ReactQueryKeys } from '@/sdk/config/react-query-keys';
 import { useLanDayjs } from '@/sdk/hooks';
 import { Button } from '@/ui-lib';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { Link } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { NotificationActionBar } from './NotificationActionBar';
 import { NotificationIcon } from './NotificationIcon';
@@ -70,7 +70,7 @@ export const NotificationList: React.FC<NotificationListProps> = (props) => {
             >
               <Link
                 className="flex flex-auto cursor-pointer items-center px-6 py-2 hover:bg-accent"
-                href={url}
+                to={url}
                 onClick={async () => {
                   !isRead &&
                     updateStatusMutator({

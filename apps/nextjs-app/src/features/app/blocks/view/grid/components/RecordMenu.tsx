@@ -20,7 +20,7 @@ import {
   TooltipTrigger,
 } from '@/ui-lib/shadcn';
 import { noop } from 'lodash';
-import { Trans, useTranslation } from 'next-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Fragment, useCallback, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { tableConfig } from '@/features/i18n/table.config';

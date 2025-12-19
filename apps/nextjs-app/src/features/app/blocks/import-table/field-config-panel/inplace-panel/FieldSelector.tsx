@@ -13,7 +13,7 @@ import {
   cn,
 } from '@/ui-lib';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState, useMemo } from 'react';
 
 interface IFieldSelector {

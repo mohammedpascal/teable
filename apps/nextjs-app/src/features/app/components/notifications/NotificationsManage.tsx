@@ -10,7 +10,7 @@ import { useNotification } from '@/sdk';
 import { ReactQueryKeys } from '@/sdk/config/react-query-keys';
 import { Button, Popover, PopoverContent, PopoverTrigger } from '@/ui-lib';
 import { cn } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
 import { NotificationList } from './NotificationList';
 

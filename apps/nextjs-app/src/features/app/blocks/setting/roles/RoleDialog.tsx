@@ -11,7 +11,7 @@ import {
   Label,
   Checkbox,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useMemo } from 'react';
 
 interface RoleDialogProps {

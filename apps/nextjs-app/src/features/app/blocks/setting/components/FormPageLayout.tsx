@@ -1,6 +1,6 @@
 import { Spin } from '@/ui-lib/base';
 import { Button, Separator } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 
 interface IFormPageLayoutProps {
   children: React.ReactNode | React.ReactNode[] | null;

@@ -1,7 +1,7 @@
 import { GithubLogo, GoogleLogo } from '@/components/icons';
 import { Button } from '@/ui-lib/shadcn';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { useEnv } from '@/features/app/hooks/useEnv';
 import { authConfig } from '@/features/i18n/auth.config';
@@ -29,8 +29,8 @@ export const providersAll = [
 export const SocialAuth = () => {
   const { t } = useTranslation(authConfig.i18nNamespaces);
   const { socialAuthProviders, passwordLoginDisabled } = useEnv();
-  const router = useRouter();
-  const redirect = router.query.redirect as string;
+  const search = useSearch({ strict: false });
+  const redirect = (search.redirect as string) || '';
 
   const providers = useMemo(
     () => providersAll.filter((provider) => socialAuthProviders?.includes(provider.id)),

@@ -10,7 +10,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { System } from '@/features/app/components/setting/System';
 import { Account } from './Account';

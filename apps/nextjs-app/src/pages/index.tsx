@@ -1,5 +1,5 @@
 import type { ITableVo } from '@teable/openapi';
-import { Trans, useTranslation } from 'next-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import type { ReactElement } from 'react';
 import { BaseLayout } from '@/features/app/layouts/BaseLayout';
 import type { NextPageWithLayout } from '@/lib/type';

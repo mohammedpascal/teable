@@ -71,8 +71,8 @@ import {
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { useToast } from '@/ui-lib';
 import { groupBy, isEqual, keyBy, uniqueId } from 'lodash';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useNavigate, useRouterState, useSearch } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useClickAway, usePrevious } from 'react-use';
@@ -103,7 +103,9 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
 ) => {
   const { groupPointsServerData, onRowExpand } = props;
   const { t } = useTranslation(tableConfig.i18nNamespaces);
-  const router = useRouter();
+  const navigate = useNavigate();
+  const routerState = useRouterState();
+  const search = useSearch({ strict: false });
   const tableId = useTableId() as string;
   const activeViewId = useViewId();
   const { user } = useSession();
@@ -276,7 +278,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
 
   // The recordId on the route changes, and the activeCell needs to change with it
   useEffect(() => {
-    const recordId = router.query.recordId as string;
+    const recordId = (search.recordId as string) || '';
     if (recordId) {
       const recordIndex = Number(
         Object.keys(recordMap).find((key) => recordMap[key]?.id === recordId)
@@ -290,7 +292,7 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
           ])
         );
     }
-  }, [router.query.recordId, recordMap]);
+  }, [search.recordId, recordMap]);
 
   const getCellContent = useCallback<(cell: ICellItem) => ICell>(
     (cell) => {
@@ -664,16 +666,11 @@ export const GridViewBaseInner: React.FC<IGridViewBaseInnerProps> = (
       onRowExpand(recordId);
       return;
     }
-    router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, recordId },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
+    navigate({
+      to: routerState.location.pathname,
+      search: { ...search, recordId },
+      replace: true,
+    });
   };
 
   const onItemClick = (type: RegionType, bounds: IRectangle, cellItem: ICellItem) => {

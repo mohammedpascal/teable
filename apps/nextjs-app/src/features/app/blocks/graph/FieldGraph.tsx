@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import { useGraph } from './useGraph';
 import { usePlan } from './usePlan';

@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 
 type Props = {
   statusCode?: number | null;
@@ -12,11 +12,12 @@ type Props = {
 export const ErrorPage: FC<Props> = (props) => {
   const { error, errorId, message, statusCode } = props;
 
+  useEffect(() => {
+    document.title = `Error ${statusCode || ''}`;
+  }, [statusCode]);
+
   return (
     <>
-      <Head>
-        <title>Error {statusCode}</title>
-      </Head>
       <div className="container bg-white text-2xl md:text-xl">
         <div className="size-screen flex flex-col items-center justify-center">
           <h1 className="m-5 text-5xl text-black md:text-4xl">Woops !</h1>

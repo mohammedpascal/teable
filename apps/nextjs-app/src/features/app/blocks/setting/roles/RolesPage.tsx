@@ -3,7 +3,7 @@ import { Plus } from '@/components/icons';
 import type { ICreateRoleRo, IRoleListVo, IUpdateRoleRo } from '@teable/openapi';
 import { createRole, deleteRole, getRoleList, updateRole } from '@teable/openapi';
 import { Button, Separator } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { SettingsHeader } from '../SettingsHeader';
 import { RoleDialog } from './RoleDialog';

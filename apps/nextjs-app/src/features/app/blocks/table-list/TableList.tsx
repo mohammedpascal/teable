@@ -10,10 +10,10 @@ import {
   DropdownMenuTrigger,
 } from '@/ui-lib';
 import { ConfirmDialog } from '@/ui-lib/base';
-import AddBoldIcon from '@/ui-lib/icons/app/add-bold.svg';
+import AddBoldIcon from '@/ui-lib/icons/app/add-bold.svg?react';
 import { Input, Label, cn } from '@/ui-lib/shadcn';
 import { Button } from '@/ui-lib/shadcn/ui/button';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useRef } from 'react';
 import { GUIDE_CREATE_TABLE } from '@/components/Guide';
 import { useSidebar } from '@/features/app/contexts/SidebarContext';

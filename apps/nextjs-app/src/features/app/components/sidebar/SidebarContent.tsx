@@ -6,8 +6,7 @@ import {
   cn,
 } from '@/ui-lib/shadcn';
 import { Button } from '@/ui-lib/shadcn/ui/button';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import { useSidebar } from '../../contexts/SidebarContext';
 
 export interface ISidebarContentRoute {
@@ -26,9 +25,10 @@ interface ISidebarContentProps {
 
 export const SidebarContent = (props: ISidebarContentProps) => {
   const { title, routes, className } = props;
-  const router = useRouter();
+  const routerState = useRouterState();
   const { leftVisible } = useSidebar();
   const isCollapsed = leftVisible === 'collapsed';
+  const currentPath = routerState.location.pathname;
 
   return (
     <div
@@ -37,7 +37,7 @@ export const SidebarContent = (props: ISidebarContentProps) => {
       {title && !isCollapsed && <span className="text-sm text-slate-500">{title}</span>}
       <ul>
         {routes.map(({ Icon, label, route, pathTo, disabledTip }) => {
-          const isActive = route === router.pathname;
+          const isActive = currentPath === pathTo || currentPath.startsWith(pathTo + '/');
 
           if (disabledTip) {
             return (
@@ -102,7 +102,7 @@ export const SidebarContent = (props: ISidebarContentProps) => {
                           isActive && 'bg-secondary'
                         )}
                       >
-                        <Link href={pathTo} className="font-normal">
+                        <Link to={pathTo} className="font-normal">
                           {buttonContent}
                         </Link>
                       </Button>

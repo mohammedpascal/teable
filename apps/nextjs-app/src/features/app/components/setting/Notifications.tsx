@@ -1,7 +1,7 @@
 import { updateUserNotifyMeta } from '@teable/openapi';
 import { useSession } from '@/sdk';
 import { Label, Separator, Switch } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 
 export const Notifications: React.FC = () => {
   const { t } = useTranslation('common');

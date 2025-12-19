@@ -3,7 +3,7 @@ import { Plus } from '@/components/icons';
 import type { ICreateUserRo, IUpdateUserRo, IUserListVo } from '@teable/openapi';
 import { createUser, deleteUser, getUserList, updateUser } from '@teable/openapi';
 import { Button, Separator } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { SettingsHeader } from '../SettingsHeader';
 import { UserDialog } from './UserDialog';

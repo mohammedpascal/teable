@@ -1,8 +1,7 @@
 import type { IFieldVo, IRecord, IViewVo } from '@teable/core';
 import { type IGroupPointsVo } from '@teable/openapi';
 import { AnchorContext, FieldProvider, useTable, ViewProvider } from '@/sdk';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useParams } from '@tanstack/react-router';
 import { ErrorBoundary } from 'react-error-boundary';
 import { View } from '../view/View';
 import { FailAlert } from './FailAlert';
@@ -25,8 +24,8 @@ export const Table: React.FC<ITableProps> = ({
   groupPointsServerDataMap,
 }) => {
   const table = useTable();
-  const router = useRouter();
-  const { tableId, viewId } = router.query as {
+  const params = useParams({ strict: false });
+  const { tableId, viewId } = params as {
     tableId: string;
     viewId: string;
   };
@@ -35,12 +34,10 @@ export const Table: React.FC<ITableProps> = ({
 
   return (
     <AnchorContext.Provider value={{ tableId, viewId }}>
-      <Head>
-        <title>
-          {table?.name ? `${table?.icon ? table.icon + ' ' : ''}${table.name}: Teable` : 'Teable'}
-        </title>
-        <style data-fullcalendar></style>
-      </Head>
+      <title>
+        {table?.name ? `${table?.icon ? table.icon + ' ' : ''}${table.name}: Teable` : 'Teable'}
+      </title>
+      <style data-fullcalendar></style>
       <ViewProvider serverData={viewServerData}>
         <div className="flex h-full grow basis-[500px]">
           <div className="flex flex-1 flex-col overflow-hidden">

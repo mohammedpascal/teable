@@ -6,7 +6,7 @@ import { StandaloneViewProvider } from '@/sdk/context';
 import { useFields, useFieldStaticGetter, useTable } from '@/sdk/hooks';
 import type { IFieldInstance, LinkField } from '@/sdk/model';
 import { Button } from '@/ui-lib/shadcn';
-import { Trans, useTranslation } from 'next-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useCallback, useMemo, useState } from 'react';
 import { LookupFilterOptions } from './LookupFilterOptions';
 

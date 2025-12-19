@@ -1,5 +1,5 @@
 import { ConfirmDialog } from '@/ui-lib/base';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { tableConfig } from '@/features/i18n/table.config';
 

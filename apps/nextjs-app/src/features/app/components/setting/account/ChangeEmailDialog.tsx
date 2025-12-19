@@ -18,8 +18,7 @@ import {
   Label,
 } from '@/ui-lib/shadcn';
 import { toast } from '@/ui-lib/shadcn/ui/sonner';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
 export function ChangeEmailDialog({ children }: { children: React.ReactNode }) {
@@ -31,7 +30,6 @@ export function ChangeEmailDialog({ children }: { children: React.ReactNode }) {
   const [sendSuccess, setSendSuccess] = useState(false);
   const [token, setToken] = useState('');
   const { user } = useSession();
-  const router = useRouter();
 
   useEffect(() => {
     setError('');
@@ -78,7 +76,7 @@ export function ChangeEmailDialog({ children }: { children: React.ReactNode }) {
         description: t('settings.account.changeEmail.success.desc'),
       });
       setTimeout(() => {
-        router.reload();
+        window.location.reload();
       }, 2000);
     },
     meta: {

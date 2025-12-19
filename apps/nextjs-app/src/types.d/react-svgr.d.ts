@@ -22,3 +22,10 @@ declare module '*.svg' {
   const svg: React.VFC<React.SVGProps<SVGSVGElement>>;
   export default svg;
 }
+
+// Support for ?react suffix with vite-plugin-svgr
+declare module '*.svg?react' {
+  import type React from 'react';
+  const svg: React.VFC<React.SVGProps<SVGSVGElement>>;
+  export default svg;
+}

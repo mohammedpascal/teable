@@ -4,7 +4,7 @@ import { Label } from '@/ui-lib/shadcn';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 dayjs.extend(utc);
 dayjs.extend(timezone);

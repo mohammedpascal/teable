@@ -1,5 +1,5 @@
 import { cn } from '@/ui-lib/shadcn';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 import Tea from '@/components/Tea';
 import { authConfig } from '@/features/i18n/auth.config';
 
