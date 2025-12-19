@@ -1,11 +1,9 @@
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import * as Sentry from '@sentry/nextjs';
-import type { IUser } from '@/sdk';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import type { AppContext, AppProps as NextAppProps } from 'next/app';
-import App from 'next/app';
+import type { AppProps as NextAppProps } from 'next/app';
 import Head from 'next/head';
 import { appWithTranslation } from 'next-i18next';
 import { useEffect } from 'react';
@@ -16,6 +14,7 @@ import RouterProgressBar from '@/components/RouterProgress';
 import { useLoadAllTranslations } from '@/features/app/hooks/useLoadAllTranslations';
 import type { IServerEnv } from '@/lib/server-env';
 import type { NextPageWithLayout } from '@/lib/type';
+import type { IUser } from '@/sdk';
 import { colors } from '@/themes/colors';
 import { getColorsCssVariablesText } from '@/themes/utils';
 import nextI18nextConfig from '../../next-i18next.config.js';
@@ -51,10 +50,9 @@ const MyApp = (appProps: AppPropsWithLayout) => {
   const { user, env = {}, err: pageErr } = pageProps;
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
-  
+
   // Load all translations on app start (client-side)
   useLoadAllTranslations();
-  
   useEffect(() => {
     Sentry.setUser(user ? { id: user.id, email: user.email } : null);
   }, [user]);
@@ -86,17 +84,6 @@ const MyApp = (appProps: AppPropsWithLayout) => {
       <RouterProgressBar />
     </>
   );
-};
-
-/**
- * Generally don't enable getInitialProp if you don't need to,
- * all your pages will be served server-side (no static optimizations).
- */
-
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
-  const appProps = await App.getInitialProps(appContext);
-  return { ...appProps };
 };
 
 export default appWithTranslation(MyApp, {
