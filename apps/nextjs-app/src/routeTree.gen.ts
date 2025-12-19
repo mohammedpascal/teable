@@ -13,7 +13,6 @@ import { Route as ErrorRouteImport } from './routes/_error'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as R403RouteImport } from './routes/403'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as TableTableIdRouteImport } from './routes/table/$tableId'
 import { Route as SettingsUsersRouteImport } from './routes/settings/users'
 import { Route as SettingsRolesRouteImport } from './routes/settings/roles'
 import { Route as SettingsQueryBuilderRouteImport } from './routes/settings/query-builder'
@@ -23,6 +22,8 @@ import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth/reset-password'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgetPasswordRouteImport } from './routes/auth/forget-password'
+import { Route as TableTableIdRouteRouteImport } from './routes/table/$tableId/route'
+import { Route as TableTableIdIndexRouteImport } from './routes/table/$tableId/index'
 import { Route as TableTableIdViewIdRouteImport } from './routes/table/$tableId/$viewId'
 import { Route as DeveloperToolQueryBuilderRouteImport } from './routes/developer/tool/query-builder'
 import { Route as ApiMonitorSentryRouteImport } from './routes/api/_monitor/sentry'
@@ -48,11 +49,6 @@ const R403Route = R403RouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TableTableIdRoute = TableTableIdRouteImport.update({
-  id: '/table/$tableId',
-  path: '/table/$tableId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsUsersRoute = SettingsUsersRouteImport.update({
@@ -100,10 +96,20 @@ const AuthForgetPasswordRoute = AuthForgetPasswordRouteImport.update({
   path: '/auth/forget-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TableTableIdRouteRoute = TableTableIdRouteRouteImport.update({
+  id: '/table/$tableId',
+  path: '/table/$tableId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TableTableIdIndexRoute = TableTableIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TableTableIdRouteRoute,
+} as any)
 const TableTableIdViewIdRoute = TableTableIdViewIdRouteImport.update({
   id: '/$viewId',
   path: '/$viewId',
-  getParentRoute: () => TableTableIdRoute,
+  getParentRoute: () => TableTableIdRouteRoute,
 } as any)
 const DeveloperToolQueryBuilderRoute =
   DeveloperToolQueryBuilderRouteImport.update({
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/403': typeof R403Route
   '/404': typeof R404Route
+  '/table/$tableId': typeof TableTableIdRouteRouteWithChildren
   '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -150,7 +157,6 @@ export interface FileRoutesByFullPath {
   '/settings/query-builder': typeof SettingsQueryBuilderRoute
   '/settings/roles': typeof SettingsRolesRoute
   '/settings/users': typeof SettingsUsersRoute
-  '/table/$tableId': typeof TableTableIdRouteWithChildren
   '/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/api/sentry': typeof ApiMonitorSentryRoute
   '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof TableTableIdViewIdRoute
+  '/table/$tableId/': typeof TableTableIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -172,7 +179,6 @@ export interface FileRoutesByTo {
   '/settings/query-builder': typeof SettingsQueryBuilderRoute
   '/settings/roles': typeof SettingsRolesRoute
   '/settings/users': typeof SettingsUsersRoute
-  '/table/$tableId': typeof TableTableIdRouteWithChildren
   '/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
@@ -180,6 +186,7 @@ export interface FileRoutesByTo {
   '/api/sentry': typeof ApiMonitorSentryRoute
   '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof TableTableIdViewIdRoute
+  '/table/$tableId': typeof TableTableIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -187,6 +194,7 @@ export interface FileRoutesById {
   '/403': typeof R403Route
   '/404': typeof R404Route
   '/_error': typeof ErrorRoute
+  '/table/$tableId': typeof TableTableIdRouteRouteWithChildren
   '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -196,7 +204,6 @@ export interface FileRoutesById {
   '/settings/query-builder': typeof SettingsQueryBuilderRoute
   '/settings/roles': typeof SettingsRolesRoute
   '/settings/users': typeof SettingsUsersRoute
-  '/table/$tableId': typeof TableTableIdRouteWithChildren
   '/_monitor/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/_monitor/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/_monitor/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
@@ -204,6 +211,7 @@ export interface FileRoutesById {
   '/api/_monitor/sentry': typeof ApiMonitorSentryRoute
   '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof TableTableIdViewIdRoute
+  '/table/$tableId/': typeof TableTableIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -211,6 +219,7 @@ export interface FileRouteTypes {
     | '/'
     | '/403'
     | '/404'
+    | '/table/$tableId'
     | '/auth/forget-password'
     | '/auth/login'
     | '/auth/reset-password'
@@ -220,7 +229,6 @@ export interface FileRouteTypes {
     | '/settings/query-builder'
     | '/settings/roles'
     | '/settings/users'
-    | '/table/$tableId'
     | '/preview/error-page'
     | '/sentry/csr-page'
     | '/sentry/ssr-page'
@@ -228,6 +236,7 @@ export interface FileRouteTypes {
     | '/api/sentry'
     | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
+    | '/table/$tableId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -242,7 +251,6 @@ export interface FileRouteTypes {
     | '/settings/query-builder'
     | '/settings/roles'
     | '/settings/users'
-    | '/table/$tableId'
     | '/preview/error-page'
     | '/sentry/csr-page'
     | '/sentry/ssr-page'
@@ -250,12 +258,14 @@ export interface FileRouteTypes {
     | '/api/sentry'
     | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
+    | '/table/$tableId'
   id:
     | '__root__'
     | '/'
     | '/403'
     | '/404'
     | '/_error'
+    | '/table/$tableId'
     | '/auth/forget-password'
     | '/auth/login'
     | '/auth/reset-password'
@@ -265,7 +275,6 @@ export interface FileRouteTypes {
     | '/settings/query-builder'
     | '/settings/roles'
     | '/settings/users'
-    | '/table/$tableId'
     | '/_monitor/preview/error-page'
     | '/_monitor/sentry/csr-page'
     | '/_monitor/sentry/ssr-page'
@@ -273,6 +282,7 @@ export interface FileRouteTypes {
     | '/api/_monitor/sentry'
     | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
+    | '/table/$tableId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -280,6 +290,7 @@ export interface RootRouteChildren {
   R403Route: typeof R403Route
   R404Route: typeof R404Route
   ErrorRoute: typeof ErrorRoute
+  TableTableIdRouteRoute: typeof TableTableIdRouteRouteWithChildren
   AuthForgetPasswordRoute: typeof AuthForgetPasswordRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
@@ -289,7 +300,6 @@ export interface RootRouteChildren {
   SettingsQueryBuilderRoute: typeof SettingsQueryBuilderRoute
   SettingsRolesRoute: typeof SettingsRolesRoute
   SettingsUsersRoute: typeof SettingsUsersRoute
-  TableTableIdRoute: typeof TableTableIdRouteWithChildren
   MonitorPreviewErrorPageRoute: typeof MonitorPreviewErrorPageRoute
   MonitorSentryCsrPageRoute: typeof MonitorSentryCsrPageRoute
   MonitorSentrySsrPageRoute: typeof MonitorSentrySsrPageRoute
@@ -326,13 +336,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/table/$tableId': {
-      id: '/table/$tableId'
-      path: '/table/$tableId'
-      fullPath: '/table/$tableId'
-      preLoaderRoute: typeof TableTableIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings/users': {
@@ -398,12 +401,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthForgetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/table/$tableId': {
+      id: '/table/$tableId'
+      path: '/table/$tableId'
+      fullPath: '/table/$tableId'
+      preLoaderRoute: typeof TableTableIdRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/table/$tableId/': {
+      id: '/table/$tableId/'
+      path: '/'
+      fullPath: '/table/$tableId/'
+      preLoaderRoute: typeof TableTableIdIndexRouteImport
+      parentRoute: typeof TableTableIdRouteRoute
+    }
     '/table/$tableId/$viewId': {
       id: '/table/$tableId/$viewId'
       path: '/$viewId'
       fullPath: '/table/$tableId/$viewId'
       preLoaderRoute: typeof TableTableIdViewIdRouteImport
-      parentRoute: typeof TableTableIdRoute
+      parentRoute: typeof TableTableIdRouteRoute
     }
     '/developer/tool/query-builder': {
       id: '/developer/tool/query-builder'
@@ -450,23 +467,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface TableTableIdRouteChildren {
+interface TableTableIdRouteRouteChildren {
   TableTableIdViewIdRoute: typeof TableTableIdViewIdRoute
+  TableTableIdIndexRoute: typeof TableTableIdIndexRoute
 }
 
-const TableTableIdRouteChildren: TableTableIdRouteChildren = {
+const TableTableIdRouteRouteChildren: TableTableIdRouteRouteChildren = {
   TableTableIdViewIdRoute: TableTableIdViewIdRoute,
+  TableTableIdIndexRoute: TableTableIdIndexRoute,
 }
 
-const TableTableIdRouteWithChildren = TableTableIdRoute._addFileChildren(
-  TableTableIdRouteChildren,
-)
+const TableTableIdRouteRouteWithChildren =
+  TableTableIdRouteRoute._addFileChildren(TableTableIdRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R403Route: R403Route,
   R404Route: R404Route,
   ErrorRoute: ErrorRoute,
+  TableTableIdRouteRoute: TableTableIdRouteRouteWithChildren,
   AuthForgetPasswordRoute: AuthForgetPasswordRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
@@ -476,7 +495,6 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsQueryBuilderRoute: SettingsQueryBuilderRoute,
   SettingsRolesRoute: SettingsRolesRoute,
   SettingsUsersRoute: SettingsUsersRoute,
-  TableTableIdRoute: TableTableIdRouteWithChildren,
   MonitorPreviewErrorPageRoute: MonitorPreviewErrorPageRoute,
   MonitorSentryCsrPageRoute: MonitorSentryCsrPageRoute,
   MonitorSentrySsrPageRoute: MonitorSentrySsrPageRoute,

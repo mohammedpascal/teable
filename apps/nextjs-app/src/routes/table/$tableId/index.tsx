@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import { getDefaultViewId } from '@teable/openapi';
 import { useEffect } from 'react';
 
-export const Route = createFileRoute('/table/$tableId')({
+export const Route = createFileRoute('/table/$tableId/')({
   component: TableIdRouteComponent,
 });
 
@@ -30,6 +30,5 @@ function TableIdRouteComponent() {
     redirect();
   }, [tableId, navigate, search]);
 
-  return <p>redirecting</p>;
+  return <p>redirecting999</p>;
 }
-
