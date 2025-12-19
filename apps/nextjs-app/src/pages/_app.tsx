@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { Guide } from '@/components/Guide';
 import { MicrosoftClarity, Umami } from '@/components/Metrics';
 import RouterProgressBar from '@/components/RouterProgress';
+import { useLoadAllTranslations } from '@/features/app/hooks/useLoadAllTranslations';
 import type { IServerEnv } from '@/lib/server-env';
 import type { NextPageWithLayout } from '@/lib/type';
 import { colors } from '@/themes/colors';
@@ -50,6 +51,10 @@ const MyApp = (appProps: AppPropsWithLayout) => {
   const { user, env = {}, err: pageErr } = pageProps;
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
+  
+  // Load all translations on app start (client-side)
+  useLoadAllTranslations();
+  
   useEffect(() => {
     Sentry.setUser(user ? { id: user.id, email: user.email } : null);
   }, [user]);

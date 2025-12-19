@@ -1,4 +1,3 @@
-import { ScrollArea, Tabs, TabsList, TabsTrigger } from '@/ui-lib/shadcn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -8,6 +7,7 @@ import Tea from '@/components/Tea';
 import { useEnv } from '@/features/app/hooks/useEnv';
 import { useInitializationZodI18n } from '@/features/app/hooks/useInitializationZodI18n';
 import { authConfig } from '@/features/i18n/auth.config';
+import { ScrollArea, Tabs, TabsList, TabsTrigger } from '@/ui-lib/shadcn';
 import { DescContent } from '../components/DescContent';
 import { SignForm } from '../components/SignForm';
 import { SocialAuth } from '../components/SocialAuth';
