@@ -4,7 +4,7 @@ import type { IViewPageProps } from '@/lib/view-pages-data';
 export async function getViewPageServerData(
   tableId: string,
   viewId: string
-): Promise<IViewPageProps | undefined> {
+): Promise<IViewPageProps> {
   try {
     const ssrApi = new SsrApi();
     const tableResult = await ssrApi.getTable(tableId, viewId);
@@ -24,7 +24,13 @@ export async function getViewPageServerData(
       };
     }
 
-    return undefined;
+    return {
+      tableServerData: [],
+      fieldServerData: [],
+      viewServerData: [],
+      recordsServerData: { records: [] },
+      groupPointsServerDataMap: {},
+    } as IViewPageProps;
   } catch (error) {
     console.error(`Failed to fetch table data for tableId: ${tableId}, viewId: ${viewId}`, error);
     throw error; // Re-throw to let the loader handle it

@@ -2,8 +2,8 @@ import { createFileRoute, type ErrorComponentProps } from '@tanstack/react-route
 import type { ITableProps } from '@/features/app/blocks/table/Table';
 import { Table } from '@/features/app/blocks/table/Table';
 import { BaseLayout } from '@/features/app/layouts/BaseLayout';
-import { Spin } from '@/ui-lib/base/spin/Spin';
 import { getViewPageServerData } from '@/server/table';
+import { Spin } from '@/ui-lib/base/spin/Spin';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
@@ -41,27 +41,17 @@ export const Route = createFileRoute('/table/$tableId/$viewId')({
     const { tableId, viewId } = params;
 
     try {
-      const serverData = await getViewPageServerData(tableId, viewId);
-
-      return (
-        serverData || {
-          tableServerData: undefined,
-          fieldServerData: undefined,
-          viewServerData: undefined,
-          recordsServerData: undefined,
-          groupPointsServerDataMap: undefined,
-        }
-      );
+      return await getViewPageServerData(tableId, viewId);
     } catch (error) {
       console.error('Failed to load table data:', error);
       // Return fallback data structure instead of throwing
       // This prevents the route from hanging
       return {
-        tableServerData: undefined,
-        fieldServerData: undefined,
-        viewServerData: undefined,
-        recordsServerData: undefined,
-        groupPointsServerDataMap: undefined,
+        tableServerData: [],
+        fieldServerData: [],
+        viewServerData: [],
+        recordsServerData: { records: [] },
+        groupPointsServerDataMap: {},
       };
     }
   },
@@ -72,8 +62,6 @@ export const Route = createFileRoute('/table/$tableId/$viewId')({
 
 function TableViewRouteComponent() {
   const serverData = Route.useLoaderData();
-
-  console.log('serverData1: ', serverData);
 
   const props: ITableProps = {
     fieldServerData: serverData.fieldServerData,

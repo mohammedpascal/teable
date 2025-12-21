@@ -30,3 +30,4 @@ const FreezeColumn = (props: SVGProps<SVGSVGElement>) => (
 );
 export default FreezeColumn;
 
+

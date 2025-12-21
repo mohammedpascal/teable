@@ -23,7 +23,6 @@ import { Route as AuthResetPasswordRouteImport } from './routes/auth/reset-passw
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgetPasswordRouteImport } from './routes/auth/forget-password'
 import { Route as TableTableIdRouteRouteImport } from './routes/table/$tableId/route'
-import { Route as TableTableIdIndexRouteImport } from './routes/table/$tableId/index'
 import { Route as TableTableIdViewIdRouteImport } from './routes/table/$tableId/$viewId'
 import { Route as DeveloperToolQueryBuilderRouteImport } from './routes/developer/tool/query-builder'
 import { Route as ApiMonitorSentryRouteImport } from './routes/api/_monitor/sentry'
@@ -101,11 +100,6 @@ const TableTableIdRouteRoute = TableTableIdRouteRouteImport.update({
   path: '/table/$tableId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TableTableIdIndexRoute = TableTableIdIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => TableTableIdRouteRoute,
-} as any)
 const TableTableIdViewIdRoute = TableTableIdViewIdRouteImport.update({
   id: '/$viewId',
   path: '/$viewId',
@@ -164,12 +158,12 @@ export interface FileRoutesByFullPath {
   '/api/sentry': typeof ApiMonitorSentryRoute
   '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof TableTableIdViewIdRoute
-  '/table/$tableId/': typeof TableTableIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/403': typeof R403Route
   '/404': typeof R404Route
+  '/table/$tableId': typeof TableTableIdRouteRouteWithChildren
   '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -186,7 +180,6 @@ export interface FileRoutesByTo {
   '/api/sentry': typeof ApiMonitorSentryRoute
   '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof TableTableIdViewIdRoute
-  '/table/$tableId': typeof TableTableIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -211,7 +204,6 @@ export interface FileRoutesById {
   '/api/_monitor/sentry': typeof ApiMonitorSentryRoute
   '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof TableTableIdViewIdRoute
-  '/table/$tableId/': typeof TableTableIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -236,12 +228,12 @@ export interface FileRouteTypes {
     | '/api/sentry'
     | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
-    | '/table/$tableId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/403'
     | '/404'
+    | '/table/$tableId'
     | '/auth/forget-password'
     | '/auth/login'
     | '/auth/reset-password'
@@ -258,7 +250,6 @@ export interface FileRouteTypes {
     | '/api/sentry'
     | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
-    | '/table/$tableId'
   id:
     | '__root__'
     | '/'
@@ -282,7 +273,6 @@ export interface FileRouteTypes {
     | '/api/_monitor/sentry'
     | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
-    | '/table/$tableId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -408,13 +398,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TableTableIdRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/table/$tableId/': {
-      id: '/table/$tableId/'
-      path: '/'
-      fullPath: '/table/$tableId/'
-      preLoaderRoute: typeof TableTableIdIndexRouteImport
-      parentRoute: typeof TableTableIdRouteRoute
-    }
     '/table/$tableId/$viewId': {
       id: '/table/$tableId/$viewId'
       path: '/$viewId'
@@ -469,12 +452,10 @@ declare module '@tanstack/react-router' {
 
 interface TableTableIdRouteRouteChildren {
   TableTableIdViewIdRoute: typeof TableTableIdViewIdRoute
-  TableTableIdIndexRoute: typeof TableTableIdIndexRoute
 }
 
 const TableTableIdRouteRouteChildren: TableTableIdRouteRouteChildren = {
   TableTableIdViewIdRoute: TableTableIdViewIdRoute,
-  TableTableIdIndexRoute: TableTableIdIndexRoute,
 }
 
 const TableTableIdRouteRouteWithChildren =
