@@ -17,17 +17,24 @@ export default function RouterProgressBar() {
       NProgress.done();
     };
 
-    // TanStack Router doesn't have events like Next.js, so we'll use navigation state
-    // For now, we'll trigger on route changes via router state
-    const unsubscribe = router.subscribe('onBeforeLoad', () => {
+    // Subscribe to navigation events to control progress bar
+    const unsubscribeBeforeLoad = router.subscribe('onBeforeLoad', () => {
       handleStart();
     });
 
-    // Note: TanStack Router handles navigation differently
-    // This is a simplified version - may need adjustment based on actual router API
-    return () => {
-      unsubscribe?.();
+    const unsubscribeOnLoad = router.subscribe('onLoad', () => {
       handleStop();
+    });
+
+    const unsubscribeOnError = router.subscribe('onError', () => {
+      handleStop();
+    });
+
+    return () => {
+      unsubscribeBeforeLoad?.();
+      unsubscribeOnLoad?.();
+      unsubscribeOnError?.();
+      handleStop(); // Safety cleanup
     };
   }, [router]);
 
