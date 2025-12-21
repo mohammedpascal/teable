@@ -1,5 +1,3 @@
-'use client';
-
 import { useTheme } from '@teable/next-themes';
 import { Toaster as Sonner, toast } from 'sonner';
 

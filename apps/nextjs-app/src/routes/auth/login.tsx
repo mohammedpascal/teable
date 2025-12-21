@@ -1,5 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { LoginPage } from '@/features/auth/pages/LoginPage';
 import { createQueryClient } from '@/sdk/context';
@@ -17,4 +17,3 @@ function LoginRouteComponent() {
     </QueryClientProvider>
   );
 }
-

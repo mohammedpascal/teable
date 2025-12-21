@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { differenceInCalendarDays } from 'date-fns';
 import * as React from 'react';
@@ -194,7 +192,7 @@ function Calendar({
       components={{
         Chevron: ({ orientation }) => {
           const Icon = orientation === 'left' ? ChevronLeftIcon : ChevronRightIcon;
-          return <Icon className="h-4 w-4" />;
+          return <Icon className="size-4" />;
         },
         Nav: ({ className }) => (
           <Nav
@@ -314,7 +312,7 @@ function Nav({
     <nav className={cn('flex items-center', className)}>
       <Button
         variant="outline"
-        className="absolute left-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+        className="absolute left-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
         type="button"
         tabIndex={isPreviousDisabled ? undefined : -1}
         disabled={isPreviousDisabled}
@@ -330,7 +328,7 @@ function Nav({
 
       <Button
         variant="outline"
-        className="absolute right-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+        className="absolute right-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
         type="button"
         tabIndex={isNextDisabled ? undefined : -1}
         disabled={isNextDisabled}

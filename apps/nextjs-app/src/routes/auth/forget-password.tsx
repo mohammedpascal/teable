@@ -1,5 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { createFileRoute } from '@tanstack/react-router';
 import { ForgetPasswordPage } from '@/features/auth/pages/ForgetPasswordPage';
 import { createQueryClient } from '@/sdk/context';
 
@@ -15,4 +15,3 @@ function ForgetPasswordRouteComponent() {
     </QueryClientProvider>
   );
 }
-
