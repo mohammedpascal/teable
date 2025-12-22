@@ -1,5 +1,5 @@
+import dynamic from '@/lib/utils/dynamic';
 import { Skeleton } from '@/ui-lib/shadcn';
-import dynamic from 'next/dynamic';
 
 export const DynamicFieldEditor = dynamic(
   () => import('./FieldEditor').then((mod) => mod.FieldEditor),
