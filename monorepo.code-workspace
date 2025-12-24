@@ -5,36 +5,20 @@
       "path": "apps/nextjs-app",
     },
     {
-      "name": "plugins",
-      "path": "plugins",
+      "name": "app-start",
+      "path": "apps/app-start",
     },
     {
       "name": "nestjs-backend",
       "path": "apps/nestjs-backend",
     },
     {
-      "name": "common-i18n",
-      "path": "packages/common-i18n",
-    },
-    {
       "name": "core",
       "path": "packages/core",
     },
     {
-      "name": "db-main-prisma",
-      "path": "packages/db-main-prisma",
-    },
-    {
       "name": "eslint-config-bases",
       "path": "packages/eslint-config-bases",
-    },
-    {
-      "name": "ui-lib",
-      "path": "packages/ui-lib",
-    },
-    {
-      "name": "icons",
-      "path": "packages/icons",
     },
     {
       "name": "openapi",
@@ -62,15 +46,12 @@
     "eslint.alwaysShowStatus": true,
     // https://github.com/Microsoft/vscode-eslint#mono-repository-setup
     "eslint.workingDirectories": [
+      "./apps/app-start",
       "./apps/nextjs-app",
       "./apps/nestjs-backend",
-      "./packages/common-i18n",
       "./packages/core",
-      "./packages/icons",
-      "./packages/db-main-prisma",
       "./packages/eslint-config-bases",
-      "./packages/ui-lib",
-      "./plugins",
+      "./packages/openapi",
     ],
     "cSpell.words": [
       "combobox",
