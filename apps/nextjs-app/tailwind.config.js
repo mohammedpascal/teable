@@ -1,12 +1,17 @@
-const { join } = require('path');
-const uiConfig = require('./src/ui-lib/ui.config.js');
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import uiConfig from './src/ui-lib/ui.config.js';
+import scrollbarPlugin from 'tailwind-scrollbar';
+import containerQueries from '@tailwindcss/container-queries';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const filePath = join(__dirname, './src/**/*.{js,ts,jsx,tsx}');
 const sdkPath = join(__dirname, './src/sdk/**/*.{js,ts,jsx,tsx}');
 const uiLibPath = join(__dirname, './src/ui-lib/**/*.{js,ts,jsx,tsx}');
-const scrollbarPlugin = require('tailwind-scrollbar');
 
 /** @type {import('tailwindcss').Config} */
-module.exports = uiConfig({
+export default uiConfig({
   content: [filePath, sdkPath, uiLibPath],
   darkMode: 'class',
   theme: {},
@@ -26,6 +31,6 @@ module.exports = uiConfig({
 
       addUtilities(newUtilities);
     },
-    require('@tailwindcss/container-queries'),
+    containerQueries,
   ],
 });

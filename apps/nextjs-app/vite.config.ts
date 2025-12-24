@@ -3,11 +3,13 @@ import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import { nitro } from 'nitro/vite';
 
 export default defineConfig({
   plugins: [
-    TanStackRouterVite(),
+    nitro(),
+    tanstackStart(),
     react({
       devTarget: 'es2022',
     }),
@@ -67,6 +69,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@teable/openapi/src': path.resolve(__dirname, '../../packages/openapi/src'),
+      '@teable/openapi': path.resolve(__dirname, '../../packages/openapi/src/index'),
+      '@teable/core': path.resolve(__dirname, '../../packages/core/src'),
       // Replace openapi-snippet with a stub to prevent CommonJS require() errors
       './openapi-snippet': path.resolve(__dirname, './src/lib/stubs/openapi-snippet.ts'),
       '../openapi-snippet': path.resolve(__dirname, './src/lib/stubs/openapi-snippet.ts'),
@@ -99,8 +104,5 @@ export default defineConfig({
         global: 'globalThis',
       },
     },
-  },
-  ssr: {
-    noExternal: ['@teable/openapi'],
   },
 });

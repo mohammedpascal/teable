@@ -1,9 +1,8 @@
-const deepMerge = require('deepmerge');
-
-const uiConfig = require('./tailwind.config');
+import deepMerge from 'deepmerge';
+import uiConfig from './tailwind.config.js';
 
 function wrapper(tailwindConfig) {
   return deepMerge({ ...tailwindConfig }, uiConfig);
 }
 
-module.exports = wrapper;
+export default wrapper;

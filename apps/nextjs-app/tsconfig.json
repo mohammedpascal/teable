@@ -93,7 +93,6 @@
     "**/*.jsx",
     "**/*.json",
     "src/**/*",
-    "vite.config.ts",
-    "start.config.ts"
+    "vite.config.ts"
   ]
 }

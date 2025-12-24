@@ -1,12 +1,15 @@
-const { join } = require('path');
-const deepMerge = require('deepmerge');
-const shadcnuiConfig = require('./tailwind.shadcnui.config');
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import deepMerge from 'deepmerge';
+import shadcnuiConfig from './tailwind.shadcnui.config.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const filePath = join(__dirname, './src/**/*.{js,ts,jsx,tsx}');
 const buildFilePath = join(__dirname, './dist/**/*.{js,ts,jsx,tsx}');
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [filePath, buildFilePath],
   darkMode: ['class'],
   theme: deepMerge(

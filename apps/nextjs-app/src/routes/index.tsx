@@ -1,27 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
 import { Trans, useTranslation } from 'react-i18next';
 import { BaseLayout } from '@/features/app/layouts/BaseLayout';
-/*
-import { createServerFn } from "@tanstack/start/server";
 
-export const getServerTime = createServerFn({ method: 'GET' })
-  .handler(async () => {
-    return {
-      time: new Date().toISOString(),
-    }
-  })
-    */
+export const getServerTime = createServerFn({ method: 'GET' }).handler(async () => {
+  return { time: new Date().toISOString() };
+});
 
 export const Route = createFileRoute('/')({
-  //loader: async () => {
-    //const time = await getServerTime();
-    //return { time };
-  //},
+  loader: async () => {
+    const { time } = await getServerTime();
+    console.log('time2', time);
+    return { time };
+  },
   component: IndexComponent,
 });
 
 function IndexComponent() {
-  //const { time } = Route.useLoaderData();
+  const { time } = Route.useLoaderData();
   const { t } = useTranslation(['table', 'common']);
   return (
     <BaseLayout>
@@ -33,6 +29,7 @@ function IndexComponent() {
           <div className="flex h-full flex-col items-center justify-center p-4">
             <ul className="mb-4 space-y-2 text-left">
               <li>{t('table:welcome.description')}</li>
+              <li>{time && <div>{time}</div>}</li>
               <li>
                 <Trans
                   ns="table"
@@ -58,4 +55,3 @@ function IndexComponent() {
     </BaseLayout>
   );
 }
-
