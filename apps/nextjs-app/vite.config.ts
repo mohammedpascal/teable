@@ -1,19 +1,19 @@
 import path from 'path';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import react from '@vitejs/plugin-react-swc';
 import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
+
 import svgr from 'vite-plugin-svgr';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
+import tsConfigPaths from 'vite-tsconfig-paths';
+
+import viteReact from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [
     nitro(),
+    tsConfigPaths(),
     tanstackStart(),
-    react({
-      devTarget: 'es2022',
-    }),
-    viteTsconfigPaths(),
+    viteReact(),
     svgr({
       svgrOptions: {
         icon: true,
