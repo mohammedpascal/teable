@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import svgr from 'vite-plugin-svgr';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import react from '@vitejs/plugin-react-swc';
 import { nitro } from 'nitro/vite';
+import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
+import viteTsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
@@ -29,18 +29,30 @@ export default defineConfig({
           return '\0virtual:openapi-snippet';
         }
         // Intercept relative imports that resolve to openapi-snippet
-        if (id === './openapi-snippet' || id === '../openapi-snippet' || id === '../../openapi-snippet') {
+        if (
+          id === './openapi-snippet' ||
+          id === '../openapi-snippet' ||
+          id === '../../openapi-snippet'
+        ) {
           return '\0virtual:openapi-snippet';
         }
         // Intercept generate.schema imports from @teable/openapi package
-        if (id.includes('generate.schema') || id.endsWith('generate.schema.ts') || id.endsWith('generate.schema.js')) {
+        if (
+          id.includes('generate.schema') ||
+          id.endsWith('generate.schema.ts') ||
+          id.endsWith('generate.schema.js')
+        ) {
           // Only intercept if it's from the @teable/openapi package
           if (id.includes('@teable/openapi') || (importer && !importer.includes('node_modules'))) {
             return '\0virtual:generate-schema';
           }
         }
         // Also check if the resolved path would be openapi-snippet
-        if (importer && importer.includes('generate.schema') && (id === './openapi-snippet' || id.includes('openapi-snippet'))) {
+        if (
+          importer &&
+          importer.includes('generate.schema') &&
+          (id === './openapi-snippet' || id.includes('openapi-snippet'))
+        ) {
           return '\0virtual:openapi-snippet';
         }
       },
@@ -64,7 +76,7 @@ export default defineConfig({
   define: {
     'process.env': '{}',
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-    'global': 'globalThis',
+    global: 'globalThis',
   },
   resolve: {
     alias: {
