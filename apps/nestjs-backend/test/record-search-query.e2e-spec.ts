@@ -239,9 +239,7 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
     });
   });
 
-  describe.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
-    'search index relative',
-    () => {
+  describe('search index relative', () => {
       let table: ITableFullVo;
       let tableName: string;
       beforeEach(async () => {
@@ -383,6 +381,5 @@ describe('OpenAPI Record-Search-Query (e2e)', async () => {
         const result2 = await getTableAbnormalIndex(table.id, TableIndex.search);
         expect(result2.data.length).toBe(0);
       });
-    }
-  );
+  });
 });

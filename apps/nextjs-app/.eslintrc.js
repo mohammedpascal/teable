@@ -37,16 +37,12 @@ module.exports = {
     '@teable/eslint-config-bases/react',
     '@teable/eslint-config-bases/tailwind',
     '@teable/eslint-config-bases/rtl',
-    // Add specific rules for nextjs
-    'plugin:@next/next/core-web-vitals',
     // Apply prettier and disable incompatible rules
     '@teable/eslint-config-bases/prettier-plugin',
   ],
   rules: {
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    // https://github.com/vercel/next.js/discussions/16832
-    '@next/next/no-img-element': 'off',
     // For the sake of example
     // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md
     'jsx-a11y/anchor-is-valid': 'off',

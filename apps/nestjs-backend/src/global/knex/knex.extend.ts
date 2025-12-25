@@ -1,32 +1,27 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { DriverClient } from '@teable/core';
 import knex from 'knex';
 import { getDriverName } from '../../utils/db-helpers';
+import { DriverClient } from '@teable/core';
 
 try {
   knex.QueryBuilder.extend('columnList', function (tableName: string) {
     const driverClient = getDriverName(this);
 
-    switch (driverClient) {
-      case DriverClient.Sqlite:
-        return knex(this.client.config).raw(`PRAGMA table_info(??)`, tableName);
-      case DriverClient.Pg: {
-        const schema = 'public';
-        const name = tableName;
+    if (driverClient === DriverClient.Pg) {
+      const schema = 'public';
+      const name = tableName;
 
-        console.log({ schema, name });
-        this.select({
-          name: 'column_name',
-          type: 'data_type',
-          dflt_value: 'column_default',
-          notnull: 'is_nullable',
-        })
-          .from('information_schema.columns')
-          .where('table_name', name)
-          .where('table_schema', schema);
-        break;
-      }
+      console.log({ schema, name });
+      this.select({
+        name: 'column_name',
+        type: 'data_type',
+        dflt_value: 'column_default',
+        notnull: 'is_nullable',
+      })
+        .from('information_schema.columns')
+        .where('table_name', name)
+        .where('table_schema', schema);
     }
     return this;
   });

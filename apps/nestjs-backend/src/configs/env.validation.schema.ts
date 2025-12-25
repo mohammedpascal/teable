@@ -20,14 +20,7 @@ export const envValidationSchema = Joi.object({
   BRAND_NAME: Joi.string().required(),
 
   // cache
-  BACKEND_CACHE_PROVIDER: Joi.string().valid('memory', 'sqlite').default('sqlite'),
-  // cache-sqlite
-  BACKEND_CACHE_SQLITE_URI: Joi.when('BACKEND_CACHE_PROVIDER', {
-    is: 'sqlite',
-    then: Joi.string()
-      .pattern(/^sqlite:\/\//)
-      .message('Cache `sqlite` the URI must start with the protocol `sqlite://`'),
-  }),
+  BACKEND_CACHE_PROVIDER: Joi.string().valid('memory').default('memory'),
   // github auth
   BACKEND_GITHUB_CLIENT_ID: Joi.when('SOCIAL_AUTH_PROVIDERS', {
     is: Joi.string()

@@ -165,7 +165,7 @@ pnpm install
 
 #### 2. Select Database
 
-we currently support `sqlite` (dev only) and `postgres`, you can switch between them by running the following command
+we currently support `postgres`, you can set up the database by running the following command
 
 ```sh
 make switch-db-mode

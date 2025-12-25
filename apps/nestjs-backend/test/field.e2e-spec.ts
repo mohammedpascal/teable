@@ -364,9 +364,7 @@ describe('OpenAPI FieldController (e2e)', () => {
       await createFieldWithUnique(FieldType.AutoNumber, undefined, 400);
     });
 
-    it.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
-      'should create fail for a not null validation field with all field types',
-      async () => {
+    it('should create fail for a not null validation field with all field types', async () => {
         await createFieldWithNotNull(FieldType.SingleLineText, undefined, 400);
 
         await createFieldWithNotNull(FieldType.LongText, undefined, 400);
@@ -430,8 +428,7 @@ describe('OpenAPI FieldController (e2e)', () => {
         await createFieldWithNotNull(FieldType.LastModifiedTime, undefined, 400);
 
         await createFieldWithNotNull(FieldType.AutoNumber, undefined, 400);
-      }
-    );
+      });
   });
 
   describe('should safe delete field', () => {

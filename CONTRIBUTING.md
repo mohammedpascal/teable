@@ -18,10 +18,10 @@ pnpm install
 ```
 
 ### 2. Database Selection
-We support SQLite (dev only) and PostgreSQL. PostgreSQL is recommended for production use.
+We support PostgreSQL.
 
 ```bash
-# Switch between SQLite and PostgreSQL
+# Set up PostgreSQL database
 make switch-db-mode
 ```
 
@@ -67,7 +67,7 @@ Teable uses Prisma as ORM for database management. Follow these steps for schema
 ```bash
 make gen-prisma-schema
 ```
-This generates both SQLite and PostgreSQL schemas and TypeScript definitions.
+This generates PostgreSQL schemas and TypeScript definitions.
 
 3. Create migrations file:
 ```bash

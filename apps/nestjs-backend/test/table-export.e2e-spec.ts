@@ -256,9 +256,7 @@ const createRecordsWithLink = async (mainTableId: string, subTableId: string) =>
   });
 };
 
-describe.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
-  '/export/${tableId} OpenAPI ExportController (e2e) Get csv stream from table (Get) ',
-  () => {
+describe('/export/${tableId} OpenAPI ExportController (e2e) Get csv stream from table (Get) ', () => {
     it(`should return a csv stream from table and compatible all fields`, async () => {
       const { mainTable, subTable } = await createTables();
 
@@ -350,9 +348,8 @@ describe.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
       await apiDeleteTable(mainTable.id);
       await apiDeleteTable(subTable.id);
 
-      expect(csvData).toBe(
-        `Text field,Checkbox field,Select field,Date field,Attachment field,User Field,Link field,Link field from lookups sub_Name,Link field from lookups sub_Number,Link field from lookups sub_Checkbox,Link field from lookups sub_SingleSelect\r\ntxt1,true,x,2022-11-28,test.txt ${txtFileData.presignedUrl},,Name1,Name1,1.00,true,sub_y\r\ntxt2,,y,2022-11-28,,test,,,,,\r\n,true,z,,,,,,,,`
-      );
-    });
-  }
-);
+        expect(csvData).toBe(
+          `Text field,Checkbox field,Select field,Date field,Attachment field,User Field,Link field,Link field from lookups sub_Name,Link field from lookups sub_Number,Link field from lookups sub_Checkbox,Link field from lookups sub_SingleSelect\r\ntxt1,true,x,2022-11-28,test.txt ${txtFileData.presignedUrl},,Name1,Name1,1.00,true,sub_y\r\ntxt2,,y,2022-11-28,,test,,,,,\r\n,true,z,,,,,,,,`
+        );
+      });
+  });

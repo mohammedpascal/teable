@@ -4,10 +4,7 @@ import type { ConfigType } from '@nestjs/config';
 import { registerAs } from '@nestjs/config';
 
 export const cacheConfig = registerAs('cache', () => ({
-  provider: (process.env.BACKEND_CACHE_PROVIDER ?? 'sqlite') as 'memory' | 'sqlite',
-  sqlite: {
-    uri: process.env.BACKEND_CACHE_SQLITE_URI ?? 'sqlite://.assets/.cache.db',
-  },
+  provider: (process.env.BACKEND_CACHE_PROVIDER ?? 'memory') as 'memory',
 }));
 
 export const CacheConfig = () => Inject(cacheConfig.KEY);

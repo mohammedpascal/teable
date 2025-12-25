@@ -200,9 +200,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
       });
     });
 
-    it.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
-      'should modify field validation',
-      async () => {
+    it('should modify field validation', async () => {
         const sourceFieldRo: IFieldRo = {
           name: 'TextField',
           type: FieldType.SingleLineText,
@@ -254,8 +252,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
         await deleteRecord(table1.id, records[2].id);
 
         await convertField(table1.id, sourceField.id, notNullFieldRo);
-      }
-    );
+      });
 
     it('should modify attachment field name', async () => {
       const sourceFieldRo: IFieldRo = {
@@ -2072,7 +2069,7 @@ describe('OpenAPI Freely perform column transformations (e2e)', () => {
 
       // junction should not exist when converting one-way one-many to tow-way one-one
       const query = dbProvider.checkTableExist(
-        `bse0${globalThis.testConfig.driver === DriverClient.Sqlite ? '_' : '.'}junction_${createdResult.newField.id}`
+        `bse0.junction_${createdResult.newField.id}`
       );
 
       const queryResult = await prisma.$queryRawUnsafe<{ exists: boolean }[]>(query);

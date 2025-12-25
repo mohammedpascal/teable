@@ -11,13 +11,6 @@ export type IDsn = {
 };
 
 export function parseDsn(dsn: string): IDsn {
-  if (dsn.startsWith('file:')) {
-    return {
-      host: 'localhost',
-      driver: 'sqlite3',
-    };
-  }
-
   if (dsn.startsWith('postgres')) {
     const url = new URL(dsn);
     return {

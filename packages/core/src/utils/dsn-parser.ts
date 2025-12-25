@@ -5,12 +5,6 @@ export type IDsn = ReturnType<typeof parseDsnOrThrow>;
 
 export function parseDsn(dsn: string): IDsn {
   const parsedDsn = parse(dsn);
-  if (dsn.startsWith('file:')) {
-    return {
-      host: 'localhost',
-      driver: 'sqlite3',
-    };
-  }
 
   if (!parsedDsn.success) {
     throw new Error(`DATABASE_URL ${parsedDsn.reason}`);
@@ -23,10 +17,9 @@ export function parseDsn(dsn: string): IDsn {
 }
 
 export function isParsableDsn(dsn: unknown) {
-  return (dsn as string).startsWith('file:') || isParsable(dsn);
+  return isParsable(dsn);
 }
 
 export enum DriverClient {
   Pg = 'postgresql',
-  Sqlite = 'sqlite3',
 }

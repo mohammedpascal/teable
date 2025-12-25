@@ -24,7 +24,7 @@ export function dbType2knexFormat(knex: Knex, dbFieldType: DbFieldType) {
     case DbFieldType.Integer:
       return SchemaType.Integer;
     case DbFieldType.Json: {
-      return driverName === DriverClient.Sqlite ? SchemaType.Text : SchemaType.Jsonb;
+      return SchemaType.Jsonb;
     }
     case DbFieldType.Real:
       return SchemaType.Double;

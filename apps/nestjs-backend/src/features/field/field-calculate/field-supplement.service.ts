@@ -1256,7 +1256,6 @@ export class FieldSupplementService {
     }
 
     for (const sql of alterTableSchema.toSQL()) {
-      // skip sqlite pragma
       if (sql.sql.startsWith('PRAGMA')) {
         continue;
       }

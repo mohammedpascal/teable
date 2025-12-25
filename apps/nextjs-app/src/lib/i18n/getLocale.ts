@@ -1,4 +1,3 @@
-import type { NextRequest } from 'next/server';
 import { acceptLanguage } from './acceptHeader';
 
 export interface I18NConfig {
@@ -7,8 +6,15 @@ export interface I18NConfig {
   locales: string[];
 }
 
+interface CustomRequest {
+  cookies: {
+    get(name: string): { value: string } | undefined;
+  };
+  headers: Headers | { [key: string]: string | string[] | undefined };
+}
+
 interface IOptions {
-  req: NextRequest;
+  req: CustomRequest;
   i18n: I18NConfig;
 }
 
@@ -26,7 +32,7 @@ function getAcceptPreferredLocale(
   }
 }
 
-function getLocaleFromCookie(req: NextRequest, locales: string[]) {
+function getLocaleFromCookie(req: CustomRequest, locales: string[]) {
   const nextLocale = req.cookies.get('NEXT_LOCALE')?.value;
   return nextLocale
     ? locales.find((locale: string) => nextLocale.toLowerCase() === locale.toLowerCase())
@@ -39,7 +45,7 @@ function detectLocale({
   preferredLocale,
 }: {
   i18n: I18NConfig;
-  req: NextRequest;
+  req: CustomRequest;
   preferredLocale?: string;
 }) {
   return getLocaleFromCookie(req, i18n.locales) || preferredLocale || i18n.defaultLocale;

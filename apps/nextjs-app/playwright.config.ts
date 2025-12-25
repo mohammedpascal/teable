@@ -1,7 +1,7 @@
 // @ts-check
 
 import path from 'path';
-import { loadEnvConfig } from '@next/env';
+import dotenv from 'dotenv-flow';
 import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
 import pc from 'picocolors';
@@ -45,13 +45,18 @@ if (typeof webServerConfigs?.[webServerMode] !== 'object') {
 
 const webServerConfig = webServerConfigs[webServerMode];
 
-function getNextJsEnv(): Record<string, string> {
-  const { combinedEnv, loadedEnvFiles } = loadEnvConfig(__dirname);
-  loadedEnvFiles.forEach((file) => {
-    console.log(`${pc.green('notice')}- Loaded nextjs environment file: './${file.path}'`);
-  });
-  return Object.keys(combinedEnv).reduce<Record<string, string>>((acc, key) => {
-    const v = combinedEnv[key];
+function getEnv(): Record<string, string> {
+  const result = dotenv.config({ path: __dirname, default_node_env: 'development' });
+  if (result.error) {
+    console.warn(`${pc.yellow('warning')} - Failed to load environment files: ${result.error.message}`);
+  } else if (result.parsed) {
+    const loadedFiles = Object.keys(result.parsed);
+    if (loadedFiles.length > 0) {
+      console.log(`${pc.green('notice')} - Loaded environment files with ${loadedFiles.length} variables`);
+    }
+  }
+  return Object.keys(process.env).reduce<Record<string, string>>((acc, key) => {
+    const v = process.env[key];
     if (v !== undefined) acc[key] = v;
     return acc;
   }, {});
@@ -89,7 +94,7 @@ const config: PlaywrightTestConfig = {
     port: webServerPort,
     timeout: webServerConfig.timeout,
     reuseExistingServer: !isCI,
-    env: getNextJsEnv(),
+    env: getEnv(),
   },
 
   use: {

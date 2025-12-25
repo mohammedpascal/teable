@@ -428,9 +428,7 @@ describe('OpenAPI RecordController (e2e)', () => {
       });
     });
 
-    it.skipIf(globalThis.testConfig.driver === DriverClient.Sqlite)(
-      'should validate the not null values of the not null field',
-      async () => {
+    it('should validate the not null values of the not null field', async () => {
         const sourceFieldRo: IFieldRo = {
           name: 'TextField2',
           type: FieldType.SingleLineText,
@@ -467,8 +465,7 @@ describe('OpenAPI RecordController (e2e)', () => {
             },
           ],
         });
-      }
-    );
+      });
   });
 
   describe('calculate', () => {
