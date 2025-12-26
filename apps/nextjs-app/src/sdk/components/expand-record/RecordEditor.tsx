@@ -1,6 +1,7 @@
 import { Button } from '@/ui-lib';
 import { useRef } from 'react';
-import { useLocalStorage, useMeasure } from 'react-use';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
+import useMeasure from 'react-use/lib/useMeasure';
 import { LocalStorageKeys } from '../../config';
 import { useTranslation } from '../../context/app/i18n';
 import type { IFieldInstance, Record } from '../../model';

@@ -10,7 +10,7 @@ import {
   CommandList,
   cn,
 } from '@/ui-lib';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useTranslation } from '../../../../../context/app/i18n';

@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/ui-lib';
-import { groupBy } from 'lodash';
+import groupBy from 'lodash/groupBy';
 import { useMemo } from 'react';
 import { useTranslation } from '../../../context/app/i18n';
 import { useTables } from '../../../hooks';

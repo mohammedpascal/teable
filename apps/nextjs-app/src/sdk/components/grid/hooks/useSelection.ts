@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
-import { useUnmount, useUpdateEffect } from 'react-use';
+import useUnmount from 'react-use/lib/useUnmount';
+import useUpdateEffect from 'react-use/lib/useUpdateEffect';
 import type { IGridProps } from '../Grid';
 import type { ICellItem, ILinearRow, IMouseState, IPosition, IRange } from '../interface';
 import { RegionType, SelectionRegionType, SelectableType } from '../interface';

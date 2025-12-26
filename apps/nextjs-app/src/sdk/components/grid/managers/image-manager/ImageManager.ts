@@ -1,4 +1,4 @@
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 import type { ICellItem, IRectangle } from '../../interface';
 
 interface ILoadResult {

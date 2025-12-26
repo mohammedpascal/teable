@@ -1,7 +1,8 @@
 import { Plus } from '../icons';
 import { Button, cn } from '@/ui-lib';
 import { produce } from 'immer';
-import { set, get } from 'lodash';
+import set from 'lodash/set';
+import get from 'lodash/get';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 import { Condition } from './condition';

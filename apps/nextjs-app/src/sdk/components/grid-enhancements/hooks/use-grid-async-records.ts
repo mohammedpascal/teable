@@ -1,6 +1,8 @@
 import type { IRecord } from '@teable/core';
 import type { IGetRecordsRo, IGroupPointsVo } from '@teable/openapi';
-import { inRange, debounce, get } from 'lodash';
+import inRange from 'lodash/inRange';
+import debounce from 'lodash/debounce';
+import get from 'lodash/get';
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import type { IGridProps, IRectangle } from '../..';
 import { useSearch } from '../../../hooks';

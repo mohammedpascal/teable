@@ -1,4 +1,5 @@
-import { get, template } from 'lodash';
+import get from 'lodash/get';
+import template from 'lodash/template';
 import { useCallback, useContext } from 'react';
 import { AppContext } from '../AppContext';
 import type { TKey, TValue } from './types';

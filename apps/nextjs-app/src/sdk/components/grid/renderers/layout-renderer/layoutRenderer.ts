@@ -1,5 +1,7 @@
 import { contractColorForTheme } from '@teable/core';
-import { isEqual, groupBy, cloneDeep } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import groupBy from 'lodash/groupBy';
+import cloneDeep from 'lodash/cloneDeep';
 import type { IGridTheme } from '../../configs';
 import { GRID_DEFAULT, ROW_RELATED_REGIONS } from '../../configs';
 import type { IVisibleRegion } from '../../hooks';

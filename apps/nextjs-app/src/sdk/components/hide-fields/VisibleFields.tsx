@@ -1,4 +1,4 @@
-import { difference } from 'lodash';
+import difference from 'lodash/difference';
 import React, { useMemo } from 'react';
 import { useViewId, useFields, useView } from '../../hooks';
 import type { KanbanView } from '../../model';

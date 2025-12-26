@@ -1,8 +1,10 @@
 import type { IFilter } from '@teable/core';
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui-lib';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useState } from 'react';
-import { useDebounce, useLatest, useUpdateEffect } from 'react-use';
+import useDebounce from 'react-use/lib/useDebounce';
+import useLatest from 'react-use/lib/useLatest';
+import useUpdateEffect from 'react-use/lib/useUpdateEffect';
 import { useTranslation } from '../../../context/app/i18n';
 import { useFields, useTableId, useViewId } from '../../../hooks';
 import { useHookPermission } from '../../../hooks/use-hook-permission';

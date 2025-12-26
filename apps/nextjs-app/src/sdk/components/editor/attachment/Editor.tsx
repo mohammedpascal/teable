@@ -1,5 +1,5 @@
 import type { IAttachmentCellValue } from '@teable/core';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import type { ICellEditor } from '../type';
 import { UploadAttachment } from './upload-attachment/UploadAttachment';
 

@@ -8,7 +8,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useLocalStorage } from 'react-use';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 import { LocalStorageKeys } from '../../config/local-storage-keys';
 import { useIsTouchDevice } from '../../hooks';
 

@@ -1,6 +1,7 @@
 import { NoneFunc, StatisticsFunc } from '@teable/core';
 import type { IAggregationVo } from '@teable/openapi';
-import { isEmpty, keyBy } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import keyBy from 'lodash/keyBy';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { IColumnStatistics, IGridColumn } from '../..';
 import { useTranslation } from '../../../context/app/i18n';

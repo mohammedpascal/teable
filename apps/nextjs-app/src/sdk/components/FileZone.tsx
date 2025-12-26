@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { cn } from '@/ui-lib';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useDrop, useDropArea } from 'react-use';
+import useDrop from 'react-use/lib/useDrop';
+import useDropArea from 'react-use/lib/useDropArea';
 import { useTranslation } from '../context/app/i18n';
 
 type IAction = 'paste' | 'drop' | 'click';

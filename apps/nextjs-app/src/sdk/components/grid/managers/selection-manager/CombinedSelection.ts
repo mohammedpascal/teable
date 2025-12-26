@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import type { IRange } from '../../interface';
 import { SelectionRegionType } from '../../interface';
 import {

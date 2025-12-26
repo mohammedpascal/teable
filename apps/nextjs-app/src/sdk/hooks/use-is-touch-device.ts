@@ -1,4 +1,4 @@
-import { useMedia } from 'react-use';
+import useMedia from 'react-use/lib/useMedia';
 import { InteractionMode, useInteractionModeStore } from '../store';
 
 export const useIsTouchDevice = () => {

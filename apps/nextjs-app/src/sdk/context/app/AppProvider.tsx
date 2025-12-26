@@ -1,6 +1,7 @@
 import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@teable/next-themes';
-import { isObject, merge } from 'lodash';
+import isObject from 'lodash/isObject';
+import merge from 'lodash/merge';
 import { useMemo, useState } from 'react';
 import { AppContext } from '../app/AppContext';
 import { ConnectionProvider } from './ConnectionProvider';

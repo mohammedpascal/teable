@@ -1,6 +1,6 @@
 import type { IDatetimeFormatting } from '@teable/core';
 import { formatDateToString } from '@teable/core';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 
 export const cellDate2String = (
   cellValue: unknown,

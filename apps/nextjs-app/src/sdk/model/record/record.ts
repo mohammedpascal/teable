@@ -16,7 +16,7 @@ import {
   updateRecordOrders,
   updateRecords,
 } from '@teable/openapi';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import type { Doc } from 'sharedb/lib/client';
 import { requestWrap } from '../../utils/requestWrap';
 import type { IFieldInstance } from '../field/factory';

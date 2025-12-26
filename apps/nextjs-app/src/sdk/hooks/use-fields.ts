@@ -1,6 +1,6 @@
 import type { IColumnMeta } from '@teable/core';
 import { ViewType } from '@teable/core';
-import { sortBy } from 'lodash';
+import sortBy from 'lodash/sortBy';
 import { useContext, useMemo } from 'react';
 import { FieldContext } from '../context';
 import { useHookPermission } from './use-hook-permission';

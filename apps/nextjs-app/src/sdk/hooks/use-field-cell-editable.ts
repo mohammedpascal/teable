@@ -1,4 +1,4 @@
-import { map } from 'lodash';
+import map from 'lodash/map';
 import { useCallback } from 'react';
 import type { IFieldInstance } from '../model';
 import { useHookPermission } from './use-hook-permission';

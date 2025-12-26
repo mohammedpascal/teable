@@ -1,6 +1,7 @@
 import type { IRecord } from '@teable/core';
 import type { IGetRecordsRo } from '@teable/openapi';
-import { inRange, debounce } from 'lodash';
+import inRange from 'lodash/inRange';
+import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import type { Record } from '../model';
 import { useRecords } from './use-records';

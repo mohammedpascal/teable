@@ -1,6 +1,6 @@
 import type { IFilter } from '@teable/core';
 import { Filter as FilterIcon } from '../../../icons';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
 import type { IFieldInstance } from '../../../../model';

@@ -1,6 +1,6 @@
 import { X } from '../../icons';
 import { Button, Popover, PopoverContent, PopoverTrigger, cn } from '@/ui-lib';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import type { ForwardRefRenderFunction } from 'react';
 import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { SelectTag } from '../../cell-value/cell-select/SelectTag';

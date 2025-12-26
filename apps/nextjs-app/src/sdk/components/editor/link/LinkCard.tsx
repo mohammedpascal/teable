@@ -1,6 +1,6 @@
 import { X } from '../../icons';
 import { Button, cn } from '@/ui-lib';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import { useTranslation } from '../../../context/app/i18n';
 
 interface ILinkCardProps {

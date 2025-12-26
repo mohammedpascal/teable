@@ -1,7 +1,7 @@
 import type { IAttachmentCellValue, INumberShowAs, ISingleLineTextShowAs } from '@teable/core';
 import { RowHeightLevel, CellValueType, ColorUtils, FieldType } from '@teable/core';
 import { useTheme } from '@teable/next-themes';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { LRUCache } from 'lru-cache';
 import { useCallback, useMemo } from 'react';
 import colors from 'tailwindcss/colors';

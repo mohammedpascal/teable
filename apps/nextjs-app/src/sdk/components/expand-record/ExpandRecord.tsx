@@ -1,6 +1,6 @@
 import type { IRecord } from '@teable/core';
 import { Skeleton } from '@/ui-lib';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useCallback, useMemo } from 'react';
 import {
   useFieldCellEditable,

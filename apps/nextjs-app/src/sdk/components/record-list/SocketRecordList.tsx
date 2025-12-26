@@ -1,6 +1,6 @@
 import type { ILinkCellValue } from '@teable/core';
 import { Skeleton } from '@/ui-lib';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { useEffect, useMemo, useState } from 'react';
 import { useRowCount, useSearch } from '../../hooks';
 import { useInfiniteRecords } from '../../hooks/use-infinite-records';

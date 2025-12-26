@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import type { IGetRecordsRo } from '@teable/openapi';
 import { getRecordStatus } from '@teable/openapi';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFieldCellEditable, useFields, useRecord, useTableId, useViewId } from '../../../hooks';
 import type { Record as IRecord } from '../../../model';

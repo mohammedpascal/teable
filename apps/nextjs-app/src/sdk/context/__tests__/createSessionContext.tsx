@@ -1,4 +1,4 @@
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import { SessionContext, type ISessionContext } from '../session';
 
 export const createSessionContext = (context: Partial<ISessionContext> = {}) => {

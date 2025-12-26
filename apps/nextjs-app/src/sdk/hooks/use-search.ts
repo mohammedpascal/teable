@@ -1,4 +1,4 @@
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import { useContext } from 'react';
 import { SearchContext } from '../context/query';
 

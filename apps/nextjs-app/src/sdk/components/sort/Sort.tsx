@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import type { ISort, IManualSortRo } from '@teable/core';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import React, { useEffect, useRef, useState } from 'react';
-import { useDebounce } from 'react-use';
+import useDebounce from 'react-use/lib/useDebounce';
 import { useView } from '../../hooks';
 import type { View } from '../../model';
 import type { ISortBaseRef } from './SortBase';

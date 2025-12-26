@@ -19,7 +19,7 @@ import {
   getValidFilterOperators,
   ViewType,
 } from '@teable/core';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import type { GridView, KanbanView, GalleryView, CalendarView, FormView } from '../model';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity

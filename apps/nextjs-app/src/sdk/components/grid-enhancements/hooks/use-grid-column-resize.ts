@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useDebounce } from 'react-use';
+import useDebounce from 'react-use/lib/useDebounce';
 import type { IGridColumn } from '../..';
 import { useView } from '../../../hooks';
 import { useFields } from '../../../hooks/use-fields';

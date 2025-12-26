@@ -1,5 +1,6 @@
 import type { IUpdateOrderRo } from '@teable/openapi';
-import { isEqual, keyBy } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import keyBy from 'lodash/keyBy';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useFieldCellEditable, useFields, useSession, useTableId, useView } from '../../../hooks';
 import { createRecordInstance } from '../../../model';

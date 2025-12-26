@@ -1,4 +1,4 @@
-import { isString } from 'lodash';
+import isString from 'lodash/isString';
 import { useEffect, useRef, useState } from 'react';
 
 export const useTagsVisibility = <T extends string | { id: string; title?: string }>(

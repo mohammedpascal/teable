@@ -1,4 +1,5 @@
-import { difference, map } from 'lodash';
+import difference from 'lodash/difference';
+import map from 'lodash/map';
 import React from 'react';
 import { useTranslation } from '../../context/app/i18n';
 

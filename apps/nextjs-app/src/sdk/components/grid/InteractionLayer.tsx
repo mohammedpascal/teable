@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import type { Dispatch, ForwardRefRenderFunction, SetStateAction } from 'react';
 import { useState, useRef, forwardRef, useImperativeHandle, useMemo, useLayoutEffect } from 'react';
-import { useClickAway, useMouse } from 'react-use';
+import useClickAway from 'react-use/lib/useClickAway';
+import useMouse from 'react-use/lib/useMouse';
 import type { CellScrollerRef } from './CellScroller';
 import { CellScroller } from './CellScroller';
 import type { IEditorContainerRef } from './components';

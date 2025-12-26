@@ -10,7 +10,7 @@ import {
   Skeleton,
   cn,
 } from '@/ui-lib';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import type { ForwardRefRenderFunction } from 'react';
 import {
   useCallback,

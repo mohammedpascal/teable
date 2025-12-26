@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import type { Doc, Query } from 'sharedb/lib/client';
 import { useConnection } from '../../hooks/use-connection';

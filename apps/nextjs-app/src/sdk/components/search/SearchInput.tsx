@@ -1,7 +1,8 @@
 import { Search, X } from '../icons';
 import { cn } from '@/ui-lib';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useDebounce, useUnmount } from 'react-use';
+import useDebounce from 'react-use/lib/useDebounce';
+import useUnmount from 'react-use/lib/useUnmount';
 import { useTranslation } from '../../context/app/i18n';
 import { useFields } from '../../hooks/use-fields';
 import { useSearch } from '../../hooks/use-search';

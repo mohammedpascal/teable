@@ -23,7 +23,7 @@ import {
   exactDate as exactDateConst,
 } from '@teable/core';
 import { getRecords } from '@teable/openapi';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const VALIDATE_FILTER_OPERATORS = [is.value, isExactly.value, contains.value, hasAllOf.value];

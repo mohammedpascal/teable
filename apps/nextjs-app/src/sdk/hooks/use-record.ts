@@ -1,6 +1,6 @@
 import type { IRecord } from '@teable/core';
 import { IdPrefix } from '@teable/core';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { useEffect, useMemo, useState } from 'react';
 import type { Record } from '../model/record';
 import { recordInstanceFieldMap, createRecordInstance } from '../model/record';

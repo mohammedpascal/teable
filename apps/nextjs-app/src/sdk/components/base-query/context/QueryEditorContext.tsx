@@ -1,5 +1,5 @@
 import type { IBaseQuery, IBaseQueryColumn } from '@teable/openapi';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import React from 'react';
 
 export type QueryEditorKey = Exclude<keyof IBaseQuery, 'from'>;

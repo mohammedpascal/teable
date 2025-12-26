@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-tabindex */
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import type { CSSProperties, ForwardRefRenderFunction } from 'react';
 import { useState, useRef, useMemo, useCallback, useImperativeHandle, forwardRef } from 'react';
-import { useRafState } from 'react-use';
+import useRafState from 'react-use/lib/useRafState';
 import type { IGridTheme } from './configs';
 import { gridTheme, GRID_DEFAULT, DEFAULT_SCROLL_STATE, DEFAULT_MOUSE_STATE } from './configs';
 import { useResizeObserver } from './hooks';

@@ -6,7 +6,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/ui-lib';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import type { ForwardRefRenderFunction } from 'react';
 import { Check } from '../../../icons';

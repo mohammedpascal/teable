@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import type { ForwardRefRenderFunction } from 'react';
 import { useImperativeHandle, forwardRef, useRef, useState } from 'react';
 import type { IRatingCell } from '../../renderers';

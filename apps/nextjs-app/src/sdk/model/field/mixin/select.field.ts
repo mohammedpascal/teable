@@ -1,5 +1,5 @@
 import { ColorUtils, SelectFieldCore } from '@teable/core';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import colors from 'tailwindcss/colors';
 
 export interface ISelectFieldDisplayChoice {

@@ -20,7 +20,7 @@ import {
   Draggable,
   Droppable,
 } from '@/ui-lib';
-import { map } from 'lodash';
+import map from 'lodash/map';
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { useTranslation } from '../../context/app/i18n';
 import { useFieldStaticGetter } from '../../hooks';

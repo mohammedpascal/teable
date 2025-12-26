@@ -1,6 +1,6 @@
 import type { IFilterItem } from '@teable/core';
 import { Input, cn } from '@/ui-lib';
-import { toString } from 'lodash';
+import toString from 'lodash/toString';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '../../../../context/app/i18n';
 

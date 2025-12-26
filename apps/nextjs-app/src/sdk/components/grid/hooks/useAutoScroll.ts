@@ -1,4 +1,4 @@
-import { inRange } from 'lodash';
+import inRange from 'lodash/inRange';
 import { useState, useRef, useEffect } from 'react';
 import type { IPosition, IScrollDirection } from '../interface';
 import { DragRegionType } from '../interface';

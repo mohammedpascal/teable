@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
   Separator,
 } from '@/ui-lib';
-import { useMeasure } from 'react-use';
+import useMeasure from 'react-use/lib/useMeasure';
 import { useTranslation } from '../../context/app/i18n';
 import { useHookPermission } from '../../hooks/use-hook-permission';
 import { TooltipWrap } from './TooltipWrap';
