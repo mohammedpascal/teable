@@ -1,9 +1,9 @@
-import { extend } from 'dayjs';
+import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-extend(utc);
-extend(timezone);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export * from './types';
 export * from './array';

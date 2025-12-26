@@ -1,12 +1,13 @@
 import type { ManipulateType, UnitType } from 'dayjs';
-import dayjs, { isDayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import isBetween from 'dayjs/plugin/isBetween';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
-import { isNumber, isString } from 'lodash';
+import isNumber from 'lodash/isNumber';
+import isString from 'lodash/isString';
 import { CellValueType } from '../../models/field/constant';
 import type { TypedValue } from '../typed-value';
 import type { IFormulaContext } from './common';
@@ -58,7 +59,7 @@ function isISODateString(dateString: string) {
 
 export const getDayjs = (isoStr: string | null, timeZone: string, customFormat?: string) => {
   if (isoStr == null) return null;
-  if (isDayjs(isoStr)) return isoStr;
+  if (dayjs.isDayjs(isoStr)) return isoStr;
   if (!isString(isoStr)) throw new FormulaBaseError();
 
   let date;

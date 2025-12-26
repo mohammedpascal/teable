@@ -1,4 +1,5 @@
-import { isNumber, isString } from 'lodash';
+import isNumber from 'lodash/isNumber';
+import isString from 'lodash/isString';
 import { CellValueType } from '../../models/field/constant';
 import type { TypedValue } from '../typed-value';
 import { FormulaFunc, FormulaFuncType, FunctionName } from './common';

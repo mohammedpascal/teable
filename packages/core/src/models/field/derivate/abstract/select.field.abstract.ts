@@ -1,4 +1,4 @@
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { z } from 'zod';
 import { Colors } from '../../colors';
 import { FieldCore } from '../../field';

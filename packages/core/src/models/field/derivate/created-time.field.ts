@@ -1,11 +1,11 @@
-import { extend } from 'dayjs';
+import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { z } from 'zod';
 import type { FieldType, CellValueType } from '../constant';
 import { datetimeFormattingSchema, defaultDatetimeFormatting } from '../formatting';
 import { FormulaAbstractCore } from './abstract/formula.field.abstract';
 
-extend(timezone);
+dayjs.extend(timezone);
 
 export const createdTimeFieldOptionsSchema = z.object({
   expression: z.literal('CREATED_TIME()'),

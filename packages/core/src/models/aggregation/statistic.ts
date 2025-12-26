@@ -1,4 +1,4 @@
-import { pullAll } from 'lodash';
+import pullAll from 'lodash/pullAll';
 import { CellValueType, FieldType } from '../field';
 import { StatisticsFunc } from './statistics-func.enum';
 

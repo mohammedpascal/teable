@@ -2,7 +2,7 @@
 /**
  * TODO: need to distinguish between the resources that this role targets, such as spaceRole or baseRole
  */
-import { keys } from 'lodash';
+import keys from 'lodash/keys';
 import type { Action } from './actions';
 import { Role, RolePermission } from './role';
 import type { IRole } from './role/types';

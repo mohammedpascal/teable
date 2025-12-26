@@ -1,4 +1,4 @@
-import dayjs, { extend } from 'dayjs';
+import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -13,9 +13,9 @@ import {
   formatDateToString,
 } from '../formatting';
 
-extend(timezone);
-extend(customParseFormat);
-extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(customParseFormat);
+dayjs.extend(utc);
 
 export const dateFieldOptionsSchema = z.object({
   formatting: datetimeFormattingSchema,

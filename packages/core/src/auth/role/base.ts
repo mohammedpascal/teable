@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { z } from '../../zod';
 import type { Action } from '../actions';
 import { RolePermission } from './constant';

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { pick, pullAll, uniq } from 'lodash';
+import pick from 'lodash/pick';
+import pullAll from 'lodash/pullAll';
+import uniq from 'lodash/uniq';
 import { z } from 'zod';
 import { CellValueType, FieldType } from '../../field/constant';
 import type { FieldCore } from '../../field/field';
