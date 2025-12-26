@@ -43,7 +43,7 @@ const RootComponent = () => {
   }, [user]);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta

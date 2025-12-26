@@ -8,7 +8,7 @@ export const getColorsCssVariablesText = (themeData: { [key in ThemeName]: IColo
       const cssVariables = Object.entries(properties)
         .map(([key, value]) => `  --${kebabCase(key)}: ${value};`)
         .join('\n');
-      return `:root[data-theme="${themeName}"] {\n${cssVariables} \n}\n`;
+      return `:root.${themeName} {\n${cssVariables} \n}\n`;
     })
     .join('\n');
 };

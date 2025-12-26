@@ -29,19 +29,29 @@ export const AppProvider = (props: IAppProviderProps) => {
     };
   }, [lang, locale]);
 
+  const themeProviderProps = {
+    attribute: 'class' as const,
+    forcedTheme,
+    enableSystem: true,
+    disableTransitionOnChange: true,
+    storageKey: 'theme',
+  };
+
   if (disabledWs) {
-    <ThemeProvider attribute="class" forcedTheme={forcedTheme}>
-      <AppContext.Provider value={value}>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={dehydratedState}>{children}</Hydrate>
-        </QueryClientProvider>
-      </AppContext.Provider>
-    </ThemeProvider>;
+    return (
+      <ThemeProvider {...themeProviderProps}>
+        <AppContext.Provider value={value}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={dehydratedState}>{children}</Hydrate>
+          </QueryClientProvider>
+        </AppContext.Provider>
+      </ThemeProvider>
+    );
   }
 
   // forcedTheme is not work as expected https://github.com/pacocoursey/next-themes/issues/252
   return (
-    <ThemeProvider attribute="class" forcedTheme={forcedTheme}>
+    <ThemeProvider {...themeProviderProps}>
       <AppContext.Provider value={value}>
         <ConnectionProvider wsPath={wsPath}>
           <QueryClientProvider client={queryClient}>
