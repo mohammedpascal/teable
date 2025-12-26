@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { createRootRoute, Outlet, Scripts, ScrollRestoration } from '@tanstack/react-router';
+import { createRootRoute, Outlet, Scripts, ScrollRestoration, createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { z } from 'zod';
 import { Guide } from '@/components/Guide';
@@ -19,6 +19,9 @@ import { AppProviders } from '../AppProviders';
 import '@glideapps/glide-data-grid/dist/index.css';
 import '../styles/global.css';
 import '@fontsource-variable/inter';
+
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import { TanStackDevtools } from '@tanstack/react-devtools'
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -88,7 +91,17 @@ const RootComponent = () => {
           {user && <Guide user={user} />}
           <RouterProgressBar />
         </AppProviders>
-        <ScrollRestoration />
+        <TanStackDevtools
+          config={{
+            position: 'bottom-right',
+          }}
+          plugins={[
+            {
+              name: 'Tanstack Router',
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
         <Scripts />
       </body>
     </html>

@@ -4,7 +4,6 @@
   "license": "AGPL-3.0",
   "private": true,
   "type": "module",
-  "main": "main/index.js",
   "homepage": "https://github.com/teableio/teable",
   "repository": {
     "type": "git",
@@ -29,7 +28,7 @@
     ]
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev",
     "build": "vite build",
     "build-fast": "vite build",
     "bundle-analyze": "cross-env ANALYZE=true pnpm build",
@@ -100,12 +99,18 @@
     "@radix-ui/react-tooltip": "1.0.7",
     "@sentry/react": "7.108.0",
     "@tailwindcss/container-queries": "0.1.1",
+
     "@tanstack/react-query": "4.36.1",
-    "@tanstack/react-router": "1.141.6",
-    "@tanstack/react-start": "^1.132.0",
     "@tanstack/react-table": "8.11.7",
     "@tanstack/react-virtual": "3.2.0",
-    "@tanstack/router-devtools": "1.141.6",
+    
+    "@tanstack/react-devtools": "^0.7.0",
+    "@tanstack/react-router": "^1.132.0",
+    "@tanstack/react-router-devtools": "^1.132.0",
+    "@tanstack/react-router-ssr-query": "^1.131.7",
+    "@tanstack/react-start": "^1.132.0",
+    "@tanstack/router-plugin": "^1.132.0",    
+
     "@teable/core": "workspace:^",
     "@teable/next-themes": "0.3.5",
     "@teable/openapi": "workspace:^",
@@ -221,6 +226,7 @@
     "zustand": "4.5.2"
   },
   "devDependencies": {
+    "@tanstack/devtools-vite": "^0.3.11",
     "@playwright/test": "1.42.1",
     "@size-limit/file": "11.1.2",
     "@svgr/webpack": "8.1.0",

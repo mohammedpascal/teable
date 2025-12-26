@@ -5,7 +5,14 @@ import { useEffect, type FC, type PropsWithChildren } from 'react';
 import useMount from 'react-use/lib/useMount';
 import { MainLayout } from '@/components/layout';
 
+
 export const AppLayout: FC<PropsWithChildren> = (props) => {
+  const { children } = props;
+
+  return <MainLayout>{children}</MainLayout>;
+};
+
+export const AppLayout1: FC<PropsWithChildren> = (props) => {
   const { children } = props;
 
   // Determine whether it is a touch device

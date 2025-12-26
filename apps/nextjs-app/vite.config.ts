@@ -2,6 +2,8 @@ import path from 'path';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
+import { devtools } from '@tanstack/devtools-vite'
+
 
 import svgr from 'vite-plugin-svgr';
 import tsConfigPaths from 'vite-tsconfig-paths';
@@ -10,6 +12,7 @@ import viteReact from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [
+    devtools(),
     nitro(),
     tsConfigPaths(),
     tanstackStart(),

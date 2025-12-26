@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ErrorRouteImport } from './routes/_error'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as R403RouteImport } from './routes/403'
 import { Route as IndexRouteImport } from './routes/index'
@@ -31,10 +30,6 @@ import { Route as MonitorSentrySsrPageRouteImport } from './routes/_monitor/sent
 import { Route as MonitorSentryCsrPageRouteImport } from './routes/_monitor/sentry/csr-page'
 import { Route as MonitorPreviewErrorPageRouteImport } from './routes/_monitor/preview/error-page'
 
-const ErrorRoute = ErrorRouteImport.update({
-  id: '/_error',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const R404Route = R404RouteImport.update({
   id: '/404',
   path: '/404',
@@ -186,7 +181,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/403': typeof R403Route
   '/404': typeof R404Route
-  '/_error': typeof ErrorRoute
   '/table/$tableId': typeof TableTableIdRouteRouteWithChildren
   '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/login': typeof AuthLoginRoute
@@ -255,7 +249,6 @@ export interface FileRouteTypes {
     | '/'
     | '/403'
     | '/404'
-    | '/_error'
     | '/table/$tableId'
     | '/auth/forget-password'
     | '/auth/login'
@@ -279,7 +272,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R403Route: typeof R403Route
   R404Route: typeof R404Route
-  ErrorRoute: typeof ErrorRoute
   TableTableIdRouteRoute: typeof TableTableIdRouteRouteWithChildren
   AuthForgetPasswordRoute: typeof AuthForgetPasswordRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -300,13 +292,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_error': {
-      id: '/_error'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof ErrorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/404': {
       id: '/404'
       path: '/404'
@@ -465,7 +450,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R403Route: R403Route,
   R404Route: R404Route,
-  ErrorRoute: ErrorRoute,
   TableTableIdRouteRoute: TableTableIdRouteRouteWithChildren,
   AuthForgetPasswordRoute: AuthForgetPasswordRoute,
   AuthLoginRoute: AuthLoginRoute,
