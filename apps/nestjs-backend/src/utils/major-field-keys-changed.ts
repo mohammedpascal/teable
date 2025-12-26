@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import type { IFieldVo, IConvertFieldRo } from '@teable/core';
 import { FIELD_RO_PROPERTIES } from '@teable/core';
-import { isEqual, difference } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import difference from 'lodash/difference';
 
 export const NON_INFECT_OPTION_KEYS = new Set([
   'formatting',

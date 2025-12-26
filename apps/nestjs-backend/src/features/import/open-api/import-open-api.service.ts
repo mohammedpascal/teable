@@ -14,7 +14,8 @@ import type {
   IInplaceImportOptionRo,
   IImportColumn,
 } from '@teable/openapi';
-import { difference, toString } from 'lodash';
+import difference from 'lodash/difference';
+import toString from 'lodash/toString';
 import { ClsService } from 'nestjs-cls';
 import type { CreateOp } from 'sharedb';
 import type { LocalPresence } from 'sharedb/lib/client';

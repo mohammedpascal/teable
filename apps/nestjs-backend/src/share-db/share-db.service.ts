@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { context as otelContext, trace as otelTrace } from '@opentelemetry/api';
 import { FieldOpBuilder, IdPrefix, ViewOpBuilder } from '@teable/core';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import { ClsService } from 'nestjs-cls';
 import type { CreateOp, DeleteOp, EditOp } from 'sharedb';
 import ShareDBClass from 'sharedb';

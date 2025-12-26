@@ -47,7 +47,11 @@ import type {
 } from '@teable/openapi';
 import { GroupPointType, UploadType } from '@teable/openapi';
 import { Knex } from 'knex';
-import { get, difference, keyBy, orderBy, uniqBy } from 'lodash';
+import get from 'lodash/get';
+import difference from 'lodash/difference';
+import keyBy from 'lodash/keyBy';
+import orderBy from 'lodash/orderBy';
+import uniqBy from 'lodash/uniqBy';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import { CacheService } from '../../cache/cache.service';

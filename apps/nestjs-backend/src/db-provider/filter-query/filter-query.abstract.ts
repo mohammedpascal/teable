@@ -19,7 +19,9 @@ import {
   isNotEmpty,
 } from '@teable/core';
 import type { Knex } from 'knex';
-import { includes, invert, isObject } from 'lodash';
+import includes from 'lodash/includes';
+import invert from 'lodash/invert';
+import isObject from 'lodash/isObject';
 import type { IFieldInstance } from '../../features/field/model/factory';
 import type { IFilterQueryExtra } from '../db.provider.interface';
 import type { AbstractCellValueFilter } from './cell-value-filter.abstract';

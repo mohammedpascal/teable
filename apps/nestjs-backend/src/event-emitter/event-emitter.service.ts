@@ -14,7 +14,10 @@ import {
   TableOpBuilder,
   ViewOpBuilder,
 } from '@teable/core';
-import { get, isEmpty, omit, set } from 'lodash';
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
+import omit from 'lodash/omit';
+import set from 'lodash/set';
 import { ClsService } from 'nestjs-cls';
 import type { GroupedObservable, Observable } from 'rxjs';
 import { catchError, EMPTY, from, groupBy, map, mergeMap, toArray } from 'rxjs';

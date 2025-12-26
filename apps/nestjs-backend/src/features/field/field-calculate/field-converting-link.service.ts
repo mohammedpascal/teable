@@ -7,7 +7,8 @@ import {
   RecordOpBuilder,
   isMultiValueLink,
 } from '@teable/core';
-import { groupBy, isEqual } from 'lodash';
+import groupBy from 'lodash/groupBy';
+import isEqual from 'lodash/isEqual';
 import { PrismaService } from '../../../prisma';
 import { FieldCalculationService } from '../../calculation/field-calculation.service';
 import { LinkService } from '../../calculation/link.service';

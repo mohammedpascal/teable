@@ -13,7 +13,9 @@ import type {
   IRowCountVo,
   ISearchCountRo,
 } from '@teable/openapi';
-import { forIn, isEmpty, map } from 'lodash';
+import forIn from 'lodash/forIn';
+import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
 import type { IWithView } from '../aggregation.service';
 import { AggregationService } from '../aggregation.service';
 

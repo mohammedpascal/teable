@@ -13,7 +13,7 @@ import {
   updateField,
   convertField,
 } from '@teable/openapi';
-import { differenceWith } from 'lodash';
+import differenceWith from 'lodash/differenceWith';
 import type { IFieldInstance } from '../src/features/field/model/factory';
 import { x_20 } from './data-helpers/20x';
 import { x_20_link, x_20_link_from_lookups } from './data-helpers/20x-link';

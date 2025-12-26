@@ -43,7 +43,9 @@ import {
   UserFieldCore,
 } from '@teable/core';
 import { Knex } from 'knex';
-import { keyBy, merge, mergeWith } from 'lodash';
+import keyBy from 'lodash/keyBy';
+import merge from 'lodash/merge';
+import mergeWith from 'lodash/mergeWith';
 import { InjectModel } from 'nest-knexjs';
 import type { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';

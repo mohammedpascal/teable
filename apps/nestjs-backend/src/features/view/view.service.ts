@@ -31,7 +31,8 @@ import {
 } from '@teable/core';
 import { UploadType } from '@teable/openapi';
 import { Knex } from 'knex';
-import { isEmpty, merge } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import merge from 'lodash/merge';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import { fromZodError } from 'zod-validation-error';

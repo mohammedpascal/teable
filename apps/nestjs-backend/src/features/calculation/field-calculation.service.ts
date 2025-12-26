@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { type IRecord } from '@teable/core';
 import { Knex } from 'knex';
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 import { InjectModel } from 'nest-knexjs';
 import { concatMap, lastValueFrom, map, range, toArray } from 'rxjs';
 import { ThresholdConfig, IThresholdConfig } from '../../configs/threshold.config';

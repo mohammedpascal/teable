@@ -3,7 +3,8 @@ import type { IFieldRo, IGroupItem } from '@teable/core';
 import { CellValueType, SortFunc } from '@teable/core';
 import type { ITableFullVo, IGetRecordsRo } from '@teable/openapi';
 import { updateViewGroup, updateViewSort } from '@teable/openapi';
-import { isEmpty, orderBy } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import orderBy from 'lodash/orderBy';
 import { x_20 } from './data-helpers/20x';
 import { createTable, deleteTable, getRecords, getView, initApp } from './utils/init-app';
 

@@ -20,7 +20,8 @@ import {
 } from '@teable/core';
 import { instanceToPlain } from 'class-transformer';
 import { Knex } from 'knex';
-import { keyBy, sortBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
+import sortBy from 'lodash/sortBy';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import { CustomHttpException } from '../../custom.exception';

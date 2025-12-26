@@ -1,5 +1,6 @@
 import type { IOtOperation } from '@teable/core';
-import { isEmpty, isEqual } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 export interface IOpsMap {
   [tableId: string]: {
     [keyId: string]: IOtOperation[];

@@ -2,7 +2,8 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import type { IMakeOptional, IUserFieldOptions } from '@teable/core';
 import { FieldKeyType, generateRecordId, FieldType } from '@teable/core';
 import type { ICreateRecordsRo, ICreateRecordsVo, IRecord } from '@teable/openapi';
-import { keyBy, uniq } from 'lodash';
+import keyBy from 'lodash/keyBy';
+import uniq from 'lodash/uniq';
 import { ClsService } from 'nestjs-cls';
 import { PrismaService } from '../../../prisma';
 import type { IClsStore } from '../../../types/cls';

@@ -10,7 +10,10 @@ import type {
   ILinkFieldOptions,
   IOtOperation,
 } from '@teable/core';
-import { isEqual, differenceBy, find, isEmpty } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import differenceBy from 'lodash/differenceBy';
+import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
 import { PrismaService } from '../../../prisma';
 import { ViewService } from '../../view/view.service';
 import { FieldService } from '../field.service';

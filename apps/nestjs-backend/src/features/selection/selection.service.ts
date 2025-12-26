@@ -36,7 +36,10 @@ import type {
   ITemporaryPasteVo,
 } from '@teable/openapi';
 import { IdReturnType, RangeType } from '@teable/openapi';
-import { isNumber, isString, map, pick } from 'lodash';
+import isNumber from 'lodash/isNumber';
+import isString from 'lodash/isString';
+import map from 'lodash/map';
+import pick from 'lodash/pick';
 import { ClsService } from 'nestjs-cls';
 import { ThresholdConfig, IThresholdConfig } from '../../configs/threshold.config';
 import { EventEmitterService } from '../../event-emitter/event-emitter.service';

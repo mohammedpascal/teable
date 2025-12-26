@@ -1,6 +1,6 @@
 import type { IUserCellValue } from '@teable/core';
 import { CreatedByFieldCore } from '@teable/core';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import type { FieldBase } from '../field-base';
 import { UserFieldDto } from './user-field.dto';
 

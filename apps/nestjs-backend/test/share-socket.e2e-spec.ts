@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { INestApplication } from '@nestjs/common';
 import { ViewType } from '@teable/core';
-import { map } from 'lodash';
+import map from 'lodash/map';
 import { createTable, deleteTable, initApp, updateViewColumnMeta } from './utils/init-app';
 
 describe('Share (socket-e2e) (e2e)', () => {

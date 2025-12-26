@@ -23,7 +23,12 @@ import {
   RecordOpBuilder,
 } from '@teable/core';
 import { Knex } from 'knex';
-import { difference, intersection, isEmpty, isEqual, keyBy, set } from 'lodash';
+import difference from 'lodash/difference';
+import intersection from 'lodash/intersection';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import keyBy from 'lodash/keyBy';
+import set from 'lodash/set';
 import { InjectModel } from 'nest-knexjs';
 import { PrismaService, wrapWithValidationErrorHandler } from '../../../prisma';
 import {

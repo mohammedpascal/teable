@@ -9,7 +9,8 @@ import type {
   IUpdateRecordRo,
   IUpdateRecordsRo,
 } from '@teable/openapi';
-import { forEach, map } from 'lodash';
+import forEach from 'lodash/forEach';
+import map from 'lodash/map';
 import { ClsService } from 'nestjs-cls';
 import { bufferCount, concatMap, from, lastValueFrom, reduce } from 'rxjs';
 import { IThresholdConfig, ThresholdConfig } from '../../../configs/threshold.config';

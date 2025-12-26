@@ -32,7 +32,11 @@ import type {
 } from '@teable/openapi';
 import dayjs from 'dayjs';
 import { Knex } from 'knex';
-import { groupBy, isDate, isEmpty, isString, keyBy } from 'lodash';
+import groupBy from 'lodash/groupBy';
+import isDate from 'lodash/isDate';
+import isEmpty from 'lodash/isEmpty';
+import isString from 'lodash/isString';
+import keyBy from 'lodash/keyBy';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';

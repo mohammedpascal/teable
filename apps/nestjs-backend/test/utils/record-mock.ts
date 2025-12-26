@@ -5,7 +5,9 @@ import type { IRatingFieldOptions, ISelectFieldOptions } from '@teable/core';
 import { parseDsn, IdPrefix, Colors, FieldType, generateRecordId } from '@teable/core';
 import * as dotenv from 'dotenv-flow';
 import Knex from 'knex';
-import { chunk, flatten, groupBy } from 'lodash';
+import chunk from 'lodash/chunk';
+import flatten from 'lodash/flatten';
+import groupBy from 'lodash/groupBy';
 
 dotenv.config({ path: '../../../nextjs-app', default_node_env: 'development' });
 

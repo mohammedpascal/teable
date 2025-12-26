@@ -3,7 +3,8 @@ import type { IFormulaFieldOptions, ILinkFieldOptions, ILookupOptionsRo } from '
 import { FieldType, generateViewId } from '@teable/core';
 import type { IDuplicateTableRo, IDuplicateTableVo } from '@teable/openapi';
 import { Knex } from 'knex';
-import { get, pick } from 'lodash';
+import get from 'lodash/get';
+import pick from 'lodash/pick';
 import { InjectModel } from 'nest-knexjs';
 import { ClsService } from 'nestjs-cls';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';

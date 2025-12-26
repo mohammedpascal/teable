@@ -1,7 +1,7 @@
 import type { IUserCellValue } from '@teable/core';
 import { UserFieldCore } from '@teable/core';
 import { UploadType } from '@teable/openapi';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import StorageAdapter from '../../../attachments/plugins/adapter';
 import { getFullStorageUrl } from '../../../attachments/plugins/utils';
 import type { FieldBase } from '../field-base';

@@ -16,7 +16,12 @@ import {
 import type { IUserInfoVo } from '@teable/openapi';
 import { instanceToPlain } from 'class-transformer';
 import { Knex } from 'knex';
-import { difference, groupBy, isEmpty, isEqual, keyBy, uniq } from 'lodash';
+import difference from 'lodash/difference';
+import groupBy from 'lodash/groupBy';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import keyBy from 'lodash/keyBy';
+import uniq from 'lodash/uniq';
 import { InjectModel } from 'nest-knexjs';
 import { InjectDbProvider } from '../../db-provider/db.provider';
 import { IDbProvider } from '../../db-provider/db.provider.interface';

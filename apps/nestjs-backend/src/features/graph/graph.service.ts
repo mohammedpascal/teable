@@ -9,7 +9,9 @@ import type {
   IPlanFieldConvertVo,
 } from '@teable/openapi';
 import { Knex } from 'knex';
-import { groupBy, keyBy, uniq } from 'lodash';
+import groupBy from 'lodash/groupBy';
+import keyBy from 'lodash/keyBy';
+import uniq from 'lodash/uniq';
 import { InjectModel } from 'nest-knexjs';
 import { IThresholdConfig, ThresholdConfig } from '../../configs/threshold.config';
 import { PrismaService } from '../../prisma';

@@ -14,7 +14,7 @@ import {
   updateViewGroup,
   updateViewOptions,
 } from '@teable/openapi';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { x_20 } from './data-helpers/20x';
 import { x_20_link, x_20_link_from_lookups } from './data-helpers/20x-link';
 

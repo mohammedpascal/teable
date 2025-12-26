@@ -3,7 +3,7 @@ import { CellValueType } from '@teable/core';
 import type { ISearchIndexByQueryRo } from '@teable/openapi';
 import { TableIndex } from '@teable/openapi';
 import { type Knex } from 'knex';
-import { get } from 'lodash';
+import get from 'lodash/get';
 import type { IFieldInstance } from '../../features/field/model/factory';
 import { SearchQueryAbstract } from './abstract';
 import { FieldFormatter } from './search-index-builder.postgres';

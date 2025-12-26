@@ -1,6 +1,6 @@
 import type { IAttachmentCellValue, IAttachmentItem } from '@teable/core';
 import { AttachmentFieldCore, generateAttachmentId } from '@teable/core';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import type { FieldBase } from '../field-base';
 
 export class AttachmentFieldDto extends AttachmentFieldCore implements FieldBase {

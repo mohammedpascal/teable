@@ -17,7 +17,7 @@ import {
   type INotificationVo,
   type IUpdateNotifyStatusRo,
 } from '@teable/openapi';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { IMailConfig, MailConfig } from '../../configs/mail.config';
 import type { Prisma } from '../../prisma';
 import { PrismaService } from '../../prisma';

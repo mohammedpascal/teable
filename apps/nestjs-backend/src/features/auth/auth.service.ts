@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import type { IUserInfoVo, IUserMeVo } from '@teable/openapi';
-import { pick } from 'lodash';
+import pick from 'lodash/pick';
 import ms from 'ms';
 import { ClsService } from 'nestjs-cls';
 import type { IClsStore } from '../../types/cls';

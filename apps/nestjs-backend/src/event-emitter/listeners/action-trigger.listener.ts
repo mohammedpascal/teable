@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import type { ITableActionKey, IGridColumn, IViewActionKey } from '@teable/core';
 import { getActionTriggerChannel, OpName } from '@teable/core';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { match } from 'ts-pattern';
 import { ShareDbService } from '../../share-db/share-db.service';
 import type {

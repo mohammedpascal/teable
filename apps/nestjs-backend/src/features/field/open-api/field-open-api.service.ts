@@ -23,7 +23,7 @@ import type {
   IGetFieldsQuery,
 } from '@teable/core';
 import { instanceToPlain } from 'class-transformer';
-import { groupBy } from 'lodash';
+import groupBy from 'lodash/groupBy';
 import { ClsService } from 'nestjs-cls';
 import { ThresholdConfig, IThresholdConfig } from '../../../configs/threshold.config';
 import { EventEmitterService } from '../../../event-emitter/event-emitter.service';

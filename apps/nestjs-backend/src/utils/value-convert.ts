@@ -1,4 +1,4 @@
-import { isDate } from 'lodash';
+import isDate from 'lodash/isDate';
 
 export const convertValueToStringify = (value: unknown): number | string | null => {
   if (typeof value === 'bigint' || typeof value === 'number') {

@@ -20,7 +20,8 @@ import {
 } from '@teable/core';
 import type { IGetRecordsRo, ITableFullVo } from '@teable/openapi';
 import { updateViewSort as apiSetViewSort } from '@teable/openapi';
-import { isEmpty, orderBy } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import orderBy from 'lodash/orderBy';
 import { x_20 } from './data-helpers/20x';
 import { x_20_link, x_20_link_from_lookups } from './data-helpers/20x-link';
 import {

@@ -1,5 +1,5 @@
 import { UploadType, type IUserMeVo } from '@teable/openapi';
-import { pick } from 'lodash';
+import pick from 'lodash/pick';
 import StorageAdapter from '../attachments/plugins/adapter';
 import { getFullStorageUrl } from '../attachments/plugins/utils';
 import { parsePermissionsString } from '../role/role-permission.util';

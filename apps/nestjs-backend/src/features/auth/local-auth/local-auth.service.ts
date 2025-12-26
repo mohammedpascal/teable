@@ -11,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { generateUserId, getRandomString, HttpErrorCode } from '@teable/core';
 import type { IChangePasswordRo, ISignup } from '@teable/openapi';
 import * as bcrypt from 'bcrypt';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import ms from 'ms';
 import { ClsService } from 'nestjs-cls';
 import { CacheService } from '../../../cache/cache.service';
