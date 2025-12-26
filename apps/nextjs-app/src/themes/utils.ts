@@ -1,4 +1,4 @@
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 import type { IColor } from './colors';
 import type { ThemeName } from './type';
 
