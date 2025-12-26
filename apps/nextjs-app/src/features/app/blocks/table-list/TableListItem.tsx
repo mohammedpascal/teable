@@ -4,7 +4,7 @@ import { Button, cn } from '@/ui-lib/shadcn';
 import { Input } from '@/ui-lib/shadcn/ui/input';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
-import { useClickAway } from 'react-use';
+import useClickAway from 'react-use/lib/useClickAway';
 import { Emoji } from '../../components/emoji/Emoji';
 import { EmojiPicker } from '../../components/emoji/EmojiPicker';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';

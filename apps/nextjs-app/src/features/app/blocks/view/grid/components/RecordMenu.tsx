@@ -19,10 +19,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/ui-lib/shadcn';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import { Trans, useTranslation } from 'react-i18next';
 import { Fragment, useCallback, useRef, useState } from 'react';
-import { useClickAway } from 'react-use';
+import useClickAway from 'react-use/lib/useClickAway';
 import { tableConfig } from '@/features/i18n/table.config';
 
 export interface IMenuItemProps<T> {

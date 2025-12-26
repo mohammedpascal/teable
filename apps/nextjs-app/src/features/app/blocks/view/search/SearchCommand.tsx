@@ -38,7 +38,7 @@ import {
 } from '@/ui-lib';
 import { useTranslation } from 'react-i18next';
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from 'react';
-import { useLocalStorage } from 'react-use';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 
 interface ISearchCommand {
   value: string;

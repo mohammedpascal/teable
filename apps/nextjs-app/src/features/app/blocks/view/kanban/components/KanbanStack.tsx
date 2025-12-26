@@ -6,7 +6,7 @@ import { useRecords } from '@/sdk/hooks';
 import type { Record } from '@/sdk/model';
 import { useTranslation } from 'react-i18next';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
-import { useMeasure } from 'react-use';
+import useMeasure from 'react-use/lib/useMeasure';
 import type { ListRange, VirtuosoHandle } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 import { tableConfig } from '@/features/i18n/table.config';

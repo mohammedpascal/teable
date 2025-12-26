@@ -1,7 +1,7 @@
 import type { CellValueType, IUserCellValue, IUserFieldOptions } from '@teable/core';
 import { UserEditor } from '@/sdk/components';
 import { Label, Switch } from '@/ui-lib';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { useTranslation } from 'react-i18next';
 import { tableConfig } from '@/features/i18n/table.config';
 import { DefaultValue } from '../DefaultValue';

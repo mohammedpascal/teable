@@ -6,7 +6,7 @@ import { type GridView } from '@/sdk';
 import { useTableId, useView, useFields, useSearch, useTableListener } from '@/sdk/hooks';
 import { Spin } from '@/ui-lib/base';
 import { Button } from '@/ui-lib/shadcn';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { useEffect, useState, forwardRef, useImperativeHandle, useCallback, useMemo } from 'react';
 import { useGridSearchStore } from '../grid/useGridSearchStore';
 import type { ISearchButtonProps } from './SearchButton';

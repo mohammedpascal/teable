@@ -3,7 +3,7 @@ import type { IImportOptionRo, IInplaceImportOptionRo } from '@teable/openapi';
 import { getFields as apiGetFields, getTableById as apiGetTableById } from '@teable/openapi';
 import { ReactQueryKeys } from '@/sdk/config';
 import { useHookPermission } from '@/sdk/hooks';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { InplaceImportOptionPanel } from '../CollapsePanel';

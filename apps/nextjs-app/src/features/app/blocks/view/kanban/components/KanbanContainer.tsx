@@ -5,7 +5,7 @@ import type { IUpdateRecordRo } from '@teable/openapi';
 import { generateLocalId } from '@/sdk/components';
 import { useTableId, useViewId } from '@/sdk/hooks';
 import { Record } from '@/sdk/model';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { UNCATEGORIZED_STACK_ID } from '../constant';
 import type { IKanbanContext } from '../context';

@@ -1,6 +1,6 @@
 import type { IViewInstance } from '@/sdk';
 import { useTable } from '@/sdk/hooks';
-import { pick } from 'lodash';
+import pick from 'lodash/pick';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useCallback } from 'react';
 

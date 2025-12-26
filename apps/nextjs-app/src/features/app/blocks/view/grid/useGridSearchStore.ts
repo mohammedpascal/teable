@@ -1,5 +1,5 @@
 import type { IGridRef, IRecordIndexMap } from '@/sdk';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 import { create } from 'zustand';
 
 interface IGridRefState {

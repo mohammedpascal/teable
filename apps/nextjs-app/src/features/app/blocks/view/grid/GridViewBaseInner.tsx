@@ -70,12 +70,16 @@ import {
 } from '@/sdk/hooks';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { useToast } from '@/ui-lib';
-import { groupBy, isEqual, keyBy, uniqueId } from 'lodash';
+import groupBy from 'lodash/groupBy';
+import isEqual from 'lodash/isEqual';
+import keyBy from 'lodash/keyBy';
+import uniqueId from 'lodash/uniqueId';
 import { useNavigate, useRouterState, useSearch } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { useClickAway, usePrevious } from 'react-use';
+import useClickAway from 'react-use/lib/useClickAway';
+import usePrevious from 'react-use/lib/usePrevious';
 import { ExpandRecordContainer } from '@/features/app/components/ExpandRecordContainer';
 import type { IExpandRecordContainerRef } from '@/features/app/components/ExpandRecordContainer/types';
 import { uploadFiles } from '@/features/app/utils/uploadFile';

@@ -33,7 +33,7 @@ import {
 } from '@/ui-lib/shadcn';
 import { useTranslation } from 'react-i18next';
 import { Fragment, useRef } from 'react';
-import { useClickAway } from 'react-use';
+import useClickAway from 'react-use/lib/useClickAway';
 import { FieldOperator } from '@/features/app/components/field-setting/type';
 import { tableConfig } from '@/features/i18n/table.config';
 import { useFieldSettingStore } from '../../field/useFieldSettingStore';

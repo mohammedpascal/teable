@@ -1,7 +1,7 @@
 import { ArrowUpDown } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
-import { useClickAway } from 'react-use';
+import useClickAway from 'react-use/lib/useClickAway';
 import { tableConfig } from '@/features/i18n/table.config';
 
 interface IRowStatusContainerProps {

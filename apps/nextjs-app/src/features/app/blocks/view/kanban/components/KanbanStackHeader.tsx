@@ -10,11 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/ui-lib';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useTranslation } from 'react-i18next';
 import type { Dispatch, SetStateAction } from 'react';
 import { useRef, useState } from 'react';
-import { useClickAway } from 'react-use';
+import useClickAway from 'react-use/lib/useClickAway';
 import { ChoiceItem } from '@/features/app/components/field-setting/options/SelectOptions';
 import { tableConfig } from '@/features/i18n/table.config';
 import type { IKanbanContext } from '../context';

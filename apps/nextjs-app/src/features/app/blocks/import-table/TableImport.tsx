@@ -43,7 +43,7 @@ import { toast } from '@/ui-lib/shadcn/ui/sonner';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { useState, useRef, useCallback } from 'react';
-import { useLocalStorage } from 'react-use';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 import { FieldConfigPanel, InplaceFieldConfigPanel } from './field-config-panel';
 import { UploadPanel } from './upload-panel';
 import { UrlPanel } from './UrlPanel';

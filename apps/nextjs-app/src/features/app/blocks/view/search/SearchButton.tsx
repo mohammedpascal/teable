@@ -20,11 +20,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/ui-lib/shadcn';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { useDebounce, useLocalStorage } from 'react-use';
+import useDebounce from 'react-use/lib/useDebounce';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 import { useGridSearchStore } from '../grid/useGridSearchStore';
 import { ToolBarButton } from '../tool-bar/ToolBarButton';
 import type { ISearchCommandRef } from './SearchCommand';

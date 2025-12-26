@@ -1,6 +1,7 @@
 import { getTableImportChannel } from '@teable/core';
 import { useConnection } from '@/sdk/hooks';
-import { isEmpty, get } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
 import { useEffect, useState } from 'react';
 
 export const useImportStatus = (tableId: string) => {

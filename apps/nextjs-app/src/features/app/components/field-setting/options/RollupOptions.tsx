@@ -10,7 +10,8 @@ import {
 import { BaseSingleSelect } from '@/sdk/components/filter/view-filter/component/base/BaseSingleSelect';
 
 import { RollupField } from '@/sdk/model';
-import { isEmpty, isEqual } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 import { useTranslation } from 'react-i18next';
 import { useCallback, useMemo } from 'react';
 import { TimeZoneFormatting } from '../formatting/TimeZoneFormatting';

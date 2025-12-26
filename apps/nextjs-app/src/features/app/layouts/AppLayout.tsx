@@ -2,7 +2,7 @@ import { generateWindowId } from '@teable/core';
 import { axios } from '@teable/openapi';
 import { useIsTouchDevice } from '@/sdk/hooks';
 import { useEffect, type FC, type PropsWithChildren } from 'react';
-import { useMount } from 'react-use';
+import useMount from 'react-use/lib/useMount';
 import { MainLayout } from '@/components/layout';
 
 export const AppLayout: FC<PropsWithChildren> = (props) => {

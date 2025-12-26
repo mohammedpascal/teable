@@ -1,7 +1,7 @@
 import type { SUPPORTEDTYPE } from '@teable/openapi';
 import { importTypeMap } from '@teable/openapi';
 import { useRef } from 'react';
-import { useDropArea } from 'react-use';
+import useDropArea from 'react-use/lib/useDropArea';
 import { transformTextFile2UTF8 } from './utils';
 
 interface IUploadProps {
