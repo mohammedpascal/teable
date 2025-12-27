@@ -38,6 +38,7 @@
     "clean:backend": "rimraf --no-glob ./main",
     "test": "run-s test-unit",
     "test-unit": "vitest run --silent",
+    "prisma-generate": "npx prisma generate",
     "test-unit-cover": "pnpm test-unit --coverage",
     "typecheck": "tsc --project ./tsconfig.json --noEmit",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx --cache --cache-location ../../.cache/eslint/nextjs-app.eslintcache",
@@ -223,7 +224,8 @@
     "zod": "3.22.4",
     "zod-i18n-map": "2.27.0",
     "zod-validation-error": "3.0.3",
-    "zustand": "4.5.2"
+    "zustand": "4.5.2",
+    "@prisma/client": "6.18.0"
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "^0.3.11",
@@ -273,6 +275,7 @@
     "vite": "^7.3.0",
     "vite-plugin-svgr": "4.2.0",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "2.1.5"
+    "vitest": "2.1.5",
+    "prisma": "6.2.1"
   }
 }
