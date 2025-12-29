@@ -8,9 +8,9 @@ import {
   Separator,
   Switch,
 } from '@/ui-lib/shadcn';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { ISettingVo, IUpdateSettingRo } from '@teable/openapi';
-import { updateSetting } from '@teable/openapi';
+import { getSetting, updateSetting } from '@teable/openapi';
 import { Pencil } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -111,9 +111,14 @@ export interface ISettingPageProps {
 }
 
 export const SettingPage = (props: ISettingPageProps) => {
-  const { settingServerData : setting} = props;
+  const { settingServerData } = props;
   const queryClient = useQueryClient();
   const { t } = useTranslation('common');
+
+  const { data: setting = settingServerData } = useQuery({
+    queryKey: ['setting'],
+    queryFn: () => getSetting().then(({ data }) => data),
+  });
 
   const { mutateAsync: mutateUpdateSetting } = useMutation({
     mutationFn: (props: IUpdateSettingRo) => updateSetting(props),
