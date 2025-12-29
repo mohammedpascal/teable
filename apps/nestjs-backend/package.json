@@ -114,7 +114,10 @@
     "vite-tsconfig-paths": "4.3.2",
     "vitest": "2.1.5",
     "vitest-mock-extended": "2.0.2",
-    "webpack": "5.91.0"
+    "webpack": "5.91.0",
+    "fork-ts-checker-webpack-plugin": "9.0.0",
+    "glob": "10.3.10",
+    "webpack-node-externals": "3.0.0"
   },
   "peerDependencies": {
     "@prisma/client": "^5.0.0"
