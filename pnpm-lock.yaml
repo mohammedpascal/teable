@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@teable/backend>vite': ^5.4.21
+
 importers:
 
   .:
@@ -484,9 +487,12 @@ importers:
       unplugin-swc:
         specifier: 1.4.4
         version: 1.4.4(@swc/core@1.15.7)(rollup@4.54.0)
+      vite:
+        specifier: ^5.4.21
+        version: 5.4.21(@types/node@20.9.0)(terser@5.44.1)
       vite-tsconfig-paths:
         specifier: 4.3.2
-        version: 4.3.2(typescript@5.4.3)(vite@7.3.0(@types/node@20.9.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.7.1)(yaml@2.8.2))
+        version: 4.3.2(typescript@5.4.3)(vite@5.4.21(@types/node@20.9.0)(terser@5.44.1))
       vitest:
         specifier: 2.1.5
         version: 2.1.5(@types/node@20.9.0)(happy-dom@15.11.6)(terser@5.44.1)
@@ -30224,6 +30230,17 @@ snapshots:
       - supports-color
       - typescript
 
+  vite-tsconfig-paths@4.3.2(typescript@5.4.3)(vite@5.4.21(@types/node@20.9.0)(terser@5.44.1)):
+    dependencies:
+      debug: 4.4.3
+      globrex: 0.1.2
+      tsconfck: 3.1.6(typescript@5.4.3)
+    optionalDependencies:
+      vite: 5.4.21(@types/node@20.9.0)(terser@5.44.1)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
   vite-tsconfig-paths@4.3.2(typescript@5.4.3)(vite@7.3.0(@types/node@20.9.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)):
     dependencies:
       debug: 4.4.3
@@ -30231,17 +30248,6 @@ snapshots:
       tsconfck: 3.1.6(typescript@5.4.3)
     optionalDependencies:
       vite: 7.3.0(@types/node@20.9.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-
-  vite-tsconfig-paths@4.3.2(typescript@5.4.3)(vite@7.3.0(@types/node@20.9.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.7.1)(yaml@2.8.2)):
-    dependencies:
-      debug: 4.4.3
-      globrex: 0.1.2
-      tsconfck: 3.1.6(typescript@5.4.3)
-    optionalDependencies:
-      vite: 7.3.0(@types/node@20.9.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.7.1)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -30291,23 +30297,6 @@ snapshots:
       jiti: 2.6.1
       terser: 5.44.1
       tsx: 4.21.0
-      yaml: 2.8.2
-    optional: true
-
-  vite@7.3.0(@types/node@20.9.0)(jiti@2.6.1)(terser@5.44.1)(tsx@4.7.1)(yaml@2.8.2):
-    dependencies:
-      esbuild: 0.27.2
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
-      postcss: 8.5.6
-      rollup: 4.54.0
-      tinyglobby: 0.2.15
-    optionalDependencies:
-      '@types/node': 20.9.0
-      fsevents: 2.3.3
-      jiti: 2.6.1
-      terser: 5.44.1
-      tsx: 4.7.1
       yaml: 2.8.2
     optional: true
 
