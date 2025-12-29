@@ -6,11 +6,12 @@ import { getTableList } from '@teable/openapi';
 import { ReactQueryKeys } from '@/sdk/config';
 import { StandaloneViewProvider } from '@/sdk/context';
 import { Button, Separator, ToggleGroup, ToggleGroupItem } from '@/ui-lib/shadcn';
-import { Link, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Selector } from '@/components/Selector';
 import { developerConfig } from '@/features/i18n/developer.config';
+import { getBackendUrl } from '@/lib/utils/get-backend-url';
 import { SettingsHeader } from '../SettingsHeader';
 import { FilterBuilder } from './FilterBuilder';
 import { PreviewScript } from './PreviewScript';
@@ -47,10 +48,10 @@ export const QueryBuilder = () => {
             <div className="text-sm">
               {t('developer:subTitle')}{' '}
               <Button variant="link" size="xs" asChild>
-                <Link to="/redocs" target="_blank">
+                <a href={`${getBackendUrl()}/redocs`} target="_blank" rel="noopener noreferrer">
                   <ArrowUpRight className="size-4" />
                   {t('developer:apiList')}
-                </Link>
+                </a>
               </Button>
             </div>
             <p>{t('developer:chooseSource')}</p>
