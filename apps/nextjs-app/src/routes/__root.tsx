@@ -1,9 +1,12 @@
+// src/routes/__root.tsx
+/// <reference types="vite/client" />
+
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import * as Sentry from '@sentry/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { createRootRoute, Outlet, Scripts, ScrollRestoration, createFileRoute } from '@tanstack/react-router';
+import { createRootRoute, Outlet, Scripts, ScrollRestoration, createFileRoute, HeadContent } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { z } from 'zod';
 import { Guide } from '@/components/Guide';
@@ -16,8 +19,9 @@ import type { IUser } from '@/sdk';
 import { colors } from '@/themes/colors';
 import { getColorsCssVariablesText } from '@/themes/utils';
 import { AppProviders } from '../AppProviders';
-import '@glideapps/glide-data-grid/dist/index.css';
-import '../styles/global.css';
+import glideDataGridCss from '@glideapps/glide-data-grid/dist/index.css?url';
+import globalCss from '../styles/global.css?url'
+
 import '@fontsource-variable/inter';
 
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
@@ -74,6 +78,7 @@ const RootComponent = () => {
         <meta name="msapplication-config" content="/images/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#ffffff" />
         <style>{getColorsCssVariablesText(colors)}</style>
+        <HeadContent />
       </head>
       <body>
         <AppProviders env={env}>
@@ -109,6 +114,13 @@ const RootComponent = () => {
 };
 
 export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      // your meta tags and site config
+    ],
+    links: [{ rel: 'stylesheet', href: globalCss }, { rel: 'stylesheet', href: glideDataGridCss }],
+    // other head config
+  }),
   component: RootComponent,
 });
 
