@@ -1,7 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 import { Trans, useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import { BaseLayout } from '@/features/app/layouts/BaseLayout';
+import { useTables } from '@/sdk/hooks';
 
 export const getServerTime = createServerFn({ method: 'GET' }).handler(async () => {
   return { time: new Date().toISOString() };
@@ -19,6 +21,9 @@ export const Route = createFileRoute('/')({
 function IndexComponent() {
   const { time } = Route.useLoaderData();
   const { t } = useTranslation(['table', 'common']);
+  const navigate = useNavigate();
+
+
   return (
     <BaseLayout>
       <div className="h-full flex-col md:flex">
