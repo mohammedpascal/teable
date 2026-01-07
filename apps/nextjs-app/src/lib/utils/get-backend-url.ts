@@ -5,7 +5,7 @@
 export function getBackendUrl(): string {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
-  const backendPort = process.env.BACKEND_PORT || '3000';
+  const backendPort = import.meta.env.VITE_BACKEND_PORT || '3000';
   return `${protocol}//${hostname}:${backendPort}`;
 }
 

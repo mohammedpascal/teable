@@ -136,6 +136,7 @@
     "@nestjs/passport": "10.0.3",
     "@nestjs/platform-express": "10.3.5",
     "@nestjs/platform-ws": "10.3.5",
+    "@nestjs/serve-static": "^4.0.2",
     "@nestjs/swagger": "7.3.0",
     "@nestjs/terminus": "10.2.3",
     "@nestjs/websockets": "10.3.5",

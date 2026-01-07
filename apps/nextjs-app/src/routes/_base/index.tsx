@@ -1,25 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/react-start';
 import { Trans, useTranslation } from 'react-i18next';
-
-export const getServerTime = createServerFn({ method: 'GET' }).handler(async () => {
-  return { time: new Date().toISOString() };
-});
+import { useState, useEffect } from 'react';
 
 export const Route = createFileRoute('/_base/')({
   path: '/',
-  loader: async () => {
-    const { time } = await getServerTime();
-    console.log('time2', time);
-    return { time };
-  },
   component: IndexComponent,
 });
 
 function IndexComponent() {
-  const { time } = Route.useLoaderData();
   const { t } = useTranslation(['table', 'common']);
+  const [time, setTime] = useState<string>('');
 
+  useEffect(() => {
+    setTime(new Date().toISOString());
+  }, []);
 
   return (
     <div className="h-full flex-col md:flex">

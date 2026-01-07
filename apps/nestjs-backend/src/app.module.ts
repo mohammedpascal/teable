@@ -21,6 +21,7 @@ import { UserModule } from './features/user/user.module';
 import { GlobalModule } from './global/global.module';
 import { InitBootstrapProvider } from './global/init-bootstrap.provider';
 import { LoggerModule } from './logger/logger.module';
+import { StaticModule } from './static/static.module';
 import { WsModule } from './ws/ws.module';
 
 export const appModules = {
@@ -45,6 +46,7 @@ export const appModules = {
     ExportOpenApiModule,
     SettingModule,
     DashboardModule,
+    StaticModule,
   ],
   providers: [InitBootstrapProvider],
 };

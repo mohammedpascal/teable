@@ -1,8 +1,15 @@
 import { createAxios } from '@teable/openapi';
+import { getBackendUrl } from '@/lib/utils/get-backend-url';
 
 export const getAxios = () => {
   const axios = createAxios();
-  axios.defaults.baseURL = `http://localhost:${process.env.BACKEND_PORT || '3000'}/api`;
+  // Use getBackendUrl for client-side compatibility
+  if (typeof window !== 'undefined') {
+    axios.defaults.baseURL = `${getBackendUrl()}/api`;
+  } else {
+    // Fallback for SSR (though we're removing SSR, keeping for safety)
+    axios.defaults.baseURL = `http://localhost:${import.meta.env.VITE_BACKEND_PORT || '3000'}/api`;
+  }
   return axios;
 };
 

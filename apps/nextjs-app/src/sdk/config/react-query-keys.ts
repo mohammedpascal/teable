@@ -61,4 +61,13 @@ export const ReactQueryKeys = {
     ['calendar-daily-collection', tableId, query] as const,
 
   getPublicSetting: () => ['public-setting'] as const,
+
+  viewPageData: (tableId: string, viewId: string) =>
+    ['view-page-data', tableId, viewId] as const,
+
+  users: (skip?: number, take?: number) => ['users', skip, take] as const,
+
+  roles: () => ['roles'] as const,
+
+  setting: () => ['setting'] as const,
 };
