@@ -30,6 +30,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "preview": "vite preview",
     "build-fast": "vite build",
     "bundle-analyze": "cross-env ANALYZE=true pnpm build",
     "check-dist": "es-check -v",

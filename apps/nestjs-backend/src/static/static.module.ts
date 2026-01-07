@@ -7,7 +7,7 @@ console.log('StaticModule rootPath:', rootPath);
 
 @Module({
   imports: [
-    ...(process.env.NODE_ENV !== 'production'
+    ...(process.env.NODE_ENV === 'production'
       ? [
           ServeStaticModule.forRoot({
             rootPath,

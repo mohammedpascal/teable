@@ -1,6 +1,7 @@
 import swc from 'unplugin-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { configDefaults, defineConfig } from 'vitest/config';
+import type { PluginOption } from 'vite';
 
 const testFiles = ['**/src/**/*.{test,spec}.{js,ts}'];
 
@@ -10,7 +11,7 @@ export default defineConfig({
       jsc: {
         target: 'es2022',
       },
-    }),
+    }) as PluginOption,
     tsconfigPaths(),
   ],
   cacheDir: '../../.cache/vitest/nestjs-backend/unit',
