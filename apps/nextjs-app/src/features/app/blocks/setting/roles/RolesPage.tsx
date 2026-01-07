@@ -1,46 +1,48 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { Plus } from '@/components/icons';
 import type { ICreateRoleRo, IRoleListVo, IUpdateRoleRo } from '@teable/openapi';
-import { createRole, deleteRole, getRoleList, updateRole } from '@teable/openapi';
+import { createRole, deleteRole, updateRole } from '@teable/openapi';
 import { Button, Separator } from '@/ui-lib/shadcn';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { Route } from '@/routes/_settings/settings/roles';
 import { SettingsHeader } from '../SettingsHeader';
 import { RoleDialog } from './RoleDialog';
 import { RolesGridView } from './RolesGridView';
 
 export const RolesPage = () => {
   const { t } = useTranslation(['common', 'setting']);
-  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingRole, setEditingRole] = useState<IRoleListVo | null>(null);
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['role-list'],
-    queryFn: () => getRoleList().then((res) => res.data),
-  });
+  const { rolesData } = Route.useLoaderData();
 
   const createMutation = useMutation({
     mutationFn: (roleData: ICreateRoleRo) => createRole(roleData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['role-list'] });
       setIsDialogOpen(false);
+      // Refetch data by navigating to the same route
+      navigate({ to: '/settings/roles', replace: true });
     },
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: IUpdateRoleRo }) => updateRole(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['role-list'] });
       setIsDialogOpen(false);
       setEditingRole(null);
+      // Refetch data by navigating to the same route
+      navigate({ to: '/settings/roles', replace: true });
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteRole(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['role-list'] });
+      // Refetch data by navigating to the same route
+      navigate({ to: '/settings/roles', replace: true });
     },
   });
 
@@ -77,8 +79,6 @@ export const RolesPage = () => {
     }
   };
 
-  const hasError = error != null;
-
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto overflow-x-hidden">
       <SettingsHeader title={t('setting:roles.title', { defaultValue: 'Roles' })}>
@@ -92,15 +92,9 @@ export const RolesPage = () => {
       </SettingsHeader>
       <Separator />
       <div className="flex-1 overflow-y-auto px-8 py-6">
-        {hasError && (
-          <div className="rounded-md border border-destructive bg-destructive/10 p-4 text-sm text-destructive">
-            {t('common:error', { defaultValue: 'An error occurred' })}
-          </div>
-        )}
-
         <RolesGridView
-          roles={data || []}
-          isLoading={isLoading}
+          roles={rolesData || []}
+          isLoading={false}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
@@ -110,7 +104,7 @@ export const RolesPage = () => {
           onOpenChange={setIsDialogOpen}
           role={editingRole}
           onSubmit={handleSubmit}
-          isLoading={createMutation.status === 'loading' || updateMutation.status === 'loading'}
+          isLoading={createMutation.isPending || updateMutation.isPending}
         />
       </div>
     </div>
