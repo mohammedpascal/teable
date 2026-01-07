@@ -1,10 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
-import type { ISettingPageProps } from '@/features/app/blocks/admin';
 import { SettingPage } from '@/features/app/blocks/admin';
-import { SettingLayout } from '@/features/app/layouts/SettingLayout';
 import { getSettingServerData } from '@/server/setting';
 
-export const Route = createFileRoute('/settings/general')({
+export const Route = createFileRoute('/_settings/settings/general')({
+  path: '/settings/general',
   loader: async () => {
     try {
       const settingServerData= await getSettingServerData() 
@@ -23,9 +22,7 @@ function GeneralSettingsPageComponent() {
   const { settingServerData } = Route.useLoaderData();
 
   return (
-    <SettingLayout>
-      <SettingPage settingServerData={settingServerData} />
-    </SettingLayout>
+    <SettingPage settingServerData={settingServerData} />
   );
 }
 

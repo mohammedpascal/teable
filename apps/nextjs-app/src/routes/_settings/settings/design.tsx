@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import type { ITableVo } from '@teable/openapi';
 import { Design } from '@/features/app/blocks/design/Design';
-import { SettingLayout } from '@/features/app/layouts/SettingLayout';
 import { TableProvider } from '@/sdk/context';
 
-export const Route = createFileRoute('/settings/design')({
+export const Route = createFileRoute('/_settings/settings/design')({
+  path: '/settings/design',
   component: DesignPageComponent,
 });
 
@@ -13,11 +13,9 @@ function DesignPageComponent() {
   const tableServerData: ITableVo[] | undefined = undefined;
 
   return (
-    <SettingLayout>
-      <TableProvider serverData={tableServerData}>
-        <Design />
-      </TableProvider>
-    </SettingLayout>
+    <TableProvider serverData={tableServerData}>
+      <Design />
+    </TableProvider>
   );
 }
 

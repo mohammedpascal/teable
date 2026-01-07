@@ -1,7 +1,7 @@
 import type { DriverClient } from '@teable/core';
 import type { IUser } from '@/sdk';
 import { AppProvider, SessionProvider } from '@/sdk';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, Outlet } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { AppLayout } from '@/features/app/layouts';
@@ -13,11 +13,10 @@ import { useSdkLocale } from '../hooks/useSdkLocale';
 import { useSettingRoute } from './useSettingRoute';
 
 export const SettingLayout: React.FC<{
-  children: React.ReactNode;
   user?: IUser;
   driver?: DriverClient;
   dehydratedState?: unknown;
-}> = ({ children, user, dehydratedState }) => {
+}> = ({ user, dehydratedState }) => {
   const navigate = useNavigate();
   const sdkLocale = useSdkLocale();
   const { i18n } = useTranslation();
@@ -40,7 +39,7 @@ export const SettingLayout: React.FC<{
               >
                 <SidebarContent routes={routes} />
               </Sidebar>
-              {children}
+              <Outlet />
             </div>
           </SidebarProvider>
         </SessionProvider>

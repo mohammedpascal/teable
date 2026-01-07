@@ -1,12 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { UsersPage } from '@/features/app/blocks/setting/users/UsersPage';
-import { SettingLayout } from '@/features/app/layouts/SettingLayout';
 import { getUsersServerData } from '@/server/users';
 import { createServerFn } from '@tanstack/react-start';
 
 const loadUsers = createServerFn({ method: 'GET' }).handler(() => getUsersServerData());
 
-export const Route = createFileRoute('/settings/users')({
+export const Route = createFileRoute('/_settings/settings/users')({
+  path: '/settings/users',
   loader: async () => {
     try {
       const usersData = await loadUsers();
@@ -22,8 +22,7 @@ export const Route = createFileRoute('/settings/users')({
 
 function UsersSettingsPageComponent() {
   return (
-    <SettingLayout>
-      <UsersPage />
-    </SettingLayout>
+    <UsersPage />
   );
 }
+

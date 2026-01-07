@@ -11,24 +11,25 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as R403RouteImport } from './routes/403'
+import { Route as SettingsRouteRouteImport } from './routes/_settings/route'
 import { Route as BaseRouteRouteImport } from './routes/_base/route'
 import { Route as BaseIndexRouteImport } from './routes/_base/index'
-import { Route as SettingsUsersRouteImport } from './routes/settings/users'
-import { Route as SettingsRolesRouteImport } from './routes/settings/roles'
-import { Route as SettingsQueryBuilderRouteImport } from './routes/settings/query-builder'
-import { Route as SettingsGeneralRouteImport } from './routes/settings/general'
-import { Route as SettingsDesignRouteImport } from './routes/settings/design'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth/reset-password'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgetPasswordRouteImport } from './routes/auth/forget-password'
-import { Route as DeveloperToolQueryBuilderRouteImport } from './routes/developer/tool/query-builder'
 import { Route as ApiMonitorSentryRouteImport } from './routes/api/_monitor/sentry'
 import { Route as ApiMonitorHealthcheckRouteImport } from './routes/api/_monitor/healthcheck'
+import { Route as SettingsSettingsUsersRouteImport } from './routes/_settings/settings/users'
+import { Route as SettingsSettingsRolesRouteImport } from './routes/_settings/settings/roles'
+import { Route as SettingsSettingsQueryBuilderRouteImport } from './routes/_settings/settings/query-builder'
+import { Route as SettingsSettingsGeneralRouteImport } from './routes/_settings/settings/general'
+import { Route as SettingsSettingsDesignRouteImport } from './routes/_settings/settings/design'
 import { Route as MonitorSentrySsrPageRouteImport } from './routes/_monitor/sentry/ssr-page'
 import { Route as MonitorSentryCsrPageRouteImport } from './routes/_monitor/sentry/csr-page'
 import { Route as MonitorPreviewErrorPageRouteImport } from './routes/_monitor/preview/error-page'
 import { Route as BaseTableTableIdRouteRouteImport } from './routes/_base/table/$tableId/route'
+import { Route as SettingsDeveloperToolQueryBuilderRouteImport } from './routes/_settings/developer/tool/query-builder'
 import { Route as BaseTableTableIdViewIdRouteImport } from './routes/_base/table/$tableId/$viewId'
 
 const R404Route = R404RouteImport.update({
@@ -41,6 +42,10 @@ const R403Route = R403RouteImport.update({
   path: '/403',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRouteRoute = SettingsRouteRouteImport.update({
+  id: '/_settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BaseRouteRoute = BaseRouteRouteImport.update({
   id: '/_base',
   getParentRoute: () => rootRouteImport,
@@ -49,31 +54,6 @@ const BaseIndexRoute = BaseIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => BaseRouteRoute,
-} as any)
-const SettingsUsersRoute = SettingsUsersRouteImport.update({
-  id: '/settings/users',
-  path: '/settings/users',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRolesRoute = SettingsRolesRouteImport.update({
-  id: '/settings/roles',
-  path: '/settings/roles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsQueryBuilderRoute = SettingsQueryBuilderRouteImport.update({
-  id: '/settings/query-builder',
-  path: '/settings/query-builder',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsGeneralRoute = SettingsGeneralRouteImport.update({
-  id: '/settings/general',
-  path: '/settings/general',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsDesignRoute = SettingsDesignRouteImport.update({
-  id: '/settings/design',
-  path: '/settings/design',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/auth/signup',
@@ -95,12 +75,6 @@ const AuthForgetPasswordRoute = AuthForgetPasswordRouteImport.update({
   path: '/auth/forget-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DeveloperToolQueryBuilderRoute =
-  DeveloperToolQueryBuilderRouteImport.update({
-    id: '/developer/tool/query-builder',
-    path: '/developer/tool/query-builder',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ApiMonitorSentryRoute = ApiMonitorSentryRouteImport.update({
   id: '/api/_monitor/sentry',
   path: '/api/sentry',
@@ -110,6 +84,32 @@ const ApiMonitorHealthcheckRoute = ApiMonitorHealthcheckRouteImport.update({
   id: '/api/_monitor/healthcheck',
   path: '/api/healthcheck',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsSettingsUsersRoute = SettingsSettingsUsersRouteImport.update({
+  id: '/settings/users',
+  path: '/settings/users',
+  getParentRoute: () => SettingsRouteRoute,
+} as any)
+const SettingsSettingsRolesRoute = SettingsSettingsRolesRouteImport.update({
+  id: '/settings/roles',
+  path: '/settings/roles',
+  getParentRoute: () => SettingsRouteRoute,
+} as any)
+const SettingsSettingsQueryBuilderRoute =
+  SettingsSettingsQueryBuilderRouteImport.update({
+    id: '/settings/query-builder',
+    path: '/settings/query-builder',
+    getParentRoute: () => SettingsRouteRoute,
+  } as any)
+const SettingsSettingsGeneralRoute = SettingsSettingsGeneralRouteImport.update({
+  id: '/settings/general',
+  path: '/settings/general',
+  getParentRoute: () => SettingsRouteRoute,
+} as any)
+const SettingsSettingsDesignRoute = SettingsSettingsDesignRouteImport.update({
+  id: '/settings/design',
+  path: '/settings/design',
+  getParentRoute: () => SettingsRouteRoute,
 } as any)
 const MonitorSentrySsrPageRoute = MonitorSentrySsrPageRouteImport.update({
   id: '/_monitor/sentry/ssr-page',
@@ -131,6 +131,12 @@ const BaseTableTableIdRouteRoute = BaseTableTableIdRouteRouteImport.update({
   path: '/table/$tableId',
   getParentRoute: () => BaseRouteRoute,
 } as any)
+const SettingsDeveloperToolQueryBuilderRoute =
+  SettingsDeveloperToolQueryBuilderRouteImport.update({
+    id: '/developer/tool/query-builder',
+    path: '/developer/tool/query-builder',
+    getParentRoute: () => SettingsRouteRoute,
+  } as any)
 const BaseTableTableIdViewIdRoute = BaseTableTableIdViewIdRouteImport.update({
   id: '/$viewId',
   path: '/$viewId',
@@ -144,20 +150,20 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/signup': typeof AuthSignupRoute
-  '/settings/design': typeof SettingsDesignRoute
-  '/settings/general': typeof SettingsGeneralRoute
-  '/settings/query-builder': typeof SettingsQueryBuilderRoute
-  '/settings/roles': typeof SettingsRolesRoute
-  '/settings/users': typeof SettingsUsersRoute
   '/': typeof BaseIndexRoute
   '/table/$tableId': typeof BaseTableTableIdRouteRouteWithChildren
   '/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
+  '/settings/design': typeof SettingsSettingsDesignRoute
+  '/settings/general': typeof SettingsSettingsGeneralRoute
+  '/settings/query-builder': typeof SettingsSettingsQueryBuilderRoute
+  '/settings/roles': typeof SettingsSettingsRolesRoute
+  '/settings/users': typeof SettingsSettingsUsersRoute
   '/api/healthcheck': typeof ApiMonitorHealthcheckRoute
   '/api/sentry': typeof ApiMonitorSentryRoute
-  '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
+  '/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
 }
 export interface FileRoutesByTo {
   '/403': typeof R403Route
@@ -166,44 +172,45 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/signup': typeof AuthSignupRoute
-  '/settings/design': typeof SettingsDesignRoute
-  '/settings/general': typeof SettingsGeneralRoute
-  '/settings/query-builder': typeof SettingsQueryBuilderRoute
-  '/settings/roles': typeof SettingsRolesRoute
-  '/settings/users': typeof SettingsUsersRoute
   '/': typeof BaseIndexRoute
   '/table/$tableId': typeof BaseTableTableIdRouteRouteWithChildren
   '/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
+  '/settings/design': typeof SettingsSettingsDesignRoute
+  '/settings/general': typeof SettingsSettingsGeneralRoute
+  '/settings/query-builder': typeof SettingsSettingsQueryBuilderRoute
+  '/settings/roles': typeof SettingsSettingsRolesRoute
+  '/settings/users': typeof SettingsSettingsUsersRoute
   '/api/healthcheck': typeof ApiMonitorHealthcheckRoute
   '/api/sentry': typeof ApiMonitorSentryRoute
-  '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
+  '/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_base': typeof BaseRouteRouteWithChildren
+  '/_settings': typeof SettingsRouteRouteWithChildren
   '/403': typeof R403Route
   '/404': typeof R404Route
   '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/signup': typeof AuthSignupRoute
-  '/settings/design': typeof SettingsDesignRoute
-  '/settings/general': typeof SettingsGeneralRoute
-  '/settings/query-builder': typeof SettingsQueryBuilderRoute
-  '/settings/roles': typeof SettingsRolesRoute
-  '/settings/users': typeof SettingsUsersRoute
   '/_base/': typeof BaseIndexRoute
   '/_base/table/$tableId': typeof BaseTableTableIdRouteRouteWithChildren
   '/_monitor/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/_monitor/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/_monitor/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
+  '/_settings/settings/design': typeof SettingsSettingsDesignRoute
+  '/_settings/settings/general': typeof SettingsSettingsGeneralRoute
+  '/_settings/settings/query-builder': typeof SettingsSettingsQueryBuilderRoute
+  '/_settings/settings/roles': typeof SettingsSettingsRolesRoute
+  '/_settings/settings/users': typeof SettingsSettingsUsersRoute
   '/api/_monitor/healthcheck': typeof ApiMonitorHealthcheckRoute
   '/api/_monitor/sentry': typeof ApiMonitorSentryRoute
-  '/developer/tool/query-builder': typeof DeveloperToolQueryBuilderRoute
   '/_base/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
+  '/_settings/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -214,20 +221,20 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/reset-password'
     | '/auth/signup'
-    | '/settings/design'
-    | '/settings/general'
-    | '/settings/query-builder'
-    | '/settings/roles'
-    | '/settings/users'
     | '/'
     | '/table/$tableId'
     | '/preview/error-page'
     | '/sentry/csr-page'
     | '/sentry/ssr-page'
+    | '/settings/design'
+    | '/settings/general'
+    | '/settings/query-builder'
+    | '/settings/roles'
+    | '/settings/users'
     | '/api/healthcheck'
     | '/api/sentry'
-    | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
+    | '/developer/tool/query-builder'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/403'
@@ -236,64 +243,60 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/reset-password'
     | '/auth/signup'
-    | '/settings/design'
-    | '/settings/general'
-    | '/settings/query-builder'
-    | '/settings/roles'
-    | '/settings/users'
     | '/'
     | '/table/$tableId'
     | '/preview/error-page'
     | '/sentry/csr-page'
     | '/sentry/ssr-page'
+    | '/settings/design'
+    | '/settings/general'
+    | '/settings/query-builder'
+    | '/settings/roles'
+    | '/settings/users'
     | '/api/healthcheck'
     | '/api/sentry'
-    | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
+    | '/developer/tool/query-builder'
   id:
     | '__root__'
     | '/_base'
+    | '/_settings'
     | '/403'
     | '/404'
     | '/auth/forget-password'
     | '/auth/login'
     | '/auth/reset-password'
     | '/auth/signup'
-    | '/settings/design'
-    | '/settings/general'
-    | '/settings/query-builder'
-    | '/settings/roles'
-    | '/settings/users'
     | '/_base/'
     | '/_base/table/$tableId'
     | '/_monitor/preview/error-page'
     | '/_monitor/sentry/csr-page'
     | '/_monitor/sentry/ssr-page'
+    | '/_settings/settings/design'
+    | '/_settings/settings/general'
+    | '/_settings/settings/query-builder'
+    | '/_settings/settings/roles'
+    | '/_settings/settings/users'
     | '/api/_monitor/healthcheck'
     | '/api/_monitor/sentry'
-    | '/developer/tool/query-builder'
     | '/_base/table/$tableId/$viewId'
+    | '/_settings/developer/tool/query-builder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   BaseRouteRoute: typeof BaseRouteRouteWithChildren
+  SettingsRouteRoute: typeof SettingsRouteRouteWithChildren
   R403Route: typeof R403Route
   R404Route: typeof R404Route
   AuthForgetPasswordRoute: typeof AuthForgetPasswordRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
   AuthSignupRoute: typeof AuthSignupRoute
-  SettingsDesignRoute: typeof SettingsDesignRoute
-  SettingsGeneralRoute: typeof SettingsGeneralRoute
-  SettingsQueryBuilderRoute: typeof SettingsQueryBuilderRoute
-  SettingsRolesRoute: typeof SettingsRolesRoute
-  SettingsUsersRoute: typeof SettingsUsersRoute
   MonitorPreviewErrorPageRoute: typeof MonitorPreviewErrorPageRoute
   MonitorSentryCsrPageRoute: typeof MonitorSentryCsrPageRoute
   MonitorSentrySsrPageRoute: typeof MonitorSentrySsrPageRoute
   ApiMonitorHealthcheckRoute: typeof ApiMonitorHealthcheckRoute
   ApiMonitorSentryRoute: typeof ApiMonitorSentryRoute
-  DeveloperToolQueryBuilderRoute: typeof DeveloperToolQueryBuilderRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -312,6 +315,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof R403RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_settings': {
+      id: '/_settings'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof SettingsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_base': {
       id: '/_base'
       path: ''
@@ -325,41 +335,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof BaseIndexRouteImport
       parentRoute: typeof BaseRouteRoute
-    }
-    '/settings/users': {
-      id: '/settings/users'
-      path: '/settings/users'
-      fullPath: '/settings/users'
-      preLoaderRoute: typeof SettingsUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings/roles': {
-      id: '/settings/roles'
-      path: '/settings/roles'
-      fullPath: '/settings/roles'
-      preLoaderRoute: typeof SettingsRolesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings/query-builder': {
-      id: '/settings/query-builder'
-      path: '/settings/query-builder'
-      fullPath: '/settings/query-builder'
-      preLoaderRoute: typeof SettingsQueryBuilderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings/general': {
-      id: '/settings/general'
-      path: '/settings/general'
-      fullPath: '/settings/general'
-      preLoaderRoute: typeof SettingsGeneralRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings/design': {
-      id: '/settings/design'
-      path: '/settings/design'
-      fullPath: '/settings/design'
-      preLoaderRoute: typeof SettingsDesignRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/auth/signup': {
       id: '/auth/signup'
@@ -389,13 +364,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthForgetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/developer/tool/query-builder': {
-      id: '/developer/tool/query-builder'
-      path: '/developer/tool/query-builder'
-      fullPath: '/developer/tool/query-builder'
-      preLoaderRoute: typeof DeveloperToolQueryBuilderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/_monitor/sentry': {
       id: '/api/_monitor/sentry'
       path: '/api/sentry'
@@ -409,6 +377,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/healthcheck'
       preLoaderRoute: typeof ApiMonitorHealthcheckRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_settings/settings/users': {
+      id: '/_settings/settings/users'
+      path: '/settings/users'
+      fullPath: '/settings/users'
+      preLoaderRoute: typeof SettingsSettingsUsersRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/roles': {
+      id: '/_settings/settings/roles'
+      path: '/settings/roles'
+      fullPath: '/settings/roles'
+      preLoaderRoute: typeof SettingsSettingsRolesRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/query-builder': {
+      id: '/_settings/settings/query-builder'
+      path: '/settings/query-builder'
+      fullPath: '/settings/query-builder'
+      preLoaderRoute: typeof SettingsSettingsQueryBuilderRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/general': {
+      id: '/_settings/settings/general'
+      path: '/settings/general'
+      fullPath: '/settings/general'
+      preLoaderRoute: typeof SettingsSettingsGeneralRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/design': {
+      id: '/_settings/settings/design'
+      path: '/settings/design'
+      fullPath: '/settings/design'
+      preLoaderRoute: typeof SettingsSettingsDesignRouteImport
+      parentRoute: typeof SettingsRouteRoute
     }
     '/_monitor/sentry/ssr-page': {
       id: '/_monitor/sentry/ssr-page'
@@ -437,6 +440,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/table/$tableId'
       preLoaderRoute: typeof BaseTableTableIdRouteRouteImport
       parentRoute: typeof BaseRouteRoute
+    }
+    '/_settings/developer/tool/query-builder': {
+      id: '/_settings/developer/tool/query-builder'
+      path: '/developer/tool/query-builder'
+      fullPath: '/developer/tool/query-builder'
+      preLoaderRoute: typeof SettingsDeveloperToolQueryBuilderRouteImport
+      parentRoute: typeof SettingsRouteRoute
     }
     '/_base/table/$tableId/$viewId': {
       id: '/_base/table/$tableId/$viewId'
@@ -475,25 +485,43 @@ const BaseRouteRouteWithChildren = BaseRouteRoute._addFileChildren(
   BaseRouteRouteChildren,
 )
 
+interface SettingsRouteRouteChildren {
+  SettingsSettingsDesignRoute: typeof SettingsSettingsDesignRoute
+  SettingsSettingsGeneralRoute: typeof SettingsSettingsGeneralRoute
+  SettingsSettingsQueryBuilderRoute: typeof SettingsSettingsQueryBuilderRoute
+  SettingsSettingsRolesRoute: typeof SettingsSettingsRolesRoute
+  SettingsSettingsUsersRoute: typeof SettingsSettingsUsersRoute
+  SettingsDeveloperToolQueryBuilderRoute: typeof SettingsDeveloperToolQueryBuilderRoute
+}
+
+const SettingsRouteRouteChildren: SettingsRouteRouteChildren = {
+  SettingsSettingsDesignRoute: SettingsSettingsDesignRoute,
+  SettingsSettingsGeneralRoute: SettingsSettingsGeneralRoute,
+  SettingsSettingsQueryBuilderRoute: SettingsSettingsQueryBuilderRoute,
+  SettingsSettingsRolesRoute: SettingsSettingsRolesRoute,
+  SettingsSettingsUsersRoute: SettingsSettingsUsersRoute,
+  SettingsDeveloperToolQueryBuilderRoute:
+    SettingsDeveloperToolQueryBuilderRoute,
+}
+
+const SettingsRouteRouteWithChildren = SettingsRouteRoute._addFileChildren(
+  SettingsRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   BaseRouteRoute: BaseRouteRouteWithChildren,
+  SettingsRouteRoute: SettingsRouteRouteWithChildren,
   R403Route: R403Route,
   R404Route: R404Route,
   AuthForgetPasswordRoute: AuthForgetPasswordRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthSignupRoute: AuthSignupRoute,
-  SettingsDesignRoute: SettingsDesignRoute,
-  SettingsGeneralRoute: SettingsGeneralRoute,
-  SettingsQueryBuilderRoute: SettingsQueryBuilderRoute,
-  SettingsRolesRoute: SettingsRolesRoute,
-  SettingsUsersRoute: SettingsUsersRoute,
   MonitorPreviewErrorPageRoute: MonitorPreviewErrorPageRoute,
   MonitorSentryCsrPageRoute: MonitorSentryCsrPageRoute,
   MonitorSentrySsrPageRoute: MonitorSentrySsrPageRoute,
   ApiMonitorHealthcheckRoute: ApiMonitorHealthcheckRoute,
   ApiMonitorSentryRoute: ApiMonitorSentryRoute,
-  DeveloperToolQueryBuilderRoute: DeveloperToolQueryBuilderRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
