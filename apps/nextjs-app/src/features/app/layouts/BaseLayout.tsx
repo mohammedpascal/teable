@@ -1,9 +1,8 @@
 import type { DehydratedState } from '@tanstack/react-query';
 import type { ITableVo } from '@teable/openapi';
-import { useParams } from '@tanstack/react-router';
+import { useParams, Outlet } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import React, { Fragment } from 'react';
-import { Settings } from '@/components/icons';
 import { AppLayout } from '@/features/app/layouts';
 import { NotificationProvider, SessionProvider } from '@/sdk';
 import type { IUser } from '@/sdk';
@@ -17,11 +16,10 @@ import { SidebarProvider } from '../contexts/SidebarContext';
 import { useSdkLocale } from '../hooks/useSdkLocale';
 
 export const BaseLayout: React.FC<{
-  children: React.ReactNode;
   tableServerData?: ITableVo[];
   dehydratedState?: DehydratedState;
   user?: IUser;
-}> = ({ children, tableServerData, user, dehydratedState }) => {
+}> = ({ tableServerData, user, dehydratedState }) => {
   const params = useParams({ strict: false });
   const { tableId, viewId } = params as { tableId?: string; viewId?: string };
   const sdkLocale = useSdkLocale();
@@ -60,7 +58,9 @@ export const BaseLayout: React.FC<{
                           <SideBarFooter />
                         </Fragment>
                       </Sidebar>
-                      <div className="min-w-80 flex-1">{children}</div>
+                      <div className="min-w-80 flex-1">
+                        <Outlet />
+                      </div>
                     </div>
                   </div>
                 </SidebarProvider>
