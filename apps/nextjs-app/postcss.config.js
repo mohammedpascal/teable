@@ -15,7 +15,7 @@ const enableCssGrid = false;
 export default {
   plugins: {
     tailwindcss: {
-      config: path.join(dirname, 'tailwind.config.mjs'),
+      config: path.join(dirname, 'tailwind.config.cjs'),
     },
     ...(isProd
       ? {
