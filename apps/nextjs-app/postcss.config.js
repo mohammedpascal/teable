@@ -2,11 +2,7 @@
 // @link https://nextjs.org/docs/advanced-features/customizing-postcss-config
 // @link https://tailwindcss.com/docs/using-with-preprocessors
 
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+const path = require('path');
 
 const isProd = process.env.NODE_ENV === 'production';
 const supportsIE11 = false;
@@ -15,7 +11,7 @@ const enableCssGrid = false;
 export default {
   plugins: {
     tailwindcss: {
-      config: path.join(dirname, 'tailwind.config.js'),
+      config: path.join(__dirname, 'tailwind.config.mjs'),
     },
     ...(isProd
       ? {
