@@ -5,8 +5,8 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const isProd = process.env.NODE_ENV === 'production';
 const supportsIE11 = false;
@@ -15,7 +15,7 @@ const enableCssGrid = false;
 export default {
   plugins: {
     tailwindcss: {
-      config: path.join(__dirname, 'tailwind.config.js'),
+      config: path.join(dirname, 'tailwind.config.js'),
     },
     ...(isProd
       ? {
