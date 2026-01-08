@@ -1,43 +1,26 @@
-import { createFileRoute, useParams } from '@tanstack/react-router';
 import type { ITableProps } from '@/features/app/blocks/table/Table';
 import { Table } from '@/features/app/blocks/table/Table';
-import { useViewPageData } from '@/hooks/api/useViewPageData';
-import { Spin } from '@/ui-lib/base/spin/Spin';
+import type { IViewPageProps } from '@/lib/view-pages-data';
+import { getViewPageServerData } from '@/server/table';
+import { createFileRoute } from '@tanstack/react-router';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
 export const Route = createFileRoute('/_base/table/$tableId/$viewId')({
   path: '/table/$tableId/$viewId',
   component: TableViewRouteComponent,
+  loader: async ({ params }) => {
+    const { tableId, viewId } = params;
+    const serverData: IViewPageProps = await getViewPageServerData(tableId, viewId);
+    return { serverData: serverData  };
+  }
 });
 
 function TableViewRouteComponent() {
-  const { tableId, viewId } = useParams({ from: '/_base/table/$tableId/$viewId' });
-  const { data: serverData, isLoading, isError, error } = useViewPageData(tableId, viewId);
+  const { serverData } = Route.useLoaderData() as { serverData: IViewPageProps };
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Spin className="size-8" />
-      </div>
-    );
-  }
-
-  if (isError || !serverData) {
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center p-4">
-        <h1 className="mb-4 text-2xl font-bold">Error Loading Table</h1>
-        <p className="mb-4 text-muted-foreground">{errorMessage}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
-        >
-          Retry
-        </button>
-      </div>
-    );
+  if (!serverData) {
+    return <div>No data</div>;
   }
 
   const props: ITableProps = {
