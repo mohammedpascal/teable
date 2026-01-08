@@ -3,7 +3,7 @@ import axiosInstance from 'axios';
 
 export const createAxios = () => {
   const axios = axiosInstance.create({
-    baseURL: 'http://tea.successta.com/api',
+    baseURL: 'https://tea.successta.com/api',
     withCredentials: true,
   });
 
