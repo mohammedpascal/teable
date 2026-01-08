@@ -4,7 +4,7 @@ import { registerAs } from '@nestjs/config';
 
 export const securityWebConfig = registerAs('security.web', () => ({
   cors: {
-    enabled: true,
+    enabled: false,
     allowedOrigins: process.env.CORS_ALLOWED_ORIGINS
       ? process.env.CORS_ALLOWED_ORIGINS.split(',').map((origin) => origin.trim())
       : undefined,
