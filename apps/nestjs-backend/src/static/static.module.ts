@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { SpaController } from './spa.controller';
 
 const rootPath = join(__dirname, '../../nextjs-app/dist');
 console.log('StaticModule rootPath:', rootPath);
@@ -18,6 +19,7 @@ console.log('StaticModule rootPath:', rootPath);
         ]
       : []),
   ],
+  controllers: process.env.NODE_ENV === 'production' ? [SpaController] : [],
 })
 export class StaticModule {}
 
