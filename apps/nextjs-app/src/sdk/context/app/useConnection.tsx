@@ -14,7 +14,9 @@ export function getWsPath() {
 
   const isDevelopment = import.meta.env.VITE_ENV === 'development';
 
-
+  if ( !isDevelopment ){
+    return 'wss://tea.successta.com/socket';
+  }
 
   console.log('isDevelopment', isDevelopment);
   const wsProtocol = isDevelopment ? 'ws:' : 'wss:';
