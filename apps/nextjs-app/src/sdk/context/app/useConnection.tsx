@@ -6,8 +6,19 @@ import { Connection } from 'sharedb/lib/client';
 import type { ConnectionReceiveRequest, Socket } from 'sharedb/lib/sharedb';
 
 export function getWsPath() {
-  const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const backendWsPort =  window.location.protocol === 'https:' ? '3000' : '3001';
+
+  const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+  if ( isLocal ){
+    return 'ws://localhost:3000/socket';
+  }
+
+  const isDevelopment = import.meta.env.VITE_ENV === 'development';
+
+
+
+  console.log('isDevelopment', isDevelopment);
+  const wsProtocol = isDevelopment ? 'ws:' : 'wss:';
+  const backendWsPort = isDevelopment ? '3001' : '3000';
   const hostname = window.location.hostname;
   return `${wsProtocol}//${hostname}:${backendWsPort}/socket`;
 }

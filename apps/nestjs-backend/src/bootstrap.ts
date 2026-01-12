@@ -112,7 +112,7 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
     });
   }
 
-  if (!isDevelopment) {
+  if (!isDevelopment || process.env.IS_LOCAL === 'true') {
     // Configure helmet to not interfere with CORS
     app.use(
       helmet({
