@@ -42,6 +42,9 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
   const securityWebConfig = configService.get<ISecurityWebConfig>('security.web');
   const baseConfig = configService.get<IBaseConfig>('base');
 
+  // In development, always allow localhost origins
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
   // Enable CORS BEFORE helmet to prevent conflicts
   if (securityWebConfig?.cors.enabled) {
     // Build allowed origins list: config > PUBLIC_ORIGIN > default
@@ -53,9 +56,6 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
     } else if (baseConfig?.publicOrigin) {
       allowedOrigins = [baseConfig.publicOrigin];
     }
-
-    // In development, always allow localhost origins
-    const isDevelopment = process.env.NODE_ENV === 'development';
 
     app.enableCors({
       origin: (origin, callback) => {
@@ -112,19 +112,21 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
     });
   }
 
-  /*/ Configure helmet to not interfere with CORS
-  app.use(
-    helmet({
-      crossOriginResourcePolicy: { policy: 'cross-origin' },
-      contentSecurityPolicy: {
-        directives: {
-          'script-src': ["'self'", "'unsafe-eval'"],
-          // ... other directives
+  if (!isDevelopment) {
+    // Configure helmet to not interfere with CORS
+    app.use(
+      helmet({
+        crossOriginResourcePolicy: { policy: 'cross-origin' },
+        contentSecurityPolicy: {
+          directives: {
+            'script-src': ["'self'", "'unsafe-eval'"],
+            // ... other directives
+          },
         },
-      },
-    })
-  );
-  */
+      })
+    );
+  }
+
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ limit: '50mb', extended: true }));
 

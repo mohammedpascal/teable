@@ -9,11 +9,6 @@ export const Route = createFileRoute('/_base/')({
 
 function IndexComponent() {
   const { t } = useTranslation(['table', 'common']);
-  const [time, setTime] = useState<string>('');
-
-  useEffect(() => {
-    setTime(new Date().toISOString());
-  }, []);
 
   return (
     <div className="h-full flex-col md:flex">
@@ -24,7 +19,6 @@ function IndexComponent() {
         <div className="flex h-full flex-col items-center justify-center p-4">
           <ul className="mb-4 space-y-2 text-left">
             <li>{t('table:welcome.description')}</li>
-            <li>{time && <div>{time}</div>}</li>
             <li>
               <Trans
                 ns="table"

@@ -12,7 +12,7 @@ export class ReadonlyService {
     this.axios.interceptors.request.use((config) => {
       const cookie = clsService.get('cookie');
       config.headers.cookie = cookie;
-      config.baseURL = `http://localhost:${process.env.PORT}/api`;
+      config.baseURL = `http://localhost:3000/api`;
       if (!cookie) {
         this.logger.error('Auth session cookie is not found in request headers');
       }

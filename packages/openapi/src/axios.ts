@@ -2,10 +2,14 @@ import { HttpError } from '@teable/core';
 import axiosInstance from 'axios';
 
 export const createAxios = () => {
+
+  let baseURL = 'http://localhost:3000/api';
+  if (typeof window !== 'undefined') {
+    baseURL = window.location.protocol === 'https:' ? 'https://tea.successta.com/api' : 'http://localhost:3000/api';
+  }
   const axios = axiosInstance.create({
-    // baseURL: 'https://tea.successta.com/api',
-    baseURL: 'http://localhost:3000/api',
-    // withCredentials: true,
+    withCredentials: true,
+    baseURL,
   });
 
   axios.interceptors.response.use(
