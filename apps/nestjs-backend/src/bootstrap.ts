@@ -117,14 +117,9 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
     app.use(
       helmet({
         crossOriginResourcePolicy: { policy: 'cross-origin' },
-        contentSecurityPolicy: {
-          directives: {
-            'script-src': ["'self'", "'unsafe-eval'"],
-            // ... other directives
-          },
-        },
       })
     );
+
   }
 
   app.use(json({ limit: '50mb' }));
