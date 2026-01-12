@@ -3,8 +3,9 @@ import axiosInstance from 'axios';
 
 export const createAxios = () => {
   const axios = axiosInstance.create({
-    baseURL: 'https://tea.successta.com/api',
-    withCredentials: true,
+    // baseURL: 'https://tea.successta.com/api',
+    baseURL: 'http://localhost:3000/api',
+    // withCredentials: true,
   });
 
   axios.interceptors.response.use(
