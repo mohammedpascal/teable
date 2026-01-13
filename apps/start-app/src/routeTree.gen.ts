@@ -94,7 +94,7 @@ const SettingsSettingsUsersLazyRoute =
     path: '/settings/users',
     getParentRoute: () => SettingsRouteRoute,
   } as any).lazy(() =>
-    import('./routes/_settings/settings/users.lazy').then((d) => d.Route),
+    import('./routes/_settings/settings/users').then((d) => d.Route),
   )
 const SettingsSettingsRolesLazyRoute =
   SettingsSettingsRolesLazyRouteImport.update({
@@ -102,7 +102,7 @@ const SettingsSettingsRolesLazyRoute =
     path: '/settings/roles',
     getParentRoute: () => SettingsRouteRoute,
   } as any).lazy(() =>
-    import('./routes/_settings/settings/roles.lazy').then((d) => d.Route),
+    import('./routes/_settings/settings/roles').then((d) => d.Route),
   )
 const SettingsSettingsQueryBuilderLazyRoute =
   SettingsSettingsQueryBuilderLazyRouteImport.update({
@@ -110,7 +110,7 @@ const SettingsSettingsQueryBuilderLazyRoute =
     path: '/settings/query-builder',
     getParentRoute: () => SettingsRouteRoute,
   } as any).lazy(() =>
-    import('./routes/_settings/settings/query-builder.lazy').then(
+    import('./routes/_settings/settings/query-builder').then(
       (d) => d.Route,
     ),
   )
@@ -120,7 +120,7 @@ const SettingsSettingsGeneralLazyRoute =
     path: '/settings/general',
     getParentRoute: () => SettingsRouteRoute,
   } as any).lazy(() =>
-    import('./routes/_settings/settings/general.lazy').then((d) => d.Route),
+    import('./routes/_settings/settings/general').then((d) => d.Route),
   )
 const SettingsSettingsDesignLazyRoute =
   SettingsSettingsDesignLazyRouteImport.update({
@@ -128,7 +128,7 @@ const SettingsSettingsDesignLazyRoute =
     path: '/settings/design',
     getParentRoute: () => SettingsRouteRoute,
   } as any).lazy(() =>
-    import('./routes/_settings/settings/design.lazy').then((d) => d.Route),
+    import('./routes/_settings/settings/design').then((d) => d.Route),
   )
 const ApiMonitorSentryRoute = ApiMonitorSentryRouteImport.update({
   id: '/api/_monitor/sentry',
