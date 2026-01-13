@@ -24,7 +24,6 @@ module.exports = {
   },
   ignorePatterns: [
     ...getDefaultIgnorePatterns(),
-    '.next',
     '.out',
     'main',
     'tailwind.shadcnui.config.js',

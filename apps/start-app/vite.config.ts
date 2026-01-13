@@ -5,6 +5,7 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import svgr from 'vite-plugin-svgr';
 import tsConfigPaths from 'vite-tsconfig-paths';
 import viteReact from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   plugins: [
@@ -12,6 +13,7 @@ export default defineConfig({
     TanStackRouterVite(),
     tsConfigPaths(),
     viteReact(),
+    visualizer({ filename: 'dist/stats.html', gzipSize: true, brotliSize: true }),
     svgr({
       svgrOptions: {
         icon: true,
