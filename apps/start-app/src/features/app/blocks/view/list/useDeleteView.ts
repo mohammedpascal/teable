@@ -1,6 +1,7 @@
 import { useTable } from '@/sdk/hooks';
 import { useNavigate } from '@tanstack/react-router';
 import { useCallback } from 'react';
+import { getTableById } from '@teable/openapi';
 
 export function useDeleteView(viewId: string) {
   const table = useTable();
@@ -12,6 +13,11 @@ export function useDeleteView(viewId: string) {
     }
 
     await table.deleteView(viewId);
-    navigate({ to: '/table/$tableId', params: { tableId: table.id } });
+    const tableData = await getTableById(table.id);
+    const defaultViewId = tableData.data.defaultViewId;
+    navigate({
+      to: '/table/$tableId/$viewId',
+      params: { tableId: table.id, viewId: defaultViewId },
+    });
   }, [navigate, table, viewId]);
 }
