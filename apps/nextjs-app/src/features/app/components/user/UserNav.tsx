@@ -49,10 +49,10 @@ export const UserNav: React.FC<React.PropsWithChildren> = (props) => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="flex gap-2" onClick={() => navigate({ to: '/settings/general' })}>
+        {user.isAdmin && <DropdownMenuItem className="flex gap-2" onClick={() => navigate({ to: '/settings/general' })}>
           <Settings className="size-4 shrink-0" />
           Admin Settings
-        </DropdownMenuItem>
+        </DropdownMenuItem>}
 
         <DropdownMenuItem
           className="flex gap-2"

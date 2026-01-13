@@ -1,4 +1,6 @@
 import { Table2 } from '@/components/icons';
+import { useSidebar } from '@/features/app/contexts/SidebarContext';
+import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import type { Table } from '@/sdk/model';
 import { Button, cn } from '@/ui-lib/shadcn';
 import { Input } from '@/ui-lib/shadcn/ui/input';
@@ -6,9 +8,6 @@ import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import useClickAway from 'react-use/lib/useClickAway';
 import { Emoji } from '../../components/emoji/Emoji';
-import { EmojiPicker } from '../../components/emoji/EmojiPicker';
-import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
-import { useSidebar } from '@/features/app/contexts/SidebarContext';
 
 interface IProps {
   table: Table;
@@ -69,19 +68,12 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className, is
         onClick={navigateHandler}
       >
         <div className={cn('flex items-center', isCollapsed && 'justify-center')}>
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div onClick={(e) => e.stopPropagation()}>
-            <EmojiPicker
-              className="flex size-5 items-center justify-center hover:bg-muted-foreground/60"
-              onChange={(icon: string) => table.updateIcon(icon)}
-              disabled={!permission['table|manage']}
-            >
-              {table.icon ? (
-                <Emoji emoji={table.icon} size={'1rem'} />
-              ) : (
-                <Table2 className="size-4 shrink-0" />
-              )}
-            </EmojiPicker>
+          <div>
+            {table.icon ? (
+              <Emoji emoji={table.icon} size={'1rem'} />
+            ) : (
+              <Table2 className="size-4 shrink-0" />
+            )}
           </div>
           {!isCollapsed && (
             <p
