@@ -1,6 +1,14 @@
+import { Sidebar } from '@/components/icons';
+import { useSidebar } from '@/features/app/contexts/SidebarContext';
+import {
+  Button,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/ui-lib/shadcn';
 import { createFileRoute } from '@tanstack/react-router';
-import { Trans, useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const Route = createFileRoute('/_base/')({
   path: '/',
@@ -9,34 +17,35 @@ export const Route = createFileRoute('/_base/')({
 
 function IndexComponent() {
   const { t } = useTranslation(['table', 'common']);
+  const { toggleSidebar } = useSidebar();
 
   return (
     <div className="h-full flex-col md:flex">
       <div className="flex h-full flex-1 flex-col gap-2 lg:gap-4">
-        <div className="items-center justify-between space-y-2 px-8 pb-2 pt-6 lg:flex">
-          <h2 className="text-3xl font-bold tracking-tight">{t('table:welcome.title')}</h2>
+        <div className="flex h-14 items-center gap-x-4 px-4">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="xs"
+                  variant="ghost"
+                  onClick={toggleSidebar}
+                  className="size-8 shrink-0 p-0"
+                >
+                  <Sidebar className="size-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent hideWhenDetached={true}>
+                <p>{t('common:actions.collapseSidebar')} ⌘+B</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <h2 className="break-words text-base">{t('table:welcome.title')}</h2>
         </div>
         <div className="flex h-full flex-col items-center justify-center p-4">
           <ul className="mb-4 space-y-2 text-left">
             <li>{t('table:welcome.description')}</li>
-            <li>
-              <Trans
-                ns="table"
-                i18nKey="welcome.help"
-                components={{
-                  HelpCenter: (
-                    <a
-                      href={'https://help.teable.io'}
-                      className="text-blue-500 hover:text-blue-700"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {t('table:welcome.helpCenter')}
-                    </a>
-                  ),
-                }}
-              ></Trans>
-            </li>
+            
           </ul>
         </div>
       </div>
