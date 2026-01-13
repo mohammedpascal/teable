@@ -6,7 +6,7 @@ import { createRole, deleteRole, updateRole } from '@teable/openapi';
 import { Button, Separator } from '@/ui-lib/shadcn';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { Route } from '@/routes/_settings/settings/roles';
+import { Route } from '@/routes/_settings/settings/roles.lazy';
 import { SettingsHeader } from '../SettingsHeader';
 import { RoleDialog } from './RoleDialog';
 import { RolesGridView } from './RolesGridView';

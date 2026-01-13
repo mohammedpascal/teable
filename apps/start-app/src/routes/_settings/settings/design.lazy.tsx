@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router';
 import type { ITableVo } from '@teable/openapi';
 import { Design } from '@/features/app/blocks/design/Design';
 import { TableProvider } from '@/sdk/context';
 
-export const Route = createFileRoute('/_settings/settings/design')({
+export const Route = createLazyFileRoute('/_settings/settings/design')({
   path: '/settings/design',
   component: DesignPageComponent,
 });

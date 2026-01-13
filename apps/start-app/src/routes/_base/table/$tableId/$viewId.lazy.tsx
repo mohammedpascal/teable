@@ -2,11 +2,11 @@ import type { ITableProps } from '@/features/app/blocks/table/Table';
 import { Table } from '@/features/app/blocks/table/Table';
 import type { IViewPageProps } from '@/lib/view-pages-data';
 import { getViewPageServerData } from '@/server/table';
-import { createFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-export const Route = createFileRoute('/_base/table/$tableId/$viewId')({
+export const Route = createLazyFileRoute('/_base/table/$tableId/$viewId')({
   path: '/table/$tableId/$viewId',
   component: TableViewRouteComponent,
   loader: async ({ params }) => {

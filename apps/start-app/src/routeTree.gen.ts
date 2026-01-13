@@ -8,6 +8,8 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as R403RouteImport } from './routes/403'
@@ -20,17 +22,30 @@ import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgetPasswordRouteImport } from './routes/auth/forget-password'
 import { Route as ApiMonitorSentryRouteImport } from './routes/api/_monitor/sentry'
 import { Route as ApiMonitorHealthcheckRouteImport } from './routes/api/_monitor/healthcheck'
-import { Route as SettingsSettingsUsersRouteImport } from './routes/_settings/settings/users'
-import { Route as SettingsSettingsRolesRouteImport } from './routes/_settings/settings/roles'
-import { Route as SettingsSettingsQueryBuilderRouteImport } from './routes/_settings/settings/query-builder'
-import { Route as SettingsSettingsGeneralRouteImport } from './routes/_settings/settings/general'
-import { Route as SettingsSettingsDesignRouteImport } from './routes/_settings/settings/design'
 import { Route as MonitorSentrySsrPageRouteImport } from './routes/_monitor/sentry/ssr-page'
 import { Route as MonitorSentryCsrPageRouteImport } from './routes/_monitor/sentry/csr-page'
 import { Route as MonitorPreviewErrorPageRouteImport } from './routes/_monitor/preview/error-page'
 import { Route as BaseTableTableIdRouteRouteImport } from './routes/_base/table/$tableId/route'
 import { Route as SettingsDeveloperToolQueryBuilderRouteImport } from './routes/_settings/developer/tool/query-builder'
-import { Route as BaseTableTableIdViewIdRouteImport } from './routes/_base/table/$tableId/$viewId'
+
+const SettingsSettingsUsersLazyRouteImport = createFileRoute(
+  '/_settings/settings/users',
+)()
+const SettingsSettingsRolesLazyRouteImport = createFileRoute(
+  '/_settings/settings/roles',
+)()
+const SettingsSettingsQueryBuilderLazyRouteImport = createFileRoute(
+  '/_settings/settings/query-builder',
+)()
+const SettingsSettingsGeneralLazyRouteImport = createFileRoute(
+  '/_settings/settings/general',
+)()
+const SettingsSettingsDesignLazyRouteImport = createFileRoute(
+  '/_settings/settings/design',
+)()
+const BaseTableTableIdViewIdLazyRouteImport = createFileRoute(
+  '/_base/table/$tableId/$viewId',
+)()
 
 const R404Route = R404RouteImport.update({
   id: '/404',
@@ -75,6 +90,48 @@ const AuthForgetPasswordRoute = AuthForgetPasswordRouteImport.update({
   path: '/auth/forget-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsSettingsUsersLazyRoute =
+  SettingsSettingsUsersLazyRouteImport.update({
+    id: '/settings/users',
+    path: '/settings/users',
+    getParentRoute: () => SettingsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_settings/settings/users.lazy').then((d) => d.Route),
+  )
+const SettingsSettingsRolesLazyRoute =
+  SettingsSettingsRolesLazyRouteImport.update({
+    id: '/settings/roles',
+    path: '/settings/roles',
+    getParentRoute: () => SettingsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_settings/settings/roles.lazy').then((d) => d.Route),
+  )
+const SettingsSettingsQueryBuilderLazyRoute =
+  SettingsSettingsQueryBuilderLazyRouteImport.update({
+    id: '/settings/query-builder',
+    path: '/settings/query-builder',
+    getParentRoute: () => SettingsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_settings/settings/query-builder.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+const SettingsSettingsGeneralLazyRoute =
+  SettingsSettingsGeneralLazyRouteImport.update({
+    id: '/settings/general',
+    path: '/settings/general',
+    getParentRoute: () => SettingsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_settings/settings/general.lazy').then((d) => d.Route),
+  )
+const SettingsSettingsDesignLazyRoute =
+  SettingsSettingsDesignLazyRouteImport.update({
+    id: '/settings/design',
+    path: '/settings/design',
+    getParentRoute: () => SettingsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_settings/settings/design.lazy').then((d) => d.Route),
+  )
 const ApiMonitorSentryRoute = ApiMonitorSentryRouteImport.update({
   id: '/api/_monitor/sentry',
   path: '/api/sentry',
@@ -84,32 +141,6 @@ const ApiMonitorHealthcheckRoute = ApiMonitorHealthcheckRouteImport.update({
   id: '/api/_monitor/healthcheck',
   path: '/api/healthcheck',
   getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsSettingsUsersRoute = SettingsSettingsUsersRouteImport.update({
-  id: '/settings/users',
-  path: '/settings/users',
-  getParentRoute: () => SettingsRouteRoute,
-} as any)
-const SettingsSettingsRolesRoute = SettingsSettingsRolesRouteImport.update({
-  id: '/settings/roles',
-  path: '/settings/roles',
-  getParentRoute: () => SettingsRouteRoute,
-} as any)
-const SettingsSettingsQueryBuilderRoute =
-  SettingsSettingsQueryBuilderRouteImport.update({
-    id: '/settings/query-builder',
-    path: '/settings/query-builder',
-    getParentRoute: () => SettingsRouteRoute,
-  } as any)
-const SettingsSettingsGeneralRoute = SettingsSettingsGeneralRouteImport.update({
-  id: '/settings/general',
-  path: '/settings/general',
-  getParentRoute: () => SettingsRouteRoute,
-} as any)
-const SettingsSettingsDesignRoute = SettingsSettingsDesignRouteImport.update({
-  id: '/settings/design',
-  path: '/settings/design',
-  getParentRoute: () => SettingsRouteRoute,
 } as any)
 const MonitorSentrySsrPageRoute = MonitorSentrySsrPageRouteImport.update({
   id: '/_monitor/sentry/ssr-page',
@@ -131,17 +162,20 @@ const BaseTableTableIdRouteRoute = BaseTableTableIdRouteRouteImport.update({
   path: '/table/$tableId',
   getParentRoute: () => BaseRouteRoute,
 } as any)
+const BaseTableTableIdViewIdLazyRoute =
+  BaseTableTableIdViewIdLazyRouteImport.update({
+    id: '/$viewId',
+    path: '/$viewId',
+    getParentRoute: () => BaseTableTableIdRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_base/table/$tableId/$viewId.lazy').then((d) => d.Route),
+  )
 const SettingsDeveloperToolQueryBuilderRoute =
   SettingsDeveloperToolQueryBuilderRouteImport.update({
     id: '/developer/tool/query-builder',
     path: '/developer/tool/query-builder',
     getParentRoute: () => SettingsRouteRoute,
   } as any)
-const BaseTableTableIdViewIdRoute = BaseTableTableIdViewIdRouteImport.update({
-  id: '/$viewId',
-  path: '/$viewId',
-  getParentRoute: () => BaseTableTableIdRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/403': typeof R403Route
@@ -155,15 +189,15 @@ export interface FileRoutesByFullPath {
   '/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
-  '/settings/design': typeof SettingsSettingsDesignRoute
-  '/settings/general': typeof SettingsSettingsGeneralRoute
-  '/settings/query-builder': typeof SettingsSettingsQueryBuilderRoute
-  '/settings/roles': typeof SettingsSettingsRolesRoute
-  '/settings/users': typeof SettingsSettingsUsersRoute
   '/api/healthcheck': typeof ApiMonitorHealthcheckRoute
   '/api/sentry': typeof ApiMonitorSentryRoute
-  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
+  '/settings/design': typeof SettingsSettingsDesignLazyRoute
+  '/settings/general': typeof SettingsSettingsGeneralLazyRoute
+  '/settings/query-builder': typeof SettingsSettingsQueryBuilderLazyRoute
+  '/settings/roles': typeof SettingsSettingsRolesLazyRoute
+  '/settings/users': typeof SettingsSettingsUsersLazyRoute
   '/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
+  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdLazyRoute
 }
 export interface FileRoutesByTo {
   '/403': typeof R403Route
@@ -177,15 +211,15 @@ export interface FileRoutesByTo {
   '/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
-  '/settings/design': typeof SettingsSettingsDesignRoute
-  '/settings/general': typeof SettingsSettingsGeneralRoute
-  '/settings/query-builder': typeof SettingsSettingsQueryBuilderRoute
-  '/settings/roles': typeof SettingsSettingsRolesRoute
-  '/settings/users': typeof SettingsSettingsUsersRoute
   '/api/healthcheck': typeof ApiMonitorHealthcheckRoute
   '/api/sentry': typeof ApiMonitorSentryRoute
-  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
+  '/settings/design': typeof SettingsSettingsDesignLazyRoute
+  '/settings/general': typeof SettingsSettingsGeneralLazyRoute
+  '/settings/query-builder': typeof SettingsSettingsQueryBuilderLazyRoute
+  '/settings/roles': typeof SettingsSettingsRolesLazyRoute
+  '/settings/users': typeof SettingsSettingsUsersLazyRoute
   '/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
+  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -202,15 +236,15 @@ export interface FileRoutesById {
   '/_monitor/preview/error-page': typeof MonitorPreviewErrorPageRoute
   '/_monitor/sentry/csr-page': typeof MonitorSentryCsrPageRoute
   '/_monitor/sentry/ssr-page': typeof MonitorSentrySsrPageRoute
-  '/_settings/settings/design': typeof SettingsSettingsDesignRoute
-  '/_settings/settings/general': typeof SettingsSettingsGeneralRoute
-  '/_settings/settings/query-builder': typeof SettingsSettingsQueryBuilderRoute
-  '/_settings/settings/roles': typeof SettingsSettingsRolesRoute
-  '/_settings/settings/users': typeof SettingsSettingsUsersRoute
   '/api/_monitor/healthcheck': typeof ApiMonitorHealthcheckRoute
   '/api/_monitor/sentry': typeof ApiMonitorSentryRoute
-  '/_base/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
+  '/_settings/settings/design': typeof SettingsSettingsDesignLazyRoute
+  '/_settings/settings/general': typeof SettingsSettingsGeneralLazyRoute
+  '/_settings/settings/query-builder': typeof SettingsSettingsQueryBuilderLazyRoute
+  '/_settings/settings/roles': typeof SettingsSettingsRolesLazyRoute
+  '/_settings/settings/users': typeof SettingsSettingsUsersLazyRoute
   '/_settings/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
+  '/_base/table/$tableId/$viewId': typeof BaseTableTableIdViewIdLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -226,15 +260,15 @@ export interface FileRouteTypes {
     | '/preview/error-page'
     | '/sentry/csr-page'
     | '/sentry/ssr-page'
+    | '/api/healthcheck'
+    | '/api/sentry'
     | '/settings/design'
     | '/settings/general'
     | '/settings/query-builder'
     | '/settings/roles'
     | '/settings/users'
-    | '/api/healthcheck'
-    | '/api/sentry'
-    | '/table/$tableId/$viewId'
     | '/developer/tool/query-builder'
+    | '/table/$tableId/$viewId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/403'
@@ -248,15 +282,15 @@ export interface FileRouteTypes {
     | '/preview/error-page'
     | '/sentry/csr-page'
     | '/sentry/ssr-page'
+    | '/api/healthcheck'
+    | '/api/sentry'
     | '/settings/design'
     | '/settings/general'
     | '/settings/query-builder'
     | '/settings/roles'
     | '/settings/users'
-    | '/api/healthcheck'
-    | '/api/sentry'
-    | '/table/$tableId/$viewId'
     | '/developer/tool/query-builder'
+    | '/table/$tableId/$viewId'
   id:
     | '__root__'
     | '/_base'
@@ -272,15 +306,15 @@ export interface FileRouteTypes {
     | '/_monitor/preview/error-page'
     | '/_monitor/sentry/csr-page'
     | '/_monitor/sentry/ssr-page'
+    | '/api/_monitor/healthcheck'
+    | '/api/_monitor/sentry'
     | '/_settings/settings/design'
     | '/_settings/settings/general'
     | '/_settings/settings/query-builder'
     | '/_settings/settings/roles'
     | '/_settings/settings/users'
-    | '/api/_monitor/healthcheck'
-    | '/api/_monitor/sentry'
-    | '/_base/table/$tableId/$viewId'
     | '/_settings/developer/tool/query-builder'
+    | '/_base/table/$tableId/$viewId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -364,6 +398,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthForgetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_settings/settings/users': {
+      id: '/_settings/settings/users'
+      path: '/settings/users'
+      fullPath: '/settings/users'
+      preLoaderRoute: typeof SettingsSettingsUsersLazyRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/roles': {
+      id: '/_settings/settings/roles'
+      path: '/settings/roles'
+      fullPath: '/settings/roles'
+      preLoaderRoute: typeof SettingsSettingsRolesLazyRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/query-builder': {
+      id: '/_settings/settings/query-builder'
+      path: '/settings/query-builder'
+      fullPath: '/settings/query-builder'
+      preLoaderRoute: typeof SettingsSettingsQueryBuilderLazyRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/general': {
+      id: '/_settings/settings/general'
+      path: '/settings/general'
+      fullPath: '/settings/general'
+      preLoaderRoute: typeof SettingsSettingsGeneralLazyRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
+    '/_settings/settings/design': {
+      id: '/_settings/settings/design'
+      path: '/settings/design'
+      fullPath: '/settings/design'
+      preLoaderRoute: typeof SettingsSettingsDesignLazyRouteImport
+      parentRoute: typeof SettingsRouteRoute
+    }
     '/api/_monitor/sentry': {
       id: '/api/_monitor/sentry'
       path: '/api/sentry'
@@ -377,41 +446,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/healthcheck'
       preLoaderRoute: typeof ApiMonitorHealthcheckRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_settings/settings/users': {
-      id: '/_settings/settings/users'
-      path: '/settings/users'
-      fullPath: '/settings/users'
-      preLoaderRoute: typeof SettingsSettingsUsersRouteImport
-      parentRoute: typeof SettingsRouteRoute
-    }
-    '/_settings/settings/roles': {
-      id: '/_settings/settings/roles'
-      path: '/settings/roles'
-      fullPath: '/settings/roles'
-      preLoaderRoute: typeof SettingsSettingsRolesRouteImport
-      parentRoute: typeof SettingsRouteRoute
-    }
-    '/_settings/settings/query-builder': {
-      id: '/_settings/settings/query-builder'
-      path: '/settings/query-builder'
-      fullPath: '/settings/query-builder'
-      preLoaderRoute: typeof SettingsSettingsQueryBuilderRouteImport
-      parentRoute: typeof SettingsRouteRoute
-    }
-    '/_settings/settings/general': {
-      id: '/_settings/settings/general'
-      path: '/settings/general'
-      fullPath: '/settings/general'
-      preLoaderRoute: typeof SettingsSettingsGeneralRouteImport
-      parentRoute: typeof SettingsRouteRoute
-    }
-    '/_settings/settings/design': {
-      id: '/_settings/settings/design'
-      path: '/settings/design'
-      fullPath: '/settings/design'
-      preLoaderRoute: typeof SettingsSettingsDesignRouteImport
-      parentRoute: typeof SettingsRouteRoute
     }
     '/_monitor/sentry/ssr-page': {
       id: '/_monitor/sentry/ssr-page'
@@ -441,6 +475,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseTableTableIdRouteRouteImport
       parentRoute: typeof BaseRouteRoute
     }
+    '/_base/table/$tableId/$viewId': {
+      id: '/_base/table/$tableId/$viewId'
+      path: '/$viewId'
+      fullPath: '/table/$tableId/$viewId'
+      preLoaderRoute: typeof BaseTableTableIdViewIdLazyRouteImport
+      parentRoute: typeof BaseTableTableIdRouteRoute
+    }
     '/_settings/developer/tool/query-builder': {
       id: '/_settings/developer/tool/query-builder'
       path: '/developer/tool/query-builder'
@@ -448,22 +489,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsDeveloperToolQueryBuilderRouteImport
       parentRoute: typeof SettingsRouteRoute
     }
-    '/_base/table/$tableId/$viewId': {
-      id: '/_base/table/$tableId/$viewId'
-      path: '/$viewId'
-      fullPath: '/table/$tableId/$viewId'
-      preLoaderRoute: typeof BaseTableTableIdViewIdRouteImport
-      parentRoute: typeof BaseTableTableIdRouteRoute
-    }
   }
 }
 
 interface BaseTableTableIdRouteRouteChildren {
-  BaseTableTableIdViewIdRoute: typeof BaseTableTableIdViewIdRoute
+  BaseTableTableIdViewIdLazyRoute: typeof BaseTableTableIdViewIdLazyRoute
 }
 
 const BaseTableTableIdRouteRouteChildren: BaseTableTableIdRouteRouteChildren = {
-  BaseTableTableIdViewIdRoute: BaseTableTableIdViewIdRoute,
+  BaseTableTableIdViewIdLazyRoute: BaseTableTableIdViewIdLazyRoute,
 }
 
 const BaseTableTableIdRouteRouteWithChildren =
@@ -486,20 +520,20 @@ const BaseRouteRouteWithChildren = BaseRouteRoute._addFileChildren(
 )
 
 interface SettingsRouteRouteChildren {
-  SettingsSettingsDesignRoute: typeof SettingsSettingsDesignRoute
-  SettingsSettingsGeneralRoute: typeof SettingsSettingsGeneralRoute
-  SettingsSettingsQueryBuilderRoute: typeof SettingsSettingsQueryBuilderRoute
-  SettingsSettingsRolesRoute: typeof SettingsSettingsRolesRoute
-  SettingsSettingsUsersRoute: typeof SettingsSettingsUsersRoute
+  SettingsSettingsDesignLazyRoute: typeof SettingsSettingsDesignLazyRoute
+  SettingsSettingsGeneralLazyRoute: typeof SettingsSettingsGeneralLazyRoute
+  SettingsSettingsQueryBuilderLazyRoute: typeof SettingsSettingsQueryBuilderLazyRoute
+  SettingsSettingsRolesLazyRoute: typeof SettingsSettingsRolesLazyRoute
+  SettingsSettingsUsersLazyRoute: typeof SettingsSettingsUsersLazyRoute
   SettingsDeveloperToolQueryBuilderRoute: typeof SettingsDeveloperToolQueryBuilderRoute
 }
 
 const SettingsRouteRouteChildren: SettingsRouteRouteChildren = {
-  SettingsSettingsDesignRoute: SettingsSettingsDesignRoute,
-  SettingsSettingsGeneralRoute: SettingsSettingsGeneralRoute,
-  SettingsSettingsQueryBuilderRoute: SettingsSettingsQueryBuilderRoute,
-  SettingsSettingsRolesRoute: SettingsSettingsRolesRoute,
-  SettingsSettingsUsersRoute: SettingsSettingsUsersRoute,
+  SettingsSettingsDesignLazyRoute: SettingsSettingsDesignLazyRoute,
+  SettingsSettingsGeneralLazyRoute: SettingsSettingsGeneralLazyRoute,
+  SettingsSettingsQueryBuilderLazyRoute: SettingsSettingsQueryBuilderLazyRoute,
+  SettingsSettingsRolesLazyRoute: SettingsSettingsRolesLazyRoute,
+  SettingsSettingsUsersLazyRoute: SettingsSettingsUsersLazyRoute,
   SettingsDeveloperToolQueryBuilderRoute:
     SettingsDeveloperToolQueryBuilderRoute,
 }
