@@ -27,6 +27,7 @@ import { Route as MonitorSentryCsrPageRouteImport } from './routes/_monitor/sent
 import { Route as MonitorPreviewErrorPageRouteImport } from './routes/_monitor/preview/error-page'
 import { Route as BaseTableTableIdRouteRouteImport } from './routes/_base/table/$tableId/route'
 import { Route as SettingsDeveloperToolQueryBuilderRouteImport } from './routes/_settings/developer/tool/query-builder'
+import { Route as BaseTableTableIdViewIdRouteImport } from './routes/_base/table/$tableId/$viewId'
 
 const SettingsSettingsUsersLazyRouteImport = createFileRoute(
   '/_settings/settings/users',
@@ -42,9 +43,6 @@ const SettingsSettingsGeneralLazyRouteImport = createFileRoute(
 )()
 const SettingsSettingsDesignLazyRouteImport = createFileRoute(
   '/_settings/settings/design',
-)()
-const BaseTableTableIdViewIdLazyRouteImport = createFileRoute(
-  '/_base/table/$tableId/$viewId',
 )()
 
 const R404Route = R404RouteImport.update({
@@ -162,20 +160,17 @@ const BaseTableTableIdRouteRoute = BaseTableTableIdRouteRouteImport.update({
   path: '/table/$tableId',
   getParentRoute: () => BaseRouteRoute,
 } as any)
-const BaseTableTableIdViewIdLazyRoute =
-  BaseTableTableIdViewIdLazyRouteImport.update({
-    id: '/$viewId',
-    path: '/$viewId',
-    getParentRoute: () => BaseTableTableIdRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/_base/table/$tableId/$viewId.lazy').then((d) => d.Route),
-  )
 const SettingsDeveloperToolQueryBuilderRoute =
   SettingsDeveloperToolQueryBuilderRouteImport.update({
     id: '/developer/tool/query-builder',
     path: '/developer/tool/query-builder',
     getParentRoute: () => SettingsRouteRoute,
   } as any)
+const BaseTableTableIdViewIdRoute = BaseTableTableIdViewIdRouteImport.update({
+  id: '/$viewId',
+  path: '/$viewId',
+  getParentRoute: () => BaseTableTableIdRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/403': typeof R403Route
@@ -196,8 +191,8 @@ export interface FileRoutesByFullPath {
   '/settings/query-builder': typeof SettingsSettingsQueryBuilderLazyRoute
   '/settings/roles': typeof SettingsSettingsRolesLazyRoute
   '/settings/users': typeof SettingsSettingsUsersLazyRoute
+  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
   '/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
-  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdLazyRoute
 }
 export interface FileRoutesByTo {
   '/403': typeof R403Route
@@ -218,8 +213,8 @@ export interface FileRoutesByTo {
   '/settings/query-builder': typeof SettingsSettingsQueryBuilderLazyRoute
   '/settings/roles': typeof SettingsSettingsRolesLazyRoute
   '/settings/users': typeof SettingsSettingsUsersLazyRoute
+  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
   '/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
-  '/table/$tableId/$viewId': typeof BaseTableTableIdViewIdLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -243,8 +238,8 @@ export interface FileRoutesById {
   '/_settings/settings/query-builder': typeof SettingsSettingsQueryBuilderLazyRoute
   '/_settings/settings/roles': typeof SettingsSettingsRolesLazyRoute
   '/_settings/settings/users': typeof SettingsSettingsUsersLazyRoute
+  '/_base/table/$tableId/$viewId': typeof BaseTableTableIdViewIdRoute
   '/_settings/developer/tool/query-builder': typeof SettingsDeveloperToolQueryBuilderRoute
-  '/_base/table/$tableId/$viewId': typeof BaseTableTableIdViewIdLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -267,8 +262,8 @@ export interface FileRouteTypes {
     | '/settings/query-builder'
     | '/settings/roles'
     | '/settings/users'
-    | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
+    | '/developer/tool/query-builder'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/403'
@@ -289,8 +284,8 @@ export interface FileRouteTypes {
     | '/settings/query-builder'
     | '/settings/roles'
     | '/settings/users'
-    | '/developer/tool/query-builder'
     | '/table/$tableId/$viewId'
+    | '/developer/tool/query-builder'
   id:
     | '__root__'
     | '/_base'
@@ -313,8 +308,8 @@ export interface FileRouteTypes {
     | '/_settings/settings/query-builder'
     | '/_settings/settings/roles'
     | '/_settings/settings/users'
-    | '/_settings/developer/tool/query-builder'
     | '/_base/table/$tableId/$viewId'
+    | '/_settings/developer/tool/query-builder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -475,13 +470,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BaseTableTableIdRouteRouteImport
       parentRoute: typeof BaseRouteRoute
     }
-    '/_base/table/$tableId/$viewId': {
-      id: '/_base/table/$tableId/$viewId'
-      path: '/$viewId'
-      fullPath: '/table/$tableId/$viewId'
-      preLoaderRoute: typeof BaseTableTableIdViewIdLazyRouteImport
-      parentRoute: typeof BaseTableTableIdRouteRoute
-    }
     '/_settings/developer/tool/query-builder': {
       id: '/_settings/developer/tool/query-builder'
       path: '/developer/tool/query-builder'
@@ -489,15 +477,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsDeveloperToolQueryBuilderRouteImport
       parentRoute: typeof SettingsRouteRoute
     }
+    '/_base/table/$tableId/$viewId': {
+      id: '/_base/table/$tableId/$viewId'
+      path: '/$viewId'
+      fullPath: '/table/$tableId/$viewId'
+      preLoaderRoute: typeof BaseTableTableIdViewIdRouteImport
+      parentRoute: typeof BaseTableTableIdRouteRoute
+    }
   }
 }
 
 interface BaseTableTableIdRouteRouteChildren {
-  BaseTableTableIdViewIdLazyRoute: typeof BaseTableTableIdViewIdLazyRoute
+  BaseTableTableIdViewIdRoute: typeof BaseTableTableIdViewIdRoute
 }
 
 const BaseTableTableIdRouteRouteChildren: BaseTableTableIdRouteRouteChildren = {
-  BaseTableTableIdViewIdLazyRoute: BaseTableTableIdViewIdLazyRoute,
+  BaseTableTableIdViewIdRoute: BaseTableTableIdViewIdRoute,
 }
 
 const BaseTableTableIdRouteRouteWithChildren =

@@ -8,6 +8,9 @@ import type { ConnectionReceiveRequest, Socket } from 'sharedb/lib/sharedb';
 export function getWsPath() {
 
   const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+
+  console.log('isLocal', isLocal);
+  
   if ( isLocal ){
     return 'ws://localhost:3000/socket';
   }
