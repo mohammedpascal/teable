@@ -1,10 +1,6 @@
 {
   "folders": [
     {
-      "name": "nextjs-app",
-      "path": "apps/nextjs-app",
-    },
-    {
       "name": "app-start",
       "path": "apps/app-start",
     },
@@ -47,7 +43,6 @@
     // https://github.com/Microsoft/vscode-eslint#mono-repository-setup
     "eslint.workingDirectories": [
       "./apps/app-start",
-      "./apps/nextjs-app",
       "./apps/nestjs-backend",
       "./packages/core",
       "./packages/eslint-config-bases",

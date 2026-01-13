@@ -23,7 +23,7 @@ else
 	RESET        := ""
 endif
 
-ENV_PATH ?= ./apps/nextjs-app
+ENV_PATH ?= ./apps/start-app
 
 CI_JOB_ID ?= 0
 CI ?= 0

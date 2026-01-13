@@ -9,7 +9,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="nestjs-backend" />
-    <orderEntry type="module" module-name="nextjs-app" />
+    <orderEntry type="module" module-name="app-start" />
     <orderEntry type="module" module-name="plugins" />
     <orderEntry type="module" module-name="common-i18n" />
     <orderEntry type="module" module-name="core" />

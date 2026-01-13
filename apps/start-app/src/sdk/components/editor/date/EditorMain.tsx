@@ -14,7 +14,7 @@ export interface IDateEditorMain extends ICellEditor<string | null> {
   disableTimePicker?: boolean;
 }
 
-// Remember to update in @nextjs-app/src/features/app/blocks/view/calendar/components/Calendar.tsx
+// Remember to update in @start-app/src/features/app/blocks/view/calendar/components/Calendar.tsx
 const LOCAL_MAP = {
   zh: zhCN,
   en: enUS,

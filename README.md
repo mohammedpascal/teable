@@ -120,7 +120,7 @@ More features coming soon, see our <a target="_blank" href="https://app.teable.i
 ```
 .
 ├── apps (AGPL 3.0) 
-│   ├── nextjs-app          (front-end + plugins)
+│   ├── start-app          (front-end + plugins)
 │   └── nestjs-backend      (backend)
 ├── packages (MIT)
 │   ├── common-i18n         (locales)
@@ -174,7 +174,7 @@ make switch-db-mode
 #### 3. Custom Environment Variables（Optional）
 
 ```sh
-cd apps/nextjs-app
+cd apps/start-app
 cp .env.development .env.development.local
 ```
 

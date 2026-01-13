@@ -3,7 +3,7 @@
 
 input_file="openapi.yaml"
 output_file="table.yaml"
-target_ts_path='../apps/nextjs-app/src/features/app/components/ai-chat/prompt/createTablePrompt.ts'
+target_ts_path='../apps/start-app/src/features/app/components/ai-chat/prompt/createTablePrompt.ts'
 
 if ! command -v yq &> /dev/null; then
   echo "installing yq"

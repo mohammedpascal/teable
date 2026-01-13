@@ -36,7 +36,7 @@
       "name": "vitest next app",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/apps/nextjs-app",
+      "cwd": "${workspaceFolder}/apps/app-start",
       "runtimeExecutable": "sh",
       "autoAttachChildProcesses": true,
       "program": "./node_modules/.bin/vitest",

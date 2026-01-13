@@ -27,7 +27,7 @@ make switch-db-mode
 
 ### 3. Environment Configuration (Optional)
 ```bash
-cd apps/nextjs-app
+cd apps/start-app
 cp .env.development .env.development.local
 ```
 

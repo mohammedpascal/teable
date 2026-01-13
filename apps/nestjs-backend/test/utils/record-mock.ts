@@ -9,7 +9,7 @@ import chunk from 'lodash/chunk';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 
-dotenv.config({ path: '../../../nextjs-app', default_node_env: 'development' });
+dotenv.config({ path: '../../../start-app', default_node_env: 'development' });
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 

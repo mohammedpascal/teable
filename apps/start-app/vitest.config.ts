@@ -15,7 +15,7 @@ export default defineConfig({
       svgrOptions: {},
     }),
   ],
-  cacheDir: '../../.cache/vitest/nextjs-app',
+  cacheDir: '../../.cache/vitest/start-app',
   test: {
     globals: true,
     environment: 'happy-dom',

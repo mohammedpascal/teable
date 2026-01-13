@@ -3,7 +3,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { SpaController } from './spa.controller';
 
-const rootPath = join(__dirname, '../../nextjs-app/dist');
+const rootPath = join(__dirname, '../../start-app/dist');
 console.log('StaticModule rootPath:', rootPath);
 
 @Module({

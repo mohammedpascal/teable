@@ -8,7 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/packages/eslint-config-bases/.idea/eslint-config-bases.iml" filepath="$PROJECT_DIR$/packages/eslint-config-bases/.idea/eslint-config-bases.iml" />
       <module fileurl="file://$PROJECT_DIR$/packages/icons/.idea/icons.iml" filepath="$PROJECT_DIR$/packages/icons/.idea/icons.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/nestjs-backend/.idea/nestjs-backend.iml" filepath="$PROJECT_DIR$/apps/nestjs-backend/.idea/nestjs-backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apps/nextjs-app/.idea/nextjs-app.iml" filepath="$PROJECT_DIR$/apps/nextjs-app/.idea/nextjs-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/app-start/.idea/app-start.iml" filepath="$PROJECT_DIR$/apps/app-start/.idea/app-start.iml" />
       <module fileurl="file://$PROJECT_DIR$/packages/openapi/.idea/openapi.iml" filepath="$PROJECT_DIR$/packages/openapi/.idea/openapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugins/.idea/plugins.iml" filepath="$PROJECT_DIR$/plugins/.idea/plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/packages/sdk/.idea/sdk.iml" filepath="$PROJECT_DIR$/packages/sdk/.idea/sdk.iml" />

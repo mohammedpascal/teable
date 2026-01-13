@@ -30,9 +30,9 @@ export class SpaController {
 
   constructor() {
     // Path to index.html in production build (absolute path required for sendFile)
-    this.indexHtmlPath = resolve(__dirname, '../../nextjs-app/dist/index.html');
+    this.indexHtmlPath = resolve(__dirname, '../../start-app/dist/index.html');
     // Path to static files root directory
-    this.staticRootPath = resolve(__dirname, '../../nextjs-app/dist');
+    this.staticRootPath = resolve(__dirname, '../../start-app/dist');
   }
 
   private isStaticAsset(path: string): boolean {

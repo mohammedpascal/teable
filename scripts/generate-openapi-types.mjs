@@ -13,7 +13,7 @@ async function generateTypes() {
       ].join('\n') + '\n',
   });
 
-  const outputPath = path.resolve(process.cwd(), 'apps/nextjs-app/src/api/types.ts');
+  const outputPath = path.resolve(process.cwd(), 'apps/start-app/src/api/types.ts');
   const outputDir = path.dirname(outputPath);
 
   // mkdir if it doesn't exist

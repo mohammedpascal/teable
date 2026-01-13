@@ -12,7 +12,7 @@ on:
       - 'v*'
     paths:
       - 'apps/nestjs-backend/**'
-      - 'apps/nextjs-app/**'
+      - 'apps/app-start/**'
       - 'packages/**'
       - '.github/**'
       - 'scripts/**'

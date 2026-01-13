@@ -6,7 +6,7 @@ This project is a combination of components under different licenses to balance 
 
 1. Core Applications:
    - apps/nestjs-backend
-   - apps/nextjs-app
+   - apps/start-app
    These core applications are licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).
    The full text of this license can be found at ./AGPL_LICENSE
 

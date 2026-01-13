@@ -49,7 +49,7 @@ function compileWorkerFile() {
 }
 
 async function setup() {
-  dotenv.config({ path: '../nextjs-app' });
+  dotenv.config({ path: '../start-app' });
 
   const databaseUrl = process.env.PRISMA_DATABASE_URL;
 
