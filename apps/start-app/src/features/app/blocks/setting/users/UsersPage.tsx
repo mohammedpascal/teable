@@ -6,7 +6,7 @@ import { createUser, deleteUser, updateUser } from '@teable/openapi';
 import { Button, Separator } from '@/ui-lib/shadcn';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { Route } from '@/routes/_settings/settings/users.lazy';
+import { Route } from '@/routes/_settings/settings/users';
 import { SettingsHeader } from '../SettingsHeader';
 import { UserDialog } from './UserDialog';
 import { UsersGridView } from './UsersGridView';

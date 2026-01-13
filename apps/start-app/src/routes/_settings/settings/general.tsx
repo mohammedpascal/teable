@@ -1,8 +1,8 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { SettingPage } from '@/features/app/blocks/admin';
 import { useSetting } from '@/hooks/api/useSetting';
 
-export const Route = createLazyFileRoute('/_settings/settings/general')({
+export const Route = createFileRoute('/_settings/settings/general')({
   path: '/settings/general',
   component: GeneralSettingsPageComponent,
 });
