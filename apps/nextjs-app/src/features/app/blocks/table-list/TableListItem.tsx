@@ -2,7 +2,14 @@ import { Table2 } from '@/components/icons';
 import { useSidebar } from '@/features/app/contexts/SidebarContext';
 import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import type { Table } from '@/sdk/model';
-import { Button, cn } from '@/ui-lib/shadcn';
+import {
+  Button,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+  cn,
+} from '@/ui-lib/shadcn';
 import { Input } from '@/ui-lib/shadcn/ui/input';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
@@ -51,42 +58,57 @@ export const TableListItem: React.FC<IProps> = ({ table, isActive, className, is
     setIsEditing(false);
   });
 
-  return (
-    <>
-      <Button
-        variant={'ghost'}
-        size={'xs'}
-        asChild
-        className={cn(
-          'my-[2px] w-full text-sm font-normal gap-2 group bg-popover',
-          isCollapsed ? 'px-2 justify-center' : 'px-2 justify-start',
-          className,
-          {
-            'bg-secondary/90': isActive,
-          }
-        )}
-        onClick={navigateHandler}
-      >
-        <div className={cn('flex items-center', isCollapsed && 'justify-center')}>
-          <div>
-            {table.icon ? (
-              <Emoji emoji={table.icon} size={'1rem'} />
-            ) : (
-              <Table2 className="size-4 shrink-0" />
-            )}
-          </div>
-          {!isCollapsed && (
-            <p
-              className="grow truncate"
-              onDoubleClick={() => {
-                permission['table|manage'] && setIsEditing(true);
-              }}
-            >
-              {' ' + table.name}
-            </p>
+  const buttonContent = (
+    <Button
+      variant={'ghost'}
+      size={'xs'}
+      asChild
+      className={cn(
+        'my-[2px] w-full text-sm font-normal gap-2 group bg-popover',
+        isCollapsed ? 'px-2 justify-center' : 'px-2 justify-start',
+        className,
+        {
+          'bg-secondary/90': isActive,
+        }
+      )}
+      onClick={navigateHandler}
+    >
+      <div className={cn('flex items-center', isCollapsed && 'justify-center')}>
+        <div>
+          {table.icon ? (
+            <Emoji emoji={table.icon} size={'1rem'} />
+          ) : (
+            <Table2 className="size-4 shrink-0" />
           )}
         </div>
-      </Button>
+        {!isCollapsed && (
+          <p
+            className="grow truncate"
+            onDoubleClick={() => {
+              permission['table|manage'] && setIsEditing(true);
+            }}
+          >
+            {' ' + table.name}
+          </p>
+        )}
+      </div>
+    </Button>
+  );
+
+  return (
+    <>
+      {isCollapsed ? (
+        <TooltipProvider delayDuration={200}>
+          <Tooltip>
+            <TooltipTrigger asChild>{buttonContent}</TooltipTrigger>
+            <TooltipContent>
+              <p>{table.name}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : (
+        buttonContent
+      )}
       {isEditing && (
         <Input
           ref={inputRef}
