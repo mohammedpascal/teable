@@ -22,6 +22,6 @@ describe('usePermissionActionsStatic', () => {
     const { result } = renderHook(() => usePermissionActionsStatic(), {
       wrapper: createAppContext(),
     });
-    expect(result.current.actionStaticMap['table|manage'].description).toEqual('Update table');
+    expect(result.current.actionStaticMap['table|manage'].description).toEqual('Manage table');
   });
 });

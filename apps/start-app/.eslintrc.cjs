@@ -22,12 +22,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: [
-    ...getDefaultIgnorePatterns(),
-    '.out',
-    'main',
-    'tailwind.shadcnui.config.js',
-  ],
+  ignorePatterns: [...getDefaultIgnorePatterns(), '.out', 'main', 'tailwind.shadcnui.config.js'],
   extends: [
     '@teable/eslint-config-bases/typescript',
     '@teable/eslint-config-bases/sonar',

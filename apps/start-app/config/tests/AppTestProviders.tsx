@@ -1,8 +1,9 @@
+import type { FC, PropsWithChildren } from 'react';
 import type { IAppContext } from '@/sdk/context';
 import { AppContext, FieldContext, ViewContext } from '@/sdk/context';
+import { createSessionContext } from '@/sdk/context/__tests__/createSessionContext';
 import { defaultLocale } from '@/sdk/context/app/i18n';
 import type { IFieldInstance, IViewInstance } from '@/sdk/model';
-import type { FC, PropsWithChildren } from 'react';
 import { I18nextTestStubProvider } from './I18nextTestStubProvider';
 
 export const createAppContext = (context: Partial<IAppContext> = {}) => {
@@ -16,11 +17,14 @@ export const createAppContext = (context: Partial<IAppContext> = {}) => {
 };
 
 const MockProvider = createAppContext();
+const MockSessionProvider = createSessionContext();
 
 export const AppTestProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
     <I18nextTestStubProvider>
-      <MockProvider>{children}</MockProvider>
+      <MockSessionProvider>
+        <MockProvider>{children}</MockProvider>
+      </MockSessionProvider>
     </I18nextTestStubProvider>
   );
 };
