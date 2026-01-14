@@ -1,5 +1,4 @@
 import { Emoji } from '@/features/app/components/emoji/Emoji';
-import { EmojiPicker } from '@/features/app/components/emoji/EmojiPicker';
 import { tableConfig } from '@/features/i18n/table.config';
 import { Table2 } from '@/components/icons';
 import {
@@ -12,8 +11,14 @@ import { useHookPermission } from '@/sdk/hooks/use-hook-permission';
 import { Spin } from '@/ui-lib/base';
 import { cn, Input } from '@/ui-lib/shadcn';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { useImportStatus } from '../hooks/use-import-status';
+
+const LazyEmojiPicker = lazy(() =>
+  import('@/features/app/components/emoji/EmojiPicker').then((m) => ({
+    default: m.EmojiPicker,
+  }))
+);
 
 export const TableInfo: React.FC<{ className?: string }> = ({ className }) => {
   const { connected } = useConnection();
@@ -36,13 +41,15 @@ export const TableInfo: React.FC<{ className?: string }> = ({ className }) => {
       className={cn('flex justify-center items-center relative overflow-hidden gap-2', className)}
     >
       {connected && !isImporting ? (
-        <EmojiPicker
-          className="flex size-5 cursor-pointer items-center justify-center hover:bg-muted-foreground/60"
-          onChange={(icon: string) => table?.updateIcon(icon)}
-          disabled={!permission['table|manage']}
-        >
-          {icon}
-        </EmojiPicker>
+        <Suspense fallback={null}>
+          <LazyEmojiPicker
+            className="flex size-5 cursor-pointer items-center justify-center hover:bg-muted-foreground/60"
+            onChange={(icon: string) => table?.updateIcon(icon)}
+            disabled={!permission['table|manage']}
+          >
+            {icon}
+          </LazyEmojiPicker>
+        </Suspense>
       ) : (
         <Spin />
       )}

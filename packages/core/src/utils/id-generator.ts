@@ -21,8 +21,6 @@ export enum IdPrefix {
 
   Window = 'win',
 
-  Dashboard = 'dsh',
-
   Operation = 'opr',
 }
 
@@ -90,10 +88,6 @@ export function generateAccountId() {
 
 export function generateClientId() {
   return IdPrefix.OAuthClient + getRandomString(16).toLocaleLowerCase();
-}
-
-export function generateDashboardId() {
-  return IdPrefix.Dashboard + getRandomString(12);
 }
 
 export function generateOperationId() {

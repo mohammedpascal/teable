@@ -19,5 +19,4 @@ export * from './types/base-query';
 export * from './utils';
 export * from './zod';
 export * from './admin';
-export * from './dashboard';
 export * from './integrity';

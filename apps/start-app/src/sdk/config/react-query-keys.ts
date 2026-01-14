@@ -49,10 +49,6 @@ export const ReactQueryKeys = {
 
   getSharedBase: () => ['shared-base-list'] as const,
 
-  getDashboardList: () => ['dashboard-list'] as const,
-
-  getDashboard: (dashboardId: string) => ['dashboard', dashboardId] as const,
-
   viewList: (tableId: string) => ['view-list', tableId] as const,
 
   fieldList: (tableId: string, query?: IGetFieldsQuery) => ['field-list', tableId, query] as const,

@@ -5,7 +5,6 @@ import {
   getFormattingSchema,
   getDefaultFormatting,
 } from '@teable/core';
-import { FormulaEditor } from '@/sdk/components';
 import { useFields } from '@/sdk/hooks';
 import type { IFieldInstance } from '@/sdk/model';
 import { FormulaField } from '@/sdk/model';
@@ -14,10 +13,14 @@ import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import keyBy from 'lodash/keyBy';
 import { useTranslation } from 'react-i18next';
-import { useCallback, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useMemo, useState } from 'react';
 import { TimeZoneFormatting } from '../formatting/TimeZoneFormatting';
 import { UnionFormatting } from '../formatting/UnionFormatting';
 import { UnionShowAs } from '../show-as/UnionShowAs';
+
+const FormulaEditor = lazy(() =>
+  import('@/sdk/components').then((module) => ({ default: module.FormulaEditor }))
+);
 
 const calculateTypedValue = (fields: IFieldInstance[], expression?: string) => {
   const defaultResult = { cellValueType: CellValueType.String, isMultipleCellValue: false };
@@ -121,7 +124,9 @@ export const FormulaOptionsInner = (props: {
             closeable
             className="flex size-auto max-w-full overflow-hidden rounded-sm p-0 outline-0 md:w-auto"
           >
-            <FormulaEditor expression={expression} onConfirm={onExpressionChange} />
+            <Suspense fallback={<div className="flex h-[620px] w-[620px] items-center justify-center">Loading...</div>}>
+              <FormulaEditor expression={expression} onConfirm={onExpressionChange} />
+            </Suspense>
           </DialogContent>
         </Dialog>
       </div>

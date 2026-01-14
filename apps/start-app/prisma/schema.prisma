@@ -213,37 +213,6 @@ model Setting {
   @@map("setting")
 }
 
-model Dashboard {
-  id               String    @id @default(cuid())
-  name             String
-  layout           String?
-  createdBy        String    @map("created_by")
-  createdTime      DateTime  @default(now()) @map("created_time")
-  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
-  lastModifiedBy   String?   @map("last_modified_by")
-
-  dashboardWidgets DashboardWidget[]
-
-  @@map("dashboard")
-}
-
-model DashboardWidget {
-  id               String    @id @default(cuid())
-  dashboardId      String    @map("dashboard_id")
-  type             String    // 'chart', 'markdown', etc.
-  name             String
-  config           String?   // Widget-specific configuration
-  position         String?   // Layout position data
-  createdTime      DateTime  @default(now()) @map("created_time")
-  createdBy        String    @map("created_by")
-  lastModifiedTime DateTime? @updatedAt @map("last_modified_time")
-  lastModifiedBy   String?   @map("last_modified_by")
-
-  dashboard        Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
-
-  @@map("dashboard_widget")
-}
-
 model Role {
   id               String    @id @default(cuid())
   name             String    @unique

@@ -1,7 +1,6 @@
 import type { GridCell, Item } from '@glideapps/glide-data-grid';
 import { DataEditor, GridCellKind } from '@glideapps/glide-data-grid';
 import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react';
-import * as XLSX from 'xlsx';
 import { Button, cn, Skeleton } from '../../../../shadcn';
 import { Spin } from '../../../spin/Spin';
 import { FilePreviewContext, type IFileItemInner } from '../FilePreviewContext';
@@ -13,7 +12,17 @@ import {
   letterCoordinate2Number,
 } from './utils';
 
-type ISheetData = XLSX.WorkSheet;
+type ISheetData = {
+  [row: number]: {
+    [col: number]: {
+      v?: unknown;
+      w?: string;
+      t?: string;
+    };
+  };
+  '!ref'?: string;
+  length?: number;
+};
 
 interface ISheetItem {
   name: string;
@@ -62,6 +71,10 @@ export const ExcelPreview = (props: IExcelPreviewProps) => {
       try {
         setError(null);
         setLoading(true);
+        
+        // Lazy load XLSX library
+        const XLSX = await import('xlsx');
+        
         const blob = await getBlobFromUrl(src);
         const buffer = await blob.arrayBuffer();
 
@@ -105,7 +118,11 @@ export const ExcelPreview = (props: IExcelPreviewProps) => {
         setLoading(false);
       }
       const rowData = currentSheetData?.[row] || {};
-      const cellData = (rowData?.[col] || {}) as XLSX.CellObject;
+      const cellData = (rowData?.[col] || {}) as {
+        v?: unknown;
+        w?: string;
+        t?: string;
+      };
 
       const value = (cellData?.w ?? cellData?.v ?? '') as string;
 

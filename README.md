@@ -105,10 +105,6 @@ Visualize and interact with data in various ways best suited for their specific 
   </tr>
 </table>
 
-### 📊 Charts & Dashboard
-
-  <img alt="Teable Dashboard" width="100%" src="static/assets/images/dashboard.png">
-
 More features coming soon, see our <a target="_blank" href="https://app.teable.io/share/shr04TEw1u9EOQojPmG/view">Roadmap</a>
 
 ---

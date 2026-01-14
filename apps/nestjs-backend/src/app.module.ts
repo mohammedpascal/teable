@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { AggregationOpenApiModule } from './features/aggregation/open-api/aggregation-open-api.module';
 import { AttachmentsModule } from './features/attachments/attachments.module';
 import { AuthModule } from './features/auth/auth.module';
-import { DashboardModule } from './features/dashboard/dashboard.module';
 import { ExportOpenApiModule } from './features/export/open-api/export-open-api.module';
 import { FieldModule } from './features/field/field.module';
 import { FieldOpenApiModule } from './features/field/open-api/field-open-api.module';
@@ -45,7 +44,6 @@ export const appModules = {
     ImportOpenApiModule,
     ExportOpenApiModule,
     SettingModule,
-    DashboardModule,
     StaticModule,
   ],
   providers: [InitBootstrapProvider],
