@@ -21,6 +21,7 @@ import { RedocModule } from 'nestjs-redoc';
 import { AppModule } from './app.module';
 import type { IBaseConfig } from './configs/base.config';
 import type { ISecurityWebConfig, IApiDocConfig } from './configs/bootstrap.config';
+import type { IStorageConfig } from './configs/storage';
 import { GlobalExceptionFilter } from './filter/global-exception.filter';
 import otelSDK from './tracing';
 
@@ -30,6 +31,80 @@ const execAsync = promisify(exec);
 declare const module: any;
 
 const host = 'localhost';
+
+/**
+ * Extract domain from URL for CSP connect-src directive
+ * Handles URLs with or without protocol
+ */
+function extractDomainFromUrl(url: string | undefined): string | null {
+  if (!url) {
+    return null;
+  }
+
+  try {
+    // If URL includes protocol, parse it
+    if (url.includes('://')) {
+      const urlObj = new URL(url);
+      return urlObj.hostname;
+    }
+    // If it's just a domain, return as is
+    return url;
+  } catch {
+    // If parsing fails, try to extract domain manually
+    const match = url.match(/(?:https?:\/\/)?([^\/]+)/);
+    return match ? match[1] : null;
+  }
+}
+
+/**
+ * Build connect-src sources for CSP based on storage provider configuration
+ */
+function buildConnectSrcSources(storageConfig: IStorageConfig | undefined): string[] {
+  const sources: string[] = ["'self'"];
+
+  if (!storageConfig) {
+    return sources;
+  }
+
+  const { provider } = storageConfig;
+
+  if (provider === 's3') {
+    // Add standard AWS S3 patterns
+    // CSP supports wildcards only at the beginning, so we use:
+    // - *.s3.amazonaws.com for bucket.s3.amazonaws.com (us-east-1)
+    // - *.amazonaws.com for all AWS S3 endpoints (bucket.s3.region.amazonaws.com, s3.region.amazonaws.com)
+    sources.push('*.s3.amazonaws.com', '*.amazonaws.com');
+
+    // Add custom S3 endpoints if configured (for S3-compatible services)
+    const s3Endpoint = extractDomainFromUrl(storageConfig.s3?.endpoint);
+    if (s3Endpoint && !s3Endpoint.includes('amazonaws.com')) {
+      sources.push(s3Endpoint);
+    }
+
+    const s3InternalEndpoint = extractDomainFromUrl(storageConfig.s3?.internalEndpoint);
+    if (
+      s3InternalEndpoint &&
+      s3InternalEndpoint !== s3Endpoint &&
+      !s3InternalEndpoint.includes('amazonaws.com')
+    ) {
+      sources.push(s3InternalEndpoint);
+    }
+  } else if (provider === 'minio') {
+    // Add MinIO endpoints if configured
+    const minioEndpoint = extractDomainFromUrl(storageConfig.minio?.endPoint);
+    if (minioEndpoint) {
+      sources.push(minioEndpoint);
+    }
+
+    const minioInternalEndpoint = extractDomainFromUrl(storageConfig.minio?.internalEndPoint);
+    if (minioInternalEndpoint && minioInternalEndpoint !== minioEndpoint) {
+      sources.push(minioInternalEndpoint);
+    }
+  }
+  // For 'local' provider, only 'self' is needed (already included)
+
+  return sources;
+}
 
 export async function setUpAppMiddleware(app: INestApplication, configService: ConfigService) {
   app.useWebSocketAdapter(new WsAdapter(app));
@@ -41,6 +116,7 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
   const apiDocConfig = configService.get<IApiDocConfig>('apiDoc');
   const securityWebConfig = configService.get<ISecurityWebConfig>('security.web');
   const baseConfig = configService.get<IBaseConfig>('base');
+  const storageConfig = configService.get<IStorageConfig>('storage');
 
   // In development, always allow localhost origins
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -113,13 +189,20 @@ export async function setUpAppMiddleware(app: INestApplication, configService: C
   }
 
   if (!isDevelopment || process.env.IS_LOCAL === 'true') {
-    // Configure helmet to not interfere with CORS
+    // Build connect-src sources for CSP based on storage configuration
+    const connectSrcSources = buildConnectSrcSources(storageConfig);
+
+    // Configure helmet to not interfere with CORS and allow storage connections
     app.use(
       helmet({
         crossOriginResourcePolicy: { policy: 'cross-origin' },
+        contentSecurityPolicy: {
+          directives: {
+            'connect-src': connectSrcSources,
+          },
+        },
       })
     );
-
   }
 
   app.use(json({ limit: '50mb' }));
